@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tickit by jaitsu87</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Tickit</h1>
+        <p class="header">Open Source Support &amp; Ticket System based on Symfony2 Framework</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/jaitsu87/tickit/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/jaitsu87/tickit/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/jaitsu87/tickit">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/jaitsu87">jaitsu87</a></p>
+
+
+      </header>
+      <section>
+        <h1>Quick Setup Guide for Developers</h1>
+
+<ol>
+<li>
+<p>Install Composer</p>
+
+<p>As Symfony2 uses <a href="http://getcomposer.org/">Composer</a> to manage its dependencies, Tickit manages external libraries the same way.</p>
+
+<p>If you don't have Composer yet, just run the following command from your project directory</p>
+
+<pre><code>curl -s http://getcomposer.org/installer | php
+</code></pre>
+
+<p>Then, install dependencies using...</p>
+
+<pre><code>php composer.phar install
+</code></pre>
+
+<p>It should install all required vendor bundles.</p>
+</li>
+<li><p>Copy <code>app/config/parameters.yml.dist</code> to app/config/parameters.yml and add in your own database/mailer configuration.</p></li>
+<li>
+<p>Run the following command from the project directory in your terminal...</p>
+
+<pre><code>php app/console doctrine:schema:create
+</code></pre>
+
+<p>This should create your database schema from the entities in the bundles located in the <code>src</code> folder. If there are any problems ensure that your database privileges and credentials are okay.</p>
+</li>
+<li>
+<p>Import data fixtures by running the following command in your project directory...</p>
+
+<pre><code>php app/console doctrine:fixtures:load
+</code></pre>
+</li>
+</ol>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
