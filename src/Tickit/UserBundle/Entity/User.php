@@ -35,6 +35,15 @@ class User extends BaseUser
     protected $updated;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Group")
+     * @ORM\JoinTable(name="users_groups",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
+     */
+    protected $groups;
+
+    /**
      * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
      */
     protected $sessions;

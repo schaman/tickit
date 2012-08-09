@@ -31,6 +31,15 @@ team_index:
     page: \d+
 
 
+# UserBundle Routes
+
+user_index:
+  pattern: /users/{page}
+  defaults: { _controller: TickitUserBundle:User:index, page: 1 }
+  requirements:
+    page: \d+
+
+
 # FOSUserBundle Routes
 
 fos_user_security:
@@ -51,3 +60,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group

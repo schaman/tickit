@@ -65,6 +65,8 @@ fos_user:
     db_driver:     orm
     firewall_name: main
     user_class:   Tickit\UserBundle\Entity\User
+    group:
+      group_class: Tickit\UserBundle\Entity\Group
 
 # StofDoctrineExtensions Configuration
 stof_doctrine_extensions:
