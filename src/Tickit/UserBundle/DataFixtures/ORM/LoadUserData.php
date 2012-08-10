@@ -27,8 +27,18 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin1->addRole('ROLE_SUPER_ADMIN');
 
         $manager->persist($admin1);
-
         $this->addReference('admin-james', $admin1);
+
+        $developer = new User();
+        $developer->setUsername('developer');
+        $developer->setPlainPassword('password');
+        $developer->setSuperAdmin(false);
+        $developer->setEmail('developer@gettickit.com');
+        $developer->setEnabled(true);
+        $developer->setLastActivity(new DateTime());
+
+        $manager->persist($developer);
+        $this->addReference('developer', $developer);
 
         //add other users for development environment here
 

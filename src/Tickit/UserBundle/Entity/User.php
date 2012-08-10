@@ -4,6 +4,7 @@ namespace Tickit\UserBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
@@ -34,10 +35,18 @@ class User extends BaseUser
     protected $updated;
 
     /**
-     * @todo This should be moved to a separate DB to allow concurrent sessions
-     * @ORM\Column(type="string", length=32, nullable=true)
+     * @ORM\ManyToMany(targetEntity="Group")
+     * @ORM\JoinTable(name="users_groups",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     * )
      */
-    protected $session_token;
+    protected $groups;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
+     */
+    protected $sessions;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -50,6 +59,7 @@ class User extends BaseUser
      */
     public function __construct()
     {
+        $this->sessions = new ArrayCollection();
         parent::__construct();
     }
 
@@ -84,23 +94,23 @@ class User extends BaseUser
     }
 
     /**
-     * Sets the session token for this user
+     * Adds a session object to this user's collection of sessions
      *
-     * @param string $session_token
+     * @param UserSession $session
      */
-    public function setSessionToken($session_token)
+    public function addSession(UserSession $session)
     {
-        $this->session_token = $session_token;
+        $this->sessions[] = $session;
     }
 
     /**
      * Returns the current session token
      *
-     * @return string
+     * @return array
      */
-    public function getSessionToken()
+    public function getSessions()
     {
-        return $this->session_token;
+        return $this->sessions;
     }
 
     /**
