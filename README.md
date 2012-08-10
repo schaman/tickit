@@ -1,4 +1,4 @@
-https://secure.travis-ci.org/jaitsu87/tickit.png
+<img src='https://secure.travis-ci.org/jaitsu87/tickit.png' />
 
 # Quick Setup Guide for Developers #
 
