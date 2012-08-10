@@ -46,7 +46,11 @@ CONTENT;
 
 }
 
-
+/**
+ * Creates the phpunit XML config file
+ *
+ * @return void
+ */
 function createPhpUnitXml()
 {
     $fileContent = <<<CONTENT
