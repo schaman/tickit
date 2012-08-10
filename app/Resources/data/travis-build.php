@@ -46,4 +46,57 @@ CONTENT;
 
 }
 
+
+function createPhpUnitXml()
+{
+    $fileContent = <<<CONTENT
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- http://www.phpunit.de/manual/current/en/appendixes.configuration.html -->
+<phpunit
+    backupGlobals               = "false"
+    backupStaticAttributes      = "false"
+    colors                      = "true"
+    convertErrorsToExceptions   = "true"
+    convertNoticesToExceptions  = "true"
+    convertWarningsToExceptions = "true"
+    processIsolation            = "false"
+    stopOnFailure               = "false"
+    syntaxCheck                 = "false"
+    bootstrap                   = "bootstrap.php.cache" >
+
+    <testsuites>
+        <testsuite name="Tickit Test Suite">
+            <directory>../src/*/*Bundle/Tests</directory>
+            <directory>../src/*/Bundle/*Bundle/Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <!--
+    <php>
+        <server name="KERNEL_DIR" value="/path/to/your/app/" />
+    </php>
+    -->
+
+    <filter>
+        <whitelist>
+            <directory>../src</directory>
+            <exclude>
+                <directory>../src/*/*Bundle/Resources</directory>
+                <directory>../src/*/*Bundle/Tests</directory>
+                <directory>../src/*/Bundle/*Bundle/Resources</directory>
+                <directory>../src/*/Bundle/*Bundle/Tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+</phpunit>
+CONTENT;
+
+    $appDir = getProjectRoot() . '/app';
+    file_put_contents($appDir . '/phpunit.xml', $fileContent);
+
+}
+
 createTravisConfigYml();
+createPhpUnitXml();
