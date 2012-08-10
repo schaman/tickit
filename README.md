@@ -1,3 +1,5 @@
+https://secure.travis-ci.org/jaitsu87/tickit.png
+
 # Quick Setup Guide for Developers #
 
 1. Install Composer
