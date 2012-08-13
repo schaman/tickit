@@ -18,23 +18,75 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $manager)
     {
-        $preference1 = new Preference();
-        $preference1->setName('Allow user registrations');
-        $preference1->setSystemName('system.registration.allowed');
-        $preference1->setDefaultValue('0');
-        $preference1->setType(Preference::TYPE_SYSTEM);
-        $manager->persist($preference1);
+        $this->_loadSystemPreferences($manager);
+        $this->_loadUserPreferences($manager);
+    }
 
-        $preference2 = new Preference();
-        $preference2->setName('Require approval upon registration');
-        $preference2->setSystemName('system.registration.require_approval');
-        $preference2->setDefaultValue('1');
-        $preference2->setType(Preference::TYPE_SYSTEM);
-        $manager->persist($preference2);
+    /**
+     * Loads user related preferences into the application database
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @return void
+     */
+    protected function _loadUserPreferences(ObjectManager $manager)
+    {
+        $userPreference1 = new Preference();
+        $userPreference1->setName('Notifications for ticket status changes');
+        $userPreference1->setSystemName('user.notifications.ticket.status_change');
+        $userPreference1->setDefaultValue('1');
+        $userPreference1->setType(Preference::TYPE_USER);
+        $manager->persist($userPreference1);
+
+        $userPreference2 = new Preference();
+        $userPreference2->setName('Notifications for new ticket comments');
+        $userPreference2->setSystemName('user.notifications.ticket.new_comment');
+        $userPreference2->setDefaultValue('1');
+        $userPreference2->setType(Preference::TYPE_USER);
+        $manager->persist($userPreference2);
+
+        $userPreference3 = new Preference();
+        $userPreference3->setName('Notifications for new tickets');
+        $userPreference3->setSystemName('user.notifications.ticket.new_tickets');
+        $userPreference3->setDefaultValue('1');
+        $userPreference3->setType(Preference::TYPE_USER);
+        $manager->persist($userPreference3);
 
         //add more default preferences here
         $manager->flush();
     }
+
+    /**
+     * Loads system related preferences into the application database
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @return void
+     */
+    protected function _loadSystemPreferences(ObjectManager $manager)
+    {
+        $systemPreference1 = new Preference();
+        $systemPreference1->setName('Allow user registrations');
+        $systemPreference1->setSystemName('system.registration.allowed');
+        $systemPreference1->setDefaultValue('0');
+        $systemPreference1->setType(Preference::TYPE_SYSTEM);
+        $manager->persist($systemPreference1);
+
+        $systemPreference2 = new Preference();
+        $systemPreference2->setName('Require approval upon registration');
+        $systemPreference2->setSystemName('system.registration.require_approval');
+        $systemPreference2->setDefaultValue('1');
+        $systemPreference2->setType(Preference::TYPE_SYSTEM);
+        $manager->persist($systemPreference2);
+
+        $systemPreference3 = new Preference();
+        $systemPreference3->setName('Maximum users per team');
+        $systemPreference3->setSystemName('system.teams.maximum_users');
+        $systemPreference3->setDefaultValue('0');
+        $systemPreference3->setType(Preference::TYPE_SYSTEM);
+        $manager->persist($systemPreference3);
+
+        $manager->flush();
+    }
+
 
     /**
      * Returns the order number for this set of fixtures
