@@ -13,7 +13,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * Loads default users into the application database
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param  \Doctrine\Common\Persistence\ObjectManager $manager
+     * @return void
      */
     public function load(ObjectManager $manager)
     {
@@ -25,6 +26,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin1->setEnabled(true);
         $admin1->setLastActivity(new DateTime());
         $admin1->addRole('ROLE_SUPER_ADMIN');
+        $admin1->addGroup($this->getReference('admin-group'));
 
         $manager->persist($admin1);
         $this->addReference('admin-james', $admin1);
@@ -36,6 +38,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $developer->setEmail('developer@gettickit.com');
         $developer->setEnabled(true);
         $developer->setLastActivity(new DateTime());
+        $developer->addGroup($this->getReference('dev-group'));
 
         $manager->persist($developer);
         $this->addReference('developer', $developer);
@@ -45,9 +48,14 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * Returns the order number for this set of fixtures
+     *
+     * @return int
+     */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }
  
