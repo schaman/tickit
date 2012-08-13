@@ -1,9 +1,10 @@
 <?php
 
-namespace Tickit\UserBundle\Entity;
+namespace Tickit\PreferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * @ORM\Entity
@@ -21,7 +22,7 @@ class UserPreference
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\PreferenceBundle\Entity\Preference")
+     * @ORM\ManyToOne(targetEntity="Preference")
      * @ORM\JoinColumn(name="preference_id", referencedColumnName="id")
      */
     protected $preference;
@@ -94,15 +95,15 @@ class UserPreference
     }
 
     /**
-     * @param $user
+     * @param \Tickit\UserBundle\Entity\User $user
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }
 
     /**
-     * @return mixed
+     * @return \Tickit\UserBundle\Entity\User
      */
     public function getUser()
     {

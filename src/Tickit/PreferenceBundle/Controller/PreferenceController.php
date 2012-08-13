@@ -17,7 +17,13 @@ class PreferenceController extends Controller
      */
     public function indexAction()
     {
-        
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $preferences = $this->getDoctrine()
+                            ->getRepository('TickitPreferenceBundle:Preference')
+                            ->findForUser($user);
+
+        var_dump($preferences);
     }
 
 }

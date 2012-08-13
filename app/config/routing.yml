@@ -39,6 +39,11 @@ user_index:
   requirements:
     page: \d+
 
+# PreferenceBundle Routes
+preference_index:
+  pattern: /preferences
+  defaults: { _controller: TickitPreferenceBundle:Preference:index }
+
 
 # FOSUserBundle Routes
 
