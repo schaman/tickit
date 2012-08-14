@@ -1,5 +1,4 @@
 # TeamBundle Routes
-
 team_show:
   pattern: /teams/{id}
   defaults: { _controller: TickitTeamBundle:Team:edit }
@@ -32,7 +31,6 @@ team_index:
 
 
 # UserBundle Routes
-
 user_index:
   pattern: /users/{page}
   defaults: { _controller: TickitUserBundle:User:index, page: 1 }
@@ -44,9 +42,12 @@ preference_index:
   pattern: /preferences
   defaults: { _controller: TickitPreferenceBundle:Preference:index }
 
+# DashboardBundle Routes
+dashboard_index:
+  pattern: /dashboard
+  defaults: { _controller: TickitDashboardBundle:Dashboard:index }
 
 # FOSUserBundle Routes
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
