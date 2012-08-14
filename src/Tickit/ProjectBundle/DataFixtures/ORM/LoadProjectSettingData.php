@@ -36,7 +36,7 @@ class LoadProjectSettingData extends AbstractFixture implements OrderedFixtureIn
     /**
      * Returns the order number for this set of fixtures
      *
-     * @return int|void
+     * @return int
      */
     public function getOrder()
     {
