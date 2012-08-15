@@ -5,8 +5,9 @@ namespace Tickit\TeamBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
+ * The Team entity represents a team of users in the application. These are not the same as Groups.
+ *
  * @ORM\Entity(repositoryClass="Tickit\TeamBundle\Entity\Repository\TeamRepository")
  * @ORM\Table(name="teams")
  */

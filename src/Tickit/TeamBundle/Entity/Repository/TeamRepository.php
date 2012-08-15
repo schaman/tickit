@@ -4,6 +4,11 @@ namespace Tickit\TeamBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Provides methods for fetching Team related data from the DBAL
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class TeamRepository extends EntityRepository
 {
 

@@ -8,10 +8,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
+/**
+ * Loads default Group related data into the application
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Loads default user groups into the application database
+     * Initiates the data loading
      *
      * @param  \Doctrine\Common\Persistence\ObjectManager $manager
      * @return void

@@ -5,6 +5,11 @@ namespace Tickit\PreferenceBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 use Tickit\UserBundle\Entity\User;
 
+/**
+ * Provides a bunch of methods for returning Preference related data from the DBAL
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class PreferenceRepository extends EntityRepository
 {
 

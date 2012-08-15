@@ -4,6 +4,11 @@ namespace Tickit\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
+/**
+ * This controller is overriding that provided by FOSUserBundle so that we can add custom logic to login related actions
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class SecurityController extends BaseController
 {
     /**

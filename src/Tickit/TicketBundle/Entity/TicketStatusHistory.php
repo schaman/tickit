@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The TicketStatusHistory entity represents a snapshot of a ticket's status at a given point in time
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_status_history")
  */
@@ -34,13 +36,13 @@ class TicketStatusHistory
      * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="changed_by_id", referencedColumnName="id")
      */
-    protected $changed_by;
+    protected $changedBy;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="changed_at", type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
-    protected $changed_at;
+    protected $changedAt;
 
     /**
      * Gets the ID for this history entry
@@ -55,11 +57,11 @@ class TicketStatusHistory
     /**
      * Sets the user who updated the ticket history
      *
-     * @param \Tickit\UserBundle\Entity\User $changed_by
+     * @param \Tickit\UserBundle\Entity\User $changedBy
      */
-    public function setChangedBy(\Tickit\UserBundle\Entity\User $changed_by)
+    public function setChangedBy(\Tickit\UserBundle\Entity\User $changedBy)
     {
-        $this->changed_by = $changed_by;
+        $this->changedBy = $changedBy;
     }
 
     /**
@@ -69,7 +71,7 @@ class TicketStatusHistory
      */
     public function getChangedBy()
     {
-        return $this->changed_by;
+        return $this->changedBy;
     }
 
     /**
@@ -79,7 +81,7 @@ class TicketStatusHistory
      */
     public function getChangedAt()
     {
-        return $this->changed_at;
+        return $this->changedAt;
     }
 
     /**

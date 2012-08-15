@@ -5,6 +5,8 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * The ProjectAttribute entity represents a specific attribute that is customisable per project
+ *
  * @ORM\Entity
  * @ORM\Table(name="project_attributes")
  */
@@ -23,9 +25,9 @@ class ProjectAttribute
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(name="default_value", type="string", length=500)
      */
-    protected $default_value;
+    protected $defaultValue;
 
     /**
      * Gets the attribute ID
@@ -60,11 +62,11 @@ class ProjectAttribute
     /**
      * Sets the default value for this attribute
      *
-     * @param mixed $default_value
+     * @param mixed $defaultValue
      */
-    public function setDefaultValue($default_value)
+    public function setDefaultValue($defaultValue)
     {
-        $this->default_value = $default_value;
+        $this->defaultValue = $defaultValue;
     }
 
     /**
@@ -74,6 +76,6 @@ class ProjectAttribute
      */
     public function getDefaultValue()
     {
-        return $this->default_value;
+        return $this->defaultValue;
     }
 }

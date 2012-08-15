@@ -5,6 +5,11 @@ namespace Tickit\UserBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 use DateTime;
 
+/**
+ * Provides methods for retrieving User related data from the DBAL
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class UserRepository extends EntityRepository
 {
 

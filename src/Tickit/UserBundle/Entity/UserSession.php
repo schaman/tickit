@@ -5,6 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The UserSession entity represents a user's PHP session in the system but does not store any session data.
+ * It is used for determining concurrent session activity
+ *
  * @ORM\Entity
  * @ORM\Table(name="user_sessions")
  */

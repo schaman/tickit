@@ -4,6 +4,8 @@ namespace Tickit\PreferenceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * The Preference entity represents either a User preference of a System preference in the application
+ *
  * @ORM\Entity(repositoryClass="Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository")
  * @ORM\Table(name="preferences")
  */
@@ -27,14 +29,14 @@ class Preference
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(name="system_name", type="string", length=100)
      */
-    protected $system_name;
+    protected $systemName;
 
     /**
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(name="default_value", type="string", length=250)
      */
-    protected $default_value;
+    protected $defaultValue;
 
     /**
      * @ORM\Column(type="string", length=8)
@@ -79,7 +81,7 @@ class Preference
      */
     public function setSystemName($name)
     {
-        $this->system_name = str_replace(' ', '', $name);
+        $this->systemName = str_replace(' ', '', $name);
     }
 
     /**
@@ -89,27 +91,27 @@ class Preference
      */
     public function getSystemName()
     {
-        return $this->system_name;
+        return $this->systemName;
     }
 
     /**
-     * Set default_value
+     * Sets the default value for this preference
      *
      * @param string $defaultValue
      */
     public function setDefaultValue($defaultValue)
     {
-        $this->default_value = $defaultValue;
+        $this->defaultValue = $defaultValue;
     }
 
     /**
-     * Get default_value
+     * Gets the default value for this preference
      *
      * @return string 
      */
     public function getDefaultValue()
     {
-        return $this->default_value;
+        return $this->defaultValue;
     }
 
 

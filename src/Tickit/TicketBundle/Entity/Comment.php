@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The Comment entity represents a comment that is placed on a Ticket by a given user
+ *
+ * TODO: We need to add the $user property to record which user made the comment
+ *
  * @ORM\Entity
  * @ORM\Table(name="comments")
  */

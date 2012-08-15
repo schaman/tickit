@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The TicketStatus entity represents a possible status type for a ticket
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_statuses")
  */

@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The project entity represents an application/website/product within the application
+ *
  * @ORM\Entity
  * @ORM\Table(name="projects")
  */

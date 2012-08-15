@@ -5,6 +5,8 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * The ProjectAttributeValue entity represents a value associated with an attribute for a specific project
+ *
  * @ORM\Entity
  * @ORM\Table(name="project_attribute_values")
  */

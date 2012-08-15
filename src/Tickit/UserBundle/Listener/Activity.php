@@ -9,6 +9,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use DateTime;
 use Tickit\UserBundle\Entity\User;
 
+/**
+ * Activity listener class that listens for controller requests and updates
+ * the current user's activity (if a user is logged in)
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class Activity
 {
     /* @var Symfony\Component\Security\Core\SecurityContext */
@@ -21,7 +27,8 @@ class Activity
      * Class constructor
      *
      * @param \Symfony\Component\Security\Core\SecurityContext  $context
-     * @param Doctrine\Bundle\DoctrineBundle\Registry           $doctrine
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry          $doctrine
+     * @return void
      */
     public function __construct(SecurityContext $context, Doctrine $doctrine)
     {
@@ -38,9 +45,9 @@ class Activity
     public function onCoreController(FilterControllerEvent $event)
     {
         $token = $this->context->getToken();
-        if($token instanceof TokenInterface) {
+        if ($token instanceof TokenInterface) {
             $user = $token->getUser();
-            if($user instanceof User) {
+            if ($user instanceof User) {
                 $user->setLastActivity(new DateTime());
                 $this->manager->persist($user);
                 $this->manager->flush($user);

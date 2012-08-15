@@ -7,7 +7,11 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\ProjectBundle\Entity\ProjectSetting;
 
-
+/**
+ * Loads project setting data into the application
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class LoadProjectSettingData extends AbstractFixture implements OrderedFixtureInterface
 {
 

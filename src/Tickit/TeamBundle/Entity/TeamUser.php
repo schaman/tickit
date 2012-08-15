@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The TeamUser entity represents a user's affiliation with a team in the application
+ *
  * @ORM\Entity
  * @ORM\Table(name="team_users")
  */

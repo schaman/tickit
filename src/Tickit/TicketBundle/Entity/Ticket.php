@@ -7,6 +7,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\UserBundle\Entity\User;
 
 /**
+ * The User entity represents an individual user within the application
+ *
  * @ORM\Entity
  * @ORM\Table(name="tickets")
  */
@@ -38,7 +40,7 @@ class Ticket
     /**
      * @ORM\OneToMany(targetEntity="TicketUserSubscription", mappedBy="user")
      */
-    protected $ticket_subscriptions;
+    protected $ticketSubscriptions;
 
     /**
      * @ORM\ManyToOne(targetEntity="Tickit\ProjectBundle\Entity\Project")
@@ -58,31 +60,31 @@ class Ticket
     protected $description;
 
     /**
-     * @ORM\Column(type="string", length=4000)
+     * @ORM\Column(name="replication_steps", type="string", length=4000)
      */
-    protected $replication_steps;
+    protected $replicationSteps;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(name="estimated_hours", type="float")
      */
-    protected $estimated_hours;
+    protected $estimatedHours;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(name="actual_hours", type="float")
      */
-    protected $actual_hours;
+    protected $actualHours;
 
     /**
      * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="reported_by_id", referencedColumnName="id")
      */
-    protected $reported_by;
+    protected $reportedBy;
 
     /**
      * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assigned_to_id", referencedColumnName="id")
      */
-    protected $assigned_to;
+    protected $assignedTo;
 
     /**
      * @ORM\Column(type="datetime")
@@ -152,11 +154,11 @@ class Ticket
     /**
      * Sets the user who this ticket is assigned to
      *
-     * @param User $assigned_to
+     * @param User $assignedTo
      */
-    public function setAssignedTo(User $assigned_to)
+    public function setAssignedTo(User $assignedTo)
     {
-        $this->assigned_to = $assigned_to;
+        $this->assignedTo = $assignedTo;
     }
 
     /**
@@ -166,7 +168,7 @@ class Ticket
      */
     public function getAssignedTo()
     {
-        return $this->assigned_to;
+        return $this->assignedTo;
     }
 
     /**
@@ -192,11 +194,11 @@ class Ticket
     /**
      * Sets the replication steps for this ticket
      *
-     * @param string $replication_steps
+     * @param string $replicationSteps
      */
-    public function setReplicationSteps($replication_steps)
+    public function setReplicationSteps($replicationSteps)
     {
-        $this->replication_steps = $replication_steps;
+        $this->replicationSteps = $replicationSteps;
     }
 
     /**
@@ -206,17 +208,17 @@ class Ticket
      */
     public function getReplicationSteps()
     {
-        return $this->replication_steps;
+        return $this->replicationSteps;
     }
 
     /**
      * Sets the "reported by" user on this ticket
      *
-     * @param User $reported_by
+     * @param User $reportedBy
      */
-    public function setReportedBy(User $reported_by)
+    public function setReportedBy(User $reportedBy)
     {
-        $this->reported_by = $reported_by;
+        $this->reportedBy = $reportedBy;
     }
 
 
@@ -227,7 +229,7 @@ class Ticket
      */
     public function getReportedBy()
     {
-        return $this->reported_by;
+        return $this->reportedBy;
     }
 
     /**

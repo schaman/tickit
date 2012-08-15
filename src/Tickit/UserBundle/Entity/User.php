@@ -9,6 +9,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
+ * The User entity represents a logged in user in the application
+ *
  * @ORM\Entity(repositoryClass="Tickit\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
@@ -49,9 +51,9 @@ class User extends BaseUser
     protected $sessions;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(name="last_activity", type="datetime", nullable=true)
      */
-    protected $last_activity;
+    protected $lastActivity;
 
 
     /**
@@ -76,11 +78,11 @@ class User extends BaseUser
     /**
      * Updates the last activity time
      *
-     * @param \DateTime $last_activity
+     * @param \DateTime $lastActivity
      */
-    public function setLastActivity($last_activity)
+    public function setLastActivity($lastActivity)
     {
-        $this->last_activity = $last_activity;
+        $this->lastActivity = $lastActivity;
     }
 
     /**
@@ -90,7 +92,7 @@ class User extends BaseUser
      */
     public function getLastActivity()
     {
-        return $this->last_activity;
+        return $this->lastActivity;
     }
 
     /**

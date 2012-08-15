@@ -18,6 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PreferenceController extends CoreController
 {
     /**
+     * Index action that lists all preferences for editing (should this just be editAction??)
+     *
      * @Template("TickitPreferenceBundle:Preference:index.html.twig")
      */
     public function indexAction()

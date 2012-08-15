@@ -5,6 +5,8 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * The ProjectSetting entity represents a specific setting that is customisable per project
+ *
  * @ORM\Entity
  * @ORM\Table(name="project_settings")
  */
@@ -25,7 +27,7 @@ class ProjectSetting
     /**
      * @ORM\Column(type="string", length=120)
      */
-    protected $default_value;
+    protected $defaultValue;
 
 
     /**
@@ -61,11 +63,11 @@ class ProjectSetting
     /**
      * Sets the default value for this setting
      *
-     * @param mixed $default_value
+     * @param mixed $defaultValue
      */
-    public function setDefaultValue($default_value)
+    public function setDefaultValue($defaultValue)
     {
-        $this->default_value = $default_value;
+        $this->defaultValue = $defaultValue;
     }
 
     /**
@@ -75,7 +77,7 @@ class ProjectSetting
      */
     public function getDefaultValue()
     {
-        return $this->default_value;
+        return $this->defaultValue;
     }
 
 

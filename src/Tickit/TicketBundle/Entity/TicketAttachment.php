@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The TicketAttachment entity represents a file attachment on a ticket
+ *
  * TODO: this class should extend a File type class, providing file upload functionality
  *
  * @ORM\Entity
@@ -32,9 +34,9 @@ class TicketAttachment
     protected $filename;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(name="mime_type", type="string", length=30)
      */
-    protected $mime_type;
+    protected $mimeType;
 
     /**
      * Gets the ID of this comment
@@ -93,7 +95,7 @@ class TicketAttachment
      */
     public function getMimeType()
     {
-        return $this->mime_type;
+        return $this->mimeType;
     }
 
     /**
@@ -103,7 +105,7 @@ class TicketAttachment
      */
     public function setMimeType($mimeType)
     {
-        $this->mime_type = $mimeType;
+        $this->mimeType = $mimeType;
     }
 
 }

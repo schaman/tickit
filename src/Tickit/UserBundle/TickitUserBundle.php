@@ -4,6 +4,11 @@ namespace Tickit\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * Bundle build file for the TickitUserBundle
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class TickitUserBundle extends Bundle
 {
 

@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * The TicketUserSubscription entity represents a user's subscription settings for a ticket
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_user_subscriptions")
  */
@@ -26,13 +28,13 @@ class TicketUserSubscription
     protected $ticket;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="new_comments", type="boolean")
      */
-    protected $new_comments;
+    protected $newComments;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="status_changes", type="boolean")
      */
-    protected $status_changes;
+    protected $statusChanges;
 
 }

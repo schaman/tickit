@@ -8,10 +8,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\PreferenceBundle\Entity\Preference;
 use Tickit\PreferenceBundle\Entity;
 
+/**
+ * Loads default preferences into the application
+ *
+ * @author James Halsall <james.t.halsall@googlemail.com>
+ */
 class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Loads default preferences into the application database
+     * Initiates the loading of data
      *
      * @param  \Doctrine\Common\Persistence\ObjectManager $manager
      * @return void

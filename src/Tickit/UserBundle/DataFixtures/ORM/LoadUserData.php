@@ -8,10 +8,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\UserBundle\Entity\User;
 use DateTime;
 
+/**
+ * Loads default users into the application
+ */
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Loads default users into the application database
+     * Initiates the data loading
      *
      * @param  \Doctrine\Common\Persistence\ObjectManager $manager
      * @return void

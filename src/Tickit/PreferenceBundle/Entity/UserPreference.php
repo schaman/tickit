@@ -7,6 +7,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\UserBundle\Entity\User;
 
 /**
+ * The UserPreference entity represents a user's desired value for a preference
+ *
  * @ORM\Entity
  * @ORM\Table(name="user_preferences")
  */
@@ -47,7 +49,9 @@ class UserPreference
 
 
     /**
-     * @param $created
+     * Sets the created time as an instance of DateTime
+     *
+     * @param \DateTime $created
      */
     public function setCreated($created)
     {
@@ -55,7 +59,9 @@ class UserPreference
     }
 
     /**
-     * @return mixed
+     * Gets the created time as an instance of DateTime
+     *
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -63,15 +69,19 @@ class UserPreference
     }
 
     /**
-     * @param $preference
+     * Sets the Preference object
+     *
+     * @param Preference $preference
      */
-    public function setPreference($preference)
+    public function setPreference(Preference $preference)
     {
         $this->preference = $preference;
     }
 
     /**
-     * @return mixed
+     * Gets the Preference object
+     *
+     * @return Preference
      */
     public function getPreference()
     {
@@ -79,7 +89,9 @@ class UserPreference
     }
 
     /**
-     * @param $updated
+     * Sets the updated time as an instance of DateTime
+     *
+     * @param \DateTime $updated
      */
     public function setUpdated($updated)
     {
@@ -87,7 +99,9 @@ class UserPreference
     }
 
     /**
-     * @return mixed
+     * Gets the updated time as an instance of DateTime
+     *
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -95,6 +109,8 @@ class UserPreference
     }
 
     /**
+     * Sets the user
+     *
      * @param \Tickit\UserBundle\Entity\User $user
      */
     public function setUser(User $user)
@@ -103,6 +119,8 @@ class UserPreference
     }
 
     /**
+     * Gets the user
+     *
      * @return \Tickit\UserBundle\Entity\User
      */
     public function getUser()
@@ -111,7 +129,9 @@ class UserPreference
     }
 
     /**
-     * @param $value
+     * Sets the value for this user preference
+     *
+     * @param mixed $value
      */
     public function setValue($value)
     {
@@ -119,6 +139,8 @@ class UserPreference
     }
 
     /**
+     * Gets the value for this user preference
+     *
      * @return mixed
      */
     public function getValue()

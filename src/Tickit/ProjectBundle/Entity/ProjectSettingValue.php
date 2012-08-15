@@ -4,6 +4,8 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * The ProjectSettingValue entity represents a project's value against a specific ProjectSetting
+ *
  * @ORM\Entity
  * @ORM\Table(name="project_setting_values")
  */
