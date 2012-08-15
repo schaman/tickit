@@ -19,14 +19,9 @@ class LoadProjectSettingData extends AbstractFixture implements OrderedFixtureIn
     public function load(ObjectManager $manager)
     {
         $setting1 = new ProjectSetting();
-        $setting1->setName('Auto-create code reviews on patch commits');
+        $setting1->setName('Maximum hours per week');
         $setting1->setDefaultValue('0');
         $manager->persist($setting1);
-
-        $setting2 = new ProjectSetting();
-        $setting2->setName('Maximum hours per week');
-        $setting2->setDefaultValue('0');
-        $manager->persist($setting2);
 
         //add more project settings here
 
