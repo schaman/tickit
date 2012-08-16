@@ -18,3 +18,9 @@ before_script:
 script:
   - phpunit -c app/phpunit.xml
   - phpcs ./src/Tickit
+
+notifications:
+  email:
+    - james.t.halsall@googlemail.com
+    - mw870618@gmail.com
+    - sparky@sparky-san.com
