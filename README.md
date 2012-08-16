@@ -2,7 +2,20 @@
 
 # Quick Setup Guide for Developers #
 
-1. Install Composer
+Tickit will eventually come with a self-installer, but whilst development is still on-going you get started with the project by
+running through these steps...
+
+1. Copy `app/config/parameters.yml.dist` to `app/config/parameters.yml` and add in your own database/mailer configuration.
+
+2. To correctly set the permissions on the `cache` and `logs` directories, run the following commands from your server (Debian based systems)
+
+        sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+        sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+
+   The `www-data` user should be replaced with whatever user your apache / nginx service is running as
+
+
+3. Install Composer
 
    As Symfony2 uses [Composer][1] to manage its dependencies, Tickit manages external libraries the same way.
 
@@ -16,15 +29,14 @@
 
    It should install all required vendor bundles.
 
-2. Copy `app/config/parameters.yml.dist` to app/config/parameters.yml and add in your own database/mailer configuration.
+4. Run the following commands from the project directory in your terminal...
 
-3. Run the following command from the project directory in your terminal...
-
+        php app/console doctrine:database:create
         php app/console doctrine:schema:create
 
    This should create your database schema from the entities in the bundles located in the `src` folder. If there are any problems ensure that your database privileges and credentials are okay.
 
-4. Import data fixtures by running the following command in your project directory...
+5. Import data fixtures by running the following command in your project directory...
 
         php app/console doctrine:fixtures:load
 
