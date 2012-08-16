@@ -1,4 +1,4 @@
-<img src='https://secure.travis-ci.org/jaitsu87/tickit.png' />
+<a href='http://travis-ci.org/#!/jaitsu87/tickit'><img src='https://secure.travis-ci.org/jaitsu87/tickit.png' /></a>
 
 # Quick Setup Guide for Developers #
 
