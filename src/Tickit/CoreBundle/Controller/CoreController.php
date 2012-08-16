@@ -16,7 +16,7 @@ class CoreController extends Controller
     /**
      * Returns an instance of the user manager provided by FOSUserBundle
      *
-     * @return \FOS\UserBundle\Entity\UserManager;
+     * @return \FOS\UserBundle\Entity\UserManager
      */
     protected function _getUserManager()
     {
@@ -32,8 +32,8 @@ class CoreController extends Controller
     protected function _getCurrentUser()
     {
         $token = $this->get('security.context')->getToken();
-        if(null === $token) return $token;
-        return $token->getUser();
+
+        return (null !== $token) ? $token->getUser() : null;
     }
 
 }
