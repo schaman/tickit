@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="project_attributes")
  */
-class ProjectAttribute
+class ProjectAttribute implements AttributeInterface
 {
     /**
      * @ORM\Id

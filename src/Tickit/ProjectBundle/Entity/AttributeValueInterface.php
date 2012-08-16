@@ -13,7 +13,7 @@ interface AttributeValueInterface
      * Gets the attribute object associated with this record
      *
      * @abstract
-     * @return mixed
+     * @return AttributeInterface
      */
     public function getAttribute();
 
