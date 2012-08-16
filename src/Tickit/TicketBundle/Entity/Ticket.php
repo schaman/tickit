@@ -112,7 +112,7 @@ class Ticket
     /**
      * Sets the title of this ticket
      *
-     * @param $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -174,7 +174,7 @@ class Ticket
     /**
      * Sets the ticket description
      *
-     * @param $description
+     * @param string $description
      */
     public function setDescription($description)
     {

@@ -70,7 +70,9 @@ class Team
 
 
     /**
-     * @param $created
+     * Sets the created time as an instance of DateTime
+     *
+     * @param \DateTime $created
      */
     public function setCreated($created)
     {
@@ -78,6 +80,8 @@ class Team
     }
 
     /**
+     * Gets the created time as an instance of DateTime
+     *
      * @return mixed
      */
     public function getCreated()
@@ -86,7 +90,9 @@ class Team
     }
 
     /**
-     * @param $updated
+     * Sets the updated time as an instance of DateTime
+     *
+     * @param \DateTime $updated
      */
     public function setUpdated($updated)
     {
@@ -94,7 +100,9 @@ class Team
     }
 
     /**
-     * @return mixed
+     * Gets the updated time as an instance of DateTime
+     *
+     * @return \DateTime
      */
     public function getUpdated()
     {

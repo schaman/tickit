@@ -18,7 +18,8 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
     /**
      * Initiates the loading of data
      *
-     * @param  \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     *
      * @return void
      */
     public function load(ObjectManager $manager)
@@ -31,6 +32,7 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
      * Loads user related preferences into the application database
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     *
      * @return void
      */
     protected function _loadUserPreferences(ObjectManager $manager)
@@ -64,6 +66,7 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
      * Loads system related preferences into the application database
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     *
      * @return void
      */
     protected function _loadSystemPreferences(ObjectManager $manager)
@@ -103,4 +106,3 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
         return 5;
     }
 }
- 

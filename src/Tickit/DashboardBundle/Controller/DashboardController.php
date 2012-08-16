@@ -18,6 +18,7 @@ class DashboardController extends CoreController
      * Index action for the dashboard
      *
      * @Template("TickitDashboardBundle:Dashboard:index.html.twig")
+     * @return array
      */
     public function indexAction()
     {

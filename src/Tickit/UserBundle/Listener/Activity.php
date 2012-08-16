@@ -26,8 +26,9 @@ class Activity
     /**
      * Class constructor
      *
-     * @param \Symfony\Component\Security\Core\SecurityContext  $context
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry          $doctrine
+     * @param \Symfony\Component\Security\Core\SecurityContext $context  The application SecurityContext instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry         $doctrine The doctrine registry
+     *
      * @return void
      */
     public function __construct(SecurityContext $context, Doctrine $doctrine)
@@ -40,6 +41,7 @@ class Activity
      * Updates the user's last activity time on every request
      *
      * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
+     *
      * @return void
      */
     public function onCoreController(FilterControllerEvent $event)

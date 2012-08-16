@@ -18,7 +18,8 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * Initiates the data loading
      *
-     * @param  \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     *
      * @return void
      */
     public function load(ObjectManager $manager)

@@ -32,7 +32,7 @@ class TeamUser
     /**
      * Sets the user
      *
-     * @param $user
+     * @param \Tickit\UserBundle\Entity\User $user
      */
     public function setUser($user)
     {

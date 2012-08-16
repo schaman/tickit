@@ -76,7 +76,8 @@ class Preference
     /**
      * Sets the system friendly name
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return void
      */
     public function setSystemName($name)
@@ -118,13 +119,14 @@ class Preference
     /**
      * Sets the type
      *
+     * @param string $type
+     *
      * @throws \InvalidArgumentException
-     * @param  string $type
      * @return void
      */
     public function setType($type)
     {
-        if(!in_array($type, array(self::TYPE_USER, self::TYPE_SYSTEM))) {
+        if (!in_array($type, array(self::TYPE_USER, self::TYPE_SYSTEM))) {
             throw new \InvalidArgumentException('An invalid type has been specified in Preference entity');
         }
         $this->type = $type;

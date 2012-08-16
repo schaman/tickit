@@ -16,7 +16,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * Initiates the data loading
      *
-     * @param  \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     *
      * @return void
      */
     public function load(ObjectManager $manager)
@@ -46,7 +47,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->persist($admin2);
         $this->addReference('admin-mark', $admin2);
-        
+
         $developer = new User();
         $developer->setUsername('developer');
         $developer->setPlainPassword('password');
@@ -74,4 +75,3 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         return 2;
     }
 }
- 

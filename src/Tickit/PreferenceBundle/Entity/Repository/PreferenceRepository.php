@@ -18,6 +18,7 @@ class PreferenceRepository extends EntityRepository
      *
      *
      * @param \Tickit\UserBundle\Entity\User $user
+     *
      * @return mixed
      */
     public function findForUser(User $user)

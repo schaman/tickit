@@ -22,6 +22,7 @@ class UserController extends CoreController
      * Lists all users in the system
      *
      * @Template("TickitUserBundle:User:index.html.twig")
+     * @return array
      */
     public function indexAction()
     {
