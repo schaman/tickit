@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\CoreBundle\TickitCoreBundle(),
+            new Tickit\PermissionBundle\TickitPermissionBundle(),
             new Tickit\UserBundle\TickitUserBundle(),
             new Tickit\PreferenceBundle\TickitPreferenceBundle(),
             new Tickit\TeamBundle\TickitTeamBundle(),

@@ -51,6 +51,11 @@ class User extends BaseUser
     protected $sessions;
 
     /**
+     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\UserPermissionValue", mappedBy="user")
+     */
+    protected $permissions;
+
+    /**
      * @ORM\Column(name="last_activity", type="datetime", nullable=true)
      */
     protected $lastActivity;
@@ -62,6 +67,7 @@ class User extends BaseUser
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
+        $this->permissions = new ArrayCollection();
         parent::__construct();
     }
 

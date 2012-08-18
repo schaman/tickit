@@ -20,4 +20,9 @@ class Group extends BaseGroup
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\GroupPermissionValue", mappedBy="group")
+     */
+    protected $permissions;
+
 }
