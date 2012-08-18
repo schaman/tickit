@@ -34,8 +34,6 @@ class Permission implements PermissionInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @return string
      */
     public function getName()
     {
@@ -44,12 +42,26 @@ class Permission implements PermissionInterface
 
     /**
      * {@inheritDoc}
-     *
-     * @return string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function getSystemName()
     {
         return $this->systemName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setSystemName($systemName)
+    {
+        $this->systemName = $systemName;
     }
 
 }

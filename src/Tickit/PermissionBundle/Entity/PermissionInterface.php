@@ -25,4 +25,20 @@ interface PermissionInterface
      */
     public function getSystemName();
 
+    /**
+     * Sets the name of the permission
+     *
+     * @abstract
+     * @param string $name
+     */
+    public function setName($name);
+
+    /**
+     * Sets the system friendly name of the permission
+     *
+     * @abstract
+     * @param string $systemName
+     */
+    public function setSystemName($systemName);
+
 }
