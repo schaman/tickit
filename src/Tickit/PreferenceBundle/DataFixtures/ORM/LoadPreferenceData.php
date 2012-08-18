@@ -6,7 +6,6 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\PreferenceBundle\Entity\Preference;
-use Tickit\PreferenceBundle\Entity;
 
 /**
  * Loads default preferences into the application
