@@ -53,7 +53,7 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
             'permissions.groups.manage_defaults' => 'Manage default group permissions'
         );
 
-        foreach($permissions as $systemName => $name) {
+        foreach ($permissions as $systemName => $name) {
             $permission = new Permission();
             $permission->setName($name);
             $permission->setSystemName($systemName);
@@ -74,4 +74,3 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
     }
 
 }
- 

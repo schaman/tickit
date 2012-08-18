@@ -14,7 +14,11 @@ use Tickit\PermissionBundle\Entity\Permission;
  */
 class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureInterface
 {
-
+    /**
+     * Initialises the loading of data
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
 
@@ -31,4 +35,3 @@ class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureIn
     }
 
 }
- 
