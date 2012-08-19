@@ -32,6 +32,11 @@ class UserSession
     protected $ip;
 
     /**
+     * @ORM\Column(name="session_token", type="string", length="64")
+     */
+    protected $sessionToken;
+
+    /**
      * @ORM\Column(name="created", type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -42,5 +47,35 @@ class UserSession
      * @Gedmo\Timestampable(on="update")
      */
     protected $updated;
+
+    /**
+     * Sets the user object on this session
+     *
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Sets the IP address for this session
+     *
+     * @param string $ip
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+    }
+
+    /**
+     * Sets the PHP session token for this session
+     *
+     * @param string $sessionToken
+     */
+    public function setSessionToken($sessionToken)
+    {
+        $this->sessionToken = $sessionToken;
+    }
 
 }
