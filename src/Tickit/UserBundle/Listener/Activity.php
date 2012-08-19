@@ -58,6 +58,9 @@ class Activity
                 $user->setLastActivity(new DateTime());
                 $this->manager->persist($user);
                 $this->manager->flush($user);
+
+                //todo: update the user's session here
+
             }
         }
     }

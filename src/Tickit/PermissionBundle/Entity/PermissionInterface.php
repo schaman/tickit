@@ -29,7 +29,7 @@ interface PermissionInterface
      * Sets the name of the permission
      *
      * @param string $name
-     * 
+     *
      * @abstract
      */
     public function setName($name);

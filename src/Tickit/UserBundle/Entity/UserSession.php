@@ -32,7 +32,7 @@ class UserSession
     protected $ip;
 
     /**
-     * @ORM\Column(name="session_token", type="string", length="64")
+     * @ORM\Column(name="session_token", type="string", length=64)
      */
     protected $sessionToken;
 
