@@ -25,10 +25,11 @@ class Login
     /**
      * Class constructor, sets dependencies
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     * @param \Symfony\Component\HttpFoundation\Session\Session         $session   The current user's session instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry                  $doctrine  The doctrine registry
      */
-    public function __construct(ContainerInterface $container, Session $session,  Doctrine $doctrine)
+    public function __construct(ContainerInterface $container, Session $session, Doctrine $doctrine)
     {
         $this->container = $container;
         $this->em = $doctrine->getManager();
@@ -44,7 +45,7 @@ class Login
     {
         $user = $event->getAuthenticationToken()->getUser();
 
-        if(!$user instanceof User) {
+        if (!$user instanceof User) {
             return;
         }
 

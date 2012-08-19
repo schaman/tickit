@@ -47,7 +47,7 @@ class Activity
     public function onCoreController(FilterControllerEvent $event)
     {
         //if this isn't the main http request, then we aren't interested...
-        if(\Symfony\Component\HttpKernel\HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
+        if (\Symfony\Component\HttpKernel\HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
 
