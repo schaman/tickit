@@ -59,7 +59,9 @@ class Login
         $this->em->persist($userSession);
         $this->em->flush();
 
-        //trigger loading of permissions here
+        /*$permissions = $this->em
+                            ->getRepository('TickitPermissionBundle:Permission')
+                            ->findAllForUser($user);*/
     }
 
 }
