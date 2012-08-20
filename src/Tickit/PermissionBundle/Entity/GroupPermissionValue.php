@@ -24,7 +24,7 @@ class GroupPermissionValue
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Permission")
+     * @ORM\ManyToOne(targetEntity="Permission", inversedBy="groups")
      * @ORM\JoinColumn(name="permission_id", referencedColumnName="id")
      */
     protected $permission;

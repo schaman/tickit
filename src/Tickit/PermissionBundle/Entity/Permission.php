@@ -33,6 +33,16 @@ class Permission implements PermissionInterface
     protected $systemName;
 
     /**
+     * @ORM\OneToMany(targetEntity="UserPermissionValue", mappedBy="permission")
+     */
+    protected $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="GroupPermissionValue", mappedBy="permission")
+     */
+    protected $groups;
+
+    /**
      * {@inheritDoc}
      */
     public function getName()

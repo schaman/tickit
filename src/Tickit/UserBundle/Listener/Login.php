@@ -59,9 +59,11 @@ class Login
         $this->em->persist($userSession);
         $this->em->flush();
 
-        /*$permissions = $this->em
+        $permissions = $this->em
                             ->getRepository('TickitPermissionBundle:Permission')
-                            ->findAllForUser($user);*/
+                            ->findAllForUser($user);
+
+        //todo: write permissions to session
     }
 
 }
