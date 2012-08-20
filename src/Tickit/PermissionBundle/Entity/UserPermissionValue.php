@@ -3,6 +3,7 @@
 namespace Tickit\PermissionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Represents the value of a permission against a specific user
@@ -32,5 +33,35 @@ class UserPermissionValue
      * @ORM\Column(name="value", type="boolean")
      */
     protected $value;
+
+    /**
+     * Sets the user on this permission-value pair
+     *
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * Sets the permission object on this permission-value pair
+     *
+     * @param Permission $permission
+     */
+    public function setPermission(Permission $permission)
+    {
+        $this->permission = $permission;
+    }
+
+    /**
+     * Sets the value for this permission-value pair
+     *
+     * @param bool $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
 
 }
