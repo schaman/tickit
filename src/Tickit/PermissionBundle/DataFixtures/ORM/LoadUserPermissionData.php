@@ -31,7 +31,7 @@ class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureIn
      */
     public function getOrder()
     {
-        return 10;
+        return 12;
     }
 
 }
