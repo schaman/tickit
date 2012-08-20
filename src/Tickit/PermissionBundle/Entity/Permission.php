@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\PermissionBundle\Entity\Repository\PermissionRepository")
  * @ORM\Table(name="permissions")
  */
 class Permission implements PermissionInterface
