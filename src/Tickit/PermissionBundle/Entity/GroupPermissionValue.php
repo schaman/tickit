@@ -3,6 +3,7 @@
 namespace Tickit\PermissionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Tickit\UserBundle\Entity\Group;
 
 /**
  * Represents the value of a permission against a specific group
@@ -32,5 +33,35 @@ class GroupPermissionValue
      * @ORM\Column(name="value", type="boolean")
      */
     protected $value;
+
+    /**
+     * Sets the group on this permission-value pair
+     *
+     * @param Group $group
+     */
+    public function setGroup(Group $group)
+    {
+        $this->group = $group;
+    }
+
+    /**
+     * Sets the permission on this permission-value pair
+     *
+     * @param Permission $permission
+     */
+    public function setPermission(Permission $permission)
+    {
+        $this->permission = $permission;
+    }
+
+    /**
+     * Sets the value for this permission-value pair
+     *
+     * @param bool $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
 
 }
