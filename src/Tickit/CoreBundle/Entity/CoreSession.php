@@ -2,7 +2,7 @@
 
 namespace Tickit\CoreBundle\Entity;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 use Tickit\PermissionBundle\Service\PermissionService;
 
 /**
@@ -20,10 +20,10 @@ class CoreSession extends Session
     /**
      * Class constructor, sets up dependencies
      *
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage $storage     The session storage object
-     * @param \Tickit\PermissionBundle\Service\PermissionService                     $permissions An instance of the PermissionService class
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage     The session storage object
+     * @param \Tickit\PermissionBundle\Service\PermissionService                        $permissions An instance of the PermissionService class
      */
-    public function __construct(NativeSessionStorage $storage, PermissionService $permissions)
+    public function __construct(SessionStorageInterface $storage, PermissionService $permissions)
     {
         $this->storage = $storage;
         $this->permissions = $permissions;
