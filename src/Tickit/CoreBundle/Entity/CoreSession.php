@@ -20,8 +20,8 @@ class CoreSession extends Session
     /**
      * Class constructor, sets up dependencies
      *
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage $storage
-     * @param \Tickit\PermissionBundle\Service\PermissionService                     $permissions
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage $storage     The session storage object
+     * @param \Tickit\PermissionBundle\Service\PermissionService                     $permissions An instance of the PermissionService class
      */
     public function __construct(NativeSessionStorage $storage, PermissionService $permissions)
     {
