@@ -1,0 +1,3 @@
+services:
+  permissions:
+    class: Tickit\PermissionBundle\Service\PermissionService

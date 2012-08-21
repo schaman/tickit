@@ -5,7 +5,7 @@ namespace Tickit\UserBundle\Listener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Tickit\CoreBundle\Entity\CoreSession;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 
@@ -26,10 +26,10 @@ class Login
      * Class constructor, sets dependencies
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
-     * @param \Symfony\Component\HttpFoundation\Session\Session         $session   The current user's session instance
+     * @param \Tickit\CoreBundle\Entity\CoreSession                     $session   The current user's session instance
      * @param \Doctrine\Bundle\DoctrineBundle\Registry                  $doctrine  The doctrine registry
      */
-    public function __construct(ContainerInterface $container, Session $session, Doctrine $doctrine)
+    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine)
     {
         $this->container = $container;
         $this->em = $doctrine->getManager();
@@ -63,7 +63,7 @@ class Login
                             ->getRepository('TickitPermissionBundle:Permission')
                             ->findAllForUser($user);
 
-        //todo: write permissions to session
+        $this->session->writePermissions($permissions);
     }
 
 }
