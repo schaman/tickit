@@ -26,11 +26,11 @@ class PermissionRepository extends EntityRepository
 
         $permissions = $this->getEntityManager()
                             ->createQuery(
-                                'SELECT p, upv, gpv
+                                'SELECT p
                                     FROM TickitPermissionBundle:Permission p
                                     LEFT JOIN p.users upv
                                     LEFT JOIN p.groups gpv
-                                  WHERE upv.user = :user_id OR gpv.group = :group_id'
+                                  WHERE (upv.user = :user_id AND upv.value = 1) OR (gpv.group = :group_id AND gpv.value = 1)'
                             )
                             ->setParameter('user_id', $user->getId())
                             ->setParameter('group_id', $group->getId())
