@@ -3,7 +3,6 @@
 namespace Tickit\CoreBundle\Entity;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
-use Tickit\PermissionBundle\Service\PermissionService;
 
 /**
  * Overrides the default session class and provides convenience methods for writing and reading data to the session
@@ -20,37 +19,12 @@ class CoreSession extends Session
     /**
      * Class constructor, sets up dependencies
      *
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage     The session storage object
-     * @param \Tickit\PermissionBundle\Service\PermissionService                        $permissions An instance of the PermissionService class
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage The session storage object
      */
-    public function __construct(SessionStorageInterface $storage, PermissionService $permissions)
+    public function __construct(SessionStorageInterface $storage)
     {
         $this->storage = $storage;
-        $this->permissions = $permissions;
         parent::__construct($storage);
-    }
-
-    /**
-     * Writes an array of permission objects to the user's session
-     *
-     * @param array $permissions An array of \Tickit\PermissionBundle\Entity\Permission objects
-     */
-    public function writePermissions(array $permissions)
-    {
-        if (empty($permissions)) {
-            return;
-        }
-
-        $condensedPermissions = array();
-
-        /* @var \Tickit\PermissionBundle\Entity\Permission $permission */
-        foreach ($permissions as $permission) {
-            $condensedPermissions[$permission->getSystemName()] = $permission->getName();
-        }
-
-        $checksum = $this->permissions->calculateChecksum($permissions);
-        $this->set('permissions-checksum', $checksum);
-        $this->set('permissions', $condensedPermissions);
     }
 
 }

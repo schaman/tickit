@@ -3,4 +3,3 @@ services:
     class: Tickit\CoreBundle\Entity\CoreSession
     arguments:
       - @session.storage
-      - @permissions

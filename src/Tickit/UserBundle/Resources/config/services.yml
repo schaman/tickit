@@ -1,7 +1,7 @@
 services:
   login_listener:
     class: Tickit\UserBundle\Listener\Login
-    arguments: [@service_container, @session, @doctrine]
+    arguments: [@service_container, @session, @doctrine, @permissions]
     tags:
       - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
   activity_listener:

@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\CoreBundle\Entity\CoreSession;
+use Tickit\PermissionBundle\Service\PermissionService;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 
@@ -21,19 +22,22 @@ class Login
     protected $container;
     protected $em;
     protected $session;
+    protected $permissions;
 
     /**
      * Class constructor, sets dependencies
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
-     * @param \Tickit\CoreBundle\Entity\CoreSession                     $session   The current user's session instance
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry                  $doctrine  The doctrine registry
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container   The dependency injection container
+     * @param \Tickit\CoreBundle\Entity\CoreSession                     $session     The current user's session instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry                  $doctrine    The doctrine registry
+     * @param \Tickit\PermissionBundle\Service\PermissionService        $permissions The permission service
      */
-    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine)
+    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, PermissionService $permissions)
     {
         $this->container = $container;
         $this->em = $doctrine->getManager();
         $this->session = $session;
+        $this->permissions = $permissions;
     }
 
     /**
@@ -63,7 +67,7 @@ class Login
                             ->getRepository('TickitPermissionBundle:Permission')
                             ->findAllForUser($user);
 
-        $this->session->writePermissions($permissions);
+        $this->permissions->writeToSession($permissions);
     }
 
 }
