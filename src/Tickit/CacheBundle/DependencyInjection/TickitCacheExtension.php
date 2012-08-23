@@ -23,4 +23,12 @@ class TickitCacheExtension extends Extension
     {
 
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAlias()
+    {
+        return 'tickit_cache';
+    }
 }

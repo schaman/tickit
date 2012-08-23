@@ -22,7 +22,27 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        //do config tree here
+        $builder->root('tickit_cache')
+            ->children()
+                ->arrayNode('types')
+                    ->children()
+                        ->arrayNode('file')->defaultValue(false)
+                            ->children()
+                                ->scalarNode('default_path')->defaultValue('%root%/app/cache')->end()
+                                ->booleanNode('auto_serialize')->defaultValue(false)->end()
+                                ->scalarNode('prefix')->defaultValue('tickit_cache')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('memcache')
+                            ->children()
+                                ->arrayNode('servers')
+                                //TODO: how do we define potentially infinite servers here?
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $builder;
     }
