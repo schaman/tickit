@@ -75,3 +75,11 @@ stof_doctrine_extensions:
   orm:
     default:
       timestampable: true
+
+# TickitCacheBundle configuration
+tickit_cache:
+    types:
+        file:
+            auto_serialize: true
+            default_prefix: tickit_cache
+        apc: true
