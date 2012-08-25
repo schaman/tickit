@@ -11,6 +11,8 @@ before_script:
   - php app/console doctrine:schema:create
   - php app/console doctrine:fixtures:load
   - pear install pear/PHP_CodeSniffer
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq php-apc
   - phpenv rehash
   - git clone git://github.com/opensky/Symfony2-coding-standard.git ./Resources/Symfony2
   - phpcs --config-set default_standard ./Resources/Symfony2
@@ -24,3 +26,7 @@ notifications:
     - james.t.halsall@googlemail.com
     - mw870618@gmail.com
     - sparky@sparky-san.com
+
+branches:
+  only:
+    - master
