@@ -48,7 +48,7 @@ class ApcEngine extends AbstractEngine
      */
     private function _isAvailable()
     {
-        return extension_loaded('apc');
+        return extension_loaded('apc') && (ini_get('apc.enabled') == '1');
     }
 
 }
