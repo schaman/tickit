@@ -10,22 +10,16 @@ namespace Tickit\CacheBundle\Engine;
 abstract class AbstractEngine
 {
     /**
-     * @var bool $tags Boolean value indicating whether the caching engine supports tags
-     */
-    protected $tags = false;
-
-    /**
      * Writes data to the cache
      *
      * @param string|int $id   The unique identifier for the cached data
      * @param mixed      $data Either an object, array or string of data to be cached
-     * @param array      $tags [Optional] Tags to be associated with the cached data (on supported engines)
      *
      * @abstract
      *
      * @return void
      */
-    abstract public function write($id, $data, array $tags = null);
+    abstract public function write($id, $data);
 
     /**
      * Reads data from the cache and returns it in its pre-cached state
