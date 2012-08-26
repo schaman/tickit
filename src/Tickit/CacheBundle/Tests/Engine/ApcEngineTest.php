@@ -24,7 +24,7 @@ class ApcEngineTest extends PHPUnit_Framework_TestCase
         try {
             $engine = new ApcEngine();
         } catch (ApcCacheUnavailableException $e) {
-            $this->assertTrue(true, false, 'ApcEngine failed to insantiate even though APC is enabled. Is it installed?');
+            $this->assertTrue(true, false, 'ApcEngine failed to insantiate. Is it installed?');
         }
 
         $this->assertEquals('Tickit\CacheBundle\Engine\ApcEngine', get_class($engine));
