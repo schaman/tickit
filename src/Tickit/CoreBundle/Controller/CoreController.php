@@ -36,4 +36,15 @@ class CoreController extends Controller
         return (null !== $token) ? $token->getUser() : null;
     }
 
+    /**
+     * Returns an instance of the caching factory which provides access to the different
+     * caching engines
+     *
+     * @return \Tickit\CacheBundle\Cache\Cache
+     */
+    protected function _getCacheFactory()
+    {
+        return $this->get('tickit_cache.factory');
+    }
+
 }
