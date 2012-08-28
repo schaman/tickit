@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class TickitCacheBundle
+class TickitCacheBundle extends Bundle
 {
 
 }
