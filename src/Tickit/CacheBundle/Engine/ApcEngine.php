@@ -2,6 +2,7 @@
 
 namespace Tickit\CacheBundle\Engine;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Exception\ApcCacheUnavailableException;
 
 /**
@@ -11,17 +12,23 @@ use Tickit\CacheBundle\Exception\ApcCacheUnavailableException;
  */
 class ApcEngine extends AbstractEngine
 {
+    /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
+    protected $container;
 
     /**
-     * Class constructor, checks whether APC is available
+     * Class constructor, checks whether APC is available and sets dependencies
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
      *
      * @throws ApcCacheUnavailableException If the APC cache is unavailable
      */
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
         if (false === $this->_isAvailable()) {
             throw new ApcCacheUnavailableException();
         }
+
+        $this->container = $container;
     }
 
     /**

@@ -26,6 +26,7 @@ class UserController extends CoreController
      */
     public function indexAction()
     {
+        $this->_getCacheFactory();
         //$userManager = $this->_getUserManager();
         //$user = $userManager->findUserByEmail('');
         return array();

@@ -2,6 +2,8 @@
 
 namespace Tickit\CacheBundle\Cache;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Core cache file which provides top level access to caching engines.
  *
@@ -25,6 +27,18 @@ class Cache implements CacheFactoryInterface
     const APC_ENGINE = 'apc';
     const FILE_ENGINE = 'file';
 
+    protected $container;
+
+    /**
+     * Class constructor, sets dependencies
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     /**
      * Factory method that instantiates a caching engine
      *
@@ -45,7 +59,7 @@ class Cache implements CacheFactoryInterface
 
         $engineClass = sprintf('\Tickit\CacheBundle\Engine\%sEngine', ucfirst($engine));
 
-        return new $engineClass();
+        return new $engineClass($this->container);
     }
 
     /**

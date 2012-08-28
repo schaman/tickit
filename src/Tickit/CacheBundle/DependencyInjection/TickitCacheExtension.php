@@ -24,8 +24,48 @@ class TickitCacheExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $configuration = new Configuration();
+        $processor = new Processor();
+
+        $config = $processor->processConfiguration($configuration, $configs);
+
         $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $xmlLoader->load('services.xml');
+
+        if (is_array($config['types']['file'])) {
+            $this->loadFile($config['types']['file'], $container);
+        }
+
+        if (is_array($config['types']['memcached'])) {
+            $this->loadMemcached($config['types']['memcached'], $container);
+        }
+
+        $container->setParameter('tickit_cache.apc.enabled', $config['types']['apc']);
+    }
+
+    /**
+     * Loads configuration for file cache
+     *
+     * @param array                                                   $config    The array of configs for the file cache
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container The container builder instance
+     */
+    protected function loadFile($config, ContainerBuilder $container)
+    {
+        $params = array('default_path', 'auto_serialize', 'default_prefix', 'umask');
+        foreach ($params as $param) {
+            $container->setParameter(sprintf('tickit_cache.file.%s', $param), $config[$param]);
+        }
+    }
+
+    /**
+     * Loads configuration for memcached cache
+     *
+     * @param array                                                   $config    The array of configs for memcached cache
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container The container builder instance
+     */
+    protected function loadMemcached($config, ContainerBuilder $container)
+    {
+        return; //todo -- add this to configuration
     }
 
     /**
