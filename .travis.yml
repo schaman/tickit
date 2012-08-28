@@ -4,14 +4,28 @@ php:
   - 5.4
 
 before_script:
+
+  # prepare config files and get vendors#
   - php app/Resources/data/travis-build.php
   - curl -s http://getcomposer.org/installer | php
   - COMPOSER_ROOT_VERSION=dev-master php composer.phar --dev install
+
+  # build database #
   - php app/console doctrine:database:create
   - php app/console doctrine:schema:create
   - php app/console doctrine:fixtures:load
   - pear install pear/PHP_CodeSniffer
+
+  # install APC #
+  - curl -o APC-3.1.10.tgz http://pecl.php.net/get/APC-3.1.10.tgz
+  - tar -xzf APC-3.1.10.tgz
+  - sh -c "cd APC-3.1.10 && phpize && ./configure && make && sudo make install && cd .."
+  - echo "extension=apc.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
+  # refresh php environment #
   - phpenv rehash
+
+  # run codesniffer #
   - git clone git://github.com/opensky/Symfony2-coding-standard.git ./Resources/Symfony2
   - phpcs --config-set default_standard ./Resources/Symfony2
 
@@ -24,3 +38,7 @@ notifications:
     - james.t.halsall@googlemail.com
     - mw870618@gmail.com
     - sparky@sparky-san.com
+
+branches:
+  only:
+    - master
