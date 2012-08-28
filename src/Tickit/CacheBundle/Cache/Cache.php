@@ -3,9 +3,19 @@
 namespace Tickit\CacheBundle\Cache;
 
 /**
- * Core cache file which provides top level access to caching engines
+ * Core cache file which provides top level access to caching engines.
  *
- * @todo This class will configured as a service so it will be available in the dependency injection container
+ * This factory class is available via the service container:
+ *
+ * <code>
+ *      $container->get('tickit_cache.factory');
+ * </code>
+ *
+ * Or if you're in a controller...
+ *
+ * <code>
+ *      $this->get('tickit_cache.factory');
+ * </code>
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
