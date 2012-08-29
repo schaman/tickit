@@ -5,13 +5,14 @@ namespace Tickit\CacheBundle\Tests\Engine;
 use PHPUnit_Framework_TestCase;
 use Tickit\CacheBundle\Engine\ApcEngine;
 use Tickit\CacheBundle\Exception\ApcCacheUnavailableException;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Test suite for the APC caching engine
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class ApcEngineTest extends PHPUnit_Framework_TestCase
+class ApcEngineTest extends WebTestCase
 {
     /**
      * Makes sure that the APC availability detection works as expected.
@@ -21,8 +22,10 @@ class ApcEngineTest extends PHPUnit_Framework_TestCase
      */
     public function testApcAvailability()
     {
+        $client = static::createClient();
+
         try {
-            $engine = new ApcEngine();
+            $engine = new ApcEngine($client->getContainer());
         } catch (ApcCacheUnavailableException $e) {
             $this->assertTrue(true, false, 'ApcEngine failed to insantiate. Is it installed?');
         }
