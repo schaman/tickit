@@ -9,6 +9,9 @@ namespace Tickit\CacheBundle\Engine;
  */
 abstract class AbstractEngine
 {
+    /* @var \Tickit\CacheBundle\Options\AbstractOptions $options */
+    protected $options;
+
     /**
      * Writes data to the cache
      *
@@ -31,4 +34,25 @@ abstract class AbstractEngine
      * @return mixed
      */
     abstract public function read($id);
+
+    /**
+     * Sets up the options for the cache
+     *
+     * @param mixed $options Either an instance of AbstractOptions or an array of options for the cache
+     *
+     * @abstract
+     *
+     * @return \Tickit\CacheBundle\Options\AbstractOptions;
+     */
+    abstract protected function setOptions($options);
+
+    /**
+     * Gets the options object for this cache
+     *
+     * @return \Tickit\CacheBundle\Options\AbstractOptions
+     */
+    protected function getOptions()
+    {
+        return $this->options;
+    }
 }

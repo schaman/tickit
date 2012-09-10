@@ -42,4 +42,19 @@ class MemcachedEngine extends AbstractEngine
         return '';
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setOptions($options)
+    {
+        if (!$options instanceof MemcachedOptions) {
+            $options = new MemcachedOptions($options);
+        }
+
+        $this->options = $options;
+
+        return $this->options;
+    }
+
 }

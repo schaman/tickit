@@ -4,6 +4,7 @@ namespace Tickit\CacheBundle\Engine;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Exception\ApcCacheUnavailableException;
+use Tickit\CacheBundle\Options\ApcOptions;
 
 /**
  * Caching engine for storing data in PHP's APC
@@ -19,11 +20,11 @@ class ApcEngine extends AbstractEngine
      * Class constructor, checks whether APC is available and sets dependencies
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
-     * @param array                                                     $options   [Optional] An array of options for the cache
+     * @param \Tickit\CacheBundle\Options\ApcOptions|array              $options   [Optional] An array of options, or an options object, for the cache
      *
      * @throws \Tickit\CacheBundle\Exception\ApcCacheUnavailableException
      */
-    public function __construct(ContainerInterface $container, array $options = null)
+    public function __construct(ContainerInterface $container, $options = null)
     {
         if (false === $this->_isAvailable()) {
             throw new ApcCacheUnavailableException();
@@ -48,6 +49,19 @@ class ApcEngine extends AbstractEngine
         return '';
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function setOptions($options)
+    {
+        if (!$options instanceof ApcOptions) {
+            $options = new ApcOptions($options);
+        }
+
+        $this->options = $options;
+
+        return $this->options;
+    }
 
     /**
      * Returns true if APC is available, false otherwise

@@ -67,4 +67,19 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
 
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setOptions($options)
+    {
+        if (!$options instanceof FileOptions) {
+            $options = new FileOptions($options);
+        }
+
+        $this->options = $options;
+
+        return $this->options;
+    }
+
 }
