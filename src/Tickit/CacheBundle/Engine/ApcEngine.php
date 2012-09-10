@@ -19,10 +19,11 @@ class ApcEngine extends AbstractEngine
      * Class constructor, checks whether APC is available and sets dependencies
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     * @param array                                                     $options   [Optional] An array of options for the cache
      *
-     * @throws ApcCacheUnavailableException If the APC cache is unavailable
+     * @throws \Tickit\CacheBundle\Exception\ApcCacheUnavailableException
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, array $options = null)
     {
         if (false === $this->_isAvailable()) {
             throw new ApcCacheUnavailableException();

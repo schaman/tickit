@@ -19,8 +19,9 @@ class MemcachedEngine extends AbstractEngine
      * Class constructor, sets dependencies
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     * @param array                                                     $options   An array of options for the cache
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, array $options = null)
     {
         $this->container = $container;
     }

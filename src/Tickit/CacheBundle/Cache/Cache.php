@@ -59,7 +59,7 @@ class Cache implements CacheFactoryInterface
 
         $engineClass = sprintf('\Tickit\CacheBundle\Engine\%sEngine', ucfirst($engine));
 
-        return new $engineClass($this->container);
+        return new $engineClass($this->container, $options);
     }
 
     /**

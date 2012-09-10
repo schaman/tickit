@@ -10,27 +10,40 @@ namespace Tickit\CacheBundle\Types;
 interface TaggableCacheInterface
 {
     /**
-     * Writes data to the cache and adds tags
+     * Adds a bunch of tags to a cache item
      *
-     * @param mixed $data An object, array or string of data to cache
+     * @param mixed $id   The identifier of the cache item
      * @param array $tags An array of tags to associate with the cached data
-     * @param int   $id   [Optional] A unique identifier for the cached data, if not provided one will automatically be generated
      *
      * @abstract
      *
      * @return void
      */
-    public function writeWithTags($data, array $tags, $id = null);
+    public function addTags($id, array $tags);
 
     /**
      * Reads data from the cache that matches an array of tags
      *
-     * @param array $tags An array of tags used to search the cache
+     * @param array $tags         An array of tags used to search the cache
+     * @param bool  $partialMatch If true, only one of the tags needs to match for the data to be returned
      *
      * @abstract
      *
      * @return mixed
      */
-    public function readFromTags(array $tags);
+    public function findByTags(array $tags, $partialMatch = false);
+
+
+    /**
+     * Removes cached data that matches a collection of tags
+     *
+     * @param array $tags         An array of tags to match on
+     * @param bool  $partialMatch If true, only one of the tags needs to match for the data to be removed
+     *
+     * @abstract
+     *
+     * @return mixed
+     */
+    public function removeByTags(array $tags, $partialMatch = false);
 
 }
