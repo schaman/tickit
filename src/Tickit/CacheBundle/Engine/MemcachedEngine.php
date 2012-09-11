@@ -3,6 +3,7 @@
 namespace Tickit\CacheBundle\Engine;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Tickit\CacheBundle\Options\MemcachedOptions;
 
 /**
  * Caching engine for storing data in memcached server instance(s)
@@ -29,15 +30,15 @@ class MemcachedEngine extends AbstractEngine
     /**
      * {@inheritDoc}
      */
-    public function write($id, $data, array $tags = null)
+    public function internalWrite($id, $data)
     {
-
+        //write data to memcached cache
     }
 
     /**
      * {@inheritDoc}
      */
-    public function read($id)
+    public function internalRead($id)
     {
         return '';
     }

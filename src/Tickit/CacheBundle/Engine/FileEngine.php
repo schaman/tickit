@@ -4,6 +4,7 @@ namespace Tickit\CacheBundle\Engine;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Types\TaggableCacheInterface;
+use Tickit\CacheBundle\Options\FileOptions;
 
 /**
  * Caching engine for the file cache
@@ -30,15 +31,15 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
     /**
      * {@inheritDoc}
      */
-    public function write($id, $data, array $tags = null)
+    public function internalWrite($id, $data)
     {
-
+        //write data to file cache
     }
 
     /**
      * {@inheritDoc}
      */
-    public function read($id)
+    public function internalRead($id)
     {
         return '';
     }
@@ -77,9 +78,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
             $options = new FileOptions($options);
         }
 
-        $this->options = $options;
-
-        return $this->options;
+        return parent::setOptions($options);
     }
 
 }

@@ -36,15 +36,15 @@ class ApcEngine extends AbstractEngine
     /**
      * {@inheritDoc}
      */
-    public function write($id, $data, array $tags = null)
+    public function internalWrite($id, $data)
     {
-
+        //write data to apc cache
     }
 
     /**
      * {@inheritDoc}
      */
-    public function read($id)
+    protected function internalRead($id)
     {
         return '';
     }
@@ -58,9 +58,7 @@ class ApcEngine extends AbstractEngine
             $options = new ApcOptions($options);
         }
 
-        $this->options = $options;
-
-        return $this->options;
+        return parent::setOptions($options);
     }
 
     /**
