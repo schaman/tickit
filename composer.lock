@@ -62,8 +62,8 @@
         {
             "package": "gedmo/doctrine-extensions",
             "version": "dev-master",
-            "source-reference": "4e8a3a920eedaba4e76c26a92347e9b47bb7ffdf",
-            "commit-date": "1346486653"
+            "source-reference": "8690cabf9c750fe44a257a8c7e905cdc36931674",
+            "commit-date": "1347372790"
         },
         {
             "package": "jms/aop-bundle",
