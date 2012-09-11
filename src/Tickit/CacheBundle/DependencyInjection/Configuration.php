@@ -31,7 +31,7 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('default_path')->defaultValue('%kernel.root_dir%/cache')->end()
                                 ->booleanNode('auto_serialize')->defaultValue(false)->end()
-                                ->scalarNode('default_prefix')->defaultValue('tickit_cache')->end()
+                                ->scalarNode('default_namespace')->defaultValue('tickit_cache')->end()
                                 ->scalarNode('umask')->defaultValue('600')->end()
                             ->end()
                         ->end()

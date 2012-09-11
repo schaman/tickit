@@ -51,7 +51,7 @@ class TickitCacheExtension extends Extension
      */
     protected function loadFile($config, ContainerBuilder $container)
     {
-        $params = array('default_path', 'auto_serialize', 'default_prefix', 'umask');
+        $params = array('default_path', 'auto_serialize', 'default_namespace', 'umask');
         foreach ($params as $param) {
             $container->setParameter(sprintf('tickit_cache.file.%s', $param), $config[$param]);
         }
