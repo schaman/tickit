@@ -26,6 +26,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
     public function __construct(ContainerInterface $container, array $options = null)
     {
         $this->container = $container;
+        $this->setOptions($options);
     }
 
     /**
@@ -75,7 +76,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
     protected function setOptions($options)
     {
         if (!$options instanceof FileOptions) {
-            $options = new FileOptions($options);
+            $options = new FileOptions($options, $this->container);
         }
 
         return parent::setOptions($options);

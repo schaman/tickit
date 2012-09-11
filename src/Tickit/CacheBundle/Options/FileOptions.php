@@ -2,6 +2,8 @@
 
 namespace Tickit\CacheBundle\Options;
 
+use Tickit\CacheBundle\Options\Exception\InvalidOptionException;
+
 /**
  * Options resolver class for the File caching engine
  *
@@ -9,15 +11,48 @@ namespace Tickit\CacheBundle\Options;
  */
 class FileOptions extends AbstractOptions
 {
+    /**
+     * The cache directory
+     *
+     * @var string $cacheDir
+     */
+    protected $cacheDir;
 
     /**
-     * Constructs the options object and resolves
+     * Sets the desired path to the cache file directory
      *
-     * @param array $options An array of user defined options
+     * @param string $path The full working path to the cache directory
+     *
+     * @throws \Tickit\CacheBundle\Options\Exception\InvalidOptionException
      */
-    public function __construct(array $options)
+    public function setCacheDir($path)
     {
-        //build options
+        if (!is_writable($path)) {
+            throw new InvalidOptionException();
+        }
+
+        $this->cacheDir = $path;
+    }
+
+    /**
+     * Overrides abstract implementation and sets up engine specific options
+     *
+     * @param array $options The raw array of user defined options
+     */
+    protected function _resolveOptions(array $options)
+    {
+        if (!isset($options['cache_dir'])) {
+            $options['cache_dir'] = '';
+        }
+
+        try {
+            $this->setCacheDir($options['cache_dir']);
+        } catch (InvalidOptionException $e) {
+            $defaultCacheDir = $this->container->getParameter('tickit_cache.file.default_path');
+            $this->setCacheDir($defaultCacheDir);
+        }
+
+        parent::_resolveOptions($options);
     }
 
 }

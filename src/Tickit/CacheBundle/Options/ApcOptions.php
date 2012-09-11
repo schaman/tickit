@@ -10,14 +10,4 @@ namespace Tickit\CacheBundle\Options;
 class ApcOptions extends AbstractOptions
 {
 
-    /**
-     * Constructs the options object and resolves
-     *
-     * @param array $options An array of user defined options
-     */
-    public function __construct(array $options)
-    {
-        //build options
-    }
-
 }

@@ -26,11 +26,13 @@ class ApcEngine extends AbstractEngine
      */
     public function __construct(ContainerInterface $container, $options = null)
     {
+        $this->container = $container;
+
         if (false === $this->_isAvailable()) {
             throw new ApcCacheUnavailableException();
         }
 
-        $this->container = $container;
+        $this->setOptions($options);
     }
 
     /**
@@ -55,7 +57,7 @@ class ApcEngine extends AbstractEngine
     protected function setOptions($options)
     {
         if (!$options instanceof ApcOptions) {
-            $options = new ApcOptions($options);
+            $options = new ApcOptions($options, $this->container);
         }
 
         return parent::setOptions($options);

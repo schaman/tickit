@@ -25,6 +25,7 @@ class MemcachedEngine extends AbstractEngine
     public function __construct(ContainerInterface $container, array $options = null)
     {
         $this->container = $container;
+        $this->setOptions($options);
     }
 
     /**
@@ -50,7 +51,7 @@ class MemcachedEngine extends AbstractEngine
     protected function setOptions($options)
     {
         if (!$options instanceof MemcachedOptions) {
-            $options = new MemcachedOptions($options);
+            $options = new MemcachedOptions($options, $this->container);
         }
 
         $this->options = $options;

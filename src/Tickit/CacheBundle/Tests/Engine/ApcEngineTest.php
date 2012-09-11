@@ -25,7 +25,7 @@ class ApcEngineTest extends WebTestCase
         $client = static::createClient();
 
         try {
-            $engine = new ApcEngine($client->getContainer());
+            $engine = new ApcEngine($client->getContainer(), array());
         } catch (ApcCacheUnavailableException $e) {
             $this->assertTrue(true, false, 'ApcEngine failed to insantiate. Is it installed?');
         }
