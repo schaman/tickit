@@ -2,7 +2,6 @@
 
 namespace Tickit\CacheBundle\Tests\Engine;
 
-use PHPUnit_Framework_TestCase;
 use Tickit\CacheBundle\Engine\ApcEngine;
 use Tickit\CacheBundle\Exception\ApcCacheUnavailableException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

@@ -80,7 +80,7 @@ abstract class AbstractEngine
      *
      * @return \Tickit\CacheBundle\Options\AbstractOptions
      */
-    protected function getOptions()
+    public function getOptions()
     {
         return $this->options;
     }

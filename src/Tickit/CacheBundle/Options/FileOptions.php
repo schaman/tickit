@@ -35,6 +35,16 @@ class FileOptions extends AbstractOptions
     }
 
     /**
+     * Gets the cache directory option
+     *
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        return $this->cacheDir;
+    }
+
+    /**
      * Overrides abstract implementation and sets up engine specific options
      *
      * @param array $options The raw array of user defined options
