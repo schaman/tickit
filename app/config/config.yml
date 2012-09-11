@@ -78,8 +78,8 @@ stof_doctrine_extensions:
 
 # TickitCacheBundle configuration
 tickit_cache:
+    default_namespace: tickit
     types:
         file:
             auto_serialize: true
-            default_namespace: tickit
         apc: true

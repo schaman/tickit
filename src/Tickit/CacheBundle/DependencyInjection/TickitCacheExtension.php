@@ -40,6 +40,7 @@ class TickitCacheExtension extends Extension
             $this->loadMemcached($config['types']['memcached'], $container);
         }
 
+        $container->setParameter('tickit_cache.default_namespace', $config['default_namespace']);
         $container->setParameter('tickit_cache.apc.enabled', $config['types']['apc']);
     }
 
@@ -51,7 +52,7 @@ class TickitCacheExtension extends Extension
      */
     protected function loadFile($config, ContainerBuilder $container)
     {
-        $params = array('default_path', 'auto_serialize', 'default_namespace', 'umask');
+        $params = array('default_path', 'auto_serialize', 'umask');
         foreach ($params as $param) {
             $container->setParameter(sprintf('tickit_cache.file.%s', $param), $config[$param]);
         }
