@@ -17,7 +17,7 @@ class FileEngineTest extends WebTestCase
      * Makes sure that the file engine is working together with the options resolver
      * to correctly configure valid options for the file cache engine
      */
-    public function testValidEngineOptions()
+    public function testValidOptions()
     {
         $client = static::createClient();
 

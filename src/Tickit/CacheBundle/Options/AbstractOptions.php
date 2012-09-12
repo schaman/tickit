@@ -49,6 +49,16 @@ abstract class AbstractOptions
     }
 
     /**
+     * Returns the current namespace for this set of options
+     *
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
      * Sanitizes a namespace ready for use
      *
      * @param string $namespace The unsanitized namespace
@@ -57,7 +67,7 @@ abstract class AbstractOptions
      */
     protected function _sanitizeNamespace($namespace)
     {
-        return preg_replace('/^[a-zA-Z0-9]/', '', $namespace);
+        return preg_replace('/[^a-zA-Z0-9]*/', '', $namespace);
     }
 
 
