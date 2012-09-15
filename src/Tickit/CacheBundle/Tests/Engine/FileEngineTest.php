@@ -17,7 +17,7 @@ class FileEngineTest extends WebTestCase
      * Makes sure that the file engine is working together with the options resolver
      * to correctly configure valid options for the file cache engine
      */
-    public function testValidOptions()
+    public function testValidCacheDirectoryOption()
     {
         $client = static::createClient();
 
@@ -25,7 +25,6 @@ class FileEngineTest extends WebTestCase
             'cache_dir' => '/tmp'
         );
 
-        /* @var FileEngine $cache */
         $cache = new FileEngine($client->getContainer(), $options);
         $this->assertEquals('/tmp', $cache->getOptions()->getCacheDir());
     }
@@ -42,9 +41,23 @@ class FileEngineTest extends WebTestCase
             'cache_dir' => '/etc'
         );
 
-        /* @var FileEngine $cache */
         $cache = new FileEngine($client->getContainer(), $options);
         $this->assertEquals('/tmp', $cache->getOptions()->getCacheDir());
+    }
+
+    /**
+     * Makes sure that the auto_serialize option is properly configured
+     */
+    public function testValidAutoSerializeOption()
+    {
+        $client = static::createClient();
+
+        $options = array(
+            'auto_serialize' => false
+        );
+
+        $cache = new FileEngine($client->getContainer(), $options);
+        $this->assertEquals(false, $cache->getOptions()->getAutoSerialize());
     }
 
 }

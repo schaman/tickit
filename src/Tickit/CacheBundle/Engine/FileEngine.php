@@ -35,6 +35,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
     public function internalWrite($id, $data)
     {
         $dir = $this->buildDirectory();
+        $id = $this->sanitizeIdentifier($id);
 
         if (!file_exists($dir)) {
             if (false === mkdir($dir, 0766, true)) {
@@ -45,6 +46,15 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
         }
 
         $writeData = $this->prepareData($data);
+        $written = file_put_contents(sprintf('%s/%s', $dir, $id), $writeData, LOCK_EX);
+
+        if (false === $written) {
+            throw new Exception\PermissionDeniedException(
+                sprintf('Permission denied writing data (with identifier of %s) to %s in class %s on line %d', $id, $dir, __CLASS__, __LINE__)
+            );
+        }
+
+        return $id;
     }
 
     /**
@@ -52,7 +62,18 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
      */
     public function internalRead($id)
     {
-        return '';
+        $dir = $this->buildDirectory();
+        $id = $this->sanitizeIdentifier($id);
+
+        $fullPath = sprintf('%s/%s', $dir, $id);
+
+        if (!is_readable($fullPath)) {
+            return null;
+        }
+
+        $contents = file_get_contents($fullPath);
+
+        return $this->unpackContents($contents);
     }
 
     /**
@@ -115,6 +136,8 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
      *                    (if auto_serialize is disabled an exception will be thrown)
      *
      * @throws \Tickit\CacheBundle\Engine\Exception\NotCacheableException
+     *
+     * @return string
      */
     protected function prepareData($data)
     {
@@ -123,15 +146,42 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
         if (is_object($data)) {
             if (false === $autoSerialize) {
                 throw new Exception\NotCacheableException(
-                    'This data cannot be cached, it is an unserialized instance of %s and Tickit cache\'s auto serialize is disabled',
-                    get_class($data)
+                    sprintf(
+                        'This data cannot be cached, it is an unserialized instance of %s and Tickit cache\'s auto serialize is disabled',
+                        get_class($data)
+                    )
                 );
             }
 
-            //serialize
+            $data = serialize($data);
         }
 
-
+        return $data;
     }
+
+    /**
+     * Unpacks a raw piece of data retrieved from the cache and returns it in a valid
+     * format
+     *
+     * @param string $contents The raw string of data retrieved from the cache
+     *
+     * @return bool|string
+     */
+    protected function unpackContents($contents)
+    {
+        $unserializedContent = @unserialize($contents);
+
+        //check for boolean false in serialized form
+        if ('b:0;' === $contents) {
+            return false;
+        }
+
+        if (false === $unserializedContent) {
+            return $contents;
+        }
+
+        return $unserializedContent;
+    }
+
 
 }

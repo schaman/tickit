@@ -58,4 +58,16 @@ abstract class AbstractEngine
     {
         return $this->options;
     }
+
+    /**
+     * Sanitizes an identifier so that is safe for use in the cache engine
+     *
+     * @param mixed $id The raw identifier
+     *
+     * @return string
+     */
+    protected function sanitizeIdentifier($id)
+    {
+        return preg_replace('/[^a-zA-Z0-9]*/', '', $id);
+    }
 }

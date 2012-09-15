@@ -104,7 +104,7 @@ abstract class AbstractOptions
      */
     protected function getRawOption($name, $fallbackValue)
     {
-        if (!empty($this->options[$name])) {
+        if (isset($this->options[$name])) {
             return $this->options[$name];
         }
 
