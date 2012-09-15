@@ -3,7 +3,7 @@
 namespace Tickit\CacheBundle\Cache;
 
 /**
- * Interface for a class that provides caching functionality
+ * Interface for a class that provides a cache factory
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */

@@ -16,7 +16,7 @@ class Cache
     protected $engine;
 
     /**
-     * Class constructor, sets up engine and options objects
+     * Class constructor, sets up engine
      *
      * @param \Tickit\CacheBundle\Engine\AbstractEngine $engine The engine adapter
      */
