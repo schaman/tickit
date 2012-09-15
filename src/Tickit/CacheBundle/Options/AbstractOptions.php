@@ -27,6 +27,13 @@ abstract class AbstractOptions
     protected $container;
 
     /**
+     * The array of options passed to this resolver object
+     *
+     * @var array $options
+     */
+    protected $options;
+
+    /**
      * Constructs the options object and resolves
      *
      * @param array                                                     $options   An array of user defined options
@@ -34,8 +41,9 @@ abstract class AbstractOptions
      */
     public function __construct(array $options, ContainerInterface $container)
     {
+        $this->options = $options;
         $this->container = $container;
-        $this->_resolveOptions($options);
+        $this->_resolveOptions();
     }
 
     /**
@@ -67,29 +75,40 @@ abstract class AbstractOptions
      */
     protected function _sanitizeNamespace($namespace)
     {
-        return preg_replace('/[^a-zA-Z0-9]*/', '', $namespace);
+        return preg_replace('/[^a-zA-Z0-9\.]*/', '', $namespace);
     }
-
 
     /**
      * Resolves options and sets properties on the options object
-     *
-     * @param array $options The raw array of user defined options
      */
-    protected function _resolveOptions(array $options)
+    protected function _resolveOptions()
     {
-        if (isset($options['namespace'])) {
-            try {
-                $this->setNamespace($options['namespace']);
-            } catch (InvalidOptionException $e) {
-                //do nothing
-            }
-        }
+        $namespace = $this->getRawOption('namespace', null);
 
-        if (null === $this->namespace) {
+        if (null !== $namespace) {
+            $this->setNamespace($namespace);
+        } else {
             $defaultNamespace = $this->container->getParameter('tickit_cache.default_namespace');
             $this->setNamespace($defaultNamespace);
         }
+    }
+
+    /**
+     * Returns a value determined by its key from the raw array of options passed
+     * into the option resolver's constructor
+     *
+     * @param string $name          The name of the option to fetch
+     * @param mixed  $fallbackValue The value to return if the option does not exist
+     *
+     * @return mixed
+     */
+    protected function getRawOption($name, $fallbackValue)
+    {
+        if (!empty($this->options[$name])) {
+            return $this->options[$name];
+        }
+
+        return $fallbackValue;
     }
 
 }

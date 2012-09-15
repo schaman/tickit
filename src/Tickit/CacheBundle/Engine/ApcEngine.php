@@ -40,13 +40,13 @@ class ApcEngine extends AbstractEngine
      */
     public function internalWrite($id, $data)
     {
-        //write data to apc cache
+
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function internalRead($id)
+    public function internalRead($id)
     {
         return '';
     }

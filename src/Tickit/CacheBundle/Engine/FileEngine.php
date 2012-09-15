@@ -34,7 +34,17 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
      */
     public function internalWrite($id, $data)
     {
-        //write data to file cache
+        $dir = $this->buildDirectory();
+
+        if (!file_exists($dir)) {
+            if (false === mkdir($dir, 0766, true)) {
+                throw new Exception\PermissionDeniedException(
+                    sprintf('Permission denied creating (%s) in %s on line %s', $dir, __CLASS__, __LINE__)
+                );
+            }
+        }
+
+        $writeData = $this->prepareData($data);
     }
 
     /**
@@ -80,6 +90,48 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
         }
 
         return parent::setOptions($options);
+    }
+
+    /**
+     * Builds a directory structure for the current cache based off the
+     * options object
+     *
+     * @return string
+     */
+    protected function buildDirectory()
+    {
+        $basePath = $this->getOptions()->getCacheDir();
+        $namespace = $this->getOptions()->getNamespace();
+        $folders = explode('.', $namespace);
+
+        return sprintf('%s/%s', $basePath, implode(DIRECTORY_SEPARATOR, $folders));
+    }
+
+
+    /**
+     * Prepares a piece of data for writing to the file cache
+     *
+     * @param mixed $data The data to cache, if this data is an object then it will be serialized
+     *                    (if auto_serialize is disabled an exception will be thrown)
+     *
+     * @throws \Tickit\CacheBundle\Engine\Exception\NotCacheableException
+     */
+    protected function prepareData($data)
+    {
+        $autoSerialize = $this->getOptions()->getAutoSerialize();
+
+        if (is_object($data)) {
+            if (false === $autoSerialize) {
+                throw new Exception\NotCacheableException(
+                    'This data cannot be cached, it is an unserialized instance of %s and Tickit cache\'s auto serialize is disabled',
+                    get_class($data)
+                );
+            }
+
+            //serialize
+        }
+
+
     }
 
 }

@@ -2,80 +2,61 @@
 
 namespace Tickit\CacheBundle\Cache;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Tickit\CacheBundle\Engine\AbstractEngine;
 
 /**
- * Core cache file which provides top level access to caching engines.
- *
- * This factory class is available via the service container:
- *
- * <code>
- *      $container->get('tickit_cache.factory');
- * </code>
- *
- * Or if you're in a controller...
- *
- * <code>
- *      $this->get('tickit_cache.factory');
- * </code>
+ * Base cache file that integrates an engine and an options object
+ * to provider read/write functionality
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class Cache implements CacheFactoryInterface
+class Cache
 {
-    const MEMCACHED_ENGINE = 'memcached';
-    const APC_ENGINE = 'apc';
-    const FILE_ENGINE = 'file';
-
-    protected $container;
+    /* @var \Tickit\CacheBundle\Engine\AbstractEngine $engine */
+    protected $engine;
 
     /**
-     * Class constructor, sets dependencies
+     * Class constructor, sets up engine and options objects
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     * @param \Tickit\CacheBundle\Engine\AbstractEngine $engine The engine adapter
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(AbstractEngine $engine)
     {
-        $this->container = $container;
+        $this->engine = $engine;
     }
 
     /**
-     * Factory method that instantiates a caching engine
+     * Reads data from the cache engine
      *
-     * @param string $engine  The name of the caching engine to instantiate
-     * @param array  $options An array of options to override the application defaults
+     * @param string|int $id
      *
-     * @throws \Tickit\CacheBundle\Exception\InvalidArgumentException If an invalid caching engine is provided
+     * @return mixed
+     */
+    public function read($id)
+    {
+        return $this->getEngine()->internalRead($id);
+    }
+
+    /**
+     * Writes a bunch of data to the cache engine
+     *
+     * @param string|int $id   The unique ID for this piece of data
+     * @param mixed      $data The data to write to the cache
+     *
+     * @return mixed
+     */
+    public function write($id, $data)
+    {
+        return $this->getEngine()->internalWrite($id, $data);
+    }
+
+    /**
+     * Gets the caching engine associated with this cache
      *
      * @return \Tickit\CacheBundle\Engine\AbstractEngine
      */
-    public function factory($engine, array $options = null)
+    public function getEngine()
     {
-        if (false === $this->_isEngineValid($engine)) {
-            throw new \Tickit\CacheBundle\Exception\InvalidArgumentException();
-        }
-
-        //do any configuration here
-
-        $engineClass = sprintf('\Tickit\CacheBundle\Engine\%sEngine', ucfirst($engine));
-
-        return new $engineClass($this->container, $options);
+        return $this->engine;
     }
-
-    /**
-     * Verifies that a caching engine name is valid
-     *
-     * @param string $engine
-     *
-     * @return bool
-     */
-    private function _isEngineValid($engine)
-    {
-        return in_array($engine, array(
-            self::MEMCACHED_ENGINE,
-            self::APC_ENGINE,
-            self::FILE_ENGINE
-        ));
-    }
-
 }

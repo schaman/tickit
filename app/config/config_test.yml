@@ -14,7 +14,7 @@ swiftmailer:
     disable_delivery: true
 
 tickit_cache:
-    default_namespace: tickit
+    default_namespace: "tickit.cache"
     types:
         file:
             auto_serialize: true

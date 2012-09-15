@@ -61,7 +61,7 @@ class AbstractOptionsTest extends WebTestCase
         $args = array(array(), $client->getContainer());
         $mock = $this->getMockForAbstractClass('Tickit\CacheBundle\Options\AbstractOptions', $args);
 
-        $this->assertEquals('tickit', $mock->getNamespace());
+        $this->assertEquals('tickit.cache', $mock->getNamespace());
     }
 
 }

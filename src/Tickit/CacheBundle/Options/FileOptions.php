@@ -19,6 +19,14 @@ class FileOptions extends AbstractOptions
     protected $cacheDir;
 
     /**
+     * Boolean value indicating whether data should be automatically
+     * serialized before caching
+     *
+     * @var bool $autoSerialize
+     */
+    protected $autoSerialize;
+
+    /**
      * Sets the desired path to the cache file directory
      *
      * @param string $path The full working path to the cache directory
@@ -34,6 +42,19 @@ class FileOptions extends AbstractOptions
         $this->cacheDir = $path;
     }
 
+
+    /**
+     * Returns true if the current options requires that serialization
+     * of data should be automatic, false otherwise
+     *
+     * @return bool
+     */
+    public function getAutoSerialize()
+    {
+        return $this->autoSerialize;
+    }
+
+
     /**
      * Gets the cache directory option
      *
@@ -46,23 +67,26 @@ class FileOptions extends AbstractOptions
 
     /**
      * Overrides abstract implementation and sets up engine specific options
-     *
-     * @param array $options The raw array of user defined options
      */
-    protected function _resolveOptions(array $options)
+    protected function _resolveOptions()
     {
-        if (!isset($options['cache_dir'])) {
-            $options['cache_dir'] = '';
-        }
+        $cacheDir = $this->getRawOption('cache_dir', '');
 
         try {
-            $this->setCacheDir($options['cache_dir']);
+            $this->setCacheDir($cacheDir);
         } catch (InvalidOptionException $e) {
             $defaultCacheDir = $this->container->getParameter('tickit_cache.file.default_path');
             $this->setCacheDir($defaultCacheDir);
         }
 
-        parent::_resolveOptions($options);
+        $autoSerialize = $this->getRawOption('auto_serialize', null);
+        if (is_bool($autoSerialize)) {
+            $this->autoSerialize = $autoSerialize;
+        } else {
+            $this->autoSerialize = $this->container->getParameter('tickit_cache.file.auto_serialize');
+        }
+
+        parent::_resolveOptions();
     }
 
 }

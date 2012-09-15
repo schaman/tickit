@@ -3,16 +3,16 @@
 namespace Tickit\CacheBundle\Tests\Cache;
 
 use PHPUnit_Framework_TestCase;
-use Tickit\CacheBundle\Cache\Cache;
+use Tickit\CacheBundle\Cache\CacheFactory;
 use Tickit\CacheBundle\Exception\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Test suite for the core cache file
+ * Test suite for the core cache factory file
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class CacheTest extends WebTestCase
+class CacheFactoryTest extends WebTestCase
 {
     /**
      * Makes sure that the factory method of the Cache core file returns the correct engines
@@ -20,15 +20,18 @@ class CacheTest extends WebTestCase
     public function testValidEnginesInFactory()
     {
         $client = static::createClient();
-        $cacheFactory = new Cache($client->getContainer());
+        $cacheFactory = new CacheFactory($client->getContainer());
 
-        $apcEngine = $cacheFactory->factory(Cache::APC_ENGINE, array());
+        $apcCache = $cacheFactory->factory(CacheFactory::APC_ENGINE, array());
+        $apcEngine = $apcCache->getEngine();
         $this->assertEquals('Tickit\CacheBundle\Engine\ApcEngine', get_class($apcEngine));
 
-        $memcachedEngine = $cacheFactory->factory(Cache::MEMCACHED_ENGINE, array());
+        $memcachedCache = $cacheFactory->factory(CacheFactory::MEMCACHED_ENGINE, array());
+        $memcachedEngine = $memcachedCache->getEngine();
         $this->assertEquals('Tickit\CacheBundle\Engine\MemcachedEngine', get_class($memcachedEngine));
 
-        $fileEngine = $cacheFactory->factory(Cache::FILE_ENGINE, array());
+        $fileCache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array());
+        $fileEngine = $fileCache->getEngine();
         $this->assertEquals('Tickit\CacheBundle\Engine\FileEngine', get_class($fileEngine));
     }
 
@@ -38,7 +41,7 @@ class CacheTest extends WebTestCase
     public function testInvalidEngineInFactory()
     {
         $client = static::createClient();
-        $cacheFactory = new Cache($client->getContainer());
+        $cacheFactory = new CacheFactory($client->getContainer());
 
         $invalidEngineName = 'BlahBlah';
 
