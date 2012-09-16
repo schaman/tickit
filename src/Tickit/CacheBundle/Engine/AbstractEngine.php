@@ -3,6 +3,7 @@
 namespace Tickit\CacheBundle\Engine;
 
 use Tickit\CacheBundle\Options\AbstractOptions;
+use Tickit\CacheBundle\Util\Sanitizer;
 
 /**
  * Abstract caching engine providing base functionality for data caching
@@ -68,6 +69,8 @@ abstract class AbstractEngine
      */
     protected function sanitizeIdentifier($id)
     {
-        return preg_replace('/[^a-zA-Z0-9]*/', '', $id);
+        $sanitizer = new Sanitizer();
+
+        return $sanitizer->sanitizeIdentifier($id);
     }
 }

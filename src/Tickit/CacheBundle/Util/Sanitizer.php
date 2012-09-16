@@ -2,6 +2,8 @@
 
 namespace Tickit\CacheBundle\Util;
 
+use InvalidArgumentException;
+
 /**
  * Helper class that provides sanitization functionality for caching
  *
@@ -17,11 +19,19 @@ class Sanitizer
      * @param mixed $identifier The identifier that needs sanitizing
      *
      * @return mixed
+     *
+     * @throws InvalidArgumentException If the $identifier parameter is empty
      */
     public function sanitizeIdentifier($identifier)
     {
-        if (!is_string($identifier)) {
-            $identifier = preg_replace('/^[0-9a-z]/i/', '', $identifier);
+        if (empty($identifier) && $identifier !== 0) {
+            throw new InvalidArgumentException(
+                sprintf('The identifier provided in %s on line %d must not be empty', __CLASS__, __LINE__)
+            );
+        }
+
+        if (is_string($identifier)) {
+            $identifier = preg_replace('/[^0-9a-z]*/i', '', $identifier);
         }
 
         return $identifier;
