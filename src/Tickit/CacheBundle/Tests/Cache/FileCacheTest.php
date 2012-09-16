@@ -83,6 +83,32 @@ class FileCacheTest extends WebTestCase
 
 
     /**
+     * Makes sure that cache purging behaves as expected
+     */
+    public function testCachePurge()
+    {
+        $client = static::createClient();
+
+        $cacheFactory = new CacheFactory($client->getContainer());
+        $cacheOne = $cacheFactory->factory('file', array('namespace' => 'one'));
+        $cacheTwo = $cacheFactory->factory('file', array('namespace' => 'two'));
+
+        $cacheOne->write(1, 'some data');
+        $cacheTwo->write(1, 'some other data');
+
+        $this->assertEquals('some data', $cacheOne->read(1));
+        $this->assertEquals('some other data', $cacheTwo->read(1));
+
+        $cacheOne->purge('one');
+        $this->assertEquals(null, $cacheOne->read(1));
+        $this->assertEquals('some other data', $cacheTwo->read(1));
+
+        $cacheTwo->purge();
+        $this->assertEquals(null, $cacheTwo->read(1));
+    }
+
+
+    /**
      * Builds a simple object for testing in cache writes/reads
      *
      * @return stdClass

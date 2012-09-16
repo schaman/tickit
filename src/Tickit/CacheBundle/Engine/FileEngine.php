@@ -5,13 +5,15 @@ namespace Tickit\CacheBundle\Engine;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Types\TaggableCacheInterface;
 use Tickit\CacheBundle\Options\FileOptions;
+use Tickit\CacheBundle\Types\PurgeableCacheInterface;
+use Tickit\CacheBundle\Util\FilePurger;
 
 /**
  * Caching engine for the file cache
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class FileEngine extends AbstractEngine implements TaggableCacheInterface
+class FileEngine extends AbstractEngine implements TaggableCacheInterface, PurgeableCacheInterface
 {
 
     /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
@@ -100,6 +102,28 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function purgeAll()
+    {
+        $cacheDir = $this->buildDirectory(false);
+        $purger = new FilePurger($cacheDir);
+
+        $purger->purgeAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function purgeNamespace($namespace)
+    {
+        $fullPath = $this->buildDirectory();
+        $purger = new FilePurger($fullPath);
+
+        $purger->purgeAll();
+    }
+
 
     /**
      * {@inheritDoc}
@@ -117,15 +141,22 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
      * Builds a directory structure for the current cache based off the
      * options object
      *
+     * @param bool $includeNamespace [Optional] False to ignore namespaces when building the directory, defaults to true
+     *
      * @return string
      */
-    protected function buildDirectory()
+    protected function buildDirectory($includeNamespace = true)
     {
+        $folders = array();
         $basePath = $this->getOptions()->getCacheDir();
-        $namespace = $this->getOptions()->getNamespace();
-        $folders = explode('.', $namespace);
 
-        return sprintf('%s/%s', $basePath, implode(DIRECTORY_SEPARATOR, $folders));
+        if (true === $includeNamespace) {
+            $namespace = $this->getOptions()->getNamespace();
+            $folders = explode('.', $namespace);
+        }
+
+        //TODO: make "tickit_cache" prefix customisable via config
+        return sprintf('%s/tickit_cache/%s', $basePath, implode(DIRECTORY_SEPARATOR, $folders));
     }
 
 
@@ -182,6 +213,5 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface
 
         return $unserializedContent;
     }
-
 
 }
