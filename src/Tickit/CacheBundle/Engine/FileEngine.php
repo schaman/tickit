@@ -81,6 +81,27 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
     /**
      * {@inheritDoc}
      */
+    public function internalDelete($id)
+    {
+        $dir = $this->buildDirectory();
+        $id = $this->sanitizeIdentifier($id);
+
+        $fullPath = sprintf('%s/%s', $dir, $id);
+
+        if (!is_writable($fullPath)) {
+            throw new Exception\PermissionDeniedException(
+                sprintf('Permission denied deleting data (with identified of %s) in class %s on line %s', $id, __CLASS__, __LINE__)
+            );
+        }
+
+        $deleted = unlink($fullPath);
+
+        return $deleted;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function addTags($id, array $tags)
     {
 

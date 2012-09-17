@@ -52,6 +52,18 @@ class Cache
         return $this->getEngine()->internalWrite($id, $data);
     }
 
+    /**
+     * Deletes data from the cache engine
+     *
+     * @param string|int $id
+     *
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        return $this->getEngine()->internalDelete($id);
+    }
+
 
     /**
      * Purges all data from the cache, if the $namespace parameter is provided then data

@@ -39,6 +39,17 @@ abstract class AbstractEngine
     abstract public function internalRead($id);
 
     /**
+     * Internal method that provides adapter specific cache deleting logic
+     *
+     * @param string|int $id The unique identifier of the data to read
+     *
+     * @abstract
+     *
+     * @return mixed
+     */
+    abstract public function internalDelete($id);
+
+    /**
      * Sets up the options for the cache
      *
      * @param mixed $options Either an instance of AbstractOptions or an array of options for the cache

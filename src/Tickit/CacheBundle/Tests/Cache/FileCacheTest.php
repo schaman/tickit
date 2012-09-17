@@ -107,6 +107,26 @@ class FileCacheTest extends WebTestCase
         $this->assertEquals(null, $cacheTwo->read(1));
     }
 
+    /**
+     * Makes sure deleting from the cache completes correctly
+     */
+    public function testDeletingCacheData()
+    {
+        $client = static::createClient();
+
+        $cacheFactory = new CacheFactory($client->getContainer());
+        $cache = $cacheFactory->factory('file', array('namespace' => 'one'));
+
+        $data = $this->buildSimpleObject();
+
+        $id = $cache->write('deleteme', $data);
+        $this->assertEquals('deleteme', $id);
+
+        $cache->delete($id);
+
+        $this->assertNull($cache->read($id));
+    }
+
 
     /**
      * Builds a simple object for testing in cache writes/reads

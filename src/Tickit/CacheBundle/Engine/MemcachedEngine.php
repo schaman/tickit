@@ -44,6 +44,14 @@ class MemcachedEngine extends AbstractEngine
         return '';
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function internalDelete($id)
+    {
+        return false;
+    }
+
 
     /**
      * {@inheritDoc}

@@ -40,7 +40,19 @@ class ApcEngine extends AbstractEngine
      */
     public function internalWrite($id, $data)
     {
+        $id = $this->sanitizeIdentifier($id);
 
+        $key = $this->_buildKeyPrefix() . $id;
+
+        $stored = apc_store($key, $data);
+
+        if (false === $stored) {
+            throw new Exception\PermissionDeniedException(
+                sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d', $id, __CLASS__, __LINE__)
+            );
+        }
+
+        return $id;
     }
 
     /**
@@ -48,7 +60,38 @@ class ApcEngine extends AbstractEngine
      */
     public function internalRead($id)
     {
-        return '';
+        $id = $this->sanitizeIdentifier($id);
+
+        $key = $this->_buildKeyPrefix() . $id;
+
+        if (!apc_exists($key)) {
+            return null;
+        }
+
+        $fetched = true;
+        $data = apc_fetch($key, $fetched);
+
+        if (false === $fetched) {
+            return null;
+        }
+
+        return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function internalDelete($id)
+    {
+        $key = $this->_buildKeyPrefix() . $id;
+
+        if (!apc_exists($key)) {
+            return false;
+        }
+
+        $deleted = apc_delete($key);
+
+        return $deleted;
     }
 
     /**
@@ -63,6 +106,12 @@ class ApcEngine extends AbstractEngine
         return parent::setOptions($options);
     }
 
+
+    private function _buildKeyPrefix()
+    {
+        return $this->getOptions()->getNamespace() . '.';
+    }
+
     /**
      * Returns true if APC is available, false otherwise
      *
@@ -70,7 +119,17 @@ class ApcEngine extends AbstractEngine
      */
     private function _isAvailable()
     {
-        return extension_loaded('apc') && (ini_get('apc.enabled') == '1');
+        $apcLoaded = extension_loaded('apc');
+
+        if (!$apcLoaded) {
+            return false;
+        }
+
+        if (php_sapi_name() == 'cli') {
+            return (ini_get('apc.enable_cli') == '1');
+        }
+
+        return (ini_get('apc.enabled') == '1');
     }
 
 }
