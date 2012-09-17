@@ -106,7 +106,11 @@ class ApcEngine extends AbstractEngine
         return parent::setOptions($options);
     }
 
-
+    /**
+     * Builds a prefix based off the current namespace for an APC cache entry
+     *
+     * @return string
+     */
     private function _buildKeyPrefix()
     {
         return $this->getOptions()->getNamespace() . '.';
