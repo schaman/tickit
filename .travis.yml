@@ -21,6 +21,7 @@ before_script:
   - tar -xzf APC-3.1.10.tgz
   - sh -c "cd APC-3.1.10 && phpize && ./configure && make && sudo make install && cd .."
   - echo "extension=apc.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+  - echo "apc.enable_cli" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
   # refresh php environment #
   - phpenv rehash
