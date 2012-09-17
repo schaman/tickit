@@ -44,20 +44,8 @@
         {
             "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.0.x-dev",
-            "alias-version": "2.0.9999999.9999999-dev"
-        },
-        {
-            "package": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
-            "source-reference": "83536190cbd4a8b86846c3e8432f6ea907477b90",
-            "commit-date": "1347413919"
-        },
-        {
-            "package": "gedmo/doctrine-extensions",
-            "version": "dev-master",
-            "alias-pretty-version": "2.3.x-dev",
-            "alias-version": "2.3.9999999.9999999-dev"
+            "source-reference": "34f1919ceab96339a8dc6ad7c2b00274a6f499f1",
+            "commit-date": "1347897534"
         },
         {
             "package": "gedmo/doctrine-extensions",
@@ -82,18 +70,12 @@
         {
             "package": "jms/di-extra-bundle",
             "version": "dev-master",
-            "source-reference": "2df9a18c578758216b01e33a2ceb3e626b82b00f",
-            "commit-date": "1347584984"
+            "source-reference": "c1c5fe1e1bab1327300480dccb4846e7a0a5670f",
+            "commit-date": "1347872978"
         },
         {
             "package": "jms/metadata",
             "version": "1.1.1"
-        },
-        {
-            "package": "jms/security-extra-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "1.3.x-dev",
-            "alias-version": "1.3.9999999.9999999-dev"
         },
         {
             "package": "jms/security-extra-bundle",
@@ -206,8 +188,8 @@
         {
             "package": "symfony/symfony",
             "version": "2.1.x-dev",
-            "source-reference": "846df269dd32c495fde203d4568c50e3214b4365",
-            "commit-date": "1347781262"
+            "source-reference": "5bd1fd3e047143fee37efc9e485a601885c1eaa7",
+            "commit-date": "1347902152"
         },
         {
             "package": "twig/extensions",
