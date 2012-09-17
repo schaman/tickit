@@ -3,6 +3,8 @@
 namespace Tickit\CacheBundle\Options;
 
 use Tickit\CacheBundle\Options\Exception\InvalidOptionException;
+use Tickit\CacheBundle\Util\Sanitizer;
+use RuntimeException;
 
 /**
  * Options resolver class for the File caching engine
@@ -27,6 +29,13 @@ class FileOptions extends AbstractOptions
     protected $autoSerialize;
 
     /**
+     * The name of the base directory below which the cache resides
+     *
+     * @var string $directoryBase
+     */
+    protected $directoryBase;
+
+    /**
      * Sets the desired path to the cache file directory
      *
      * @param string $path The full working path to the cache directory
@@ -40,6 +49,35 @@ class FileOptions extends AbstractOptions
         }
 
         $this->cacheDir = $path;
+    }
+
+    /**
+     * Sets the directory base name option
+     *
+     * @param string $name The name of the directory base
+     */
+    public function setDirectoryBase($name)
+    {
+        $sanitizer = new Sanitizer();
+        $sanitizedName = $sanitizer->sanitizePath($name);
+
+        if (strpos($sanitizedName, DIRECTORY_SEPARATOR) !== false) {
+            throw new RuntimeException(
+                'An illegal directory base has been used (looks like a full path when it should be a name). Try changing your Tickit Cache config'
+            );
+        }
+
+        $this->directoryBase = $name;
+    }
+
+    /**
+     * Returns the current directory base value
+     *
+     * @return string
+     */
+    public function getDirectoryBase()
+    {
+        return $this->directoryBase;
     }
 
 
@@ -84,6 +122,14 @@ class FileOptions extends AbstractOptions
             $this->autoSerialize = $autoSerialize;
         } else {
             $this->autoSerialize = $this->container->getParameter('tickit_cache.file.auto_serialize');
+        }
+
+        $directoryBase = $this->getRawOption('directory_base', null);
+        if (!empty($directoryBase)) {
+            $this->setDirectoryBase($directoryBase);
+        } else {
+            $base = $this->container->getParameter('tickit_cache.file.directory_base');
+            $this->setDirectoryBase($base);
         }
 
         parent::_resolveOptions();

@@ -37,4 +37,24 @@ class Sanitizer
         return $identifier;
     }
 
+    /**
+     * Sanitizes a string ready for use as a file system path
+     *
+     * @param string $path The path name
+     *
+     * @return string
+     *
+     * @throws InvalidArgumentException If the $path parameter is empty
+     */
+    public function sanitizePath($path)
+    {
+        if (empty($path)) {
+            throw new InvalidArgumentException(
+                sprintf('The path provided in %s on line %d must not be empty', __CLASS__, __LINE__)
+            );
+        }
+
+        return realpath(preg_replace('#[^0-9a-z_\-/\\\]*#i', '', $path));
+    }
+
 }

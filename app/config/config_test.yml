@@ -19,4 +19,5 @@ tickit_cache:
         file:
             auto_serialize: true
             default_path: /tmp
+            directory_base: test_cache
         apc: true

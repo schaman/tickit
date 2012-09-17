@@ -81,5 +81,6 @@ tickit_cache:
     default_namespace: tickit
     types:
         file:
+            directory_base: tickit_cache
             auto_serialize: true
         apc: true
