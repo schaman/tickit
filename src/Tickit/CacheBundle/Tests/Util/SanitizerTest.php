@@ -50,7 +50,7 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
      * Makes sure that the correct exception is thrown when passing an empty
      * identifier
      */
-    public function testSanitizeEmptyIdenfitier()
+    public function testSanitizeEmptyIdentifier()
     {
         $caught = false;
         $sanitizer = new Sanitizer();
@@ -62,5 +62,31 @@ class SanitizerTest extends PHPUnit_Framework_TestCase
         }
 
         $this->assertTrue($caught);
+    }
+
+    /**
+     * Makes sure that path sanitization behaves as expected
+     */
+    public function testSanitizeRealPath()
+    {
+        $path = __DIR__ . '../../';
+        $sanitizer = new Sanitizer();
+
+        $sanitizedPath = $sanitizer->sanitizePath($path);
+
+        $this->assertTrue(strpos($sanitizedPath, '..') === false);
+    }
+
+    /**
+     * Makes sure that directory names are sanitized as expected
+     */
+    public function testSanitizeDirectoryName()
+    {
+        $directory = 'so"£$$mething"&"(£"&£("';
+        $sanitizer = new Sanitizer();
+
+        $sanitizedPath = $sanitizer->sanitizePath($directory, false);
+
+        $this->assertEquals('something', $sanitizedPath);
     }
 }

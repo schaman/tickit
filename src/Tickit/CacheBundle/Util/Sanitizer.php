@@ -40,13 +40,14 @@ class Sanitizer
     /**
      * Sanitizes a string ready for use as a file system path
      *
-     * @param string $path The path name
+     * @param string $path     The path name
+     * @param bool   $realPath [Optional] True if the path given actually exists on disk, defaults to true
      *
      * @return string
      *
-     * @throws InvalidArgumentException If the $path parameter is empty
+     * @throws \InvalidArgumentException If the $path parameter is empty
      */
-    public function sanitizePath($path)
+    public function sanitizePath($path, $realPath = true)
     {
         if (empty($path)) {
             throw new InvalidArgumentException(
@@ -54,7 +55,13 @@ class Sanitizer
             );
         }
 
-        return realpath(preg_replace('#[^0-9a-z_\-/\\\]*#i', '', $path));
+        $sanitizedPath = preg_replace('#[^0-9a-z_\-/\\\]*#i', '', $path);
+
+        if (true === $realPath) {
+            $sanitizedPath = realpath($sanitizedPath);
+        }
+
+        return $sanitizedPath;
     }
 
 }
