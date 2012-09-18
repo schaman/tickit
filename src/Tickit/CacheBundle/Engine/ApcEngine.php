@@ -64,7 +64,7 @@ class ApcEngine extends AbstractEngine
 
         $key = $this->_buildKeyPrefix() . $id;
 
-        if (!apc_exists($key)) {
+        if (!$this->_apcExists($key, true)) {
             return null;
         }
 
@@ -85,7 +85,7 @@ class ApcEngine extends AbstractEngine
     {
         $key = $this->_buildKeyPrefix() . $id;
 
-        if (!apc_exists($key)) {
+        if (!$this->_apcExists($key)) {
             return false;
         }
 
@@ -104,6 +104,32 @@ class ApcEngine extends AbstractEngine
         }
 
         return parent::setOptions($options);
+    }
+
+
+    /**
+     * Helper function for APC < 3.1.4 in which apc_exists does not exist
+     *
+     * @param $key
+     * @param bool $progressAnyway
+     * @return bool|\string[]
+     */
+    private function _apcExists($key, $progressAnyway = false)
+    {
+        if (function_exists('apc_exists')) {
+            return apc_exists($key);
+        }
+
+        // used when the next logical function will be an apc_fetch anyway
+        // no need to run it twice
+        if ($progressAnyway) {
+            return true;
+        }
+
+        $loaded = false;
+        apc_fetch($key, $loaded);
+
+        return $loaded;
     }
 
     /**
