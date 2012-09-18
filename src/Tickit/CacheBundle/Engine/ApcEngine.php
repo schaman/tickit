@@ -110,9 +110,10 @@ class ApcEngine extends AbstractEngine
     /**
      * Helper function for APC < 3.1.4 in which apc_exists does not exist
      *
-     * @param $key
-     * @param bool $progressAnyway
-     * @return bool|\string[]
+     * @param string $key            Key of data in cache
+     * @param bool   $progressAnyway Return true regardless of whether apc_exists exists
+     *
+     * @return mixed
      */
     private function _apcExists($key, $progressAnyway = false)
     {
