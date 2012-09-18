@@ -40,7 +40,8 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         $id = $this->sanitizeIdentifier($id);
 
         if (!file_exists($dir)) {
-            if (false === mkdir($dir, 0766, true)) {
+            $umask = $this->getOptions()->getUmask();
+            if (false === mkdir($dir, $umask, true)) {
                 throw new Exception\PermissionDeniedException(
                     sprintf('Permission denied creating %s in %s on line %s', $dir, __CLASS__, __LINE__)
                 );
