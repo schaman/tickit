@@ -3,7 +3,9 @@
 namespace Tickit\CacheBundle\Engine;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Tickit\CacheBundle\Exception\MemcachedCacheUnavailableException;
 use Tickit\CacheBundle\Options\MemcachedOptions;
+use Memcached;
 
 /**
  * Caching engine for storing data in memcached server instance(s)
@@ -16,6 +18,9 @@ class MemcachedEngine extends AbstractEngine
     /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
+    /* @var \Memcached */
+    protected $memcached;
+
     /**
      * Class constructor, sets dependencies
      *
@@ -25,7 +30,16 @@ class MemcachedEngine extends AbstractEngine
     public function __construct(ContainerInterface $container, array $options = null)
     {
         $this->container = $container;
+
+        if (false === $this->_isAvailable()) {
+            throw new MemcachedCacheUnavailableException();
+        }
+
         $this->setOptions($options);
+
+        // TODO: load this from options
+        $instanceId = 'tickit';
+        $this->memcached = new Memcached($instanceId);
     }
 
     /**
@@ -34,6 +48,15 @@ class MemcachedEngine extends AbstractEngine
     public function internalWrite($id, $data)
     {
         //write data to memcached cache
+        $this->memcached->set($id, $data);
+
+        if (!Memcached::RES_SUCCESS) {
+            throw new Exception\PermissionDeniedException(
+                sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d', $id, __CLASS__, __LINE__)
+            );
+        }
+
+        return $id;
     }
 
     /**
@@ -41,7 +64,9 @@ class MemcachedEngine extends AbstractEngine
      */
     public function internalRead($id)
     {
-        return '';
+        $this->memcached->get($id);
+
+        return ($this->memcached->getResultCode() == Memcached::RES_SUCCESS);
     }
 
     /**
@@ -49,7 +74,9 @@ class MemcachedEngine extends AbstractEngine
      */
     public function internalDelete($id)
     {
-        return false;
+        $this->memcached->delete($id);
+
+        return ($this->memcached->getResultCode() == Memcached::RES_SUCCESS);
     }
 
 
@@ -67,4 +94,13 @@ class MemcachedEngine extends AbstractEngine
         return $this->options;
     }
 
+    /**
+     * Returns true if Memcached is available, false otherwise
+     *
+     * @return bool
+     */
+    private function _isAvailable()
+    {
+        return extension_loaded('memcached');
+    }
 }
