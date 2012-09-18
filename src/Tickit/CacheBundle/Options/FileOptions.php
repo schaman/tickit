@@ -55,6 +55,8 @@ class FileOptions extends AbstractOptions
      * Sets the directory base name option
      *
      * @param string $name The name of the directory base
+     *
+     * @throws RuntimeException If the $name parameter appears to be a file path
      */
     public function setDirectoryBase($name)
     {

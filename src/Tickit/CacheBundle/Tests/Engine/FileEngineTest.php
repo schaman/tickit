@@ -75,6 +75,16 @@ class FileEngineTest extends WebTestCase
 
         $engine = $this->_getEngineInstance($invalidOptions);
         $this->assertEquals($this->_getContainer()->getParameter('tickit_cache.file.directory_base'), $engine->getOptions()->getDirectoryBase());
+
+
+        // we also check that when writing to the cache, the created directory structure matches what we expect
+        $id = $engine->internalWrite(1, array(1,2 ,3));
+        $this->assertEquals(1, $id);
+
+        $options = $engine->getOptions();
+
+        $expectedPath = sprintf('%s/%s/%s/%s', $options->getCacheDir(), $options->getDirectoryBase(), $options->getNamespace(), $id);
+        $this->assertTrue(file_exists($expectedPath));
     }
 
     /**

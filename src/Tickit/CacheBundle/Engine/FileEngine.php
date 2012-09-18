@@ -176,8 +176,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $folders = explode('.', $namespace);
         }
 
-        //TODO: make "tickit_cache" prefix customisable via config
-        return sprintf('%s/tickit_cache/%s', $basePath, implode(DIRECTORY_SEPARATOR, $folders));
+        return sprintf('%s/%s/%s', $basePath, $this->getOptions()->getDirectoryBase(), implode(DIRECTORY_SEPARATOR, $folders));
     }
 
 
