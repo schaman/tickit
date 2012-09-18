@@ -27,7 +27,7 @@ class ApcEngineTest extends WebTestCase
             $engine = new ApcEngine($client->getContainer(), array());
         } catch (ApcCacheUnavailableException $e) {
             $engine = '';
-            $this->assertTrue(true, false, 'ApcEngine failed to insantiate. Is it installed?');
+            $this->assertTrue(false, 'ApcEngine failed to insantiate. Is it installed?');
         }
 
         $this->assertEquals('Tickit\CacheBundle\Engine\ApcEngine', get_class($engine));

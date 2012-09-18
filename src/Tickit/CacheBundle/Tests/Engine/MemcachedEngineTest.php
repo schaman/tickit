@@ -24,7 +24,7 @@ class MemcachedEngineTest extends WebTestCase
             $engine = new MemcachedEngine($client->getContainer(), array());
         } catch (MemcachedCacheUnavailableException $e) {
             $engine = '';
-            $this->assertTrue(true, false, 'MemcachedEngine failed to instantiate. Is it installed?');
+            $this->assertTrue(false, 'MemcachedEngine failed to instantiate. Is it installed?');
         }
 
         $this->assertTrue(is_object($engine));
