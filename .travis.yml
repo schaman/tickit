@@ -19,7 +19,7 @@ before_script:
   # install APC #
   - curl -o APC-3.1.10.tgz http://pecl.php.net/get/APC-3.1.10.tgz
   - tar -xzf APC-3.1.10.tgz
-  - sh -c "cd APC-3.1.10 && phpize && ./configure && make && sudo make install && cd .."
+  - sh -c "cd APC-3.1.10 && phpize && ./configure && make && sudo make install" > /dev/null
   - echo "extension=apc.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - echo "apc.enable_cli = 1" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
@@ -33,6 +33,10 @@ before_script:
 script:
   - phpunit -c app/phpunit.xml
   - phpcs ./src/Tickit
+
+after_script:
+  - if [$?>0] then echo "Custom build failed script"; fi
+  - if [$?=0] then echo "Custom build passed script"; fi
 
 notifications:
   email:
