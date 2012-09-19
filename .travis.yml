@@ -35,8 +35,7 @@ script:
   - phpcs ./src/Tickit
 
 after_script:
-  - if [$?>0] then echo "Custom build failed script"; fi
-  - if [$?=0] then echo "Custom build passed script"; fi
+  - if [$?>0]; then; echo "Custom build failed script"; else; echo "Custom build passed script"; fi
 
 notifications:
   email:
