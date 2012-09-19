@@ -1,5 +1,5 @@
 {
-    "hash": "834b0ab19642cf2e9a6478d41a6d9b97",
+    "hash": "7bece28960876f933f755d8ab8493539",
     "packages": [
         {
             "package": "doctrine/common",
@@ -44,8 +44,20 @@
         {
             "package": "friendsofsymfony/user-bundle",
             "version": "dev-master",
+            "alias-pretty-version": "2.0.x-dev",
+            "alias-version": "2.0.9999999.9999999-dev"
+        },
+        {
+            "package": "friendsofsymfony/user-bundle",
+            "version": "dev-master",
             "source-reference": "34f1919ceab96339a8dc6ad7c2b00274a6f499f1",
             "commit-date": "1347897534"
+        },
+        {
+            "package": "gedmo/doctrine-extensions",
+            "version": "dev-master",
+            "alias-pretty-version": "2.3.x-dev",
+            "alias-version": "2.3.9999999.9999999-dev"
         },
         {
             "package": "gedmo/doctrine-extensions",
@@ -55,7 +67,15 @@
         },
         {
             "package": "jms/aop-bundle",
-            "version": "1.0.0"
+            "version": "dev-master",
+            "alias-pretty-version": "1.1.0.x-dev",
+            "alias-version": "1.1.0.9999999-dev"
+        },
+        {
+            "package": "jms/aop-bundle",
+            "version": "dev-master",
+            "source-reference": "03d725fde78abea8e1e1ed6af5f1c86c6b9446e1",
+            "commit-date": "1348045406"
         },
         {
             "package": "jms/cg",
@@ -70,8 +90,8 @@
         {
             "package": "jms/di-extra-bundle",
             "version": "dev-master",
-            "source-reference": "5d70eadf4c79a8e13b96c160d90991734dd42597",
-            "commit-date": "1347996567"
+            "source-reference": "da22b09e3490601b9244127e48bcc26da09875e1",
+            "commit-date": "1348046810"
         },
         {
             "package": "jms/metadata",
@@ -86,8 +106,8 @@
         {
             "package": "jms/security-extra-bundle",
             "version": "dev-master",
-            "source-reference": "0344a4d972a89c5daacbbd7d46081834db1be5d1",
-            "commit-date": "1347996550"
+            "source-reference": "daa4e93edc6e89ce809a76edc0866dcb3feb3306",
+            "commit-date": "1348046640"
         },
         {
             "package": "kriswallsmith/assetic",
@@ -127,21 +147,15 @@
         },
         {
             "package": "sensio/generator-bundle",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
+            "version": "2.1.x-dev",
+            "source-reference": "3a65c9bf7d31aecacffc15a48f5eb2ece3615ef0",
+            "commit-date": "1348030981"
         },
         {
-            "package": "sensio/generator-bundle",
+            "package": "stof/doctrine-extensions-bundle",
             "version": "dev-master",
-            "alias-pretty-version": "2.2.x-dev",
-            "alias-version": "2.2.9999999.9999999-dev"
-        },
-        {
-            "package": "sensio/generator-bundle",
-            "version": "dev-master",
-            "source-reference": "b82772b164f07854470537d601b50c9c86387522",
-            "commit-date": "1348032154"
+            "alias-pretty-version": "1.1.x-dev",
+            "alias-version": "1.1.9999999.9999999-dev"
         },
         {
             "package": "stof/doctrine-extensions-bundle",
@@ -202,6 +216,12 @@
             "version": "2.1.x-dev",
             "source-reference": "f1e6063c0a42065adf026811127f3db1d7a79eb5",
             "commit-date": "1348035223"
+        },
+        {
+            "package": "twig/extensions",
+            "version": "dev-master",
+            "alias-pretty-version": "1.0.x-dev",
+            "alias-version": "1.0.9999999.9999999-dev"
         },
         {
             "package": "twig/extensions",
