@@ -26,6 +26,8 @@ class MemcachedEngine extends AbstractEngine
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
      * @param array                                                     $options   An array of options for the cache
+     *
+     * @throws MemcachedCacheUnavailableException
      */
     public function __construct(ContainerInterface $container, array $options = null)
     {
@@ -40,6 +42,9 @@ class MemcachedEngine extends AbstractEngine
         // TODO: load this from options
         $instanceId = 'tickit';
         $this->memcached = new Memcached($instanceId);
+
+        // TODO: load server from configuration
+        $this->memcached->addServer('127.0.0.1', 11211);
     }
 
     /**
@@ -50,7 +55,7 @@ class MemcachedEngine extends AbstractEngine
         //write data to memcached cache
         $this->memcached->set($id, $data);
 
-        if (!Memcached::RES_SUCCESS) {
+        if ($this->memcached->getResultCode() !== Memcached::RES_SUCCESS) {
             throw new Exception\PermissionDeniedException(
                 sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d', $id, __CLASS__, __LINE__)
             );
@@ -64,9 +69,13 @@ class MemcachedEngine extends AbstractEngine
      */
     public function internalRead($id)
     {
-        $this->memcached->get($id);
+        $data = $this->memcached->get($id);
 
-        return ($this->memcached->getResultCode() == Memcached::RES_SUCCESS);
+        if ($this->memcached->getResultCode() == Memcached::RES_SUCCESS) {
+            return $data;
+        }
+
+        return null;
     }
 
     /**
