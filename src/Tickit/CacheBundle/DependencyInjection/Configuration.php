@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('default_path')->defaultValue('%kernel.root_dir%/cache')->end()
                                 ->scalarNode('directory_base')->defaultValue('tickit_cache')->end()
                                 ->booleanNode('auto_serialize')->defaultValue(false)->end()
-                                ->scalarNode('umask')->defaultValue('600')->end()
+                                ->scalarNode('umask')->defaultValue('766')->end()
                             ->end()
                         ->end()
                         ->arrayNode('memcached')->addDefaultsIfNotSet()

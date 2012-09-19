@@ -36,6 +36,13 @@ class FileOptions extends AbstractOptions
     protected $directoryBase;
 
     /**
+     * The default umask for newly created cache directories
+     *
+     * @var int $umask
+     */
+    protected $umask;
+
+    /**
      * Sets the desired path to the cache file directory
      *
      * @param string $path The full working path to the cache directory
@@ -94,6 +101,25 @@ class FileOptions extends AbstractOptions
         return $this->autoSerialize;
     }
 
+    /**
+     * Sets the umask option
+     *
+     * @param int $umask The umask, e.g. 600
+     */
+    public function setUmask($umask)
+    {
+        $this->umask = (int) $umask;
+    }
+
+    /**
+     * Gets the umask correctly prefixed with a zero
+     *
+     * @return string
+     */
+    public function getUmask()
+    {
+        return sprintf('0%d', $this->umask);
+    }
 
     /**
      * Gets the cache directory option
@@ -132,6 +158,14 @@ class FileOptions extends AbstractOptions
         } else {
             $base = $this->container->getParameter('tickit_cache.file.directory_base');
             $this->setDirectoryBase($base);
+        }
+
+        $umask = $this->getRawOption('umask', null);
+        if (is_numeric($umask)) {
+            $this->setUmask($umask);
+        } else {
+            $defaultUmask = $this->container->getParameter('tickit_cache.file.umask');
+            $this->setUmask($defaultUmask);
         }
 
         parent::_resolveOptions();
