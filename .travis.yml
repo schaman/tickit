@@ -34,9 +34,6 @@ script:
   - phpunit -c app/phpunit.xml
   - phpcs ./src/Tickit
 
-after_script:
-  - if [$?>0]; then; echo "Custom build failed script"; else; echo "Custom build passed script"; fi
-
 notifications:
   email:
     - james.t.halsall@googlemail.com
