@@ -5,8 +5,9 @@ php:
 
 before_script:
 
-  # prepare config files and get vendors#
+  # prepare config files, php extensions and get vendors#
   - php app/Resources/data/travis-build.php
+  - php app/Resources/data/travis-extensions.php
   - curl -s http://getcomposer.org/installer | php
   - COMPOSER_ROOT_VERSION=dev-master php composer.phar --dev install
 
@@ -15,15 +16,6 @@ before_script:
   - php app/console doctrine:schema:create
   - php app/console doctrine:fixtures:load --append
   - pear install pear/PHP_CodeSniffer
-
-  # install APC #
-  - curl -o APC-3.1.10.tgz http://pecl.php.net/get/APC-3.1.10.tgz
-  - tar -xzf APC-3.1.10.tgz
-  - sh -c "cd APC-3.1.10 && phpize && ./configure && make && sudo make install" > /dev/null
-  - echo "extension=apc.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  - echo "apc.enable_cli = 1" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
-  - sudo apt-get -y install memcached
-  - sudo apt-get -y install php5-memcached
 
   # refresh php environment #
   - phpenv rehash
