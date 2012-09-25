@@ -32,8 +32,9 @@ class FileEngineTest extends WebTestCase
             'cache_dir' => '/etc'
         );
 
+        $kernelCacheDir = $this->_getContainer()->getParameter('kernel.cache_dir');
         $engine = $this->_getEngineInstance($invalidOptions);
-        $this->assertEquals('/tmp', $engine->getOptions()->getCacheDir());
+        $this->assertEquals($kernelCacheDir, $engine->getOptions()->getCacheDir());
     }
 
     /**
