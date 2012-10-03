@@ -118,7 +118,13 @@ class FileOptions extends AbstractOptions
      */
     public function getUmask()
     {
-        return sprintf('0%d', $this->umask);
+        $umask = $this->umask;
+
+        if (substr($umask, 0, 1) != '0') {
+            $umask = '0' . $umask;
+        }
+
+        return $umask;
     }
 
     /**
