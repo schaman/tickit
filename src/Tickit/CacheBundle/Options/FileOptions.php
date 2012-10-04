@@ -120,7 +120,7 @@ class FileOptions extends AbstractOptions
     {
         $umask = $this->umask;
 
-        if (strlen($umask) < '4') {
+        if (strlen($umask) < 4) {
             $umask = str_pad($umask, 4, '0', STR_PAD_LEFT);
         }
 
