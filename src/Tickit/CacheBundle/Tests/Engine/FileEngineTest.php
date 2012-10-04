@@ -59,36 +59,6 @@ class FileEngineTest extends WebTestCase
     }
 
     /**
-     * Makes sure that the directory_base option is properly configured
-     */
-    public function testDirectoryBaseOption()
-    {
-        $validOptions = array(
-            'directory_base' => 'baseTest'
-        );
-
-        $engine = $this->_getEngineInstance($validOptions);
-        $this->assertEquals('baseTest', $engine->getOptions()->getDirectoryBase());
-
-        $invalidOptions = array(
-            'directory_base' => ''
-        );
-
-        $engine = $this->_getEngineInstance($invalidOptions);
-        $this->assertEquals($this->_getContainer()->getParameter('tickit_cache.file.directory_base'), $engine->getOptions()->getDirectoryBase());
-
-
-        // we also check that when writing to the cache, the created directory structure matches what we expect
-        $id = $engine->internalWrite(1, array(1,2 ,3));
-        $this->assertEquals(1, $id);
-
-        $options = $engine->getOptions();
-
-        $expectedPath = sprintf('%s/%s/%s/%s', $options->getCacheDir(), $options->getDirectoryBase(), $options->getNamespace(), $id);
-        $this->assertTrue(file_exists($expectedPath));
-    }
-
-    /**
      * Instantiates and returns a new FileEngine
      *
      * @param array $options An array of options to inject into the engine
