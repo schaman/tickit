@@ -18,7 +18,7 @@ $installer = new PhpExtensions();
 
 $installer->install('apc');
 $installer->install('memcache');
-$installer->install('memcached');
+//$installer->install('memcached');
 
 /**
  * PhpExtensions classs, responsible for managing the installation of various PHP extensions
