@@ -19,5 +19,4 @@ tickit_cache:
         file:
             auto_serialize: true
             default_path: "%kernel.cache_dir%"
-            directory_base: test_cache
         apc: true

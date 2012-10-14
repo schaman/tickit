@@ -29,13 +29,6 @@ class FileOptions extends AbstractOptions
     protected $autoSerialize;
 
     /**
-     * The name of the base directory below which the cache resides
-     *
-     * @var string $directoryBase
-     */
-    protected $directoryBase;
-
-    /**
      * The default umask for newly created cache directories
      *
      * @var int $umask
@@ -57,38 +50,6 @@ class FileOptions extends AbstractOptions
 
         $this->cacheDir = $path;
     }
-
-    /**
-     * Sets the directory base name option
-     *
-     * @param string $name The name of the directory base
-     *
-     * @throws RuntimeException If the $name parameter appears to be a file path
-     */
-    public function setDirectoryBase($name)
-    {
-        $sanitizer = new Sanitizer();
-        $sanitizedName = $sanitizer->sanitizePath($name);
-
-        if (strpos($sanitizedName, DIRECTORY_SEPARATOR) !== false) {
-            throw new RuntimeException(
-                'An illegal directory base has been used (looks like a full path when it should be a name). Try changing your Tickit Cache config'
-            );
-        }
-
-        $this->directoryBase = $name;
-    }
-
-    /**
-     * Returns the current directory base value
-     *
-     * @return string
-     */
-    public function getDirectoryBase()
-    {
-        return $this->directoryBase;
-    }
-
 
     /**
      * Returns true if the current options requires that serialization
@@ -118,7 +79,13 @@ class FileOptions extends AbstractOptions
      */
     public function getUmask()
     {
-        return sprintf('0%d', $this->umask);
+        $umask = $this->umask;
+
+        if (strlen($umask) < 4) {
+            $umask = str_pad($umask, 4, '0', STR_PAD_LEFT);
+        }
+
+        return $umask;
     }
 
     /**
@@ -150,14 +117,6 @@ class FileOptions extends AbstractOptions
             $this->autoSerialize = $autoSerialize;
         } else {
             $this->autoSerialize = $this->container->getParameter('tickit_cache.file.auto_serialize');
-        }
-
-        $directoryBase = $this->getRawOption('directory_base', null);
-        if (!empty($directoryBase)) {
-            $this->setDirectoryBase($directoryBase);
-        } else {
-            $base = $this->container->getParameter('tickit_cache.file.directory_base');
-            $this->setDirectoryBase($base);
         }
 
         $umask = $this->getRawOption('umask', null);

@@ -177,7 +177,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $folders = explode('.', $namespace);
         }
 
-        return sprintf('%s/%s/%s', $basePath, $this->getOptions()->getDirectoryBase(), implode(DIRECTORY_SEPARATOR, $folders));
+        return sprintf('%s/%s', $basePath, implode(DIRECTORY_SEPARATOR, $folders));
     }
 
 
