@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\CoreBundle\Entity\CoreSession;
-use Tickit\PermissionBundle\Service\PermissionService;
+use Tickit\PermissionBundle\Service\PermissionServiceInterface;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 
@@ -27,12 +27,12 @@ class Login
     /**
      * Class constructor, sets dependencies
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container   The dependency injection container
-     * @param \Tickit\CoreBundle\Entity\CoreSession                     $session     The current user's session instance
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry                  $doctrine    The doctrine registry
-     * @param \Tickit\PermissionBundle\Service\PermissionService        $permissions The permission service
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface          $container   The dependency injection container
+     * @param \Tickit\CoreBundle\Entity\CoreSession                              $session     The current user's session instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry                           $doctrine    The doctrine registry
+     * @param \Tickit\PermissionBundle\Service\PermissionServiceInterface        $permissions The permission service
      */
-    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, PermissionService $permissions)
+    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, PermissionServiceInterface $permissions)
     {
         $this->container = $container;
         $this->em = $doctrine->getManager();

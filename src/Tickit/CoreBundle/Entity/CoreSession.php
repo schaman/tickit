@@ -13,7 +13,7 @@ class CoreSession extends Session
 {
     /* @var \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage */
     protected $storage;
-    /* @var \Tickit\PermissionBundle\Service\PermissionService */
+    /* @var \Tickit\PermissionBundle\Service\PermissionServiceInterface */
     protected $permissions;
 
     /**
