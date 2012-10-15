@@ -28,8 +28,6 @@ class Activity
      *
      * @param \Symfony\Component\Security\Core\SecurityContext $context  The application SecurityContext instance
      * @param \Doctrine\Bundle\DoctrineBundle\Registry         $doctrine The doctrine registry
-     *
-     * @return void
      */
     public function __construct(SecurityContext $context, Doctrine $doctrine)
     {
