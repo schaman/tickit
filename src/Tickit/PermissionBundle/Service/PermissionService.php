@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class PermissionService
+class PermissionService implements PermissionServiceInterface
 {
     /* @var \Symfony\Component\HttpFoundation\Session\Session */
     protected $session;
@@ -25,12 +25,7 @@ class PermissionService
     }
 
     /**
-     * Returns true if the session storage contains the given permission name, false otherwise
-     *
-     * @param string $permissionName
-     *
-     * @return bool
-     * @throws \RuntimeException
+     * {@inheritdoc}
      */
     public function has($permissionName)
     {
@@ -45,9 +40,7 @@ class PermissionService
 
 
     /**
-     * Writes an array of permission objects to the current session as a condensed array
-     *
-     * @param array $permissions An array of \Tickit\PermissionBundle\Entity\Permission objects
+     * {@inheritdoc}
      */
     public function writeToSession(array $permissions)
     {
