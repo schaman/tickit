@@ -6,4 +6,3 @@ app/logs/*
 vendor/*
 composer.phar
 web/bundle
-composer.lock
