@@ -55,9 +55,10 @@ class MemcachedEngine extends AbstractEngine
         //write data to memcached cache
         $this->memcached->set($id, $data);
 
-        if ($this->memcached->getResultCode() !== Memcached::RES_SUCCESS) {
+        $resultCode = $this->memcached->getResultCode();
+        if ($resultCode !== Memcached::RES_SUCCESS) {
             throw new Exception\PermissionDeniedException(
-                sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d. Memcached result code: %d', $id, __CLASS__, __LINE__, $this->memcached->getResultCode())
+                sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d. Memcached result code: %d', $id, __CLASS__, __LINE__, $resultCode)
             );
         }
 
