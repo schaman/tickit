@@ -4,9 +4,8 @@ namespace Tickit\PermissionBundle\Listener;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
-use Tickit\UserBundle\Entity\User;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Tickit\PermissionBundle\Service\PermissionServiceInterface;
 use Tickit\PermissionBundle\Service\PermissionService;
 use Tickit\CacheBundle\Cache\CacheFactoryInterface;
@@ -34,6 +33,13 @@ class Sync
     protected $permissions;
 
     /**
+     * The default entity manager instance
+     *
+     * @var \Doctrine\Common\Persistence\ObjectManager
+     */
+    protected $em;
+
+    /**
      * The file cache (in future this will be configurable to change the cache type)
      *
      * @var \Tickit\CacheBundle\Cache\Cache
@@ -45,17 +51,19 @@ class Sync
      *
      * @param \Symfony\Component\Security\Core\SecurityContext            $context      The application SecurityContext instance
      * @param \Tickit\PermissionBundle\Service\PermissionServiceInterface $permissions  The permission service instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry                    $doctrine     The doctrine registry
      * @param \Tickit\CacheBundle\Cache\CacheFactoryInterface             $cacheFactory The caching factory service
      */
-    public function __construct(SecurityContext $context, PermissionServiceInterface $permissions, CacheFactoryInterface $cacheFactory = null)
+    public function __construct(SecurityContext $context, PermissionServiceInterface $permissions, Doctrine $doctrine, CacheFactoryInterface $cacheFactory)
     {
         $this->context = $context;
         $this->permissions = $permissions;
-        //$this->cache = $cacheFactory->factory('file', array('default_namespace' => 'permissions'));
+        $this->em = $doctrine->getManager();
+        $this->cache = $cacheFactory->factory('file', array('default_namespace' => PermissionService::CACHE_NAMESPACE));
     }
 
     /**
-     * Updates the user's last activity time on every request
+     * Updates the user's permissions in the session if they have changed since the last request
      *
      * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
      */
@@ -66,11 +74,19 @@ class Sync
             return;
         }
 
-        $sessionPermissions = $this->permissions
-                                   ->getSession()
-                                   ->get(PermissionService::SESSION_PERMISSIONS_CHECKSUM);
+        $token = $this->context->getToken();
+        if ($token->isAuthenticated()) {
+            $session = $this->permissions->getSession();
+            $sessionChecksum = $session->get(PermissionService::SESSION_PERMISSIONS_CHECKSUM);
+            $existingChecksum = $this->cache->read($session->getId());
+            if ($existingChecksum != $sessionChecksum) {
+                $permissions = $this->em
+                                    ->getRepository('TickitPermissionBundle:Permission')
+                                    ->findAllForUser($token->getUser());
 
-        var_dump($this->permissions->getSession()); die;
+                $this->permissions->writeToSession($permissions);
+            }
+        }
     }
 
 

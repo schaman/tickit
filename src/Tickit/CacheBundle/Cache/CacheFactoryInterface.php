@@ -15,7 +15,7 @@ interface CacheFactoryInterface
      *
      * @abstract
      *
-     * @return \Tickit\CacheBundle\Engine\AbstractEngine
+     * @return \Tickit\CacheBundle\Cache\Cache
      */
     public function factory($engine, array $options = null);
 

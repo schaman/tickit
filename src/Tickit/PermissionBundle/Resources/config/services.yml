@@ -1,10 +1,9 @@
 services:
   permissions:
     class: Tickit\PermissionBundle\Service\PermissionService
-    arguments:
-      - @session
+    arguments: [@session, @tickit_cache.factory]
   permissions_sync:
       class: Tickit\PermissionBundle\Listener\Sync
-      arguments: [@security.context, @permissions]
+      arguments: [@security.context, @permissions, @doctrine, @tickit_cache.factory]
       tags:
         - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }

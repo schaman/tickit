@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="tickit_cache.factory" class="Tickit\CacheBundle\Cache\Cache">
+        <service id="tickit_cache.factory" class="Tickit\CacheBundle\Cache\CacheFactory">
             <argument type="service" id="service_container" />
         </service>
     </services>

@@ -3,6 +3,7 @@
 namespace Tickit\PermissionBundle\Service;
 use Tickit\PermissionBundle\Entity\Permission;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Tickit\CacheBundle\Cache\CacheFactoryInterface;
 
 /**
  * Provides service level methods for permission related actions
@@ -13,6 +14,7 @@ class PermissionService implements PermissionServiceInterface
 {
     const SESSION_PERMISSIONS_CHECKSUM = 'permissions-checksum';
     const SESSION_PERMISSIONS = 'permissions';
+    const CACHE_NAMESPACE = 'tickit-permissions';
 
     /**
      * The current session instance
@@ -24,11 +26,13 @@ class PermissionService implements PermissionServiceInterface
     /**
      * Class constructor, sets up dependencies
      *
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session The current Session instance
+     * @param \Symfony\Component\HttpFoundation\Session\Session $session      The current Session instance
+     * @param \Tickit\CacheBundle\Cache\CacheFactoryInterface   $cacheFactory The caching factory service
      */
-    public function __construct(Session $session)
+    public function __construct(Session $session, CacheFactoryInterface $cacheFactory)
     {
         $this->session = $session;
+        $this->cache = $cacheFactory->factory('file', array('default_namespace' => static::CACHE_NAMESPACE));
     }
 
     /**
@@ -98,7 +102,10 @@ class PermissionService implements PermissionServiceInterface
             $permissionString .= $permission->getSystemName();
         }
 
-        return sha1($permissionString);
+        $permissionChecksum = sha1($permissionString);
+        $this->cache->write($this->session->getId(), $permissionChecksum);
+
+        return $permissionChecksum;
     }
 
 }
