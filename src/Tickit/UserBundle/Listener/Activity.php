@@ -17,10 +17,10 @@ use Tickit\UserBundle\Entity\User;
  */
 class Activity
 {
-    /* @var Symfony\Component\Security\Core\SecurityContext */
+    /* @var \Symfony\Component\Security\Core\SecurityContext */
     protected $context;
 
-    /* @var Doctrine\Common\Persistence\ObjectManager */
+    /* @var \Doctrine\Common\Persistence\ObjectManager */
     protected $manager;
 
     /**
