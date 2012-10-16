@@ -25,4 +25,11 @@ interface PermissionServiceInterface
      */
     public function writeToSession(array $permissions);
 
+    /**
+     * Returns the session instance associated with this service
+     *
+     * @return \Symfony\Component\HttpFoundation\Session\Session
+     */
+    public function getSession();
+
 }

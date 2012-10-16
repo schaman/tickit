@@ -11,7 +11,14 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class PermissionService implements PermissionServiceInterface
 {
-    /* @var \Symfony\Component\HttpFoundation\Session\Session */
+    const SESSION_PERMISSIONS_CHECKSUM = 'permissions-checksum';
+    const SESSION_PERMISSIONS = 'permissions';
+
+    /**
+     * The current session instance
+     *
+     * @var \Symfony\Component\HttpFoundation\Session\Session
+     */
     protected $session;
 
     /**
@@ -37,6 +44,16 @@ class PermissionService implements PermissionServiceInterface
         return (in_array($permissionName, $permissions));
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return \Symfony\Component\HttpFoundation\Session\Session
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
+
 
 
     /**
@@ -56,8 +73,8 @@ class PermissionService implements PermissionServiceInterface
         }
 
         $checksum = $this->calculateChecksum($permissions);
-        $this->session->set('permissions-checksum', $checksum);
-        $this->session->set('permissions', $condensedPermissions);
+        $this->session->set(static::SESSION_PERMISSIONS_CHECKSUM, $checksum);
+        $this->session->set(static::SESSION_PERMISSIONS, $condensedPermissions);
     }
 
     /**

@@ -3,3 +3,8 @@ services:
     class: Tickit\PermissionBundle\Service\PermissionService
     arguments:
       - @session
+  permissions_sync:
+      class: Tickit\PermissionBundle\Listener\Sync
+      arguments: [@security.context, @permissions]
+      tags:
+        - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }

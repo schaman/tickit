@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\CoreBundle\TickitCoreBundle(),
+            new Tickit\CacheBundle\TickitCacheBundle(),
             new Tickit\PermissionBundle\TickitPermissionBundle(),
             new Tickit\UserBundle\TickitUserBundle(),
             new Tickit\PreferenceBundle\TickitPreferenceBundle(),
@@ -31,7 +32,6 @@ class AppKernel extends Kernel
             new Tickit\TicketBundle\TickitTicketBundle(),
             new Tickit\ProjectBundle\TickitProjectBundle(),
             new Tickit\DashboardBundle\TickitDashboardBundle(),
-            new Tickit\CacheBundle\TickitCacheBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
