@@ -3,7 +3,6 @@
 namespace Tickit\CacheBundle\Tests\Engine;
 
 use Tickit\CacheBundle\Engine\FileEngine;
-use Tickit\CacheBundle\Cache\Cache;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**

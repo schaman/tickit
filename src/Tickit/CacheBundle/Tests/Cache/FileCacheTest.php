@@ -2,7 +2,6 @@
 
 namespace Tickit\CacheBundle\Tests\Cache;
 
-use PHPUnit_Framework_TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tickit\CacheBundle\Cache\CacheFactory;
 use Tickit\CacheBundle\Engine\Exception\NotCacheableException;

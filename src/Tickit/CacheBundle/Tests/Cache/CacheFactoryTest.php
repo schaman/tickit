@@ -2,7 +2,6 @@
 
 namespace Tickit\CacheBundle\Tests\Cache;
 
-use PHPUnit_Framework_TestCase;
 use Tickit\CacheBundle\Cache\CacheFactory;
 use Tickit\CacheBundle\Exception\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
