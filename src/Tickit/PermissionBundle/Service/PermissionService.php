@@ -64,7 +64,7 @@ class PermissionService implements PermissionServiceInterface
             throw new \RuntimeException(sprintf('Permissions are not defined in %s::%s', __CLASS__, __FUNCTION__));
         }
 
-        return (in_array($permissionName, $permissions));
+        return (array_key_exists($permissionName, $permissions));
     }
 
     /**
