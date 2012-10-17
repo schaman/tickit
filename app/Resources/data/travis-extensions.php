@@ -44,7 +44,7 @@ class PhpExtensions
                 'ini'         => array('extension=memcache.so'),
             ),
             'memcached' => array(
-                'url'        => 'http://pecl.php.net/get/memcached',//-1.0.2.tgz',
+                'url'        => 'http://pecl.php.net/get/memcached-1.4.5.tgz',
                 'php_version' => array(
                     // memcached 1.0.2 does not build on PHP 5.4
                     array('<', '5.4'),
