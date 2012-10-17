@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\PermissionBundle\Service;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Interface for permission service
@@ -24,6 +25,15 @@ interface PermissionServiceInterface
      * @param array $permissions An array of permission objects
      */
     public function writeToSession(array $permissions);
+
+    /**
+     * Loads new permissions for a given user from a data provider
+     *
+     * @param \Tickit\UserBundle\Entity\User
+     *
+     * @return mixed
+     */
+    public function loadFromProvider(User $user);
 
     /**
      * Returns the session instance associated with this service

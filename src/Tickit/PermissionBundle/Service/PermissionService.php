@@ -1,9 +1,12 @@
 <?php
 
 namespace Tickit\PermissionBundle\Service;
+
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Tickit\PermissionBundle\Entity\Permission;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Tickit\CacheBundle\Cache\CacheFactoryInterface;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Provides service level methods for permission related actions
@@ -24,14 +27,30 @@ class PermissionService implements PermissionServiceInterface
     protected $session;
 
     /**
+     * The default entity manager instance
+     *
+     * @var \Doctrine\Common\Persistence\ObjectManager
+     */
+    protected $em;
+
+    /**
+     * Caching layer instance
+     *
+     * @var \Tickit\CacheBundle\Cache\Cache
+     */
+    protected $cache;
+
+    /**
      * Class constructor, sets up dependencies
      *
      * @param \Symfony\Component\HttpFoundation\Session\Session $session      The current Session instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry          $doctrine     The doctrine registry
      * @param \Tickit\CacheBundle\Cache\CacheFactoryInterface   $cacheFactory The caching factory service
      */
-    public function __construct(Session $session, CacheFactoryInterface $cacheFactory)
+    public function __construct(Session $session, Doctrine $doctrine, CacheFactoryInterface $cacheFactory)
     {
         $this->session = $session;
+        $this->em = $doctrine->getManager();
         $this->cache = $cacheFactory->factory('file', array('default_namespace' => static::CACHE_NAMESPACE));
     }
 
@@ -59,7 +78,6 @@ class PermissionService implements PermissionServiceInterface
     }
 
 
-
     /**
      * {@inheritdoc}
      */
@@ -79,6 +97,23 @@ class PermissionService implements PermissionServiceInterface
         $checksum = $this->calculateChecksum($permissions);
         $this->session->set(static::SESSION_PERMISSIONS_CHECKSUM, $checksum);
         $this->session->set(static::SESSION_PERMISSIONS, $condensedPermissions);
+    }
+
+
+    /**
+     * Loads permissions for a given user from the database layer and returns them
+     *
+     * @param \Tickit\UserBundle\Entity\User $user
+     *
+     * @return array
+     */
+    public function loadFromProvider(User $user)
+    {
+        $permissions = $this->em
+                            ->getRepository('TickitPermissionBundle:Permission')
+                            ->findAllForUser($user);
+
+        return $permissions;
     }
 
     /**
