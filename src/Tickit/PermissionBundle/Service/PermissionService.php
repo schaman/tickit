@@ -59,7 +59,7 @@ class PermissionService implements PermissionServiceInterface
      */
     public function has($permissionName)
     {
-        $permissions = $this->session->get('permissions');
+        $permissions = $this->session->get(static::SESSION_PERMISSIONS);
         if (!is_array($permissions)) {
             throw new \RuntimeException(sprintf('Permissions are not defined in %s::%s', __CLASS__, __FUNCTION__));
         }
