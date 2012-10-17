@@ -44,7 +44,7 @@ class PhpExtensions
                 'ini'         => array('extension=memcache.so'),
             ),
             'memcached' => array(
-                'url'        => 'http://memcached.googlecode.com/files/memcached-1.4.15.tar.gz',
+                'url'        => 'http://pecl.php.net/get/memcached-1.0.2.tgz',
                 'php_version' => array(
                     // memcached 1.0.2 does not build on PHP 5.4
                     array('<', '5.4'),
@@ -116,7 +116,7 @@ class PhpExtensions
             $folder = basename($file, ".tgz");
             $folder = basename($folder, ".tar.gz");
             $this->system(sprintf(
-                'sh -c "cd %s && phpize && ./configure %s && make && sudo make install" 2>&1',
+                'sh -c "cd %s && phpize && ./configure %s && make && sudo make install" > /dev/null 2>&1',
                 $folder,
                 implode(' ', $extension['cfg'])
             ));
