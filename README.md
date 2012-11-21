@@ -1,4 +1,4 @@
-<a href='http://travis-ci.org/#!/jaitsu87/tickit'><img src='https://secure.travis-ci.org/jaitsu87/tickit.png' /></a>
+<a href='http://travis-ci.org/#!/tickit-project/tickit'><img src='https://secure.travis-ci.org/tickit-project/tickit.png' /></a>
 
 # Quick Setup Guide for Developers #
 
