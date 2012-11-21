@@ -29,7 +29,7 @@ interface PermissionServiceInterface
     /**
      * Loads new permissions for a given user from a data provider
      *
-     * @param \Tickit\UserBundle\Entity\User
+     * @param \Tickit\UserBundle\Entity\User The user to load permissions for
      *
      * @return mixed
      */

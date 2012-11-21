@@ -27,10 +27,10 @@ class Login
     /**
      * Class constructor, sets dependencies
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface          $container   The dependency injection container
-     * @param \Tickit\CoreBundle\Entity\CoreSession                              $session     The current user's session instance
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry                           $doctrine    The doctrine registry
-     * @param \Tickit\PermissionBundle\Service\PermissionServiceInterface        $permissions The permission service
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface   $container   The dependency injection container
+     * @param \Tickit\CoreBundle\Entity\CoreSession                       $session     The current user's session instance
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry                    $doctrine    The doctrine registry
+     * @param \Tickit\PermissionBundle\Service\PermissionServiceInterface $permissions The permission service
      */
     public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, PermissionServiceInterface $permissions)
     {
