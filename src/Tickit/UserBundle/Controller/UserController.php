@@ -2,7 +2,6 @@
 
 namespace Tickit\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\CoreController;
 
@@ -17,19 +16,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  */
 class UserController extends CoreController
 {
-
     /**
      * Lists all users in the system
      *
      * @Template("TickitUserBundle:User:index.html.twig")
+     *
      * @return array
      */
     public function indexAction()
     {
-        $this->_getCacheFactory();
-        //$userManager = $this->_getUserManager();
-        //$user = $userManager->findUserByEmail('');
-        return array();
+        $users = $this->getDoctrine()
+                      ->getManager()
+                      ->getRepository('TickitUserBundle:User')
+                      ->findUsers();
+
+        return array('users' => $users);
     }
 
 }

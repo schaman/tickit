@@ -41,4 +41,28 @@ class UserRepository extends EntityRepository
         return $user;
     }
 
+    /**
+     * Returns a collection of users that match the given criteria
+     *
+     * @param array $filters An array of filters used to filter the result
+     *
+     * @return mixed
+     */
+    public function findUsers(array $filters = array())
+    {
+        $usersQ = $this->getEntityManager()
+                      ->createQueryBuilder()
+                      ->select('u')
+                      ->from('TickitUserBundle:User', 'u');
+
+        foreach ($filters as $column => $value) {
+            if (is_string($value)) {
+                $usersQ->where(sprintf('%s LIKE :%s', $column, $column));
+                $usersQ->setParameter($column, $value);
+            }
+        }
+
+        return $usersQ->getQuery()->execute();
+    }
+
 }
