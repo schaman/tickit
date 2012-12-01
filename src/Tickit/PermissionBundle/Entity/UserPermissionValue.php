@@ -17,7 +17,7 @@ class UserPermissionValue
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User", inversedBy="permissions")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;

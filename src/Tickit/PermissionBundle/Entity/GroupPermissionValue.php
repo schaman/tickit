@@ -17,7 +17,7 @@ class GroupPermissionValue
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\Group")
+     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\Group", inversedBy="permissions")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
     protected $group;
