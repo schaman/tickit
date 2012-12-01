@@ -1,13 +1,33 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome to Tickit!{% endblock %}</title>
+
+        <meta charset="utf-8" />
+
+        <title>{% block title %}Tickit | Support System{% endblock %}</title>
+
+        <!-- CSS -->
+        {% stylesheets  '../app/Resources/public/css/main.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
         {% block stylesheets %}{% endblock %}
+
+        <!-- Modernizer -->
+        {% javascripts '../app/Resources/public/js/bootstrap.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
         {% block javascripts %}{% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class='container-fluid'>
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>
