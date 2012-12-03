@@ -17,12 +17,6 @@
 
         {% block stylesheets %}{% endblock %}
 
-        {% javascripts '../app/Resources/public/js/bootstrap.js' %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-
-        {% block javascripts %}{% endblock %}
-
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
@@ -30,5 +24,12 @@
         <div class='container-fluid'>
             {% block body %}{% endblock %}
         </div>
+
+        {% javascripts '../app/Resources/public/js/bootstrap.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% block javascripts %}{% endblock %}
+
     </body>
 </html>
