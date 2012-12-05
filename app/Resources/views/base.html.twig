@@ -9,7 +9,9 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/css/main.css' %}
+        {% stylesheets  '../app/Resources/public/css/reset.css'
+                        '../app/Resources/public/css/main.css'
+        %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -21,7 +23,10 @@
     </head>
     <body>
         {% render 'TickitCoreBundle:Navigation:topNavigation' %}
-        <div class='container-fluid'>
+        <div id='container'>
+            <header>
+                <nav></nav>
+            </header>
             {% block body %}{% endblock %}
         </div>
 
