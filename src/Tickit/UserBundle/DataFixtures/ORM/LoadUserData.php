@@ -27,6 +27,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin1->setPlainPassword('password');
         $admin1->setSuperAdmin(true);
         $admin1->setEmail('james.t.halsall@googlemail.com');
+        $admin1->setForename('James');
+        $admin1->setSurname('Halsall');
         $admin1->setEnabled(true);
         $admin1->setLastActivity(new DateTime());
         $admin1->addRole('ROLE_SUPER_ADMIN');
@@ -40,6 +42,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin2->setPlainPassword('password');
         $admin2->setSuperAdmin(true);
         $admin2->setEmail('mw870618@gmail.com');
+        $admin2->setForename('Mark');
+        $admin2->setSurname('Wilson');
         $admin2->setEnabled(true);
         $admin2->setLastActivity(new DateTime());
         $admin2->addRole('ROLE_SUPER_ADMIN');
@@ -53,6 +57,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $developer->setPlainPassword('password');
         $developer->setSuperAdmin(false);
         $developer->setEmail('developer@gettickit.com');
+        $developer->setForename('Tickit');
+        $developer->setSurname('Developer');
         $developer->setEnabled(true);
         $developer->setLastActivity(new DateTime());
         $developer->addGroup($this->getReference('dev-group'));

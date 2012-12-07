@@ -1,5 +1,27 @@
 {% extends 'TickitUserBundle::layout.html.twig' %}
 
 {% block content %}
-    <p>TickitUserBundle:User:index.html.twig</p>
+    <h2>Manage Users</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Username</td>
+                <td>Email</td>
+                <td>User Type</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

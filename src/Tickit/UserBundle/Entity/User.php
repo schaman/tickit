@@ -25,6 +25,16 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(type="string", length=120)
+     */
+    protected $forename;
+
+    /**
+     * @ORM\Column(type="string", length=120)
+     */
+    protected $surname;
+
+    /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
@@ -82,6 +92,26 @@ class User extends BaseUser
     }
 
     /**
+     * Updates the user's forename
+     *
+     * @param string $forename The new forename value
+     */
+    public function setForename($forename)
+    {
+        $this->forename = $forename;
+    }
+
+    /**
+     * Updates the user's surname
+     *
+     * @param string $surname The new surname value
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
+
+    /**
      * Updates the last activity time
      *
      * @param \DateTime $lastActivity
@@ -119,6 +149,16 @@ class User extends BaseUser
     public function getSessions()
     {
         return $this->sessions;
+    }
+
+    /**
+     * Gets the user's concatenated forename and surname
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+
     }
 
     /**
