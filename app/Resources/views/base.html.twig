@@ -21,11 +21,16 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% render 'TickitCoreBundle:Navigation:topNavigation' %}
+
+        {% if is_granted('ROLE_USER') %}
+            {% render 'TickitCoreBundle:Navigation:topNavigation' %}
+        {% endif %}
+
         <div id='container'>
-            <header>
-                <nav></nav>
-            </header>
+            {% if is_granted('ROLE_USER') %}
+                {% render 'TickitCoreBundle:Navigation:subNavigation' %}
+            {% endif %}
+
             {% block body %}{% endblock %}
         </div>
 

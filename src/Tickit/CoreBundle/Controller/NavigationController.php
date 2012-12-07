@@ -45,4 +45,17 @@ class NavigationController extends CoreController
         return $this->render('TickitCoreBundle:Navigation:top-navigation.html.twig', array('navigation' => $items));
     }
 
+    /**
+     * Renders the secondary navigation area for specific pages (if applicable -- not all pages contain a
+     * second navigation, in which case this method will return an empty string)
+     *
+     * @todo
+     *
+     * @return string
+     */
+    public function subNavigationAction()
+    {
+        return $this->render('TickitCoreBundle:Navigation:sub-navigation.html.twig');
+    }
+
 }
