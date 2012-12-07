@@ -9,8 +9,7 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/css/styles.css'
-        %}
+        {% stylesheets  '../app/Resources/public/css/styles.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -34,6 +33,7 @@
             {% block body %}{% endblock %}
         </div>
 
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
         {% javascripts '../app/Resources/public/js/bootstrap.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
