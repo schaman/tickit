@@ -1,66 +1,29 @@
 # TeamBundle Routes
-team_show:
-  pattern: /teams/{id}
-  defaults: { _controller: TickitTeamBundle:Team:edit }
-  requirements:
-    _method: GET
-
-team_update:
-  pattern: /teams/{id}/update
-  defaults: { _controller: TickitTeamBundle:Team:update }
-  requirements:
-    _method: POST
-
-team_new:
-  pattern: /teams/new
-  defaults: { _controller: TickitTeamBundle:Team:new }
-  requirements:
-      _method: GET
-
-team_create:
-  pattern: /teams/create
-  defaults: { _controller: TickitTeamBundle:Team:create }
-  requirements:
-    _method: POST
-
-team_index:
-  pattern: /teams/{page}
-  defaults: { _controller: TickitTeamBundle:Team:index, page: 1 }
-  requirements:
-    page: \d+
-
+teams:
+  resource: "@TickitTeamBundle/Resources/config/routing.yml"
+  prefix: /teams
 
 # UserBundle Routes
-user_index:
-  pattern: /users/{page}
-  defaults: { _controller: TickitUserBundle:User:index, page: 1 }
-  requirements:
-    page: \d+
+users:
+  resource: "@TickitUserBundle/Resources/config/routing.yml"
+  prefix: /users
 
 # PreferenceBundle Routes
-preference_index:
-  pattern: /preferences
-  defaults: { _controller: TickitPreferenceBundle:Preference:index }
+preferences:
+  resource: "@TickitPreferenceBundle/Resources/config/routing.yml"
+  prefix: /preferences
 
 # PermissionBundle Routes
-user_permission_index:
-  pattern: /permissions/user/{username}
-  defaults: { _controller: TickitPermissionBundle:UserPermission:index, username: '' }
-
-group_permission_index:
-  pattern: /permissions/group/{group}
-  defaults: { _controller: TickitPermissionBundle:GroupPermission:index, group: '' }
+user_permissions:
+  resource: "@TickitPermissionBundle/Resources/config/routing/user_permissions.yml"
+  prefix: /permissions/user
+group_permissions:
+  resource: "@TickitPermissionBundle/Resources/config/routing/group_permissions.yml"
+  prefix: /permissions/group
 
 # DashboardBundle Routes
-dashboard_index:
-  pattern: /dashboard
-  defaults: { _controller: TickitDashboardBundle:Dashboard:index }
-
-
-# Index
-index:
-  pattern: /
-  defaults: { _controller: TickitDashboardBundle:Dashboard:index }
+dashboard:
+  resource: "@TickitDashboardBundle/Resources/config/routing.yml"
 
 # FOSUserBundle Routes
 fos_user_security:

@@ -1,0 +1,5 @@
+user_index:
+  pattern: /{page}
+  defaults: { _controller: TickitUserBundle:User:index, page: 1 }
+  requirements:
+    page: \d+

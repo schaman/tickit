@@ -1,0 +1,3 @@
+preference_index:
+  pattern: /
+  defaults: { _controller: TickitPreferenceBundle:Preference:index }

@@ -1,0 +1,3 @@
+group_permission_index:
+  pattern: /{group}
+  defaults: { _controller: TickitPermissionBundle:GroupPermission:index, group: '' }
