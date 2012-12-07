@@ -158,7 +158,7 @@ class User extends BaseUser
      */
     public function getFullName()
     {
-
+        return sprintf('%s %s', $this->forename, $this->surname);
     }
 
     /**
