@@ -181,6 +181,16 @@ class User extends BaseUser
         return new \DateTime($this->created);
     }
 
+    /**
+     *
+     */
+    public function getPrimaryGroup()
+    {
+        $groupNames = $this->getGroupNames();
+
+        return array_shift($groupNames);
+    }
+
 }
 
 

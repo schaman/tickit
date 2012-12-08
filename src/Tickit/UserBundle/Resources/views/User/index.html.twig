@@ -3,25 +3,28 @@
 {% block content %}
     <h2>Manage Users</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <td>#</td>
-                <td>Name</td>
-                <td>Username</td>
-                <td>Email</td>
-                <td>User Type</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
+    <div class='data-list'>
+        <table>
+            <thead>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>#</td>
+                    <td>Name</td>
+                    <td>Username</td>
+                    <td>Email</td>
+                    <td>Group</td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.fullName }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.primaryGroup }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
