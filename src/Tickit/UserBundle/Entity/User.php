@@ -182,7 +182,9 @@ class User extends BaseUser
     }
 
     /**
+     * Gets the user's primary group
      *
+     * @return string
      */
     public function getPrimaryGroup()
     {
