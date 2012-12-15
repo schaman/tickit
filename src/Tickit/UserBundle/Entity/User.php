@@ -201,7 +201,7 @@ class User extends BaseUser
      *
      * @return string
      */
-    public function getGravatarImageUrl(int $size, $secure = false)
+    public function getGravatarImageUrl($size, $secure = false)
     {
         $protocol = 'http';
         if ($secure) {

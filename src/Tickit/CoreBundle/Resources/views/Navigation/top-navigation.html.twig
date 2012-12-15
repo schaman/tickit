@@ -13,7 +13,7 @@
         </nav>
         <div class='account'>
             <div class='account-thumb'>
-                <img height='28px' width='28px' src='/images/test/account-thumb.png' />
+                <img height='28px' width='28px' src='{{ app.user.getGravatarImageUrl(30) }}' />
                 <span class='gloss'></span>
             </div>
             <a href="#">{{ app.user.fullName }}</a>
