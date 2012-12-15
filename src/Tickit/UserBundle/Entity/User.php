@@ -193,6 +193,39 @@ class User extends BaseUser
         return array_shift($groupNames);
     }
 
+    /**
+     * Get the user's gravatar image URL
+     *
+     * @param int  $size   Gravatar image size
+     * @param bool $secure Use SSL URL
+     *
+     * @return string
+     */
+    public function getGravatarImageUrl(int $size, $secure = false)
+    {
+        $protocol = 'http';
+        if ($secure) {
+            $protocol .= 's';
+        }
+
+        if ($secure) {
+            $subdomain = 'secure';
+        } else {
+            $subdomain = 'www';
+        }
+
+        $email = $this->getEmail();
+
+        $gravatarUrl = $protocol . '://' . $subdomain . '.gravatar.com/avatar/';
+        $hash = md5(strtolower(trim($email)));
+        $queryParams = array(
+            's' => $size,
+            'd' => 'mm'
+        );
+
+        return $gravatarUrl . $hash . '?' . http_build_query($queryParams);
+    }
+
 }
 
 
