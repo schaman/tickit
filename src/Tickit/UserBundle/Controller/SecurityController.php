@@ -2,6 +2,7 @@
 
 namespace Tickit\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
 /**
@@ -15,12 +16,14 @@ class SecurityController extends BaseController
      * Login action that performs user login. Here we can add any custom logic that needs to take place when
      * a user performs login to the system
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function loginAction()
+    public function loginAction(Request $request)
     {
         //add our own logic here
-        return parent::loginAction();
+        return parent::loginAction($request);
     }
 
     /**
