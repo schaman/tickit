@@ -15,7 +15,7 @@
     "minimum-stability": "dev",
     "name": "symfony/framework-standard-edition",
     "require": {
-        "doctrine/doctrine-bundle": "1.0.x-dev",
+        "doctrine/doctrine-bundle": "1.1.x-dev",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/orm": "2.2.*",
         "friendsofsymfony/user-bundle": "2.0.x-dev",
