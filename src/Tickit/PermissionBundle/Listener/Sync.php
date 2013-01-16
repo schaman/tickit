@@ -66,11 +66,18 @@ class Sync
 
         $token = $this->context->getToken();
         if ($token->isAuthenticated()) {
+            $user = $token->getUser();
+
+            // make sure token contains user object
+            if (!$user instanceof User) {
+                return;
+            }
+
             $session = $this->permissions->getSession();
             $sessionChecksum = $session->get(PermissionService::SESSION_PERMISSIONS_CHECKSUM);
             $existingChecksum = $this->cache->read($session->getId());
             if ($existingChecksum != $sessionChecksum) {
-                $permissions = $this->permissions->loadFromProvider($token->getUser());
+                $permissions = $this->permissions->loadFromProvider($user);
                 $this->permissions->writeToSession($permissions);
             }
         }
