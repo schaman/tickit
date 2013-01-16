@@ -83,3 +83,11 @@ tickit_cache:
         file:
             auto_serialize: true
         apc: true
+        memcached:
+            servers:
+                main:
+                    host: localhost
+                    port: ~
+                    weight: 2
+                    retry_time: 5
+                    enabled: true
