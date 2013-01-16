@@ -16,7 +16,7 @@ class SecurityController extends BaseController
      * Login action that performs user login. Here we can add any custom logic that needs to take place when
      * a user performs login to the system
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request The HTTP request object
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
