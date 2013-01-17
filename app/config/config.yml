@@ -91,3 +91,9 @@ tickit_cache:
                     weight: 2
                     retry_time: 5
                     enabled: true
+                alternate:
+                    host: localhost
+                    port: ~
+                    weight: 1
+                    retry_time: 10
+                    enabled: true

@@ -37,7 +37,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->arrayNode('memcached')->addDefaultsIfNotSet()
                             ->children()
-                                ->arrayNode('servers')
+                                ->arrayNode('servers')->useAttributeAsKey('')
                                     ->prototype('array')
                                         ->children()
                                             ->scalarNode('host')->end()

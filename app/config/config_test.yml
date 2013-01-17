@@ -13,10 +13,25 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 
+#TickitCacheBundle configuration
 tickit_cache:
-    default_namespace: "tickit"
+    default_namespace: "tickit.test"
     types:
         file:
             auto_serialize: true
             default_path: "%kernel.cache_dir%"
         apc: true
+        memcached:
+            servers:
+                main:
+                    host: test.local
+                    port: ~
+                    weight: 2
+                    retry_time: 5
+                    enabled: true
+                alternate:
+                    host: test.local
+                    port: ~
+                    weight: 1
+                    retry_time: 10
+                    enabled: true
