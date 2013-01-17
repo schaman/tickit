@@ -3,8 +3,6 @@
 namespace Tickit\CacheBundle\Options;
 
 use Tickit\CacheBundle\Options\Exception\InvalidOptionException;
-use Tickit\CacheBundle\Util\Sanitizer;
-use RuntimeException;
 
 /**
  * Options resolver class for the File caching engine
