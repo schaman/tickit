@@ -17,6 +17,8 @@ class FileEngineTest extends WebTestCase
     /**
      * Makes sure that the file engine is working together with the options resolver
      * to correctly configure valid and invalid values the cache directory option
+     *
+     * @todo This should be in FileOptionsTest class
      */
     public function testCacheDirectoryOption()
     {
@@ -38,6 +40,8 @@ class FileEngineTest extends WebTestCase
 
     /**
      * Makes sure that the auto_serialize option is properly configured
+     *
+     * @todo This should be in FileOptionsTest class
      */
     public function testAutoSerializeOption()
     {

@@ -66,9 +66,7 @@ class TickitCacheExtension extends Extension
      */
     protected function loadMemcached($config, ContainerBuilder $container)
     {
-        foreach ($config['servers'] as $server) {
-            //todo: build a server object
-        }
+        $container->setParameter('tickit_cache.memcached.servers', $config['servers']);
     }
 
     /**

@@ -84,16 +84,17 @@ tickit_cache:
             auto_serialize: true
         apc: true
         memcached:
+            persistence_id: tickit
             servers:
                 main:
                     host: localhost
-                    port: ~
-                    weight: 2
+                    name: main
+                    weight: 90
                     retry_time: 5
                     enabled: true
                 alternate:
                     host: localhost
-                    port: ~
-                    weight: 1
+                    name: alternate
+                    weight: 10
                     retry_time: 10
                     enabled: true

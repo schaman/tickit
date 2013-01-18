@@ -22,16 +22,18 @@ tickit_cache:
             default_path: "%kernel.cache_dir%"
         apc: true
         memcached:
+            persistence_id: tickit
             servers:
                 main:
-                    host: test.local
-                    port: ~
+                    host: localhost
+                    name: main
                     weight: 2
                     retry_time: 5
                     enabled: true
                 alternate:
-                    host: test.local
-                    port: ~
+                    name: alternate
+                    host: backup.local
                     weight: 1
+                    port: 30000
                     retry_time: 10
                     enabled: true

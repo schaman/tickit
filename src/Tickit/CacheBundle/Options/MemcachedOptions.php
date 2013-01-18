@@ -2,6 +2,9 @@
 
 namespace Tickit\CacheBundle\Options;
 
+use \Memcached;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Options resolver class for the Memcached caching engine
  *
@@ -10,20 +13,32 @@ namespace Tickit\CacheBundle\Options;
 class MemcachedOptions extends AbstractOptions
 {
     /**
-     * An array of server configurations indexed by their weight value
+     * The Memcached instance on this options set
      *
      * @var array
      */
-    protected $servers = array();
+    protected $memcached;
+
+    /**
+     * Constructs the Memcached options object and calls parent constructor
+     *
+     * @param array                                                     $options   An array of user defined options
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The symfony service container instance
+     */
+    public function __construct(array $options, ContainerInterface $container)
+    {
+        $this->memcached = new Memcached();
+        parent::__construct($options, $container);
+    }
 
     /**
      * Returns the servers configuration
      *
      * @return array
      */
-    public function getServers()
+    public function getMemcached()
     {
-        return $this->servers;
+        return $this->memcached;
     }
 
     /**
@@ -32,9 +47,12 @@ class MemcachedOptions extends AbstractOptions
     protected function _resolveOptions()
     {
         $servers = $this->container->getParameter('tickit_cache.memcached.servers');
-        var_dump($servers); die;
         foreach ($servers as $server) {
-            $this->servers[$server['weight']][] = $server;
+            if (!$server['enabled']) {
+                continue;
+            }
+            $host = ($server['host'] == 'localhost') ? '127.0.0.1' : $server['host'];
+            $this->memcached->addServer($host, $server['port'], $server['weight']);
         }
 
         parent::_resolveOptions();

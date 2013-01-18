@@ -21,8 +21,24 @@ class MemcachedOptionsTest extends WebTestCase
         $client = static::createClient();
 
         $resolver = new MemcachedOptions(array(), $client->getContainer());
+        $memcached = $resolver->getMemcached();
 
-        var_dump($resolver->getServers()); die;
+        $this->assertInstanceOf('Memcached', $memcached);
+        $servers = $memcached->getServerList();
+
+        $expected = array(
+            array(
+                'host' => '127.0.0.1',
+                'port' => 11211,
+                'weight' => 100
+            ),
+            array(
+                'host' => 'backup.local',
+                'port' => 30000,
+                'weight' => 0
+            )
+        );
+        $this->assertEquals($expected, $servers);
     }
 
 }

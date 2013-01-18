@@ -22,6 +22,13 @@ class MemcachedEngine extends AbstractEngine
     protected $memcached;
 
     /**
+     * MemcachedOptions object
+     *
+     * @var MemcachedOptions
+     */
+    protected $options;
+
+    /**
      * Class constructor, sets dependencies
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
@@ -38,13 +45,7 @@ class MemcachedEngine extends AbstractEngine
         }
 
         $this->setOptions($options);
-
-        // TODO: load this from options
-        $instanceId = 'tickit';
-        $this->memcached = new Memcached($instanceId);
-
-        // TODO: load server from configuration
-        $this->memcached->addServer('127.0.0.1', 11211);
+        $this->memcached = $this->options->getMemcached();
     }
 
     /**
