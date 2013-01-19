@@ -33,8 +33,8 @@ class MemcachedOptionsTest extends WebTestCase
                 'weight' => 100
             ),
             array(
-                'host' => 'backup.local',
-                'port' => 30000,
+                'host' => '127.0.0.1',
+                'port' => 11211,
                 'weight' => 0
             )
         );

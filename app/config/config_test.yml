@@ -27,13 +27,13 @@ tickit_cache:
                 main:
                     host: localhost
                     name: main
-                    weight: 2
+                    weight: 100
                     retry_time: 5
                     enabled: true
                 alternate:
                     name: alternate
-                    host: backup.local
-                    weight: 1
-                    port: 30000
+                    host: localhost
+                    weight: 0
+                    port: 11211
                     retry_time: 10
                     enabled: true
