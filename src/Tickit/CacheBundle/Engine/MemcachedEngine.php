@@ -5,6 +5,7 @@ namespace Tickit\CacheBundle\Engine;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Exception\MemcachedCacheUnavailableException;
 use Tickit\CacheBundle\Options\MemcachedOptions;
+use Tickit\CacheBundle\Types\PurgeableCacheInterface;
 use Memcached;
 
 /**
@@ -12,7 +13,7 @@ use Memcached;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class MemcachedEngine extends AbstractEngine
+class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
 {
 
     /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
@@ -94,6 +95,34 @@ class MemcachedEngine extends AbstractEngine
 
     /**
      * {@inheritDoc}
+     *
+     * @return bool
+     */
+    public function purgeAll()
+    {
+        return $this->memcached->flush();
+    }
+
+    /**
+     * This method is not supported in the Memcached engine. May look to
+     * emulate this in a future version
+     *
+     * @param string $namespace The namespace to purge
+     *
+     * @return bool
+     */
+    public function purgeNamespace($namespace)
+    {
+        return false;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed $options Either an array of options or a valid options object instance
+     *
+     * @return \Tickit\CacheBundle\Options\MemcachedOptions
      */
     protected function setOptions($options)
     {

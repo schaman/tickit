@@ -22,7 +22,7 @@ class MemcachedCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('memcached', array());
+        $cache = $cacheFactory->factory(CacheFactory::MEMCACHED_ENGINE, array());
 
         $id = $cache->write(1, 'sample data');
         $this->assertEquals(1, $id);
@@ -40,7 +40,7 @@ class MemcachedCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('memcached', array());
+        $cache = $cacheFactory->factory(CacheFactory::MEMCACHED_ENGINE, array());
 
         $simpleObject = $this->buildSimpleObject();
 
@@ -63,7 +63,7 @@ class MemcachedCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('memcached', array());
+        $cache = $cacheFactory->factory(CacheFactory::MEMCACHED_ENGINE, array());
 
         $data = $this->buildSimpleObject();
 
@@ -73,6 +73,36 @@ class MemcachedCacheTest extends WebTestCase
         $cache->delete($id);
 
         $this->assertNull($cache->read($id));
+    }
+
+    /**
+     * Makes sure that purging the cache behaves as expected
+     */
+    public function testPurgeCacheData()
+    {
+        $client = static::createClient();
+
+        $cacheFactory = new CacheFactory($client->getContainer());
+        $cache = $cacheFactory->factory(CacheFactory::MEMCACHED_ENGINE, array());
+
+        $object = $this->buildSimpleObject();
+        $cache->write('key1', $object);
+        $cache->write('key2', 'string value');
+
+        $prePurgeObjectFetch = $cache->read('key1');
+        $prePurgeStringFetch = $cache->read('key2');
+
+        $this->assertEquals($object, $prePurgeObjectFetch, 'Object correctly fetched from cache before purge');
+        $this->assertEquals('string value', $prePurgeStringFetch, 'String correctly fetched from cache before purge');
+
+        $success = $cache->purge();
+        $this->assertTrue($success, 'Memcached purge operation completed successfully');
+
+        $objectFetch = $cache->read('key1');
+        $stringFetch = $cache->read('key2');
+
+        $this->assertEquals(null, $objectFetch, 'Fetching object after purge correctly returned null');
+        $this->assertEquals(null, $stringFetch, 'Fetching string after purge correctly returned null');
     }
 
     /**

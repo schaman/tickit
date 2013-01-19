@@ -13,7 +13,7 @@ interface PurgeableCacheInterface
     /**
      * Purges the entire cache contents
      *
-     * @return void
+     * @return mixed
      */
     public function purgeAll();
 
@@ -22,7 +22,7 @@ interface PurgeableCacheInterface
      *
      * @param string $namespace The namespace to purge
      *
-     * @return void
+     * @return mixed
      */
     public function purgeNamespace($namespace);
 

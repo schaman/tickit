@@ -56,8 +56,6 @@ class CacheFactory implements CacheFactoryInterface
             throw new \Tickit\CacheBundle\Exception\InvalidArgumentException();
         }
 
-        //do any configuration here
-
         $engineClass = sprintf('\Tickit\CacheBundle\Engine\%sEngine', ucfirst($engine));
         $engineInstance = new $engineClass($this->container, $options);
 

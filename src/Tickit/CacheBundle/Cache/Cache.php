@@ -71,6 +71,8 @@ class Cache
      *
      * @param string $namespace [Optional] A namespace to purge
      *
+     * @return mixed
+     *
      * @throws \Tickit\CacheBundle\Engine\Exception\FeatureNotSupportedException
      */
     public function purge($namespace = null)
@@ -79,9 +81,9 @@ class Cache
 
         if ($engine instanceof PurgeableCacheInterface) {
             if (null !== $namespace) {
-                $engine->purgeNamespace($namespace);
+                return $engine->purgeNamespace($namespace);
             } else {
-                $engine->purgeAll();
+                return $engine->purgeAll();
             }
         } else {
             throw new FeatureNotSupportedException(
