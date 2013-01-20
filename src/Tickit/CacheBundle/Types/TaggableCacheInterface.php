@@ -17,7 +17,7 @@ interface TaggableCacheInterface
      *
      * @abstract
      *
-     * @return void
+     * @return mixed
      */
     public function addTags($id, array $tags);
 
@@ -32,7 +32,6 @@ interface TaggableCacheInterface
      * @return mixed
      */
     public function findByTags(array $tags, $partialMatch = false);
-
 
     /**
      * Removes cached data that matches a collection of tags

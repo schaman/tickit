@@ -19,7 +19,7 @@ tickit_cache:
     types:
         file:
             auto_serialize: true
-            default_path: "%kernel.cache_dir%"
+            default_path: "%kernel.cache_dir%/tickit_cache"
         apc: true
         memcached:
             persistence_id: tickit

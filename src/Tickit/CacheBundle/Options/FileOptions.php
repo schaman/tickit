@@ -43,7 +43,9 @@ class FileOptions extends AbstractOptions
     public function setCacheDir($path)
     {
         if (!is_writable($path)) {
-            throw new InvalidOptionException();
+            throw new InvalidOptionException(
+                sprintf('An un-writable or non-existent cache directory (%s) has been provided', $path)
+            );
         }
 
         $this->cacheDir = $path;

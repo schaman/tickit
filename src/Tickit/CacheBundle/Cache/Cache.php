@@ -4,6 +4,7 @@ namespace Tickit\CacheBundle\Cache;
 
 use Tickit\CacheBundle\Engine\AbstractEngine;
 use Tickit\CacheBundle\Types\PurgeableCacheInterface;
+use Tickit\CacheBundle\Types\TaggableCacheInterface;
 use Tickit\CacheBundle\Engine\Exception\FeatureNotSupportedException;
 
 /**
@@ -90,6 +91,60 @@ class Cache
                 sprintf('The requested operation (purge) is not supported in the %s engine', get_class($engine))
             );
         }
+    }
+
+    /**
+     * Adds tags to a specific cache entry
+     *
+     * @param mixed $id   The cache key of the data to add tags to
+     * @param mixed $tags Either an array of tags or a single tag to add
+     *
+     * @return mixed
+     *
+     * @throws \Tickit\CacheBundle\Engine\Exception\FeatureNotSupportedException
+     */
+    public function addTags($id, $tags)
+    {
+        if (!is_array($tags)) {
+            $tags = array($tags);
+        }
+
+        $engine = $this->getEngine();
+
+        if ($engine instanceof TaggableCacheInterface) {
+            return $this->getEngine()->addTags($id, $tags);
+        }
+
+        throw new FeatureNotSupportedException(
+            sprintf('The requested operation (addTags) is not supported in the %s engine', get_class($engine))
+        );
+    }
+
+    /**
+     * Reads data from the cache that matches a set of tags
+     *
+     * @param mixed $tags         Either an array of tags or a single tag to search on
+     * @param bool  $partialMatch [Optional] True to only match on part of the tag name, defaults to false
+     *
+     * @return array
+     *
+     * @throws \Tickit\CacheBundle\Engine\Exception\FeatureNotSupportedException
+     */
+    public function findByTags($tags, $partialMatch = false)
+    {
+        if (!is_array($tags)) {
+            $tags = array($tags);
+        }
+
+        $engine = $this->getEngine();
+
+        if ($engine instanceof TaggableCacheInterface) {
+            return $this->getEngine()->findByTags($tags, $partialMatch);
+        }
+
+        throw new FeatureNotSupportedException(
+            sprintf('The requested operation (findByTags) is not supported in the %s engine', get_class($engine))
+        );
     }
 
     /**

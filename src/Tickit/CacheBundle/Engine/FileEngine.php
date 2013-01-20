@@ -105,7 +105,16 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
      */
     public function addTags($id, array $tags)
     {
+        $currentTags = $this->readTagFile($id);
 
+        foreach ($tags as $tag) {
+            if (in_array($tag, $currentTags)) {
+                continue;
+            }
+            $currentTags[] = $tag;
+        }
+
+        return $this->writeTagFile($id, $currentTags);
     }
 
     /**
@@ -113,7 +122,21 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
      */
     public function findByTags(array $tags, $partialMatch = false)
     {
+        $masterTags = $this->readMasterTagFile();
+        $matchedIds = array();
+        $returnData = array();
 
+        foreach (array_keys($masterTags) as $tag) {
+            if (in_array($tag, $tags)) {
+                $matchedIds += $masterTags[$tag];
+            }
+        }
+
+        foreach ($matchedIds as $id) {
+            $returnData[$id] = $this->internalRead($id);
+        }
+
+        return $returnData;
     }
 
     /**
@@ -146,6 +169,125 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         $purger->purgeAll();
     }
 
+    /**
+     * Creates a tag file for a given cache key spec
+     *
+     * @param mixed $id The cache key to create a tag file for
+     *
+     * @return bool
+     */
+    protected function createTagFile($id = null)
+    {
+        $success = true;
+        $initData = json_encode(array());
+
+        if (!empty($id)){
+            $tagFile = $this->buildTagFilePath($id);
+            if (!file_exists($tagFile)) {
+                $success &= false !== file_put_contents($tagFile, $initData);
+            }
+        }
+
+        $masterTagFile = $this->buildMasterTagFilePath();
+        if (!file_exists($masterTagFile)) {
+            $success &= false !== file_put_contents($masterTagFile, $initData);
+        }
+
+        return (bool) $success;
+    }
+
+    /**
+     * Reads the contents of the tag file for a given cache key spec
+     *
+     * @param mixed $id The cache key to read tags for
+     *
+     * @return mixed
+     */
+    protected function readTagFile($id)
+    {
+        $tagFile = $this->buildTagFilePath($id);
+        $this->createTagFile($id); //make sure the tag file exists before attempting to read
+
+        $tagFileContent = file_get_contents($tagFile);
+
+        return (array) json_decode($tagFileContent);
+    }
+
+    /**
+     * Reads the contents of the master tag file
+     *
+     * @return mixed
+     */
+    protected function readMasterTagFile()
+    {
+        $masterTagFile = $this->buildMasterTagFilePath();
+
+        if (!file_exists($masterTagFile)) {
+            $this->createTagFile();
+        }
+
+        $masterTagFileContent = file_get_contents($masterTagFile);
+
+        return (array) json_decode($masterTagFileContent);
+    }
+
+    /**
+     * Writes tags for a given cache key spec
+     *
+     * @param mixed $id   The cache key to write tags for
+     * @param array $tags An array of tags to write
+     *
+     * @return bool
+     */
+    protected function writeTagFile($id, array $tags)
+    {
+        $tagFile = $this->buildTagFilePath($id);
+        $masterTagFile = $this->buildMasterTagFilePath();
+        $success = true;
+
+        $masterTags = $this->readMasterTagFile();
+        foreach ($tags as $tag) {
+            if (!isset($masterTags[$tag])) {
+                $masterTags[$tag] = array();
+            }
+            if (!in_array($id, $masterTags)) {
+                $masterTags[$tag][] = $id;
+            }
+        }
+
+        $success &= false !== file_put_contents($masterTagFile, json_encode($masterTags), LOCK_EX);
+        $success &= false !== file_put_contents($tagFile, json_encode($tags), LOCK_EX);
+
+        return (bool) $success;
+    }
+
+    /**
+     * Gets the full path to the tag file for a given cache key spec
+     *
+     * @param mixed $id The cache key to build the tag file path for
+     *
+     * @return string
+     */
+    protected function buildTagFilePath($id)
+    {
+        $directory = $this->buildDirectory(true);
+        $tagFilePath = sprintf('%s/__%s.tags', $directory, $id);
+
+        return $tagFilePath;
+    }
+
+    /**
+     * Gets the full path for the master tag file in this namespace
+     *
+     * @return string
+     */
+    protected function buildMasterTagFilePath()
+    {
+        $directory = $this->buildDirectory(true);
+        $tagFilePath = sprintf('%s/__tags.meta', $directory);
+
+        return $tagFilePath;
+    }
 
     /**
      * {@inheritDoc}

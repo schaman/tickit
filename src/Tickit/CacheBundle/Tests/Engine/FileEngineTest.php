@@ -34,8 +34,9 @@ class FileEngineTest extends WebTestCase
         );
 
         $kernelCacheDir = $this->_getContainer()->getParameter('kernel.cache_dir');
+        $kernelCacheFullPath = sprintf('%s/tickit_cache', $kernelCacheDir);
         $engine = $this->_getEngineInstance($invalidOptions);
-        $this->assertEquals($kernelCacheDir, $engine->getOptions()->getCacheDir());
+        $this->assertEquals($kernelCacheFullPath, $engine->getOptions()->getCacheDir());
     }
 
     /**

@@ -23,7 +23,7 @@ class FileCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('file', array());
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array());
 
         $id = $cache->write(1, 'sample data');
         $this->assertEquals(1, $id);
@@ -41,7 +41,7 @@ class FileCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('file', array());
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array());
 
         $simpleObject = $this->buildSimpleObject();
 
@@ -66,7 +66,7 @@ class FileCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('file', array('auto_serialize' => false));
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('auto_serialize' => false));
 
         $simpleObject = $this->buildSimpleObject();
         $caught = false;
@@ -89,8 +89,8 @@ class FileCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cacheOne = $cacheFactory->factory('file', array('namespace' => 'one'));
-        $cacheTwo = $cacheFactory->factory('file', array('namespace' => 'two'));
+        $cacheOne = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'one'));
+        $cacheTwo = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'two'));
 
         $cacheOne->write(1, 'some data');
         $cacheTwo->write(1, 'some other data');
@@ -114,7 +114,7 @@ class FileCacheTest extends WebTestCase
         $client = static::createClient();
 
         $cacheFactory = new CacheFactory($client->getContainer());
-        $cache = $cacheFactory->factory('file', array('namespace' => 'one'));
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'one'));
 
         $data = $this->buildSimpleObject();
 
@@ -124,6 +124,30 @@ class FileCacheTest extends WebTestCase
         $cache->delete($id);
 
         $this->assertNull($cache->read($id));
+    }
+
+    /**
+     * Makes sure that reading/writing data with tags behaves as expected
+     */
+    public function testTaggableCacheReadWrite()
+    {
+        $client = static::createClient();
+
+        $cacheFactory = new CacheFactory($client->getContainer());
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'tagging'));
+        $cache->purge();
+
+        $data = $this->buildSimpleObject();
+        $id = $cache->write('test', $data);
+
+        $success = $cache->addTags($id, array('tag1', 'tag2'));
+        $this->assertTrue($success, 'Adding tags to cached data successful');
+
+        $tagOneData = $cache->findByTags('tag1');
+        $tagTwoData = $cache->findByTags('tag2');
+
+        $this->assertEquals(array('test' => $data), $tagOneData);
+        $this->assertEquals(array('test' => $data), $tagTwoData);
     }
 
 

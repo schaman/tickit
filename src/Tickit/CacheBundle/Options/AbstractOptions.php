@@ -85,7 +85,7 @@ abstract class AbstractOptions
     {
         $namespace = $this->getRawOption('namespace', null);
 
-        if (null !== $namespace) {
+        if (!empty($namespace)) {
             $this->setNamespace($namespace);
         } else {
             $defaultNamespace = $this->container->getParameter('tickit_cache.default_namespace');
