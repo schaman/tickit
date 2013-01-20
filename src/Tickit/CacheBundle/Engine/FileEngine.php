@@ -96,7 +96,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         }
 
         $tagFile = $this->buildTagFilePath($id);
-        $deleted = unlink($fullPath) && unlink($tagFile);
+        $deleted = unlink($fullPath) && unlink($tagFile) && $this->deleteIdFromMasterTagFile($id);
 
         return $deleted;
     }
@@ -115,7 +115,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $currentTags[] = $tag;
         }
 
-        return $this->writeTagFile($id, $currentTags);
+        return $this->writeTagFile($currentTags, $id);
     }
 
     /**
@@ -137,6 +137,10 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $returnData[$id] = $this->internalRead($id);
         }
 
+        if (empty($returnData)) {
+            return null;
+        }
+
         return $returnData;
     }
 
@@ -145,7 +149,26 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
      */
     public function removeByTags(array $tags, $partialMatch = false)
     {
+        $masterTags = $this->readMasterTagFile();
+        $matchedIds = array();
+        $match = false;
 
+        foreach (array_keys($masterTags) as $tag) {
+            if (in_array($tag, $tags)) {
+                $match = true;
+                $matchedIds += $masterTags[$tag];
+                unset($masterTags[$tag]);
+            }
+        }
+
+        $success = false;
+        if (false !== $match) {
+            foreach ($matchedIds as $id) {
+                $success &= $this->internalDelete($id);
+            }
+        }
+
+        return (bool) $success;
     }
 
     /**
@@ -235,12 +258,12 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
     /**
      * Writes tags for a given cache key spec
      *
-     * @param mixed $id   The cache key to write tags for
-     * @param array $tags An array of tags to write
+     * @param array $tags The new array of tags to write
+     * @param mixed $id   [Optional] The cache key to write tags for, defaults to none
      *
      * @return bool
      */
-    protected function writeTagFile($id, array $tags)
+    protected function writeTagFile(array $tags, $id = null)
     {
         $tagFile = $this->buildTagFilePath($id);
         $masterTagFile = $this->buildMasterTagFilePath();
@@ -251,15 +274,40 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             if (!isset($masterTags[$tag])) {
                 $masterTags[$tag] = array();
             }
-            if (!in_array($id, $masterTags)) {
+            if (null !== $id && !in_array($id, $masterTags)) {
                 $masterTags[$tag][] = $id;
             }
         }
 
         $success &= false !== file_put_contents($masterTagFile, json_encode($masterTags), LOCK_EX);
-        $success &= false !== file_put_contents($tagFile, json_encode($tags), LOCK_EX);
+        if (null !== $id) {
+            $success &= false !== file_put_contents($tagFile, json_encode($tags), LOCK_EX);
+        }
 
         return (bool) $success;
+    }
+
+    /**
+     * Removes all occurrences of a cache key from the master tag file
+     *
+     * @param mixed $id The cache key to remove from the master tag file
+     *
+     * @return bool
+     */
+    protected function deleteIdFromMasterTagFile($id)
+    {
+        $masterTags = $this->readMasterTagFile();
+        $masterTagFile = $this->buildMasterTagFilePath();
+
+        foreach ($masterTags as $tagName => $tagData) {
+            $key = array_search($id, $tagData);
+            if (false !== $key) {
+                unset ($tagData[$key]);
+            }
+            $masterTags[$tagName] = $tagData;
+        }
+
+        return file_put_contents($masterTagFile, json_encode($masterTags), LOCK_EX);
     }
 
     /**

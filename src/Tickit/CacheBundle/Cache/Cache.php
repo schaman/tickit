@@ -148,6 +148,33 @@ class Cache
     }
 
     /**
+     * Deletes data from the cache based on its tags
+     *
+     * @param mixed $tags        Either an array of tags or a single tag to search on
+     * @param bool $partialMatch [Optional] True to only match on part of the tag name, defaults to false
+     *
+     * @return bool
+     *
+     * @throws \Tickit\CacheBundle\Engine\Exception\FeatureNotSupportedException
+     */
+    public function removeByTags($tags, $partialMatch = false)
+    {
+        if (!is_array($tags)) {
+            $tags = array($tags);
+        }
+
+        $engine = $this->getEngine();
+
+        if ($engine instanceof TaggableCacheInterface) {
+            return $this->getEngine()->removeByTags($tags, $partialMatch);
+        }
+
+        throw new FeatureNotSupportedException(
+            sprintf('The requested operation (removeByTags) is not supported in the %s engine', get_class($engine))
+        );
+    }
+
+    /**
      * Gets the caching engine associated with this cache
      *
      * @return \Tickit\CacheBundle\Engine\AbstractEngine

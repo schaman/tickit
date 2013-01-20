@@ -150,6 +150,32 @@ class FileCacheTest extends WebTestCase
         $this->assertEquals(array('test' => $data), $tagTwoData);
     }
 
+    /**
+     * Makes sure that deleting a single item from the cache based on its tags behaves as expected
+     */
+    public function testDeletingSingleTaggedItemCacheData()
+    {
+        $client = static::createClient();
+
+        $cacheFactory = new CacheFactory($client->getContainer());
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'tagging'));
+        $cache->purge();
+
+        $data = $this->buildSimpleObject();
+        $id = $cache->write('test2', $data);
+
+        $cache->addTags($id, 'tag-delete');
+
+        $tagData = $cache->findByTags('tag-delete');
+        $this->assertEquals(array('test2' => $data), $tagData, 'Tagged data successfully stored');
+
+        $success = $cache->removeByTags('tag-delete'); //todo: fix this test assertion
+        $this->assertTrue($success, 'removeByTags correctly returned boolean success');
+
+        $postDeleteData = $cache->findByTags('tag-delete');
+        $this->assertEquals(null, $postDeleteData, 'findByTags correctly returned null after data was deleted');
+    }
+
 
     /**
      * Builds a simple object for testing in cache writes/reads
