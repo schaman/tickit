@@ -96,7 +96,11 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         }
 
         $tagFile = $this->buildTagFilePath($id);
-        $deleted = unlink($fullPath) && unlink($tagFile) && $this->deleteIdFromMasterTagFile($id);
+        $deleted = unlink($fullPath) && $this->deleteIdFromMasterTagFile($id);
+
+        if (file_exists($tagFile)) {
+            $deleted &= unlink($tagFile);
+        }
 
         return $deleted;
     }
