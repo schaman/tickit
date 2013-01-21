@@ -102,7 +102,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $deleted &= unlink($tagFile);
         }
 
-        return $deleted;
+        return (bool) $deleted;
     }
 
     /**
@@ -165,7 +165,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             }
         }
 
-        $success = false;
+        $success = true;
         if (false !== $match) {
             foreach ($matchedIds as $id) {
                 $success &= $this->internalDelete($id);

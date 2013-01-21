@@ -153,7 +153,7 @@ class FileCacheTest extends WebTestCase
     /**
      * Makes sure that deleting a single item from the cache based on its tags behaves as expected
      */
-    public function testDeletingSingleTaggedItemCacheData()
+    public function testDeletingSingleTaggedCacheDataItem()
     {
         $client = static::createClient();
 
@@ -174,6 +174,20 @@ class FileCacheTest extends WebTestCase
 
         $postDeleteData = $cache->findByTags('tag-delete');
         $this->assertEquals(null, $postDeleteData, 'findByTags correctly returned null after data was deleted');
+    }
+
+    /**
+     * Makes sure that deleting multiple items from the cache based on their tag behaves as expected
+     */
+    public function testDeletingMultipleTaggedCacheDataItems()
+    {
+        $client = static::createClient();
+
+        $cacheFactory = new CacheFactory($client->getContainer());
+        $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'tagging'));
+        $cache->purge();
+
+        //run tests here
     }
 
 
