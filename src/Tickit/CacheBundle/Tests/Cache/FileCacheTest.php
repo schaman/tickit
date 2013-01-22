@@ -187,7 +187,36 @@ class FileCacheTest extends WebTestCase
         $cache = $cacheFactory->factory(CacheFactory::FILE_ENGINE, array('namespace' => 'tagging'));
         $cache->purge();
 
-        //run tests here
+        $data1 = $this->buildSimpleObject();
+        $data2 = (array) $data1;
+        $data3 = 'string value';
+        $data4 = 200;
+
+        $data1Id = $cache->write('data1', $data1);
+        $data2Id = $cache->write('data2', $data2);
+        $data3Id = $cache->write('data3', $data3);
+        $data4Id = $cache->write('data4', $data4);
+
+        $cache->addTags($data1Id, 'tag-delete');
+        $cache->addTags($data2Id, 'tag-delete');
+        $cache->addTags($data3Id, 'tag-delete');
+        $cache->addTags($data4Id, 'tag-delete');
+
+        $expectedFetch = array(
+            'data1' => $data1,
+            'data2' => $data2,
+            'data3' => $data3,
+            'data4' => $data4
+        );
+
+        $actualFetch = $cache->findByTags('tag-delete');
+        $this->assertEquals($expectedFetch, $actualFetch, 'Multiple tagged items correctly read from cache');
+
+        $deleteSuccess = $cache->removeByTags('tag-delete');
+        $this->assertTrue($deleteSuccess, 'removeByTags correctly returned boolean success');
+
+        $postDeleteData = $cache->findByTags('tag-delete');
+        $this->assertEquals(null, $postDeleteData, 'findByTags correctly returned null after all tagged data was data');
     }
 
 

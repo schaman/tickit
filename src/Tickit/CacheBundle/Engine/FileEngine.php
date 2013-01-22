@@ -256,7 +256,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
 
         $masterTagFileContent = file_get_contents($masterTagFile);
 
-        return (array) json_decode($masterTagFileContent);
+        return json_decode($masterTagFileContent, true);
     }
 
     /**
@@ -390,7 +390,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
     {
         $autoSerialize = $this->getOptions()->getAutoSerialize();
 
-        if (is_object($data)) {
+        if (is_object($data) || is_array($data)) {
             if (false === $autoSerialize) {
                 throw new Exception\NotCacheableException(
                     sprintf(
