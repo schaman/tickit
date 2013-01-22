@@ -209,7 +209,7 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         $success = true;
         $initData = json_encode(array());
 
-        if (!empty($id)){
+        if (!empty($id)) {
             $tagFile = $this->buildTagFilePath($id);
             if (!file_exists($tagFile)) {
                 $success &= false !== file_put_contents($tagFile, $initData);

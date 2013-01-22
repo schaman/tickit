@@ -150,8 +150,8 @@ class Cache
     /**
      * Deletes data from the cache based on its tags
      *
-     * @param mixed $tags        Either an array of tags or a single tag to search on
-     * @param bool $partialMatch [Optional] True to only match on part of the tag name, defaults to false
+     * @param mixed $tags         Either an array of tags or a single tag to search on
+     * @param bool  $partialMatch [Optional] True to only match on part of the tag name, defaults to false
      *
      * @return bool
      *
