@@ -102,5 +102,17 @@ CONTENT;
 
 }
 
+/**
+ * Creates the cache directory for unit tests (see app/config_test.yml)
+ *
+ * @return void
+ */
+function createCacheDirectory()
+{
+    $root = getProjectRoot();
+    $path = sprintf('%s/app/cache/test/tickit_cache', $root);
+    mkdir($path, 0766, true);
+}
+
 createTravisConfigYml();
 createPhpUnitXml();
