@@ -13,8 +13,6 @@ use Tickit\CacheBundle\Options\ApcOptions;
  */
 class ApcEngine extends AbstractEngine
 {
-    /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    protected $container;
 
     /**
      * Class constructor, checks whether APC is available and sets dependencies
@@ -26,13 +24,11 @@ class ApcEngine extends AbstractEngine
      */
     public function __construct(ContainerInterface $container, $options = null)
     {
-        $this->container = $container;
-
         if (false === $this->_isAvailable()) {
             throw new ApcCacheUnavailableException();
         }
 
-        $this->setOptions($options);
+        parent::__construct($container, $options);
     }
 
     /**

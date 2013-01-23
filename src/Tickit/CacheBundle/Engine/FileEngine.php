@@ -16,21 +16,6 @@ use Tickit\CacheBundle\Util\FilePurger;
 class FileEngine extends AbstractEngine implements TaggableCacheInterface, PurgeableCacheInterface
 {
 
-    /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    protected $container;
-
-    /**
-     * Class constructor, sets dependencies
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
-     * @param array                                                     $options   [Optional] An array of options for the cache
-     */
-    public function __construct(ContainerInterface $container, array $options = null)
-    {
-        $this->container = $container;
-        $this->setOptions($options);
-    }
-
     /**
      * {@inheritDoc}
      */

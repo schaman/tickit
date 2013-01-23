@@ -2,6 +2,8 @@
 
 namespace Tickit\CacheBundle\Engine;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Tickit\CacheBundle\Options\AbstractOptions;
 use Tickit\CacheBundle\Util\Sanitizer;
 
@@ -12,8 +14,40 @@ use Tickit\CacheBundle\Util\Sanitizer;
  */
 abstract class AbstractEngine
 {
-    /* @var \Tickit\CacheBundle\Options\AbstractOptions $options */
+
+    /**
+     * An instance of the dependency injection container
+     *
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * An instance containing engine options
+     *
+     * @var \Tickit\CacheBundle\Options\AbstractOptions $options
+     */
     protected $options;
+
+    /**
+     * An instance of the application logger
+     *
+     * @var \Symfony\Component\HttpKernel\Log\LoggerInterface $logger
+     */
+    protected $logger;
+
+    /**
+     * Class constructor, will set the container and fire options resolver
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     * @param array                                                     $options   [Optional] An array of options for the cache
+     */
+    public function __construct(ContainerInterface $container, array $options)
+    {
+        $this->logger = $container->get('logger');
+        $this->container = $container;
+        $this->setOptions($options);
+    }
 
     /**
      * Internal method that provides adapter specific cache writing logic

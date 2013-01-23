@@ -27,7 +27,11 @@ class CacheFactory implements CacheFactoryInterface
     const APC_ENGINE = 'apc';
     const FILE_ENGINE = 'file';
 
-    /* @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
+    /**
+     * An instance of the service container
+     *
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
     protected $container;
 
     /**

@@ -16,9 +16,6 @@ use Memcached;
 class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
 {
 
-    /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    protected $container;
-
     /* @var \Memcached */
     protected $memcached;
 
@@ -39,13 +36,12 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
      */
     public function __construct(ContainerInterface $container, array $options = null)
     {
-        $this->container = $container;
-
         if (false === $this->_isAvailable()) {
             throw new MemcachedCacheUnavailableException();
         }
 
-        $this->setOptions($options);
+        parent::__construct($container, $options);
+
         $this->memcached = $this->options->getMemcached();
     }
 
