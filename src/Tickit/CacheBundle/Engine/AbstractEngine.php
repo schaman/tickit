@@ -3,7 +3,6 @@
 namespace Tickit\CacheBundle\Engine;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Tickit\CacheBundle\Options\AbstractOptions;
 use Tickit\CacheBundle\Util\Sanitizer;
 
@@ -32,7 +31,7 @@ abstract class AbstractEngine
     /**
      * An instance of the application logger
      *
-     * @var \Symfony\Component\HttpKernel\Log\LoggerInterface $logger
+     * @var \Psr\Log\LoggerInterface $logger
      */
     protected $logger;
 
