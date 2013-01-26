@@ -2,8 +2,8 @@
 
 namespace Tickit\CacheBundle\Options;
 
-use Tickit\CacheBundle\Options\Exception\InvalidOptionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Tickit\CacheBundle\Logger\Logger;
 
 /**
  * Abstract options resolver for all caching engines
@@ -34,6 +34,13 @@ abstract class AbstractOptions
     protected $options;
 
     /**
+     * An instance of the application logger
+     *
+     * @var \Tickit\CacheBundle\Logger\Logger $logger
+     */
+    protected $logger;
+
+    /**
      * Constructs the options object and resolves
      *
      * @param array                                                     $options   An array of user defined options
@@ -43,6 +50,7 @@ abstract class AbstractOptions
     {
         $this->options = $options;
         $this->container = $container;
+        $this->logger = new Logger($container->get('logger'));
         $this->_resolveOptions();
     }
 

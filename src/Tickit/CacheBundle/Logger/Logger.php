@@ -46,131 +46,151 @@ class Logger implements LoggerAwareInterface, LoggerInterface
     }
 
     /**
-     * System is unusable.
+     * {@inheritDoc}
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function emergency($message, array $context = array())
     {
-        // TODO: Implement emergency() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->emergency($message, $context);
     }
 
     /**
-     * Action must be taken immediately.
+     * {@inheritDoc}
      *
-     * Example: Entire website down, database unavailable, etc. This should
-     * trigger the SMS alerts and wake you up.
-     *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function alert($message, array $context = array())
     {
-        // TODO: Implement alert() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->alert($message, $context);
     }
 
     /**
-     * Critical conditions.
+     * {@inheritDoc}
      *
-     * Example: Application component unavailable, unexpected exception.
-     *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function critical($message, array $context = array())
     {
-        // TODO: Implement critical() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->critical($message, $context);
     }
 
     /**
-     * Runtime errors that do not require immediate action but should typically
-     * be logged and monitored.
+     * {@inheritDoc}
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function error($message, array $context = array())
     {
-        // TODO: Implement error() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->error($message, $context);
     }
 
     /**
-     * Exceptional occurrences that are not errors.
+     * {@inheritDoc}
      *
-     * Example: Use of deprecated APIs, poor use of an API, undesirable things
-     * that are not necessarily wrong.
-     *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function warning($message, array $context = array())
     {
-        // TODO: Implement warning() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->warning($message, $context);
     }
 
     /**
-     * Normal but significant events.
+     * {@inheritDoc}
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function notice($message, array $context = array())
     {
-        // TODO: Implement notice() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->notice($message, $context);
     }
 
     /**
-     * Interesting events.
+     * {@inheritDoc}
      *
-     * Example: User logs in, SQL logs.
-     *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function info($message, array $context = array())
     {
-        // TODO: Implement info() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->info($message, $context);
     }
 
     /**
-     * Detailed debug information.
+     * {@inheritDoc}
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function debug($message, array $context = array())
     {
-        // TODO: Implement debug() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->debug($message, $context);
     }
 
     /**
-     * Logs with an arbitrary level.
+     * {@inheritDoc}
      *
-     * @param mixed  $level
-     * @param string $message
-     * @param array  $context
+     * @param string $message The log message
+     * @param array  $context An array of context options
      *
      * @return void
      */
     public function log($level, $message, array $context = array())
     {
-        // TODO: Implement log() method.
+        $message = $this->prepareMessage($message, __METHOD__, $context);
+        $this->logger->log($message, $context);
+    }
+
+    /**
+     * Prepares a message for logging
+     *
+     * @param string $message The raw message to prepare
+     * @param string $level   The severity level of the log message
+     * @param array  $context * The context of the message, currently supports:<br/>
+     *                          - "class" The cache
+     *
+     * @return string
+     */
+    protected function prepareMessage($message, $level = 'info', array &$context = array())
+    {
+        $engine = 'Cache';
+        if (isset($context['engine'])) {
+            $engine = $context['engine'];
+            unset($context['engine']);
+        }
+
+        $message = sprintf('[%s] %s : %s', strtoupper($level), $engine, $message);
+
+        return $message;
     }
 }

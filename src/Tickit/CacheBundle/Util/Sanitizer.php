@@ -2,7 +2,7 @@
 
 namespace Tickit\CacheBundle\Util;
 
-use InvalidArgumentException;
+use Tickit\CacheBundle\Exception\InvalidArgumentException;
 
 /**
  * Helper class that provides sanitization functionality for caching
@@ -43,9 +43,9 @@ class Sanitizer
      * @param string $path     The path name
      * @param bool   $realPath [Optional] True if the path given actually exists on disk, defaults to true
      *
-     * @return string
+     * @throws \Tickit\CacheBundle\Exception\InvalidArgumentException
      *
-     * @throws \InvalidArgumentException If the $path parameter is empty
+     * @return string
      */
     public function sanitizePath($path, $realPath = true)
     {

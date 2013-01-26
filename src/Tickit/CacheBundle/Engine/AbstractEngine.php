@@ -5,6 +5,8 @@ namespace Tickit\CacheBundle\Engine;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Options\AbstractOptions;
 use Tickit\CacheBundle\Util\Sanitizer;
+use Tickit\CacheBundle\Logger\Logger;
+use Tickit\CacheBundle\Exception\InvalidArgumentException;
 
 /**
  * Abstract caching engine providing base functionality for data caching
@@ -31,7 +33,7 @@ abstract class AbstractEngine
     /**
      * An instance of the application logger
      *
-     * @var \Psr\Log\LoggerInterface $logger
+     * @var \Tickit\CacheBundle\Logger\Logger $logger
      */
     protected $logger;
 
@@ -43,7 +45,7 @@ abstract class AbstractEngine
      */
     public function __construct(ContainerInterface $container, array $options)
     {
-        $this->logger = $container->get('logger');
+        $this->logger = new Logger($container->get('logger'));
         $this->container = $container;
         $this->setOptions($options);
     }
@@ -109,12 +111,19 @@ abstract class AbstractEngine
      *
      * @param mixed $id The raw identifier
      *
+     * @throws \Tickit\CacheBundle\Exception\InvalidArgumentException
+     *
      * @return string
      */
     protected function sanitizeIdentifier($id)
     {
         $sanitizer = new Sanitizer();
 
-        return $sanitizer->sanitizeIdentifier($id);
+        try {
+            $sanitizer->sanitizeIdentifier($id);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->error($e->getMessage(), array('engine' => __CLASS__));
+            throw $e;
+        }
     }
 }

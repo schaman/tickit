@@ -18,7 +18,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "2012-08-29 01:04:14",
+            "time": "2012-08-29 06:04:14",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -36,8 +36,7 @@
                 },
                 {
                     "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
+                    "email": "guilhermeblanco@gmail.com"
                 },
                 {
                     "name": "Roman Borschel",
@@ -50,7 +49,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -102,7 +101,6 @@
                     "Doctrine\\Common\\DataFixtures": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -144,7 +142,6 @@
                     "Doctrine\\DBAL": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "LGPL"
             ],
@@ -275,7 +272,6 @@
                     "Doctrine\\Bundle\\FixturesBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -327,7 +323,6 @@
                     "Doctrine\\ORM": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "LGPL"
             ],
@@ -365,12 +360,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle",
-                "reference": "7bf5d3a1a87e32ce7ff6502386dc5893656d4278"
+                "reference": "1a6ca83046d01e09d2bd524a50fe29a88e5ed49a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/7bf5d3a1a87e32ce7ff6502386dc5893656d4278.zip",
-                "reference": "7bf5d3a1a87e32ce7ff6502386dc5893656d4278",
+                "url": "https://github.com/FriendsOfSymfony/FOSUserBundle/archive/1a6ca83046d01e09d2bd524a50fe29a88e5ed49a.zip",
+                "reference": "1a6ca83046d01e09d2bd524a50fe29a88e5ed49a",
                 "shasum": ""
             },
             "require": {
@@ -391,7 +386,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm-bundle": "*"
             },
-            "time": "2013-01-22 00:55:42",
+            "time": "2013-01-25 16:25:45",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -434,12 +429,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "baa42fda5607978d70040b9f38b6b3a13823c903"
+                "reference": "93349ad3ab200c7aa69237355c4ee811d359d160"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/baa42fda5607978d70040b9f38b6b3a13823c903.zip",
-                "reference": "baa42fda5607978d70040b9f38b6b3a13823c903",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions/archive/93349ad3ab200c7aa69237355c4ee811d359d160.zip",
+                "reference": "93349ad3ab200c7aa69237355c4ee811d359d160",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +454,7 @@
                 "doctrine/mongodb": ">=1.0.0",
                 "doctrine/mongodb-odm": ">=1.0.0-BETA7"
             },
-            "time": "2013-01-18 18:21:44",
+            "time": "2013-01-24 18:57:40",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -575,7 +570,6 @@
                     "JMS\\AopBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache"
             ],
@@ -583,7 +577,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -622,7 +616,6 @@
                     "CG\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache2"
             ],
@@ -630,7 +623,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -790,7 +783,6 @@
                     "JMS\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache2"
             ],
@@ -918,7 +910,6 @@
                     "src/functions.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1266,7 +1257,6 @@
                     "Stof\\DoctrineExtensionsBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1348,12 +1338,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle",
-                "reference": "128d3aa1ea65f0615339f20f15f154bd2e7224bb"
+                "reference": "f65ce4736fa79c60fdfc9805abb38aaaef728e95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/AsseticBundle/archive/128d3aa1ea65f0615339f20f15f154bd2e7224bb.zip",
-                "reference": "128d3aa1ea65f0615339f20f15f154bd2e7224bb",
+                "url": "https://github.com/symfony/AsseticBundle/archive/f65ce4736fa79c60fdfc9805abb38aaaef728e95.zip",
+                "reference": "f65ce4736fa79c60fdfc9805abb38aaaef728e95",
                 "shasum": ""
             },
             "require": {
@@ -1373,7 +1363,7 @@
             "suggest": {
                 "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
-            "time": "2013-01-19 21:58:23",
+            "time": "2013-01-26 01:02:24",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1523,12 +1513,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/symfony/symfony.git",
-                "reference": "9e8b2f01f66fd3969aba5c8173fafa973779515f"
+                "reference": "163e607781e71338a1b8b08a8d635b327501f2b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/symfony/archive/9e8b2f01f66fd3969aba5c8173fafa973779515f.zip",
-                "reference": "9e8b2f01f66fd3969aba5c8173fafa973779515f",
+                "url": "https://github.com/symfony/symfony/archive/163e607781e71338a1b8b08a8d635b327501f2b6.zip",
+                "reference": "163e607781e71338a1b8b08a8d635b327501f2b6",
                 "shasum": ""
             },
             "require": {
@@ -1583,7 +1573,7 @@
             "suggest": {
                 "doctrine/data-fixtures": "1.0.*"
             },
-            "time": "2013-01-24 10:00:40",
+            "time": "2013-01-25 16:50:23",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1648,7 +1638,6 @@
                     "Twig_Extensions_": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
