@@ -45,7 +45,7 @@ abstract class AbstractEngine
      */
     public function __construct(ContainerInterface $container, array $options)
     {
-        $this->logger = new Logger($container->get('logger'));
+        $this->logger = new Logger($container->get('logger'), $container->getParameter('kernel.environment'));
         $this->container = $container;
         $this->setOptions($options);
     }

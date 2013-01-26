@@ -17,18 +17,26 @@ use Psr\Log\LoggerInterface;
 class Logger implements LoggerAwareInterface, LoggerInterface
 {
     /**
-     * Stores an instance to the PSR-3 logger instance
+     * Stores a reference to the PSR-3 logger instance
      *
-     * @var
+     * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
     /**
+     * The current environment of the application ('prod', 'dev' or 'test')
+     *
+     * @var string
+     */
+    protected $environment = 'dev';
+
+    /**
      * Class constructor, optionally allows for constructor injection of the PSR-3 logger instance
      *
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger      The internal logger instance
+     * @param string                   $environment The application environment
      */
-    public function __construct(LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null, $environment)
     {
         $this->logger = $logger;
     }
@@ -153,6 +161,10 @@ class Logger implements LoggerAwareInterface, LoggerInterface
      */
     public function debug($message, array $context = array())
     {
+        if ($this->environment !== 'dev') {
+            return;
+        }
+
         $message = $this->prepareMessage($message, __METHOD__, $context);
         $this->logger->debug($message, $context);
     }

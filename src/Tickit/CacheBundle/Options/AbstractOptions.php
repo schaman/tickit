@@ -50,7 +50,7 @@ abstract class AbstractOptions
     {
         $this->options = $options;
         $this->container = $container;
-        $this->logger = new Logger($container->get('logger'));
+        $this->logger = new Logger($container->get('logger'), $container->getParameter('kernel.environment'));
         $this->_resolveOptions();
     }
 
