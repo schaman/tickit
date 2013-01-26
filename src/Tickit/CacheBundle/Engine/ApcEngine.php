@@ -9,6 +9,8 @@ use Tickit\CacheBundle\Options\ApcOptions;
 /**
  * Caching engine for storing data in PHP's APC
  *
+ * @todo Add purge support
+ *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
 class ApcEngine extends AbstractEngine
