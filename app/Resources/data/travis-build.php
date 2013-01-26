@@ -114,5 +114,6 @@ function createCacheDirectory()
     mkdir($path, 0766, true);
 }
 
+createCacheDirectory();
 createTravisConfigYml();
 createPhpUnitXml();
