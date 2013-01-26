@@ -24,11 +24,12 @@ class ApcEngine extends AbstractEngine
      */
     public function __construct(ContainerInterface $container, $options = null)
     {
+        parent::__construct($container, $options);
+
         if (false === $this->_isAvailable()) {
+            $this->logger->critical('The APC PHP extension has not been enabled / installed', array('engine' => get_class($this)));
             throw new ApcCacheUnavailableException();
         }
-
-        parent::__construct($container, $options);
     }
 
     /**
@@ -43,10 +44,12 @@ class ApcEngine extends AbstractEngine
         $stored = apc_store($key, $data);
 
         if (false === $stored) {
-            throw new Exception\PermissionDeniedException(
-                sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d', $id, __CLASS__, __LINE__)
-            );
+            $message = sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d', $id, __CLASS__, __LINE__);
+            $this->logger->error($message, array('engine' => __CLASS__));
+            throw new Exception\PermissionDeniedException($message);
         }
+
+        $this->logger->info(sprintf('Cache WRITE for key value "%s"', $id), array('engine' => get_class($this)));
 
         return $id;
     }
@@ -68,8 +71,11 @@ class ApcEngine extends AbstractEngine
         $data = apc_fetch($key, $fetched);
 
         if (false === $fetched) {
+            $this->logger->info(sprintf('Cache MISS for key value "%s"', $id), array('engine' => __CLASS__));
             return null;
         }
+
+        $this->logger->info(sprintf('Cache HIT for key value "%s"', $id), array('engine' => __CLASS__));
 
         return $data;
     }
@@ -86,6 +92,12 @@ class ApcEngine extends AbstractEngine
         }
 
         $deleted = apc_delete($key);
+
+        if (true === $deleted) {
+            $this->logger->info(sprintf('Cache DELETE for key value "%s"', $id), array('engine' => __CLASS__));
+        } else {
+            $this->logger->info(sprintf('Cache MISS on DELETE for key value "%s"', $id), array('engine' => __CLASS__));
+        }
 
         return $deleted;
     }
