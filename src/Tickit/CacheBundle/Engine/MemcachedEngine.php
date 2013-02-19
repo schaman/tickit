@@ -16,7 +16,11 @@ use Memcached;
 class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
 {
 
-    /* @var \Memcached */
+    /**
+     * The internal memcached PHP object
+     *
+     * @var \Memcached
+     */
     protected $memcached;
 
     /**
@@ -37,6 +41,7 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
     public function __construct(ContainerInterface $container, array $options = null)
     {
         if (false === $this->_isAvailable()) {
+            $this->logger->critical('The memcached PHP extension has not been enabled / installed', array('engine' => __CLASS__));
             throw new MemcachedCacheUnavailableException();
         }
 
@@ -56,10 +61,12 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
         $resultCode = $this->memcached->getResultCode();
         $resultMessage = $this->memcached->getResultMessage();
         if ($resultCode !== Memcached::RES_SUCCESS) {
-            throw new Exception\PermissionDeniedException(
-                sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d. Memcached result code: %d (%s)', $id, __CLASS__, __LINE__, $resultCode, $resultMessage)
-            );
+            $message = sprintf('Permission denied storing data (with identifier of %s) in class %s on line %d. Memcached result code: %d (%s)', $id, __CLASS__, __LINE__, $resultCode, $resultMessage);
+            $this->logger->error($message, array('engine' => __CLASS__));
+            throw new Exception\PermissionDeniedException($message);
         }
+
+        $this->logger->info(sprintf('Cache WRITE for key value "%s"', $id), array('engine' => __CLASS__));
 
         return $id;
     }
@@ -72,8 +79,11 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
         $data = $this->memcached->get($id);
 
         if ($this->memcached->getResultCode() == Memcached::RES_SUCCESS) {
+            $this->logger->info(sprintf('Cache HIT for key value "%s"', $id), array('engine' => __CLASS__));
             return $data;
         }
+
+        $this->logger->info(sprintf('Cache MISS for key value "%s"', $id), array('engine' => __CLASS__));
 
         return null;
     }
@@ -85,7 +95,13 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
     {
         $this->memcached->delete($id);
 
-        return ($this->memcached->getResultCode() == Memcached::RES_SUCCESS);
+        $success = ($this->memcached->getResultCode() == Memcached::RES_SUCCESS);
+
+        if (false !== $success) {
+            $this->logger->info(sprintf('Cache DELETE for key value "%s"', $id), array('engine' => __CLASS__));
+        }
+
+        return $success;
     }
 
 
@@ -96,7 +112,13 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
      */
     public function purgeAll()
     {
-        return $this->memcached->flush();
+        $success = $this->memcached->flush();
+
+        if (false !== $success) {
+            $this->logger->info('Cache PURGE for all data', array('engine' => __CLASS__));
+        }
+
+        return $success;
     }
 
     /**
