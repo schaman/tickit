@@ -80,6 +80,7 @@ class MemcachedEngine extends AbstractEngine implements PurgeableCacheInterface
 
         if ($this->memcached->getResultCode() == Memcached::RES_SUCCESS) {
             $this->logger->info(sprintf('Cache HIT for key value "%s"', $id), array('engine' => __CLASS__));
+
             return $data;
         }
 

@@ -13,7 +13,6 @@ use Psr\Log\LoggerInterface;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-
 class Logger implements LoggerAwareInterface, LoggerInterface
 {
     /**
@@ -36,7 +35,7 @@ class Logger implements LoggerAwareInterface, LoggerInterface
      * @param \Psr\Log\LoggerInterface $logger      The internal logger instance
      * @param string                   $environment The application environment
      */
-    public function __construct(LoggerInterface $logger = null, $environment)
+    public function __construct(LoggerInterface $logger, $environment)
     {
         $this->logger = $logger;
     }
@@ -186,9 +185,9 @@ class Logger implements LoggerAwareInterface, LoggerInterface
     /**
      * Prepares a message for logging
      *
-     * @param string $message The raw message to prepare
-     * @param string $level   The severity level of the log message
-     * @param array  $context * The context of the message, currently supports:<br/>
+     * @param string $message  The raw message to prepare
+     * @param string $level    The severity level of the log message
+     * @param array  &$context The context of the message, currently supports:<br/>
      *                          - "class" The cache
      *
      * @return string

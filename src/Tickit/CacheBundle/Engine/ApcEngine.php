@@ -74,6 +74,7 @@ class ApcEngine extends AbstractEngine
 
         if (false === $fetched) {
             $this->logger->info(sprintf('Cache MISS for key value "%s"', $id), array('engine' => __CLASS__));
+
             return null;
         }
 
