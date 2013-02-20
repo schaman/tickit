@@ -41,7 +41,6 @@ class TickitCacheExtension extends Extension
         }
 
         $container->setParameter('tickit_cache.default_namespace', $config['default_namespace']);
-        $container->setParameter('tickit_cache.apc.enabled', $config['types']['apc']);
     }
 
     /**

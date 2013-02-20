@@ -82,7 +82,6 @@ tickit_cache:
     types:
         file:
             auto_serialize: true
-        apc: true
         memcached:
             persistence_id: tickit
             servers:
@@ -91,10 +90,4 @@ tickit_cache:
                     name: main
                     weight: 90
                     retry_time: 5
-                    enabled: true
-                alternate:
-                    host: localhost
-                    name: alternate
-                    weight: 10
-                    retry_time: 10
                     enabled: true
