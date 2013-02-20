@@ -16,21 +16,6 @@ use Tickit\CacheBundle\Util\FilePurger;
 class FileEngine extends AbstractEngine implements TaggableCacheInterface, PurgeableCacheInterface
 {
 
-    /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
-    protected $container;
-
-    /**
-     * Class constructor, sets dependencies
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
-     * @param array                                                     $options   [Optional] An array of options for the cache
-     */
-    public function __construct(ContainerInterface $container, array $options = null)
-    {
-        $this->container = $container;
-        $this->setOptions($options);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -42,9 +27,9 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         if (!file_exists($dir)) {
             $umask = $this->getOptions()->getUmask();
             if (false === mkdir($dir, $umask, true)) {
-                throw new Exception\PermissionDeniedException(
-                    sprintf('Permission denied creating %s in %s on line %s', $dir, __CLASS__, __LINE__)
-                );
+                $message = sprintf('Permission denied creating %s in %s on line %s', $dir, __CLASS__, __LINE__);
+                $this->logger->error($message, array('engine' => __CLASS__));
+                throw new Exception\PermissionDeniedException($message);
             }
         }
 
@@ -52,10 +37,12 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         $written = file_put_contents(sprintf('%s/%s', $dir, $id), $writeData, LOCK_EX);
 
         if (false === $written) {
-            throw new Exception\PermissionDeniedException(
-                sprintf('Permission denied writing data (with identifier of %s) to %s in class %s on line %d', $id, $dir, __CLASS__, __LINE__)
-            );
+            $message = sprintf('Permission denied writing data (with identifier of %s) to %s in class %s on line %d', $id, $dir, __CLASS__, __LINE__);
+            $this->logger->error($message, array('engine' => __CLASS__));
+            throw new Exception\PermissionDeniedException($message);
         }
+
+        $this->logger->info(sprintf('Cache WRITE for key value "%s"', $id), array('engine' => __CLASS__));
 
         return $id;
     }
@@ -71,10 +58,13 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         $fullPath = sprintf('%s/%s', $dir, $id);
 
         if (!is_readable($fullPath)) {
+            $this->logger->info(sprintf('Cache MISS for key value "%s"', $id), array('engine' => __CLASS__));
             return null;
         }
 
         $contents = file_get_contents($fullPath);
+
+        $this->logger->info(sprintf('Cache HIT for key value "%s"', $id), array('engine' => __CLASS__));
 
         return $this->unpackContents($contents);
     }
@@ -90,9 +80,9 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         $fullPath = sprintf('%s/%s', $dir, $id);
 
         if (!is_writable($fullPath)) {
-            throw new Exception\PermissionDeniedException(
-                sprintf('Permission denied deleting data (with identified of %s) in class %s on line %s', $id, __CLASS__, __LINE__)
-            );
+            $message = sprintf('Permission denied deleting data (with identified of %s) in class %s on line %s', $id, __CLASS__, __LINE__);
+            $this->logger->error($message, array('engine' => __CLASS__));
+            throw new Exception\PermissionDeniedException($fullPath);
         }
 
         $tagFile = $this->buildTagFilePath($id);
@@ -102,7 +92,13 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $deleted &= unlink($tagFile);
         }
 
-        return (bool) $deleted;
+        $success = (bool) $deleted;
+
+        if (false !== $success) {
+            $this->logger->info(sprintf('Cache DELETE for key value "%s"', $id), array('engine' => __CLASS__));
+        }
+
+        return $success;
     }
 
     /**
@@ -212,12 +208,14 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
         if (!empty($id)) {
             $tagFile = $this->buildTagFilePath($id);
             if (!file_exists($tagFile)) {
+                $this->logger->debug(sprintf('Creating tag file for cache identifier %s at %s', $id, $tagFile), array('engine' => __CLASS__));
                 $success &= false !== file_put_contents($tagFile, $initData);
             }
         }
 
         $masterTagFile = $this->buildMasterTagFilePath();
         if (!file_exists($masterTagFile)) {
+            $this->logger->debug(sprintf('Creating master tag file at %s', $masterTagFile), array('engine' => __CLASS__));
             $success &= false !== file_put_contents($masterTagFile, $initData);
         }
 
@@ -311,7 +309,15 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
             $masterTags[$tagName] = $tagData;
         }
 
-        return file_put_contents($masterTagFile, json_encode($masterTags), LOCK_EX);
+        $success = file_put_contents($masterTagFile, json_encode($masterTags), LOCK_EX);
+
+        if (false === $success) {
+            $this->logger->error(sprintf('Failed to write tag file (%s) for cache identifier %s', $masterTagFile, $id), array('engine' => __CLASS__));
+        } else {
+            $this->logger->info(sprintf('Tag DELETE for cache identifier %s', $id), array('engine' => __CLASS__));
+        }
+
+        return $success;
     }
 
     /**
@@ -392,12 +398,12 @@ class FileEngine extends AbstractEngine implements TaggableCacheInterface, Purge
 
         if (is_object($data) || is_array($data)) {
             if (false === $autoSerialize) {
-                throw new Exception\NotCacheableException(
-                    sprintf(
-                        'This data cannot be cached, it is an unserialized instance of %s and Tickit cache\'s auto serialize is disabled',
-                        get_class($data)
-                    )
+                $message = sprintf(
+                    'This data cannot be cached, it is an unserialized instance of %s and Tickit cache\'s auto serialize is disabled',
+                    get_class($data)
                 );
+                $this->logger->error($message, array('engine' => __CLASS__));
+                throw new Exception\NotCacheableException($message);
             }
 
             $data = serialize($data);

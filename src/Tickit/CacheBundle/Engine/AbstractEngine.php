@@ -2,8 +2,11 @@
 
 namespace Tickit\CacheBundle\Engine;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tickit\CacheBundle\Options\AbstractOptions;
 use Tickit\CacheBundle\Util\Sanitizer;
+use Tickit\CacheBundle\Logger\Logger;
+use Tickit\CacheBundle\Exception\InvalidArgumentException;
 
 /**
  * Abstract caching engine providing base functionality for data caching
@@ -12,8 +15,40 @@ use Tickit\CacheBundle\Util\Sanitizer;
  */
 abstract class AbstractEngine
 {
-    /* @var \Tickit\CacheBundle\Options\AbstractOptions $options */
+
+    /**
+     * An instance of the dependency injection container
+     *
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * An instance containing engine options
+     *
+     * @var \Tickit\CacheBundle\Options\AbstractOptions $options
+     */
     protected $options;
+
+    /**
+     * An instance of the application logger
+     *
+     * @var \Tickit\CacheBundle\Logger\Logger $logger
+     */
+    protected $logger;
+
+    /**
+     * Class constructor, will set the container and fire options resolver
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container The dependency injection container
+     * @param array                                                     $options   [Optional] An array of options for the cache
+     */
+    public function __construct(ContainerInterface $container, array $options)
+    {
+        $this->logger = new Logger($container->get('logger'), $container->getParameter('kernel.environment'));
+        $this->container = $container;
+        $this->setOptions($options);
+    }
 
     /**
      * Internal method that provides adapter specific cache writing logic
@@ -76,12 +111,19 @@ abstract class AbstractEngine
      *
      * @param mixed $id The raw identifier
      *
+     * @throws \Tickit\CacheBundle\Exception\InvalidArgumentException
+     *
      * @return string
      */
     protected function sanitizeIdentifier($id)
     {
         $sanitizer = new Sanitizer();
 
-        return $sanitizer->sanitizeIdentifier($id);
+        try {
+            return $sanitizer->sanitizeIdentifier($id);
+        } catch (InvalidArgumentException $e) {
+            $this->logger->error($e->getMessage(), array('engine' => __CLASS__));
+            throw $e;
+        }
     }
 }
