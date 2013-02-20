@@ -120,7 +120,7 @@ abstract class AbstractEngine
         $sanitizer = new Sanitizer();
 
         try {
-            $sanitizer->sanitizeIdentifier($id);
+            return $sanitizer->sanitizeIdentifier($id);
         } catch (InvalidArgumentException $e) {
             $this->logger->error($e->getMessage(), array('engine' => __CLASS__));
             throw $e;
