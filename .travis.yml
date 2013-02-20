@@ -4,11 +4,9 @@ php:
 
 before_script:
 
-  # prepare config files, php extensions and get vendors#
+  # prepare config files and get vendors#
   - php app/Resources/data/travis-build.php
-  - php app/Resources/data/travis-extensions.php
-  - sudo apt-get install php5-memcached
-  - sudo /etc/init.d/memcached start
+
   - curl -s http://getcomposer.org/installer | php
   - COMPOSER_ROOT_VERSION=dev-master php composer.phar --dev install
 
