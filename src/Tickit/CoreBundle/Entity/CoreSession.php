@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\CoreBundle\Entity;
+
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 
