@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Tickit\TicketBundle\TickitTicketBundle(),
             new Tickit\ProjectBundle\TickitProjectBundle(),
             new Tickit\DashboardBundle\TickitDashboardBundle(),
+            new Tickit\CacheBundle\TickitCacheBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -32,7 +32,8 @@
         "symfony/symfony": "2.2.x-dev",
         "symfony/console": "2.2.x-dev",
         "twig/extensions": "1.0.x-dev",
-        "psr/log": "1.0"
+        "psr/log": "1.0",
+        "tickit-project/cache-bundle": "1.0.x-dev"
     },
     "scripts": {
         "post-install-cmd": [
