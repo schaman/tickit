@@ -102,5 +102,14 @@ CONTENT;
 
 }
 
+/**
+ * Creates the cache directory for tickit cache bundle
+ */
+function createCacheDirectory()
+{
+    $root = getProjectRoot();
+    mkdir($root . '/app/cache/test/tickit_cache', 0777, true);
+}
+
 createTravisConfigYml();
 createPhpUnitXml();
