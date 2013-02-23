@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
 use Tickit\PermissionBundle\Service\PermissionServiceInterface;
 use Tickit\PermissionBundle\Service\PermissionService;
 use Tickit\CacheBundle\Cache\CacheFactoryInterface;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Synchronisation class that listens for controller requests and updates
