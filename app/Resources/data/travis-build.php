@@ -111,5 +111,6 @@ function createCacheDirectory()
     mkdir($root . '/app/cache/test/tickit_cache', 0777, true);
 }
 
+createCacheDirectory();
 createTravisConfigYml();
 createPhpUnitXml();
