@@ -3,6 +3,7 @@
 namespace Tickit\PermissionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Tickit\PermissionBundle\Interfaces\PermissionInterface;
 
 /**
  * Represents a permission in the system. For this entity to make any real functional sense it needs to be used

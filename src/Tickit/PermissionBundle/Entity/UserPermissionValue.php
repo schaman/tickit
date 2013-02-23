@@ -4,6 +4,7 @@ namespace Tickit\PermissionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\UserBundle\Entity\User;
+use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
 
 /**
  * Represents the value of a permission against a specific user
@@ -13,7 +14,7 @@ use Tickit\UserBundle\Entity\User;
  * @ORM\Entity
  * @ORM\Table(name="user_permission_values")
  */
-class UserPermissionValue
+class UserPermissionValue implements PermissionValueInterface
 {
     /**
      * @ORM\Id
@@ -37,7 +38,7 @@ class UserPermissionValue
     /**
      * Sets the user on this permission-value pair
      *
-     * @param User $user
+     * @param User $user The user that this permission value relates to
      */
     public function setUser(User $user)
     {
@@ -47,7 +48,7 @@ class UserPermissionValue
     /**
      * Sets the permission object on this permission-value pair
      *
-     * @param Permission $permission
+     * @param Permission $permission The permission object associated with this value
      */
     public function setPermission(Permission $permission)
     {
@@ -57,11 +58,20 @@ class UserPermissionValue
     /**
      * Sets the value for this permission-value pair
      *
-     * @param bool $value
+     * @param bool $value The new value
      */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * Gets the value of this permission
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }

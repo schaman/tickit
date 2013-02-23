@@ -4,6 +4,7 @@ namespace Tickit\PermissionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\UserBundle\Entity\Group;
+use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
 
 /**
  * Represents the default value of a permission against a specific group. This is used when new users are
@@ -14,7 +15,7 @@ use Tickit\UserBundle\Entity\Group;
  * @ORM\Entity
  * @ORM\Table(name="default_group_permission_values")
  */
-class DefaultGroupPermissionValue
+class DefaultGroupPermissionValue implements PermissionValueInterface
 {
     /**
      * @ORM\Id
@@ -38,7 +39,7 @@ class DefaultGroupPermissionValue
     /**
      * Sets the group on this object
      *
-     * @param Group $group
+     * @param Group $group The group that this permission value relates to
      */
     public function setGroup(Group $group)
     {
@@ -48,7 +49,7 @@ class DefaultGroupPermissionValue
     /**
      * Sets the permission on this object
      *
-     * @param Permission $permission
+     * @param Permission $permission The permission object associated with this value
      */
     public function setPermission(Permission $permission)
     {
@@ -58,10 +59,20 @@ class DefaultGroupPermissionValue
     /**
      * Sets the boolean value for this permission value pair
      *
-     * @param bool $value
+     * @param bool $value The new value
      */
     public function setValue($value)
     {
         $this->value = $value;
+    }
+
+    /**
+     * Gets the value of this permission
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 }

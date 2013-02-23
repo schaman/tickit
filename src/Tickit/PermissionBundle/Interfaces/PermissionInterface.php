@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\PermissionBundle\Entity;
+namespace Tickit\PermissionBundle\Interfaces;
 
 /**
  * Interface for permissions
@@ -12,7 +12,6 @@ interface PermissionInterface
     /**
      * Gets the name of the permission
      *
-     * @abstract
      * @return string
      */
     public function getName();
@@ -20,7 +19,6 @@ interface PermissionInterface
     /**
      * Gets the system friendly name of the permission
      *
-     * @abstract
      * @return string
      */
     public function getSystemName();
@@ -28,18 +26,14 @@ interface PermissionInterface
     /**
      * Sets the name of the permission
      *
-     * @param string $name
-     *
-     * @abstract
+     * @param string $name The name for the permission
      */
     public function setName($name);
 
     /**
      * Sets the system friendly name of the permission
      *
-     * @param string $systemName
-     *
-     * @abstract
+     * @param string $systemName The system name for the permission
      */
     public function setSystemName($systemName);
 

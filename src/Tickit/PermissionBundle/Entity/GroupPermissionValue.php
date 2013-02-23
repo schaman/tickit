@@ -4,6 +4,7 @@ namespace Tickit\PermissionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\UserBundle\Entity\Group;
+use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
 
 /**
  * Represents the value of a permission against a specific group
@@ -13,7 +14,7 @@ use Tickit\UserBundle\Entity\Group;
  * @ORM\Entity
  * @ORM\Table(name="groups_permission_values")
  */
-class GroupPermissionValue
+class GroupPermissionValue implements PermissionValueInterface
 {
     /**
      * @ORM\Id
@@ -37,7 +38,7 @@ class GroupPermissionValue
     /**
      * Sets the group on this permission-value pair
      *
-     * @param Group $group
+     * @param Group $group The group associated with this permission value
      */
     public function setGroup(Group $group)
     {
@@ -47,7 +48,7 @@ class GroupPermissionValue
     /**
      * Sets the permission on this permission-value pair
      *
-     * @param Permission $permission
+     * @param Permission $permission The permission object associated with this permission value
      */
     public function setPermission(Permission $permission)
     {
@@ -57,11 +58,20 @@ class GroupPermissionValue
     /**
      * Sets the value for this permission-value pair
      *
-     * @param bool $value
+     * @param bool $value The new value
      */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * Gets the value of this permission
+     *
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
