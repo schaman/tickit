@@ -22,12 +22,12 @@
     <body>
 
         {% if is_granted('ROLE_USER') %}
-            {% render 'TickitCoreBundle:Navigation:topNavigation' %}
+            {% render controller('TickitCoreBundle:Navigation:topNavigation') %}
         {% endif %}
 
         <div id='container'>
             {% if is_granted('ROLE_USER') %}
-                {% render 'TickitCoreBundle:Navigation:subNavigation' %}
+                {% render controller('TickitCoreBundle:Navigation:subNavigation') %}
             {% endif %}
 
             {% block body %}{% endblock %}
