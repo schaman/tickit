@@ -9,3 +9,7 @@ services:
     arguments: [@security.context, @doctrine]
     tags:
       - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+  avatar:
+    class: Tickit\UserBundle\Service\Avatar\AvatarService
+    arguments: [@request, "%tickit_user.avatar.adapter_class%"]
+    scope: request

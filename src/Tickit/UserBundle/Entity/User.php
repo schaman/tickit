@@ -6,7 +6,7 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * The User entity represents a logged in user in the application
@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="Tickit\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User extends BaseUser
+class User extends BaseUser implements AvatarAwareInterface
 {
 
     /**
@@ -194,38 +194,15 @@ class User extends BaseUser
     }
 
     /**
-     * Get the user's gravatar image URL
-     *
-     * @param int  $size   Gravatar image size
-     * @param bool $secure Use SSL URL
+     * Get the avatar identifier
      *
      * @return string
      */
-    public function getGravatarImageUrl($size, $secure = false)
+    public function getAvatarIdentifier()
     {
-        $protocol = 'http';
-        if ($secure) {
-            $protocol .= 's';
-        }
-
-        if ($secure) {
-            $subdomain = 'secure';
-        } else {
-            $subdomain = 'www';
-        }
-
-        $email = $this->getEmail();
-
-        $gravatarUrl = $protocol . '://' . $subdomain . '.gravatar.com/avatar/';
-        $hash = md5(strtolower(trim($email)));
-        $queryParams = array(
-            's' => $size,
-            'd' => 'mm'
-        );
-
-        return $gravatarUrl . $hash . '?' . http_build_query($queryParams);
+        // return the user's email address string
+        return $this->getEmail();
     }
-
 }
 
 
