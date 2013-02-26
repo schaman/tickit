@@ -23,10 +23,10 @@ class AvatarService
     /**
      * Service constructor
      *
-     * @param Request                $request      Request object
-     * @param AvatarAdapterInterface $adapterClass Adapter interface
+     * @param Request $request      Request object
+     * @param string  $adapterClass Adapter interface class name
      */
-    public function __construct(Request $request, AvatarAdapterInterface $adapterClass)
+    public function __construct(Request $request, $adapterClass)
     {
         if (!class_exists($adapterClass)) {
             throw new \RuntimeException(sprintf('Adapter class (%s) not found', $adapterClass));
