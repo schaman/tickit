@@ -5,6 +5,9 @@ namespace Tickit\UserBundle\Tests\Service\Avatar;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use \Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension;
 
+/**
+ * Avatar service twig extension tests
+ */
 class TwigExtensionTest extends WebTestCase
 {
     /**
