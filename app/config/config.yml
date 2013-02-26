@@ -91,3 +91,7 @@ tickit_cache:
                     weight: 90
                     retry_time: 5
                     enabled: true
+
+tickit_user:
+    avatar:
+        adapter_class: Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter
