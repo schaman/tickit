@@ -13,3 +13,8 @@ services:
     class: Tickit\UserBundle\Service\Avatar\AvatarService
     arguments: [@request, "%tickit_user.avatar.adapter_class%"]
     scope: request
+  avatar_twig_extension:
+    class: Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension
+    tags:
+      - { name: twig.extension }
+    arguments: [@service_container,@security.context]
