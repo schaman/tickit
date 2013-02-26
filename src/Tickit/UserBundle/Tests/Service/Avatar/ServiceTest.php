@@ -96,7 +96,10 @@ class ServiceTest extends WebTestCase
     /**
      * Load a user from doctrine
      *
-     * return \Tickit\UserBundle\Entity\User
+     * @param \Doctrine\Bundle\DoctrineBundle\RegistryInterface $doctrine
+     * @param String                                            $username
+     *
+     * @return \Tickit\UserBundle\Entity\User
      */
     protected function loadUser($doctrine, $username)
     {
