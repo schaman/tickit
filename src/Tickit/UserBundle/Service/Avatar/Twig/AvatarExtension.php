@@ -3,18 +3,37 @@
 namespace Tickit\UserBundle\Service\Avatar\Twig;
 
 use Twig_Extension,
-    Twig_SimpleFunction;
+    Twig_SimpleFunction,
+    Symfony\Component\DependencyInjection\ContainerInterface,
+    Symfony\Component\Security\Core\SecurityContextInterface;
 
+/**
+ * Avatar twig extension - provides helper functions for templates
+ *
+ * @package Tickit\UserBundle\Service\Avatar\Twig
+ */
 class AvatarExtension extends Twig_Extension
 {
+    /**
+     * @var ContainerInterface $container
+     */
     private $container;
 
-    public function __construct($container, $securityContext)
+    /**
+     * @param ContainerInterface       $container       Service container
+     * @param SecurityContextInterface $securityContext Security context to access user object
+     */
+    public function __construct(ContainerInterface $container, SecurityContextInterface $securityContext)
     {
         $this->container = $container;
         $this->context   = $securityContext;
     }
 
+    /**
+     * Get available functions in extension
+     *
+     * @return array
+     */
     public function getFunctions()
     {
         return array(
@@ -22,6 +41,13 @@ class AvatarExtension extends Twig_Extension
         );
     }
 
+    /**
+     * Build avatar image URL
+     *
+     * @param int $size Size for avatar image
+     *
+     * @return string
+     */
     public function getCurrentUserAvatarImageUrl($size)
     {
         $avatarAdapter = $this->container->get('avatar')->getAdapter();
@@ -30,6 +56,9 @@ class AvatarExtension extends Twig_Extension
         return $avatarAdapter->getImageUrl($user, $size);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getName()
     {
         return 'tickit_user.avatar';

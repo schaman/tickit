@@ -26,7 +26,7 @@ class GravatarAdapter implements AvatarAdapterInterface
      * Get the user's gravatar image URL
      *
      * @param AvatarAwareInterface $entity
-     * @param $size
+     * @param int                  $size
      *
      * @return string
      */
