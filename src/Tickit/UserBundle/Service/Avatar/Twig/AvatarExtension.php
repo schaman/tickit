@@ -2,10 +2,10 @@
 
 namespace Tickit\UserBundle\Service\Avatar\Twig;
 
-use Twig_Extension,
-    Twig_SimpleFunction,
-    Symfony\Component\DependencyInjection\ContainerInterface,
-    Symfony\Component\Security\Core\SecurityContextInterface;
+use Twig_Extension;
+use Twig_SimpleFunction;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Avatar twig extension - provides helper functions for templates
