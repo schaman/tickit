@@ -12,7 +12,7 @@ class AvatarExtension extends Twig_Extension
     public function __construct($container, $securityContext)
     {
         $this->container = $container;
-        $this->context = $securityContext;
+        $this->context   = $securityContext;
     }
 
     public function getFunctions()
@@ -25,7 +25,7 @@ class AvatarExtension extends Twig_Extension
     public function getCurrentUserAvatarImageUrl($size)
     {
         $avatarAdapter = $this->container->get('avatar')->getAdapter();
-        $user = $this->context->getToken()->getUser();
+        $user          = $this->context->getToken()->getUser();
 
         return $avatarAdapter->getImageUrl($user, $size);
     }
