@@ -25,6 +25,8 @@ class AvatarService
      *
      * @param Request $request      Request object
      * @param string  $adapterClass Adapter interface class name
+     *
+     * @throws \RuntimeException
      */
     public function __construct(Request $request, $adapterClass)
     {
