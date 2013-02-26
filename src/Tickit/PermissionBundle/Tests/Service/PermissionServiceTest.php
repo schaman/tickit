@@ -14,7 +14,7 @@ use Tickit\PermissionBundle\Entity\Permission;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class PermissionServiceTest extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+class PermissionServiceTest extends WebTestCase
 {
     /**
      * Static instance of the permissions service
