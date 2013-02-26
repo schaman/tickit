@@ -1,9 +1,8 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Service;
+namespace Tickit\UserBundle\Tests\Service\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
-use \Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tickit\UserBundle\Service\Avatar\AvatarService;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -12,7 +11,7 @@ use Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter;
 /**
  * Tests for the user avatar service
  */
-class AvatarServiceTest extends WebTestCase
+class ServiceTest extends WebTestCase
 {
     /**
      * Current user used to supply an avatar aware interfaced object
@@ -20,27 +19,6 @@ class AvatarServiceTest extends WebTestCase
      * @var \Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface $currentUser
      */
     protected static $currentUser;
-
-    /**
-     * Test the twig extension contains the relevant functions
-     */
-    public function testTwigExtension()
-    {
-        $container = $this->createClient()->getContainer();
-        $securityContext = $container->get('security.context');
-
-        $twigExtension = new AvatarExtension($container, $securityContext);
-        $availableFunctions = $twigExtension->getFunctions();
-
-        $this->assertInternalType('array', $availableFunctions);
-        $this->assertEquals(1, count($availableFunctions));
-
-        /** @var $myAvatarFunction \Twig_SimpleFunction */
-        $myAvatarFunction = $availableFunctions[0];
-        $this->assertInstanceOf('Twig_SimpleFunction', $myAvatarFunction);
-
-        $this->assertEquals('my_avatar_url', $myAvatarFunction->getName());
-    }
 
     /**
      * Test insecure Gravatar image URL build
