@@ -16,8 +16,8 @@ use Symfony\Component\Config\FileLocator;
 class TickitUserExtension extends Extension
 {
     /**
-     * @param array                                                   $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array                                                   $configs   Configuration array
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container Service container
      */
     public function load(array $configs, ContainerBuilder $container)
     {
