@@ -5,7 +5,7 @@ namespace Tickit\UserBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
 /**
@@ -26,8 +26,8 @@ class TickitUserExtension extends Extension
 
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $ymlLoader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $ymlLoader->load('services.yml');
+        $ymlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $ymlLoader->load('services.xml');
 
         $container->setParameter('tickit_user.avatar.adapter_class', $config['avatar']['adapter_class']);
     }
