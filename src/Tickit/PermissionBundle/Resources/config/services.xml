@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="permissions" class="Tickit\PermissionBundle\Service\PermissionService">
+            <argument type="service" id="session" />
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="tickit_cache.factory" />
+        </service>
+        <service id="permissions_sync" class="Tickit\PermissionBundle\Listener\Sync">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="permissions" />
+            <argument type="service" id="tickit_cache.factory" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
+        </service>
+    </services>
+
+</container>
