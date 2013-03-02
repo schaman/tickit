@@ -21,9 +21,7 @@
     </head>
     <body>
 
-        {% if is_granted('ROLE_USER') %}
-            {% render controller('TickitCoreBundle:Navigation:topNavigation') %}
-        {% endif %}
+        {% render controller('TickitCoreBundle:Navigation:topNavigation') %}
 
         <div id='container'>
             {% if is_granted('ROLE_USER') %}
