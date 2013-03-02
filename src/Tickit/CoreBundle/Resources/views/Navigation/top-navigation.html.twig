@@ -17,7 +17,7 @@
                     <img height='28px' width='28px' src='{{ my_avatar_url(28) }}' />
                     <span class='gloss'></span>
                 </div>
-                <a href="#">{{ app.user.fullName }}</a>
+                <a href="{{ path('fos_user_profile_edit') }}">{{ app.user.fullName }}</a>
             </div>
         {% endif %}
     </div><!--/inner -->
