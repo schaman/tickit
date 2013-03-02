@@ -2,22 +2,24 @@
 
     <div class="inner">
         <a href="#" id="logo">Tickit</a>
-        <nav role="navigation">
-            <ul>
-                {% for item in navigation %}
-                    <li class="active">
-                        <a href="{{ item.route }}">{{ item.name }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </nav>
-        <div class='account'>
-            <div class='account-thumb'>
-                <img height='28px' width='28px' src='{{ my_avatar_url(28) }}' />
-                <span class='gloss'></span>
+        {% if is_granted('ROLE_USER') %}
+            <nav role="navigation">
+                <ul>
+                    {% for item in navigation %}
+                        <li class="active">
+                            <a href="{{ item.route }}">{{ item.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            <div class='account'>
+                <div class='account-thumb'>
+                    <img height='28px' width='28px' src='{{ my_avatar_url(28) }}' />
+                    <span class='gloss'></span>
+                </div>
+                <a href="#">{{ app.user.fullName }}</a>
             </div>
-            <a href="#">{{ app.user.fullName }}</a>
-        </div>
+        {% endif %}
     </div><!--/inner -->
 
 </header>
