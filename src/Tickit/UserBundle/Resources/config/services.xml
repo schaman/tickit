@@ -26,6 +26,10 @@
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
         </service>
+        <service id="tickit_user.profile.form.type" class="Tickit\UserBundle\Form\Type\ProfileFormType">
+            <tag name="form.type" alias="tickit_user_profile" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
     </services>
 
 </container>

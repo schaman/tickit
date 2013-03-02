@@ -102,6 +102,26 @@ class User extends BaseUser implements AvatarAwareInterface
     }
 
     /**
+     * Gets the user's surname
+     *
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * Gets the user's forename
+     *
+     * @return string
+     */
+    public function getForename()
+    {
+        return $this->forename;
+    }
+
+    /**
      * Updates the user's surname
      *
      * @param string $surname The new surname value
