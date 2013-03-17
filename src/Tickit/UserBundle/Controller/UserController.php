@@ -37,14 +37,25 @@ class UserController extends CoreController
     /**
      * Loads the edit user page
      *
+     * @param integer $id The user ID to edit
+     *
      * @Template("TickitUserBundle:User:edit.html.twig")
      *
      * @return array
      */
-    public function editAction()
+    public function editAction($id)
     {
-        $formType = new EditFormType();
-        $form = $this->createForm($formType);
+        $user = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('TickitUserBundle:User')
+                     ->findOneById($id);
+
+        if (empty($user)) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        $formType = new EditFormType($user);
+        $form = $this->createForm($formType, $user);
 
         return array('form' => $form->createView());
     }

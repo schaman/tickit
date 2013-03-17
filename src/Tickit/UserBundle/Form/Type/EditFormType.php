@@ -4,6 +4,7 @@ namespace Tickit\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Edit user form.
@@ -17,6 +18,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 class EditFormType extends AbstractType
 {
     /**
+     * The user entity that is being edited
+     *
+     * @var User
+     */
+    protected $user;
+
+    /**
+     * Constructor.
+     *
+     * @param User $user The user entity to edit
+     */
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder
@@ -26,7 +44,9 @@ class EditFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //build form
+        $builder->add('id', 'hidden', array('data' => $this->user->getId()))
+                ->add('username', 'text', array('data' => $this->user->getUsername()))
+                ->add('email', 'email', array('data' => $this->user->getEmail()));
     }
 
     /**
