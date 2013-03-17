@@ -7,21 +7,21 @@
         <table>
             <thead>
                 <tr>
-                    <td>#</td>
                     <td>Name</td>
                     <td>Username</td>
                     <td>Email</td>
                     <td>Group</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>{{ user.id }}</td>
                         <td>{{ user.fullName }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.primaryGroup }}</td>
+                        <td><a href="{{ path('user_edit', { id: user.id }) }}">Edit</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

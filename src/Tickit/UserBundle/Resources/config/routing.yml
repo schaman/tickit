@@ -3,3 +3,9 @@ user_index:
   defaults: { _controller: TickitUserBundle:User:index, page: 1 }
   requirements:
     page: \d+
+
+user_edit:
+  pattern: /edit/{id}
+  defaults: { _controller: TickitUserBundle:User:edit }
+  requirements:
+    id: \d+

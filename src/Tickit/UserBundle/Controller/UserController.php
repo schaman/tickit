@@ -8,6 +8,7 @@ use Tickit\CoreBundle\Controller\CoreController;
 //bind forms here
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tickit\UserBundle\Form\Type\EditFormType;
 
 /**
  * Controller that provides actions to manipulate user entities
@@ -33,4 +34,18 @@ class UserController extends CoreController
         return array('users' => $users);
     }
 
+    /**
+     * Loads the edit user page
+     *
+     * @Template("TickitUserBundle:User:edit.html.twig")
+     *
+     * @return array
+     */
+    public function editAction()
+    {
+        $formType = new EditFormType();
+        $form = $this->createForm($formType);
+
+        return array('form' => $form->createView());
+    }
 }
