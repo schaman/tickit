@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Tests for the project manager
  *
- * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManagerTest extends WebTestCase
 {
