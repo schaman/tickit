@@ -4,9 +4,6 @@ namespace Tickit\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\CoreController;
-
-//bind forms here
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tickit\UserBundle\Form\Type\EditFormType;
 
