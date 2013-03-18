@@ -13,6 +13,14 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_sqlite
+        user:     %test_database_user%
+        path:     %kernel.cache_dir%/sqlite
+        charset:  UTF8
+
 #TickitCacheBundle configuration
 tickit_cache:
     default_namespace: "tickit.test"

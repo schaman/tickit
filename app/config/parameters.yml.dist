@@ -7,6 +7,9 @@ parameters:
     database_user:     root
     database_password: ~
 
+    #tickit uses sqlite memory DB for tests
+    test_database_user: user
+
     mailer_transport:  smtp
     mailer_host:       localhost
     mailer_user:       ~
