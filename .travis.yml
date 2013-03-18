@@ -8,7 +8,7 @@ before_script:
   - php app/Resources/data/travis-build.php
 
   - curl -s http://getcomposer.org/installer | php
-  - COMPOSER_ROOT_VERSION=dev-master php composer.phar --dev install
+  - COMPOSER_ROOT_VERSION=dev-master php composer.phar install
 
   # build database #
   - php app/console doctrine:schema:create --env test
