@@ -1,6 +1,7 @@
 .idea
 app/bootstrap*
 app/cache/*
+app/sqlite_test
 app/config/parameters.yml
 app/logs/*
 app/phpunit.xml
