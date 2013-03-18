@@ -371,12 +371,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "fd5afdb4c082a43e9e30bfba51766b9cd64c430b"
+                "reference": "ec05bec2307c4b63e0d63dc0de7c89942853cabc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/fd5afdb4c082a43e9e30bfba51766b9cd64c430b",
-                "reference": "fd5afdb4c082a43e9e30bfba51766b9cd64c430b",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/ec05bec2307c4b63e0d63dc0de7c89942853cabc",
+                "reference": "ec05bec2307c4b63e0d63dc0de7c89942853cabc",
                 "shasum": ""
             },
             "require": {
@@ -428,7 +428,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-03-15 10:50:03"
+            "time": "2013-03-18 15:41:00"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -957,12 +957,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf"
+                "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/041aa3930f8d2b466ae897440ec9471d5159c5bf",
-                "reference": "041aa3930f8d2b466ae897440ec9471d5159c5bf",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
+                "reference": "dd0b216e0229a24178c2f0782f8a7172c7ed1c96",
                 "shasum": ""
             },
             "require": {
@@ -1011,7 +1011,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-02-26 10:18:11"
+            "time": "2013-03-18 18:06:02"
         },
         {
             "name": "phpoption/phpoption",
@@ -1534,12 +1534,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "801a7f887bbf679de61b404677dfea8ba8716279"
+                "reference": "ed6c52b712237aea9aed587931c942112d472129"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/801a7f887bbf679de61b404677dfea8ba8716279",
-                "reference": "801a7f887bbf679de61b404677dfea8ba8716279",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/ed6c52b712237aea9aed587931c942112d472129",
+                "reference": "ed6c52b712237aea9aed587931c942112d472129",
                 "shasum": ""
             },
             "require": {
@@ -1625,7 +1625,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-15 10:54:52"
+            "time": "2013-03-18 14:29:32"
         },
         {
             "name": "tickit-project/cache-bundle",
