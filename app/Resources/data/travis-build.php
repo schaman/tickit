@@ -32,6 +32,8 @@ parameters:
     database_user:     root
     database_password:
 
+    test_database_user: user
+
     mailer_transport:  smtp
     mailer_host:       localhost
     mailer_user:       ~
