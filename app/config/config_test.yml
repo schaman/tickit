@@ -18,7 +18,7 @@ doctrine:
     dbal:
         driver:   pdo_sqlite
         user:     %test_database_user%
-        path:     %kernel.cache_dir%/sqlite
+        path:     %kernel.root_dir%/sqlite_test
         charset:  UTF8
 
 #TickitCacheBundle configuration
