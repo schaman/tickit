@@ -6,7 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Event\ProjectCreatedEvent;
+use Tickit\ProjectBundle\Event\ProjectCreateEvent;
 use Tickit\ProjectBundle\TickitProjectEvents;
 
 /**
@@ -62,7 +62,7 @@ class ProjectManager
             $this->em->flush();
         }
 
-        $event = new ProjectCreatedEvent($project);
+        $event = new ProjectCreateEvent($project);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_CREATE, $event);
     }
 }
