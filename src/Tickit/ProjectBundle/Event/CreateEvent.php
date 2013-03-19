@@ -7,17 +7,17 @@ use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
 
 /**
- * Project deleted event.
+ * Event dispatched when a project is created
  *
- * Dispatched after a project has been deleted from the entity manager
+ * Event name: "tickit_project.event.create"
  *
  * @package Tickit\ProjectBundle\Event
- * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  James Halsall <jhalsall@rippleffect.com>
  */
-class ProjectDeleteEvent extends Event implements ProjectAwareInterface
+class CreateEvent extends Event implements ProjectAwareInterface
 {
     /**
-     * The project that is to be deleted
+     * The project that has been created
      *
      * @var Project
      */
@@ -26,15 +26,15 @@ class ProjectDeleteEvent extends Event implements ProjectAwareInterface
     /**
      * Constructor.
      *
-     * @param Project $project The project entity to be deleted
+     * @param Project $project The project that is being created
      */
     public function __construct(Project $project)
     {
-        $this->project = $project;
+        $this->project = null;
     }
 
     /**
-     * Gets the project on this event
+     * Gets the project on this object
      *
      * @return Project
      */
@@ -44,7 +44,7 @@ class ProjectDeleteEvent extends Event implements ProjectAwareInterface
     }
 
     /**
-     * Sets the project on this event
+     * Sets the project on this object
      *
      * @param Project $project The project to set
      *
