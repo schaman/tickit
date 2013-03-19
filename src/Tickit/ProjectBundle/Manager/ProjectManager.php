@@ -4,9 +4,9 @@ namespace Tickit\ProjectBundle\Manager;
 
 use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Event\ProjectBeforeDeleteEvent;
-use Tickit\ProjectBundle\Event\ProjectCreatedEvent;
-use Tickit\ProjectBundle\Event\ProjectDeleteEvent;
+use Tickit\ProjectBundle\Event\BeforeDeleteEvent;
+use Tickit\ProjectBundle\Event\CreateEvent;
+use Tickit\ProjectBundle\Event\DeleteEvent;
 use Tickit\ProjectBundle\TickitProjectEvents;
 
 /**
@@ -32,7 +32,7 @@ class ProjectManager extends AbstractManager
     {
         $this->internalPersist($project, $flush);
 
-        $event = new ProjectCreatedEvent($project);
+        $event = new CreateEvent($project);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_CREATE, $event);
     }
 
@@ -44,7 +44,7 @@ class ProjectManager extends AbstractManager
      */
     public function delete(Project $project, $flush = true)
     {
-        $beforeEvent = new ProjectBeforeDeleteEvent($project);
+        $beforeEvent = new BeforeDeleteEvent($project);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_DELETE, $beforeEvent);
 
         if ($beforeEvent->isVetoed()) {
@@ -53,7 +53,7 @@ class ProjectManager extends AbstractManager
 
         $this->internalDelete($project, $flush);
 
-        $event = new ProjectDeleteEvent($project);
+        $event = new DeleteEvent($project);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_DELETE, $event);
     }
 }

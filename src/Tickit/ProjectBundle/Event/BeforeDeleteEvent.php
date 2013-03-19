@@ -12,7 +12,7 @@ use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
  * @package Tickit\ProjectBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectBeforeDeleteEvent extends AbstractBeforeDeleteEvent implements ProjectAwareInterface
+class BeforeDeleteEvent extends AbstractBeforeDeleteEvent implements ProjectAwareInterface
 {
     /**
      * The project that is to be deleted
