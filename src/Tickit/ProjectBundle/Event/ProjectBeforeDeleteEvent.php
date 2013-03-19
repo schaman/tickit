@@ -36,7 +36,7 @@ class ProjectBeforeDeleteEvent extends AbstractBeforeDeleteEvent implements Proj
      *
      * @return Project
      */
-    function getProject()
+    public function getProject()
     {
         return $this->project;
     }
@@ -48,7 +48,7 @@ class ProjectBeforeDeleteEvent extends AbstractBeforeDeleteEvent implements Proj
      *
      * @return mixed
      */
-    function setProject(Project $project)
+    public function setProject(Project $project)
     {
         $this->project = $project;
     }

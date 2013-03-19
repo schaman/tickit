@@ -38,7 +38,7 @@ class ProjectDeleteEvent extends Event implements ProjectAwareInterface
      *
      * @return Project
      */
-    function getProject()
+    public function getProject()
     {
         return $this->project;
     }
@@ -50,7 +50,7 @@ class ProjectDeleteEvent extends Event implements ProjectAwareInterface
      *
      * @return mixed
      */
-    function setProject(Project $project)
+    public function setProject(Project $project)
     {
         $this->project = $project;
     }
