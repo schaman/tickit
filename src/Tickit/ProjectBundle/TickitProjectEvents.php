@@ -13,21 +13,28 @@ namespace Tickit\ProjectBundle;
 class TickitProjectEvents
 {
     /**
-     * Constant representing the name of the create event
+     * Constant representing the name of the "create" event
      *
      * @const string
      */
     const PROJECT_CREATE = 'tickit_project.event.create';
 
     /**
-     * Constant representing the name of the update event
+     * Constant representing the name of the "update" event
      *
      * @const string
      */
     const PROJECT_UPDATE = 'tickit_project.event.update';
 
     /**
-     * Constant representing the name of the delete event
+     * Constant representing the name of the "before delete" event
+     *
+     * @const string
+     */
+    const PROJECT_BEFORE_DELETE = 'tickit_project.event.before_delete';
+
+    /**
+     * Constant representing the name of the "delete" event
      *
      * @const string
      */
