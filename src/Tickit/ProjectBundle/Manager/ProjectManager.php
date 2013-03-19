@@ -2,11 +2,11 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
+use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Event\ProjectBeforeDeleteEvent;
 use Tickit\ProjectBundle\Event\ProjectCreatedEvent;
+use Tickit\ProjectBundle\Event\ProjectDeleteEvent;
 use Tickit\ProjectBundle\TickitProjectEvents;
 
 /**
@@ -18,36 +18,10 @@ use Tickit\ProjectBundle\TickitProjectEvents;
  * @package Tickit\ProjectBundle\Manager
  * @author  James Halsall <jhalsall@rippleffect.com>
  */
-class ProjectManager
+class ProjectManager extends AbstractManager
 {
     /**
-     * Entity manager
-     *
-     * @var ObjectManager
-     */
-    protected $em;
-
-    /**
-     * The event dispatcher
-     *
-     * @var ContainerAwareEventDispatcher
-     */
-    protected $dispatcher;
-
-    /**
-     * Constructor.
-     *
-     * @param Registry                      $doctrine   The doctrine registry service
-     * @param ContainerAwareEventDispatcher $dispatcher The event dispatcher
-     */
-    public function __construct(Registry $doctrine, ContainerAwareEventDispatcher $dispatcher)
-    {
-        $this->em = $doctrine->getManager();
-        $this->dispatcher = $dispatcher;
-    }
-
-    /**
-     * Persists a project entity to the database
+     * Persists a project entity to the entity manager
      *
      * @param Project $project The project to persist
      * @param boolean $flush   True to automatically flush changes to the database, false otherwise (defaults to true)
@@ -56,13 +30,30 @@ class ProjectManager
      */
     public function persist(Project $project, $flush = true)
     {
-        $this->em->persist($project);
-
-        if (false !== $flush) {
-            $this->em->flush();
-        }
+        $this->internalPersist($project, $flush);
 
         $event = new ProjectCreatedEvent($project);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_CREATE, $event);
+    }
+
+    /**
+     * Deletes a project entity from the entity manager
+     *
+     * @param Project $project
+     * @param bool $flush
+     */
+    public function delete(Project $project, $flush = true)
+    {
+        $beforeEvent = new ProjectBeforeDeleteEvent($project);
+        $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_DELETE, $beforeEvent);
+
+        if ($beforeEvent->isVetoed()) {
+            return;
+        }
+
+        $this->internalDelete($project, $flush);
+
+        $event = new ProjectDeleteEvent($project);
+        $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_DELETE, $event);
     }
 }
