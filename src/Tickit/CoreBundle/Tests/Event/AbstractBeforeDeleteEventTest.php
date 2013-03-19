@@ -13,6 +13,17 @@ use Tickit\CoreBundle\Event\AbstractBeforeDeleteEvent;
 class AbstractBeforeDeleteEventTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Ensures that the AbstractBeforeDeleteEvent object is a descendant of the event class
+     *
+     * @return void
+     */
+    public function testAbstractIsAnEvent()
+    {
+        $event = $this->getMockForAbstractClass('\Tickit\CoreBundle\Event\AbstractBeforeDeleteEvent');
+        $this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);
+    }
+
+    /**
      * Tests the isVetoed() method
      *
      * Ensures that the method returns true and false in the correct scenarios
