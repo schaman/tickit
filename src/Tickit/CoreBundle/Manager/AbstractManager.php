@@ -55,7 +55,7 @@ abstract class AbstractManager
      *
      * @return void
      */
-    public function persist($entity, $flush = true)
+    public function internalPersist($entity, $flush = true)
     {
         $this->em->persist($entity);
 
@@ -74,7 +74,7 @@ abstract class AbstractManager
      *
      * @return void
      */
-    public function delete(DeletableEntityInterface $entity, $flush = true)
+    public function internalDelete(DeletableEntityInterface $entity, $flush = true)
     {
         $entity->delete();
         $this->em->persist($entity);
