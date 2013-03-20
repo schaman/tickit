@@ -4,6 +4,7 @@ namespace Tickit\ProjectBundle\Manager;
 
 use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Event\BeforeCreateEvent;
 use Tickit\ProjectBundle\Event\BeforeDeleteEvent;
 use Tickit\ProjectBundle\Event\CreateEvent;
 use Tickit\ProjectBundle\Event\DeleteEvent;
@@ -21,15 +22,20 @@ use Tickit\ProjectBundle\TickitProjectEvents;
 class ProjectManager extends AbstractManager
 {
     /**
-     * Persists a project entity to the entity manager
+     * Creates a project by persisting it in the entity manager
      *
-     * @param Project $project The project to persist
+     * @param Project $project The project to create in the entity manager
      * @param boolean $flush   True to automatically flush changes to the database, false otherwise (defaults to true)
      *
      * @return void
      */
-    public function persist(Project $project, $flush = true)
+    public function create(Project $project, $flush = true)
     {
+        $beforeEvent = new BeforeCreateEvent($project);
+        /** @var BeforeCreateEvent $beforeEvent  */
+        $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_CREATE, $beforeEvent);
+        $project = $beforeEvent->getProject(); // a subscriber may have updated the project so we re-fetch it from the event
+
         $this->internalPersist($project, $flush);
 
         $event = new CreateEvent($project);
