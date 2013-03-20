@@ -51,7 +51,7 @@ abstract class AbstractManager
      * should be handled by the implementing class
      *
      * @param object  $entity The entity to persist
-     * @param boolean $flush  True to automatically flush changes to the database, false otherwise (defaults to true)
+     * @param boolean $flush  True to automatically flush changes to the database (defaults to true)
      *
      * @return void
      */
@@ -71,6 +71,7 @@ abstract class AbstractManager
      * should be handled by the implementing class.
      *
      * @param DeletableEntityInterface $entity The entity to be deleted
+     * @param boolean                  $flush  True to automatically flush the changes to the database (defaults to true)
      *
      * @return void
      */
