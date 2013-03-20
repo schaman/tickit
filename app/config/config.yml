@@ -80,6 +80,7 @@ stof_doctrine_extensions:
   orm:
     default:
       timestampable: true
+      softdeleteable: true
 
 # TickitCacheBundle configuration
 tickit_cache:
