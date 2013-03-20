@@ -13,11 +13,25 @@ namespace Tickit\ProjectBundle;
 class TickitProjectEvents
 {
     /**
+     * Constant representing the name of the "before create" event
+     *
+     * @const string
+     */
+    const PROJECT_BEFORE_CREATE = 'tickit_project.event.before_create';
+
+    /**
      * Constant representing the name of the "create" event
      *
      * @const string
      */
     const PROJECT_CREATE = 'tickit_project.event.create';
+
+    /**
+     * Constant representing the name of the "before update" event
+     *
+     * @const string
+     */
+    const PROJECT_BEFORE_UPDATE = 'tickit_project.event.before_update';
 
     /**
      * Constant representing the name of the "update" event
