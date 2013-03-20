@@ -4,6 +4,8 @@ namespace Tickit\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
+use DateTime;
 
 /**
  * The project entity represents an application/website/product within the application
@@ -11,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\Table(name="projects")
  */
-class Project
+class Project implements DeletableEntityInterface
 {
     /**
      * @ORM\Id
@@ -46,6 +48,14 @@ class Project
      * @Gedmo\Timestampable(on="update")
      */
     protected $updated;
+
+    /**
+     * The time that this project was deleted (if any)
+     *
+     * @var string
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    protected $deletedAt;
 
 
     /**
@@ -96,5 +106,38 @@ class Project
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Marks this entity as deleted
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        $now = new DateTime();
+        $this->setDeletedAt($now);
+    }
+
+    /**
+     * Gets the time at which this project was deleted
+     *
+     * @return string
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * Sets the time this project was deleted
+     *
+     * @param string $deletedAt The date time that this project was deleted
+     *
+     * @return void
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
     }
 }
