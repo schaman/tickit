@@ -4,7 +4,6 @@ namespace Tickit\ProjectBundle\Event;
 
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Event dispatched when a project is created
@@ -14,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
  * @package Tickit\ProjectBundle\Event
  * @author  James Halsall <jhalsall@rippleffect.com>
  */
-class ProjectCreatedEvent extends Event implements ProjectAwareInterface
+class ProjectCreatedEvent implements ProjectAwareInterface
 {
     /**
      * The project that has been created
