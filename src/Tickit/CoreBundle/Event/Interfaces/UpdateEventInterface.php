@@ -3,7 +3,7 @@
 namespace Tickit\CoreBundle\Event\Interfaces;
 
 /**
- * Interface for edit events.
+ * Interface for entity update events.
  *
  * Guarantees a way of retrieving the original entity state from the
  * event object.
@@ -11,7 +11,7 @@ namespace Tickit\CoreBundle\Event\Interfaces;
  * @package Tickit\CoreBundle\Event\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface EditEventInterface
+interface UpdateEventInterface
 {
     /**
      * Returns the entity in its original state.
