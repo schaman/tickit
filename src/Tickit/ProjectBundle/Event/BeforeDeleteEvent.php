@@ -2,7 +2,7 @@
 
 namespace Tickit\ProjectBundle\Event;
 
-use Tickit\CoreBundle\Event\AbstractBeforeDeleteEvent;
+use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
 
@@ -12,7 +12,7 @@ use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
  * @package Tickit\ProjectBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class BeforeDeleteEvent extends AbstractBeforeDeleteEvent implements ProjectAwareInterface
+class BeforeDeleteEvent extends AbstractVetoableEvent implements ProjectAwareInterface
 {
     /**
      * The project that is to be deleted
