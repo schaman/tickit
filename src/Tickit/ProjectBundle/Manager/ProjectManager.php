@@ -2,8 +2,9 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
+use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
+use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\CoreBundle\Manager\AbstractManager;
-use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Event\BeforeCreateEvent;
 use Tickit\ProjectBundle\Event\BeforeDeleteEvent;
 use Tickit\ProjectBundle\Event\BeforeUpdateEvent;
@@ -24,74 +25,96 @@ use Tickit\ProjectBundle\TickitProjectEvents;
 class ProjectManager extends AbstractManager
 {
     /**
-     * Creates a project by persisting it in the entity manager
+     * Dispatches events for the tickit_project.event.before_create" event
      *
-     * Will also dispatch the "tickit_project.event.before_create" and "tickit_project.event.create" events
+     * @param object $entity The project entity that is about to be created
      *
-     * @param Project $project The project to create in the entity manager
-     * @param boolean $flush   True to automatically flush changes to the database, false otherwise (defaults to true)
+     * @return AbstractVetoableEvent
+     */
+    protected function dispatchBeforeCreateEvent($entity)
+    {
+        $beforeEvent = new BeforeCreateEvent($entity);
+        $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_CREATE, $beforeEvent);
+
+        return $beforeEvent;
+    }
+
+    /**
+     * Dispatches events for the tickit_project.event.create" event
+     *
+     * @param object $entity The project entity that has just been created
      *
      * @return void
      */
-    public function create(Project $project, $flush = true)
+    protected function dispatchCreateEvent($entity)
     {
-        $beforeEvent = new BeforeCreateEvent($project);
-        /** @var BeforeCreateEvent $beforeEvent  */
-        $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_CREATE, $beforeEvent);
-
-        // a subscriber may have updated the project so we re-fetch it from the event
-        $project = $beforeEvent->getProject();
-        $this->internalPersist($project, $flush);
-
-        $event = new CreateEvent($project);
+        $event = new CreateEvent($entity);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_CREATE, $event);
     }
 
     /**
-     * Updates a project by flushing changes to the entity manager.
+     * Dispatches events for the "tickit_project.event.before_update" event
      *
-     * Will also dispatch the "tickit_project.event.before_update" and "tickit_project.event.update" events
+     * @param object $entity The entity that is about to be updated
      *
-     * @param Project $project The project to create in the entity manager
-     * @param boolean $flush   True to automatically flush changes to the database, false otherwise (defaults to true)
-     *
-     * @return void
+     * @return AbstractVetoableEvent
      */
-    public function update(Project $project, $flush = true)
+    protected function dispatchBeforeUpdateEvent($entity)
     {
-        $originalProject = $this->em->find('\Tickit\ProjectBundle\Entity\Project', $project->getId());
-
-        $beforeEvent = new BeforeUpdateEvent($project);
+        $beforeEvent = new BeforeUpdateEvent($entity);
         /** @var BeforeUpdateEvent $beforeEvent */
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_UPDATE, $beforeEvent);
 
-        // a subscriber may have updated the project so we re-fetch it from the event
-        $project = $beforeEvent->getProject();
-        $this->internalPersist($project, $flush);
-
-        $event = new UpdateEvent($project, $originalProject);
-        $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_UPDATE, $event);
+        return $beforeEvent;
     }
 
     /**
-     * Deletes a project entity from the entity manager
+     * Dispatches events for the tickit_project.event.update" event
      *
-     * @param Project $project
-     * @param bool    $flush
+     * @param object $entity The entity that has just been updated
+     *
+     * @return void
      */
-    public function delete(Project $project, $flush = true)
+    protected function dispatchUpdateEvent($entity)
     {
-        $beforeEvent = new BeforeDeleteEvent($project);
+
+    }
+
+    /**
+     * Dispatches events for the tickit_project.event.before_delete" event
+     *
+     * @param DeletableEntityInterface $entity The entity that is about to be deleted
+     *
+     * @return AbstractVetoableEvent
+     */
+    protected function dispatchBeforeDeleteEvent(DeletableEntityInterface $entity)
+    {
+        $beforeEvent = new BeforeDeleteEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_DELETE, $beforeEvent);
 
-        /** @var BeforeDeleteEvent $beforeEvent */
-        if ($beforeEvent->isVetoed()) {
-            return;
-        }
+        return $beforeEvent;
+    }
 
-        $this->internalDelete($project, $flush);
-
-        $event = new DeleteEvent($project);
+    /**
+     * Dispatches events for the tickit_project.event.delete" event
+     *
+     * @param DeletableEntityInterface $entity The entity that has just been deleted in the entity manager
+     *
+     * @return void
+     */
+    protected function dispatchDeleteEvent(DeletableEntityInterface $entity)
+    {
+        $event = new DeleteEvent($entity);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_DELETE, $event);
+    }
+
+    /**
+     * Returns the fully qualified entity class name that the ProjectManager is responsible for
+     *
+     * @return string
+     */
+    protected function getEntityClassName()
+    {
+        return '';
     }
 }
