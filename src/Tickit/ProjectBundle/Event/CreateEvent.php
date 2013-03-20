@@ -30,7 +30,7 @@ class CreateEvent extends Event implements ProjectAwareInterface
      */
     public function __construct(Project $project)
     {
-        $this->project = null;
+        $this->setProject($project);
     }
 
     /**

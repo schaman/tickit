@@ -59,6 +59,8 @@ class ProjectManager extends AbstractManager
      */
     public function update(Project $project, $flush = true)
     {
+        $originalProject = $this->em->find('\Tickit\ProjectBundle\Entity\Project', $project->getId());
+
         $beforeEvent = new BeforeUpdateEvent($project);
         /** @var BeforeUpdateEvent $beforeEvent */
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_UPDATE, $beforeEvent);
@@ -67,7 +69,7 @@ class ProjectManager extends AbstractManager
         $project = $beforeEvent->getProject();
         $this->internalPersist($project, $flush);
 
-        $event = new UpdateEvent($project);
+        $event = new UpdateEvent($project, $originalProject);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_UPDATE, $event);
     }
 
@@ -75,13 +77,14 @@ class ProjectManager extends AbstractManager
      * Deletes a project entity from the entity manager
      *
      * @param Project $project
-     * @param bool $flush
+     * @param bool    $flush
      */
     public function delete(Project $project, $flush = true)
     {
         $beforeEvent = new BeforeDeleteEvent($project);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_DELETE, $beforeEvent);
 
+        /** @var BeforeDeleteEvent $beforeEvent */
         if ($beforeEvent->isVetoed()) {
             return;
         }
