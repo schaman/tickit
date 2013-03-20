@@ -24,13 +24,22 @@ class UpdateEvent extends Event implements ProjectAwareInterface
     protected $project;
 
     /**
+     * The original project entity before updates
+     *
+     * @var Project
+     */
+    protected $originalProject;
+
+    /**
      * Constructor.
      *
-     * @param Project $project The project that has been updated
+     * @param Project $project         The project that has been updated
+     * @param Project $originalProject The original project entity before updates
      */
-    public function __construct(Project $project)
+    public function __construct(Project $project, Project $originalProject)
     {
-        $this->project = null;
+        $this->setProject($project);
+        $this->setOriginalProject($originalProject);
     }
 
     /**
@@ -54,4 +63,25 @@ class UpdateEvent extends Event implements ProjectAwareInterface
     {
         $this->project = $project;
     }
+
+    /**
+     * Gets the original project entity on this object - before updates applied
+     *
+     * @return Project
+     */
+    public function getOriginalProject()
+    {
+        return $this->originalProject;
+    }
+
+    /**
+     * Sets the original project on this object - before updates applied
+     *
+     * @param Project $originalProject
+     */
+    private function setOriginalProject($originalProject)
+    {
+        $this->originalProject = $originalProject;
+    }
+
 }
