@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
+use Tickit\CoreBundle\Event\Interfaces\UpdateEventInterface;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
 
@@ -14,7 +15,7 @@ use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
  * @package Tickit\ProjectBundle\Event
  * @author  James Halsall <jhalsall@rippleffect.com>
  */
-class UpdateEvent extends Event implements ProjectAwareInterface
+class UpdateEvent extends Event implements UpdateEventInterface, ProjectAwareInterface
 {
     /**
      * The project that has been updated
@@ -65,16 +66,6 @@ class UpdateEvent extends Event implements ProjectAwareInterface
     }
 
     /**
-     * Gets the original project entity on this object - before updates applied
-     *
-     * @return Project
-     */
-    public function getOriginalProject()
-    {
-        return $this->originalProject;
-    }
-
-    /**
      * Sets the original project on this object - before updates applied
      *
      * @param Project $originalProject
@@ -84,4 +75,13 @@ class UpdateEvent extends Event implements ProjectAwareInterface
         $this->originalProject = $originalProject;
     }
 
+    /**
+     * Gets the original project entity on this object - before updates applied
+     *
+     * @return Project
+     */
+    public function getOriginalEntity()
+    {
+        return $this->originalProject;
+    }
 }
