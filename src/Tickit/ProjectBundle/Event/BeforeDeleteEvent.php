@@ -7,7 +7,7 @@ use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
 
 /**
- * Project specific implementation of the "before delete" event
+ * Event fired before a project is deleted from the application
  *
  * @package Tickit\ProjectBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
