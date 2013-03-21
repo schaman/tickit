@@ -19,7 +19,7 @@ use Tickit\ProjectBundle\TickitProjectEvents;
  * This class is responsible for firing events related to the management of the
  * Project entity
  *
- * @package Namespace\Class
+ * @package Tickit\ProjectBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\ProjectBundle\Entity\Project
  */
