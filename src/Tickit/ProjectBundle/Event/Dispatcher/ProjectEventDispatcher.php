@@ -23,7 +23,7 @@ use Tickit\ProjectBundle\TickitProjectEvents;
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\ProjectBundle\Entity\Project
  */
-class EventDispatcher extends AbstractEntityEventDispatcher
+class ProjectEventDispatcher extends AbstractEntityEventDispatcher
 {
     /**
      * Dispatches events for the "before create" event on the entity
