@@ -4,13 +4,8 @@ namespace Tickit\CoreBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Symfony\Component\EventDispatcher\Event;
 use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
-use Tickit\CoreBundle\Event\AbstractVetoableEvent;
-use Tickit\ProjectBundle\Event\BeforeUpdateEvent;
-use Tickit\ProjectBundle\Event\UpdateEvent;
-use Tickit\ProjectBundle\TickitProjectEvents;
+use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
  * Abstract entity manager
@@ -33,7 +28,7 @@ abstract class AbstractManager
     /**
      * The event dispatcher
      *
-     * @var ContainerAwareEventDispatcher
+     * @var AbstractEntityEventDispatcher
      */
     protected $dispatcher;
 
@@ -41,19 +36,48 @@ abstract class AbstractManager
      * Constructor.
      *
      * @param Registry                      $doctrine   The doctrine registry service
-     * @param ContainerAwareEventDispatcher $dispatcher The event dispatcher
+     * @param AbstractEntityEventDispatcher $dispatcher The event dispatcher
      */
-    public function __construct(Registry $doctrine, ContainerAwareEventDispatcher $dispatcher)
+    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher)
     {
         $this->em = $doctrine->getManager();
         $this->dispatcher = $dispatcher;
     }
 
     /**
+     * Creates an entity by persisting and flushing changes to the entity manager.
+     *
+     * This method provides basic functionality for creation, and fires methods in the
+     * dispatcher for the relevant events
+     *
+     * @param object  $entity The entity to update in the entity manager
+     * @param boolean $flush  True to automatically flush changes to the database, false otherwise (defaults to true)
+     *
+     * @return void
+     */
+    public function create($entity, $flush = true)
+    {
+        $beforeEvent = $this->dispatcher->dispatchBeforeCreateEvent($entity);
+
+        if ($beforeEvent->isVetoed()) {
+            return;
+        }
+
+        $entity = $beforeEvent->getEntity(); // todo: implement event interface for fetching entity
+
+        $this->em->persist($entity);
+        if (false !== $flush) {
+            $this->em->flush();
+        }
+
+        $this->dispatcher->dispatchCreateEvent($entity);
+    }
+
+    /**
      * Updates an entity by flushing changes to the entity manager.
      *
-     * This method provides basic functionality for deletion, and fires methods in the
-     * implementing class that will dispatch the relevant events
+     * This method provides basic functionality for updating, and fires methods in the
+     * dispatcher for the relevant events
      *
      * @param object  $entity The entity to update in the entity manager
      * @param boolean $flush  True to automatically flush changes to the database, false otherwise (defaults to true)
@@ -62,30 +86,26 @@ abstract class AbstractManager
      */
     public function update($entity, $flush = true)
     {
-        $class = $this->getEntityClassName();
-        $originalProject = $this->em->find($class, $entity->getId());
+        $originalEntity = $this->fetchOriginalEntity($entity);
 
-        $beforeEvent = new BeforeUpdateEvent($entity);
-        /** @var BeforeUpdateEvent $beforeEvent */
-        $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_UPDATE, $beforeEvent);
+        $beforeEvent = $this->dispatcher->dispatchBeforeUpdateEvent($entity);
 
         // a subscriber may have updated the project so we re-fetch it from the event
-        $entity = $beforeEvent->getProject();
+        //$entity = $beforeEvent->getProject(); //todo: implement abstract event for fetching entity
         $this->em->persist($entity);
 
         if (false !== $flush) {
             $this->em->flush();
         }
 
-        $event = new UpdateEvent($entity, $originalProject);
-        $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_UPDATE, $event);
+        $this->dispatcher->dispatchUpdateEvent($entity, $originalEntity);
     }
 
     /**
      * Deletes an entity from the entity manager.
      *
      * This method provides basic functionality for deletion, and fires methods in the
-     * implementing class that will dispatch the relevant events
+     * dispatcher for the relevant events
      *
      * @param DeletableEntityInterface $entity The entity to be deleted
      * @param boolean                  $flush  True to automatically flush the changes to the database (defaults to true)
@@ -94,7 +114,7 @@ abstract class AbstractManager
      */
     public function delete(DeletableEntityInterface $entity, $flush = true)
     {
-        $beforeEvent = $this->dispatchBeforeDeleteEvent($entity);
+        $beforeEvent = $this->dispatcher->dispatchBeforeDeleteEvent($entity);
 
         if ($beforeEvent->isVetoed()) {
             return;
@@ -107,86 +127,19 @@ abstract class AbstractManager
             $this->em->flush();
         }
 
-        $this->dispatchDeleteEvent($entity);
+        $this->dispatcher->dispatchDeleteEvent($entity);
     }
 
     /**
-     * Returns the fully qualified entity class name that the implementing manager is responsible for
+     * Returns the original entity from the entity manager.
      *
-     * @return string
+     * This method takes an entity and returns a copy in its original state
+     * from the entity manager. This is used when dispatching entity update
+     * events, so a before and after comparison can take place.
+     *
+     * @param object $entity The entity in its current state
+     *
+     * @return object
      */
-    abstract protected function getEntityClassName();
-
-    /**
-     * Dispatches events for the "before create" entity event
-     *
-     * The implementing class should return the event object for the "before create"
-     * event to guarantee proper behaviour
-     *
-     * @param object $entity The entity that is about to be created
-     *
-     * @return AbstractVetoableEvent
-     */
-    abstract protected function dispatchBeforeCreateEvent($entity);
-
-    /**
-     * Dispatches events for the "create" entity event
-     *
-     * The implementing class should return the event object for the "create"
-     * event to guarantee proper behaviour
-     *
-     * @param object $entity The entity that has just been created
-     *
-     * @return void
-     */
-    abstract protected function dispatchCreateEvent($entity);
-
-    /**
-     * Dispatches events for the "before update" entity event
-     *
-     * The implementing class should return the event object for the "before update"
-     * event to guarantee proper behaviour
-     *
-     * @param object $entity The entity that is about to be updated
-     *
-     * @return AbstractVetoableEvent
-     */
-    abstract protected function dispatchBeforeUpdateEvent($entity);
-
-    /**
-     * Dispatches events for the "update" entity event
-     *
-     * The implementing class should return the event object for the "update"
-     * event to guarantee proper behaviour
-     *
-     * @param object $entity         The entity that has just been updated
-     * @param object $originalEntity The entity in its original state, before the updates were applied
-     *
-     * @return void
-     */
-    abstract protected function dispatchUpdateEvent($entity, $originalEntity);
-
-    /**
-     * Dispatches events for the "before delete" entity event
-     *
-     * The implementing class should return the event object for the "before delete"
-     * event to guarantee proper behaviour
-     *
-     * @param DeletableEntityInterface $entity The entity that is about to be deleted
-     *
-     * @return AbstractVetoableEvent
-     */
-    abstract protected function dispatchBeforeDeleteEvent(DeletableEntityInterface $entity);
-
-    /**
-     * Dispatches events for the "delete" entity event
-     *
-     * The implementing class should return the event object for the "delete"
-     * event to guarantee proper behaviour
-     *
-     * @param DeletableEntityInterface $entity The entity that has just been deleted in the entity manager
-     *
-     * @return void
-     */
-    abstract protected function dispatchDeleteEvent(DeletableEntityInterface $entity);
+    abstract protected function fetchOriginalEntity($entity);
 }
