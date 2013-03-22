@@ -54,17 +54,15 @@ abstract class AbstractManager
      * @param object  $entity The entity to update in the entity manager
      * @param boolean $flush  True to automatically flush changes to the database, false otherwise (defaults to true)
      *
-     * @return void
+     * @return object
      */
     public function create($entity, $flush = true)
     {
         $beforeEvent = $this->dispatcher->dispatchBeforeCreateEvent($entity);
 
         if ($beforeEvent->isVetoed()) {
-            return;
+            return null;
         }
-
-        $entity = $beforeEvent->getOriginalEntity();
 
         $this->em->persist($entity);
         if (false !== $flush) {
@@ -72,6 +70,8 @@ abstract class AbstractManager
         }
 
         $this->dispatcher->dispatchCreateEvent($entity);
+
+        return $entity;
     }
 
     /**
@@ -83,13 +83,17 @@ abstract class AbstractManager
      * @param object  $entity The entity to update in the entity manager
      * @param boolean $flush  True to automatically flush changes to the database, false otherwise (defaults to true)
      *
-     * @return void
+     * @return object
      */
     public function update($entity, $flush = true)
     {
         $originalEntity = $this->fetchEntityInOriginalState($entity);
 
         $beforeEvent = $this->dispatcher->dispatchBeforeUpdateEvent($entity);
+
+        if ($beforeEvent->isVetoed()) {
+            return null;
+        }
 
         // a subscriber may have updated the project so we re-fetch it from the event
         $entity = $beforeEvent->getOriginalEntity();
@@ -100,6 +104,8 @@ abstract class AbstractManager
         }
 
         $this->dispatcher->dispatchUpdateEvent($entity, $originalEntity);
+
+        return $entity;
     }
 
     /**
