@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\CoreBundle\Manager\AbstractManager;
 
 /**
@@ -31,5 +32,19 @@ class ProjectManager extends AbstractManager
         $project = $this->em->find('\Tickit\ProjectBundle\Entity\Project', $entity->getId());
 
         return $project;
+    }
+
+    /**
+     * Gets the entity repository.
+     *
+     * This method returns the entity repository that is associated with this manager's entity.
+     *
+     * @return ObjectRepository
+     */
+    public function getRepository()
+    {
+        $repository = $this->em->getRepository('TickitProjectBundle:Project');
+
+        return $repository;
     }
 }
