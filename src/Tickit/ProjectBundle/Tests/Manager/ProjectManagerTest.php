@@ -59,7 +59,7 @@ class ProjectManagerTest extends WebTestCase
         $project = $manager->create($this->project);
 
         $persistedProject = $manager->getRepository()
-                                    ->find($project);
+                                    ->find($project->getId());
 
         $this->assertEquals($project->getName(), $persistedProject->getName(), 'Created project has same name');
     }
