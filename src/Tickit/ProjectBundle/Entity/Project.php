@@ -122,7 +122,7 @@ class Project implements DeletableEntityInterface
     /**
      * Gets the time at which this project was deleted
      *
-     * @return string
+     * @return DateTime
      */
     public function getDeletedAt()
     {
@@ -132,11 +132,11 @@ class Project implements DeletableEntityInterface
     /**
      * Sets the time this project was deleted
      *
-     * @param string $deletedAt The date time that this project was deleted
+     * @param DateTime $deletedAt The date time that this project was deleted
      *
      * @return void
      */
-    public function setDeletedAt($deletedAt)
+    public function setDeletedAt(DateTime $deletedAt)
     {
         $this->deletedAt = $deletedAt;
     }
