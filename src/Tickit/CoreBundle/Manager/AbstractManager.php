@@ -63,7 +63,7 @@ abstract class AbstractManager
             return;
         }
 
-        $entity = $beforeEvent->getEntity(); // todo: implement event interface for fetching entity
+        $entity = $beforeEvent->getOriginalEntity();
 
         $this->em->persist($entity);
         if (false !== $flush) {
@@ -86,12 +86,12 @@ abstract class AbstractManager
      */
     public function update($entity, $flush = true)
     {
-        $originalEntity = $this->fetchOriginalEntity($entity);
+        $originalEntity = $this->fetchEntityInOriginalState($entity);
 
         $beforeEvent = $this->dispatcher->dispatchBeforeUpdateEvent($entity);
 
         // a subscriber may have updated the project so we re-fetch it from the event
-        //$entity = $beforeEvent->getProject(); //todo: implement abstract event for fetching entity
+        $entity = $beforeEvent->getOriginalEntity();
         $this->em->persist($entity);
 
         if (false !== $flush) {
@@ -141,5 +141,5 @@ abstract class AbstractManager
      *
      * @return object
      */
-    abstract protected function fetchOriginalEntity($entity);
+    abstract protected function fetchEntityInOriginalState($entity);
 }
