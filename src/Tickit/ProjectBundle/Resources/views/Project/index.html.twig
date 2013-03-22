@@ -1,0 +1,26 @@
+{% extends 'TickitProjectBundle::layout.html.twig' %}
+
+{% block project_content %}
+    <h2>Manage Projects</h2>
+
+    <div class='data-list'>
+        <table>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Created</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td>{{ project.id }}</td>
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.created }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
