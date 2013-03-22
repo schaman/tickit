@@ -96,7 +96,7 @@ abstract class AbstractManager
         }
 
         // a subscriber may have updated the project so we re-fetch it from the event
-        $entity = $beforeEvent->getOriginalEntity();
+        $entity = $beforeEvent->getEntity();
         $this->em->persist($entity);
 
         if (false !== $flush) {

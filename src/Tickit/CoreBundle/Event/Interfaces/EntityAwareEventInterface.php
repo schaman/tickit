@@ -14,7 +14,7 @@ namespace Tickit\CoreBundle\Event\Interfaces;
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\CoreBundle\Manager\AbstractManager
  */
-interface EntityAwareInterface
+interface EntityAwareEventInterface
 {
     /**
      * Gets the entity associated with this event
