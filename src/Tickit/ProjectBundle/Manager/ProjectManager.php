@@ -26,7 +26,7 @@ class ProjectManager extends AbstractManager
      *
      * @return object
      */
-    protected function fetchOriginalEntity($entity)
+    protected function fetchEntityInOriginalState($entity)
     {
         $project = $this->em->find('\Tickit\ProjectBundle\Entity\Project', $entity->getId());
 
