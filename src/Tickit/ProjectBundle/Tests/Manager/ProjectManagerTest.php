@@ -88,6 +88,28 @@ class ProjectManagerTest extends WebTestCase
     }
 
     /**
+     * Tests the delete() method
+     *
+     * Ensures that the method deletes a Project in the entity manager
+     */
+    public function testDeleteProject()
+    {
+        $manager = $this->getManager();
+        $project = $manager->create($this->project);
+        $repository = $manager->getRepository();
+
+        $id = $project->getId();
+        $this->assertNotEmpty($id, 'Project created correctly');
+
+        $manager->delete($project);
+
+        /** @var Project $findProject */
+        $findProject = $repository->find($id);
+
+        $this->assertEmpty($findProject, 'delete() method correctly removes project');
+    }
+
+    /**
      * Tear down the test and unset entities
      *
      * @return void
