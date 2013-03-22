@@ -66,16 +66,6 @@ class UpdateEvent extends Event implements UpdateEventInterface, ProjectAwareInt
     }
 
     /**
-     * Sets the original project on this object - before updates applied
-     *
-     * @param Project $originalProject
-     */
-    private function setOriginalProject($originalProject)
-    {
-        $this->originalProject = $originalProject;
-    }
-
-    /**
      * Gets the original project entity on this object - before updates applied
      *
      * @return Project
@@ -83,5 +73,15 @@ class UpdateEvent extends Event implements UpdateEventInterface, ProjectAwareInt
     public function getOriginalEntity()
     {
         return $this->originalProject;
+    }
+
+    /**
+     * Sets the original project on this object - before updates applied
+     *
+     * @param Project $originalProject
+     */
+    private function setOriginalProject($originalProject)
+    {
+        $this->originalProject = $originalProject;
     }
 }
