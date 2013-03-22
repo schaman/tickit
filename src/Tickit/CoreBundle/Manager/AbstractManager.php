@@ -5,7 +5,6 @@ namespace Tickit\CoreBundle\Manager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
-use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -114,12 +113,12 @@ abstract class AbstractManager
      * This method provides basic functionality for deletion, and fires methods in the
      * dispatcher for the relevant events
      *
-     * @param DeletableEntityInterface $entity The entity to be deleted
-     * @param boolean                  $flush  True to automatically flush the changes to the database (defaults to true)
+     * @param object  $entity The entity to be deleted
+     * @param boolean $flush  True to automatically flush the changes to the database (defaults to true)
      *
      * @return void
      */
-    public function delete(DeletableEntityInterface $entity, $flush = true)
+    public function delete($entity, $flush = true)
     {
         $beforeEvent = $this->dispatcher->dispatchBeforeDeleteEvent($entity);
 
@@ -127,8 +126,7 @@ abstract class AbstractManager
             return;
         }
 
-        $entity->delete();
-        $this->em->persist($entity);
+        $this->em->remove($entity);
 
         if (false !== $flush) {
             $this->em->flush();

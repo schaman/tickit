@@ -3,7 +3,6 @@
 namespace Tickit\CoreBundle\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 
 /**
@@ -80,18 +79,18 @@ abstract class AbstractEntityEventDispatcher
      * The implementing class should return the event object to guarantee
      * expected behaviour
      *
-     * @param DeletableEntityInterface $entity The entity that is about to be deleted
+     * @param object $entity The entity that is about to be deleted
      *
      * @return AbstractVetoableEvent
      */
-    abstract public function dispatchBeforeDeleteEvent(DeletableEntityInterface $entity);
+    abstract public function dispatchBeforeDeleteEvent($entity);
 
     /**
      * Dispatches events for the "delete" event on the entity
      *
-     * @param DeletableEntityInterface $entity The entity that has just been deleted in the entity manager
+     * @param object $entity The entity that has just been deleted in the entity manager
      *
      * @return void
      */
-    abstract public function dispatchDeleteEvent(DeletableEntityInterface $entity);
+    abstract public function dispatchDeleteEvent($entity);
 }

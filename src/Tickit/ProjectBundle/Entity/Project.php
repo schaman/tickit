@@ -4,7 +4,6 @@ namespace Tickit\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
 use DateTime;
 
 /**
@@ -13,7 +12,7 @@ use DateTime;
  * @ORM\Entity
  * @ORM\Table(name="projects")
  */
-class Project implements DeletableEntityInterface
+class Project
 {
     /**
      * @ORM\Id
@@ -106,17 +105,6 @@ class Project implements DeletableEntityInterface
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Marks this entity as deleted
-     *
-     * @return void
-     */
-    public function delete()
-    {
-        $now = new DateTime();
-        $this->setDeletedAt($now);
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Tickit\ProjectBundle\Event\Dispatcher;
 
-use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\ProjectBundle\Event\BeforeCreateEvent;
@@ -85,11 +84,11 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
     /**
      * Dispatches events for the "before delete" event on the entity
      *
-     * @param DeletableEntityInterface $entity The entity that is about to be deleted
+     * @param object $entity The entity that is about to be deleted
      *
      * @return AbstractVetoableEvent
      */
-    public function dispatchBeforeDeleteEvent(DeletableEntityInterface $entity)
+    public function dispatchBeforeDeleteEvent($entity)
     {
         $beforeEvent = new BeforeDeleteEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_DELETE, $beforeEvent);
@@ -100,11 +99,11 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
     /**
      * Dispatches events for the "delete" event on the entity
      *
-     * @param DeletableEntityInterface $entity The entity that has just been deleted in the entity manager
+     * @param object $entity The entity that has just been deleted in the entity manager
      *
      * @return void
      */
-    public function dispatchDeleteEvent(DeletableEntityInterface $entity)
+    public function dispatchDeleteEvent($entity)
     {
         $event = new DeleteEvent($entity);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_DELETE, $event);
