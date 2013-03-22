@@ -14,6 +14,26 @@ use Tickit\ProjectBundle\Manager\ProjectManager;
 class ProjectManagerTest extends WebTestCase
 {
     /**
+     * Project entity for tests
+     *
+     * @var Project
+     */
+    protected $project;
+
+    /**
+     * Sets up entities for each test
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        $project = new Project();
+        $project->setName(uniqid('Project ' . microtime()));
+
+        $this->project = $project;
+    }
+
+    /**
      * Test to ensure that the service exists in the container
      *
      * @return void
@@ -27,26 +47,66 @@ class ProjectManagerTest extends WebTestCase
     }
 
     /**
-     * Tests the persist() method
+     * Tests the create() method
      *
-     * Ensures that the method persists a Project to the entity manager
+     * Ensures that the method creates a Project in the entity manager
      *
      * @return void
      */
-    public function testCreateCreatesProject()
+    public function testCreateProject()
     {
-        $container = static::createClient()->getContainer();
-        /** @var ProjectManager $manager  */
-        $manager = $container->get('tickit_project.manager');
-
-        $name = uniqid('Project ');
-        $project = new Project();
-        $project->setName($name);
-        $project = $manager->create($project);
+        $manager = $this->getManager();
+        $project = $manager->create($this->project);
 
         $persistedProject = $manager->getRepository()
-                                    ->find($project->getId());
+                                    ->find($project);
 
         $this->assertEquals($project->getName(), $persistedProject->getName(), 'Created project has same name');
+    }
+
+    /**
+     * Tests the update() method
+     *
+     * Ensures that the method updates a Project in the entity manager
+     *
+     * @return void
+     */
+    public function testUpdateProject()
+    {
+        $manager = $this->getManager();
+        $project = $manager->create($this->project);
+        $repository = $manager->getRepository();
+
+        $createdProject = $repository->find($project->getId());
+
+        $createdProject->setName('New project name');
+        $manager->update($createdProject);
+
+        $updatedProject = $repository->find($createdProject->getId());
+
+        $this->assertEquals($createdProject->getName(), $updatedProject->getName(), 'Updated project has same name');
+    }
+
+    /**
+     * Tear down the test and unset entities
+     *
+     * @return void
+     */
+    public function tearDown()
+    {
+        unset($this->project);
+    }
+
+    /**
+     * Gets an instance of the project manager
+     *
+     * @return ProjectManager
+     */
+    protected function getManager()
+    {
+        $container = static::createClient()->getContainer();
+        $manager = $container->get('tickit_project.manager');
+
+        return $manager;
     }
 }
