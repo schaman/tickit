@@ -8,6 +8,10 @@ users:
   resource: "@TickitUserBundle/Resources/config/routing.yml"
   prefix: /users
 
+projects:
+  resource: "@TickitProjectBundle/Resources/config/routing.yml"
+  prefix: /projects
+
 # PreferenceBundle Routes
 preferences:
   resource: "@TickitPreferenceBundle/Resources/config/routing.yml"
