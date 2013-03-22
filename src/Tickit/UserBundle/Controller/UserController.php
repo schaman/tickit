@@ -3,13 +3,15 @@
 namespace Tickit\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\CoreController;
 use Tickit\UserBundle\Form\Type\EditFormType;
 
 /**
  * Controller that provides actions to manipulate user entities
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\UserBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserController extends CoreController
 {
@@ -36,6 +38,8 @@ class UserController extends CoreController
      * @param integer $id The user ID to edit
      *
      * @Template("TickitUserBundle:User:edit.html.twig")
+     *
+     * @throws NotFoundHttpException If no user was found for the given ID
      *
      * @return array
      */
