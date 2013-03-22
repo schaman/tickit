@@ -4,6 +4,7 @@ namespace Tickit\CoreBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\CoreBundle\Entity\Interfaces\DeletableEntityInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 
@@ -129,6 +130,15 @@ abstract class AbstractManager
 
         $this->dispatcher->dispatchDeleteEvent($entity);
     }
+
+    /**
+     * Gets the entity repository.
+     *
+     * This method returns the entity repository that is associated with this manager's entity.
+     *
+     * @return ObjectRepository
+     */
+    abstract public function getRepository();
 
     /**
      * Returns the original entity from the entity manager.
