@@ -9,7 +9,7 @@ use DateTime;
 /**
  * The project entity represents an application/website/product within the application
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\ProjectBundle\Entity\Repository\ProjectRepository")
  * @ORM\Table(name="projects")
  */
 class Project

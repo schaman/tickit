@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Tickit\CoreBundle\Controller\CoreController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Project controller.
