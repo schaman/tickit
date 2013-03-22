@@ -77,14 +77,14 @@ class ProjectManagerTest extends WebTestCase
         $project = $manager->create($this->project);
         $repository = $manager->getRepository();
 
-        $createdProject = $repository->find($project->getId());
+        $this->assertNotEmpty($project->getId(), 'Project created successfully');
 
-        $createdProject->setName('New project name');
-        $manager->update($createdProject);
+        $project->setName('New project name');
+        $manager->update($project);
 
-        $updatedProject = $repository->find($createdProject->getId());
+        $updatedProject = $repository->find($project->getId());
 
-        $this->assertEquals($createdProject->getName(), $updatedProject->getName(), 'Updated project has same name');
+        $this->assertEquals($project->getName(), $updatedProject->getName(), 'Updated project has same name');
     }
 
     /**
@@ -99,7 +99,7 @@ class ProjectManagerTest extends WebTestCase
         $repository = $manager->getRepository();
 
         $id = $project->getId();
-        $this->assertNotEmpty($id, 'Project created correctly');
+        $this->assertNotEmpty($id, 'Project created successfully');
 
         $manager->delete($project);
 
