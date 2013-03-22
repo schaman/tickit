@@ -4,6 +4,7 @@ namespace Tickit\UserBundle\Tests\Service\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Service\Avatar\AvatarService;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter;
@@ -73,8 +74,7 @@ class ServiceTest extends WebTestCase
     {
         $container = $this->createClient()->getContainer();
 
-        $doctrine = $container->get('doctrine');
-        $user = $this->loadUser($doctrine, 'mark');
+        $user = $this->getUser();
 
         static::$currentUser = $user;
 
@@ -94,17 +94,15 @@ class ServiceTest extends WebTestCase
     }
 
     /**
-     * Load a user from doctrine
+     * Gets a dummy user for testing the Avatar service
      *
-     * @param \Doctrine\Bundle\DoctrineBundle\RegistryInterface $doctrine
-     * @param String                                            $username
-     *
-     * @return \Tickit\UserBundle\Entity\User
+     * @return User
      */
-    protected function loadUser($doctrine, $username)
+    protected function getUser()
     {
-        return $doctrine
-            ->getRepository('TickitUserBundle:User')
-            ->findOneByUsername($username);
+        $user = new User();
+        $user->setEmail('mw870618@gmail.com');
+
+        return $user;
     }
 }
