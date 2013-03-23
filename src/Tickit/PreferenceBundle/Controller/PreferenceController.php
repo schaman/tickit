@@ -4,7 +4,7 @@ namespace Tickit\PreferenceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\CoreBundle\Controller\CoreController;
+use Tickit\CoreBundle\Controller\AbstractCoreController;
 
 //bind forms here
 
@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceController extends CoreController
+class PreferenceController extends AbstractCoreController
 {
     /**
      * Index action that lists all preferences for editing (should this just be editAction??)

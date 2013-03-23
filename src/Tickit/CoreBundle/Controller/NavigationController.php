@@ -7,7 +7,7 @@ namespace Tickit\CoreBundle\Controller;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class NavigationController extends CoreController
+class NavigationController extends AbstractCoreController
 {
     /**
      * Renders the top navigation bar for the application based on the current user type

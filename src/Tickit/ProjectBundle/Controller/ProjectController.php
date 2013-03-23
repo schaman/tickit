@@ -2,7 +2,7 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
-use Tickit\CoreBundle\Controller\CoreController;
+use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectController extends CoreController
+class ProjectController extends AbstractCoreController
 {
     /**
      * Lists all projects in the application

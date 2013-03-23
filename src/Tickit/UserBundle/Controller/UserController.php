@@ -4,7 +4,7 @@ namespace Tickit\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tickit\CoreBundle\Controller\CoreController;
+use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\UserBundle\Form\Type\EditFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @package Tickit\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserController extends CoreController
+class UserController extends AbstractCoreController
 {
     /**
      * Lists all users in the system

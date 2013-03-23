@@ -8,13 +8,14 @@ use Tickit\UserBundle\Entity\User;
 use Tickit\CacheBundle\Cache\CacheFactory;
 
 /**
- * The core controller class provides base methods for all controller classes
- * in the application.
+ * Core controller.
+ *
+ * Provides base methods for all extending controller classes in the application.
  *
  * @package Tickit\CoreBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class CoreController extends Controller
+abstract class AbstractCoreController extends Controller
 {
     /**
      * Returns an instance of the user manager provided by FOSUserBundle
