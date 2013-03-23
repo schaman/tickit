@@ -4,6 +4,9 @@ namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\UserBundle\Doctrine\UserManager;
+use Tickit\UserBundle\Entity\User;
+use Tickit\CacheBundle\Cache\CacheFactory;
+
 
 /**
  * The core controller class provides base methods for all controller classes
@@ -28,7 +31,7 @@ class CoreController extends Controller
      * Returns an instance of the currently logged in user. If no user is logged in
      * this function will return null
      *
-     * @return \Tickit\UserBundle\Entity\User
+     * @return User
      */
     protected function _getCurrentUser()
     {
@@ -38,10 +41,11 @@ class CoreController extends Controller
     }
 
     /**
-     * Returns an instance of the caching factory which provides access to the different
-     * caching engines
+     * Gets the cache factory.
      *
-     * @return \Tickit\CacheBundle\Cache\Cache
+     * Returns an instance of the caching factory which provides access to the different caching engines
+     *
+     * @return CacheFactory
      */
     protected function _getCacheFactory()
     {
