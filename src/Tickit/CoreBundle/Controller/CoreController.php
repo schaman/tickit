@@ -7,7 +7,6 @@ use FOS\UserBundle\Doctrine\UserManager;
 use Tickit\UserBundle\Entity\User;
 use Tickit\CacheBundle\Cache\CacheFactory;
 
-
 /**
  * The core controller class provides base methods for all controller classes
  * in the application.
