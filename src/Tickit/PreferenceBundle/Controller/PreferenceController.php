@@ -24,7 +24,7 @@ class PreferenceController extends AbstractCoreController
      */
     public function indexAction()
     {
-        $user = $this->_getCurrentUser();
+        $user = $this->getCurrentUser();
 
         $preferences = $this->getDoctrine()
                             ->getRepository('TickitPreferenceBundle:Preference')

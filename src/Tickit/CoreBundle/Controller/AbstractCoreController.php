@@ -22,7 +22,7 @@ abstract class AbstractCoreController extends Controller
      *
      * @return UserManager
      */
-    protected function _getUserManager()
+    protected function getUserManager()
     {
         return $this->container->get('fos_user.user_manager');
     }
@@ -33,7 +33,7 @@ abstract class AbstractCoreController extends Controller
      *
      * @return User
      */
-    protected function _getCurrentUser()
+    protected function getCurrentUser()
     {
         $token = $this->get('security.context')->getToken();
 
@@ -47,7 +47,7 @@ abstract class AbstractCoreController extends Controller
      *
      * @return CacheFactory
      */
-    protected function _getCacheFactory()
+    protected function getCacheFactory()
     {
         return $this->get('tickit_cache.factory');
     }
