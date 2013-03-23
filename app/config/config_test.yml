@@ -21,6 +21,18 @@ doctrine:
         path:     %kernel.root_dir%/sqlite_test
         charset:  UTF8
 
+# Test specific firewall
+security:
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+    firewalls:
+        main:
+            pattern: ^/
+            http_basic:
+                realm: "Secured Test"
+                provider: fos_userbundle
+
 #TickitCacheBundle configuration
 tickit_cache:
     default_namespace: "tickit.test"
