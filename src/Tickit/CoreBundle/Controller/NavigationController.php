@@ -29,6 +29,10 @@ class NavigationController extends CoreController
                 'route' => '#'
             ),
             array(
+                'name' => 'Projects',
+                'route' => $router->generate('project_index')
+            ),
+            array(
                 'name' => 'Teams',
                 'route' => $router->generate('team_index')
             ),
