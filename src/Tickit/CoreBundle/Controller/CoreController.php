@@ -12,11 +12,11 @@ use Tickit\CacheBundle\Cache\CacheFactory;
  * The core controller class provides base methods for all controller classes
  * in the application.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\CoreBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CoreController extends Controller
 {
-
     /**
      * Returns an instance of the user manager provided by FOSUserBundle
      *
@@ -51,5 +51,4 @@ class CoreController extends Controller
     {
         return $this->get('tickit_cache.factory');
     }
-
 }
