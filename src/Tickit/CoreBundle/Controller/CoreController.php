@@ -3,6 +3,7 @@
 namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\Doctrine\UserManager;
 
 /**
  * The core controller class provides base methods for all controller classes
@@ -16,7 +17,7 @@ class CoreController extends Controller
     /**
      * Returns an instance of the user manager provided by FOSUserBundle
      *
-     * @return \FOS\UserBundle\Entity\UserManager
+     * @return UserManager
      */
     protected function _getUserManager()
     {
