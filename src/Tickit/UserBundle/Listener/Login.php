@@ -2,6 +2,8 @@
 
 namespace Tickit\UserBundle\Listener;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -10,27 +12,49 @@ use Tickit\PermissionBundle\Service\PermissionServiceInterface;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 
-
 /**
  * Handles the security context's login event
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\UserBundle\Listener
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Login
 {
-
+    /**
+     * The service container
+     *
+     * @var ContainerInterface
+     */
     protected $container;
+
+    /**
+     * The entity manager
+     *
+     * @var ObjectManager
+     */
     protected $em;
+
+    /**
+     * The session object
+     *
+     * @var CoreSession
+     */
     protected $session;
+
+    /**
+     * The permissions service
+     *
+     * @var PermissionServiceInterface
+     */
     protected $permissions;
 
     /**
-     * Class constructor, sets dependencies
+     * Constructor.
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface   $container   The dependency injection container
-     * @param \Tickit\CoreBundle\Entity\CoreSession                       $session     The current user's session instance
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry                    $doctrine    The doctrine registry
-     * @param \Tickit\PermissionBundle\Service\PermissionServiceInterface $permissions The permission service
+     * @param ContainerInterface         $container   The dependency injection container
+     * @param CoreSession                $session     The current user's session instance
+     * @param Registry                   $doctrine    The doctrine registry
+     * @param PermissionServiceInterface $permissions The permission service
      */
     public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, PermissionServiceInterface $permissions)
     {
@@ -43,7 +67,9 @@ class Login
     /**
      * Post login event handler. Records the user's session in the database and triggers the loading of permissions
      *
-     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
+     * @param InteractiveLoginEvent $event The login event
+     *
+     * @return void
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
@@ -66,5 +92,4 @@ class Login
         $permissions = $this->permissions->loadFromProvider($user);
         $this->permissions->writeToSession($permissions);
     }
-
 }

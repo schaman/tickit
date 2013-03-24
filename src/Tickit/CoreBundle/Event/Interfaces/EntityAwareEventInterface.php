@@ -21,12 +21,12 @@ interface EntityAwareEventInterface
      *
      * @return object
      */
-    function getEntity();
+    public function getEntity();
 
     /**
      * Sets the entity associated with this event
      *
      * @param object $entity The entity to attach to the event
      */
-    function setEntity($entity);
+    public function setEntity($entity);
 }

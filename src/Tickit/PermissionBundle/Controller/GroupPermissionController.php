@@ -2,14 +2,14 @@
 
 namespace Tickit\PermissionBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 
 /**
  * Controller that provides actions for managing group permissions
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class GroupPermissionController extends AbstractCoreController
 {
@@ -23,5 +23,4 @@ class GroupPermissionController extends AbstractCoreController
     {
         return array();
     }
-
 }

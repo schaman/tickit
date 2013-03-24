@@ -10,7 +10,8 @@ use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
  * Represents the default value of a permission against a specific group. This is used when new users are
  * created and the system needs to know what value to assign against each permission for the new user.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
  * @ORM\Table(name="default_group_permission_values")

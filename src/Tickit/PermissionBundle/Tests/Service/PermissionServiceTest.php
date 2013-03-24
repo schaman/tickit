@@ -19,7 +19,7 @@ class PermissionServiceTest extends WebTestCase
     /**
      * Static instance of the permissions service
      *
-     * @var \Tickit\PermissionBundle\Service\PermissionService
+     * @var PermissionService
      */
     protected static $service;
 
@@ -64,7 +64,7 @@ class PermissionServiceTest extends WebTestCase
     /**
      * Gets an instance of the Permissions service
      *
-     * @return \Tickit\PermissionBundle\Service\PermissionService
+     * @return PermissionService
      */
     protected function getService()
     {
@@ -82,7 +82,7 @@ class PermissionServiceTest extends WebTestCase
     /**
      * Builds and returns an array of dummy permission objects for testing
      *
-     * @return \Tickit\PermissionBundle\Entity\Permission[]
+     * @return Permission[]
      */
     protected function getDummyPermissions()
     {
@@ -104,5 +104,4 @@ class PermissionServiceTest extends WebTestCase
 
         return $permissionObjects;
     }
-
 }

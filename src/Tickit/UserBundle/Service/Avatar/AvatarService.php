@@ -3,22 +3,30 @@
 namespace Tickit\UserBundle\Service\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 use Tickit\UserBundle\Entity;
 use Tickit\UserBundle\Service\Avatar\Adapter\AvatarAdapterInterface;
 
 /**
  * Provides access to avatars based on the current user account
+ *
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
 class AvatarService
 {
     /**
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface $_securityContext Used to obtain user object
+     * Used to obtain user object
+     *
+     * @var SecurityContextInterface $_securityContext
      */
-    protected $_securityContext;
+    protected $securityContext;
+
     /**
-     * @var AvatarAdapterInterface $_adapter Avatar providing adapter
+     * Avatar providing adapter
+     *
+     * @var AvatarAdapterInterface
      */
-    protected $_adapter;
+    protected $adapter;
 
     /**
      * Service constructor
@@ -34,7 +42,7 @@ class AvatarService
             throw new \RuntimeException(sprintf('Adapter class (%s) not found', $adapterClass));
         }
 
-        $this->_adapter = new $adapterClass($request);
+        $this->adapter = new $adapterClass($request);
     }
 
     /**
@@ -44,7 +52,7 @@ class AvatarService
      */
     public function getAdapter()
     {
-        return $this->_adapter;
+        return $this->adapter;
     }
 
     /**
@@ -54,6 +62,6 @@ class AvatarService
      */
     public function setAdapter(AvatarAdapterInterface $adapter)
     {
-        $this->_adapter = $adapter;
+        $this->adapter = $adapter;
     }
 }

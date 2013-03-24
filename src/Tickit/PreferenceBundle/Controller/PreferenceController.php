@@ -11,14 +11,19 @@ use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controller that provides actions for managing system and user preferences
+ * Preferences controller.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * Provides actions for managing system and user preferences
+ *
+ * @package Tickit\PreferenceBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceController extends AbstractCoreController
 {
     /**
      * Index action that lists all preferences for editing (should this just be editAction??)
+     *
+     * @todo Complete this action
      *
      * @Template("TickitPreferenceBundle:Preference:index.html.twig")
      */
@@ -32,5 +37,4 @@ class PreferenceController extends AbstractCoreController
 
         var_dump($preferences);
     }
-
 }

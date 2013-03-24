@@ -11,11 +11,14 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  * Avatar twig extension - provides helper functions for templates
  *
  * @package Tickit\UserBundle\Service\Avatar\Twig
+ * @author  Mark Wilson <mark@enasni.co.uk>
  */
 class AvatarExtension extends Twig_Extension
 {
     /**
-     * @var ContainerInterface $container
+     * The container
+     *
+     * @var ContainerInterface
      */
     private $container;
 

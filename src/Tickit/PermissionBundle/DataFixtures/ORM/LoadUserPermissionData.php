@@ -5,23 +5,22 @@ namespace Tickit\PreferenceBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\PermissionBundle\Entity\Permission;
 
 /**
  * Loads default permission records into the database
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PreferenceBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Initialises the loading of data
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The object manager
      */
     public function load(ObjectManager $manager)
     {
-
     }
 
     /**
@@ -33,5 +32,4 @@ class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureIn
     {
         return 12;
     }
-
 }

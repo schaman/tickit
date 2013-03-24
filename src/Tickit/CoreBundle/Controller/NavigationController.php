@@ -61,5 +61,4 @@ class NavigationController extends AbstractCoreController
     {
         return $this->render('TickitCoreBundle:Navigation:sub-navigation.html.twig');
     }
-
 }

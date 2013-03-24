@@ -5,7 +5,8 @@ namespace Tickit\PermissionBundle\Interfaces;
 /**
  * Interface for permissions
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Interfaces
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface PermissionInterface
 {
@@ -36,5 +37,4 @@ interface PermissionInterface
      * @param string $systemName The system name for the permission
      */
     public function setSystemName($systemName);
-
 }

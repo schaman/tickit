@@ -5,7 +5,8 @@ namespace Tickit\PermissionBundle\Interfaces;
 /**
  * Interface file for all classes representing a permission value
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Interfaces
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface PermissionValueInterface
 {

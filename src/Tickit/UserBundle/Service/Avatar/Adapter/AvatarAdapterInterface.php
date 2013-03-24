@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Avatar adapter interface for implementing standard image accessor functions
  *
  * @package Tickit\UserBundle\Service\Avatar\Adapter
+ * @author  Mark Wilson <mark@enasni.co.uk>
  */
 interface AvatarAdapterInterface
 {

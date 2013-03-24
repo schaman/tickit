@@ -10,14 +10,15 @@ use Tickit\PermissionBundle\Entity\Permission;
 /**
  * Loads default permission records into the database
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PreferenceBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Initialises the loading of data
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The object manager
      */
     public function load(ObjectManager $manager)
     {
@@ -72,5 +73,4 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
     {
         return 10;
     }
-
 }

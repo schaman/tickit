@@ -1,14 +1,16 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Service\Avatar;
+namespace Tickit\UserBundle\Tests\Service\Avatar\Twig;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use \Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension;
 
 /**
  * Avatar service twig extension tests
+ *
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
-class TwigExtensionTest extends WebTestCase
+class AvatarExtensionTest extends WebTestCase
 {
     /**
      * Test the twig extension contains the relevant functions
@@ -30,5 +32,4 @@ class TwigExtensionTest extends WebTestCase
 
         $this->assertEquals('my_avatar_url', $myAvatarFunction->getName());
     }
-
 }

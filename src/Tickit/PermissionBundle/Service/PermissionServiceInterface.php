@@ -1,19 +1,21 @@
 <?php
 
 namespace Tickit\PermissionBundle\Service;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * Interface for permission service
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Service
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface PermissionServiceInterface
 {
     /**
      * Returns true if the session storage contains the given permission name, false otherwise
      *
-     * @param string $permissionName
+     * @param string $permissionName The name of the permission
      *
      * @return bool
      */
@@ -29,7 +31,7 @@ interface PermissionServiceInterface
     /**
      * Loads new permissions for a given user from a data provider
      *
-     * @param \Tickit\UserBundle\Entity\User $user The user to load permissions for
+     * @param User $user The user to load permissions for
      *
      * @return mixed
      */
@@ -38,8 +40,7 @@ interface PermissionServiceInterface
     /**
      * Returns the session instance associated with this service
      *
-     * @return \Symfony\Component\HttpFoundation\Session\Session
+     * @return Session
      */
     public function getSession();
-
 }

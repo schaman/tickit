@@ -10,20 +10,21 @@ use Tickit\PreferenceBundle\Entity\Preference;
 /**
  * Loads default preferences into the application
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PreferenceBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Initiates the loading of data
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The object manager
      *
      * @return void
      */
     public function load(ObjectManager $manager)
     {
-        $this->_loadSystemPreferences($manager);
+        $this->loadSystemPreferences($manager);
         $this->_loadUserPreferences($manager);
     }
 
@@ -64,11 +65,11 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
     /**
      * Loads system related preferences into the application database
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The object manager
      *
      * @return void
      */
-    protected function _loadSystemPreferences(ObjectManager $manager)
+    protected function loadSystemPreferences(ObjectManager $manager)
     {
         $systemPreference1 = new Preference();
         $systemPreference1->setName('Allow user registrations');
@@ -93,7 +94,6 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
 
         $manager->flush();
     }
-
 
     /**
      * Returns the order number for this set of fixtures

@@ -3,29 +3,43 @@
 namespace Tickit\CoreBundle\Entity;
 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use Tickit\PermissionBundle\Service\PermissionServiceInterface;
 
 /**
- * Overrides the default session class and provides convenience methods for writing and reading data to the session
+ * Core session object.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * Overrides the default session class and provides convenience methods for writing
+ * and reading data to the session.
+ *
+ * @package Tickit\CoreBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CoreSession extends Session
 {
-    /* @var \Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage */
+    /**
+     * Session storage
+     *
+     * @var NativeSessionStorage
+     */
     protected $storage;
-    /* @var \Tickit\PermissionBundle\Service\PermissionServiceInterface */
+
+    /**
+     * Permissions service
+     *
+     * @var PermissionServiceInterface
+     */
     protected $permissions;
 
     /**
-     * Class constructor, sets up dependencies
+     * Constructor.
      *
-     * @param \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage The session storage object
+     * @param SessionStorageInterface $storage The session storage object
      */
     public function __construct(SessionStorageInterface $storage)
     {
         $this->storage = $storage;
         parent::__construct($storage);
     }
-
 }

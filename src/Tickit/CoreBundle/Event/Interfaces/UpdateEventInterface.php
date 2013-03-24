@@ -22,5 +22,5 @@ interface UpdateEventInterface
      *
      * @return object
      */
-    function getOriginalEntity();
+    public function getOriginalEntity();
 }

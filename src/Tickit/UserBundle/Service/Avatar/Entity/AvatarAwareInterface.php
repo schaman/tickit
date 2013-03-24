@@ -4,6 +4,8 @@ namespace Tickit\UserBundle\Service\Avatar\Entity;
 
 /**
  * Abstract Avatar aware entity interface
+ *
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
 interface AvatarAwareInterface
 {

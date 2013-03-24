@@ -8,16 +8,19 @@ use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Service\Avatar\AvatarService;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter;
+use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * Tests for the user avatar service
+ *
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
-class ServiceTest extends WebTestCase
+class AvatarServiceTest extends WebTestCase
 {
     /**
      * Current user used to supply an avatar aware interfaced object
      *
-     * @var \Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface $currentUser
+     * @var AvatarAwareInterface
      */
     protected static $currentUser;
 
@@ -78,11 +81,8 @@ class ServiceTest extends WebTestCase
 
         static::$currentUser = $user;
 
-        $container->get('security.context')->setToken(
-            new UsernamePasswordToken(
-                $user, null, 'main', $user->getRoles()
-            )
-        );
+        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        $container->get('security.context')->setToken($token);
 
         if ($secureConnection) {
             $request = Request::create('https://example.com/');

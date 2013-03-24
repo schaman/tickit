@@ -54,9 +54,9 @@ class Preference
     }
 
     /**
-     * Set name
+     * Sets the name of this preference
      *
-     * @param string $name
+     * @param string $name The new name
      */
     public function setName($name)
     {
@@ -76,7 +76,7 @@ class Preference
     /**
      * Sets the system friendly name
      *
-     * @param string $name
+     * @param string $name The new name
      *
      * @return void
      */
@@ -98,7 +98,7 @@ class Preference
     /**
      * Sets the default value for this preference
      *
-     * @param string $defaultValue
+     * @param string $defaultValue The new default value
      */
     public function setDefaultValue($defaultValue)
     {
@@ -115,13 +115,13 @@ class Preference
         return $this->defaultValue;
     }
 
-
     /**
-     * Sets the type
+     * Sets the type for this preference
      *
-     * @param string $type
+     * @param string $type The new preference type
      *
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException If the given type is not valid
+     *
      * @return void
      */
     public function setType($type)

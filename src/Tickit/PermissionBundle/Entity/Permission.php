@@ -9,7 +9,8 @@ use Tickit\PermissionBundle\Interfaces\PermissionInterface;
  * Represents a permission in the system. For this entity to make any real functional sense it needs to be used
  * in conjunction with UserPermissionValue or GroupPermissionValue to map a permission and value to a user/group
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity(repositoryClass="Tickit\PermissionBundle\Entity\Repository\PermissionRepository")
  * @ORM\Table(name="permissions")
@@ -74,5 +75,4 @@ class Permission implements PermissionInterface
     {
         $this->systemName = $systemName;
     }
-
 }

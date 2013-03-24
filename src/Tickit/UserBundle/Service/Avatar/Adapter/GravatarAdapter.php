@@ -7,10 +7,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Gravatar avatar adapter
+ *
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
 class GravatarAdapter implements AvatarAdapterInterface
 {
-    protected $_request;
+    /**
+     * The request object
+     *
+     * @var Request
+     */
+    protected $request;
 
     /**
      * Initialise the Gravatar avatar adapter
@@ -19,7 +26,7 @@ class GravatarAdapter implements AvatarAdapterInterface
      */
     public function __construct(Request $request)
     {
-        $this->_request = $request;
+        $this->request = $request;
     }
 
     /**
@@ -32,7 +39,7 @@ class GravatarAdapter implements AvatarAdapterInterface
      */
     public function getImageUrl(AvatarAwareInterface $entity, $size)
     {
-        $secure = $this->_request->isSecure();
+        $secure = $this->request->isSecure();
 
         // detect if the image needs to use a secure connection
         if ($secure) {

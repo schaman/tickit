@@ -2,34 +2,46 @@
 
 namespace Tickit\UserBundle\Listener;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Security\Core\SecurityContext;
-use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use DateTime;
 use Tickit\UserBundle\Entity\User;
 
 /**
- * Activity listener class that listens for controller requests and updates
- * the current user's activity (if a user is logged in)
+ * Activity listener.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * Listens for controller requests and updates the current user's activity (if a user is logged in)
+ *
+ * @package Tickit\UserBundle\Listener
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Activity
 {
-    /* @var \Symfony\Component\Security\Core\SecurityContext */
+    /**
+     * The security context
+     *
+     * @var SecurityContext
+     */
     protected $context;
 
-    /* @var \Doctrine\Common\Persistence\ObjectManager */
+    /**
+     * The entity manager
+     *
+     * @var ObjectManager
+     */
     protected $manager;
 
     /**
      * Class constructor
      *
-     * @param \Symfony\Component\Security\Core\SecurityContext $context  The application SecurityContext instance
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry         $doctrine The doctrine registry
+     * @param SecurityContext  $context  The application SecurityContext instance
+     * @param Registry         $doctrine The doctrine registry
      */
-    public function __construct(SecurityContext $context, Doctrine $doctrine)
+    public function __construct(SecurityContext $context, Registry $doctrine)
     {
         $this->context = $context;
         $this->manager = $doctrine->getManager();
@@ -38,14 +50,14 @@ class Activity
     /**
      * Updates the user's last activity time on every request
      *
-     * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
+     * @param FilterControllerEvent $event The controller event
      *
      * @return void
      */
     public function onCoreController(FilterControllerEvent $event)
     {
         //if this isn't the main http request, then we aren't interested...
-        if (\Symfony\Component\HttpKernel\HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
+        if (HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
 
@@ -58,10 +70,7 @@ class Activity
                 $this->manager->flush($user);
 
                 //todo: update the user's session here
-
             }
         }
     }
-
-
 }

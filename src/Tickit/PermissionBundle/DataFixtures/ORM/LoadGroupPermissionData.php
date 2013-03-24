@@ -12,17 +12,22 @@ use Tickit\PermissionBundle\Entity\GroupPermissionValue;
 /**
  * Loads default group permission value records into the database
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PreferenceBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadGroupPermissionData extends AbstractFixture implements OrderedFixtureInterface
 {
-    /* @var \Doctrine\Common\Persistence\ObjectManager */
+    /**
+     * The object manager
+     *
+     * @var ObjectManager
+     */
     protected $manager;
 
     /**
      * Initialises the loading of data
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The object manager
      */
     public function load(ObjectManager $manager)
     {
@@ -38,7 +43,7 @@ class LoadGroupPermissionData extends AbstractFixture implements OrderedFixtureI
         $permissions = $manager->getRepository('TickitPermissionBundle:Permission')
                                ->findAll();
 
-        $this->_loadGroupPermissionValues($permissions, $groups);
+        $this->loadGroupPermissionValues($permissions, $groups);
     }
 
     /**
@@ -57,11 +62,11 @@ class LoadGroupPermissionData extends AbstractFixture implements OrderedFixtureI
      * @param array $permissions An array containing all system permissions
      * @param array $groups      An array containing all user groups in the system
      */
-    protected function _loadGroupPermissionValues(array $permissions, array $groups)
+    protected function loadGroupPermissionValues(array $permissions, array $groups)
     {
-        /* @var \Tickit\PermissionBundle\Entity\Permission $permission */
+        /** @var \Tickit\PermissionBundle\Entity\Permission $permission */
         foreach ($permissions as $permission) {
-            /* @var \Tickit\UserBundle\Entity\Group $group */
+            /** @var \Tickit\UserBundle\Entity\Group $group */
             foreach ($groups as $group) {
 
                 $value = true; //todo: this needs to change based on group
@@ -84,5 +89,4 @@ class LoadGroupPermissionData extends AbstractFixture implements OrderedFixtureI
 
         $this->manager->flush();
     }
-
 }
