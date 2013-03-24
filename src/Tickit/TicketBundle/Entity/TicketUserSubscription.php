@@ -18,14 +18,14 @@ class TicketUserSubscription
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User", inversedBy="ticket_subscriptions")
+     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Ticket")
+     * @ORM\ManyToOne(targetEntity="Ticket", inversedBy="ticketSubscriptions")
      * @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
      */
     protected $ticket;

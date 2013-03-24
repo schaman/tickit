@@ -22,7 +22,7 @@ class ProjectAttributeValue implements AttributeValueInterface
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Project")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="attributes")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
     protected $project;

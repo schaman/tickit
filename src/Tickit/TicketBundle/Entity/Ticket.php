@@ -41,12 +41,12 @@ class Ticket
     protected $attachments;
 
     /**
-     * @ORM\OneToMany(targetEntity="TicketUserSubscription", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="TicketUserSubscription", mappedBy="ticket")
      */
     protected $ticketSubscriptions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\ProjectBundle\Entity\Project")
+     * @ORM\ManyToOne(targetEntity="Tickit\ProjectBundle\Entity\Project", inversedBy="tickets")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
     protected $project;
