@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Manager\ProjectManager;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -54,13 +55,36 @@ class ProjectControllerTest extends AbstractFunctionalTest
     /**
      * Tests the indexAction()
      *
+     * Ensures that the indexAction() layout is as expected
+     *
      * @return void
      */
-    public function testIndexAction()
+    public function testIndexActionLayout()
     {
         $client = $this->getAuthenticatedClient(static::$user);
-        $crawler = $client->request('get', '/projects');
 
+        $crawler = $client->request('get', '/projects');
         $this->assertEquals('Manage Projects', $crawler->filter('h2')->text(), '<h2> contains correct text');
+    }
+
+    /**
+     * Tests the indexAction()
+     *
+     * Ensures that the indexAction() displays the correct number of projects
+     *
+     * @return void
+     */
+    public function testIndexActionDisplaysCorrectNumberOfProjects()
+    {
+        $client = $this->getAuthenticatedClient(static::$user);
+        $container = $client->getContainer();
+
+        /** @var ProjectManager $projectManager */
+        $projectManager = $container->get('tickit_project.manager');
+        $repository = $projectManager->getRepository();
+        $totalProjects = count($repository->findAll());
+
+        $crawler = $client->request('get', '/projects');
+        $this->assertEquals($totalProjects, $crawler->filter('.data-list table tbody tr')->count(), '2 projects displayed correctly');
     }
 }
