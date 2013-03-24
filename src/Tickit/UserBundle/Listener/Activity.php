@@ -38,8 +38,8 @@ class Activity
     /**
      * Class constructor
      *
-     * @param SecurityContext  $context  The application SecurityContext instance
-     * @param Registry         $doctrine The doctrine registry
+     * @param SecurityContext $context  The application SecurityContext instance
+     * @param Registry        $doctrine The doctrine registry
      */
     public function __construct(SecurityContext $context, Registry $doctrine)
     {
