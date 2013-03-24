@@ -9,13 +9,14 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
  * User bundle configuration
  *
  * @package Tickit\UserBundle\DependencyInjection
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
 class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritDoc}
      *
-     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {

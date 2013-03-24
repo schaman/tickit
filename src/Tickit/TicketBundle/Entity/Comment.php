@@ -10,6 +10,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * TODO: We need to add the $user property to record which user made the comment
  *
+ * @package Tickit\TicketBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="comments")
  */
@@ -32,5 +35,4 @@ class Comment
      * @ORM\Column(type="string", length=1000)
      */
     protected $message;
-
 }

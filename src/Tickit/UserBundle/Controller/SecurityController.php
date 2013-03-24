@@ -4,11 +4,15 @@ namespace Tickit\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * This controller is overriding that provided by FOSUserBundle so that we can add custom logic to login related actions
+ * Security controller.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * Overrides functionality provided by FOSUserBundle so that we can add custom logic to login related actions
+ *
+ * @package Tickit\UserBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class SecurityController extends BaseController
 {
@@ -16,9 +20,9 @@ class SecurityController extends BaseController
      * Login action that performs user login. Here we can add any custom logic that needs to take place when
      * a user performs login to the system
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request The HTTP request object
+     * @param Request $request The HTTP request object
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function loginAction(Request $request)
     {
@@ -35,5 +39,4 @@ class SecurityController extends BaseController
 
         return $this->container->get('templating')->renderResponse($template, $data);
     }
-
 }

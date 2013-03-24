@@ -10,6 +10,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * TODO: this class should extend a File type class, providing file upload functionality
  *
+ * @package Tickit\TicketBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_attachments")
  */
@@ -107,5 +110,4 @@ class TicketAttachment
     {
         $this->mimeType = $mimeType;
     }
-
 }

@@ -38,5 +38,4 @@ class ProfileFormType extends BaseType
     {
         return 'tickit_user_profile';
     }
-
 }

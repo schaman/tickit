@@ -8,11 +8,11 @@ use Tickit\UserBundle\Entity\UserSession;
 /**
  * Provides methods for retrieving user session related data
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\UserBundle\Entity\Repository
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserSessionRepository extends EntityRepository
 {
-
     /**
      * Finds a single UserSession object by its session token
      *
@@ -33,5 +33,4 @@ class UserSessionRepository extends EntityRepository
 
         return $userSession;
     }
-
 }

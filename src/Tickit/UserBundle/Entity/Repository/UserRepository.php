@@ -4,22 +4,23 @@ namespace Tickit\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use DateTime;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Provides methods for retrieving User related data from the DBAL
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\UserBundle\Entity\Repository
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserRepository extends EntityRepository
 {
-
     /**
      * Finds a user that has been active in the last X minutes (determined by the $minutes parameter)
      *
      * @param string $sessionToken The session ID of the user to find
      * @param int    $minutes      The number of maximum number of minutes since the last activity
      *
-     * @return \Tickit\UserBundle\Entity\User
+     * @return User
      */
     public function findActiveUserBySessionToken($sessionToken, $minutes = 15)
     {
@@ -30,7 +31,8 @@ class UserRepository extends EntityRepository
 
         $user = $this->getEntityManager()
                      ->createQuery(
-                         'SELECT u.id, u.username, u.email, u.session_token, u.last_activity FROM Tickit\UserBundle\Entity\User u
+                         'SELECT u.id, u.username, u.email, u.session_token, u.last_activity
+                              FROM Tickit\UserBundle\Entity\User u
                             WHERE u.last_activity >= :last_active
                             AND u.session_token LIKE :session_token'
                      )
@@ -64,5 +66,4 @@ class UserRepository extends EntityRepository
 
         return $usersQ->getQuery()->execute();
     }
-
 }

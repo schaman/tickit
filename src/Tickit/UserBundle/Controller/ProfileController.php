@@ -29,5 +29,4 @@ class ProfileController extends BaseController
 
         return new RedirectResponse($editRoute);
     }
-
 }

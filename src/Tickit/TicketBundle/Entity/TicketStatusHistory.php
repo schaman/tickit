@@ -8,6 +8,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * The TicketStatusHistory entity represents a snapshot of a ticket's status at a given point in time
  *
+ * @package Tickit\TicketBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_status_history")
  */

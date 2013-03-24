@@ -12,12 +12,15 @@ use Symfony\Component\Config\FileLocator;
  * User bundle DI extension
  *
  * @package Tickit\UserBundle\DependencyInjection
+ * @author Mark Wilson <mark@enasni.co.uk>
  */
 class TickitUserExtension extends Extension
 {
     /**
-     * @param array                                                   $configs   Configuration array
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container Service container
+     * Loads configuration.
+     *
+     * @param array            $configs   Configuration array
+     * @param ContainerBuilder $container Service container
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -34,6 +37,8 @@ class TickitUserExtension extends Extension
 
     /**
      * {@inheritDoc}
+     *
+     * @return string
      */
     public function getAlias()
     {

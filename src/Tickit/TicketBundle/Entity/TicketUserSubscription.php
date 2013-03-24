@@ -8,6 +8,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * The TicketUserSubscription entity represents a user's subscription settings for a ticket
  *
+ * @package Tickit\TicketBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_user_subscriptions")
  */
@@ -36,5 +39,4 @@ class TicketUserSubscription
      * @ORM\Column(name="status_changes", type="boolean")
      */
     protected $statusChanges;
-
 }

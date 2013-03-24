@@ -11,17 +11,19 @@ use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
 /**
  * The User entity represents a logged in user in the application
  *
+ * @package Tickit\UserBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity(repositoryClass="Tickit\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
 class User extends BaseUser implements AvatarAwareInterface
 {
-
     /**
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    */
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     protected $id;
 
     /**
@@ -224,5 +226,3 @@ class User extends BaseUser implements AvatarAwareInterface
         return $this->getEmail();
     }
 }
-
-

@@ -11,14 +11,15 @@ use Tickit\UserBundle\Entity\User;
 /**
  * Loads default Group related data into the application
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\UserBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Initiates the data loading
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The object manager
      *
      * @return void
      */
@@ -53,5 +54,4 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
     {
         return 1;
     }
-
 }

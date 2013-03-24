@@ -8,6 +8,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * The TicketStatus entity represents a possible status type for a ticket
  *
+ * @package Tickit\TicketBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="ticket_statuses")
  */
@@ -79,5 +82,4 @@ class TicketStatus
         $colour = str_replace('#', '', $colour);
         $this->colour = $colour;
     }
-
 }

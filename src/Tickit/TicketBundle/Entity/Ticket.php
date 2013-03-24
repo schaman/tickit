@@ -9,6 +9,9 @@ use Tickit\UserBundle\Entity\User;
 /**
  * The User entity represents an individual user within the application
  *
+ * @package Tickit\TicketBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="tickets")
  */
@@ -251,6 +254,4 @@ class Ticket
     {
         return $this->created;
     }
-
-
 }
