@@ -20,9 +20,9 @@ abstract class AbstractFunctionalTest extends WebTestCase
     /**
      * Gets a client authenticated with a user
      *
-     * @param User   $user    A user to authenticate with
-     * @param array  $options Array of options for the client
-     * @param array  $server  Array of server options for the client
+     * @param User  $user    A user to authenticate with
+     * @param array $options Array of options for the client
+     * @param array $server  Array of server options for the client
      *
      * @return Client
      */
