@@ -2,9 +2,11 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 use Tickit\ProjectBundle\Form\Type\EditFormType;
 
@@ -49,7 +51,7 @@ class ProjectController extends AbstractCoreController
     {
         /** @var ProjectRepository $repo */
         $repo = $this->get('tickit_project.manager')
-                        ->getRepository();
+                     ->getRepository();
 
         $project = $repo->find($id);
 
@@ -57,9 +59,28 @@ class ProjectController extends AbstractCoreController
             throw $this->createNotFoundException('Project not found');
         }
 
+        $formAction = $this->get('router')->generate('project_update');
         $formType = new EditFormType($project);
         $form = $this->createForm($formType, $project);
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'action' => $formAction);
+    }
+
+    /**
+     * Updates a project
+     *
+     * @param integer $id The ID of the project to update
+     *
+     * @throws NotFoundHttpException If no project was found for the given ID
+     *
+     * @return RedirectResponse
+     */
+    public function updateAction($id)
+    {
+        $project = new Project();
+
+        $formType = new EditFormType();
+        $form = $this->createForm($formType, $project);
+        $form->bind($this->getRequest());
     }
 }
