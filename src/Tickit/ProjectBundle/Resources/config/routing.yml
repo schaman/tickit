@@ -13,3 +13,10 @@ project_edit:
     defaults: { _controller: TickitProjectBundle:Project:edit }
     requirements:
         id: \d+
+
+project_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TickitProjectBundle:Project:delete }
+    requirements:
+        id: \d+
+        _method: DELETE

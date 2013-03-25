@@ -25,6 +25,8 @@ require_once __DIR__.'/../app/AppKernel.php';
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
+// allow for emulation of methods outside of GET and POST
+Request::enableHttpMethodParameterOverride();
 $response = $kernel->handle($request);
 $response->send();
 $kernel->terminate($request, $response);

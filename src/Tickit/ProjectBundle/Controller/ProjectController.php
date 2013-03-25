@@ -104,4 +104,31 @@ class ProjectController extends AbstractCoreController
 
         return array('form' => $form->createView());
     }
+
+    /**
+     * Deletes a project from the application.
+     *
+     * @param integer $id The ID of the project to delete
+     *
+     * @throws NotFoundHttpException If no project was found for the given ID
+     *
+     * @return RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        /** @var ProjectManager $manager  */
+        $manager = $this->get('tickit_project.manager');
+        $project = $manager->getRepository()->find($id);
+
+        if (empty($project)) {
+            throw $this->createNotFoundException('Project not found');
+        }
+
+        $manager->delete($project);
+
+        $this->get('session')->getFlashBag()->add('notice', 'The project has been successfully deleted');
+
+        $route = $this->generateUrl('project_index');
+        return $this->redirect($route);
+    }
 }
