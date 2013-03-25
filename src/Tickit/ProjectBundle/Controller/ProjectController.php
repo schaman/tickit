@@ -68,6 +68,7 @@ class ProjectController extends AbstractCoreController
             $this->get('session')->getFlashbag()->add('notice', 'Your changes have been saved successfully');
 
             $route = $this->generateUrl('project_edit', array('id' => $id));
+            
             return $this->redirect($route);
         }
 
