@@ -28,7 +28,7 @@
                         <td>{{ project.name }}</td>
                         <td>{{ project.created|date('d/m/Y H:i:s') }}</td>
                         <td><a href="{{ path('project_edit', { id: project.id }) }}">Edit</a></td>
-                        <td><a href="{{ path('project_delete', { id: project.id, _method: 'delete' }) }}">Delete</a></td>
+                        <td><a href="{{ path('project_delete', { id: project.id, _method: 'DELETE' }) }}">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
