@@ -11,6 +11,14 @@
         </div>
     {% endif %}
 
+    {% if app.session.flashbag.has('error') %}
+        <div class="flash-error">
+            {% for message in app.session.flashbag.get('error') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <form method='post' {{ form_enctype(form) }}>
         {{ form_widget(form) }}
 

@@ -57,7 +57,7 @@ class ProjectController extends AbstractCoreController
             throw $this->createNotFoundException('Project not found');
         }
 
-        $formType = new ProjectFormType($project);
+        $formType = new ProjectFormType();
         $form = $this->createForm($formType, $project);
 
         if ('POST' === $this->getRequest()->getMethod()) {
@@ -68,7 +68,7 @@ class ProjectController extends AbstractCoreController
             $this->get('session')->getFlashbag()->add('notice', 'Your changes have been saved successfully');
 
             $route = $this->generateUrl('project_edit', array('id' => $id));
-            
+
             return $this->redirect($route);
         }
 
