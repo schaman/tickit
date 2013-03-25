@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -35,6 +36,35 @@ class ProjectController extends AbstractCoreController
     }
 
     /**
+     * Loads the add project page
+     *
+     * @Template("TickitProjectBundle:Project:add.html.twig")
+     *
+     * @return array|RedirectResponse
+     */
+    public function addAction()
+    {
+        $formType = new ProjectFormType();
+        $form = $this->createForm($formType);
+
+        if ('POST' == $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+            $project = $form->getData();
+
+            /** @var ProjectManager $manager  */
+            $manager = $this->get('tickit_project.manager');
+            $manager->create($project);
+
+            $this->get('session')->getFlashBag()->add('notice', 'The project has been added successfully');
+            $route = $this->generateUrl('project_index');
+
+            return $this->redirect($route);
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
      * Loads the edit project page
      *
      * @param integer $id The ID of the project to edit
@@ -43,7 +73,7 @@ class ProjectController extends AbstractCoreController
      *
      * @throws NotFoundHttpException If no project was found for the given ID
      *
-     * @return array
+     * @return array|RedirectResponse
      */
     public function editAction($id)
     {

@@ -27,6 +27,20 @@ class ProjectFormType extends AbstractType
     }
 
     /**
+     * Gets default options for this form type
+     *
+     * @param array $options Current options
+     *
+     * @return array
+     */
+    public function getDefaultOptions(array $options)
+    {
+        $options = array('data_class' => 'Tickit\ProjectBundle\Entity\Project');
+
+        return $options;
+    }
+
+    /**
      * Returns the name of this type.
      *
      * @return string
