@@ -28,7 +28,7 @@ class EditFormType extends AbstractType
      *
      * @param Project $project The project entity to edit
      */
-    public function __construct(Project $project)
+    public function __construct(Project $project = null)
     {
         $this->project = $project;
     }

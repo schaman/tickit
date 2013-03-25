@@ -8,4 +8,4 @@ project_edit:
     pattern: /edit/{id}
     defaults: { _controller: TickitProjectBundle:Project:edit }
     requirements:
-        page: \d+
+        id: \d+
