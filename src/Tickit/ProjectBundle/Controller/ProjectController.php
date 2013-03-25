@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Tickit\ProjectBundle\Form\Type\EditFormType;
+use Tickit\ProjectBundle\Form\Type\ProjectFormType;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
@@ -57,7 +57,7 @@ class ProjectController extends AbstractCoreController
             throw $this->createNotFoundException('Project not found');
         }
 
-        $formType = new EditFormType($project);
+        $formType = new ProjectFormType($project);
         $form = $this->createForm($formType, $project);
 
         if ('POST' === $this->getRequest()->getMethod()) {

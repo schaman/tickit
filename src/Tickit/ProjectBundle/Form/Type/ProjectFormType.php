@@ -4,35 +4,17 @@ namespace Tickit\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Tickit\ProjectBundle\Entity\Project;
 
 /**
- * Edit project form.
+ * Add/edit project form.
  *
- * Provides functionality for editing project entities.
+ * Provides functionality for adding/editing project entities.
  *
  * @package Tickit\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EditFormType extends AbstractType
+class ProjectFormType extends AbstractType
 {
-    /**
-     * The project entity being edited
-     *
-     * @var Project
-     */
-    protected $project;
-
-    /**
-     * Constructor.
-     *
-     * @param Project $project The project entity to edit
-     */
-    public function __construct(Project $project = null)
-    {
-        $this->project = $project;
-    }
-
     /**
      * Builds the form.
      *
@@ -41,7 +23,7 @@ class EditFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text', array('data' => $this->project->getName()));
+        $builder->add('name', 'text');
     }
 
     /**
