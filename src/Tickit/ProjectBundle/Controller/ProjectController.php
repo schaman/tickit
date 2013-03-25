@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 use Tickit\ProjectBundle\Form\Type\EditFormType;
+use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
  * Project controller.
@@ -49,9 +50,9 @@ class ProjectController extends AbstractCoreController
      */
     public function editAction($id)
     {
-        /** @var ProjectRepository $repo */
-        $repo = $this->get('tickit_project.manager')
-                     ->getRepository();
+        /** @var ProjectManager $manager */
+        $manager = $this->get('tickit_project.manager');
+        $repo = $manager->getRepository();
 
         $project = $repo->find($id);
 
@@ -59,11 +60,21 @@ class ProjectController extends AbstractCoreController
             throw $this->createNotFoundException('Project not found');
         }
 
-        $formAction = $this->get('router')->generate('project_update');
         $formType = new EditFormType($project);
         $form = $this->createForm($formType, $project);
 
-        return array('form' => $form->createView(), 'action' => $formAction);
+        if ('POST' === $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+            $project = $form->getData();
+            $manager->update($project);
+
+            $this->get('session')->getFlashbag()->add('notice', 'Your changes have been saved successfully');
+
+            $route = $this->get('router')->generate('project_edit', array('id' => $id));
+            return new RedirectResponse($route);
+        }
+
+        return array('form' => $form->createView());
     }
 
     /**

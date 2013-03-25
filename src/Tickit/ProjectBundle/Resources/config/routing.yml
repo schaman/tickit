@@ -9,10 +9,3 @@ project_edit:
     defaults: { _controller: TickitProjectBundle:Project:edit }
     requirements:
         id: \d+
-
-project_update:
-    pattern: /update/{id}
-    defaults: { _controller: TickitProjectBundle:Project:update }
-    methods: [POST]
-    requirements:
-        page: \d+

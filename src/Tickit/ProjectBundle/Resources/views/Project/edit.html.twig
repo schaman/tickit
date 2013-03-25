@@ -3,7 +3,15 @@
 {% block project_content %}
     <h2>Edit Project</h2>
 
-    <form method='post' action='{{ action }}' {{ form_enctype(form) }}>
+    {% if app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {% for message in app.session.flashbag.get('notice') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method='post' {{ form_enctype(form) }}>
         {{ form_widget(form) }}
 
         <input type='submit' value='Save Changes' />
