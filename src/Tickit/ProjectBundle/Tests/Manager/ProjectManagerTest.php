@@ -47,6 +47,21 @@ class ProjectManagerTest extends WebTestCase
     }
 
     /**
+     * Tests the getRepository() method
+     *
+     * Ensures that a valid repository instance is returned by the method
+     *
+     * @return void
+     */
+    public function testGetRepositoryReturnsValidInstance()
+    {
+        $manager = $this->getManager();
+        $repository = $manager->getRepository();
+
+        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\Repository\ProjectRepository', $repository, 'getRepository() returns valid instance');
+    }
+
+    /**
      * Tests the create() method
      *
      * Ensures that the method creates a Project in the entity manager
