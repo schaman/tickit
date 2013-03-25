@@ -3,7 +3,7 @@
 {% block project_content %}
     <h2>Edit Project</h2>
 
-    {% if app.session.flashbag.get('notice') %}
+    {% if app.session.flashbag.has('notice') %}
         <div class="flash-notice">
             {% for message in app.session.flashbag.get('notice') %}
                 {{ message }}
