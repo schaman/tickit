@@ -15,11 +15,18 @@ use Tickit\UserBundle\Entity\User;
 class ProjectControllerTest extends AbstractFunctionalTest
 {
     /**
-     * User entity used for testing
+     * Standard user entity used for testing
      *
      * @var User
      */
-    protected static $user;
+    protected static $developer;
+
+    /**
+     * Admin user entity used for testing
+     *
+     * @var User
+     */
+    protected static $admin;
 
     /**
      * Sets up user object for viewing project actions
@@ -28,12 +35,18 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public static function setUpBeforeClass()
     {
-        $user = new User();
-        $user->addRole(User::ROLE_SUPER_ADMIN)
+        $developer = new User();
+        $developer->addRole(User::ROLE_DEFAULT)
              ->setUsername('developer')
              ->setPassword('password');
 
-        static::$user = $user;
+        $admin = new User();
+        $admin->addRole(User::ROLE_SUPER_ADMIN)
+              ->setUsername('james')
+              ->setPassword('password');
+
+        static::$admin = $admin;
+        static::$developer = $developer;
     }
 
     /**
@@ -61,9 +74,10 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testIndexActionLayout()
     {
-        $client = $this->getAuthenticatedClient(static::$user);
+        $client = $this->getAuthenticatedClient(static::$developer);
 
         $crawler = $client->request('get', '/projects');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'indexAction() returns 200 response');
         $this->assertEquals('Manage Projects', $crawler->filter('h2')->text(), '<h2> contains correct text');
     }
 
@@ -76,7 +90,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testIndexActionDisplaysCorrectNumberOfProjects()
     {
-        $client = $this->getAuthenticatedClient(static::$user);
+        $client = $this->getAuthenticatedClient(static::$developer);
         $container = $client->getContainer();
 
         /** @var ProjectManager $projectManager */
@@ -85,6 +99,52 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $totalProjects = count($repository->findAll());
 
         $crawler = $client->request('get', '/projects');
-        $this->assertEquals($totalProjects, $crawler->filter('.data-list table tbody tr')->count(), '2 projects displayed correctly');
+        $this->assertEquals($totalProjects, $crawler->filter('.data-list table tbody tr')->count());
+    }
+
+    /**
+     * Tests the createAction()
+     *
+     * Ensures that the createAction() creates a project with valid details
+     *
+     * @return void
+     */
+    public function testCreateActionCreatesProject()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+
+        $crawler = $client->request('get', '/projects');
+        $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
+
+        $crawler = $client->request('get', '/projects/add');
+        $form = $crawler->selectButton('Save Project')->form(array(
+            'tickit_project[name]' => 'Valid Project Name'
+        ));
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("successfully")')->count());
+        $this->assertEquals($totalProjects + 1, $crawler->filter('div.data-list table tbody tr')->count());
+    }
+
+    /**
+     * Tests the createAction()
+     *
+     * Ensures that the createAction() displays validation messages for invalid details
+     *
+     * @return void
+     */
+    public function testCreateActionDisplaysErrorsForInvalidDetails()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+
+        $crawler = $client->request('get', '/projects/add');
+        $form = $crawler->selectButton('Save Project')->form();
+        $crawler = $client->submit($form, array('tickit_project[name]' => ''));
+        $this->assertGreaterThan(0, $crawler->filter('div#tickit_project ul li:contains("Please enter a project name")')->count());
+
+        $longName = 'ajfwadpalfowagjiawjfwaidjwaofjwoagkowakfowakgowakfowagjwoajgwiadwadjwaijda' .
+                    'adwiafjwaigjaiwofjawdawokfo'; //101 characters
+        $crawler = $client->submit($form, array('tickit_project[name]' => $longName));
+        $this->assertGreaterThan(0, $crawler->filter('div#tickit_project ul li:contains("Project name must be less than 100 characters")')->count());
     }
 }
