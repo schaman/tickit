@@ -52,16 +52,19 @@ class ProjectController extends AbstractCoreController
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
-            $project = $form->getData();
 
-            /** @var ProjectManager $manager  */
-            $manager = $this->get('tickit_project.manager');
-            $manager->create($project);
+            if ($form->isValid()) {
+                $project = $form->getData();
 
-            $this->get('session')->getFlashBag()->add('notice', 'The project has been added successfully');
-            $route = $this->generateUrl('project_index');
+                /** @var ProjectManager $manager  */
+                $manager = $this->get('tickit_project.manager');
+                $manager->create($project);
 
-            return $this->redirect($route);
+                $this->get('session')->getFlashBag()->add('notice', 'The project has been added successfully');
+                $route = $this->generateUrl('project_index');
+
+                return $this->redirect($route);
+            }
         }
 
         return array('form' => $form->createView());
@@ -95,14 +98,17 @@ class ProjectController extends AbstractCoreController
 
         if ('POST' === $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
-            $project = $form->getData();
-            $manager->update($project);
 
-            $this->get('session')->getFlashbag()->add('notice', 'Your changes have been saved successfully');
+            if ($form->isValid()) {
+                $project = $form->getData();
+                $manager->update($project);
 
-            $route = $this->generateUrl('project_edit', array('id' => $id));
+                $this->get('session')->getFlashbag()->add('notice', 'Your changes have been saved successfully');
 
-            return $this->redirect($route);
+                $route = $this->generateUrl('project_edit', array('id' => $id));
+
+                return $this->redirect($route);
+            }
         }
 
         return array('form' => $form->createView());
