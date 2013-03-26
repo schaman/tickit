@@ -22,9 +22,6 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/AppKernel.php';
 
-// allow for emulation of methods outside of GET and POST
-Request::enableHttpMethodParameterOverride();
-
 $kernel = new AppKernel('dev', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
