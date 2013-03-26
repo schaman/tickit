@@ -47,6 +47,6 @@ class ProjectFormType extends AbstractType
      */
     public function getName()
     {
-        return 'tickit_project_edit';
+        return 'tickit_project';
     }
 }
