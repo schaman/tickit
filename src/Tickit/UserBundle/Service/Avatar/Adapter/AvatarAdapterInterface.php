@@ -3,7 +3,6 @@
 namespace Tickit\UserBundle\Service\Avatar\Adapter;
 
 use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Avatar adapter interface for implementing standard image accessor functions
@@ -13,13 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 interface AvatarAdapterInterface
 {
-    /**
-     * Initialise the adapter interface
-     *
-     * @param Request $request
-     */
-    public function __construct(Request $request);
-
     /**
      * Get a public facing URL for a specific user's avatar
      *
