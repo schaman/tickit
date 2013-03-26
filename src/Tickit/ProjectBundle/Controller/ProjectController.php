@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
+use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
@@ -32,7 +33,9 @@ class ProjectController extends AbstractCoreController
                          ->getRepository()
                          ->findProjects();
 
-        return array('projects' => $projects);
+        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
+
+        return array('projects' => $projects, 'token' => $token);
     }
 
     /**
@@ -110,12 +113,20 @@ class ProjectController extends AbstractCoreController
      *
      * @param integer $id The ID of the project to delete
      *
-     * @throws NotFoundHttpException If no project was found for the given ID
+     * @throws NotFoundHttpException If no project was found for the given ID or an invalid CSRF token is provided
      *
      * @return RedirectResponse
      */
     public function deleteAction($id)
     {
+        $token = $this->getRequest()->query->get('token');
+        /** @var CsrfProviderInterface $tokenProvider  */
+        $tokenProvider = $this->get('form.csrf_provider');
+
+        if (!$tokenProvider->isCsrfTokenValid('delete_project', $token)) {
+            throw $this->createNotFoundException('Invalid CSRF token');
+        }
+
         /** @var ProjectManager $manager  */
         $manager = $this->get('tickit_project.manager');
         $project = $manager->getRepository()->find($id);
