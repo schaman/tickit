@@ -140,6 +140,7 @@ class ProjectController extends AbstractCoreController
         $this->get('session')->getFlashBag()->add('notice', 'The project has been successfully deleted');
 
         $route = $this->generateUrl('project_index');
+
         return $this->redirect($route);
     }
 }
