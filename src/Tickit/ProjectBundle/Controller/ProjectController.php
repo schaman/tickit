@@ -79,7 +79,7 @@ class ProjectController extends AbstractCoreController
      *
      * @throws NotFoundHttpException If no project was found for the given ID
      *
-     * @return array|RedirectResponse
+     * @return array
      */
     public function editAction($id)
     {
@@ -104,10 +104,6 @@ class ProjectController extends AbstractCoreController
                 $manager->update($project);
 
                 $this->get('session')->getFlashbag()->add('notice', 'Your changes have been saved successfully');
-
-                $route = $this->generateUrl('project_edit', array('id' => $id));
-
-                return $this->redirect($route);
             }
         }
 
