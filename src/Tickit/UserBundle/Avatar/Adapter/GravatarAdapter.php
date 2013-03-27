@@ -2,7 +2,7 @@
 
 namespace Tickit\UserBundle\Avatar\Adapter;
 
-use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
+use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

@@ -17,11 +17,11 @@
             <argument type="service" id="doctrine" />
             <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
         </service>
-        <service id="avatar" class="Tickit\UserBundle\Service\Avatar\AvatarService" scope="request">
+        <service id="avatar" class="Tickit\UserBundle\Avatar\AvatarService" scope="request">
             <argument type="service" id="request" />
             <argument>%tickit_user.avatar.adapter_class%</argument>
         </service>
-        <service id="avatar_twig_extension" class="Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension">
+        <service id="avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension">
             <argument type="service" id="service_container" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
