@@ -5,7 +5,7 @@ namespace Tickit\UserBundle\Avatar;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Tickit\UserBundle\Entity;
-use Tickit\UserBundle\Service\Avatar\Adapter\AvatarAdapterInterface;
+use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 
 /**
  * Provides access to avatars based on the current user account

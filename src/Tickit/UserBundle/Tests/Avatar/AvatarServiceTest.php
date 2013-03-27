@@ -57,7 +57,7 @@ class AvatarServiceTest extends WebTestCase
      */
     protected function getGravatarAdapter($secureConnection = false)
     {
-        $service = $this->getService('Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter', $secureConnection);
+        $service = $this->getService('Tickit\UserBundle\Avatar\Adapter\GravatarAdapter', $secureConnection);
 
         $adapter = $service->getAdapter();
         $this->assertTrue($adapter instanceof GravatarAdapter);
@@ -71,7 +71,7 @@ class AvatarServiceTest extends WebTestCase
      * @param string $adapterClass     Class name for this service
      * @param bool   $secureConnection Should the request use HTTPS?
      *
-     * @return \Tickit\UserBundle\Service\Avatar\AvatarService
+     * @return AvatarService
      */
     protected function getService($adapterClass, $secureConnection = false)
     {
