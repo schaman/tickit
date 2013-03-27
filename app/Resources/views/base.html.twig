@@ -31,8 +31,8 @@
             {% block body %}{% endblock %}
         </div>
 
-        <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.min.js'></script>
-        {% javascripts '../app/Resources/public/js/app.js' %}
+        {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
+                       '../app/Resources/public/js/app.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
