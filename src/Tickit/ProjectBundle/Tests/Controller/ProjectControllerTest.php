@@ -121,7 +121,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
         ));
         $client->submit($form);
         $crawler = $client->followRedirect();
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been added successfully")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been created successfully")')->count());
         $this->assertEquals($totalProjects + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -166,7 +166,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $newProjectName = strrev($currentProjectName);
         $form = $crawler->selectButton('Save Changes')->form();
         $crawler = $client->submit($form, array('tickit_project[name]' => $newProjectName));
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("Your changes have been saved successfully")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been updated successfully")')->count());
         $this->assertEquals($newProjectName, $crawler->filter('input[name="tickit_project[name]"]')->attr('value'));
     }
 
