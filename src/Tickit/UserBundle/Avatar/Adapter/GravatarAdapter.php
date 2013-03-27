@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\UserBundle\Service\Avatar\Adapter;
+namespace Tickit\UserBundle\Avatar\Adapter;
 
 use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
 use Symfony\Component\HttpFoundation\Request;

@@ -1,14 +1,14 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Service\Avatar;
+namespace Tickit\UserBundle\Tests\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Service\Avatar\AvatarService;
+use Tickit\UserBundle\Avatar\AvatarService;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter;
-use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
+use Tickit\UserBundle\Avatar\Adapter\GravatarAdapter;
+use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * Tests for the user avatar service
