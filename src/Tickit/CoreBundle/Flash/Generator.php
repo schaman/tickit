@@ -26,10 +26,13 @@ class Generator implements GeneratorInterface
 
     /**
      * Constructor.
+     *
+     * @param string $configPath  The full path to the messages configuration folder
+     * @param string $environment The current environment name
      */
-    public function __construct($configPath)
+    public function __construct($configPath, $environment)
     {
-        $this->loadMessages($configPath);
+        $this->loadMessages($configPath, $environment);
     }
 
     /**
@@ -103,14 +106,20 @@ class Generator implements GeneratorInterface
     /**
      * Loads messages from the app/extra/messages.yml
      *
-     * @param string $folderPath The path to the folder containing the messages configuration file
+     * @param string $folderPath  The path to the folder containing the messages configuration file
+     * @param string $environment The current environment name
      *
      * @return void
      */
-    protected function loadMessages($folderPath)
+    protected function loadMessages($folderPath, $environment)
     {
         $yml = new Yaml();
-        $messages = $yml->parse($folderPath . '/messages.yml');
+        $messagePath = sprintf('%s/messages_%s.yml', $folderPath, $environment);
+        if (!file_exists($messagePath)) {
+            $messagePath = sprintf('%s/messages.yml', $folderPath);
+        }
+
+        $messages = $yml->parse($messagePath);
 
         $this->messages = $messages;
     }
