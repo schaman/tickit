@@ -4,6 +4,7 @@ app/cache/*
 app/sqlite_test
 app/config/parameters.yml
 app/logs/*
+app/Resources/public/js/extra/*/*
 app/phpunit.xml
 vendor/*
 composer.phar
