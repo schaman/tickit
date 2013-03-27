@@ -29,7 +29,7 @@ running through these steps...
 
    And again using [bower][2] for the 3rd party JS libraries...
 
-       bower install
+        bower install
 
    It should install all required vendor bundles.
 
