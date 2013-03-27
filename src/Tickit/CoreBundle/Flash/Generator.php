@@ -74,10 +74,10 @@ class Generator implements GeneratorInterface
     /**
      * Parses a message string with replacement options
      *
-     * @see Generator::$messages
-     *
      * @param string $messageType The message type to parse (must exist in Generator::$messages)
      * @param array  $replacement An array of placeholders => replacement values
+     *
+     * @see Generator::$messages
      *
      * @throws \RuntimeException If an empty $message is provided or there is a missing replacement value
      *
