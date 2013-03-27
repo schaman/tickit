@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\UserBundle\Service\Avatar\Entity;
+namespace Tickit\UserBundle\Avatar\Entity;
 
 /**
  * Abstract Avatar aware entity interface

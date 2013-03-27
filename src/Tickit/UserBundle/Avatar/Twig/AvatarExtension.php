@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\UserBundle\Service\Avatar\Twig;
+namespace Tickit\UserBundle\Avatar\Twig;
 
 use Twig_Extension;
 use Twig_SimpleFunction;

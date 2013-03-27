@@ -1,8 +1,8 @@
 <?php
 
-namespace Tickit\UserBundle\Service\Avatar\Adapter;
+namespace Tickit\UserBundle\Avatar\Adapter;
 
-use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
+use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * Avatar adapter interface for implementing standard image accessor functions
