@@ -7,6 +7,7 @@
     <services>
         <service id='tickit.flash_messages' class='Tickit\CoreBundle\Flash\Generator'>
             <argument>%kernel.root_dir%/config/extra</argument>
+            <argument>%kernel.environment%</argument>
         </service>
     </services>
 
