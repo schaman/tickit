@@ -91,12 +91,10 @@ class ProjectControllerTest extends AbstractFunctionalTest
     public function testIndexActionDisplaysCorrectNumberOfProjects()
     {
         $client = $this->getAuthenticatedClient(static::$developer);
-        $container = $client->getContainer();
 
-        /** @var ProjectManager $projectManager */
-        $projectManager = $container->get('tickit_project.manager');
-        $repository = $projectManager->getRepository();
-        $totalProjects = count($repository->findAll());
+        $crawler = $client->request('get', '/projects');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
 
         $crawler = $client->request('get', '/projects');
         $this->assertEquals($totalProjects, $crawler->filter('.data-list table tbody tr')->count());
