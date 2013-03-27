@@ -23,9 +23,13 @@ running through these steps...
 
         curl -s http://getcomposer.org/installer | php
 
-   Then, install dependencies using...
+   You then need to install vendor libraries using...
 
         php composer.phar install
+
+   And again using [bower][2] for the 3rd party JS libraries...
+
+       bower install
 
    It should install all required vendor bundles.
 
@@ -41,3 +45,4 @@ running through these steps...
         php app/console doctrine:fixtures:load
 
 [1]:  http://getcomposer.org/
+[2]:  http://twitter.github.com/bower/
