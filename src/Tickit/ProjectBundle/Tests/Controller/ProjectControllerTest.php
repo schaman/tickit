@@ -59,10 +59,11 @@ class ProjectControllerTest extends AbstractFunctionalTest
     {
         $client = static::createClient();
         $router = $client->getContainer()->get('router');
-        $client->followRedirects();
 
-        $crawler = $client->request('get', $router->generate('project_index'));
+        $client->request('get', $router->generate('project_index'));
 
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $crawler = $client->followRedirect();
         $this->assertEquals('Login', $crawler->filter('h2')->text(), '<h2> contains correct content');
     }
 
