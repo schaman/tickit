@@ -2,17 +2,20 @@
 
 namespace Tickit\CoreBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  * Provides actions related to the application navigation
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\CoreBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationController extends AbstractCoreController
 {
     /**
      * Renders the top navigation bar for the application based on the current user type
      *
-     * @return string
+     * @return Response
      */
     public function topNavigationAction()
     {
@@ -55,7 +58,7 @@ class NavigationController extends AbstractCoreController
      *
      * @todo
      *
-     * @return string
+     * @return Response
      */
     public function subNavigationAction()
     {
