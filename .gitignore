@@ -9,3 +9,4 @@ app/phpunit.xml
 vendor/*
 composer.phar
 web/bundle
+coverage.xml
