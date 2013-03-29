@@ -61,9 +61,11 @@ class ProjectControllerTest extends AbstractFunctionalTest
 
         $crawler = $client->request('get', '/projects');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
+        /** @var ProjectManager $projectManager */
+        $projectManager = $client->getContainer()->get('tickit_project.manager');
+        $repository = $projectManager->getRepository();
+        $totalProjects = count($repository->findAll());
 
-        $crawler = $client->request('get', '/projects');
         $this->assertEquals($totalProjects, $crawler->filter('.data-list table tbody tr')->count());
     }
 
