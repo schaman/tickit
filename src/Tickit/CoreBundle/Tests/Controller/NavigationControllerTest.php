@@ -16,13 +16,6 @@ use Tickit\UserBundle\Entity\User;
 class NavigationController extends AbstractFunctionalTest
 {
     /**
-     * An admin user
-     *
-     * @var User
-     */
-    protected static $admin;
-
-    /**
      * Array of navigation routes
      *
      * @var array
@@ -30,17 +23,13 @@ class NavigationController extends AbstractFunctionalTest
     protected static $routes;
 
     /**
-     * Sets up required entities
+     * Sets up the test
      *
      * @return void
      */
     public static function setUpBeforeClass()
     {
-        $admin = new User();
-        $admin->setUsername('james')
-              ->setPassword('password');
-
-        static::$admin = $admin;
+        parent::setUpBeforeClass();
 
         $routes = array();
         $container = static::createClient()->getContainer();
