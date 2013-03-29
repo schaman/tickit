@@ -17,6 +17,42 @@ use Tickit\UserBundle\Entity\User;
  */
 abstract class AbstractFunctionalTest extends WebTestCase
 {
+
+    /**
+     * Developer user entity used for testing
+     *
+     * @var User
+     */
+    protected static $developer;
+
+    /**
+     * Admin user entity used for testing
+     *
+     * @var User
+     */
+    protected static $admin;
+
+    /**
+     * Sets up user objects
+     *
+     * @return void
+     */
+    public static function setUpBeforeClass()
+    {
+        $developer = new User();
+        $developer->addRole(User::ROLE_DEFAULT)
+             ->setUsername('developer')
+             ->setPassword('password');
+
+        $admin = new User();
+        $admin->addRole(User::ROLE_SUPER_ADMIN)
+              ->setUsername('james')
+              ->setPassword('password');
+
+        static::$admin = $admin;
+        static::$developer = $developer;
+    }
+
     /**
      * Gets a client authenticated with a user
      *

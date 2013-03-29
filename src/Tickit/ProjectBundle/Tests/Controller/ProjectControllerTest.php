@@ -16,41 +16,6 @@ use Tickit\UserBundle\Entity\User;
 class ProjectControllerTest extends AbstractFunctionalTest
 {
     /**
-     * Standard user entity used for testing
-     *
-     * @var User
-     */
-    protected static $developer;
-
-    /**
-     * Admin user entity used for testing
-     *
-     * @var User
-     */
-    protected static $admin;
-
-    /**
-     * Sets up user object for viewing project actions
-     *
-     * @return void
-     */
-    public static function setUpBeforeClass()
-    {
-        $developer = new User();
-        $developer->addRole(User::ROLE_DEFAULT)
-             ->setUsername('developer')
-             ->setPassword('password');
-
-        $admin = new User();
-        $admin->addRole(User::ROLE_SUPER_ADMIN)
-              ->setUsername('james')
-              ->setPassword('password');
-
-        static::$admin = $admin;
-        static::$developer = $developer;
-    }
-
-    /**
      * Makes sure project actions are not publicly accessible
      *
      * @return void

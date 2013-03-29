@@ -4,7 +4,6 @@ namespace Tickit\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
-use Tickit\UserBundle\Entity\User;
 
 /**
  * ProfileController tests
@@ -22,11 +21,7 @@ class ProfileControllerTest extends AbstractFunctionalTest
      */
     public function testShowActionRedirectsToCorrectRoute()
     {
-        $user = new User();
-        $user->setUsername('james')
-             ->setPassword('password');
-
-        $client = $this->getAuthenticatedClient($user);
+        $client = $this->getAuthenticatedClient(static::$developer);
         $container = $client->getContainer();
         $router = $container->get('router');
 
