@@ -113,7 +113,7 @@ abstract class AbstractManager
      * This method provides basic functionality for deletion, and fires methods in the
      * dispatcher for the relevant events
      *
-     * @param object  $entity The entity to be deleted
+     * @param object $entity The entity to be deleted
      *
      * @return void
      */
