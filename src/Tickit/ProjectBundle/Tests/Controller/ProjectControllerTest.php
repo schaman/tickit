@@ -51,7 +51,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Ensures that the index action displays projects correctly
+     * Makes sure project actions are not publicly accessible
      *
      * @return void
      */
