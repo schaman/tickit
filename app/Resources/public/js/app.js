@@ -14,9 +14,12 @@ var app = {
      * @return {void}
      */
     init : function() {
-        // add initialisers
+        this.nav.init();
     }
 
 };
 
-$(app.init);
+// make function call to maintain scope inside namespaced functions
+$(function() {
+    app.init();
+});
