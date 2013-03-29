@@ -11,6 +11,7 @@ use Tickit\UserBundle\Entity\User;
  *
  * @package Tickit\CoreBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @group   functional
  */
 class NavigationController extends AbstractFunctionalTest
 {
