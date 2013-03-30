@@ -97,10 +97,14 @@ class User extends BaseUser implements AvatarAwareInterface
      * Updates the user's forename
      *
      * @param string $forename The new forename value
+     *
+     * @return User
      */
     public function setForename($forename)
     {
         $this->forename = $forename;
+
+        return $this;
     }
 
     /**
@@ -127,10 +131,14 @@ class User extends BaseUser implements AvatarAwareInterface
      * Updates the user's surname
      *
      * @param string $surname The new surname value
+     *
+     * @return User
      */
     public function setSurname($surname)
     {
         $this->surname = $surname;
+
+        return $this;
     }
 
     /**
