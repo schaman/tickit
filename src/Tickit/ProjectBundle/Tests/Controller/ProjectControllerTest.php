@@ -81,7 +81,6 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
 
         $crawler = $client->request('get', '/projects');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
 
         $crawler = $client->request('get', '/projects/add');
