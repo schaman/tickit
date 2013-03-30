@@ -2,10 +2,11 @@
 
 namespace Tickit\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-use Tickit\UserBundle\Form\Type\EditFormType;
+use Tickit\UserBundle\Form\Type\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -34,6 +35,36 @@ class UserController extends AbstractCoreController
     }
 
     /**
+     * Loads the add user page
+     *
+     * @Template("TickitUserBundle:User:add.html.twig")
+     *
+     * @return array|RedirectResponse
+     */
+    public function addAction()
+    {
+        $formType = new UserFormType();
+        $form = $this->createForm($formType);
+
+        if ('POST' == $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+                $user = $form->getData();
+                $manager = $this->getUserManager();
+                $manager->create($user);
+                $router = $this->get('router');
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityCreatedMessage('user'));
+
+                return $this->redirect($router->generate('user_index'));
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
      * Loads the edit user page
      *
      * @param integer $id The user ID to edit
@@ -55,8 +86,20 @@ class UserController extends AbstractCoreController
             throw $this->createNotFoundException('User not found');
         }
 
-        $formType = new EditFormType($user);
+        $formType = new UserFormType();
         $form = $this->createForm($formType, $user);
+
+        if ('POST' === $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+                $user = $form->getData();
+                $manager = $this->get('tickit_user.manager');
+                $manager->create($user);
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityUpdatedMessage('user'));
+            }
+        }
 
         return array('form' => $form->createView());
     }
