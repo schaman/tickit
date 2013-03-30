@@ -1,0 +1,11 @@
+{% extends 'TickitUserBundle::layout.html.twig' %}
+
+{% block user_content %}
+    <h2>Add User</h2>
+
+    <form method='post' {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <input type='submit' value='Save User' />
+    </form>
+{% endblock %}
