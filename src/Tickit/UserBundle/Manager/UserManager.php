@@ -57,6 +57,26 @@ class UserManager extends AbstractManager
     /**
      * {@inheritDoc}
      *
+     * @param object  $entity The user object to create in the entity manager
+     * @param boolean $flush  True to flush changes in the entity manager
+     *
+     * @return User
+     */
+    public function create($entity, $flush = true)
+    {
+        /** @var User $entity */
+        $roles = $entity->getRoles();
+        if (empty($roles)) {
+            $entity->addRole(User::ROLE_DEFAULT);
+        }
+
+        return parent::create($entity, $flush);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
      * @param object $entity The entity to delete
      */
     public function delete($entity)
