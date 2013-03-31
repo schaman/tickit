@@ -2,10 +2,13 @@
 
 namespace Tickit\UserBundle\Controller;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Type\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -43,8 +46,12 @@ class UserController extends AbstractCoreController
      */
     public function addAction()
     {
+        $user = new User();
+        $user->setEnabled(true);
+
         $formType = new UserFormType();
         $form = $this->createForm($formType);
+        $form->setData($user);
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
@@ -77,9 +84,8 @@ class UserController extends AbstractCoreController
      */
     public function editAction($id)
     {
-        $user = $this->getDoctrine()
-                     ->getManager()
-                     ->getRepository('TickitUserBundle:User')
+        $user = $this->get('tickit_user.manager')
+                     ->getRepository()
                      ->findOneById($id);
 
         if (empty($user)) {
