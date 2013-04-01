@@ -73,7 +73,9 @@ fos_user:
         form:
             type: tickit_user_profile
     group:
-      group_class: Tickit\UserBundle\Entity\Group
+        group_class: Tickit\UserBundle\Entity\Group
+    service:
+        user_manager: tickit_user.manager
 
 # StofDoctrineExtensions Configuration
 stof_doctrine_extensions:

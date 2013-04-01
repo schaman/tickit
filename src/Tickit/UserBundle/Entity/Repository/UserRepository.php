@@ -14,6 +14,9 @@ use Tickit\UserBundle\Entity\User;
  */
 class UserRepository extends EntityRepository
 {
+    const COLUMN_EMAIL = 'email';
+    const COLUMN_USERNAME = 'username';
+
     /**
      * Finds a user that has been active in the last X minutes (determined by the $minutes parameter)
      *
@@ -63,6 +66,33 @@ class UserRepository extends EntityRepository
                 $usersQ->where(sprintf('%s LIKE :%s', $column, $column));
                 $usersQ->setParameter($column, $value);
             }
+        }
+
+        return $usersQ->getQuery()->execute();
+    }
+
+    /**
+     * Finds a user by username or email
+     *
+     * @param string $search The column value to search for
+     * @param string $column The column to search on
+     *
+     * @return mixed
+     */
+    public function findByUsernameOrEmail($search, $column)
+    {
+        $usersQ = $this->getEntityManager()
+                       ->createQueryBuilder()
+                       ->select('u, g')
+                       ->from('TickitUserBundle:User', 'u')
+                       ->leftJoin('u.group', 'g');
+
+        if ($column == static::COLUMN_USERNAME) {
+            $usersQ->where('u.username = :username')
+                   ->setParameter('username', $search);
+        } else {
+            $usersQ->where('u.email = :email')
+                   ->setParameter('email', $search);
         }
 
         return $usersQ->getQuery()->execute();
