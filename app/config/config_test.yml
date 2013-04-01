@@ -26,7 +26,7 @@ doctrine:
 security:
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username_email
+            id: tickit_user.user_provider
     firewalls:
         main:
             pattern: ^/
