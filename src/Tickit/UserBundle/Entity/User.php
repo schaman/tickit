@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Entity;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\UserBundle\Model\GroupInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
@@ -49,13 +50,12 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $updated;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group")
-     * @ORM\JoinTable(name="users_groups",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
-     * )
+     * The group that this user belongs to
+     *
+     * @ORM\ManyToOne(targetEntity="Group")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
-    protected $groups;
+    protected $group;
 
     /**
      * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
@@ -74,7 +74,7 @@ class User extends BaseUser implements AvatarAwareInterface
 
 
     /**
-     * Class constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -212,15 +212,65 @@ class User extends BaseUser implements AvatarAwareInterface
     }
 
     /**
-     * Gets the user's primary group
+     * Gets the group that this user belongs to
+     *
+     * @return Group
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * Sets the group that this user belongs to
+     *
+     * @param Group $group The new group
+     *
+     * @return User
+     */
+    public function setGroup(Group $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
+     * Adds a new group to this user
+     *
+     * @param GroupInterface $group The new group to add
+     *
+     * @throws \RuntimeException If this user already has a group
+     *
+     * @return $this
+     */
+    public function addGroup(GroupInterface $group)
+    {
+        $existingGroup = $this->getGroup();
+        if (!empty($existingGroup)) {
+            throw new \RuntimeException(
+                sprintf('This user already has a group (%s)', $this->getGroupName())
+            );
+        }
+
+        $this->group = $group;
+    }
+
+
+    /**
+     * Gets the name of the user group, if any
      *
      * @return string
      */
-    public function getPrimaryGroup()
+    public function getGroupName()
     {
-        $groupNames = $this->getGroupNames();
+        $group = $this->getGroup();
 
-        return array_shift($groupNames);
+        if (null !== $group) {
+            return $group->getName();
+        }
+
+        return '';
     }
 
     /**

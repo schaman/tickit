@@ -54,8 +54,9 @@ class UserRepository extends EntityRepository
     {
         $usersQ = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('u')
-                      ->from('TickitUserBundle:User', 'u');
+                      ->select('u, g')
+                      ->from('TickitUserBundle:User', 'u')
+                      ->leftJoin('u.group', 'g');
 
         foreach ($filters as $column => $value) {
             if (is_string($value)) {

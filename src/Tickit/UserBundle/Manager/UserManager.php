@@ -70,9 +70,27 @@ class UserManager extends AbstractManager
             $entity->addRole(User::ROLE_DEFAULT);
         }
 
+        $this->fosManager->updateCanonicalFields($entity);
+        $this->fosManager->updatePassword($entity);
+
         return parent::create($entity, $flush);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param object  $entity The user object to update in the entity manager
+     * @param boolean $flush  True to flush changes in the entity manager
+     *
+     * @return User
+     */
+    public function update($entity, $flush = true)
+    {
+        $this->fosManager->updateCanonicalFields($entity);
+        $this->fosManager->updatePassword($entity);
+
+        return parent::create($entity, $flush);
+    }
 
     /**
      * {@inheritDoc}

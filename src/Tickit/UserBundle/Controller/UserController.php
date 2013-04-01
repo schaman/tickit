@@ -2,10 +2,12 @@
 
 namespace Tickit\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-use Tickit\UserBundle\Form\Type\EditFormType;
+use Tickit\UserBundle\Entity\User;
+use Tickit\UserBundle\Form\Type\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -25,12 +27,45 @@ class UserController extends AbstractCoreController
      */
     public function indexAction()
     {
-        $users = $this->getDoctrine()
-                      ->getManager()
-                      ->getRepository('TickitUserBundle:User')
+        $users = $this->get('tickit_user.manager')
+                      ->getRepository()
                       ->findUsers();
 
         return array('users' => $users);
+    }
+
+    /**
+     * Loads the add user page
+     *
+     * @Template("TickitUserBundle:User:add.html.twig")
+     *
+     * @return array|RedirectResponse
+     */
+    public function addAction()
+    {
+        $user = new User();
+        $user->setEnabled(true);
+
+        $formType = new UserFormType();
+        $form = $this->createForm($formType);
+        $form->setData($user);
+
+        if ('POST' == $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+                $user = $form->getData();
+                $manager = $this->getUserManager();
+                $manager->create($user);
+                $router = $this->get('router');
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityCreatedMessage('user'));
+
+                return $this->redirect($router->generate('user_index'));
+            }
+        }
+
+        return array('form' => $form->createView());
     }
 
     /**
@@ -46,17 +81,41 @@ class UserController extends AbstractCoreController
      */
     public function editAction($id)
     {
-        $user = $this->getDoctrine()
-                     ->getManager()
-                     ->getRepository('TickitUserBundle:User')
-                     ->findOneById($id);
+        $existingUser = $this->get('tickit_user.manager')
+                             ->getRepository()
+                             ->findOneById($id);
 
-        if (empty($user)) {
+        if (empty($existingUser)) {
             throw $this->createNotFoundException('User not found');
         }
 
-        $formType = new EditFormType($user);
-        $form = $this->createForm($formType, $user);
+        $formType = new UserFormType();
+        $form = $this->createForm($formType, $existingUser);
+
+        $existingPassword = $existingUser->getPassword();
+
+        if ('POST' === $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+                /** @var User $user */
+                $user = $form->getData();
+
+                // we restore the password if no new one was provided on the form so that the user's
+                // password isn't set to a blank string in the database
+                if ($user->getPassword() === null) {
+                    $user->setPassword($existingPassword);
+                } else {
+                    // set the plain password on the user from the one that was provided in the form
+                    $user->setPlainPassword($user->getPassword());
+                }
+
+                $manager = $this->get('tickit_user.manager');
+                $manager->create($user);
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityUpdatedMessage('user'));
+            }
+        }
 
         return array('form' => $form->createView());
     }
