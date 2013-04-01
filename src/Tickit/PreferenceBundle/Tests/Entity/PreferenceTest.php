@@ -44,4 +44,19 @@ class PreferenceTest extends \PHPUnit_Framework_TestCase
         $preference = new Preference();
         $preference->setType('something that is not valid');
     }
+
+    /**
+     * Tests the setSystemName() method
+     *
+     * Ensures that whitespace is removed
+     *
+     * @return void
+     */
+    public function testSetSystemNameStripsWhitespace()
+    {
+        $preference = new Preference();
+        $preference->setSystemName('something with whitespace');
+
+        $this->assertFalse(strpos(' ', $preference->getSystemName()));
+    }
 }
