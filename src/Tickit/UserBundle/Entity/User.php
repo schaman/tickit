@@ -79,7 +79,6 @@ class User extends BaseUser implements AvatarAwareInterface
     {
         $this->sessions = new ArrayCollection();
         $this->permissions = new ArrayCollection();
-        $this->groups = new ArrayCollection();
         parent::__construct();
     }
 
@@ -218,13 +217,7 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function getGroup()
     {
-        $groups = $this->getGroups();
-
-        if (!$groups->isEmpty()) {
-            return $groups->first();
-        }
-
-        return null;
+        return $this->group;
     }
 
     /**

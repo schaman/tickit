@@ -2,8 +2,6 @@
 
 namespace Tickit\UserBundle\Controller;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,9 +27,8 @@ class UserController extends AbstractCoreController
      */
     public function indexAction()
     {
-        $users = $this->getDoctrine()
-                      ->getManager()
-                      ->getRepository('TickitUserBundle:User')
+        $users = $this->get('tickit_user.manager')
+                      ->getRepository()
                       ->findUsers();
 
         return array('users' => $users);
