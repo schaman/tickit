@@ -80,6 +80,7 @@ class User extends BaseUser implements AvatarAwareInterface
     {
         $this->sessions = new ArrayCollection();
         $this->permissions = new ArrayCollection();
+        $this->groups = new ArrayCollection();
         parent::__construct();
     }
 
