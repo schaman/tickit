@@ -491,7 +491,7 @@ header {
   height: 50px;
 }
 .account a {
-  color: #fff !important;
+  color: #fff;
   display: inline-block !important;
   margin: 8px 0 0 9px;
   padding-right: 20px;
@@ -517,6 +517,24 @@ header {
 }
 .profile-menu {
   background-color: #fff;
+  height: 0;
+  overflow: hidden;
+}
+.profile-menu ul {
+  list-style-type: none;
+  margin-left: 5px;
+}
+.profile-menu ul li {
+  height: 25px;
+}
+.profile-menu ul li a {
+  color: #555;
+  line-height: 10px;
+  text-shadow: none;
+}
+.profile-menu ul li a:hover {
+  color: #555;
+  text-decoration: underline;
 }
 #logo,
 #logo:hover {

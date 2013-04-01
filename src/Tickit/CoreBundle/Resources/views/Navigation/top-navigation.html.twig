@@ -18,7 +18,12 @@
                     <span class='gloss'></span>
                 </div>
                 <a href="{{ path('fos_user_profile_edit') }}">{{ app.user.fullName }}</a>
-                <div class='profile-menu'></div>
+                <div class='profile-menu'>
+                    <ul>
+                        <li><a href="{{ path('fos_user_profile_edit') }}" title="Edit your profile">Edit Your Profile</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}" title="Log out">Log Out</a></li>
+                    </ul>
+                </div>
             </div>
         {% endif %}
     </div><!--/inner -->

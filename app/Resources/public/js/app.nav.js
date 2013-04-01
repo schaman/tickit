@@ -25,7 +25,7 @@ app.nav = {
     initProfile : function() {
         var $menu = $('.profile-menu');
 
-        $('.account a').on('click', function(e) {
+        $('.account > a').on('click', function(e) {
             e.preventDefault();
             if ($menu.height()) {
                 close();
