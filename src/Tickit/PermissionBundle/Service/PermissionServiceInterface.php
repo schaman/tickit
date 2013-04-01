@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\PermissionBundle\Service;
+
 use Symfony\Component\HttpFoundation\Session\Session;
 use Tickit\UserBundle\Entity\User;
 

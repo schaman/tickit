@@ -2,7 +2,9 @@
 
 namespace Tickit\PermissionBundle\Service;
 
-use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Persistence\ObjectManager;
+use Tickit\CacheBundle\Cache\Cache;
 use Tickit\PermissionBundle\Entity\Permission;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Tickit\CacheBundle\Cache\CacheFactoryInterface;
@@ -11,7 +13,8 @@ use Tickit\UserBundle\Entity\User;
 /**
  * Provides service level methods for permission related actions
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Service
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionService implements PermissionServiceInterface
 {
@@ -22,32 +25,32 @@ class PermissionService implements PermissionServiceInterface
     /**
      * The current session instance
      *
-     * @var \Symfony\Component\HttpFoundation\Session\Session
+     * @var Session
      */
     protected $session;
 
     /**
      * The default entity manager instance
      *
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var ObjectManager
      */
     protected $em;
 
     /**
      * Caching layer instance
      *
-     * @var \Tickit\CacheBundle\Cache\Cache
+     * @var Cache
      */
     protected $cache;
 
     /**
-     * Class constructor, sets up dependencies
+     * Constructor.
      *
-     * @param \Symfony\Component\HttpFoundation\Session\Session $session      The current Session instance
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry          $doctrine     The doctrine registry
-     * @param \Tickit\CacheBundle\Cache\CacheFactoryInterface   $cacheFactory The caching factory service
+     * @param Session               $session      The current Session instance
+     * @param Registry              $doctrine     The doctrine registry
+     * @param CacheFactoryInterface $cacheFactory The caching factory service
      */
-    public function __construct(Session $session, Doctrine $doctrine, CacheFactoryInterface $cacheFactory)
+    public function __construct(Session $session, Registry $doctrine, CacheFactoryInterface $cacheFactory)
     {
         $this->session = $session;
         $this->em = $doctrine->getManager();
@@ -55,7 +58,13 @@ class PermissionService implements PermissionServiceInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Returns true if the session storage contains the given permission name, false otherwise
+     *
+     * @param string $permissionName The name of the permission
+     *
+     * @throws \RuntimeException If no permissions are defined in the session
+     *
+     * @return bool
      */
     public function has($permissionName)
     {
@@ -77,9 +86,12 @@ class PermissionService implements PermissionServiceInterface
         return $this->session;
     }
 
-
     /**
-     * {@inheritdoc}
+     * Writes an array of permission objects to the current session as a condensed array
+     *
+     * @param array $permissions An array of permission objects
+     *
+     * @return void
      */
     public function writeToSession(array $permissions)
     {
@@ -89,7 +101,7 @@ class PermissionService implements PermissionServiceInterface
 
         $condensedPermissions = array();
 
-        /* @var \Tickit\PermissionBundle\Entity\Permission $permission */
+        /* @var Permission $permission */
         foreach ($permissions as $permission) {
             $condensedPermissions[$permission->getSystemName()] = $permission->getName();
         }
@@ -99,11 +111,10 @@ class PermissionService implements PermissionServiceInterface
         $this->session->set(static::SESSION_PERMISSIONS, $condensedPermissions);
     }
 
-
     /**
      * Loads permissions for a given user from the database layer and returns them
      *
-     * @param \Tickit\UserBundle\Entity\User $user
+     * @param User $user The user to load from the provider
      *
      * @return array
      */
@@ -122,6 +133,7 @@ class PermissionService implements PermissionServiceInterface
      * @param array $permissions An array of permission objects
      *
      * @throws \InvalidArgumentException
+     *
      * @return string
      */
     protected function calculateChecksum(array $permissions)
@@ -142,5 +154,4 @@ class PermissionService implements PermissionServiceInterface
 
         return $permissionChecksum;
     }
-
 }
