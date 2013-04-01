@@ -25,21 +25,22 @@ class PermissionRepository extends EntityRepository
      */
     public function findAllForUser(User $user)
     {
-        $groups = $user->getGroups();
-        $group = $groups->get(0);
+        $query = $this->getEntityManager()
+                            ->createQueryBuilder()
+                            ->select('p')
+                            ->from('TickitPermissionBundle:Permission', 'p')
+                            ->leftJoin('p.users', 'upv')
+                            ->where('upv.user = :user_id AND upv.value = 1')
+                            ->setParameter('user_id', $user->getId());
 
-        $permissions = $this->getEntityManager()
-                            ->createQuery(
-                                'SELECT p
-                                    FROM TickitPermissionBundle:Permission p
-                                    LEFT JOIN p.users upv
-                                    LEFT JOIN p.groups gpv
-                                  WHERE (upv.user = :user_id AND upv.value = 1)
-                                        OR (gpv.group = :group_id AND gpv.value = 1)'
-                            )
-                            ->setParameter('user_id', $user->getId())
-                            ->setParameter('group_id', $group->getId())
-                            ->execute();
+        $group = $user->getGroup();
+        if (null !== $group) {
+            $query->leftJoin('p.groups', 'gpv')
+                  ->orWhere('gpv.group = :group_id AND gpv.value = 1')
+                  ->setParameter('group_id', $group->getId());
+        }
+
+        $permissions = $query->getQuery()->execute();
 
         return $permissions;
     }

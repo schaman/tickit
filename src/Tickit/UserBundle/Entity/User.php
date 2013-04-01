@@ -212,15 +212,19 @@ class User extends BaseUser implements AvatarAwareInterface
     }
 
     /**
-     * Gets the user's primary group
+     * Gets the group that this user belongs to
      *
-     * @return string
+     * @return Group
      */
-    public function getPrimaryGroup()
+    public function getGroup()
     {
-        $groupNames = $this->getGroupNames();
+        $groups = $this->getGroups();
 
-        return array_shift($groupNames);
+        if (!$groups->isEmpty()) {
+            return $groups->first();
+        }
+
+        return null;
     }
 
     /**
