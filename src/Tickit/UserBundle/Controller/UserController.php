@@ -81,21 +81,34 @@ class UserController extends AbstractCoreController
      */
     public function editAction($id)
     {
-        $user = $this->get('tickit_user.manager')
-                     ->getRepository()
-                     ->findOneById($id);
+        $existingUser = $this->get('tickit_user.manager')
+                             ->getRepository()
+                             ->findOneById($id);
 
-        if (empty($user)) {
+        if (empty($existingUser)) {
             throw $this->createNotFoundException('User not found');
         }
 
         $formType = new UserFormType();
-        $form = $this->createForm($formType, $user);
+        $form = $this->createForm($formType, $existingUser);
+
+        $existingPassword = $existingUser->getPassword();
 
         if ('POST' === $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
             if ($form->isValid()) {
+                /** @var User $user */
                 $user = $form->getData();
+
+                // we restore the password if no new one was provided on the form so that the user's
+                // password isn't set to a blank string in the database
+                if ($user->getPassword() === null) {
+                    $user->setPassword($existingPassword);
+                } else {
+                    // set the plain password on the user from the one that was provided in the form
+                    $user->setPlainPassword($user->getPassword());
+                }
+
                 $manager = $this->get('tickit_user.manager');
                 $manager->create($user);
 

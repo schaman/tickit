@@ -71,7 +71,8 @@ class UserControllerTest extends AbstractFunctionalTest
             'tickit_user[surname]' => 'surname',
             'tickit_user[username]' => 'user' . uniqid(),
             'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
-            'tickit_user[password]' => 'somepassword'
+            'tickit_user[password][first]' => 'somepassword',
+            'tickit_user[password][second]' => 'somepassword'
         );
         $client->submit($form, $formValues);
         $crawler = $client->followRedirect();
@@ -110,7 +111,8 @@ class UserControllerTest extends AbstractFunctionalTest
             'tickit_user[forename]' => 'forename_12345',
             'tickit_user[surname]' => 'surname_12345',
             'tickit_user[email]' => $newEmail,
-            'tickit_user[password]' => 'password'
+            'tickit_user[password][first]' => 'password',
+            'tickit_user[password][second]' => 'password'
         );
         $crawler = $client->submit($form, $formValues);
         $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The user has been updated successfully")')->count());
