@@ -5,14 +5,18 @@ namespace Tickit\PreferenceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\UserBundle\Entity\User;
+use Tickit\UserBundle\Interfaces\UserAwareInterface;
 
 /**
  * The UserPreference entity represents a user's desired value for a preference
  *
+ * @package Tickit\PreferenceBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="user_preferences")
  */
-class UserPreference
+class UserPreference implements UserAwareInterface
 {
 
     /**
@@ -111,17 +115,21 @@ class UserPreference
     /**
      * Sets the user
      *
-     * @param \Tickit\UserBundle\Entity\User $user
+     * @param User $user The new user
+     *
+     * @return UserPreference
      */
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
      * Gets the user
      *
-     * @return \Tickit\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
