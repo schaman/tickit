@@ -11,7 +11,7 @@ Tickit\UserBundle\Entity\User:
             - Length: { max: 120, maxMessage: "Surname is too long, try something a little shorter (120 characters max)" }
             - NotBlank: { message: "You didn't provide a surname, did you forget it?" }
         group:
-            - NotBlank: { message: "You didn't select a group, did you forget?" }
+            - NotNull: { message: "You didn't select a group for this user, did you forget?" }
         email:
             - Email:
                 message: That email "{{ value }}" doesn't look valid. Could you double check it?

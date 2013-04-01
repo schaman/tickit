@@ -58,8 +58,6 @@ class UserControllerTest extends AbstractFunctionalTest
      */
     public function testAddActionCreatesUserWithValidDetails()
     {
-        $this->markTestSkipped();
-
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
@@ -91,8 +89,6 @@ class UserControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionUpdatesUserWithValidDetails()
     {
-        $this->markTestSkipped();
-
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
@@ -111,11 +107,16 @@ class UserControllerTest extends AbstractFunctionalTest
         $newEmail = sprintf('%s@mail.com', uniqid());
         $formValues = array(
             'tickit_user[username]' => $newUsername,
-            'tickit_user[email]' => $newEmail
+            'tickit_user[forename]' => 'forename_12345',
+            'tickit_user[surname]' => 'surname_12345',
+            'tickit_user[email]' => $newEmail,
+            'tickit_user[password]' => 'password'
         );
         $crawler = $client->submit($form, $formValues);
         $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The user has been updated successfully")')->count());
         $this->assertEquals($newUsername, $crawler->filter('input[name="tickit_user[username]"]')->attr('value'));
-        $this->assertEquals($newEmail, $crawler->filter('input[name="tickit_user[username]"]')->attr('value'));
+        $this->assertEquals($newEmail, $crawler->filter('input[name="tickit_user[email]"]')->attr('value'));
+        $this->assertEquals('forename_12345', $crawler->filter('input[name="tickit_user[forename]"]')->attr('value'));
+        $this->assertEquals('surname_12345', $crawler->filter('input[name="tickit_user[surname]"]')->attr('value'));
     }
 }
