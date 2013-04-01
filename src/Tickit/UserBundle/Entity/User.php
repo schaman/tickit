@@ -49,13 +49,12 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $updated;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group")
-     * @ORM\JoinTable(name="users_groups",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
-     * )
+     * The group that this user belongs to
+     *
+     * @ORM\ManyToOne(targetEntity="Group")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
-    protected $groups;
+    protected $group;
 
     /**
      * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
