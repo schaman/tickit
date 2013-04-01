@@ -228,6 +228,22 @@ class User extends BaseUser implements AvatarAwareInterface
     }
 
     /**
+     * Gets the name of the user group, if any
+     *
+     * @return string
+     */
+    public function getGroupName()
+    {
+        $group = $this->getGroup();
+
+        if (null !== $group) {
+            return $group->getName();
+        }
+
+        return '';
+    }
+
+    /**
      * Get the avatar identifier
      *
      * @return string

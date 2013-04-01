@@ -20,7 +20,7 @@
                         <td>{{ user.fullName }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.primaryGroup }}</td>
+                        <td>{{ user.groupName }}</td>
                         <td><a href="{{ path('user_edit', { id: user.id }) }}">Edit</a></td>
                     </tr>
                 {% endfor %}
