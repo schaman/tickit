@@ -1,14 +1,14 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Service\Avatar;
+namespace Tickit\UserBundle\Tests\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Service\Avatar\AvatarService;
+use Tickit\UserBundle\Avatar\AvatarService;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter;
-use Tickit\UserBundle\Service\Avatar\Entity\AvatarAwareInterface;
+use Tickit\UserBundle\Avatar\Adapter\GravatarAdapter;
+use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * Tests for the user avatar service
@@ -57,7 +57,7 @@ class AvatarServiceTest extends WebTestCase
      */
     protected function getGravatarAdapter($secureConnection = false)
     {
-        $service = $this->getService('Tickit\UserBundle\Service\Avatar\Adapter\GravatarAdapter', $secureConnection);
+        $service = $this->getService('Tickit\UserBundle\Avatar\Adapter\GravatarAdapter', $secureConnection);
 
         $adapter = $service->getAdapter();
         $this->assertTrue($adapter instanceof GravatarAdapter);
@@ -71,7 +71,7 @@ class AvatarServiceTest extends WebTestCase
      * @param string $adapterClass     Class name for this service
      * @param bool   $secureConnection Should the request use HTTPS?
      *
-     * @return \Tickit\UserBundle\Service\Avatar\AvatarService
+     * @return AvatarService
      */
     protected function getService($adapterClass, $secureConnection = false)
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tickit\UserBundle\Service\Avatar;
+namespace Tickit\UserBundle\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Tickit\UserBundle\Entity;
-use Tickit\UserBundle\Service\Avatar\Adapter\AvatarAdapterInterface;
+use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 
 /**
  * Provides access to avatars based on the current user account
@@ -58,7 +58,7 @@ class AvatarService
     /**
      * Set the avatar adapter
      *
-     * @param Adapter\AvatarAdapterInterface $adapter
+     * @param AvatarAdapterInterface $adapter
      */
     public function setAdapter(AvatarAdapterInterface $adapter)
     {

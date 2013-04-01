@@ -17,11 +17,11 @@
             <argument type="service" id="doctrine" />
             <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
         </service>
-        <service id="avatar" class="Tickit\UserBundle\Service\Avatar\AvatarService" scope="request">
+        <service id="avatar" class="Tickit\UserBundle\Avatar\AvatarService" scope="request">
             <argument type="service" id="request" />
             <argument>%tickit_user.avatar.adapter_class%</argument>
         </service>
-        <service id="avatar_twig_extension" class="Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension">
+        <service id="avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension">
             <argument type="service" id="service_container" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
@@ -33,6 +33,14 @@
         <service id="tickit_user.registration.form.type" class="Tickit\UserBundle\Form\Type\RegistrationFormType">
             <tag name="form.type" alias="tickit_user_registration" />
             <argument>%fos_user.model.user.class%</argument>
+        </service>
+        <service id='tickit_user.manager' class='Tickit\UserBundle\Manager\UserManager'>
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="tickit_user.user_event_dispatcher" />
+            <argument type="service" id="fos_user.user_manager" />
+        </service>
+        <service id="tickit_user.user_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher">
+            <argument type="service" id="event_dispatcher" />
         </service>
     </services>
 

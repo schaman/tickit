@@ -1,9 +1,9 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Service\Avatar\Twig;
+namespace Tickit\UserBundle\Tests\Avatar\Twig;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use \Tickit\UserBundle\Service\Avatar\Twig\AvatarExtension;
+use Tickit\UserBundle\Avatar\Twig\AvatarExtension;
 
 /**
  * Avatar service twig extension tests

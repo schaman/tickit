@@ -11,46 +11,12 @@ use Tickit\UserBundle\Entity\User;
  *
  * @package Tickit\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @group   functional
  */
 class ProjectControllerTest extends AbstractFunctionalTest
 {
     /**
-     * Standard user entity used for testing
-     *
-     * @var User
-     */
-    protected static $developer;
-
-    /**
-     * Admin user entity used for testing
-     *
-     * @var User
-     */
-    protected static $admin;
-
-    /**
-     * Sets up user object for viewing project actions
-     *
-     * @return void
-     */
-    public static function setUpBeforeClass()
-    {
-        $developer = new User();
-        $developer->addRole(User::ROLE_DEFAULT)
-             ->setUsername('developer')
-             ->setPassword('password');
-
-        $admin = new User();
-        $admin->addRole(User::ROLE_SUPER_ADMIN)
-              ->setUsername('james')
-              ->setPassword('password');
-
-        static::$admin = $admin;
-        static::$developer = $developer;
-    }
-
-    /**
-     * Ensures that the index action displays projects correctly
+     * Makes sure project actions are not publicly accessible
      *
      * @return void
      */
@@ -58,10 +24,11 @@ class ProjectControllerTest extends AbstractFunctionalTest
     {
         $client = static::createClient();
         $router = $client->getContainer()->get('router');
-        $client->followRedirects();
 
-        $crawler = $client->request('get', $router->generate('project_index'));
+        $client->request('get', $router->generate('project_index'));
 
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $crawler = $client->followRedirect();
         $this->assertEquals('Login', $crawler->filter('h2')->text(), '<h2> contains correct content');
     }
 
@@ -94,9 +61,11 @@ class ProjectControllerTest extends AbstractFunctionalTest
 
         $crawler = $client->request('get', '/projects');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
+        /** @var ProjectManager $projectManager */
+        $projectManager = $client->getContainer()->get('tickit_project.manager');
+        $repository = $projectManager->getRepository();
+        $totalProjects = count($repository->findAll());
 
-        $crawler = $client->request('get', '/projects');
         $this->assertEquals($totalProjects, $crawler->filter('.data-list table tbody tr')->count());
     }
 
@@ -112,7 +81,6 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
 
         $crawler = $client->request('get', '/projects');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
 
         $crawler = $client->request('get', '/projects/add');
@@ -121,7 +89,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
         ));
         $client->submit($form);
         $crawler = $client->followRedirect();
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been added successfully")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been created successfully")')->count());
         $this->assertEquals($totalProjects + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -166,7 +134,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $newProjectName = strrev($currentProjectName);
         $form = $crawler->selectButton('Save Changes')->form();
         $crawler = $client->submit($form, array('tickit_project[name]' => $newProjectName));
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("Your changes have been saved successfully")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been updated successfully")')->count());
         $this->assertEquals($newProjectName, $crawler->filter('input[name="tickit_project[name]"]')->attr('value'));
     }
 

@@ -3,7 +3,7 @@
 namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use FOS\UserBundle\Doctrine\UserManager;
+use Tickit\UserBundle\Manager\UserManager;
 use Tickit\UserBundle\Entity\User;
 use Tickit\CacheBundle\Cache\CacheFactory;
 
@@ -18,13 +18,13 @@ use Tickit\CacheBundle\Cache\CacheFactory;
 abstract class AbstractCoreController extends Controller
 {
     /**
-     * Returns an instance of the user manager provided by FOSUserBundle
+     * Returns an instance of the user manager
      *
      * @return UserManager
      */
     protected function getUserManager()
     {
-        return $this->container->get('fos_user.user_manager');
+        return $this->container->get('tickit_user.manager');
     }
 
     /**

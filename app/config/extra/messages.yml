@@ -1,0 +1,3 @@
+entityCreated: "The %entity% has been created successfully"
+entityDeleted: "The %entity% has been successfully deleted"
+entityUpdated: "The %entity% has been updated successfully"
