@@ -4,6 +4,7 @@ namespace Tickit\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Add/edit project form.
@@ -27,17 +28,15 @@ class ProjectFormType extends AbstractType
     }
 
     /**
-     * Gets default options for this form type
+     * Sets default options for this form type
      *
-     * @param array $options Current options
+     * @param OptionsResolverInterface $resolver The options resolver
      *
      * @return array
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $options = array('data_class' => 'Tickit\ProjectBundle\Entity\Project');
-
-        return $options;
+        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\Project'));
     }
 
     /**

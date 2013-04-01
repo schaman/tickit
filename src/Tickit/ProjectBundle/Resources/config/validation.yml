@@ -1,5 +1,5 @@
 Tickit\ProjectBundle\Entity\Project:
     properties:
         name:
-            - MaxLength: { limit: 100, message: "Name is too long, try something a little shorter (100 characters max)" }
+            - Length: { max: 100, maxMessage: "Name is too long, try something a little shorter (100 characters max)" }
             - NotBlank: { message: "You didn't provide a name, did you forget it?" }
