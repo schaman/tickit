@@ -228,6 +228,20 @@ class User extends BaseUser implements AvatarAwareInterface
     }
 
     /**
+     * Sets the group that this user belongs to
+     *
+     * @param Group $group The new group
+     *
+     * @return User
+     */
+    public function setGroup(Group $group)
+    {
+        $this->group = $group;
+
+        return $this;
+    }
+
+    /**
      * Gets the name of the user group, if any
      *
      * @return string
