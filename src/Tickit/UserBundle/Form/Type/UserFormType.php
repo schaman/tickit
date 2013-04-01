@@ -4,7 +4,7 @@ namespace Tickit\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Tickit\UserBundle\Entity\User;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * User form.
@@ -37,17 +37,16 @@ class UserFormType extends AbstractType
     }
 
     /**
-     * Gets default options for this form type
+     * Sets the default options for this form
      *
-     * @param array $options Current options
+     * @param OptionsResolverInterface $resolver The options resolver
      *
-     * @return array
+     * @return void
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $options = array('data_class' => 'Tickit\UserBundle\Entity\User');
-
-        return $options;
+        $resolver->setDefaults($options);
     }
 
     /**
