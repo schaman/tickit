@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
 use Tickit\PermissionBundle\Form\Type\PermissionsFormType;
 
 /**
@@ -35,6 +36,8 @@ class UserFormType extends AbstractType
             $passwordLabel = 'New Password';
         }
 
+        $user = $builder->getData();
+
         $builder->add('forename', 'text')
                 ->add('surname', 'text')
                 ->add('username', 'text')
@@ -49,7 +52,17 @@ class UserFormType extends AbstractType
                     )
                 )
                 ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'))
-                ->add('permissions', new PermissionsFormType());
+                ->add(
+                    'permissions', 'entity', array(
+                        'query_builder' => function($repo) use ($user) {
+                            /** @var UserPermissionValueRepository $repo */
+                            return $repo->findAllForUserQuery($user);
+                        },
+                        'class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue',
+                        'expanded' => true,
+                        'multiple' => true
+                    )
+                );
     }
 
     /**

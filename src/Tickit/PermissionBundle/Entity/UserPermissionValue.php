@@ -11,7 +11,7 @@ use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository")
  * @ORM\Table(name="user_permission_values")
  */
 class UserPermissionValue implements PermissionValueInterface
