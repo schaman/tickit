@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\PermissionBundle\Form\Type\PermissionsFormType;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Type\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;

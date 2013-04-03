@@ -283,4 +283,14 @@ class User extends BaseUser implements AvatarAwareInterface
         // return the user's email address string
         return $this->getEmail();
     }
+
+    /**
+     * Gets associated permissions from this user
+     *
+     * @return ArrayCollection
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
 }
