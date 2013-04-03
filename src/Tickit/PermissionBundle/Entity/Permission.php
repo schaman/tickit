@@ -6,7 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Tickit\PermissionBundle\Interfaces\PermissionInterface;
 
 /**
- * Represents a permission in the system. For this entity to make any real functional sense it needs to be used
+ * Represents a permission in the system.
+ *
+ * For this entity to make any real functional sense it needs to be used
  * in conjunction with UserPermissionValue or GroupPermissionValue to map a permission and value to a user/group
  *
  * @package Tickit\PermissionBundle\Entity
