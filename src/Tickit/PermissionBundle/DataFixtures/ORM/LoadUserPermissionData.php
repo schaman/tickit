@@ -5,6 +5,7 @@ namespace Tickit\PreferenceBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Tickit\PermissionBundle\Entity\UserPermissionValue;
 
 /**
  * Loads default permission records into the database
@@ -21,6 +22,22 @@ class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureIn
      */
     public function load(ObjectManager $manager)
     {
+        $permissions = $manager->getRepository('TickitPermissionBundle:Permission')
+                               ->findAll();
+
+        $users = array($this->getReference('admin-james'), $this->getReference('admin-mark'));
+
+        foreach ($users as $user) {
+            foreach ($permissions as $permission) {
+                $userPermission = new UserPermissionValue();
+                $userPermission->setUser($user);
+                $userPermission->setPermission($permission);
+                $userPermission->setValue(true);
+                $manager->persist($userPermission);
+            }
+        }
+
+        $manager->flush();
     }
 
     /**
