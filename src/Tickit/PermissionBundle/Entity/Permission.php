@@ -77,4 +77,14 @@ class Permission implements PermissionInterface
     {
         $this->systemName = $systemName;
     }
+
+    /**
+     * __toString() method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
