@@ -30,13 +30,13 @@ class UserFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (null === $builder->getData()) {
+        $user = $builder->getData();
+
+        if (null === $user) {
             $passwordLabel = 'Password';
         } else {
             $passwordLabel = 'New Password';
         }
-
-        $user = $builder->getData();
 
         $builder->add('forename', 'text')
                 ->add('surname', 'text')
@@ -51,19 +51,22 @@ class UserFormType extends AbstractType
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
                 )
-                ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'))
-                ->add(
-                    'permissions', 'entity', array(
-                        'query_builder' => function($repo) use ($user) {
-                            /** @var UserPermissionValueRepository $repo */
-                            return $repo->findAllForUserQuery($user);
-                        },
-                        'class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue',
-                        'property' => 'permissionName',
-                        'expanded' => true,
-                        'multiple' => true
-                    )
-                );
+                ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'));
+
+        if (null !== $user) {
+            $builder->add(
+                'permissions', 'entity', array(
+                    'query_builder' => function($repo) use ($user) {
+                        /** @var UserPermissionValueRepository $repo */
+                        return $repo->findAllForUserQuery($user);
+                    },
+                    'class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue',
+                    'property' => 'permissionName',
+                    'expanded' => true,
+                    'multiple' => true
+                )
+            );
+        }
     }
 
     /**
