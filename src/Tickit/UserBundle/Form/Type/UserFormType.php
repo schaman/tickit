@@ -59,6 +59,7 @@ class UserFormType extends AbstractType
                             return $repo->findAllForUserQuery($user);
                         },
                         'class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue',
+                        'property' => 'permissionName',
                         'expanded' => true,
                         'multiple' => true
                     )

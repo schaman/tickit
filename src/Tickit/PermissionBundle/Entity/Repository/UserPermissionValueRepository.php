@@ -27,9 +27,9 @@ class UserPermissionValueRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                             ->createQueryBuilder()
-                            ->select('p')
-                            ->from('TickitPermissionBundle:Permission', 'p')
-                            ->leftJoin('p.users', 'upv')
+                            ->select('p, upv')
+                            ->from('TickitPermissionBundle:UserPermissionValue', 'upv')
+                            ->leftJoin('upv.permission', 'p')
                             ->where('upv.user = :user_id')
                             ->setParameter('user_id', $user->getId());
 
