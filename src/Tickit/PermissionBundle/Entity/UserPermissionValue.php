@@ -17,6 +17,9 @@ use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
 class UserPermissionValue implements PermissionValueInterface
 {
     /**
+     * The user that this value is for
+     *
+     * @var User
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User", inversedBy="permissions")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -24,6 +27,9 @@ class UserPermissionValue implements PermissionValueInterface
     protected $user;
 
     /**
+     * The permission that this value correlates to
+     *
+     * @var Permission
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Permission", inversedBy="users")
      * @ORM\JoinColumn(name="permission_id", referencedColumnName="id")
@@ -31,6 +37,8 @@ class UserPermissionValue implements PermissionValueInterface
     protected $permission;
 
     /**
+     * The boolean value for this permission
+     *
      * @ORM\Column(name="value", type="boolean")
      */
     protected $value;
@@ -73,5 +81,15 @@ class UserPermissionValue implements PermissionValueInterface
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Gets the permission name
+     *
+     * @return string
+     */
+    public function getPermissionName()
+    {
+        return $this->permission->getName();
     }
 }
