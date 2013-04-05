@@ -68,12 +68,9 @@ class PermissionRepository extends EntityRepository
                       ->getQuery();
 
         $result = $query->getScalarResult();
-
-        // TODO: write a doctrine hydrator to give this result or use array_map
-        $flatPermissions = array();
-        foreach ($result as $id => $permission) {
-            $flatPermissions[$id] = $permission['name'];
-        }
+        $flatPermissions = array_map(function($item) {
+            return $item['name'];
+        }, $result);
 
         return $flatPermissions;
     }
