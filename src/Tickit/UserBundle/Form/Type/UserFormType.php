@@ -2,11 +2,12 @@
 
 namespace Tickit\UserBundle\Form\Type;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
 use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
-use Tickit\PermissionBundle\Form\Type\PermissionsFormType;
 
 /**
  * User form.
@@ -21,10 +22,27 @@ use Tickit\PermissionBundle\Form\Type\PermissionsFormType;
 class UserFormType extends AbstractType
 {
     /**
+     * The permissions repository
+     *
+     * @var PermissionRepository
+     */
+    protected $permissionsRepository;
+
+    /**
+     * Constructor.
+     *
+     * @param Registry $doctrine The doctrine registry
+     */
+    public function __construct(Registry $doctrine)
+    {
+        $this->permissionsRepository = $doctrine->getManager()->getRepository('TickitPermissionBundle:Permission');
+    }
+
+    /**
      * Builds the form.
      *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options Additional options
      *
      * @return void
      */
@@ -53,7 +71,15 @@ class UserFormType extends AbstractType
                 )
                 ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'));
 
-        if (null !== $user) {
+        if (null === $user) {
+            $builder->add(
+                'permissions', 'choice', array(
+                    'choices' => $this->permissionsRepository->getAllAsKeyValuePairs(),
+                    'expanded' => true,
+                    'multiple' => true
+                )
+            );
+        } else {
             $builder->add(
                 'permissions', 'entity', array(
                     'query_builder' => function($repo) use ($user) {

@@ -47,9 +47,7 @@ class UserController extends AbstractCoreController
         $user = new User();
         $user->setEnabled(true);
 
-        $formType = new UserFormType();
-        $form = $this->createForm($formType);
-        $form->setData($user);
+        $form = $this->createForm('tickit_user');
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
@@ -90,8 +88,7 @@ class UserController extends AbstractCoreController
             throw $this->createNotFoundException('User not found');
         }
 
-        $formType = new UserFormType();
-        $form = $this->createForm($formType, $existingUser);
+        $form = $this->createForm('tickit_user', $existingUser);
 
         $existingPassword = $existingUser->getPassword();
 
