@@ -185,7 +185,11 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function findUserByUsernameOrEmail($usernameOrEmail)
     {
-        return $this->fosManager->findUserByUsernameOrEmail($usernameOrEmail);
+        if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
+            return $this->findUserByEmail($usernameOrEmail);
+        }
+
+        return $this->findUserByUsername($usernameOrEmail);
     }
 
     /**
