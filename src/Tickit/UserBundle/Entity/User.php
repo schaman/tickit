@@ -311,11 +311,11 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Sets permissions for this user
      *
-     * @param ArrayCollection $permissions The permissions collection
+     * @param array $permissions The permissions collection
      *
      * @return User
      */
-    public function setPermissions(ArrayCollection $permissions)
+    public function setPermissions(array $permissions)
     {
         $this->permissions = $permissions;
 
