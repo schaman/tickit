@@ -2,6 +2,7 @@
 
 namespace Tickit\PermissionBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\PermissionBundle\Interfaces\PermissionInterface;
 
@@ -20,6 +21,9 @@ use Tickit\PermissionBundle\Interfaces\PermissionInterface;
 class Permission implements PermissionInterface
 {
     /**
+     * The unique identifier for this permission
+     *
+     * @var integer
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,24 +31,46 @@ class Permission implements PermissionInterface
     protected $id;
 
     /**
+     * The permission name
+     *
+     * @var string
      * @ORM\Column(type="string", length=120)
      */
     protected $name;
 
     /**
+     * The system friendly name
+     *
+     * @var string
      * @ORM\Column(name="system_name", type="string", length=120)
      */
     protected $systemName;
 
     /**
+     * Users that own this permission
+     *
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="UserPermissionValue", mappedBy="permission")
      */
     protected $users;
 
     /**
+     * Groups that own this permission
+     *
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="GroupPermissionValue", mappedBy="permission")
      */
     protected $groups;
+
+    /**
+     * Gets the ID for this permission
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * {@inheritDoc}
