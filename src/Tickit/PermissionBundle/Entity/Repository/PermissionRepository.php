@@ -48,18 +48,11 @@ class PermissionRepository extends EntityRepository
     }
 
     /**
-     * Gets all permissions as an array of key value pairs.
-     *
-     * The returned array will use IDs as the keys, and the permission name as the value:
-     *
-     * array(
-     *     1 => "Permission Name One",
-     *     2 => "Permission Name Two",
-     * );
+     * Gets all permission objects in the data layer, indexed by their primary key
      *
      * @return array
      */
-    public function getAllAsKeyValuePairs()
+    public function findAllIndexedById()
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
@@ -67,11 +60,6 @@ class PermissionRepository extends EntityRepository
                       ->from('TickitPermissionBundle:Permission', 'p', 'p.id')
                       ->getQuery();
 
-        $result = $query->getArrayResult();
-        $flatPermissions = array_map(function($item) {
-            return $item['name'];
-        }, $result);
-
-        return $flatPermissions;
+        return $query->execute();
     }
 }
