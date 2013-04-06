@@ -58,7 +58,7 @@ class Permission implements PermissionInterface
      * Groups that own this permission
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Tickit\UserBundle\Entity\Group", mappedBy="permissions")
+     * @ORM\ManyToMany(targetEntity="Tickit\UserBundle\Entity\Group", mappedBy="permissions")
      */
     protected $groups;
 

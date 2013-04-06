@@ -28,7 +28,7 @@ class Group extends BaseGroup
     /**
      * Permissions associated with this group
      *
-     * @ORM\ManyToMany(targetEntity="Tickit\PermissionBundle\Entity\Permission")
+     * @ORM\ManyToMany(targetEntity="Tickit\PermissionBundle\Entity\Permission", inversedBy="groups")
      * @ORM\JoinTable(name="groups_permissions")
      */
     protected $permissions;
