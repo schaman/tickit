@@ -79,7 +79,7 @@ class PermissionService implements PermissionServiceInterface
     /**
      * {@inheritdoc}
      *
-     * @return \Symfony\Component\HttpFoundation\Session\Session
+     * @return Session
      */
     public function getSession()
     {
