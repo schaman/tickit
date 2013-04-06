@@ -95,6 +95,8 @@ class UserRepository extends EntityRepository
                    ->setParameter('email', $search);
         }
 
-        return $usersQ->getQuery()->execute();
+        $user = $usersQ->getQuery()->getSingleResult();
+
+        return $user;
     }
 }
