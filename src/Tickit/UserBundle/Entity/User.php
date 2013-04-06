@@ -21,6 +21,8 @@ use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 class User extends BaseUser implements AvatarAwareInterface
 {
     /**
+     * The unique identifier for this user
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -28,22 +30,30 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $id;
 
     /**
+     * The user's forename
+     *
      * @ORM\Column(type="string", length=120)
      */
     protected $forename;
 
     /**
+     * The user's surname
+     *
      * @ORM\Column(type="string", length=120)
      */
     protected $surname;
 
     /**
+     * The date and time this user was created
+     *
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     protected $created;
 
     /**
+     * The date and time that this user was last updated
+     *
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
@@ -58,20 +68,26 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $group;
 
     /**
+     * @todo make this Many-to-Many
+     *
      * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
      */
     protected $sessions;
 
     /**
-     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\UserPermissionValue", mappedBy="user")
+     * Permissions that this user has been granted
+     *
+     * @ORM\ManyToMany(targetEntity="Tickit\PermissionBundle\Entity\Permission")
+     * @ORM\JoinTable(name="users_permissions")
      */
     protected $permissions;
 
     /**
+     * The date and time of this user's last activity
+     *
      * @ORM\Column(name="last_activity", type="datetime", nullable=true)
      */
     protected $lastActivity;
-
 
     /**
      * Constructor.
@@ -256,7 +272,6 @@ class User extends BaseUser implements AvatarAwareInterface
         $this->group = $group;
     }
 
-
     /**
      * Gets the name of the user group, if any
      *
@@ -280,7 +295,6 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function getAvatarIdentifier()
     {
-        // return the user's email address string
         return $this->getEmail();
     }
 
@@ -292,5 +306,19 @@ class User extends BaseUser implements AvatarAwareInterface
     public function getPermissions()
     {
         return $this->permissions;
+    }
+
+    /**
+     * Sets permissions for this user
+     *
+     * @param ArrayCollection $permissions The permissions collection
+     *
+     * @return User
+     */
+    public function setPermissions(ArrayCollection $permissions)
+    {
+        $this->permissions = $permissions;
+
+        return $this;
     }
 }

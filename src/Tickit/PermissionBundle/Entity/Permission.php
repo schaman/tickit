@@ -50,7 +50,7 @@ class Permission implements PermissionInterface
      * Users that own this permission
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="UserPermissionValue", mappedBy="permission")
+     * @ORM\ManyToMany(targetEntity="Tickit\UserBundle\Entity\User", mappedBy="permissions")
      */
     protected $users;
 
