@@ -63,11 +63,11 @@ class PermissionRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('p.name')
+                      ->select('p')
                       ->from('TickitPermissionBundle:Permission', 'p', 'p.id')
                       ->getQuery();
 
-        $result = $query->getScalarResult();
+        $result = $query->getArrayResult();
         $flatPermissions = array_map(function($item) {
             return $item['name'];
         }, $result);
