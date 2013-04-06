@@ -61,6 +61,8 @@ class LoadGroupPermissionData extends AbstractFixture implements OrderedFixtureI
      *
      * @param array $permissions An array containing all system permissions
      * @param array $groups      An array containing all user groups in the system
+     *
+     * @todo This needs to be refactored to suit the ManyToMany direct relationship
      */
     protected function loadGroupPermissionValues(array $permissions, array $groups)
     {
