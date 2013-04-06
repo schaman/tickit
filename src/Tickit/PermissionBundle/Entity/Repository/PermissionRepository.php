@@ -31,14 +31,14 @@ class PermissionRepository extends EntityRepository
                             ->createQueryBuilder()
                             ->select('p')
                             ->from('TickitPermissionBundle:Permission', 'p')
-                            ->leftJoin('p.users', 'upv')
-                            ->where('upv.user = :user_id AND upv.value = 1')
+                            ->innerJoin('p.users', 'u')
+                            ->where('u.id = :user_id')
                             ->setParameter('user_id', $user->getId());
 
         $group = $user->getGroup();
         if (null !== $group) {
-            $query->leftJoin('p.groups', 'gpv')
-                  ->orWhere('gpv.group = :group_id AND gpv.value = 1')
+            $query->innerJoin('p.groups', 'g')
+                  ->orWhere('g.id = :group_id')
                   ->setParameter('group_id', $group->getId());
         }
 
