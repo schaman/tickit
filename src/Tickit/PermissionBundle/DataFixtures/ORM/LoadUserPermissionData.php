@@ -5,7 +5,6 @@ namespace Tickit\PreferenceBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\PermissionBundle\Entity\UserPermissionValue;
 use Tickit\UserBundle\Entity\User;
 
 /**
