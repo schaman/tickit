@@ -37,7 +37,7 @@ class PermissionRepository extends EntityRepository
 
         $group = $user->getGroup();
         if (null !== $group) {
-            $query->innerJoin('p.groups', 'g')
+            $query->leftJoin('p.groups', 'g')
                   ->orWhere('g.id = :group_id')
                   ->setParameter('group_id', $group->getId());
         }
