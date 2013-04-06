@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
-use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
 
 /**
  * User form.
