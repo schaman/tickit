@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\PermissionBundle\Entity\UserPermissionValue;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Loads default permission records into the database
@@ -27,14 +28,9 @@ class LoadUserPermissionData extends AbstractFixture implements OrderedFixtureIn
 
         $users = array($this->getReference('admin-james'), $this->getReference('admin-mark'));
 
+        /** @var User $user */
         foreach ($users as $user) {
-            foreach ($permissions as $permission) {
-                $userPermission = new UserPermissionValue();
-                $userPermission->setUser($user);
-                $userPermission->setPermission($permission);
-                $userPermission->setValue(true);
-                $manager->persist($userPermission);
-            }
+            $user->setPermissions($permissions);
         }
 
         $manager->flush();
