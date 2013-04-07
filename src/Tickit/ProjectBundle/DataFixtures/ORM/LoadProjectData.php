@@ -10,11 +10,11 @@ use Tickit\ProjectBundle\Entity\Project;
 /**
  * Loads project data into the application
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\ProjectBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     /**
      * Loads project data into the application database
      *
@@ -43,5 +43,4 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
     {
         return 11;
     }
-
 }

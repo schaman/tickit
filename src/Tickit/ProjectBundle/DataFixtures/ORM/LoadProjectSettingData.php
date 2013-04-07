@@ -14,11 +14,10 @@ use Tickit\ProjectBundle\Entity\ProjectSetting;
  */
 class LoadProjectSettingData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     /**
      * Loads default project settings into the application database
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
@@ -41,5 +40,4 @@ class LoadProjectSettingData extends AbstractFixture implements OrderedFixtureIn
     {
         return 10;
     }
-
 }
