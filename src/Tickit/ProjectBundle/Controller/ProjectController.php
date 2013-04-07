@@ -31,7 +31,7 @@ class ProjectController extends AbstractCoreController
     {
         $projects = $this->get('tickit_project.manager')
                          ->getRepository()
-                         ->findProjects();
+                         ->findByFilters();
 
         $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
 

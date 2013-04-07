@@ -20,7 +20,7 @@ class ProjectRepository extends EntityRepository
      *
      * @return mixed
      */
-    public function findProjects(array $filters = array())
+    public function findByFilters(array $filters = array())
     {
         $projectsQ = $this->getEntityManager()
                       ->createQueryBuilder()
