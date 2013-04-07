@@ -39,6 +39,22 @@ class Attribute implements AttributeInterface
     protected $defaultValue;
 
     /**
+     * Boolean indicating whether this attribute can be left empty
+     *
+     * @var boolean
+     * @ORM\Column(name="allow_blank", type="boolean")
+     */
+    protected $allowBlank;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->allowBlank = true;
+    }
+
+    /**
      * Gets the attribute ID
      *
      * @return int
