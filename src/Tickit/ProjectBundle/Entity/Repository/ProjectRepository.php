@@ -3,7 +3,6 @@
 namespace Tickit\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use DateTime;
 
 /**
  * Project entity repository.
@@ -37,5 +36,4 @@ class ProjectRepository extends EntityRepository
 
         return $projectsQ->getQuery()->execute();
     }
-
 }
