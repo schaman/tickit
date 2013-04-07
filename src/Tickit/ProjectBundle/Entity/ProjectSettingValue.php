@@ -6,12 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * The ProjectSettingValue entity represents a project's value against a specific ProjectSetting
  *
+ * @package Tickit\ProjectBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="project_setting_values")
  */
 class ProjectSettingValue
 {
     /**
+     * The project that this setting value is associated with
+     *
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
@@ -19,6 +24,8 @@ class ProjectSettingValue
     protected $project;
 
     /**
+     * The setting that this value is for
+     *
      * @ORM\Id
      * @ORM\OneToOne(targetEntity="ProjectSetting")
      * @ORM\JoinColumn(name="project_setting_id", referencedColumnName="id")
@@ -26,6 +33,8 @@ class ProjectSettingValue
     protected $setting;
 
     /**
+     * The setting value
+     *
      * @ORM\Column(type="string", length=120)
      */
     protected $value;
@@ -33,7 +42,7 @@ class ProjectSettingValue
     /**
      * Gets the associated setting object
      *
-     * @return \Tickit\ProjectBundle\Entity\ProjectSetting
+     * @return ProjectSetting
      */
     public function getSetting()
     {
@@ -49,5 +58,4 @@ class ProjectSettingValue
     {
         return $this->value;
     }
-
 }
