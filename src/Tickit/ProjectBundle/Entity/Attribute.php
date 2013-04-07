@@ -58,6 +58,13 @@ class Attribute implements AttributeInterface
     protected $metaDeta;
 
     /**
+     * The attribute type
+     *
+     * @var string
+     */
+    protected $type;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -141,7 +148,7 @@ class Attribute implements AttributeInterface
      *
      * The data should be json_encoded
      *
-     * @param string $metaDeta
+     * @param string $metaDeta The new meta data
      *
      * @throws \InvalidArgumentException If the given meta data isn't json encoded
      *
