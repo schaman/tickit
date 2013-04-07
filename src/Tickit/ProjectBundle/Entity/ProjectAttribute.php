@@ -7,12 +7,17 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * The ProjectAttribute entity represents a specific attribute that is customisable per project
  *
+ * @package Tickit\ProjectBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="project_attributes")
  */
 class ProjectAttribute implements AttributeInterface
 {
     /**
+     * The unique identifier for this attribute
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -20,11 +25,15 @@ class ProjectAttribute implements AttributeInterface
     protected $id;
 
     /**
+     * The name of this attribute
+     *
      * @ORM\Column(type="string", length=120)
      */
     protected $name;
 
     /**
+     * The default value for this attribute
+     *
      * @ORM\Column(name="default_value", type="string", length=500)
      */
     protected $defaultValue;
