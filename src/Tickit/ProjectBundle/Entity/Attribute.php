@@ -15,6 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Attribute implements AttributeInterface
 {
+    const TYPE_TEXT = 'text';
+    const TYPE_CHOICE = 'choice';
+    const TYPE_ENTITY = 'entity';
+
     /**
      * The unique identifier for this attribute
      *
@@ -47,11 +51,19 @@ class Attribute implements AttributeInterface
     protected $allowBlank;
 
     /**
+     * JSON encoded meta data for the attribute
+     *
+     * @var string
+     */
+    protected $metaDeta;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->allowBlank = true;
+        $this->metaDeta = json_encode(array());
     }
 
     /**
@@ -102,5 +114,60 @@ class Attribute implements AttributeInterface
     public function getDefaultValue()
     {
         return $this->defaultValue;
+    }
+
+    /**
+     * Sets whether blank values are allowed on this attribute
+     *
+     * @param boolean $allowBlank
+     */
+    public function setAllowBlank($allowBlank)
+    {
+        $this->allowBlank = $allowBlank;
+    }
+
+    /**
+     * Returns true if this attribute can have a blank value, false otherwise
+     *
+     * @return boolean
+     */
+    public function allowBlank()
+    {
+        return $this->allowBlank;
+    }
+
+    /**
+     * Sets metadata on this attribute.
+     *
+     * The data should be json_encoded
+     *
+     * @param string $metaDeta
+     *
+     * @throws \InvalidArgumentException If the given meta data isn't json encoded
+     *
+     * @return Attribute
+     */
+    public function setMetaDeta($metaDeta)
+    {
+        if (null === json_decode($metaDeta)) {
+            throw new \InvalidArgumentException('Invalid meta data provided');
+        }
+        $this->metaDeta = $metaDeta;
+    }
+
+    /**
+     * Gets meta data for this attribute
+     *
+     * @param boolean $decode True to decode the metadata before returning, defaults to false
+     *
+     * @return mixed
+     */
+    public function getMetaDeta($decode = false)
+    {
+        if (true !== $decode) {
+            return $this->metaDeta;
+        }
+
+        return json_decode($this->metaDeta);
     }
 }
