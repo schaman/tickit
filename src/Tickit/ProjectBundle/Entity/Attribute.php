@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * The ProjectAttribute entity represents a specific attribute that is customisable per project
+ * The Attribute entity represents a specific attribute that is customisable per project
  *
  * @package Tickit\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="project_attributes")
  */
-class ProjectAttribute implements AttributeInterface
+class Attribute implements AttributeInterface
 {
     /**
      * The unique identifier for this attribute

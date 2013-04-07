@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * The ProjectAttributeValue entity represents a value associated with an attribute for a specific project
+ * The AttributeValue entity represents a value associated with an attribute for a specific project
  *
  * @package Tickit\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -13,13 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="project_attribute_values")
  */
-class ProjectAttributeValue implements AttributeValueInterface
+class AttributeValue implements AttributeValueInterface
 {
     /**
      * The attribute this value is for
      *
      * @ORM\Id
-     * @ORM\OneToOne(targetEntity="ProjectAttribute")
+     * @ORM\OneToOne(targetEntity="Attribute")
      * @ORM\JoinColumn(name="project_attribute_id", referencedColumnName="id")
      */
     protected $attribute;
@@ -43,7 +43,7 @@ class ProjectAttributeValue implements AttributeValueInterface
     /**
      * Gets the associated attribute object
      *
-     * @return ProjectAttribute
+     * @return Attribute
      */
     public function getAttribute()
     {
