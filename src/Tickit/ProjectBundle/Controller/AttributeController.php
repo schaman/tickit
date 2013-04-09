@@ -24,9 +24,9 @@ class AttributeController extends AbstractCoreController
      *
      * Displays relevant form for adding a project attribute of the given type.
      *
-     * @param string $type The type of the attribute to create
+     * @param string $type The type of the attribute to add
      *
-     * @Template("TickitProjectBundle:Attribute:create.html.twig")
+     * @Template("TickitProjectBundle:Attribute:add.html.twig")
      *
      * @throws NotFoundHttpException If the given type is not valid
      *
@@ -45,13 +45,17 @@ class AttributeController extends AbstractCoreController
                 break;
             case Attribute::TYPE_ENTITY:
                 break;
-            case Attribute::TYPE_TEXT:
+            case Attribute::TYPE_LITERAL:
                 $formType = new LiteralAttributeFormType();
                 break;
         }
 
         $attribute = new Attribute();
         $form = $this->createForm($formType, $attribute);
+
+        if ('POST' == $this->getRequest()->getMethod()) {
+            // save
+        }
 
         return array('form' => $form->createView());
     }
