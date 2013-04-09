@@ -13,6 +13,10 @@
         <service id="tickit_project.project_event_dispatcher" class="Tickit\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher">
             <argument type="service" id="event_dispatcher" />
         </service>
+
+        <service id="tickit_project.attribute_manager" class="Tickit\ProjectBundle\Manager\AttributeManager">
+            <argument type="service" id="doctrine" />
+        </service>
     </services>
 
 </container>
