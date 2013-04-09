@@ -87,10 +87,14 @@ class Attribute implements AttributeInterface
      * Sets the name of this attribute
      *
      * @param string $name
+     *
+     * @return Attribute
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -107,10 +111,14 @@ class Attribute implements AttributeInterface
      * Sets the default value for this attribute
      *
      * @param mixed $defaultValue
+     *
+     * @return Attribute
      */
     public function setDefaultValue($defaultValue)
     {
         $this->defaultValue = $defaultValue;
+
+        return $this;
     }
 
     /**
@@ -127,10 +135,14 @@ class Attribute implements AttributeInterface
      * Sets whether blank values are allowed on this attribute
      *
      * @param boolean $allowBlank
+     *
+     * @return Attribute
      */
     public function setAllowBlank($allowBlank)
     {
         $this->allowBlank = $allowBlank;
+
+        return $this;
     }
 
     /**
@@ -159,7 +171,41 @@ class Attribute implements AttributeInterface
         if (null === json_decode($metaDeta)) {
             throw new \InvalidArgumentException('Invalid meta data provided');
         }
+
         $this->metaDeta = $metaDeta;
+
+        return $this;
+    }
+
+    /**
+     * Sets the attribute type.
+     *
+     * @param string $type The new attribute type
+     *
+     * @throws \InvalidArgumentException If the given type is not valid
+     *
+     * @return Attribute
+     */
+    public function setType($type)
+    {
+        $validTypes = array(static::TYPE_CHOICE, static::TYPE_ENTITY, static::TYPE_TEXT);
+        if (!in_array($type, $validTypes)) {
+            throw new \InvalidArgumentException(sprintf('Invalid attribute type provided (%s)', $type));
+        }
+
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets the attribute type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
