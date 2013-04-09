@@ -166,7 +166,7 @@ class Attribute implements AttributeInterface
      */
     public function setType($type)
     {
-        $validTypes = array(static::TYPE_CHOICE, static::TYPE_ENTITY, static::TYPE_TEXT);
+        $validTypes = static::getAvailableTypes();
         if (!in_array($type, $validTypes)) {
             throw new \InvalidArgumentException(sprintf('Invalid attribute type provided (%s)', $type));
         }
@@ -222,5 +222,15 @@ class Attribute implements AttributeInterface
         }
 
         return json_decode($this->metaDeta);
+    }
+
+    /**
+     * Returns array of available attribute types
+     *
+     * @return array
+     */
+    public static function getAvailableTypes()
+    {
+        return array(static::TYPE_CHOICE, static::TYPE_ENTITY, static::TYPE_TEXT);
     }
 }
