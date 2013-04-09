@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Attribute implements AttributeInterface
 {
-    const TYPE_TEXT = 'text';
+    const TYPE_LITERAL = 'literal';
     const TYPE_CHOICE = 'choice';
     const TYPE_ENTITY = 'entity';
 
@@ -150,7 +150,7 @@ class Attribute implements AttributeInterface
      *
      * @return boolean
      */
-    public function allowBlank()
+    public function getAllowBlank()
     {
         return $this->allowBlank;
     }
@@ -231,6 +231,6 @@ class Attribute implements AttributeInterface
      */
     public static function getAvailableTypes()
     {
-        return array(static::TYPE_CHOICE, static::TYPE_ENTITY, static::TYPE_TEXT);
+        return array(static::TYPE_CHOICE, static::TYPE_ENTITY, static::TYPE_LITERAL);
     }
 }
