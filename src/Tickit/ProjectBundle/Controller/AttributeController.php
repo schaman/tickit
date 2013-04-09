@@ -54,7 +54,11 @@ class AttributeController extends AbstractCoreController
         $form = $this->createForm($formType, $attribute);
 
         if ('POST' == $this->getRequest()->getMethod()) {
-            // save
+            $form->bind($this->getRequest());
+            if ($form->isValid()) {
+                $manager = $this->get('tickit_project.attribute_manager');
+                $manager->create($form->getData());
+            }
         }
 
         return array('form' => $form->createView());
