@@ -156,28 +156,6 @@ class Attribute implements AttributeInterface
     }
 
     /**
-     * Sets metadata on this attribute.
-     *
-     * The data should be json_encoded
-     *
-     * @param string $metaDeta The new meta data
-     *
-     * @throws \InvalidArgumentException If the given meta data isn't json encoded
-     *
-     * @return Attribute
-     */
-    public function setMetaDeta($metaDeta)
-    {
-        if (null === json_decode($metaDeta)) {
-            throw new \InvalidArgumentException('Invalid meta data provided');
-        }
-
-        $this->metaDeta = $metaDeta;
-
-        return $this;
-    }
-
-    /**
      * Sets the attribute type.
      *
      * @param string $type The new attribute type
@@ -206,6 +184,28 @@ class Attribute implements AttributeInterface
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Sets metadata on this attribute.
+     *
+     * The data should be json_encoded
+     *
+     * @param string $metaDeta The new meta data
+     *
+     * @throws \InvalidArgumentException If the given meta data isn't json encoded
+     *
+     * @return Attribute
+     */
+    public function setMetaDeta($metaDeta)
+    {
+        if (null === json_decode($metaDeta)) {
+            throw new \InvalidArgumentException('Invalid meta data provided');
+        }
+
+        $this->metaDeta = $metaDeta;
+
+        return $this;
     }
 
     /**
