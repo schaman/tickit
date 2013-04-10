@@ -56,6 +56,10 @@ class AttributeController extends AbstractCoreController
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
             if ($form->isValid()) {
+
+                $metaData = $this->get('tickit_project.attribute_meta_generator')->generateFromRequest($this->getRequest(), $formType);
+                $attribute->setMetaDeta(json_encode($metaData));
+
                 $manager = $this->get('tickit_project.attribute_manager');
                 $manager->create($form->getData());
             }
