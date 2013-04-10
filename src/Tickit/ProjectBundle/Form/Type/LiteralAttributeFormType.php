@@ -3,7 +3,8 @@
 namespace Tickit\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Tickit\ProjectBundle\Entity\Attribute;
+use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\LiteralAttribute;
 
 /**
  * Literal attribute form type.
@@ -25,21 +26,11 @@ class LiteralAttributeFormType extends AbstractAttributeFormType
     {
         parent::buildForm($builder, $options);
 
-        $builder
-            ->add('type', 'hidden', array('data' => Attribute::TYPE_LITERAL))
-            ->add('validation_type', 'choice', array(
-                'choices' => array(
-                    '' => 'None',
-                    'email' => 'Email Address',
-                    'number' => 'Number',
-                    'url' => 'Web Address',
-                    'ip' => 'IP Address',
-                    'date' => 'Date',
-                    'datetime' => 'Date and Time',
-                    'file' => 'File'
-                ),
-                'mapped' => false
-            ));
+        $validationTypes = LiteralAttribute::getValidationTypes();
+        $validationTypes[''] = 'None';
+
+        $builder->add('type', 'hidden', array('data' => AbstractAttribute::TYPE_LITERAL))
+                ->add('validation_type', 'choice', array('choices' => $validationTypes));
     }
 
     /**

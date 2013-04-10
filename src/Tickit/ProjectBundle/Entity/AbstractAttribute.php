@@ -12,8 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="project_attributes")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "literal" = "LiteralAttribute",
+ *     "choice" = "ChoiceAttribute",
+ *     "entity" = "EntityAttribute"
+ * })
  */
-class Attribute implements AttributeInterface
+abstract class AbstractAttribute implements AttributeInterface
 {
     const TYPE_LITERAL = 'literal';
     const TYPE_CHOICE = 'choice';
@@ -51,14 +58,6 @@ class Attribute implements AttributeInterface
     protected $allowBlank;
 
     /**
-     * JSON encoded meta data for the attribute
-     *
-     * @var string
-     * @ORM\Column(name="meta_data", type="text")
-     */
-    protected $metaDeta;
-
-    /**
      * The attribute type
      *
      * @var string
@@ -72,7 +71,6 @@ class Attribute implements AttributeInterface
     public function __construct()
     {
         $this->allowBlank = true;
-        $this->metaDeta = json_encode(array());
     }
 
     /**
@@ -90,7 +88,7 @@ class Attribute implements AttributeInterface
      *
      * @param string $name
      *
-     * @return Attribute
+     * @return AbstractAttribute
      */
     public function setName($name)
     {
@@ -114,7 +112,7 @@ class Attribute implements AttributeInterface
      *
      * @param mixed $defaultValue
      *
-     * @return Attribute
+     * @return AbstractAttribute
      */
     public function setDefaultValue($defaultValue)
     {
@@ -138,7 +136,7 @@ class Attribute implements AttributeInterface
      *
      * @param boolean $allowBlank
      *
-     * @return Attribute
+     * @return AbstractAttribute
      */
     public function setAllowBlank($allowBlank)
     {
@@ -158,73 +156,11 @@ class Attribute implements AttributeInterface
     }
 
     /**
-     * Sets the attribute type.
-     *
-     * @param string $type The new attribute type
-     *
-     * @throws \InvalidArgumentException If the given type is not valid
-     *
-     * @return Attribute
-     */
-    public function setType($type)
-    {
-        $validTypes = static::getAvailableTypes();
-        if (!in_array($type, $validTypes)) {
-            throw new \InvalidArgumentException(sprintf('Invalid attribute type provided (%s)', $type));
-        }
-
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
      * Gets the attribute type
      *
      * @return string
      */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Sets metadata on this attribute.
-     *
-     * The data should be json_encoded
-     *
-     * @param string $metaDeta The new meta data
-     *
-     * @throws \InvalidArgumentException If the given meta data isn't json encoded
-     *
-     * @return Attribute
-     */
-    public function setMetaDeta($metaDeta)
-    {
-        if (null === json_decode($metaDeta)) {
-            throw new \InvalidArgumentException('Invalid meta data provided');
-        }
-
-        $this->metaDeta = $metaDeta;
-
-        return $this;
-    }
-
-    /**
-     * Gets meta data for this attribute
-     *
-     * @param boolean $decode True to decode the metadata before returning, defaults to false
-     *
-     * @return mixed
-     */
-    public function getMetaDeta($decode = false)
-    {
-        if (true !== $decode) {
-            return $this->metaDeta;
-        }
-
-        return json_decode($this->metaDeta);
-    }
+    abstract public function getType();
 
     /**
      * Returns array of available attribute types
