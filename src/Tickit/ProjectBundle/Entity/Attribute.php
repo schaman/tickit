@@ -54,6 +54,7 @@ class Attribute implements AttributeInterface
      * JSON encoded meta data for the attribute
      *
      * @var string
+     * @ORM\Column(name="meta_data", type="text")
      */
     protected $metaDeta;
 
@@ -61,6 +62,7 @@ class Attribute implements AttributeInterface
      * The attribute type
      *
      * @var string
+     * @ORM\Column(type="string", length=7)
      */
     protected $type;
 
