@@ -17,6 +17,8 @@
         <service id="tickit_project.attribute_manager" class="Tickit\ProjectBundle\Manager\AttributeManager">
             <argument type="service" id="doctrine" />
         </service>
+
+        <service id="tickit_project.attribute_meta_generator" class="Tickit\ProjectBundle\Attribute\MetaGenerator" />
     </services>
 
 </container>
