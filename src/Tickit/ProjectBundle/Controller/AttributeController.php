@@ -61,6 +61,6 @@ class AttributeController extends AbstractCoreController
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'type' => $type);
     }
 }
