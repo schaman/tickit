@@ -26,6 +26,8 @@ class LiteralAttribute extends AbstractAttribute
     const VALIDATION_FILE = 'file';
 
     /**
+     * The validation type on this attribute
+     *
      * @var string
      * @ORM\Column(name="validation_type", type="string", length=15)
      */
@@ -49,6 +51,28 @@ class LiteralAttribute extends AbstractAttribute
     public function getValidationType()
     {
         return $this->validationType;
+    }
+
+    /**
+     * Sets the validation type for this attribute
+     *
+     * @param string $validationType The new validation type for this attribute
+     *
+     * @throws \InvalidArgumentException If an invalid validation type is provided
+     *
+     * @return LiteralAttribute
+     */
+    public function setValidationType($validationType)
+    {
+        if (!in_array($validationType, array_flip(static::getValidationTypes()))) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid validation type(%s) was provided', $validationType)
+            );
+        }
+
+        $this->validationType = $validationType;
+
+        return $this;
     }
 
     /**
