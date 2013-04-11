@@ -1,0 +1,35 @@
+{% extends 'TickitProjectBundle::layout.html.twig' %}
+
+{% block project_content %}
+    <h2>Manage Project Attributes</h2>
+
+    {% if app.session.flashbag.has('notice') %}
+        <div class="flash-notice">
+            {% for message in app.session.flashbag.get('notice') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class='data-list'>
+        <table>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Type</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attribute in attributes %}
+                    <tr>
+                        <td>{{ attribute.name }}</td>
+                        <td>{{ attribute.type }}</td>
+                        <td><a href="{{ path('project_attribute_edit', { id: attribute.id }) }}">Edit</a></td>
+                        <td><a href="{{ path('project_attribute_delete', { id: attribute.id, token: token }) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

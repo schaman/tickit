@@ -23,6 +23,24 @@ use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 class AttributeController extends AbstractCoreController
 {
     /**
+     * Lists all projects in the application
+     *
+     * @Template("TickitProjectBundle:Attribute:index.html.twig")
+     *
+     * @return array
+     */
+    public function indexAction()
+    {
+        $attributes = $this->get('tickit_project.attribute_manager')
+                           ->getRepository()
+                           ->findByFilters();
+
+        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project_attribute');
+
+        return array('attributes' => $attributes, 'token' => $token);
+    }
+
+    /**
      * Create attribute action.
      *
      * Displays relevant form for creating a project attribute of the given type.
@@ -62,6 +80,12 @@ class AttributeController extends AbstractCoreController
             if ($form->isValid()) {
                 $manager = $this->get('tickit_project.attribute_manager');
                 $manager->create($form->getData());
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('literal attribute'));
+
+                $route = $this->generateUrl('project_attributes_index');
+                return $this->redirect($route);
             }
         }
 

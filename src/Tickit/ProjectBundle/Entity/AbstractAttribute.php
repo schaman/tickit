@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Tickit\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\ProjectBundle\Entity\Repository\AttributeRepository")
  * @ORM\Table(name="project_attributes")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string", length=7)
