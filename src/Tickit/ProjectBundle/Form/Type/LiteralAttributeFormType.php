@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
 
@@ -31,6 +32,16 @@ class LiteralAttributeFormType extends AbstractAttributeFormType
 
         $builder->add('type', 'hidden', array('data' => AbstractAttribute::TYPE_LITERAL))
                 ->add('validation_type', 'choice', array('choices' => $validationTypes));
+    }
+
+    /**
+     * Sets default options for this form
+     *
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array('class' => 'Tickit\ProjectBundle\Entity\LiteralAttribute'));
     }
 
     /**
