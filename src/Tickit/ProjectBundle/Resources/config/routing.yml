@@ -4,9 +4,9 @@ project_index:
     requirements:
         page: \d+
 
-project_add:
-    pattern: /add
-    defaults: { _controller: TickitProjectBundle:Project:add }
+project_create:
+    pattern: /create
+    defaults: { _controller: TickitProjectBundle:Project:create }
 
 project_edit:
     pattern: /edit/{id}

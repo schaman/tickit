@@ -39,13 +39,13 @@ class ProjectController extends AbstractCoreController
     }
 
     /**
-     * Loads the add project page
+     * Loads the create project page
      *
-     * @Template("TickitProjectBundle:Project:add.html.twig")
+     * @Template("TickitProjectBundle:Project:create.html.twig")
      *
      * @return array|RedirectResponse
      */
-    public function addAction()
+    public function createAction()
     {
         $formType = new ProjectFormType();
         $form = $this->createForm($formType);

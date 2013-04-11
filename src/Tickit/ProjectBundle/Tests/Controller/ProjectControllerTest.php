@@ -83,7 +83,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $crawler = $client->request('get', '/projects');
         $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
 
-        $crawler = $client->request('get', '/projects/add');
+        $crawler = $client->request('get', '/projects/create');
         $form = $crawler->selectButton('Save Project')->form(array(
             'tickit_project[name]' => 'Valid Project Name'
         ));
@@ -104,7 +104,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
     {
         $client = $this->getAuthenticatedClient(static::$admin);
 
-        $crawler = $client->request('get', '/projects/add');
+        $crawler = $client->request('get', '/projects/create');
         $form = $crawler->selectButton('Save Project')->form();
         $crawler = $client->submit($form, array('tickit_project[name]' => ''));
         $this->assertGreaterThan(0, $crawler->filter('div#tickit_project ul li')->count());
