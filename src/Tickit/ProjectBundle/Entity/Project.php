@@ -32,7 +32,7 @@ class Project
     protected $tickets;
 
     /**
-     * @ORM\OneToMany(targetEntity="AttributeValue", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="AbstractAttributeValue", mappedBy="project")
      */
     protected $attributes;
 

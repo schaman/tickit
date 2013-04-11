@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * The Attribute entity represents a specific attribute that is customisable per project
+ * The AbstractAttribute entity represents a specific attribute that is customisable per project
  *
  * @package Tickit\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="project_attributes")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\DiscriminatorColumn(name="type", type="string", length=7)
  * @ORM\DiscriminatorMap({
  *     "literal" = "LiteralAttribute",
  *     "choice" = "ChoiceAttribute",
@@ -56,14 +56,6 @@ abstract class AbstractAttribute implements AttributeInterface
      * @ORM\Column(name="allow_blank", type="boolean")
      */
     protected $allowBlank;
-
-    /**
-     * The attribute type
-     *
-     * @var string
-     * @ORM\Column(type="string", length=7)
-     */
-    protected $type;
 
     /**
      * Constructor.
