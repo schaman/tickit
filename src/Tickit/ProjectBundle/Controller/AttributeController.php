@@ -6,6 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
@@ -43,13 +45,14 @@ class AttributeController extends AbstractCoreController
 
         switch ($type) {
             case AbstractAttribute::TYPE_CHOICE:
+                $attribute = new ChoiceAttribute();
                 break;
             case AbstractAttribute::TYPE_ENTITY:
+                $attribute = new EntityAttribute();
                 break;
-            case AbstractAttribute::TYPE_LITERAL:
+            default:
                 $attribute = new LiteralAttribute();
                 $formType = new LiteralAttributeFormType();
-                break;
         }
 
         $form = $this->createForm($formType, $attribute);
