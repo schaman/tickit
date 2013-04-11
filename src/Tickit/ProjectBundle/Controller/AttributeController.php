@@ -23,19 +23,19 @@ use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 class AttributeController extends AbstractCoreController
 {
     /**
-     * Add attribute action.
+     * Create attribute action.
      *
-     * Displays relevant form for adding a project attribute of the given type.
+     * Displays relevant form for creating a project attribute of the given type.
      *
      * @param string $type The type of the attribute to add
      *
-     * @Template("TickitProjectBundle:Attribute:add.html.twig")
+     * @Template("TickitProjectBundle:Attribute:create.html.twig")
      *
      * @throws NotFoundHttpException If the given type is not valid
      *
      * @return array
      */
-    public function addAction($type)
+    public function createAction($type)
     {
         $availableTypes = AbstractAttribute::getAvailableTypes();
 
