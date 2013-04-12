@@ -84,7 +84,7 @@ class AttributeController extends AbstractCoreController
                 $generator = $this->get('tickit.flash_messages');
                 $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('literal attribute'));
 
-                $route = $this->generateUrl('project_attributes_index');
+                $route = $this->generateUrl('project_attribute_index');
                 return $this->redirect($route);
             }
         }
