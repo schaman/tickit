@@ -230,4 +230,44 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $this->assertEquals($newAttributeName, $crawler->filter('input[name="tickit_project_attribute_literal[name]"]')->attr('value'));
         $this->assertEquals(LiteralAttribute::VALIDATION_IP, $crawler->filter('select[name="tickit_project_attribute_literal[validation_type]"] option[selected="selected"]')->attr('value'));
     }
+
+    /**
+     * Tests the deleteAction()
+     *
+     * Ensures that the deleteAction() removes an attribute
+     *
+     * @return void
+     */
+    public function testDeleteActionDeletesAttribute()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+
+        $crawler = $client->request('get', $router->generate('project_attribute_index'));
+        $totalAttributes = $crawler->filter('div.data-list table tbody tr')->count();
+        $link = $crawler->filter('div.data-list a:contains("Delete")')->first()->link();
+        $client->click($link);
+
+        $crawler = $client->followRedirect();
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been successfully deleted")')->count());
+        $this->assertEquals(--$totalAttributes, $crawler->filter('div.data-list table tbody tr')->count());
+    }
+
+    /**
+     * Tests the deleteAction()
+     *
+     * @return void
+     */
+    public function testDeleteActionReturns404ForInvalidToken()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+
+        $crawler = $client->request('get', $router->generate('project_attribute_index'));
+        $linkHref = $crawler->filter('div.data-list a:contains("Delete")')->first()->attr('href');
+        $linkHref .= 'dkwoadkowadawd';
+
+        $client->request('get', $linkHref);
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
 }
