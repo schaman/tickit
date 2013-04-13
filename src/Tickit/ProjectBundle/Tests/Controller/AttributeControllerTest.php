@@ -141,6 +141,29 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
+    /**
+     * Tests the createAction()
+     *
+     * @todo Implement this when entity form type is implemented
+     *
+     * @return void
+     */
+    public function testCreateActionForEntityAttributeCreatesAttribute()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
+     * Tests the createAction()
+     *
+     * @todo Implement this when entity form type is implemented
+     *
+     * @return void
+     */
+    public function testCreateActionForChoiceAttributeCreatesAttribute()
+    {
+        $this->markTestIncomplete();
+    }
 
     /**
      * Tests the createAction()
@@ -166,6 +189,30 @@ class AttributeControllerTest extends AbstractFunctionalTest
             'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_DATE
         ));
         $this->assertGreaterThan(0, $crawler->filter('div#tickit_project_attribute_literal ul li')->count());
+    }
+
+    /**
+     * Tests the createAction()
+     *
+     * @todo Implement this when entity form type is implemented
+     *
+     * @return void
+     */
+    public function testCreateActionForEntityAttributeDisplaysErrorsForInvalidDetails()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
+     * Tests the createAction()
+     *
+     * @todo Implement this when entity form type is implemented
+     *
+     * @return void
+     */
+    public function testCreateActionForChoiceAttributeDisplaysErrorsForInvalidDetails()
+    {
+        $this->markTestIncomplete();
     }
 
     /**
@@ -206,7 +253,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testEditActionUpdatesLiteralAttribute()
+    public function testEditActionForLiteralAttributeUpdatesAttribute()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
@@ -229,6 +276,26 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been updated successfully")')->count());
         $this->assertEquals($newAttributeName, $crawler->filter('input[name="tickit_project_attribute_literal[name]"]')->attr('value'));
         $this->assertEquals(LiteralAttribute::VALIDATION_IP, $crawler->filter('select[name="tickit_project_attribute_literal[validation_type]"] option[selected="selected"]')->attr('value'));
+    }
+
+    /**
+     * Tests the editAction()
+     *
+     * @return void
+     */
+    public function testEditActionForEntityAttributeUpdatesAttribute()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
+     * Tests the editAction()
+     *
+     * @return void
+     */
+    public function testEditActionForChoiceAttributeUpdatesAttribute()
+    {
+        $this->markTestIncomplete();
     }
 
     /**
