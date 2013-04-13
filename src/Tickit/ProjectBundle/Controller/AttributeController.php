@@ -74,7 +74,7 @@ class AttributeController extends AbstractCoreController
                 $generator = $this->get('tickit.flash_messages');
                 $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('attribute'));
 
-                $route = $this->generateUrl('project_attributes_index');
+                $route = $this->generateUrl('project_attribute_index');
                 return $this->redirect($route);
             }
         }
@@ -105,6 +105,10 @@ class AttributeController extends AbstractCoreController
 
         if (empty($attribute)) {
             throw $this->createNotFoundException('Attribute not found');
+        }
+
+        if ($attribute->getType() !== $type) {
+            throw $this->createNotFoundException('An invalid attribute type was specified');
         }
 
         $formType = $this->getFormTypeForAttributeType($type);

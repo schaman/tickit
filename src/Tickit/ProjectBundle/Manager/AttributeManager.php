@@ -98,6 +98,10 @@ class AttributeManager
                 break;
         }
 
+        if (null === $attribute->getDefaultValue()) {
+            $attribute->setDefaultValue('');
+        }
+
         return $attribute;
     }
 }

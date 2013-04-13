@@ -63,6 +63,7 @@ abstract class AbstractAttribute implements AttributeInterface
     public function __construct()
     {
         $this->allowBlank = true;
+        $this->defaultValue = '';
     }
 
     /**

@@ -3,6 +3,14 @@
 {% block project_content %}
     <h2>Edit {{ type|title }} Attribute "{{ attributeName }}"</h2>
 
+    {% if app.session.flashbag.has('notice') %}
+        <div class="flash-notice">
+            {% for message in app.session.flashbag.get('notice') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% if app.session.flashbag.has('error') %}
         <div class="flash-error">
             {% for message in app.session.flashbag.get('error') %}
@@ -14,6 +22,6 @@
     <form method='post' {{ form_enctype(form) }}>
         {{ form_widget(form) }}
 
-        <input type='submit' value='Save Project Attribute' />
+        <input type='submit' value='Save Changes' />
     </form>
 {% endblock %}
