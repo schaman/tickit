@@ -72,7 +72,7 @@ class AttributeController extends AbstractCoreController
                 $manager->create($form->getData());
 
                 $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('literal attribute'));
+                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('attribute'));
 
                 $route = $this->generateUrl('project_attributes_index');
                 return $this->redirect($route);
@@ -114,10 +114,13 @@ class AttributeController extends AbstractCoreController
             $form->bind($this->getRequest());
             if ($form->isValid()) {
                 $manager->update($attribute);
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityUpdatedMessage('attribute'));
             }
         }
 
-        return array('attributeName' => $attribute->getName(), 'form' => $form->createView());
+        return array('attributeName' => $attribute->getName(), 'type' => $type, 'form' => $form->createView());
     }
 
     /**
