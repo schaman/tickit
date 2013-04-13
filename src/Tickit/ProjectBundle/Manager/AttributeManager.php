@@ -81,6 +81,19 @@ class AttributeManager
     }
 
     /**
+     * Deletes an Attribute entity from the entity manager
+     *
+     * @param AbstractAttribute $attribute The attribute to delete
+     *
+     * @return void
+     */
+    public function delete(AbstractAttribute $attribute)
+    {
+        $this->em->remove($attribute);
+        $this->em->flush();
+    }
+
+    /**
      * Prepares an attribute before being update/creation
      *
      * @param AbstractAttribute $attribute The attribute that needs preparing

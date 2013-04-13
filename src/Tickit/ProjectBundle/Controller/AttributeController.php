@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
@@ -125,6 +126,40 @@ class AttributeController extends AbstractCoreController
         }
 
         return array('attributeName' => $attribute->getName(), 'type' => $type, 'form' => $form->createView());
+    }
+
+    /**
+     * Deletes an attribute from the application
+     *
+     * @param integer $id The ID of the attribute to delete
+     *
+     * @throws NotFoundHttpException If no attribute was found for the given ID or an invalid CSRF token is provided
+     *
+     * @return RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $token = $this->getRequest()->query->get('token');
+        $tokenProvider = $this->get('form.csrf_provider');
+
+        if (false === $tokenProvider->isCsrfTokenValid('delete_project_attribute', $token)) {
+            throw $this->createNotFoundException('Invalid CSRF token');
+        }
+
+        $manager = $this->get('tickit_project.attribute_manager');
+        $attribute = $manager->getRepository()->find($id);
+
+        if (empty($attribute)) {
+            throw $this->createNotFoundException('Attribute not found');
+        }
+
+        $manager->delete($attribute);
+
+        $generator = $this->get('tickit.flash_messages');
+        $this->get('session')->getFlashBag()->add('notice', $generator->getEntityDeletedMessage('attribute'));
+        $route = $this->generateUrl('project_attribute_index');
+
+        return $this->redirect($route);
     }
 
     /**
