@@ -11,6 +11,7 @@ use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Form\Type\AbstractAttributeFormType;
+use Tickit\ProjectBundle\Form\Type\ChoiceAttributeFormType;
 use Tickit\ProjectBundle\Form\Type\EntityAttributeFormType;
 use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
@@ -174,7 +175,7 @@ class AttributeController extends AbstractCoreController
     {
         switch ($attributeType) {
             case AbstractAttribute::TYPE_CHOICE:
-                $formType = '';
+                $formType = new ChoiceAttributeFormType();
                 break;
             case AbstractAttribute::TYPE_ENTITY:
                 $formType = $this->get('tickit_project.form.entity_attribute');
