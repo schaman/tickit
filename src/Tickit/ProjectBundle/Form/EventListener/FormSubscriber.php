@@ -12,7 +12,7 @@ use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
  * @package Tickit\ProjectBundle\Form\EventListener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EventListener
+class FormSubscriber
 {
     /**
      * Hooks into the TickitProjectBundleEvents::ENTITY_ATTRIBUTE_FORM_BUILD
