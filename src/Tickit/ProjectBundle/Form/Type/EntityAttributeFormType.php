@@ -5,6 +5,7 @@ namespace Tickit\ProjectBundle\Form\Type;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
 use Tickit\ProjectBundle\Form\TickitProjectFormEvents;
 
@@ -49,9 +50,10 @@ class EntityAttributeFormType extends AbstractAttributeFormType
         $event = $this->dispatcher->dispatch(TickitProjectFormEvents::ENTITY_ATTRIBUTE_FORM_BUILD, $event);
         $choices = $event->getEntityChoices();
 
-        $builder->add('entity', 'choice', array(
-            'choices' => $choices
-        ));
+        $builder->add('type', 'hidden', array('data' => AbstractAttribute::TYPE_ENTITY))
+                ->add('entity', 'choice', array(
+                    'choices' => $choices
+                ));
     }
 
     /**
