@@ -49,8 +49,45 @@ class AttributeManager
      *
      * @param AbstractAttribute $attribute The Attribute entity to persist
      * @param boolean           $flush     False to prevent the changes being flushed, defaults to true
+     *
+     * @return void
      */
     public function create(AbstractAttribute $attribute, $flush = true)
+    {
+        $attribute = $this->prepareEntity($attribute);
+        $this->em->persist($attribute);
+
+        if (false !== $flush) {
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * Updates an Attribute entity by persisting and flushing changes to the entity manager
+     *
+     * @param AbstractAttribute $attribute The Attribute entity to update
+     * @param boolean           $flush     False to prevent the changes being flushed, defaults to true
+     *
+     * @return void
+     */
+    public function update(AbstractAttribute $attribute, $flush = true)
+    {
+        $attribute = $this->prepareEntity($attribute);
+        $this->em->persist($attribute);
+
+        if (false !== $flush) {
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * Prepares an attribute before being update/creation
+     *
+     * @param AbstractAttribute $attribute The attribute that needs preparing
+     *
+     * @return AbstractAttribute
+     */
+    protected function prepareEntity(AbstractAttribute $attribute)
     {
         switch ($attribute->getType()) {
             case AbstractAttribute::TYPE_LITERAL:
@@ -61,10 +98,6 @@ class AttributeManager
                 break;
         }
 
-        $this->em->persist($attribute);
-
-        if (false !== $flush) {
-            $this->em->flush();
-        }
+        return $attribute;
     }
 }
