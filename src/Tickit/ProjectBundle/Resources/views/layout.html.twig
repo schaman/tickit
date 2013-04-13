@@ -5,3 +5,11 @@
     {% block project_content %}{% endblock %}
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@TickitProjectBundle/Resources/js/app.project.js'
+                   '@TickitProjectBundle/Resources/js/app.project.form.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
