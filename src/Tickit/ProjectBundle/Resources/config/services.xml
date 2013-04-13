@@ -25,8 +25,8 @@
             <tag name="form.type" alias="tickit_project_attribute_entity" />
         </service>
 
-        <service id="tickit_project.form.event_listener" class="Tickit\ProjectBundle\Form\EventListener">
-            <tag name="kernel.event_listener" event="security.interactive_login" method="onEntityAttributeFormBuild" />
+        <service id="tickit_project.form.event_listener" class="Tickit\ProjectBundle\Form\EventListener\EventListener">
+                <tag name="kernel.event_listener" event="tickit_project.form.event.entity_attribute_build" method="onEntityAttributeFormBuild" />
         </service>
     </services>
 

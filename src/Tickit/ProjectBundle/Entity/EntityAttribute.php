@@ -18,6 +18,14 @@ use Doctrine\ORM\Mapping as ORM;
 class EntityAttribute extends AbstractAttribute
 {
     /**
+     * The entity class that this attribute is for
+     *
+     * @var string
+     * @ORM\Column(type="string", length=200)
+     */
+    protected $entity;
+
+    /**
      * Gets the attribute type
      *
      * @return string
@@ -25,5 +33,29 @@ class EntityAttribute extends AbstractAttribute
     public function getType()
     {
         return static::TYPE_ENTITY;
+    }
+
+    /**
+     * Gets the entity class name that this attribute is for
+     *
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Sets the entity class name
+     *
+     * @param string $entity The new entity class name
+     *
+     * @return EntityAttribute
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
     }
 }

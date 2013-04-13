@@ -177,7 +177,7 @@ class AttributeController extends AbstractCoreController
                 $formType = '';
                 break;
             case AbstractAttribute::TYPE_ENTITY:
-                $formType = $this->get('tickit_project_attribute_entity');
+                $formType = $this->get('tickit_project.form.entity_attribute');
                 break;
             default:
                 $formType = new LiteralAttributeFormType();

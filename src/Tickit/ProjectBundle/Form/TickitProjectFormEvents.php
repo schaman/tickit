@@ -18,5 +18,5 @@ class TickitProjectFormEvents
      *
      * @const string
      */
-    const ENTITY_ATTRIBUTE_FORM_BUILD = 'tickit_project.form.event.before_entity_attribute_build';
+    const ENTITY_ATTRIBUTE_FORM_BUILD = 'tickit_project.form.event.entity_attribute_build';
 }
