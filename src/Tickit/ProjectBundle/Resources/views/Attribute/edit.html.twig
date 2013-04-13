@@ -1,7 +1,7 @@
 {% extends 'TickitProjectBundle::layout.html.twig' %}
 
 {% block project_content %}
-    <h2>Create New {{ type|title }} Attribute</h2>
+    <h2>Edit {{ type|title }} Attribute "{{ attributeName }}"</h2>
 
     {% if app.session.flashbag.has('error') %}
         <div class="flash-error">
