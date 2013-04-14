@@ -3,9 +3,12 @@
 namespace Tickit\ProjectBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 
 /**
  * Attribute manager.
@@ -48,36 +51,26 @@ class AttributeManager
      * Creates an Attribute entity by persisting it and flushing changes to the entity manager
      *
      * @param AbstractAttribute $attribute The Attribute entity to persist
-     * @param boolean           $flush     False to prevent the changes being flushed, defaults to true
      *
      * @return void
      */
-    public function create(AbstractAttribute $attribute, $flush = true)
+    public function create(AbstractAttribute $attribute)
     {
-        $attribute = $this->prepareEntity($attribute);
-        $this->em->persist($attribute);
-
-        if (false !== $flush) {
-            $this->em->flush();
-        }
+        $this->persistEntity($attribute);
+        $this->em->flush();
     }
 
     /**
      * Updates an Attribute entity by persisting and flushing changes to the entity manager
      *
      * @param AbstractAttribute $attribute The Attribute entity to update
-     * @param boolean           $flush     False to prevent the changes being flushed, defaults to true
      *
      * @return void
      */
-    public function update(AbstractAttribute $attribute, $flush = true)
+    public function update(AbstractAttribute $attribute)
     {
-        $attribute = $this->prepareEntity($attribute);
-        $this->em->persist($attribute);
-
-        if (false !== $flush) {
-            $this->em->flush();
-        }
+        $this->persistEntity($attribute);
+        $this->em->flush();
     }
 
     /**
@@ -94,27 +87,66 @@ class AttributeManager
     }
 
     /**
-     * Prepares an attribute before being update/creation
+     * Persists an attribute
      *
-     * @param AbstractAttribute $attribute The attribute that needs preparing
+     * @param AbstractAttribute $attribute The attribute that needs persisting
      *
-     * @return AbstractAttribute
+     * @return void
      */
-    protected function prepareEntity(AbstractAttribute $attribute)
+    protected function persistEntity(AbstractAttribute $attribute)
     {
-        switch ($attribute->getType()) {
-            case AbstractAttribute::TYPE_LITERAL:
-                break;
-            case AbstractAttribute::TYPE_CHOICE:
-                break;
-            case AbstractAttribute::TYPE_ENTITY:
-                break;
-        }
-
         if (null === $attribute->getDefaultValue()) {
             $attribute->setDefaultValue('');
         }
 
-        return $attribute;
+        switch ($attribute->getType()) {
+            case AbstractAttribute::TYPE_LITERAL:
+                $this->em->persist($attribute);
+                break;
+            case AbstractAttribute::TYPE_CHOICE:
+                $this->persistChoiceEntity($attribute);
+                break;
+            case AbstractAttribute::TYPE_ENTITY:
+                $this->em->persist($attribute);
+                break;
+        }
+    }
+
+    /**
+     * Persists a choice entity for creation/updating
+     *
+     * @param ChoiceAttribute $attribute
+     *
+     * @return void
+     */
+    private function persistChoiceEntity(ChoiceAttribute $attribute)
+    {
+        $id = $attribute->getId();
+        if (!empty($id)) {
+            //TODO: mark current choices for deletion and flush
+        }
+
+        $choices = $attribute->getChoices();
+
+        // save the attribute to get an internal identifier
+        $attribute->clearChoices();
+        $this->em->persist($attribute);
+        $this->em->flush();
+
+        /** @var ArrayCollection $choices */
+        foreach ($choices as $key => $choice) {
+            if (is_array($choice)) {
+                $newChoice = new ChoiceAttributeChoice();
+                $newChoice->setName($choice['name'])
+                          ->setAttribute($attribute);
+                $this->em->persist($newChoice);
+
+                $choices->remove($key);
+                $choices->add($newChoice);
+            }
+        }
+
+        $attribute->setChoices($choices);
+        $this->em->flush();
     }
 }

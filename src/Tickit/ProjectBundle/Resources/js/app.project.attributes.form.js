@@ -14,7 +14,22 @@ app.project.attributes.form = {
      * @return {void}
      */
     init : function() {
+        this.bindChoiceButton();
+    },
 
+    /**
+     * Binds click event to the "Add Choice" button.
+     *
+     * This method is for the ChoiceAttributeFormType
+     */
+    bindChoiceButton : function() {
+        var $choices = $('#choice-attribute-choices');
+        var count = $choices.find('input').length;
+        $choices.find('a').on('click', function(e) {
+            e.preventDefault();
+            var row = $choices.data('prototype').replace(/__name__/g, count++);
+            $choices.append(row);
+        });
     }
 };
 

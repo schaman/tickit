@@ -16,10 +16,19 @@ use Doctrine\ORM\Mapping as ORM;
 class ChoiceAttributeChoice
 {
     /**
+     * The unique identifier for this choice
+     *
+     * @var integer
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
      * The attribute that this choice belongs to
      *
      * @var ChoiceAttribute
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="ChoiceAttribute", inversedBy="choices")
      * @ORM\JoinColumn(name="attribute_id")
      */
@@ -29,7 +38,6 @@ class ChoiceAttributeChoice
      * The name of this choice
      *
      * @var string
-     * @ORM\Id
      * @ORM\Column(type="string", length=120)
      */
     protected $name;

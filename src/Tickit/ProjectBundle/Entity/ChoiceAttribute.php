@@ -21,7 +21,7 @@ class ChoiceAttribute extends AbstractAttribute
      * Choices that are associated with this choice attribute
      *
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ChoiceAttributeChoice", mappedBy="attribute")
+     * @ORM\OneToMany(targetEntity="ChoiceAttributeChoice", mappedBy="attribute", cascade={"persist"})
      */
     protected $choices;
 
@@ -62,5 +62,17 @@ class ChoiceAttribute extends AbstractAttribute
     public function getChoices()
     {
         return $this->choices;
+    }
+
+    /**
+     * Clears all current choices
+     *
+     * @return ChoiceAttribute
+     */
+    public function clearChoices()
+    {
+        $this->choices = new ArrayCollection();
+
+        return $this;
     }
 }

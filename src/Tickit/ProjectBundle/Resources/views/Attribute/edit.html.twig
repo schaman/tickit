@@ -34,7 +34,7 @@
             {% endif %}
 
             {% if type == 'choice' %}
-                <div id='choice-attribute-choices' data-prototype="{{ form_widget(form.choices.vars.prototype) | e }}>
+                <div id='choice-attribute-choices' data-prototype="{{ form_widget(form.choices.vars.prototype) | e }}">
                     {{ form_label(form.choices) }}
                     <ul>
                         {% for choice in form.choices %}

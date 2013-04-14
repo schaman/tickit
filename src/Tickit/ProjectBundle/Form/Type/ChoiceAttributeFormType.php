@@ -26,10 +26,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
         parent::buildForm($builder, $options);
 
         $builder->add('choices', 'collection', array(
-            'type' => 'entity',
-            'options' => array(
-                'class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice'
-            ),
+            'type' => new ChoiceAttributeChoiceType(),
             'allow_delete' => true,
             'allow_add' => true
         ));
