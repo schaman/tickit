@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,9 +48,9 @@ class ChoiceAttribute extends AbstractAttribute
     /**
      * Sets the choices available on this choice attribute
      *
-     * @param ArrayCollection $choices The new collection of choices
+     * @param Collection $choices The new collection of choices
      */
-    public function setChoices(ArrayCollection $choices)
+    public function setChoices(Collection $choices)
     {
         $this->choices = $choices;
     }
