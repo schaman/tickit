@@ -28,7 +28,6 @@ class ChoiceAttributeChoiceType extends AbstractType
         $builder->add('name', 'text');
     }
 
-
     /**
      * Sets default options.
      *
@@ -39,7 +38,6 @@ class ChoiceAttributeChoiceType extends AbstractType
         $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice'));
     }
 
-
     /**
      * Gets the name of this form type
      *
@@ -49,5 +47,4 @@ class ChoiceAttributeChoiceType extends AbstractType
     {
         return 'tickit_project_attribute_choice_choice';
     }
-
 }
