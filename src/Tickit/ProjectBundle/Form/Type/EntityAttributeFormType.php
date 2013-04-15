@@ -63,7 +63,7 @@ class EntityAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('class' => 'Tickit\ProjectBundle\Entity\EntityAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\EntityAttribute'));
     }
 
     /**

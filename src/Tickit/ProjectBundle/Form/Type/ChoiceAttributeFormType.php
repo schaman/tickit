@@ -4,6 +4,7 @@ namespace Tickit\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\ProjectBundle\Entity\AbstractAttribute;
 
 /**
  * Choice attribute form.
@@ -26,6 +27,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
         parent::buildForm($builder, $options);
 
         $builder
+            ->add('type', 'hidden', array('data' => AbstractAttribute::TYPE_CHOICE))
             ->add('expanded', 'choice', array(
                 'choices' => array(
                     1 => 'Yes',
@@ -43,10 +45,10 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
                 'multiple' => false
             ))
             ->add('choices', 'collection', array(
-            'type' => new ChoiceAttributeChoiceType(),
-            'allow_delete' => true,
-            'allow_add' => true
-        ));
+                'type' => new ChoiceAttributeChoiceType(),
+                'allow_delete' => true,
+                'allow_add' => true
+            ));
     }
 
     /**

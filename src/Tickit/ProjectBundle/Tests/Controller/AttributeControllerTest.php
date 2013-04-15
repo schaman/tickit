@@ -188,13 +188,34 @@ class AttributeControllerTest extends AbstractFunctionalTest
     /**
      * Tests the createAction()
      *
-     * @todo Implement this when entity form type is implemented
-     *
      * @return void
      */
     public function testCreateActionForChoiceAttributeCreatesAttribute()
     {
-        $this->markTestIncomplete();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+
+        $crawler = $client->request('get', $router->generate('project_attribute_index'));
+        $totalAttributes = $crawler->filter('div.data-list table tbody tr')->count();
+
+        $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_CHOICE));
+        $crawler = $client->request('get', $createRoute);
+
+        $form = $crawler->selectButton('Save Project Attribute')->form(array(
+            'tickit_project_attribute_choice[type]' => AbstractAttribute::TYPE_CHOICE,
+            'tickit_project_attribute_choice[name]' => 'Test Attribute' . uniqid(), //needs to be unique
+            'tickit_project_attribute_choice[default_value]' => 'Off',
+            'tickit_project_attribute_choice[allow_blank]' => 1,
+            'tickit_project_attribute_choice[expanded]' => 1,
+            'tickit_project_attribute_choice[allow_multiple]' => 0,
+            'tickit_project_attribute_choice[choices][0][name]' => 'On',
+            'tickit_project_attribute_choice[choices][1][name]' => 'Off'
+        ));
+        $client->submit($form);
+        $crawler = $client->followRedirect();
+
+        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count());
+        $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
     /**
@@ -220,7 +241,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
             'tickit_project_attribute_literal[allow_blank]' => 1,
             'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_DATE
         ));
-        $this->assertGreaterThan(0, $crawler->filter('div#tickit_project_attribute_literal ul li')->count());
+        $this->assertGreaterThan(0, $crawler->filter('form div ul li')->count());
     }
 
     /**
@@ -242,19 +263,31 @@ class AttributeControllerTest extends AbstractFunctionalTest
             'tickit_project_attribute_entity[allow_blank]' => 1,
             'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
         ));
-        $this->assertGreaterThan(0, $crawler->filter('div#tickit_project_attribute_entity ul li')->count());
+
+        $this->assertGreaterThan(0, $crawler->filter('form div ul li')->count());
     }
 
     /**
      * Tests the createAction()
      *
-     * @todo Implement this when entity form type is implemented
-     *
      * @return void
      */
     public function testCreateActionForChoiceAttributeDisplaysErrorsForInvalidDetails()
     {
-        $this->markTestIncomplete();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+
+        $crawler = $client->request('get', $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_CHOICE)));
+        $form = $crawler->selectButton('Save Project Attribute')->form();
+        $crawler = $client->submit($form, array(
+            'tickit_project_attribute_choice[type]' =>  AbstractAttribute::TYPE_CHOICE,
+            'tickit_project_attribute_choice[name]' => '',
+            'tickit_project_attribute_choice[default_value]' => '',
+            'tickit_project_attribute_choice[expanded]' => 0,
+            'tickit_project_attribute_choice[allow_multiple]' => 0,
+            'tickit_project_attribute_choice[allow_blank]' => 1
+        ));
+        $this->assertGreaterThan(0, $crawler->filter('form div ul li')->count());
     }
 
     /**
