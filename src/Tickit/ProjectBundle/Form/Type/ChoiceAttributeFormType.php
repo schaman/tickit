@@ -28,16 +28,16 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
         $builder
             ->add('expanded', 'choice', array(
                 'choices' => array(
-                    0 => 'Yes',
-                    1 => 'No'
+                    1 => 'Yes',
+                    0 => 'No'
                 ),
                 'expanded' => true,
                 'multiple' => false
             ))
             ->add('allow_multiple', 'choice', array(
                 'choices' => array(
-                    0 => 'Yes',
-                    1 => 'No'
+                    1 => 'Yes',
+                    0 => 'No'
                 ),
                 'expanded' => true,
                 'multiple' => false
