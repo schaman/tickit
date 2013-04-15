@@ -25,7 +25,24 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('choices', 'collection', array(
+        $builder
+            ->add('expanded', 'choice', array(
+                'choices' => array(
+                    0 => 'Yes',
+                    1 => 'No'
+                ),
+                'expanded' => true,
+                'multiple' => false
+            ))
+            ->add('allow_multiple', 'choice', array(
+                'choices' => array(
+                    0 => 'Yes',
+                    1 => 'No'
+                ),
+                'expanded' => true,
+                'multiple' => false
+            ))
+            ->add('choices', 'collection', array(
             'type' => new ChoiceAttributeChoiceType(),
             'allow_delete' => true,
             'allow_add' => true

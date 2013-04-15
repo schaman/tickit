@@ -27,11 +27,30 @@ class ChoiceAttribute extends AbstractAttribute
     protected $choices;
 
     /**
+     * Boolean indicating whether this choice attribute should be expanded when displayed
+     *
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    protected $expanded;
+
+    /**
+     * Boolean indicating whether multiple selections are allowed on this attribute
+     *
+     * @var boolean
+     * @ORM\Column(name="allow_multiple", type="boolean")
+     */
+    protected $allowMultiple;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         parent::__construct();
+
+        $this->expanded = false;
+        $this->allowMultiple = false;
         $this->choices = new ArrayCollection();
     }
 
@@ -71,5 +90,53 @@ class ChoiceAttribute extends AbstractAttribute
     public function getChoices()
     {
         return $this->choices;
+    }
+
+    /**
+     * Sets whether this attribute allows multiple selections
+     *
+     * @param boolean $allowMultiple True if attribute should allow multiple selections
+     *
+     * @return ChoiceAttribute
+     */
+    public function setAllowMultiple($allowMultiple)
+    {
+        $this->allowMultiple = (bool) $allowMultiple;
+
+        return $this;
+    }
+
+    /**
+     * Returns true if this attribute allows multiple selections
+     *
+     * @return boolean
+     */
+    public function getAllowMultiple()
+    {
+        return $this->allowMultiple;
+    }
+
+    /**
+     * Sets whether this attribute should display as expanded
+     *
+     * @param boolean $expanded True or false
+     *
+     * @return ChoiceAttribute
+     */
+    public function setExpanded($expanded)
+    {
+        $this->expanded = $expanded;
+
+        return $this;
+    }
+
+    /**
+     * Returns true if this attribute should display as expanded
+     *
+     * @return boolean
+     */
+    public function getExpanded()
+    {
+        return $this->expanded;
     }
 }
