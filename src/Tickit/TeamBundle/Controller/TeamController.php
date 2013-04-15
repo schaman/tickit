@@ -25,16 +25,45 @@ class TeamController extends AbstractCoreController
      */
     public function indexAction()
     {
-        $options = array(); //fetch filters from request
+        $projects = $this->get('tickit_team.manager')
+            ->getRepository()
+            ->findByFilters();
 
-        $teamsQ = $this->getDoctrine()
-                       ->getManager()
-                       ->getRepository('TickitTeamBundle:Team')
-                       ->getFiltered($options);
+        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
 
-        $teams = $teamsQ->getQuery()->execute();
-
-        return array('teams' => $teams);
+        return array('teams' => $projects, 'token' => $token);
     }
 
+    /**
+     * Loads the create team page
+     *
+     * @Template("TickitTeamBundle:Team:create.html.twig")
+     *
+     * @return array|RedirectResponse
+     */
+    public function createAction()
+    {
+        $formType = new TeamFormType();
+        $form = $this->createForm($formType);
+
+        if ('POST' == $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+
+            if ($form->isValid()) {
+                $team = $form->getData();
+
+                /** @var TeamManager $manager  */
+                $manager = $this->get('tickit_team.manager');
+                $manager->create($team);
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('team'));
+                $route = $this->generateUrl('team_index');
+
+                return $this->redirect($route);
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
 }
