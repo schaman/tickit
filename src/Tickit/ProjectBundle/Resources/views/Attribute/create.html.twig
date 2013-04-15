@@ -13,6 +13,8 @@
 
     <form method='post' {{ form_enctype(form) }}>
 
+        {{ form_errors(form) }}
+
         {{ form_row(form.name) }}
         {{ form_row(form.default_value) }}
         {{ form_row(form.allow_blank) }}
@@ -28,6 +30,7 @@
         {% if type == 'choice' %}
             <div id='choice-attribute-choices' data-prototype="{{ form_widget(form.choices.vars.prototype) | e }}">
                 {{ form_label(form.choices) }}
+                {{ form_errors(form.choices) }}
                 <ul>
                     {% for choice in form.choices %}
                         {{ form_errors(choice) }}

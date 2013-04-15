@@ -21,3 +21,15 @@ Tickit\ProjectBundle\Entity\EntityAttribute:
         entity:
             - NotBlank: { message: "You didn't select an entity type, did you forget?" }
             - NotNull: { message: "You didn't select an entity type, did you forget?" }
+
+Tickit\ProjectBundle\Entity\ChoiceAttribute:
+    properties:
+        choices:
+            - Count:
+                min: 2
+                minMessage: "We need at least two choices for this type of attribute"
+            - Collection:
+                fields:
+                    name:
+                        - NotBlank: { message: "You didn't give us a name for one of your choices" }
+                allowMissingFields: true
