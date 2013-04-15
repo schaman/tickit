@@ -122,15 +122,12 @@ class AttributeManager
     private function persistChoiceEntity(ChoiceAttribute $attribute)
     {
         $id = $attribute->getId();
-        if (!empty($id)) {
-            //TODO: mark current choices for deletion and flush
-        }
-
         $choices = $attribute->getChoices();
 
         // save the attribute to get an internal identifier
-        $attribute->clearChoices();
-        $this->em->persist($attribute);
+        if (empty($id)) {
+            $this->em->persist($attribute);
+        }
         $this->em->flush();
 
         /** @var ArrayCollection $choices */

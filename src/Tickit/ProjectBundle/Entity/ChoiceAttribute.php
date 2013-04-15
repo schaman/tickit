@@ -49,10 +49,18 @@ class ChoiceAttribute extends AbstractAttribute
      * Sets the choices available on this choice attribute
      *
      * @param Collection $choices The new collection of choices
+     *
+     * @return ChoiceAttribute
      */
     public function setChoices(Collection $choices)
     {
+        foreach ($choices as $choice) {
+            $choice->setAttribute($this);
+        }
+
         $this->choices = $choices;
+
+        return $this;
     }
 
     /**
@@ -63,17 +71,5 @@ class ChoiceAttribute extends AbstractAttribute
     public function getChoices()
     {
         return $this->choices;
-    }
-
-    /**
-     * Clears all current choices
-     *
-     * @return ChoiceAttribute
-     */
-    public function clearChoices()
-    {
-        $this->choices = new ArrayCollection();
-
-        return $this;
     }
 }
