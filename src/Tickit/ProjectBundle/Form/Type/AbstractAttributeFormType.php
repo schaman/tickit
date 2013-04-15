@@ -29,7 +29,9 @@ abstract class AbstractAttributeFormType extends AbstractType
                     'choices' => array(
                         0 => 'No',
                         1 => 'Yes'
-                    )
+                    ),
+                    'expanded' => true,
+                    'multiple' => false
                 ));
     }
 }
