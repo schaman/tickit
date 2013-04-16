@@ -40,6 +40,15 @@ abstract class AbstractAttributeValue implements AttributeValueInterface
     abstract public function getType();
 
     /**
+     * Sets the attribute that this value is for
+     *
+     * @param AbstractAttribute $attribute The new attribute
+     *
+     * @return mixed
+     */
+    abstract public function setAttribute(AbstractAttribute $attribute);
+
+    /**
      * Sets the project that this attribute value is associated with
      *
      * @param Project $project The new project

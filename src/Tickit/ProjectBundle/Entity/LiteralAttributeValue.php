@@ -61,4 +61,16 @@ class LiteralAttributeValue extends AbstractAttributeValue
     {
         return AbstractAttribute::TYPE_LITERAL;
     }
+
+    /**
+     * Sets the attribute that this value is for
+     *
+     * @param AbstractAttribute $attribute The new attribute
+     *
+     * @return mixed
+     */
+    public function setAttribute(AbstractAttribute $attribute)
+    {
+        $this->attribute = $attribute;
+    }
 }
