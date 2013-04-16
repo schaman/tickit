@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\ProjectBundle\Entity\Project;
 
 /**
  * Attribute manager.
@@ -84,6 +86,30 @@ class AttributeManager
     {
         $this->em->remove($attribute);
         $this->em->flush();
+    }
+
+    /**
+     * Fetches a collection of attribute values.
+     *
+     * This method is used when creating a new entity that is associated with
+     * attribute values and needs a collection ready for attaching to the entity
+     * (for example, Project entities).
+     *
+     * @return ArrayCollection
+     */
+    public function getAttributeValuesForProject(Project $project)
+    {
+        $collection = new ArrayCollection();
+        $attributes = $this->getRepository()->findAll();
+
+        foreach ($attributes as $attribute) {
+            $value = AbstractAttributeValue::factory($attribute->getType());
+            $value->setProject($project);
+            $value->setAttribute($attribute);
+            $collection->add($value);
+        }
+
+        return $collection;
     }
 
     /**
