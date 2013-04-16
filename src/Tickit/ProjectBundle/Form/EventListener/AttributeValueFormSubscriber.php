@@ -135,7 +135,12 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
      */
     protected function buildChoiceValueFields(FormInterface $form, ChoiceAttribute $attribute)
     {
-        //todo
+        $choices = $attribute->getChoices();
+        $form->add('value', 'choice', array(
+            'choices' => array()
+        ));
+
+        var_dump($choices);
     }
 
     /**

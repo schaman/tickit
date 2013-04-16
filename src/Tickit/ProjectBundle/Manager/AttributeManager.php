@@ -100,7 +100,7 @@ class AttributeManager
     public function getAttributeValuesForProject(Project $project)
     {
         $collection = new ArrayCollection();
-        $attributes = $this->getRepository()->findAll();
+        $attributes = $this->getRepository()->findAllAttributes();
 
         foreach ($attributes as $attribute) {
             $value = AbstractAttributeValue::factory($attribute->getType());
