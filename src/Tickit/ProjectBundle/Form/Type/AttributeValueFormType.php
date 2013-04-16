@@ -39,7 +39,6 @@ class AttributeValueFormType extends AbstractType
         $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\AbstractAttributeValue'));
     }
 
-
     /**
      * Returns the name of this type.
      *
