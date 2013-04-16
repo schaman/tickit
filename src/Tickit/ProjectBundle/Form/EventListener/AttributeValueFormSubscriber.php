@@ -27,6 +27,8 @@ use Tickit\ProjectBundle\Entity\LiteralAttribute;
 class AttributeValueFormSubscriber implements EventSubscriberInterface
 {
     /**
+     * Gets subscribed events
+     *
      * @return array
      */
     public static function getSubscribedEvents()
@@ -35,7 +37,14 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param FormEvent $event
+     * Builds fields for the AttributeValueForm subscriber.
+     *
+     * Looks at the type of attribute that the value is associated with and
+     * builds form fields relevant for that type.
+     *
+     * @param FormEvent $event The form event
+     *
+     * @return void
      */
     public function buildFields(FormEvent $event)
     {
@@ -140,7 +149,9 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
     {
         $collection = new ArrayCollection();
 
-        //TODO: add base assertions
+        if (false === $attribute->getAllowBlank()) {
+            $collection->add(new Assert\NotBlank());
+        }
 
         return $collection;
     }
