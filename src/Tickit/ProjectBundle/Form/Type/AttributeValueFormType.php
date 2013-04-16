@@ -5,42 +5,40 @@ namespace Tickit\ProjectBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\ProjectBundle\Form\EventListener\AttributeValueFormSubscriber;
 
 /**
- * Add/edit project form.
+ * Attribute value form type.
  *
- * Provides functionality for adding/editing project entities.
+ * Provides functionality for adding/editing values for attributes
  *
  * @package Tickit\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectFormType extends AbstractType
+class AttributeValueFormType extends AbstractType
 {
     /**
-     * Builds the form.
+     * Builds the form
      *
      * @param FormBuilderInterface $builder The form builder
-     * @param array                $options Form options
+     * @param array                $options An array of options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text')
-                ->add('attributes', 'collection', array(
-                    'type' => new AttributeValueFormType()
-                ));
+        // we let the event subscriber build the form for us
+        $builder->addEventSubscriber(new AttributeValueFormSubscriber());
     }
 
     /**
-     * Sets default options for this form type
+     * Sets default options for the form
      *
-     * @param OptionsResolverInterface $resolver The options resolver
-     *
-     * @return array
+     * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\Project'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\AbstractAttributeValue'));
     }
+
 
     /**
      * Returns the name of this type.
@@ -49,6 +47,6 @@ class ProjectFormType extends AbstractType
      */
     public function getName()
     {
-        return 'tickit_project';
+        return 'tickit_project_attribute_literal_value';
     }
 }
