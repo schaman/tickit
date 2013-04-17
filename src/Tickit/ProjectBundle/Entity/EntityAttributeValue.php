@@ -61,4 +61,16 @@ class EntityAttributeValue extends AbstractAttributeValue
     {
         return AbstractAttribute::TYPE_ENTITY;
     }
+
+    /**
+     * Sets the attribute that this value is for
+     *
+     * @param AbstractAttribute $attribute The new attribute
+     *
+     * @return mixed
+     */
+    public function setAttribute(AbstractAttribute $attribute)
+    {
+        $this->attribute = $attribute;
+    }
 }
