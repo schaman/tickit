@@ -43,6 +43,16 @@ class ChoiceAttributeChoice
     protected $name;
 
     /**
+     * Gets the unique identifier for this choice
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Sets the attribute that this choice belongs to
      *
      * @param ChoiceAttribute $attribute The attribute

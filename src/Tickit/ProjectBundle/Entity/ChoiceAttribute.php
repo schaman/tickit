@@ -139,4 +139,20 @@ class ChoiceAttribute extends AbstractAttribute
     {
         return $this->expanded;
     }
+
+    /**
+     * Returns choices as an indexed array
+     *
+     * @return array
+     */
+    public function getChoicesAsArray()
+    {
+        $return = array();
+        $choices = $this->getChoices();
+        foreach ($choices as $choice) {
+            $return[$choice->getId()] = $choice->getName();
+        }
+
+        return $return;
+    }
 }
