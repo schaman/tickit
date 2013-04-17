@@ -2,36 +2,40 @@
 
 namespace Tickit\TeamBundle\Controller;
 
+use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-
-//bind forms here
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tickit\TeamBundle\Form\Type\TeamFormType;
+use Tickit\TeamBundle\Manager\TeamManager;
 
 /**
- * Controller that provides actions for managing teams in the application
+ * Team controller.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * Responsible for handling requests related to teams
+ *
+ * @package Tickit\TeamBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TeamController extends AbstractCoreController
 {
     /**
-     * Lists all teams in the system, optionally filters using request parameters
+     * Lists all teams in the application
+     *
+     * @Template("TickitTeamBundle:Team:index.html.twig")
      *
      * @return array
-     * @Template("TickitTeamBundle:Team:index.html.twig")
      */
     public function indexAction()
     {
-        $projects = $this->get('tickit_team.manager')
+        $teams = $this->get('tickit_team.manager')
             ->getRepository()
             ->findByFilters();
 
-        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
+        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_team');
 
-        return array('teams' => $projects, 'token' => $token);
+        return array('teams' => $teams, 'token' => $token);
     }
 
     /**
@@ -65,5 +69,83 @@ class TeamController extends AbstractCoreController
         }
 
         return array('form' => $form->createView());
+    }
+
+    /**
+     * Loads the edit team page
+     *
+     * @param integer $id The ID of the team to edit
+     *
+     * @Template("TickitTeamBundle:Team:edit.html.twig")
+     *
+     * @throws NotFoundHttpException If no team was found for the given ID
+     *
+     * @return array
+     */
+    public function editAction($id)
+    {
+        /** @var TeamManager $manager */
+        $manager = $this->get('tickit_team.manager');
+        $repo = $manager->getRepository();
+
+        $team = $repo->find($id);
+
+        if (empty($team)) {
+            throw $this->createNotFoundException('Team not found');
+        }
+
+        $formType = new TeamFormType();
+        $form = $this->createForm($formType, $team);
+
+        if ('POST' === $this->getRequest()->getMethod()) {
+            $form->bind($this->getRequest());
+
+            if ($form->isValid()) {
+                $team = $form->getData();
+                $manager->update($team);
+
+                $generator = $this->get('tickit.flash_messages');
+                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityUpdatedMessage('team'));
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * Deletes a team from the application.
+     *
+     * @param integer $id The ID of the team to delete
+     *
+     * @throws NotFoundHttpException If no team was found for the given ID or an invalid CSRF token is provided
+     *
+     * @return RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $token = $this->getRequest()->query->get('token');
+        /** @var CsrfProviderInterface $tokenProvider  */
+        $tokenProvider = $this->get('form.csrf_provider');
+
+        if (!$tokenProvider->isCsrfTokenValid('delete_team', $token)) {
+            throw $this->createNotFoundException('Invalid CSRF token');
+        }
+
+        /** @var TeamManager $manager  */
+        $manager = $this->get('tickit_team.manager');
+        $team = $manager->getRepository()->find($id);
+
+        if (empty($team)) {
+            throw $this->createNotFoundException('Team not found');
+        }
+
+        $manager->delete($team);
+
+        $generator = $this->get('tickit.flash_messages');
+        $this->get('session')->getFlashBag()->add('notice', $generator->getEntityDeletedMessage('team'));
+
+        $route = $this->generateUrl('team_index');
+
+        return $this->redirect($route);
     }
 }
