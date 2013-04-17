@@ -2,7 +2,9 @@
 
 namespace Tickit\ProjectBundle\Entity\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * Attribute entity repository.
@@ -47,13 +49,25 @@ class AttributeRepository extends EntityRepository
      */
     public function findAllAttributes()
     {
-        //TODO: run 3 separate queries, one for ChoiceAttributes, one for LiteralAttributes, one for EntityAttributes and merge
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('a')
-                      ->from('TickitProjectBundle:AbstractAttribute', 'a')
-                      ->leftJoin('a.choices', 'a');
+        $choicesQuery = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('c, ch')
+                             ->from('TickitProjectBundle:ChoiceAttribute', 'c')
+                             ->leftJoin('c.choices', 'ch');
 
-        return $query->getQuery()->execute();
+        $choices = $choicesQuery->getQuery()->execute();
+
+        $othersQuery = $this->getEntityManager()
+                            ->createQueryBuilder()
+                            ->select('a')
+                            ->from('TickitProjectBundle:AbstractAttribute', 'a')
+                            ->where('
+                                a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
+                                a INSTANCE OF TickitProjectBundle:EntityAttribute
+                            ');
+
+        $others = $othersQuery->getQuery()->execute();
+
+        return $others + $choices;
     }
 }
