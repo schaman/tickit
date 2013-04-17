@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
@@ -47,8 +48,13 @@ class ProjectController extends AbstractCoreController
      */
     public function createAction()
     {
+        $project = new Project();
         $formType = new ProjectFormType();
-        $form = $this->createForm($formType);
+
+        $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
+        $project->setAttributes($attributes);
+
+        $form = $this->createForm($formType, $project);
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());

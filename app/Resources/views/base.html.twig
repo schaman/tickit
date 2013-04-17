@@ -31,13 +31,13 @@
             {% block body %}{% endblock %}
         </div>
 
-        {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
-                       '../app/Resources/public/js/app.js'
-                       '../app/Resources/public/js/app.nav.js' %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
+                           '../app/Resources/public/js/app.js'
+                           '../app/Resources/public/js/app.nav.js' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
 
         <footer>
             {% block footer %}{% endblock %}

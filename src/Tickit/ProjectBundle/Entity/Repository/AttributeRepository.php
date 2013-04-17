@@ -37,4 +37,23 @@ class AttributeRepository extends EntityRepository
 
         return $query->getQuery()->execute();
     }
+
+    /**
+     * Returns a deep collection of all project attributes
+     *
+     * This method includes all associated meta objects related to the attributes.
+     *
+     * @return mixed
+     */
+    public function findAllAttributes()
+    {
+        //TODO: run 3 separate queries, one for ChoiceAttributes, one for LiteralAttributes, one for EntityAttributes and merge
+        $query = $this->getEntityManager()
+                      ->createQueryBuilder()
+                      ->select('a')
+                      ->from('TickitProjectBundle:AbstractAttribute', 'a')
+                      ->leftJoin('a.choices', 'a');
+
+        return $query->getQuery()->execute();
+    }
 }

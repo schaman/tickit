@@ -63,6 +63,7 @@ abstract class AbstractAttribute implements AttributeInterface
     public function __construct()
     {
         $this->allowBlank = true;
+        $this->defaultValue = '';
     }
 
     /**
@@ -162,5 +163,37 @@ abstract class AbstractAttribute implements AttributeInterface
     public static function getAvailableTypes()
     {
         return array(static::TYPE_CHOICE, static::TYPE_ENTITY, static::TYPE_LITERAL);
+    }
+
+
+    /**
+     * Factory method for creating new instances of attribute entities
+     *
+     * @param string $type The attribute type to create
+     *
+     * @throws \InvalidArgumentException If an invalid type was provided
+     *
+     * @return AbstractAttribute
+     */
+    public static function factory($type)
+    {
+        if (!in_array($type, static::getAvailableTypes())) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid type was provided (%s)', $type)
+            );
+        }
+
+        switch ($type) {
+            case AbstractAttribute::TYPE_CHOICE:
+                $attribute = new ChoiceAttribute();
+                break;
+            case AbstractAttribute::TYPE_ENTITY:
+                $attribute = new EntityAttribute();
+                break;
+            default:
+                $attribute = new LiteralAttribute();
+        }
+
+        return $attribute;
     }
 }

@@ -29,11 +29,14 @@ project_attribute_index:
 project_attribute_create:
     pattern: /attributes/{type}/create
     defaults: { _controller: TickitProjectBundle:Attribute:create }
+    requirements:
+        type: \w{6,7}
 
 project_attribute_edit:
-    pattern: /attributes/edit/{id}
+    pattern: /attributes/{type}/edit/{id}
     defaults: { _controller: TickitProjectBundle:Attribute:edit }
     requirements:
+        type: \w{6,7}
         id: \d+
 
 project_attribute_delete:

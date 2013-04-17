@@ -2,7 +2,7 @@ Tickit\ProjectBundle\Entity\Project:
     properties:
         name:
             - Length: { max: 100, maxMessage: "Name is too long, try something a little shorter (100 characters max)" }
-            - NotBlank: { message: "You didn't provide a name, did you forget it?" }
+            - NotBlank: { message: "You didn't provide a name, did you forget?" }
 
 Tickit\ProjectBundle\Entity\LiteralAttribute:
     constraints:
@@ -10,6 +10,28 @@ Tickit\ProjectBundle\Entity\LiteralAttribute:
     properties:
         name:
             - Length: { max: 120, maxMessage: "Name is too long, try something a little shorter (120 characters max)" }
-            - NotBlank: { message: "You didn't provide a name, did you forget it?" }
+            - NotBlank: { message: "You didn't provide a name, did you forget?" }
         allowBlank:
-            - NotNull: { message: "You didn't provide a value, did you forget it?" }
+            - NotNull: { message: "You didn't provide a value, did you forget?" }
+
+Tickit\ProjectBundle\Entity\EntityAttribute:
+    constraints:
+        - Callback:
+            methods:
+                - [Tickit\ProjectBundle\Form\Validator\EntityAttributeFormValidator, isEntityAttributeValid]
+    properties:
+        entity:
+            - NotBlank: { message: "You didn't select an entity type, did you forget?" }
+            - NotNull: { message: "You didn't select an entity type, did you forget?" }
+
+Tickit\ProjectBundle\Entity\ChoiceAttribute:
+    properties:
+        choices:
+            - Count:
+                min: 2
+                minMessage: "We need at least two choices for this type of attribute"
+            - Collection:
+                fields:
+                    name:
+                        - NotBlank: { message: "You didn't give us a name for one of your choices" }
+                allowMissingFields: true

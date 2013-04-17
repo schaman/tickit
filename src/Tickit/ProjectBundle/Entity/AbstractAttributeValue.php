@@ -25,6 +25,7 @@ abstract class AbstractAttributeValue implements AttributeValueInterface
     /**
      * The project that this attribute value is associated with
      *
+     * @var Project
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="attributes")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
@@ -37,4 +38,68 @@ abstract class AbstractAttributeValue implements AttributeValueInterface
      * @return string
      */
     abstract public function getType();
+
+    /**
+     * Sets the attribute that this value is for
+     *
+     * @param AbstractAttribute $attribute The new attribute
+     *
+     * @return mixed
+     */
+    abstract public function setAttribute(AbstractAttribute $attribute);
+
+    /**
+     * Sets the project that this attribute value is associated with
+     *
+     * @param Project $project The new project
+     *
+     * @return AbstractAttributeValue
+     */
+    public function setProject(Project $project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Gets the project that this attribute value is for
+     *
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * Factory method for creating new instances of AttributeValue entities
+     *
+     * @param string $type The attribute value type to create
+     *
+     * @throws \InvalidArgumentException If an invalid type was provided
+     *
+     * @return AbstractAttributeValue
+     */
+    public static function factory($type)
+    {
+        if (!in_array($type, AbstractAttribute::getAvailableTypes())) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid type was provided (%s)', $type)
+            );
+        }
+
+        switch ($type) {
+            case AbstractAttribute::TYPE_CHOICE:
+                $attribute = new ChoiceAttributeValue();
+                break;
+            case AbstractAttribute::TYPE_ENTITY:
+                $attribute = new EntityAttributeValue();
+                break;
+            default:
+                $attribute = new LiteralAttributeValue();
+        }
+
+        return $attribute;
+    }
 }
