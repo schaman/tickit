@@ -4,7 +4,9 @@ Tickit\ProjectBundle\Entity\Project:
             - Length: { max: 100, maxMessage: "Name is too long, try something a little shorter (100 characters max)" }
             - NotBlank: { message: "You didn't provide a name, did you forget?" }
 
-Tickit\ProjectBundle\Entity\AbstractAttribute:
+Tickit\ProjectBundle\Entity\LiteralAttribute:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: name, message: "Oops, looks like that attribute name already exists" }
     properties:
         name:
             - Length: { max: 120, maxMessage: "Name is too long, try something a little shorter (120 characters max)" }
