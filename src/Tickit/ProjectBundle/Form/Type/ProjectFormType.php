@@ -26,7 +26,8 @@ class ProjectFormType extends AbstractType
     {
         $builder->add('name', 'text')
                 ->add('attributes', 'collection', array(
-                    'type' => new AttributeValueFormType()
+                    'type' => new AttributeValueFormType(),
+                    'label' => ''
                 ));
     }
 

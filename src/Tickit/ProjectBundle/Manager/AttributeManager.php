@@ -95,6 +95,8 @@ class AttributeManager
      * attribute values and needs a collection ready for attaching to the entity
      * (for example, Project entities).
      *
+     * @param Project $project The project to fetch AttributeValue entities for
+     *
      * @return ArrayCollection
      */
     public function getAttributeValuesForProject(Project $project)

@@ -109,7 +109,10 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
                 $fieldType = 'text';
         }
 
-        $form->add('value', $fieldType, array('constraints' => $assert->toArray()));
+        $form->add('value', $fieldType, array(
+            'constraints' => $assert->toArray(),
+            'label' => $attribute->getName()
+        ));
     }
 
     /**
@@ -135,12 +138,11 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
      */
     protected function buildChoiceValueFields(FormInterface $form, ChoiceAttribute $attribute)
     {
-        $choices = $attribute->getChoices();
+        $choices = $attribute->getChoicesAsArray();
         $form->add('value', 'choice', array(
-            'choices' => array()
+            'choices' => $choices,
+            'label' => $attribute->getName()
         ));
-
-        var_dump($choices);
     }
 
     /**

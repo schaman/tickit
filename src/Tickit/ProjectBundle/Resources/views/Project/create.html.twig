@@ -12,7 +12,20 @@
     {% endif %}
 
     <form method='post' {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+
+        <div class='attributes'>
+            <h4>Attributes</h4>
+            {% for attribute in form.attributes %}
+                {{ form_errors(attribute) }}
+                {{ form_widget(attribute) }}
+            {% endfor %}
+        </div>
+        {% do form.attributes.setRendered %}
+
+        {{ form_rest(form) }}
 
         <input type='submit' value='Save Project' />
     </form>
