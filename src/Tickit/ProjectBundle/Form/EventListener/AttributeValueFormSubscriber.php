@@ -2,7 +2,9 @@
 
 namespace Tickit\ProjectBundle\Form\EventListener;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,7 +14,6 @@ use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
-
 
 /**
  * AttributeValueForm event subscriber.
@@ -26,6 +27,23 @@ use Tickit\ProjectBundle\Entity\LiteralAttribute;
  */
 class AttributeValueFormSubscriber implements EventSubscriberInterface
 {
+    /**
+     * The entity manager
+     *
+     * @var ObjectManager
+     */
+    protected $em;
+
+    /**
+     * Constructor.
+     *
+     * @param Registry $doctrine The doctrine registry service
+     */
+    public function __construct(Registry $doctrine)
+    {
+        $this->em = $doctrine->getManager();
+    }
+
     /**
      * Gets subscribed events
      *
@@ -125,7 +143,10 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
      */
     protected function buildEntityValueFields(FormInterface $form, EntityAttribute $attribute)
     {
-        //todo
+        $form->add('value', 'entity', array(
+            'class' => $attribute->getEntity(),
+            'label' => $attribute->getName()
+        ));
     }
 
     /**

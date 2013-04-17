@@ -17,6 +17,23 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ProjectFormType extends AbstractType
 {
     /**
+     * The attribute value form
+     *
+     * @var AttributeValueFormType
+     */
+    protected $attributeValueForm;
+
+    /**
+     * Constructor.
+     *
+     * @param AttributeValueFormType $attributeValueForm The attribute value form that this form depends on
+     */
+    public function __construct(AttributeValueFormType $attributeValueForm)
+    {
+        $this->attributeValueForm = $attributeValueForm;
+    }
+
+    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder The form builder
@@ -26,7 +43,7 @@ class ProjectFormType extends AbstractType
     {
         $builder->add('name', 'text')
                 ->add('attributes', 'collection', array(
-                    'type' => new AttributeValueFormType(),
+                    'type' => $this->attributeValueForm,
                     'label' => ''
                 ));
     }

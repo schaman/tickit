@@ -49,7 +49,7 @@ class ProjectController extends AbstractCoreController
     public function createAction()
     {
         $project = new Project();
-        $formType = new ProjectFormType();
+        $formType = $this->get('tickit_project.form.project');
 
         $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
         $project->setAttributes($attributes);
