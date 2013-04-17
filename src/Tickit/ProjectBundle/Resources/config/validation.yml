@@ -33,3 +33,4 @@ Tickit\ProjectBundle\Entity\ChoiceAttribute:
                     name:
                         - NotBlank: { message: "You didn't give us a name for one of your choices" }
                 allowMissingFields: true
+                allowExtraFields: true
