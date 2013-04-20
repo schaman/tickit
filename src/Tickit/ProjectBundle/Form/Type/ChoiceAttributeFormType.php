@@ -20,7 +20,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
      * Builds the form.
      *
      * @param FormBuilderInterface $builder The form builder
-     * @param array $options
+     * @param array                $options Form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

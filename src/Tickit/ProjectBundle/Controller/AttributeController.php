@@ -61,7 +61,7 @@ class AttributeController extends AbstractCoreController
     {
         try {
             $attribute = AbstractAttribute::factory($type);
-        } catch(\InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw $this->createNotFoundException('An invalid attribute type was specified');
         }
 
@@ -76,8 +76,8 @@ class AttributeController extends AbstractCoreController
 
                 $generator = $this->get('tickit.flash_messages');
                 $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('attribute'));
-
                 $route = $this->generateUrl('project_attribute_index');
+
                 return $this->redirect($route);
             }
         }

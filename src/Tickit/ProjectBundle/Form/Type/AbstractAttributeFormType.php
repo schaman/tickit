@@ -19,7 +19,7 @@ abstract class AbstractAttributeFormType extends AbstractType
      * Builds the form
      *
      * @param FormBuilderInterface $builder The form builder
-     * @param array $options                Form options
+     * @param array                $options Form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

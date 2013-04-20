@@ -16,8 +16,8 @@ class EntityAttributeFormValidator
     /**
      * Ensures that the entity selected on the form is valid
      *
-     * @param EntityAttribute            $attribute The entity attribute to validate
-     * @param ExecutionContextInterface  $context   The execution context
+     * @param EntityAttribute           $attribute The entity attribute to validate
+     * @param ExecutionContextInterface $context   The execution context
      *
      * @return void
      */
