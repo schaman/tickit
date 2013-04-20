@@ -158,7 +158,6 @@ class AttributeManager
             $this->em->flush();
         }
 
-
         /** @var ArrayCollection $choices */
         foreach ($choices as $key => $choice) {
             if (is_array($choice)) {
