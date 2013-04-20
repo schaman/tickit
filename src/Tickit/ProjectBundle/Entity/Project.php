@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -71,6 +72,13 @@ class Project
      */
     protected $deletedAt;
 
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
 
     /**
      * Gets the project ID

@@ -291,7 +291,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
             'tickit_project_attribute_choice[allow_multiple]' => 0,
             'tickit_project_attribute_choice[allow_blank]' => 1
         ));
-        $this->assertGreaterThan(0, $crawler->filter('form div ul li')->count());
+        $this->assertGreaterThan(0, $crawler->filter('form ul li')->count());
     }
 
     /**
