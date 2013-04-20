@@ -155,8 +155,9 @@ class AttributeManager
         // save the attribute to get an internal identifier
         if (empty($id)) {
             $this->em->persist($attribute);
+            $this->em->flush();
         }
-        $this->em->flush();
+
 
         /** @var ArrayCollection $choices */
         foreach ($choices as $key => $choice) {
