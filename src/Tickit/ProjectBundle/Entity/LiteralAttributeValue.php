@@ -43,6 +43,18 @@ class LiteralAttributeValue extends AbstractAttributeValue
     }
 
     /**
+     * Sets the value of this attribute value
+     *
+     * @param mixed $value The new value
+     *
+     * @return LiteralAttributeValue
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
      * Gets the attribute value
      *
      * @return mixed
