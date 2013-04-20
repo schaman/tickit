@@ -80,10 +80,12 @@ class EntityAttributeValue extends AbstractAttributeValue
      *
      * @param AbstractAttribute $attribute The new attribute
      *
-     * @return mixed
+     * @return EntityAttributeValue
      */
     public function setAttribute(AbstractAttribute $attribute)
     {
         $this->attribute = $attribute;
+
+        return $this;
     }
 }

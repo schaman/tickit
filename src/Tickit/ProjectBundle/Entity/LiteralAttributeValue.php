@@ -63,6 +63,8 @@ class LiteralAttributeValue extends AbstractAttributeValue
         }
 
         $this->value = $value;
+
+        return $this;
     }
 
     /**
@@ -90,10 +92,12 @@ class LiteralAttributeValue extends AbstractAttributeValue
      *
      * @param AbstractAttribute $attribute The new attribute
      *
-     * @return mixed
+     * @return LiteralAttributeValue
      */
     public function setAttribute(AbstractAttribute $attribute)
     {
         $this->attribute = $attribute;
+
+        return $this;
     }
 }

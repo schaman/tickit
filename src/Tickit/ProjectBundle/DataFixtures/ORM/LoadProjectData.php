@@ -32,6 +32,9 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($project2);
 
         $manager->flush();
+
+        $this->setReference('project-1', $project);
+        $this->setReference('project-2', $project2);
     }
 
     /**

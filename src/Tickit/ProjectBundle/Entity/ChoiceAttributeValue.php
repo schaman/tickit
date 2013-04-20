@@ -4,7 +4,7 @@ namespace Tickit\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\Collection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Choice attribute value implementation.
@@ -62,6 +62,20 @@ class ChoiceAttributeValue extends AbstractAttributeValue
     }
 
     /**
+     * Sets the selected value(s)
+     *
+     * @param Collection $value The selected value(s) collection
+     *
+     * @return ChoiceAttributeValue
+     */
+    public function setValue(Collection $value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
      * Gets the attribute value
      *
      * @return mixed
@@ -86,10 +100,12 @@ class ChoiceAttributeValue extends AbstractAttributeValue
      *
      * @param AbstractAttribute $attribute The new attribute
      *
-     * @return mixed
+     * @return ChoiceAttributeValue
      */
     public function setAttribute(AbstractAttribute $attribute)
     {
         $this->attribute = $attribute;
+
+        return $this;
     }
 }

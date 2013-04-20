@@ -196,4 +196,14 @@ abstract class AbstractAttribute implements AttributeInterface
 
         return $attribute;
     }
+
+    /**
+     * __toString() method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
