@@ -19,6 +19,7 @@ class LiteralAttributeValue extends AbstractAttributeValue
     /**
      * The attribute this value is for
      *
+     * @var LiteralAttribute
      * @ORM\Id
      * @ORM\OneToOne(targetEntity="LiteralAttribute")
      * @ORM\JoinColumn(name="literal_attribute_id", referencedColumnName="id")
@@ -51,6 +52,17 @@ class LiteralAttributeValue extends AbstractAttributeValue
      */
     public function setValue($value)
     {
+        if ($value instanceof \DateTime) {
+            switch ($this->attribute->getValidationType()) {
+                case LiteralAttribute::VALIDATION_DATE:
+                    $value = $value->format('Y-m-d');
+                    break;
+                case LiteralAttribute::VALIDATION_DATETIME:
+                    $value = $value->format('Y-m-d H:i:s');
+                    break;
+            }
+        }
+
         $this->value = $value;
     }
 
