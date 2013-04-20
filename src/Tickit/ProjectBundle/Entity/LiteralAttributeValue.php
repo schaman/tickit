@@ -74,6 +74,11 @@ class LiteralAttributeValue extends AbstractAttributeValue
      */
     public function getValue()
     {
+        $type = $this->attribute->getValidationType();
+        if (in_array($type, array(LiteralAttribute::VALIDATION_DATE, LiteralAttribute::VALIDATION_DATETIME))) {
+            return new \DateTime($this->value);
+        }
+
         return $this->value;
     }
 

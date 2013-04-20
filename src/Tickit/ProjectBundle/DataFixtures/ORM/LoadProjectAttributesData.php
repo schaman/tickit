@@ -4,7 +4,6 @@ namespace Tickit\ProjectBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
@@ -16,12 +15,12 @@ use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 
 /**
- * Description
+ * Loads project attribute data
  *
- * @package Namespace\Class
+ * @package Tickit\ProjectBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class LoadProjectAttributes extends AbstractFixture implements OrderedFixtureInterface
+class LoadProjectAttributesData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager

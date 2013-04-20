@@ -66,6 +66,6 @@ class AttributeRepository extends EntityRepository
 
         $others = $othersQuery->getQuery()->execute();
 
-        return $others + $choices;
+        return array_merge($others, $choices);
     }
 }
