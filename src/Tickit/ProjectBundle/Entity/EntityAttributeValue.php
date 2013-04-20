@@ -19,7 +19,6 @@ class EntityAttributeValue extends AbstractAttributeValue
     /**
      * The attribute this value is for
      *
-     * @ORM\Id
      * @ORM\OneToOne(targetEntity="EntityAttribute")
      * @ORM\JoinColumn(name="entity_attribute_id", referencedColumnName="id")
      */

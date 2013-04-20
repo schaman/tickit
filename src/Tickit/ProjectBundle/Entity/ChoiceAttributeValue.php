@@ -21,22 +21,20 @@ class ChoiceAttributeValue extends AbstractAttributeValue
     /**
      * The attribute this value is for
      *
-     * @ORM\Id
      * @ORM\OneToOne(targetEntity="ChoiceAttribute")
      * @ORM\JoinColumn(name="choice_attribute_id", referencedColumnName="id")
      */
     protected $attribute;
 
     /**
-     * The attribute value
+     * The attribute value.
      *
      * @var Collection
      * @ORM\ManyToMany(targetEntity="ChoiceAttributeChoice", inversedBy="values")
      * @ORM\JoinTable(
-     *      name="choice_attribute_value_choices",
+     *      name="project_attribute_values_choices",
      *      joinColumns={
-     *          @ORM\JoinColumn(name="attribute_value_id", referencedColumnName="choice_attribute_id"),
-     *          @ORM\JoinColumn(name="project_id", referencedColumnName="project_id")
+     *          @ORM\JoinColumn(name="choice_attribute_value_id", referencedColumnName="id")
      *      },
      *      inverseJoinColumns={
      *          @ORM\JoinColumn(name="choice_id", referencedColumnName="id")

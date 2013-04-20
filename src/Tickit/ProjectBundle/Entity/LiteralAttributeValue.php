@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Represents a value associated with a LiteralAttribute entity
  *
  * @package Tickit\ProjectBundle\Entity
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
  */
@@ -20,7 +20,6 @@ class LiteralAttributeValue extends AbstractAttributeValue
      * The attribute this value is for
      *
      * @var LiteralAttribute
-     * @ORM\Id
      * @ORM\OneToOne(targetEntity="LiteralAttribute")
      * @ORM\JoinColumn(name="literal_attribute_id", referencedColumnName="id")
      */

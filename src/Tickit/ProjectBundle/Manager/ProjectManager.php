@@ -2,8 +2,10 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\ProjectBundle\Entity\Project;
 
 /**
  * Project Manager
@@ -47,4 +49,42 @@ class ProjectManager extends AbstractManager
 
         return $repository;
     }
+
+    /**
+     * Creates a new project entity in the entity manager.
+     *
+     * Overrides the default implementation of create() so that we can correctly
+     * handle associated attributes.
+     *
+     * @param object  $entity The project entity that needs creating
+     * @param boolean $flush  [Unsupported] True to automatically flush changes to the entity manager
+     *
+     * @return Project
+     */
+    public function create($entity, $flush = true)
+    {
+        $beforeEvent = $this->dispatcher->dispatchBeforeCreateEvent($entity);
+
+        if ($beforeEvent->isVetoed()) {
+            return null;
+        }
+
+        /** @var Project $entity */
+        $originalAttributes = $entity->getAttributes();
+        $entity->setAttributes(new ArrayCollection());
+
+        // we flush the entity to get an ID
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        // not we re-attach the attributes and flush to save them to the database
+        $entity->setAttributes($originalAttributes);
+        $this->em->flush();
+
+        $this->dispatcher->dispatchCreateEvent($entity);
+
+        return $entity;
+    }
+
+
 }

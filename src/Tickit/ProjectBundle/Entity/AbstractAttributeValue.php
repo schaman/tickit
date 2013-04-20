@@ -23,10 +23,19 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class AbstractAttributeValue implements AttributeValueInterface
 {
     /**
+     * The unique identifier for this value
+     *
+     * @var integer
+     * @ORM\id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
      * The project that this attribute value is associated with
      *
      * @var Project
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="attributes")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
