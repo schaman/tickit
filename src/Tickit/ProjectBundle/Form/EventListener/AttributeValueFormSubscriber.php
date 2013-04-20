@@ -5,6 +5,7 @@ namespace Tickit\ProjectBundle\Form\EventListener;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -14,6 +15,7 @@ use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * AttributeValueForm event subscriber.
@@ -159,9 +161,13 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
      */
     protected function buildChoiceValueFields(FormInterface $form, ChoiceAttribute $attribute)
     {
-        $choices = $attribute->getChoicesAsArray();
-        $form->add('value', 'choice', array(
-            'choices' => $choices,
+        $form->add('value', 'entity', array(
+            'class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice',
+            'query_builder' => function(ChoiceAttributeChoiceRepository $repo) use ($attribute) {
+                return $repo->getFindAllForAttributeQuery($attribute);
+            },
+            'expanded' => $attribute->getExpanded(),
+            'multiple' => $attribute->getAllowMultiple(),
             'label' => $attribute->getName()
         ));
     }

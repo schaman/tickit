@@ -47,7 +47,7 @@ class Project
      * Attribute values for this project
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="AbstractAttributeValue", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="AbstractAttributeValue", mappedBy="project", cascade="persist")
      */
     protected $attributes;
 

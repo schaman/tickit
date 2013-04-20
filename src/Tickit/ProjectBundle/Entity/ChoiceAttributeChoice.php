@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Tickit\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository")
  * @ORM\Table(name="project_attribute_choices")
  */
 class ChoiceAttributeChoice
@@ -33,6 +34,14 @@ class ChoiceAttributeChoice
      * @ORM\JoinColumn(name="attribute_id")
      */
     protected $attribute;
+
+    /**
+     * Any values that have this choice selected
+     *
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="ChoiceAttributeValue", mappedBy="value")
+     */
+    protected $values;
 
     /**
      * The name of this choice

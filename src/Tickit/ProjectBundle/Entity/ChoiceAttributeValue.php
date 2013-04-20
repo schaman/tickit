@@ -2,7 +2,9 @@
 
 namespace Tickit\ProjectBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * Choice attribute value implementation.
@@ -28,9 +30,28 @@ class ChoiceAttributeValue extends AbstractAttributeValue
     /**
      * The attribute value
      *
-     * @ORM\Column(type="string", length=500)
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="ChoiceAttributeChoice", inversedBy="values")
+     * @ORM\JoinTable(
+     *      name="choice_attribute_value_choices",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="attribute_value_id", referencedColumnName="choice_attribute_id"),
+     *          @ORM\JoinColumn(name="project_id", referencedColumnName="project_id")
+     *      },
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="choice_id", referencedColumnName="id")
+     *      }
+     * )
      */
     protected $value;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->value = new ArrayCollection();
+    }
 
     /**
      * Gets the associated attribute object
