@@ -2,9 +2,7 @@
 
 namespace Tickit\ProjectBundle\Entity\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * Attribute entity repository.
