@@ -107,12 +107,12 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $crawler = $client->request('get', '/projects/create');
         $form = $crawler->selectButton('Save Project')->form();
         $crawler = $client->submit($form, array('tickit_project[name]' => ''));
-        $this->assertGreaterThan(0, $crawler->filter('div#tickit_project ul li')->count());
+        $this->assertGreaterThan(0, $crawler->filter('form ul li')->count());
 
         $longName = 'ajfwadpalfowagjiawjfwaidjwaofjwoagkowakfowakgowakfowagjwoajgwiadwadjwaijda' .
                     'adwiafjwaigjaiwofjawdawokfo'; //101 characters
         $crawler = $client->submit($form, array('tickit_project[name]' => $longName));
-        $this->assertGreaterThan(0, $crawler->filter('div#tickit_project ul li')->count());
+        $this->assertGreaterThan(0, $crawler->filter('form ul li')->count());
     }
 
     /**

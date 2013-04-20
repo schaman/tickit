@@ -175,4 +175,14 @@ class Project
     {
         $this->deletedAt = $deletedAt;
     }
+
+    /**
+     * __toString() method
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
