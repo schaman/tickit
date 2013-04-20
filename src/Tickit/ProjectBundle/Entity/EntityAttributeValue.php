@@ -43,6 +43,20 @@ class EntityAttributeValue extends AbstractAttributeValue
     }
 
     /**
+     * Sets the value on this attribute value
+     *
+     * @param mixed $value The new value
+     *
+     * @return EntityAttributeValue
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
      * Gets the attribute value
      *
      * @return mixed
