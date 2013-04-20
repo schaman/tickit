@@ -100,7 +100,7 @@ class ProjectController extends AbstractCoreController
             throw $this->createNotFoundException('Project not found');
         }
 
-        $formType = new ProjectFormType();
+        $formType = $this->get('tickit_project.form.project');
         $form = $this->createForm($formType, $project);
 
         if ('POST' === $this->getRequest()->getMethod()) {
