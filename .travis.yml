@@ -1,6 +1,7 @@
 language: php
 php:
   - 5.3
+  - 5.4
 
 before_script:
 
@@ -13,18 +14,13 @@ before_script:
   # build database #
   - php app/console doctrine:schema:create --env test
   - php app/console doctrine:fixtures:load --append --env test
-  - pear install PHP_CodeSniffer-1.4.2
 
   # refresh php environment #
   - phpenv rehash
 
-  # run codesniffer #
-  - git clone git://github.com/opensky/Symfony2-coding-standard.git ./Resources/Symfony2
-  - phpcs --config-set default_standard ./Resources/Symfony2
-
 script:
   - phpunit -c app/phpunit.xml
-  - phpcs ./src/Tickit
+  - ./bin/phpcs ./src/Tickit --standard=PSR2
 
 notifications:
   email:

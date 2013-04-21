@@ -33,7 +33,8 @@
         "symfony/console": "2.2.x-dev",
         "twig/extensions": "1.0.x-dev",
         "psr/log": "1.0",
-        "tickit-project/cache-bundle": "1.0.x-dev"
+        "tickit-project/cache-bundle": "1.0.x-dev",
+        "squizlabs/php_codesniffer": "1.*"
     },
     "scripts": {
         "post-install-cmd": [
