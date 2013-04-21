@@ -71,7 +71,9 @@ class UserProvider implements UserProviderInterface
     public function refreshUser(UserInterface $user)
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Expected an instance of Tickit\UserBundle\Entity\User, but got "%s".', get_class($user)));
+            throw new UnsupportedUserException(
+                sprintf('Expected an instance of Tickit\UserBundle\Entity\User, but got "%s".', get_class($user))
+            );
         }
 
         $reloadedUser = $this->manager->findUserBy(array('id' => $user->getId()));

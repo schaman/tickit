@@ -77,7 +77,8 @@ class UserControllerTest extends AbstractFunctionalTest
         $client->submit($form, $formValues);
         $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The user has been created successfully")')->count());
+        $count = $crawler->filter('div.flash-notice:contains("The user has been created successfully")')->count();
+        $this->assertGreaterThan(0, $count);
         $this->assertEquals($totalUsers + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -115,7 +116,9 @@ class UserControllerTest extends AbstractFunctionalTest
             'tickit_user[password][second]' => 'password'
         );
         $crawler = $client->submit($form, $formValues);
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The user has been updated successfully")')->count());
+
+        $count = $crawler->filter('div.flash-notice:contains("The user has been updated successfully")')->count();
+        $this->assertGreaterThan(0, $count);
         $this->assertEquals($newUsername, $crawler->filter('input[name="tickit_user[username]"]')->attr('value'));
         $this->assertEquals($newEmail, $crawler->filter('input[name="tickit_user[email]"]')->attr('value'));
         $this->assertEquals('forename_12345', $crawler->filter('input[name="tickit_user[forename]"]')->attr('value'));

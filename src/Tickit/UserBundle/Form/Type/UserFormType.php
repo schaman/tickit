@@ -60,7 +60,9 @@ class UserFormType extends AbstractType
                 ->add('username', 'text')
                 ->add('email', 'email')
                 ->add(
-                    'password', 'repeated', array(
+                    'password',
+                    'repeated',
+                    array(
                         'type' => 'password',
                         'required' => false,
                         'first_options' => array('label' => $passwordLabel),
@@ -70,7 +72,9 @@ class UserFormType extends AbstractType
                 )
                 ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'))
                 ->add(
-                    'permissions', 'entity', array(
+                    'permissions',
+                    'entity',
+                    array(
                         'class' => 'Tickit\PermissionBundle\Entity\Permission',
                         'expanded' => true,
                         'multiple' => true

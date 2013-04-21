@@ -17,8 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 class SecurityController extends BaseController
 {
     /**
-     * Login action that performs user login. Here we can add any custom logic that needs to take place when
-     * a user performs login to the system
+     * Login action that performs user login.
+     *
+     * Here we can add any custom logic that needs to take place when a user performs login to the system
      *
      * @param Request $request The HTTP request object
      *
@@ -35,7 +36,8 @@ class SecurityController extends BaseController
      */
     protected function renderLogin(array $data)
     {
-        $template = sprintf('TickitUserBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
+        $engine = $this->container->getParameter('fos_user.template.engine');
+        $template = sprintf('TickitUserBundle:Security:login.html.%s', $engine);
 
         return $this->container->get('templating')->renderResponse($template, $data);
     }
