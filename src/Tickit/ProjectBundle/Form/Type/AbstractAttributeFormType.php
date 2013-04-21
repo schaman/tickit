@@ -25,13 +25,17 @@ abstract class AbstractAttributeFormType extends AbstractType
     {
         $builder->add('name')
                 ->add('default_value', 'text', array('required' => false))
-                ->add('allow_blank', 'choice', array(
-                    'choices' => array(
-                        0 => 'No',
-                        1 => 'Yes'
-                    ),
-                    'expanded' => true,
-                    'multiple' => false
-                ));
+                ->add(
+                    'allow_blank',
+                    'choice',
+                    array(
+                        'choices' => array(
+                            0 => 'No',
+                            1 => 'Yes'
+                        ),
+                        'expanded' => true,
+                        'multiple' => false
+                    )
+                );
     }
 }

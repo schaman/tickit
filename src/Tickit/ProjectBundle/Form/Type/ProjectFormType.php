@@ -42,10 +42,14 @@ class ProjectFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text')
-                ->add('attributes', 'collection', array(
-                    'type' => $this->attributeValueForm,
-                    'label' => ''
-                ));
+                ->add(
+                    'attributes',
+                    'collection',
+                    array(
+                        'type' => $this->attributeValueForm,
+                        'label' => ''
+                    )
+                );
     }
 
     /**

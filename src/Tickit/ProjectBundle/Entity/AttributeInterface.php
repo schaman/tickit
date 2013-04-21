@@ -24,5 +24,4 @@ interface AttributeInterface
      * @return mixed
      */
     public function getDefaultValue();
-
 }

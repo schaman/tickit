@@ -84,12 +84,17 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
 
         $crawler = $client->request('get', '/projects/create');
-        $form = $crawler->selectButton('Save Project')->form(array(
-            'tickit_project[name]' => 'Valid Project Name'
-        ));
+        $form = $crawler->selectButton('Save Project')->form(
+            array(
+                'tickit_project[name]' => 'Valid Project Name'
+            )
+        );
         $client->submit($form);
         $crawler = $client->followRedirect();
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been created successfully")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The project has been created successfully")')->count()
+        );
         $this->assertEquals($totalProjects + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -134,7 +139,10 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $newProjectName = strrev($currentProjectName);
         $form = $crawler->selectButton('Save Changes')->form();
         $crawler = $client->submit($form, array('tickit_project[name]' => $newProjectName));
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been updated successfully")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The project has been updated successfully")')->count()
+        );
         $this->assertEquals($newProjectName, $crawler->filter('input[name="tickit_project[name]"]')->attr('value'));
     }
 
@@ -168,7 +176,10 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $client->click($link);
 
         $crawler = $client->followRedirect();
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The project has been successfully deleted")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The project has been successfully deleted")')->count()
+        );
         $this->assertEquals(--$totalProjects, $crawler->filter('div.data-list table tbody tr')->count());
     }
 

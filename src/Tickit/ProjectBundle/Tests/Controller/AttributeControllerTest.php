@@ -141,17 +141,22 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_LITERAL));
         $crawler = $client->request('get', $createRoute);
 
-        $form = $crawler->selectButton('Save Project Attribute')->form(array(
-            'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
-            'tickit_project_attribute_literal[name]' => 'Test Attribute ' . uniqid(), //needs to be unique
-            'tickit_project_attribute_literal[default_value]' => 'n/a',
-            'tickit_project_attribute_literal[allow_blank]' => 1,
-            'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_EMAIL
-        ));
+        $form = $crawler->selectButton('Save Project Attribute')->form(
+            array(
+                'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
+                'tickit_project_attribute_literal[name]' => 'Test Attribute ' . uniqid(), //needs to be unique
+                'tickit_project_attribute_literal[default_value]' => 'n/a',
+                'tickit_project_attribute_literal[allow_blank]' => 1,
+                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_EMAIL
+            )
+        );
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count()
+        );
         $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -171,17 +176,22 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_ENTITY));
         $crawler = $client->request('get', $createRoute);
 
-        $form = $crawler->selectButton('Save Project Attribute')->form(array(
-            'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
-            'tickit_project_attribute_entity[name]' => 'Test Attribute ' . uniqid(), //needs to be unique
-            'tickit_project_attribute_entity[default_value]' => 'n/a',
-            'tickit_project_attribute_entity[allow_blank]' => 1,
-            'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
-        ));
+        $form = $crawler->selectButton('Save Project Attribute')->form(
+            array(
+                'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
+                'tickit_project_attribute_entity[name]' => 'Test Attribute ' . uniqid(), //needs to be unique
+                'tickit_project_attribute_entity[default_value]' => 'n/a',
+                'tickit_project_attribute_entity[allow_blank]' => 1,
+                'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
+            )
+        );
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count()
+        );
         $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -204,19 +214,24 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $crawler = $client->request('get', $createRoute);
 
         $form = $crawler->selectButton('Save Project Attribute')->form();
-        $form->setValues(array(
-            'tickit_project_attribute_choice[type]' => AbstractAttribute::TYPE_CHOICE,
-            'tickit_project_attribute_choice[name]' => 'Test Attribute' . uniqid(), //needs to be unique
-            'tickit_project_attribute_choice[default_value]' => 'Off',
-            'tickit_project_attribute_choice[allow_blank]' => 1,
-            'tickit_project_attribute_choice[expanded]' => 1,
-            'tickit_project_attribute_choice[allow_multiple]' => 0
-        ));
+        $form->setValues(
+            array(
+                'tickit_project_attribute_choice[type]' => AbstractAttribute::TYPE_CHOICE,
+                'tickit_project_attribute_choice[name]' => 'Test Attribute' . uniqid(), //needs to be unique
+                'tickit_project_attribute_choice[default_value]' => 'Off',
+                'tickit_project_attribute_choice[allow_blank]' => 1,
+                'tickit_project_attribute_choice[expanded]' => 1,
+                'tickit_project_attribute_choice[allow_multiple]' => 0
+            )
+        );
         $values = $form->getPhpValues();
         $client->request($form->getMethod(), $form->getUri(), $values);
         $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count()
+        );
         $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
@@ -234,15 +249,19 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
-        $crawler = $client->request('get', $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_LITERAL)));
+        $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_LITERAL));
+        $crawler = $client->request('get', $createRoute);
         $form = $crawler->selectButton('Save Project Attribute')->form();
-        $crawler = $client->submit($form, array(
-            'tickit_project_attribute_literal[type]' =>  AbstractAttribute::TYPE_LITERAL,
-            'tickit_project_attribute_literal[name]' => '',
-            'tickit_project_attribute_literal[default_value]' => '',
-            'tickit_project_attribute_literal[allow_blank]' => 1,
-            'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_DATE
-        ));
+        $crawler = $client->submit(
+            $form,
+            array(
+                'tickit_project_attribute_literal[type]' =>  AbstractAttribute::TYPE_LITERAL,
+                'tickit_project_attribute_literal[name]' => '',
+                'tickit_project_attribute_literal[default_value]' => '',
+                'tickit_project_attribute_literal[allow_blank]' => 1,
+                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_DATE
+            )
+        );
         $this->assertGreaterThan(0, $crawler->filter('form div ul li')->count());
     }
 
@@ -258,15 +277,19 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
-        $crawler = $client->request('get', $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_ENTITY)));
+        $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_ENTITY));
+        $crawler = $client->request('get', $createRoute);
         $form = $crawler->selectButton('Save Project Attribute')->form();
-        $crawler = $client->submit($form, array(
-            'tickit_project_attribute_entity[type]' =>  AbstractAttribute::TYPE_LITERAL,
-            'tickit_project_attribute_entity[name]' => '',
-            'tickit_project_attribute_entity[default_value]' => '',
-            'tickit_project_attribute_entity[allow_blank]' => 1,
-            'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
-        ));
+        $crawler = $client->submit(
+            $form,
+            array(
+                'tickit_project_attribute_entity[type]' =>  AbstractAttribute::TYPE_LITERAL,
+                'tickit_project_attribute_entity[name]' => '',
+                'tickit_project_attribute_entity[default_value]' => '',
+                'tickit_project_attribute_entity[allow_blank]' => 1,
+                'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
+            )
+        );
 
         $this->assertGreaterThan(0, $crawler->filter('form div ul li')->count());
     }
@@ -281,16 +304,20 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
-        $crawler = $client->request('get', $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_CHOICE)));
+        $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_CHOICE));
+        $crawler = $client->request('get', $createRoute);
         $form = $crawler->selectButton('Save Project Attribute')->form();
-        $crawler = $client->submit($form, array(
-            'tickit_project_attribute_choice[type]' =>  AbstractAttribute::TYPE_CHOICE,
-            'tickit_project_attribute_choice[name]' => '',
-            'tickit_project_attribute_choice[default_value]' => '',
-            'tickit_project_attribute_choice[expanded]' => 0,
-            'tickit_project_attribute_choice[allow_multiple]' => 0,
-            'tickit_project_attribute_choice[allow_blank]' => 1
-        ));
+        $crawler = $client->submit(
+            $form,
+            array(
+                'tickit_project_attribute_choice[type]' =>  AbstractAttribute::TYPE_CHOICE,
+                'tickit_project_attribute_choice[name]' => '',
+                'tickit_project_attribute_choice[default_value]' => '',
+                'tickit_project_attribute_choice[expanded]' => 0,
+                'tickit_project_attribute_choice[allow_multiple]' => 0,
+                'tickit_project_attribute_choice[allow_blank]' => 1
+            )
+        );
         $this->assertGreaterThan(0, $crawler->filter('form ul li')->count());
     }
 
@@ -304,7 +331,11 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
-        $client->request('get', $router->generate('project_attribute_edit', array('id' => 99999999, 'type' => AbstractAttribute::TYPE_LITERAL)));
+        $editRoute = $router->generate(
+            'project_attribute_edit',
+            array('id' => 99999999, 'type' => AbstractAttribute::TYPE_LITERAL)
+        );
+        $client->request('get', $editRoute);
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -321,7 +352,11 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $attribute = clone static::$literalAttribute;
         $manager->create($attribute);
 
-        $client->request('get', $router->generate('project_attribute_edit', array('type' => 'aaaaaa', 'id' => $attribute->getId())));
+        $editRoute = $router->generate(
+            'project_attribute_edit',
+            array('type' => 'aaaaaa', 'id' => $attribute->getId())
+        );
+        $client->request('get', $editRoute);
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -342,21 +377,33 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $attribute->setName(__FUNCTION__ . uniqid());
         $manager->create($attribute);
 
-        $crawler = $client->request('get', $router->generate('project_attribute_edit', array('id' => $attribute->getId(), 'type' => AbstractAttribute::TYPE_LITERAL)));
+        $editRoute = $router->generate('project_attribute_edit', array('id' => $attribute->getId(), 'type' => AbstractAttribute::TYPE_LITERAL));
+        $crawler = $client->request('get', $editRoute);
 
         $newAttributeName = strrev($attribute->getName());
         $form = $crawler->selectButton('Save Changes')->form();
-        $crawler = $client->submit($form, array(
-            'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
-            'tickit_project_attribute_literal[name]' => $newAttributeName,
-            'tickit_project_attribute_literal[default_value]' => '',
-            'tickit_project_attribute_literal[allow_blank]' => 1,
-            'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_IP
-        ));
+        $crawler = $client->submit(
+            $form,
+            array(
+                'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
+                'tickit_project_attribute_literal[name]' => $newAttributeName,
+                'tickit_project_attribute_literal[default_value]' => '',
+                'tickit_project_attribute_literal[allow_blank]' => 1,
+                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_IP
+            )
+        );
 
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been updated successfully")')->count());
-        $this->assertEquals($newAttributeName, $crawler->filter('input[name="tickit_project_attribute_literal[name]"]')->attr('value'));
-        $this->assertEquals(LiteralAttribute::VALIDATION_IP, $crawler->filter('select[name="tickit_project_attribute_literal[validation_type]"] option[selected="selected"]')->attr('value'));
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The attribute has been updated successfully")')->count()
+        );
+        $this->assertEquals(
+            $newAttributeName,
+            $crawler->filter('input[name="tickit_project_attribute_literal[name]"]')->attr('value')
+        );
+
+        $matcher = 'select[name="tickit_project_attribute_literal[validation_type]"] option[selected="selected"]';
+        $this->assertEquals(LiteralAttribute::VALIDATION_IP, $crawler->filter($matcher)->attr('value'));
     }
 
     /**
@@ -373,21 +420,37 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $attribute->setName(__FUNCTION__ . uniqid());
         $manager->create($attribute);
 
-        $crawler = $client->request('get', $router->generate('project_attribute_edit', array('id' => $attribute->getId(), 'type' => AbstractAttribute::TYPE_ENTITY)));
+        $editRoute = $router->generate(
+            'project_attribute_edit',
+            array('id' => $attribute->getId(), 'type' => AbstractAttribute::TYPE_ENTITY)
+        );
+        $crawler = $client->request('get', $editRoute);
 
         $newAttributeName = strrev($attribute->getName());
         $form = $crawler->selectButton('Save Changes')->form();
-        $crawler = $client->submit($form, array(
-            'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
-            'tickit_project_attribute_entity[name]' => $newAttributeName,
-            'tickit_project_attribute_entity[default_value]' => '1',
-            'tickit_project_attribute_entity[allow_blank]' => 1,
-            'tickit_project_attribute_entity[entity]' => $attribute->getEntity()
-        ));
+        $crawler = $client->submit(
+            $form,
+            array(
+                'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
+                'tickit_project_attribute_entity[name]' => $newAttributeName,
+                'tickit_project_attribute_entity[default_value]' => '1',
+                'tickit_project_attribute_entity[allow_blank]' => 1,
+                'tickit_project_attribute_entity[entity]' => $attribute->getEntity()
+            )
+        );
 
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been updated successfully")')->count());
-        $this->assertEquals($newAttributeName, $crawler->filter('input[name="tickit_project_attribute_entity[name]"]')->attr('value'));
-        $this->assertEquals('1', $crawler->filter('input[name="tickit_project_attribute_entity[default_value]"]')->attr('value'));
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The attribute has been updated successfully")')->count()
+        );
+        $this->assertEquals(
+            $newAttributeName,
+            $crawler->filter('input[name="tickit_project_attribute_entity[name]"]')->attr('value')
+        );
+        $this->assertEquals(
+            1,
+            $crawler->filter('input[name="tickit_project_attribute_entity[default_value]"]')->attr('value')
+        );
     }
 
     /**
@@ -418,7 +481,10 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $client->click($link);
 
         $crawler = $client->followRedirect();
-        $this->assertGreaterThan(0, $crawler->filter('div.flash-notice:contains("The attribute has been successfully deleted")')->count());
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('div.flash-notice:contains("The attribute has been successfully deleted")')->count()
+        );
         $this->assertEquals(--$totalAttributes, $crawler->filter('div.data-list table tbody tr')->count());
     }
 

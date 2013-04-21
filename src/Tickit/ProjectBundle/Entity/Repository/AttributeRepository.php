@@ -59,10 +59,10 @@ class AttributeRepository extends EntityRepository
                             ->createQueryBuilder()
                             ->select('a')
                             ->from('TickitProjectBundle:AbstractAttribute', 'a')
-                            ->where('
-                                a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
-                                a INSTANCE OF TickitProjectBundle:EntityAttribute
-                            ');
+                            ->where(
+                                'a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
+                                 a INSTANCE OF TickitProjectBundle:EntityAttribute'
+                            );
 
         $others = $othersQuery->getQuery()->execute();
 

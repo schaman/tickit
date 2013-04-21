@@ -10,11 +10,11 @@ use Tickit\TeamBundle\Entity\Team;
 /**
  * Loads default team data into the application
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\TeamBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadTeamData extends AbstractFixture implements OrderedFixtureInterface
 {
-
     /**
      * Initiates the loading of data
      *
@@ -35,5 +35,4 @@ class LoadTeamData extends AbstractFixture implements OrderedFixtureInterface
     {
         return 2;
     }
-
 }

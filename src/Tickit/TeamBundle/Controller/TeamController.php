@@ -2,26 +2,26 @@
 
 namespace Tickit\TeamBundle\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-
-//bind forms here
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * Controller that provides actions for managing teams in the application
+ * Teams controller.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * Provides actions for managing teams in the application
+ *
+ * @package Tickit\TeamBundle\Controller
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TeamController extends AbstractCoreController
 {
     /**
      * Lists all teams in the system, optionally filters using request parameters
      *
-     * @return array
      * @Template("TickitTeamBundle:Team:index.html.twig")
+     *
+     * @return array
      */
     public function indexAction()
     {
@@ -36,5 +36,4 @@ class TeamController extends AbstractCoreController
 
         return array('teams' => $teams);
     }
-
 }

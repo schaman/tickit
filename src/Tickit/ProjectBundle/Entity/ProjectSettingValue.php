@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\ProjectBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**

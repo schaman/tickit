@@ -7,7 +7,7 @@ use Tickit\ProjectBundle\Entity\Project;
 /**
  * Interface for classes that are Project aware
  *
- * @package Namespace\Class
+ * @package Tickit\ProjectBundle\Interfaces
  * @author  James Halsall <jhalsall@rippleffect.com>
  * @see     Tickit\ProjectBundle\Entity\Project
  */
@@ -18,7 +18,7 @@ interface ProjectAwareInterface
      *
      * @return Project
      */
-    function getProject();
+    public function getProject();
 
     /**
      * Sets the project on this object
@@ -27,5 +27,5 @@ interface ProjectAwareInterface
      *
      * @return mixed
      */
-    function setProject(Project $project);
+    public function setProject(Project $project);
 }

@@ -7,14 +7,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Form\Type\AbstractAttributeFormType;
 use Tickit\ProjectBundle\Form\Type\ChoiceAttributeFormType;
-use Tickit\ProjectBundle\Form\Type\EntityAttributeFormType;
 use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
-
 
 /**
  * Project attribute controller.

@@ -25,17 +25,17 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
     public function load(ObjectManager $manager)
     {
         $this->loadSystemPreferences($manager);
-        $this->_loadUserPreferences($manager);
+        $this->loadUserPreferences($manager);
     }
 
     /**
      * Loads user related preferences into the application database
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager
      *
      * @return void
      */
-    protected function _loadUserPreferences(ObjectManager $manager)
+    protected function loadUserPreferences(ObjectManager $manager)
     {
         $userPreference1 = new Preference();
         $userPreference1->setName('Notifications for ticket status changes');

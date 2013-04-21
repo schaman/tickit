@@ -58,7 +58,7 @@ class ProjectManagerTest extends WebTestCase
         $manager = $this->getManager();
         $repository = $manager->getRepository();
 
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\Repository\ProjectRepository', $repository, 'getRepository() returns valid instance');
+        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\Repository\ProjectRepository', $repository);
     }
 
     /**

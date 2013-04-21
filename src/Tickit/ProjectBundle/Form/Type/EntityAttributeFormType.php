@@ -51,9 +51,13 @@ class EntityAttributeFormType extends AbstractAttributeFormType
         $choices = $event->getEntityChoices();
 
         $builder->add('type', 'hidden', array('data' => AbstractAttribute::TYPE_ENTITY))
-                ->add('entity', 'choice', array(
-                    'choices' => $choices
-                ));
+                ->add(
+                    'entity',
+                    'choice',
+                    array(
+                        'choices' => $choices
+                    )
+                );
     }
 
     /**

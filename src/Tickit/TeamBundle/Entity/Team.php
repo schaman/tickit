@@ -12,18 +12,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * These are not the same as Groups.
  *
+ * @package Tickit\TeamBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity(repositoryClass="Tickit\TeamBundle\Entity\Repository\TeamRepository")
  * @ORM\Table(name="teams")
  */
 class Team
 {
-   /**
-    * Unique identifier for this team
-    *
-    * @ORM\Id
-    * @ORM\Column(type="integer")
-    * @ORM\GeneratedValue(strategy="AUTO")
-    */
+    /**
+     * Unique identifier for this team
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     protected $id;
 
     /**

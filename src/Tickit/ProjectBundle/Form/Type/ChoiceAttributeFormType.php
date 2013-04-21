@@ -28,27 +28,39 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
 
         $builder
             ->add('type', 'hidden', array('data' => AbstractAttribute::TYPE_CHOICE))
-            ->add('expanded', 'choice', array(
-                'choices' => array(
-                    1 => 'Yes',
-                    0 => 'No'
-                ),
-                'expanded' => true,
-                'multiple' => false
-            ))
-            ->add('allow_multiple', 'choice', array(
-                'choices' => array(
-                    1 => 'Yes',
-                    0 => 'No'
-                ),
-                'expanded' => true,
-                'multiple' => false
-            ))
-            ->add('choices', 'collection', array(
-                'type' => new ChoiceAttributeChoiceType(),
-                'allow_delete' => true,
-                'allow_add' => true
-            ));
+            ->add(
+                'expanded',
+                'choice',
+                array(
+                    'choices' => array(
+                        1 => 'Yes',
+                        0 => 'No'
+                    ),
+                    'expanded' => true,
+                    'multiple' => false
+                )
+            )
+            ->add(
+                'allow_multiple',
+                'choice',
+                array(
+                    'choices' => array(
+                        1 => 'Yes',
+                        0 => 'No'
+                    ),
+                    'expanded' => true,
+                    'multiple' => false
+                )
+            )
+            ->add(
+                'choices',
+                'collection',
+                array(
+                    'type' => new ChoiceAttributeChoiceType(),
+                    'allow_delete' => true,
+                    'allow_add' => true
+                )
+            );
     }
 
     /**

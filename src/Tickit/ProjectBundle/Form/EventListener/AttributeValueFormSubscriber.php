@@ -129,10 +129,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
                 $fieldType = 'text';
         }
 
-        $form->add('value', $fieldType, array(
-            'constraints' => $assert->toArray(),
-            'label' => $attribute->getName()
-        ));
+        $form->add('value', $fieldType, array('constraints' => $assert->toArray(), 'label' => $attribute->getName()));
     }
 
     /**
@@ -145,10 +142,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
      */
     protected function buildEntityValueFields(FormInterface $form, EntityAttribute $attribute)
     {
-        $form->add('value', 'entity', array(
-            'class' => $attribute->getEntity(),
-            'label' => $attribute->getName()
-        ));
+        $form->add('value', 'entity', array('class' => $attribute->getEntity(), 'label' => $attribute->getName()));
     }
 
     /**
@@ -161,15 +155,19 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
      */
     protected function buildChoiceValueFields(FormInterface $form, ChoiceAttribute $attribute)
     {
-        $form->add('value', 'entity', array(
-            'class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice',
-            'query_builder' => function(ChoiceAttributeChoiceRepository $repo) use ($attribute) {
-                return $repo->getFindAllForAttributeQuery($attribute);
-            },
-            'expanded' => $attribute->getExpanded(),
-            'multiple' => $attribute->getAllowMultiple(),
-            'label' => $attribute->getName()
-        ));
+        $form->add(
+            'value',
+            'entity',
+            array(
+                'class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice',
+                'query_builder' => function (ChoiceAttributeChoiceRepository $repo) use ($attribute) {
+                    return $repo->getFindAllForAttributeQuery($attribute);
+                },
+                'expanded' => $attribute->getExpanded(),
+                'multiple' => $attribute->getAllowMultiple(),
+                'label' => $attribute->getName()
+            )
+        );
     }
 
     /**

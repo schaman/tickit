@@ -85,6 +85,4 @@ class ProjectManager extends AbstractManager
 
         return $entity;
     }
-
-
 }

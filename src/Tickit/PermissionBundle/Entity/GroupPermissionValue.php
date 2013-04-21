@@ -9,7 +9,8 @@ use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
 /**
  * Represents the value of a permission against a specific group
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\PermissionBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
  * @ORM\Table(name="groups_permission_values")

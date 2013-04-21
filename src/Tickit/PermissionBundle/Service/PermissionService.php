@@ -142,9 +142,12 @@ class PermissionService implements PermissionServiceInterface
         /* @var Permission $permission */
         foreach ($permissions as $permission) {
             if (!$permission instanceof Permission) {
-                throw new \InvalidArgumentException(
-                    sprintf('$permission must be an instance of \Tickit\PermissionBundle\Entity\Permission in %s on line %d', __FILE__, __LINE__)
+                $exceptionMsg = sprintf(
+                    '$permission must be an instance of \Tickit\PermissionBundle\Entity\Permission in %s on line %d',
+                    __FILE__,
+                    __LINE__
                 );
+                throw new \InvalidArgumentException($exceptionMsg);
             }
             $permissionString .= $permission->getSystemName();
         }
