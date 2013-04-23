@@ -29,8 +29,8 @@ class TickitUserExtension extends Extension
 
         $config = $processor->processConfiguration($configuration, $configs);
 
-        $ymlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $ymlLoader->load('services.xml');
+        $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $xmlLoader->load('services.xml');
 
         $container->setParameter('tickit_user.avatar.adapter_class', $config['avatar']['adapter_class']);
     }
