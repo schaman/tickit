@@ -20,7 +20,7 @@ before_script:
 
 script:
   - phpunit -c app/phpunit.xml
-  - ./bin/phpcs ./src/Tickit --standard=PSR2
+  - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice
 
 notifications:
   email:
