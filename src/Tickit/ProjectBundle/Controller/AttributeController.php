@@ -137,11 +137,7 @@ class AttributeController extends AbstractCoreController
     public function deleteAction($id)
     {
         $token = $this->getRequest()->query->get('token');
-        $tokenProvider = $this->get('form.csrf_provider');
-
-        if (false === $tokenProvider->isCsrfTokenValid('delete_project_attribute', $token)) {
-            throw $this->createNotFoundException('Invalid CSRF token');
-        }
+        $this->checkCsrfToken($token, 'delete_project_attribute');
 
         $manager = $this->get('tickit_project.attribute_manager');
         $attribute = $manager->getRepository()->find($id);

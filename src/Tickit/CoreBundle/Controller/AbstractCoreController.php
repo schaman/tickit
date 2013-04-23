@@ -3,6 +3,7 @@
 namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\UserBundle\Manager\UserManager;
 use Tickit\UserBundle\Entity\User;
 use Tickit\CacheBundle\Cache\CacheFactory;
@@ -50,5 +51,24 @@ abstract class AbstractCoreController extends Controller
     protected function getCacheFactory()
     {
         return $this->get('tickit_cache.factory');
+    }
+
+    /**
+     * Checks a CSRF token for validity.
+     *
+     * @param string $token  The CSRF token to check
+     * @param string $intent The intent of the token
+     *
+     * @throws NotFoundHttpException If the token is not valid
+     *
+     * @return void
+     */
+    protected function checkCsrfToken($token, $intent)
+    {
+        $tokenProvider = $this->get('form.csrf_provider');
+
+        if (!$tokenProvider->isCsrfTokenValid($intent, $token)) {
+            throw $this->createNotFoundException('Invalid CSRF token');
+        }
     }
 }

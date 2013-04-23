@@ -130,12 +130,7 @@ class ProjectController extends AbstractCoreController
     public function deleteAction($id)
     {
         $token = $this->getRequest()->query->get('token');
-        /** @var CsrfProviderInterface $tokenProvider  */
-        $tokenProvider = $this->get('form.csrf_provider');
-
-        if (!$tokenProvider->isCsrfTokenValid('delete_project', $token)) {
-            throw $this->createNotFoundException('Invalid CSRF token');
-        }
+        $this->checkCsrfToken($token, 'delete_project');
 
         /** @var ProjectManager $manager  */
         $manager = $this->get('tickit_project.manager');
