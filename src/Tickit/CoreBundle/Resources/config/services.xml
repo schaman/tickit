@@ -5,7 +5,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id='tickit.flash_messages' class='Tickit\CoreBundle\Flash\Generator'>
+        <service id='tickit.flash_messages' class='Tickit\CoreBundle\Flash\Provider'>
+            <argument type="service" id="session" />
             <argument>%kernel.root_dir%/config/extra</argument>
             <argument>%kernel.environment%</argument>
         </service>

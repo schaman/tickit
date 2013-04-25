@@ -66,8 +66,9 @@ class ProjectController extends AbstractCoreController
                 $manager = $this->get('tickit_project.manager');
                 $manager->create($project);
 
-                $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('project'));
+                $flash = $this->get('tickit.flash_messages');
+                $flash->addEntityCreatedMessage('project');
+
                 $route = $this->generateUrl('project_index');
 
                 return $this->redirect($route);
@@ -110,8 +111,8 @@ class ProjectController extends AbstractCoreController
                 $project = $form->getData();
                 $manager->update($project);
 
-                $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityUpdatedMessage('project'));
+                $flash = $this->get('tickit.flash_messages');
+                $flash->addEntityUpdatedMessage('project');
             }
         }
 
@@ -142,8 +143,8 @@ class ProjectController extends AbstractCoreController
 
         $manager->delete($project);
 
-        $generator = $this->get('tickit.flash_messages');
-        $this->get('session')->getFlashBag()->add('notice', $generator->getEntityDeletedMessage('project'));
+        $flash = $this->get('tickit.flash_messages');
+        $flash->addEntityDeletedMessage('project');
 
         $route = $this->generateUrl('project_index');
 

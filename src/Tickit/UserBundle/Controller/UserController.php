@@ -57,8 +57,8 @@ class UserController extends AbstractCoreController
                 $manager->create($user);
                 $router = $this->get('router');
 
-                $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityCreatedMessage('user'));
+                $flash = $this->get('tickit.flash_messages');
+                $flash->addEntityCreatedMessage('user');
 
                 return $this->redirect($router->generate('user_index'));
             }
@@ -110,8 +110,8 @@ class UserController extends AbstractCoreController
                 $manager = $this->get('tickit_user.manager');
                 $manager->create($user);
 
-                $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityUpdatedMessage('user'));
+                $flash = $this->get('tickit.flash_messages');
+                $flash->addEntityUpdatedMessage('user');
             }
         }
 

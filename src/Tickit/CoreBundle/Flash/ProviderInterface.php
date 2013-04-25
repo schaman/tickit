@@ -11,32 +11,32 @@ namespace Tickit\CoreBundle\Flash;
  * @package Tickit\CoreBundle\Flash
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface GeneratorInterface
+interface ProviderInterface
 {
     /**
-     * Generates and returns flash message for the creation of entities
+     * Adds a flash message to the flash bag for the creation of entities
      *
      * @param string $entityName The name of the entity that was created
      *
      * @return string
      */
-    public function getEntityCreatedMessage($entityName);
+    public function addEntityCreatedMessage($entityName);
 
     /**
-     * Generates and returns flash message for the creation of entities
+     * Adds a flash message to the flash bag for the creation of entities
      *
      * @param string $entityName The name of the entity that was updated
      *
      * @return string
      */
-    public function getEntityUpdatedMessage($entityName);
+    public function addEntityUpdatedMessage($entityName);
 
     /**
-     * Generates and returns flash message for the creation of entities
+     * Adds a flash message to the flash bag for the creation of entities
      *
      * @param string $entityName The name of the entity that was deleted
      *
      * @return string
      */
-    public function getEntityDeletedMessage($entityName);
+    public function addEntityDeletedMessage($entityName);
 }

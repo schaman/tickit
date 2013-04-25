@@ -2,10 +2,11 @@
 
 namespace Tickit\CoreBundle\Flash;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Flash message generator.
+ * Flash message provider.
  *
  * Provides a way of encapsulating all flash message notifications across the
  * application.
@@ -15,7 +16,7 @@ use Symfony\Component\Yaml\Yaml;
  * @package Tickit\CoreBundle\Flash
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Generator implements GeneratorInterface
+class Provider implements ProviderInterface
 {
     /**
      * Array of message templates
@@ -25,13 +26,22 @@ class Generator implements GeneratorInterface
     protected $messages = array();
 
     /**
+     * The session
+     *
+     * @var Session
+     */
+    protected $session;
+
+    /**
      * Constructor.
      *
-     * @param string $configPath  The full path to the messages configuration folder
-     * @param string $environment The current environment name
+     * @param Session $session     The session object
+     * @param string  $configPath  The full path to the messages configuration folder
+     * @param string  $environment The current environment name
      */
-    public function __construct($configPath, $environment)
+    public function __construct(Session $session, $configPath, $environment)
     {
+        $this->session = $session;
         $this->loadMessages($configPath, $environment);
     }
 
@@ -40,11 +50,11 @@ class Generator implements GeneratorInterface
      *
      * @param string $entityName The name of the entity that was created
      *
-     * @return string
+     * @return void
      */
-    public function getEntityCreatedMessage($entityName)
+    public function addEntityCreatedMessage($entityName)
     {
-        return $this->parseMessage('entityCreated', array('entity' => $entityName));
+        $this->addMessageToFlashBag('entityCreated', array('entity' => $entityName));
     }
 
     /**
@@ -52,11 +62,11 @@ class Generator implements GeneratorInterface
      *
      * @param string $entityName The name of the entity that was updated
      *
-     * @return string
+     * @return void
      */
-    public function getEntityUpdatedMessage($entityName)
+    public function addEntityUpdatedMessage($entityName)
     {
-        return $this->parseMessage('entityUpdated', array('entity' => $entityName));
+        $this->addMessageToFlashBag('entityUpdated', array('entity' => $entityName));
     }
 
     /**
@@ -64,11 +74,11 @@ class Generator implements GeneratorInterface
      *
      * @param string $entityName The name of the entity that was deleted
      *
-     * @return string
+     * @return void
      */
-    public function getEntityDeletedMessage($entityName)
+    public function addEntityDeletedMessage($entityName)
     {
-        return $this->parseMessage('entityDeleted', array('entity' => $entityName));
+        $this->addMessageToFlashBag('entityDeleted', array('entity' => $entityName));
     }
 
     /**
@@ -81,9 +91,9 @@ class Generator implements GeneratorInterface
      *
      * @throws \RuntimeException If an empty $message is provided or there is a missing replacement value
      *
-     * @return string
+     * @return void
      */
-    protected function parseMessage($messageType, array $replacement)
+    protected function addMessageToFlashBag($messageType, array $replacement)
     {
         if (empty($this->messages[$messageType])) {
             throw new \RuntimeException('Flash message generator cannot parse an empty message');
@@ -100,7 +110,7 @@ class Generator implements GeneratorInterface
 
         $message = str_replace('%entity%', $replacement['entity'], $this->messages[$messageType]);
 
-        return $message;
+        $this->session->getFlashBag()->add('notice', $message);
     }
 
     /**
