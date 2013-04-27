@@ -4,6 +4,7 @@ namespace Tickit\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use DateTime;
+use Doctrine\ORM\NoResultException;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -95,7 +96,11 @@ class UserRepository extends EntityRepository
                    ->setParameter('email', $search);
         }
 
-        $user = $usersQ->getQuery()->getSingleResult();
+        try {
+            $user = $usersQ->getQuery()->getSingleResult();
+        } catch (NoResultException $e) {
+            return null;
+        }
 
         return $user;
     }
