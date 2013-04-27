@@ -3,8 +3,6 @@
 namespace Tickit\CoreBundle\Tests\Flash;
 
 use Symfony\Component\HttpFoundation\Session\Session;
-use Tickit\CoreBundle\Flash\Provider;
-use Tickit\CoreBundle\Flash\ProviderInterface;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 
 /**
@@ -41,8 +39,9 @@ class ProviderTest extends AbstractFunctionalTest
      */
     public function testServiceExists()
     {
-        $generator = $this->getProvider();
-        $this->assertInstanceOf('Tickit\CoreBundle\Flash\ProviderInterface', $generator);
+        $container = static::createClient()->getContainer();
+        $provider = $container->get('tickit.flash_messages');
+        $this->assertInstanceOf('Tickit\CoreBundle\Flash\ProviderInterface', $provider);
     }
 
     /**
@@ -52,10 +51,11 @@ class ProviderTest extends AbstractFunctionalTest
      */
     public function testCorrectExceptionThrownForEmptyReplacementValue()
     {
-        $generator = $this->getProvider();
+        $container = static::createClient()->getContainer();
+        $provider = $container->get('tickit.flash_messages');
         $this->setExpectedException('\RuntimeException');
 
-        $generator->addEntityCreatedMessage('');
+        $provider->addEntityCreatedMessage('');
     }
 
     /**
@@ -67,12 +67,11 @@ class ProviderTest extends AbstractFunctionalTest
      */
     public function testGetEntityCreatedMessage()
     {
-        $provider = $this->getProvider();
+        $container = static::createClient()->getContainer();
+        $provider = $container->get('tickit.flash_messages');
         $provider->addEntityCreatedMessage('team');
 
-        $container = static::createClient()->getContainer();
         $messages = $container->get('session')->getFlashBag()->get('notice');
-        var_dump($messages); die;
         $message = array_pop($messages);
 
         $this->assertEquals('The team has been created successfully', $message);
@@ -87,11 +86,12 @@ class ProviderTest extends AbstractFunctionalTest
      */
     public function testGetEntityUpdatedMessage()
     {
-        $provider = $this->getProvider();
+        $container = static::createClient()->getContainer();
+        $provider = $container->get('tickit.flash_messages');
         $provider->addEntityUpdatedMessage('user');
 
-        $container = static::createClient()->getContainer();
-        $message = $container->get('session')->getFlashBag()->get('notice');
+        $messages = $container->get('session')->getFlashBag()->get('notice');
+        $message = array_pop($messages);
 
         $this->assertEquals('The user has been updated successfully', $message);
     }
@@ -105,25 +105,13 @@ class ProviderTest extends AbstractFunctionalTest
      */
     public function testGetEntityDeletedMessage()
     {
-        $provider = $this->getProvider();
-        $provider->addEntityDeletedMessage('project');
-
-        $container = static::createClient()->getContainer();
-        $message = $container->get('session')->getFlashBag()->get('notice');
-
-        $this->assertEquals('The project has been successfully deleted', $message);
-    }
-
-    /**
-     * Gets a new flash message generator
-     *
-     * @return ProviderInterface
-     */
-    protected function getProvider()
-    {
         $container = static::createClient()->getContainer();
         $provider = $container->get('tickit.flash_messages');
+        $provider->addEntityDeletedMessage('project');
 
-        return $provider;
+        $messages = $container->get('session')->getFlashBag()->get('notice');
+        $message = array_pop($messages);
+
+        $this->assertEquals('The project has been successfully deleted', $message);
     }
 }
