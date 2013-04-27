@@ -11,12 +11,8 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - COMPOSER_ROOT_VERSION=dev-master php composer.phar install
 
-  # build database #
-  - php app/console doctrine:schema:create --env test
-  - php app/console doctrine:fixtures:load --append --env test
-
-  # refresh php environment #
-  - phpenv rehash
+  # set up test environment #
+  - php app/console tickit:tests:setup --env test
 
 script:
   - phpunit -c app/phpunit.xml
