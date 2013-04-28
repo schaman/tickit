@@ -3,9 +3,11 @@
 namespace Tickit\CoreBundle\Command;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -62,33 +64,33 @@ class TestEnvironmentSetupCommand extends ContainerAwareCommand
         $schemaTool = new SchemaTool($em);
 
         $output->writeln('Dropping database for test environment...');
-        $schemaTool->dropDatabase();
-        $output->writeln('Database dropped successfully!');
+        try {
+            $schemaTool->dropDatabase();
+            $output->writeln('Database dropped successfully!');
+        } catch (\PDOException $e) {
+            $dbInput = new ArrayInput(
+                array(
+                    'command' => 'doctrine:database:create',
+                    '--env' => 'test'
+                )
+            );
+            $command = $this->getApplication()->find('doctrine:database:create');
+            $command->run($dbInput, $output);
+        }
 
-        $output->writeln('Re-creating database for test environment...');
+        $output->writeln('Re-creating schema for test environment...');
         $schemaTool->createSchema($metaData);
         $output->writeln('Database created successfully!');
 
         $output->writeln('Loading data fixtures for test environment...');
-
-        // let's load some fixtures...
-        $paths = array();
-        foreach ($this->getApplication()->getKernel()->getBundles() as $bundle) {
-            $paths[] = $bundle->getPath().'/DataFixtures/ORM';
-        }
-
-        $loader = new ContainerAwareLoader($this->getContainer());
-        foreach ($paths as $path) {
-            if (is_dir($path)) {
-                $loader->loadFromDirectory($path);
-            }
-        }
-        $fixtures = $loader->getFixtures();
-
-        $executor = new ORMExecutor($em);
-        $executor->setLogger(function($message) use ($output) {
-            $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
-        });
-        $executor->execute($fixtures, true);
+        $fixturesInput = new ArrayInput(
+            array(
+                'command' => 'doctrine:fixtures:load',
+                '--env' => 'test',
+                '--append' => true
+            )
+        );
+        $fixturesCommand = $this->getApplication()->find('doctrine:fixtures:load');
+        $fixturesCommand->run($fixturesInput, $output);
     }
 }
