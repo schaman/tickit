@@ -20,8 +20,8 @@ class LiteralAttributeValue extends AbstractAttributeValue
      * The attribute this value is for
      *
      * @var LiteralAttribute
-     * @ORM\OneToOne(targetEntity="LiteralAttribute")
-     * @ORM\JoinColumn(name="literal_attribute_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="LiteralAttribute", inversedBy="values")
+     * @ORM\JoinColumn(name="literal_attribute_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $attribute;
 

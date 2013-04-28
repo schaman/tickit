@@ -4,13 +4,13 @@ namespace Tickit\ProjectBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
 
 /**
  * Attribute manager.
@@ -25,7 +25,7 @@ class AttributeManager
     /**
      * The entity manager
      *
-     * @var ObjectManager
+     * @var EntityManager
      */
     protected $em;
 
@@ -42,7 +42,7 @@ class AttributeManager
     /**
      * Gets the repository for attributes
      *
-     * @return ObjectRepository
+     * @return AttributeRepository
      */
     public function getRepository()
     {

@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +33,14 @@ class LiteralAttribute extends AbstractAttribute
      * @ORM\Column(name="validation_type", type="string", length=15)
      */
     protected $validationType;
+
+    /**
+     * Attribute values that use this attribute.
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="LiteralAttributeValue", mappedBy="attribute")
+     */
+    protected $values;
 
     /**
      * Gets the attribute type
