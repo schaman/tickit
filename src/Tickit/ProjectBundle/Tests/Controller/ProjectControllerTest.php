@@ -168,7 +168,6 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionDeletesProject()
     {
-        $this->markTestSkipped('TODO: fix this cascading delete problem');
         $client = $this->getAuthenticatedClient(static::$admin);
 
         $crawler = $client->request('get', '/projects');

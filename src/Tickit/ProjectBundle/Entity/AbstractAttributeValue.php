@@ -37,7 +37,7 @@ abstract class AbstractAttributeValue implements AttributeValueInterface
      *
      * @var Project
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="attributes")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $project;
 

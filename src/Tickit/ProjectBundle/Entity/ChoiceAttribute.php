@@ -19,9 +19,17 @@ use Doctrine\ORM\Mapping as ORM;
 class ChoiceAttribute extends AbstractAttribute
 {
     /**
+     * Attribute values that use this choice attribute
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="ChoiceAttributeValue", mappedBy="attribute")
+     */
+    protected $values;
+
+    /**
      * Choices that are associated with this choice attribute
      *
-     * @var ArrayCollection
+     * @var Collection
      * @ORM\OneToMany(targetEntity="ChoiceAttributeChoice", mappedBy="attribute", cascade={"persist"})
      */
     protected $choices;

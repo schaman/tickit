@@ -31,7 +31,7 @@ class ChoiceAttributeChoice
      *
      * @var ChoiceAttribute
      * @ORM\ManyToOne(targetEntity="ChoiceAttribute", inversedBy="choices")
-     * @ORM\JoinColumn(name="attribute_id")
+     * @ORM\JoinColumn(name="attribute_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $attribute;
 
