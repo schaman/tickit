@@ -19,8 +19,8 @@ class EntityAttributeValue extends AbstractAttributeValue
     /**
      * The attribute this value is for
      *
-     * @ORM\OneToOne(targetEntity="EntityAttribute")
-     * @ORM\JoinColumn(name="entity_attribute_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="EntityAttribute", inversedBy="values")
+     * @ORM\JoinColumn(name="entity_attribute_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $attribute;
 

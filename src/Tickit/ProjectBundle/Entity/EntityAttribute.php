@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,6 +18,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EntityAttribute extends AbstractAttribute
 {
+    /**
+     * Attribute values that use this entity attribute
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="EntityAttributeValue", mappedBy="attribute")
+     */
+    protected $values;
+
     /**
      * The entity class that this attribute is for
      *
