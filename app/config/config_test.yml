@@ -17,9 +17,12 @@ swiftmailer:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_sqlite
-        user:     %test_database_user%
-        path:     %kernel.root_dir%/sqlite_test
+        driver:   %database_driver%
+        user:     %database_user%
+        dbname:   %database_name%_tests
+        host:     %database_host%
+        port:     %database_port%
+        password: %database_password%
         charset:  UTF8
 
 # Test specific firewall
