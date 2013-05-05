@@ -26,12 +26,12 @@ class UserPermissionValueRepository extends EntityRepository
     public function findAllForUserQuery(User $user = null)
     {
         $query = $this->getEntityManager()
-                            ->createQueryBuilder()
-                            ->select('p, upv')
-                            ->from('TickitPermissionBundle:UserPermissionValue', 'upv')
-                            ->leftJoin('upv.permission', 'p')
-                            ->where('upv.user = :user_id')
-                            ->setParameter('user_id', $user->getId());
+                      ->createQueryBuilder()
+                      ->select('p, upv')
+                      ->from('TickitPermissionBundle:UserPermissionValue', 'upv')
+                      ->leftJoin('upv.permission', 'p')
+                      ->where('upv.user = :user_id')
+                      ->setParameter('user_id', $user->getId());
 
         return $query;
     }
