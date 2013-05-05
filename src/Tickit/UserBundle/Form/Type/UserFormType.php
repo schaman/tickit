@@ -70,16 +70,34 @@ class UserFormType extends AbstractType
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
                 )
-                ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'))
-                ->add(
-                    'permissions',
-                    'entity',
-                    array(
-                        'class' => 'Tickit\PermissionBundle\Entity\Permission',
-                        'expanded' => true,
-                        'multiple' => true
-                    )
-                );
+                ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'));
+
+        if (null === $user) {
+            $builder->add(
+                'permissions',
+                'choice',
+                array(
+                    'choices' => $this->permissionsRepository->getAllAsKeyValuePairs(),
+                    'expanded' => true,
+                    'multiple' => true
+                )
+            );
+        } else {
+            $builder->add(
+                'permissions',
+                'entity',
+                array(
+                    'query_builder' => function($repo) use ($user) {
+                        /** @var UserPermissionValueRepository $repo */
+                        return $repo->findAllForUserQuery($user);
+                    },
+                    'class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue',
+                    'property' => 'permissionName',
+                    'expanded' => true,
+                    'multiple' => true
+                )
+            );
+        }
     }
 
     /**
