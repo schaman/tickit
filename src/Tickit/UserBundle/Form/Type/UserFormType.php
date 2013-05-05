@@ -61,7 +61,9 @@ class UserFormType extends AbstractType
                 ->add('username', 'text')
                 ->add('email', 'email')
                 ->add(
-                    'password', 'repeated', array(
+                    'password',
+                    'repeated',
+                    array(
                         'type' => 'password',
                         'required' => false,
                         'first_options' => array('label' => $passwordLabel),
@@ -73,7 +75,9 @@ class UserFormType extends AbstractType
 
         if (null === $user) {
             $builder->add(
-                'permissions', 'choice', array(
+                'permissions',
+                'choice',
+                array(
                     'choices' => $this->permissionsRepository->getAllAsKeyValuePairs(),
                     'expanded' => true,
                     'multiple' => true
@@ -81,7 +85,9 @@ class UserFormType extends AbstractType
             );
         } else {
             $builder->add(
-                'permissions', 'entity', array(
+                'permissions',
+                'entity',
+                array(
                     'query_builder' => function($repo) use ($user) {
                         /** @var UserPermissionValueRepository $repo */
                         return $repo->findAllForUserQuery($user);
