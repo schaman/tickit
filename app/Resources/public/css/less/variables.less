@@ -49,3 +49,35 @@
 .hidden {
   display:none;
 }
+
+/******************************************************************************************/
+/* Colours
+/******************************************************************************************/
+ 
+@borderColor: #ebebeb;
+@menulinkColor: #58585B;
+
+@hColor: #414F69;
+
+/******************************************************************************************/
+/* Mixins 
+/******************************************************************************************/
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+.gradient(@origin: top, @start: #FAFAFA, @stop: #F1F1F1) {
+  background-color: @start;
+  background: -webkit-linear-gradient(@origin, @start, @stop);
+  background: -moz-linear-gradient(@origin, @start, @stop);
+  background: -o-linear-gradient(@origin, @start, @stop);
+  background: -ms-linear-gradient(@origin, @start, @stop);
+  background: linear-gradient(@origin, @start, @stop);
+}
+
+
+

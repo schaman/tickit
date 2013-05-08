@@ -20,7 +20,7 @@ header {
   height: 50px;
 }
 .account a {
-  color: #fff;
+  color: #fff !important;
   display: inline-block !important;
   margin: 8px 0 0 9px;
   padding-right: 20px;
@@ -43,27 +43,6 @@ header {
   width: 30px;
   background-image: url('/images/structure/thumb-gloss.png');
   display: inline-block;
-}
-.profile-menu {
-  background-color: #fff;
-  height: 0;
-  overflow: hidden;
-}
-.profile-menu ul {
-  list-style-type: none;
-  margin-left: 5px;
-}
-.profile-menu ul li {
-  height: 25px;
-}
-.profile-menu ul li a {
-  color: #555;
-  line-height: 10px;
-  text-shadow: none;
-}
-.profile-menu ul li a:hover {
-  color: #555;
-  text-decoration: underline;
 }
 #logo, #logo:hover {
   float:left;
@@ -114,6 +93,8 @@ header[role="banner"] {
   box-shadow: 0px 2px 2px 1px #3e4a64;
   z-index: 99;
 }
+
+
 /******************************************************************************************/
 /* container
 /******************************************************************************************/
@@ -124,11 +105,258 @@ header[role="banner"] {
   background:#fff;
   margin:0 auto 60px;
 }
-#container header {
+#container .contentLeft{
+  float: left;
+  width: 200px;
+  padding: 20px;
+}
+#container .contentRight{
+  float: left;
+  width: 865px;
+  padding: 20px;
+  border-left: 1px solid @borderColor;
+  border-bottom: 1px solid @borderColor;
+}
+
+
+/******************************************************************************************/
+/* container / Subheader
+/******************************************************************************************/
+
+#container header.subnav {
   height:90px;
   background:#fbfbfb;
-  border-bottom:1px solid #ebebeb;
+  border-bottom:1px solid @borderColor;
+  position: relative;
 }
+#container .subnav .button{
+    position: absolute;
+    right: 20px;
+    top: 30px;
+}
+#container .subnav nav {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0px 0 0 300px;
+}
+.subnav li a {
+  display: block;
+  height: 54px;
+  width: 70px;
+  text-align: center;
+  padding:  20px 0 17px 0;
+  color: @menulinkColor;
+  font-weight: bold;
+  font-size: @baseFontSize;
+  background: url('/images/icons/arrowHover.png') center 95px no-repeat;
+  -webkit-transition: all 0.2s ease 0s;
+  -moz-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+  &:hover{
+    text-decoration: none;
+    -webkit-transition: all 0.2s ease 0s;
+    -moz-transition: all 0.2s ease 0s;
+    transition: all 0.2s ease 0s;
+    background:url('/images/icons/arrowHover.png') center 81px no-repeat;  
+  }
+  &.active{
+	background:url('/images/icons/arrowHover.png') center 81px no-repeat;  
+  }
+}
+.subnav li a span {
+  background: url('/images/icons/subnav-sprite.png');
+  display: block;
+  height: 32px;
+  padding-bottom: 5px;
+}
+/* subnav icon positions */
+/* projects */
+.subnav li a.projectMenu span{
+  background-position: -68px -11px;	
+}
+.subnav li a.projectMenu.active span,
+.subnav li a.projectMenu:hover span{
+  background-position: 3px -10px;	
+}
+/* tasks */
+.subnav li a.taskMenu span{
+  background-position: -68px -97px;		
+}
+.subnav li a.taskMenu.active span,
+.subnav li a.taskMenu:hover span{
+  background-position: 4px -96px;	
+}
+/* meetings */
+.subnav li a.meetingMenu span{
+  background-position: -73px -181px;		
+}
+.subnav li a.meetingMenu.active span,
+.subnav li a.meetingMenu:hover span{
+  background-position: -1px -181px;	
+}
+/* notes */
+.subnav li a.notesMenu span{
+  background-position: -72px -265px;		
+}
+.subnav li a.notesMenu.active span,
+.subnav li a.notesMenu:hover span{
+  background-position: -150px -265px;
+}
+
+/******************************************************************************************/
+/* container / SideMenu
+/******************************************************************************************/
+
+.sideMenu{
+  width: 100%;		
+}
+.sideMenu .widget{
+  margin-top: 35px;
+  &:first-child{
+    margin-top: 0px; 
+  }	
+}
+
+/* Filter / SideMenu */
+
+.filter ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none
+}
+.filter ul li{
+  float: right;
+  clear: both; 
+  margin: 0px 0px 5px 0px 
+}
+.filter ul li a{
+  display: inline-block;
+  text-transform: capitalize;
+  padding: 8px 8px 8px 30px;
+  font-weight: bold;
+  color: #7B7B7B;
+  border: 1px solid #DADADA;
+  position: relative;
+  .rounded-corners();
+  .gradient(); 
+}
+.filter ul li a.active,
+.filter ul li a:active{
+  .gradient(top, #516286 , #44516C); 
+  box-shadow: inset 0px 0px 2px 1px #657491;
+  color: #fff;
+  span{
+	display: block;
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	margin-top: -5px;
+	background: url('/images/icons/close.png') center center no-repeat;
+  }
+}
+
+/******************************************************************************************/
+/* tableData
+/******************************************************************************************/
+
+.tableData{
+  padding: 15px;	
+  border: 1px solid @borderColor;
+  .rounded-corners( 5px);
+  background: #F1F1F2;
+  position: relative;
+  h3{
+    color: @hColor;
+    font-size: 15px;
+    line-height: 100%;
+    margin: 5px 0 15px;
+  }
+  .expandArrow{
+	background-image: url('/images/icons/arrowsTableDefault.png');
+	position: absolute;
+	height: 12px;
+	width: 12px;
+    top: 20px;
+    right: 25px;		
+	&.open{
+      background-position: 0px 0px;	
+	}
+  }
+  ul{
+    list-style: none;
+    margin: 0px;	 
+  } 
+  li{
+    border: 1px solid @borderColor;
+    .rounded-corners( 5px); 
+    background: #FBFBFB;
+    padding: 10px;
+    margin: 3px 0px;
+    font-size: 12px;
+	-webkit-box-shadow: 0px 7px 10px -7px rgba(0,0,0,0.2);
+	-moz-box-shadow:    0px 7px 10px -7px rgba(0,0,0,0.2);
+	box-shadow:        0px 7px 10px -7px rgba(0,0,0,0.2);
+	&:active{ cursor: move;}   
+
+  }
+}
+/******************************************************************************************/
+/* button
+/******************************************************************************************/
+
+.button{
+  display: inline-block;
+  text-transform: capitalize;
+  padding: 8px 8px 8px 8px;
+  font-weight: bold;
+  color: #7B7B7B;
+  border: 1px solid #DADADA;
+  position: relative;
+  font-size: 12px;
+  .rounded-corners();
+  .gradient();
+  &.green{
+   .gradient(@origin: top, @start: #93bf33, @stop: #7fa52c);
+   color: #fff;
+   border: 1px solid #7da32b;
+   box-shadow: inset 0px 0px 2px 1px #abcd54;  
+  }    
+}
+
+/******************************************************************************************/
+/* flash messages 
+/******************************************************************************************/
+
+.message{
+ .rounded-corners( 5px); 
+ font-size: 12px;
+ position: relative;
+ &.error{
+    border: 1px solid #d98d8d;
+    background: #fae9e9;
+    padding: 5px 10px;
+    margin: 0px 0px 10px 0px;
+    color: #7e1b1b; 
+ }
+ span{
+    font-weight: bold;
+ } 
+ .close{
+    background: url('../images/structure/close-error.png') no-repeat center center; 
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0px 0px 0px;
+    top: 50%;
+    right: 10px;
+ }  
+}
+
+
+
 /******************************************************************************************/
 /* tables
 /******************************************************************************************/
@@ -138,7 +366,7 @@ header[role="banner"] {
   width: 100%;
   background-color: #f9f9f9;
   border-radius: 3px;
-  border: #ebebeb solid 1px;
+  border: @borderColor solid 1px;
   padding: 15px;
 }
 .data-list tbody tr {
