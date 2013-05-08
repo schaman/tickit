@@ -17,6 +17,9 @@ use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
 class GroupPermissionValue implements PermissionValueInterface
 {
     /**
+     * The group for this value
+     *
+     * @var Group
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\Group", inversedBy="permissions")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
@@ -24,6 +27,9 @@ class GroupPermissionValue implements PermissionValueInterface
     protected $group;
 
     /**
+     * The permission that this value relates to
+     *
+     * @var Permission
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Permission", inversedBy="groups")
      * @ORM\JoinColumn(name="permission_id", referencedColumnName="id")
@@ -31,6 +37,9 @@ class GroupPermissionValue implements PermissionValueInterface
     protected $permission;
 
     /**
+     * The value of the permission
+     *
+     * @var boolean
      * @ORM\Column(name="value", type="boolean")
      */
     protected $value;
