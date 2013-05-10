@@ -21,7 +21,7 @@ use Tickit\PermissionBundle\Interfaces\PermissionInterface;
 class Permission implements PermissionInterface
 {
     /**
-     * The unique identifier for this permission
+     * The unique identifier for the permission
      *
      * @var integer
      * @ORM\Id
@@ -47,7 +47,7 @@ class Permission implements PermissionInterface
     protected $systemName;
 
     /**
-     * Users that own this permission
+     * The users that have a value associated with this permission
      *
      * @var Collection
      * @ORM\OneToMany(targetEntity="UserPermissionValue", mappedBy="permission")
