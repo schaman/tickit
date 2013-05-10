@@ -18,23 +18,6 @@ use Tickit\UserBundle\Entity\User;
 class UserPermissionFormType extends AbstractType
 {
     /**
-     * The user that we are adding/editing permissions for
-     *
-     * @var User
-     */
-    protected $user;
-
-    /**
-     * Constructor.
-     *
-     * @param User $user The user that we are adding/editing permissions for
-     */
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
-    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder The form builder
@@ -44,7 +27,8 @@ class UserPermissionFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //todo: build form
+        $builder->add('permission', 'text')
+                ->add('value', 'checkbox');
     }
 
     /**
@@ -56,7 +40,7 @@ class UserPermissionFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\PermissionBundle\UserPermissionValue'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue'));
     }
 
     /**
