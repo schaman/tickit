@@ -77,8 +77,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Permissions that this user has been granted
      *
-     * @ORM\ManyToMany(targetEntity="Tickit\PermissionBundle\Entity\Permission", inversedBy="users")
-     * @ORM\JoinTable(name="users_permissions")
+     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\UserPermissionValue", mappedBy="user", cascade={"persist"})
      */
     protected $permissions;
 
