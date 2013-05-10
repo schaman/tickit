@@ -47,7 +47,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
     /**
      * {@inheritDoc}
      *
-     * @return ObjectRepository
+     * @return UserRepository
      */
     public function getRepository()
     {
@@ -270,5 +270,17 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function updatePassword(UserInterface $user)
     {
         $this->fosManager->updatePassword($user);
+    }
+
+    /**
+     * Finds a user by ID
+     *
+     * @param integer $id The user ID to find by
+     *
+     * @return User
+     */
+    public function find($id)
+    {
+        return $this->getRepository()->findById($id);
     }
 }
