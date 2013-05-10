@@ -106,4 +106,14 @@ class UserPermissionValue implements PermissionValueInterface
     {
         return $this->permission->getName();
     }
+
+    /**
+     * Gets the permission
+     *
+     * @return Permission
+     */
+    public function getPermission()
+    {
+        return $this->permission;
+    }
 }
