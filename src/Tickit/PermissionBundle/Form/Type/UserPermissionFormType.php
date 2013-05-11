@@ -2,10 +2,12 @@
 
 namespace Tickit\PermissionBundle\Form\Type;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\UserBundle\Entity\User;
+use Tickit\PermissionBundle\Form\DataTransformer\PermissionToPermissionNameTransformer;
 
 /**
  * User permissions form.
@@ -18,6 +20,23 @@ use Tickit\UserBundle\Entity\User;
 class UserPermissionFormType extends AbstractType
 {
     /**
+     * The entity manager
+     *
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
+     * Constructor.
+     *
+     * @param Registry $doctrine The doctrine registry
+     */
+    public function __construct(Registry $doctrine)
+    {
+        $this->em = $doctrine->getManager();
+    }
+
+    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder The form builder
@@ -27,8 +46,13 @@ class UserPermissionFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('permission', 'text')
-                ->add('value', 'checkbox');
+        $transformer = new PermissionToPermissionNameTransformer($this->em);
+
+        $permissionField = $builder->create('permission', 'text', array('label' => false))
+                                   ->addModelTransformer($transformer);
+
+        $builder->add($permissionField)
+                ->add('value', 'checkbox', array('label' => false));
     }
 
     /**
