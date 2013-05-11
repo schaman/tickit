@@ -21,6 +21,9 @@
             <argument type="service" id="doctrine" />
             <tag name="form.type" alias="tickit_user_permission" />
         </service>
+        <service id="tickit_permission.manager" class="Tickit\PermissionBundle\Manager\PermissionManager">
+            <argument type="service" id="doctrine" />
+        </service>
     </services>
 
 </container>
