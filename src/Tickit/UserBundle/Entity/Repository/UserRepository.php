@@ -119,7 +119,7 @@ class UserRepository extends EntityRepository
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
                       ->select('u, up, p, g')
-                      ->from('TickitUserBunde:User', 'u')
+                      ->from('TickitUserBundle:User', 'u')
                       ->leftJoin('u.group', 'g')
                       ->leftJoin('u.permissions', 'up')
                       ->leftJoin('up.permission', 'p')
