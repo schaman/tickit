@@ -18,12 +18,9 @@ preferences:
   prefix: /preferences
 
 # PermissionBundle Routes
-user_permissions:
-  resource: "@TickitPermissionBundle/Resources/config/routing/user_permissions.yml"
-  prefix: /permissions/user
-group_permissions:
-  resource: "@TickitPermissionBundle/Resources/config/routing/group_permissions.yml"
-  prefix: /permissions/group
+permissions:
+  resource: "@TickitPermissionBundle/Resources/config/routing.yml"
+  prefix: /permissions
 
 # DashboardBundle Routes
 dashboard:
