@@ -83,6 +83,22 @@ class UserControllerTest extends AbstractFunctionalTest
     }
 
     /**
+     * Tests the editAction() method
+     *
+     * @return void
+     */
+    public function testEditActionRendersPermissionsData()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $router = $container->get('router');
+
+        $user = $container->get('tickit_user.manager')->findUserByUsername('james');
+        $crawler = $client->request('get', $router->generate('user_edit', array('id' => $user->getId())));
+        $this->assertGreaterThan(0, $crawler->filter('div.data-list table tr')->count());
+    }
+
+    /**
      * Tests the editAction()
      *
      * Ensures that a valid attempt to update a user is successful
