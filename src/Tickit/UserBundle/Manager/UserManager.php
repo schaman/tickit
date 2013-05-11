@@ -3,7 +3,6 @@
 namespace Tickit\UserBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectRepository;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
