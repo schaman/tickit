@@ -85,8 +85,7 @@ class PermissionManager
         $groupValues = $this->getGroupPermissionValueRepository()
                             ->findAllForGroupIndexedByName($user->getGroup());
 
-        //$collection = new ArrayCollection();
-        $collection = array();
+        $collection = new ArrayCollection();
         foreach ($groupValues as $systemName => $groupValue) {
             if (isset($userValues[$systemName])) {
                 $userValue = $userValues[$systemName];
@@ -102,8 +101,7 @@ class PermissionManager
                 'group' => $groupValue['groups'][0]['value']
             );
 
-            //$collection->offsetSet($systemName, $permission);
-            $collection[$systemName] = $permission;
+            $collection->offsetSet($systemName, $permission);
         }
 
         return $collection;
