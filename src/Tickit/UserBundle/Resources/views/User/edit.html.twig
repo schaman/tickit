@@ -4,8 +4,41 @@
     <h2>Edit User</h2>
 
     <form method='post' {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
 
+        {{ form_row(form.forename) }}
+        {{ form_row(form.surname) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.group) }}
+
+        <h4>Permissions</h4>
+        <div class='data-list'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Group Granted?</th>
+                        <th>Override for this user?</th>
+                        <th>User Granted?</th>
+                    </tr>
+                </thead>
+                {% for permission in permissions %}
+                    {% set groupGranted = permission['group'] is sameas(true) ? 'Yes' : 'No' %}
+                    {% set userChecked = permission['user'] is sameas(true) ? 'checked="checked"' : '' %}
+                    {% set userDisabled = permission['user'] is null ? 'disabled="disabled"' : '' %}
+                    <tr>
+                        <td>{{ permission['name'] }}</td>
+                        <td>{{ groupGranted }}</td>
+                        <td><input type="checkbox" {% if permission['user'] != null %} checked="checked" {% endif %} /></td>
+                        <td><input type="checkbox" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][user][]" {{ userChecked }} {{ userDisabled }} /></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% do form.permissions.setRendered %}
+        </div>
+
+        {{ form_rest(form) }}
         <input type='submit' value='Save Changes' />
     </form>
 {% endblock %}

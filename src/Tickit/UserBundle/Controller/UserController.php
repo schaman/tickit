@@ -6,9 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-use Tickit\PermissionBundle\Form\Type\PermissionsFormType;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Form\Type\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -80,14 +78,14 @@ class UserController extends AbstractCoreController
      */
     public function editAction($id)
     {
-        $existingUser = $this->get('tickit_user.manager')
-                             ->getRepository()
-                             ->findOneById($id);
+        $existingUser = $this->get('tickit_user.manager')->find($id);
 
         if (empty($existingUser)) {
             throw $this->createNotFoundException('User not found');
         }
 
+        $permissions = $this->get('tickit_permission.manager')->getPermissionDataForUser($existingUser);
+        $existingUser->setPermissions($permissions);
         $form = $this->createForm('tickit_user', $existingUser);
 
         $existingPassword = $existingUser->getPassword();
@@ -115,6 +113,6 @@ class UserController extends AbstractCoreController
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'permissions' => $permissions);
     }
 }

@@ -56,18 +56,6 @@ class UserPermissionFormType extends AbstractType
     }
 
     /**
-     * Sets form options.
-     *
-     * @param OptionsResolverInterface $resolver The options resolver.
-     *
-     * @return void
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array('data_class' => 'Tickit\PermissionBundle\Entity\UserPermissionValue'));
-    }
-
-    /**
      * Returns the name of this type.
      *
      * @return string The name of this type
