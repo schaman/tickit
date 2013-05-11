@@ -2,6 +2,7 @@
 
 namespace Tickit\UserBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -310,7 +311,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Sets permissions for this user
      *
-     * @param array|ArrayCollection $permissions The permissions collection
+     * @param array|Collection $permissions The permissions collection
      *
      * @return User
      */
