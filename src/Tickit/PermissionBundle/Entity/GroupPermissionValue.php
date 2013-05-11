@@ -12,7 +12,7 @@ use Tickit\PermissionBundle\Interfaces\PermissionValueInterface;
  * @package Tickit\PermissionBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\PermissionBundle\Entity\Repository\GroupPermissionValueRepository")
  * @ORM\Table(name="groups_permission_values")
  */
 class GroupPermissionValue implements PermissionValueInterface
