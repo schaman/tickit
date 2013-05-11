@@ -71,7 +71,14 @@ class UserFormType extends AbstractType
                     )
                 )
                 ->add('group', 'entity', array('class' => 'Tickit\UserBundle\Entity\Group'))
-                ->add('permissions', 'collection', array('type' => 'tickit_user_permission'));
+                ->add(
+                    'permissions',
+                    'collection',
+                    array(
+                        'type' => 'tickit_user_permission',
+                        'mapped' => false
+                    )
+                );
     }
 
     /**
