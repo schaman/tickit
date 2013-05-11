@@ -2,7 +2,6 @@
 
 namespace Tickit\PermissionBundle\Entity\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Tickit\UserBundle\Entity\User;
