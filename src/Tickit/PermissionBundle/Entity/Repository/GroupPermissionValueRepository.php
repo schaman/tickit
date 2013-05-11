@@ -4,6 +4,7 @@ namespace Tickit\PermissionBundle\Entity\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Tickit\UserBundle\Entity\Group;
 
 /**
@@ -19,20 +20,22 @@ class GroupPermissionValueRepository extends EntityRepository
     /**
      * Gets a collection of all permissions and associated values for a user group
      *
-     * @param Group $group The user to find group permissions for
+     * @param Group   $group         The user to find group permissions for
+     * @param integer $hydrationMode The hydration mode used to hydrate the result
      *
      * @return Collection
      */
-    public function findAllForGroup(Group $group)
+    public function findAllForGroupIndexedByName(Group $group, $hydrationMode = Query::HYDRATE_ARRAY)
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
                       ->select('p, gpv')
-                      ->from('TickitPermissionBundle:GroupPermissionValue', 'gpv')
-                      ->leftJoin('gpv.permission', 'p')
+                      ->from('TickitPermissionBundle:Permission', 'p', 'p.systemName')
+                      ->innerJoin('p.groups', 'gpv')
                       ->where('gpv.group = :group_id')
                       ->setParameter('group_id', $group->getId())
-                      ->getQuery();
+                      ->getQuery()
+                      ->setHydrationMode($hydrationMode);
 
         return $query->execute();
     }

@@ -2,7 +2,9 @@
 
 namespace Tickit\PermissionBundle\Entity\Repository;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Tickit\UserBundle\Entity\User;
 
@@ -17,22 +19,25 @@ use Tickit\UserBundle\Entity\User;
 class UserPermissionValueRepository extends EntityRepository
 {
     /**
-     * Gets a QueryBuilder that will fetch all permissions and associated values for a user
+     * Gets a collection of all permissions and associated values for a user
      *
-     * @param User $user The user to find permissions for
+     * @param User    $user          The user to find permissions for
+     * @param integer $hydrationMode The hydration mode used to hydrate the result
      *
-     * @return QueryBuilder
+     * @return Collection
      */
-    public function findAllForUserQuery(User $user = null)
+    public function findAllForUserIndexedByName(User $user = null, $hydrationMode = Query::HYDRATE_ARRAY)
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
                       ->select('p, upv')
-                      ->from('TickitPermissionBundle:UserPermissionValue', 'upv')
-                      ->leftJoin('upv.permission', 'p')
+                      ->from('TickitPermissionBundle:Permission', 'p', 'p.systemName')
+                      ->innerJoin('p.users', 'upv')
                       ->where('upv.user = :user_id')
-                      ->setParameter('user_id', $user->getId());
+                      ->setParameter('user_id', $user->getId())
+                      ->getQuery()
+                      ->setHydrationMode($hydrationMode);
 
-        return $query;
+        return $query->execute();
     }
 }
