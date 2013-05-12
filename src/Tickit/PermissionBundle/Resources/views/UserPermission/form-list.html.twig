@@ -21,7 +21,7 @@
 
             {% set userChecked = permission['user'] is sameas(true) ? 'checked="checked"' : '' %}
             {% set userDisabled = permission['user'] is null ? 'disabled="disabled"' : '' %}
-            <tr>
+            <tr data-permission-id="{{ permission['id'] }}">
                 <td>{{ permission['name'] }}</td>
                 <td>
                     {{ groupGranted }}

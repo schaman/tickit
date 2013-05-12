@@ -63,7 +63,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * The group that this user belongs to
      *
-     * @ORM\ManyToOne(targetEntity="Group")
+     * @ORM\ManyToOne(targetEntity="Group", cascade={"persist"})
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
     protected $group;
