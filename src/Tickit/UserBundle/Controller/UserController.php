@@ -117,4 +117,31 @@ class UserController extends AbstractCoreController
 
         return array('form' => $form->createView(), 'permissions' => $permissions);
     }
+
+    /**
+     * Permissions form listing action.
+     *
+     * Renders content for a permission listing for embedding in a form.
+     *
+     * @param integer $groupId The group ID to render permissions for
+     * @param integer $userId  The user ID to render permissions for (optional)
+     *
+     * @throws NotFoundHttpException If no user could be found for the given user ID
+     *
+     * @Template("TickitPermissionBundle:UserPermission:form-list.html.twig")
+     */
+    public function permissionFormListAction($groupId, $userId = null)
+    {
+        if (null !== $userId) {
+            $user = $this->get('tickit_user.manager')->find($userId);
+            if (!$user instanceof User) {
+                throw $this->createNotFoundException(sprintf('No user found for given ID (%d)', $userId));
+            }
+        }
+
+        $permissions = $this->get('tickit_permission.manager')->getUserPermissionData($groupId, $userId);
+        $form = $this->createForm('tickit_user');
+
+        return array('form' => $form->createView(), 'permissions' => $permissions);
+    }
 }
