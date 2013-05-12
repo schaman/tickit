@@ -3,6 +3,7 @@
 namespace Tickit\UserBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -289,7 +290,11 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function find($id)
     {
-        return $this->getRepository()->findById($id);
+        try {
+            return $this->getRepository()->findById($id);
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     /**
