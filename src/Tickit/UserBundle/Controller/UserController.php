@@ -62,7 +62,7 @@ class UserController extends AbstractCoreController
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'permissions' => array());
     }
 
     /**

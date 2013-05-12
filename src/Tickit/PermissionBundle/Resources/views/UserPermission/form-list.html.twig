@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>Permission</th>
+            <th>Group Granted?</th>
+            <th>Override for this user?</th>
+            <th>User Granted?</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% if permissions|length %}
+        {% for permission in permissions %}
+            {% set groupGranted = permission['group'] is sameas(true) ? 'Yes' : 'No' %}
+            {% set userChecked = permission['user'] is sameas(true) ? 'checked="checked"' : '' %}
+            {% set userDisabled = permission['user'] is null ? 'disabled="disabled"' : '' %}
+            <tr>
+                <td>{{ permission['name'] }}</td>
+                <td>{{ groupGranted }}</td>
+                <td><input type="checkbox" {% if permission['user'] != null %} checked="checked" {% endif %} /></td>
+                <td><input type="checkbox" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][user][]" {{ userChecked }} {{ userDisabled }} /></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4">You need to select a group for this user before you can edit permissions.</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
