@@ -11,14 +11,24 @@
 
     {% if permissions|length %}
         {% for permission in permissions %}
-            {% set groupGranted = permission['group'] is sameas(true) ? 'Yes' : 'No' %}
+            {% if permission['group'] is sameas(true) %}
+                {% set groupGranted = 'Yes' %}
+                {% set groupValue = 1 %}
+            {% else %}
+                {% set groupGranted = 'No' %}
+                {% set groupValue = 0 %}
+            {% endif %}
+
             {% set userChecked = permission['user'] is sameas(true) ? 'checked="checked"' : '' %}
             {% set userDisabled = permission['user'] is null ? 'disabled="disabled"' : '' %}
             <tr>
                 <td>{{ permission['name'] }}</td>
-                <td>{{ groupGranted }}</td>
+                <td>
+                    {{ groupGranted }}
+                    <input type="hidden" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][group]" value="{{ groupValue }}" />
+                </td>
                 <td><input type="checkbox" {% if permission['user'] != null %} checked="checked" {% endif %} /></td>
-                <td><input type="checkbox" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][user][]" {{ userChecked }} {{ userDisabled }} /></td>
+                <td><input type="checkbox" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][user]" {{ userChecked }} {{ userDisabled }} /></td>
             </tr>
         {% endfor %}
     {% else %}
