@@ -7,6 +7,7 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
 
@@ -31,6 +32,13 @@ class UserManager extends AbstractManager implements UserManagerInterface
     protected $fosManager;
 
     /**
+     * The doctrine registry
+     *
+     * @var Registry
+     */
+    protected $doctrine;
+
+    /**
      * Constructor.
      *
      * @param Registry                      $doctrine   The doctrine service
@@ -40,6 +48,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
     {
         parent::__construct($doctrine, $dispatcher);
+        $this->doctrine = $doctrine;
         $this->fosManager = $fosManager;
     }
 
@@ -281,5 +290,21 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function find($id)
     {
         return $this->getRepository()->findById($id);
+    }
+
+    /**
+     * Finds a user group by ID
+     *
+     * @param integer $id The group ID to find by
+     *
+     * @return Group
+     */
+    public function findGroup($id)
+    {
+        $group = $this->doctrine
+                      ->getRepository('TickitUserBundle:Group')
+                      ->find($id);
+
+        return $group;
     }
 }

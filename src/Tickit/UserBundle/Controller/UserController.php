@@ -79,12 +79,14 @@ class UserController extends AbstractCoreController
     public function editAction($id)
     {
         $existingUser = $this->get('tickit_user.manager')->find($id);
+        $permissionManager = $this->get('tickit_permission.manager');
 
         if (empty($existingUser)) {
             throw $this->createNotFoundException('User not found');
         }
 
-        $permissions = $this->get('tickit_permission.manager')->getPermissionDataForUser($existingUser);
+        $existingUserGroupId = $existingUser->getGroup()->getId();
+        $permissions = $permissionManager->getUserPermissionData($existingUserGroupId, $existingUser->getId());
         $existingUser->setPermissions($permissions);
         $form = $this->createForm('tickit_user', $existingUser);
 

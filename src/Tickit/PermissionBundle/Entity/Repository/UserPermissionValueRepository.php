@@ -21,12 +21,12 @@ class UserPermissionValueRepository extends EntityRepository
     /**
      * Gets a collection of all permissions and associated values for a user
      *
-     * @param User    $user          The user to find permissions for
+     * @param integer $userId        The user to find permissions for
      * @param integer $hydrationMode The hydration mode used to hydrate the result
      *
      * @return Collection
      */
-    public function findAllForUserIndexedByName(User $user = null, $hydrationMode = Query::HYDRATE_ARRAY)
+    public function findAllForUserIndexedByName($userId, $hydrationMode = Query::HYDRATE_ARRAY)
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
@@ -34,7 +34,7 @@ class UserPermissionValueRepository extends EntityRepository
                       ->from('TickitPermissionBundle:Permission', 'p', 'p.systemName')
                       ->innerJoin('p.users', 'upv')
                       ->where('upv.user = :user_id')
-                      ->setParameter('user_id', $user->getId())
+                      ->setParameter('user_id', $userId)
                       ->getQuery()
                       ->setHydrationMode($hydrationMode);
 

@@ -71,19 +71,26 @@ class PermissionManager
      * Gets a collection of permission value data for a user.
      *
      * This method will return a collection containing a user permission values and
-     * group permission values for a user indexed by the permission's system name.
+     * group permission values for a user and group indexed by the permission's system name.
      *
-     * @param User $user The user to fetch permission values for
+     * This method intentionally allows a different group than the one associated with the
+     * user.
+     *
+     * @param integer $groupId The ID of the group to fetch permission values for
+     * @param integer $userId  The ID of the user to fetch permission values for (optional)
      *
      * @return Collection
      */
-    public function getPermissionDataForUser(User $user)
+    public function getUserPermissionData($groupId, $userId = null)
     {
-        $userValues = $this->getUserPermissionValueRepository()
-                           ->findAllForUserIndexedByName($user);
+        $userValues = array();
+        if (null !== $userId) {
+            $userValues = $this->getUserPermissionValueRepository()
+                               ->findAllForUserIndexedByName($userId);
+        }
 
         $groupValues = $this->getGroupPermissionValueRepository()
-                            ->findAllForGroupIndexedByName($user->getGroup());
+                            ->findAllForGroupIndexedByName($groupId);
 
         $collection = new ArrayCollection();
         foreach ($groupValues as $systemName => $groupValue) {

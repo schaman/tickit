@@ -83,6 +83,21 @@ class UserControllerTest extends AbstractFunctionalTest
     }
 
     /**
+     * Tests the addAction() method
+     *
+     * @return void
+     */
+    public function testAddActionRendersEmptyPermissionsData()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $router = $container->get('router');
+
+        $crawler = $client->request('get', $router->generate('user_add'));
+        $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
+    }
+
+    /**
      * Tests the editAction() method
      *
      * @return void
@@ -95,7 +110,7 @@ class UserControllerTest extends AbstractFunctionalTest
 
         $user = $container->get('tickit_user.manager')->findUserByUsername('james');
         $crawler = $client->request('get', $router->generate('user_edit', array('id' => $user->getId())));
-        $this->assertGreaterThan(0, $crawler->filter('div.data-list table tr')->count());
+        $this->assertGreaterThan(2, $crawler->filter('div.data-list table tr')->count());
     }
 
     /**
