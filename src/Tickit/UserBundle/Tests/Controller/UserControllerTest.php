@@ -2,7 +2,10 @@
 
 namespace Tickit\UserBundle\Tests\Controller;
 
+use Doctrine\DBAL\DBALException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\PermissionBundle\Entity\UserPermissionValue;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Manager\UserManager;
 
@@ -15,6 +18,31 @@ use Tickit\UserBundle\Manager\UserManager;
  */
 class UserControllerTest extends AbstractFunctionalTest
 {
+    /**
+     * Sample user group.
+     *
+     * @var Group
+     */
+    protected static $developersGroup;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        $container = static::createClient()->getContainer();
+        $group = $container->get('doctrine')
+                           ->getRepository('TickitUserBundle:Group')
+                           ->findOneByName('Developers');
+
+        static::$developersGroup = $group;
+    }
+
+
     /**
      * Ensures that the user actions are not publicly accessible
      *
@@ -123,14 +151,20 @@ class UserControllerTest extends AbstractFunctionalTest
     public function testEditActionUpdatesUserWithValidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $container = $client->getContainer();
+        $router = $container->get('router');
+
+        $group = $container->get('doctrine')
+                           ->getRepository('TickitUserBundle:Group')
+                           ->findOneByName('Developers');
 
         $user = new User();
         $user->setForename('forename_123')
              ->setSurname('surname_123')
              ->setUsername('user' . uniqid())
              ->setEmail(sprintf('%s@email.com', uniqid()))
-             ->setPassword('password');
+             ->setPassword('password')
+             ->setGroup($group);
 
         $user = $client->getContainer()->get('tickit_user.manager')->create($user);
 
@@ -154,5 +188,97 @@ class UserControllerTest extends AbstractFunctionalTest
         $this->assertEquals($newEmail, $crawler->filter('input[name="tickit_user[email]"]')->attr('value'));
         $this->assertEquals('forename_12345', $crawler->filter('input[name="tickit_user[forename]"]')->attr('value'));
         $this->assertEquals('surname_12345', $crawler->filter('input[name="tickit_user[surname]"]')->attr('value'));
+    }
+
+    /**
+     * Tests the permissionFormListAction() method
+     *
+     * @return void
+     */
+    public function testPermissionFormListActionRendersPermissionListForEmptyUserId()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $route = $container->get('router')->generate('user_permissions_form_list', array('groupId' => static::$developersGroup->getId()));
+
+        $crawler = $client->request('get', $route);
+        $this->assertGreaterThan(2, $crawler->filter('table tr')->count());
+    }
+
+    /**
+     * Tests the permissionFormListAction() method
+     *
+     * @return void
+     */
+    public function testPermissionFormListActionReturns404ForInvalidUserId()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+        $route = $router->generate('user_permissions_form_list', array('groupId' => static::$developersGroup->getId(), 'userId' => 999999));
+
+        $client->request('get', $route);
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the permissionFormListAction() method
+     *
+     * @return void
+     */
+    public function testPermissionFormListActionReturnsEmptyPermissionsForInvalidGroupId()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+        $route = $router->generate('user_permissions_form_list', array('groupId' => 999999));
+
+        $crawler = $client->request('get', $route);
+        $this->assertEquals(2, $crawler->filter('table tr')->count());
+    }
+
+    /**
+     * Tests the permissionFormListAction() method
+     *
+     * @return void
+     */
+    public function testPermissionFormListActionRendersCorrectPermissionListForUserOverriddenPermissions()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $doctrine = $container->get('doctrine');
+
+        $group = $container->get('fos_user.group_manager')->createGroup(uniqid('developers'));
+
+        $user = static::$developer;
+        $user->setUsername(uniqid('developer'))
+             ->setPlainPassword('password')
+             ->setEmail(uniqid() . '@googlemail.com')
+             ->setForename('forename')
+             ->setSurname('surname')
+             ->setGroup($group);
+
+        $user = $container->get('fos_user.user_manager')->create($user);
+
+        $permission = $doctrine->getRepository('TickitPermissionBundle:Permission')
+                               ->findOneBySystemName('users.view');
+
+        $this->assertInstanceOf('Tickit\PermissionBundle\Entity\Permission', $permission);
+
+        $permissionValue = new UserPermissionValue();
+        $permissionValue->setValue(false)
+                        ->setUser($user)
+                        ->setPermission($permission);
+
+        $doctrine->getManager()->persist($permissionValue);
+        $doctrine->getManager()->flush();
+
+        $router = $client->getContainer()->get('router');
+        $route = $router->generate('user_permissions_form_list', array('groupId' => static::$developersGroup->getId(), 'userId' => $user->getId()));
+
+        $crawler = $client->request('get', $route);
+        $permissionRow = $crawler->filter('table tr[data-permission-id="' . $permission->getId() . '"]');
+        $this->assertGreaterThan(0, $permissionRow->count());
+        $this->assertGreaterThan(0, $permissionRow->filter('input[type="checkbox"]:nth-child(1):checked')->count());
+        $userCheckbox = $permissionRow->filter('input[name="tickit_user[permissions][' . $permission->getId() . '][user]"]');
+        $this->assertEmpty($userCheckbox->attr('checked'));
     }
 }
