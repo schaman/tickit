@@ -1,3 +1,0 @@
-user_permission_index:
-  pattern: /{username}
-  defaults: { _controller: TickitPermissionBundle:UserPermission:index, username: '' }
