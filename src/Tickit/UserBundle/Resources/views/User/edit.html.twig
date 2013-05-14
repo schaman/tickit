@@ -13,6 +13,7 @@
         {{ form_row(form.group) }}
 
         <h4>Permissions</h4>
+        {{ form_errors(form) }}
         <div class='data-list'>
             {% include 'TickitPermissionBundle:UserPermission:form-list.html.twig' %}
             {% do form.permissions.setRendered %}

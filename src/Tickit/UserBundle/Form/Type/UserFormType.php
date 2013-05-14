@@ -82,7 +82,6 @@ class UserFormType extends AbstractType
                     'permissions',
                     'collection',
                     array(
-                        'type' => 'tickit_user_permission',
                         'mapped' => false
                     )
                 );

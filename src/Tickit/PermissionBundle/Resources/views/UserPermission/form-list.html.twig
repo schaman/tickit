@@ -25,10 +25,10 @@
                 <td>{{ permission['name'] }}</td>
                 <td>
                     {{ groupGranted }}
-                    <input type="hidden" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][group]" value="{{ groupValue }}" />
+                    <input type="hidden" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][group][]" value="{{ groupValue }}" />
                 </td>
                 <td><input type="checkbox" {% if permission['user'] != null %} checked="checked" {% endif %} /></td>
-                <td><input type="checkbox" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][user]" {{ userChecked }} {{ userDisabled }} /></td>
+                <td><input type="checkbox" name="{{ form.permissions.vars.full_name }}[{{ permission['id'] }}][user][]" {{ userChecked }} {{ userDisabled }} /></td>
             </tr>
         {% endfor %}
     {% else %}

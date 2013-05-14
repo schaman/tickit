@@ -94,6 +94,11 @@ class UserController extends AbstractCoreController
 
         if ('POST' === $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
+
+            // TODO: save these permissions via the permission manager
+            $formRequest = $this->getRequest()->request->get('tickit_user');
+            $permissionsData = $formRequest['permissions'];
+
             if ($form->isValid()) {
                 /** @var User $user */
                 $user = $form->getData();
