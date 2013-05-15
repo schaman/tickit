@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Gravatar avatar adapter
  *
- * @author Mark Wilson <mark@enasni.co.uk>
+ * @author Mark Wilson <mark@89allport.co.uk>
  */
 class GravatarAdapter implements AvatarAdapterInterface
 {

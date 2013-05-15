@@ -8,7 +8,7 @@ use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
  * Avatar adapter interface for implementing standard image accessor functions
  *
  * @package Tickit\UserBundle\Service\Avatar\Adapter
- * @author  Mark Wilson <mark@enasni.co.uk>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 interface AvatarAdapterInterface
 {
