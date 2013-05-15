@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\PermissionBundle\Form\DataTransformer\PermissionToPermissionNameTransformer;
+use Tickit\PermissionBundle\Model\Permission;
 
 /**
  * User permissions form.
@@ -48,7 +49,7 @@ class UserPermissionFormType extends AbstractType
     {
         $builder->add('id', 'hidden')
                 ->add('name', 'text', array('read_only' => true))
-                ->add('groupValue', 'checkbox')
+                ->add('groupValue', 'checkbox', array('disabled' => true))
                 ->add('userValue', 'checkbox');
     }
 

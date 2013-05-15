@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
+use Tickit\PermissionBundle\Form\Type\Field\PermissionsType;
 
 /**
  * User form.
@@ -78,7 +79,7 @@ class UserFormType extends AbstractType
                         'empty_value' => 'Choose a Group...'
                     )
                 )
-                ->add('permissions', 'collection', array('type' => 'tickit_user_permission'));
+                ->add('permissions', new PermissionsType(), array('type' => 'tickit_user_permission'));
     }
 
     /**

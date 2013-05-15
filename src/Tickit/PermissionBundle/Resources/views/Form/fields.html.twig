@@ -1,0 +1,25 @@
+{% block permissions_widget %}
+    <table>
+        {% spaceless %}
+            <thead>
+                <tr>
+                    <th>Permission</th>
+                    <th>Group Granted?</th>
+                    <th>Override for this user?</th>
+                    <th>User Granted?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for child in form %}
+                    {% set permission = child.vars['value'] %}
+                    <tr data-permission-id="{{ permission.id }}">
+                        <td>{{ permission.name }}</td>
+                        <td>{{ form_widget(child.groupValue) }}</td>
+                        <td></td>
+                        <td>{{ form_widget(child.userValue) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% endspaceless %}
+    </table>
+{% endblock permissions_widget %}
