@@ -6,6 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\PermissionBundle\Form\DataTransformer\PermissionToPermissionNameTransformer;
 
 /**
@@ -45,13 +46,22 @@ class UserPermissionFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new PermissionToPermissionNameTransformer($this->em);
+        $builder->add('id', 'hidden')
+                ->add('name', 'text', array('read_only' => true))
+                ->add('groupValue', 'checkbox')
+                ->add('userValue', 'checkbox');
+    }
 
-        $permissionField = $builder->create('permission', 'text', array('label' => false))
-                                   ->addModelTransformer($transformer);
-
-        $builder->add($permissionField)
-                ->add('value', 'checkbox', array('label' => false));
+    /**
+     * Sets the default form options
+     *
+     * @param OptionsResolverInterface $resolver The options resolver
+     *
+     * @return void
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array('data_class' => 'Tickit\PermissionBundle\Model\Permission'));
     }
 
     /**

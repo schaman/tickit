@@ -78,13 +78,7 @@ class UserFormType extends AbstractType
                         'empty_value' => 'Choose a Group...'
                     )
                 )
-                ->add(
-                    'permissions',
-                    'collection',
-                    array(
-                        'mapped' => false
-                    )
-                );
+                ->add('permissions', 'collection', array('type' => 'tickit_user_permission'));
     }
 
     /**

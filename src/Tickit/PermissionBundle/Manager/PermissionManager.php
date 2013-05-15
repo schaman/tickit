@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Tickit\PermissionBundle\Entity\Repository\GroupPermissionValueRepository;
 use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
 use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
-use Tickit\UserBundle\Entity\User;
+use Tickit\PermissionBundle\Model\Permission;
 
 /**
  * Permission manager.
@@ -100,15 +100,13 @@ class PermissionManager
                 $userValue = null;
             }
 
-            $permission = array(
-                'id' => $groupValue['id'],
-                'systemName' => $groupValue['systemName'],
-                'name' => $groupValue['name'],
-                'user' => $userValue,
-                'group' => $groupValue['groups'][0]['value']
-            );
+            $permission = new Permission();
+            $permission->setId($groupValue['id']);
+            $permission->setName($groupValue['name']);
+            $permission->setGroupValue($groupValue['groups'][0]['value']);
+            $permission->setUserValue($userValue['users'][0]['value']);
 
-            $collection->offsetSet($systemName, $permission);
+            $collection->offsetSet($groupValue['id'], $permission);
         }
 
         return $collection;

@@ -134,6 +134,8 @@ class UserController extends AbstractCoreController
      * @throws NotFoundHttpException If no user could be found for the given user ID
      *
      * @Template("TickitPermissionBundle:UserPermission:form-list.html.twig")
+     *
+     * @return array
      */
     public function permissionFormListAction($groupId, $userId = null)
     {
