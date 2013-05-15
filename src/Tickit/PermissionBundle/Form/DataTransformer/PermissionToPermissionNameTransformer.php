@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\PermissionBundle\Form\DataTransformer;
+
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
