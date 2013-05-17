@@ -35,7 +35,8 @@
         "psr/log": "1.0",
         "tickit-project/cache-bundle": "1.0.x-dev",
         "squizlabs/php_codesniffer": "1.*",
-        "behat/symfony2-extension": "dev-master"
+        "behat/symfony2-extension": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

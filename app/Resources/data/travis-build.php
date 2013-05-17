@@ -113,6 +113,13 @@ function createCacheDirectory()
     mkdir($root . '/app/cache/test/tickit_cache', 0777, true);
 }
 
+function createBuildDirectory()
+{
+    $root = getProjectRoot();
+    mkdir($root . '/build/logs', 0777, true);
+}
+
 createCacheDirectory();
 createTravisConfigYml();
 createPhpUnitXml();
+createBuildDirectory();
