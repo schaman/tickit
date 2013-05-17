@@ -12,7 +12,7 @@ use Symfony\Component\Config\FileLocator;
  * User bundle DI extension
  *
  * @package Tickit\UserBundle\DependencyInjection
- * @author  Mark Wilson <mark@enasni.co.uk>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class TickitUserExtension extends Extension
 {

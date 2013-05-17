@@ -13,7 +13,7 @@ use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 /**
  * Tests for the user avatar service
  *
- * @author Mark Wilson <mark@enasni.co.uk>
+ * @author Mark Wilson <mark@89allport.co.uk>
  */
 class AvatarServiceTest extends WebTestCase
 {

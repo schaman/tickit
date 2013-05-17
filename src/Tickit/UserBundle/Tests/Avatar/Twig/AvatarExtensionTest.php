@@ -8,7 +8,7 @@ use Tickit\UserBundle\Avatar\Twig\AvatarExtension;
 /**
  * Avatar service twig extension tests
  *
- * @author Mark Wilson <mark@enasni.co.uk>
+ * @author Mark Wilson <mark@89allport.co.uk>
  */
 class AvatarExtensionTest extends WebTestCase
 {
