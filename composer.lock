@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6d26ee076e9aa269f5db178d47cc8133",
+    "hash": "70e9aed0dd59d790828a649088ac017e",
     "packages": [
         {
             "name": "behat/behat",
@@ -1811,17 +1811,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "dev-master",
+            "version": "2.2.x-dev",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioDistributionBundle.git",
-                "reference": "v2.3.0-RC1"
+                "reference": "v2.3.0-BETA1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/v2.3.0-RC1",
-                "reference": "v2.3.0-RC1",
+                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/v2.3.0-BETA1",
+                "reference": "v2.3.0-BETA1",
                 "shasum": ""
             },
             "require": {
@@ -1830,7 +1830,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -1853,21 +1853,21 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2013-05-01 16:04:52"
+            "time": "2013-04-16 15:18:14"
         },
         {
             "name": "sensio/framework-extra-bundle",
-            "version": "dev-master",
+            "version": "2.2.x-dev",
             "target-dir": "Sensio/Bundle/FrameworkExtraBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioFrameworkExtraBundle.git",
-                "reference": "v2.3.0-RC1"
+                "reference": "09041c1f95f4ad9c9a23eb9d23d9d110cde94a44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioFrameworkExtraBundle/zipball/v2.3.0-RC1",
-                "reference": "v2.3.0-RC1",
+                "url": "https://api.github.com/repos/sensio/SensioFrameworkExtraBundle/zipball/09041c1f95f4ad9c9a23eb9d23d9d110cde94a44",
+                "reference": "09041c1f95f4ad9c9a23eb9d23d9d110cde94a44",
                 "shasum": ""
             },
             "require": {
@@ -1877,7 +1877,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -1900,7 +1900,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2013-05-16 20:55:41"
+            "time": "2013-04-11 06:46:09"
         },
         {
             "name": "sensio/generator-bundle",
@@ -2081,16 +2081,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "dev-master",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "140ba9234deaaac3fda86ba1dc0e0191666f153a"
+                "reference": "v5.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/140ba9234deaaac3fda86ba1dc0e0191666f153a",
-                "reference": "140ba9234deaaac3fda86ba1dc0e0191666f153a",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/v5.0.0",
+                "reference": "v5.0.0",
                 "shasum": ""
             },
             "require": {
@@ -2099,7 +2099,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -2126,7 +2126,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-05-09 08:24:09"
+            "time": "2013-04-30 17:35:30"
         },
         {
             "name": "symfony/assetic-bundle",
