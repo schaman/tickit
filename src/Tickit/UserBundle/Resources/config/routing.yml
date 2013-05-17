@@ -13,10 +13,3 @@ user_edit:
     defaults: { _controller: TickitUserBundle:User:edit }
     requirements:
         id: \d+
-
-user_permissions_form_list:
-    pattern: /permissions/form-list/{groupId}/{userId}
-    defaults: { _controller: TickitUserBundle:User:permissionFormList, userId: null }
-    requirements:
-        groupId: \d+
-        userId: \d+
