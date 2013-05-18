@@ -4,3 +4,5 @@ permissions_list:
     requirements:
         groupId: \d+
         userId: \d+
+    options:
+        expose: true

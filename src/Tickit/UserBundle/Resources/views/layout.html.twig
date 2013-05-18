@@ -13,3 +13,10 @@
     {% block user_content %}{% endblock %}
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@TickitUserBundle/Resources/public/js/app.user.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

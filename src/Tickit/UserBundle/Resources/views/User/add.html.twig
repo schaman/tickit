@@ -1,4 +1,4 @@
-{% extends 'TickitUserBundle::layout.html.twig' %}
+{% extends 'TickitUserBundle:Form:base_form.html.twig' %}
 
 {% block user_content %}
     <h2>Add User</h2>
@@ -13,10 +13,7 @@
         {{ form_row(form.group) }}
 
         <h4>Permissions</h4>
-        <div class='data-list'>
-            {% include 'TickitPermissionBundle:UserPermission:form-list.html.twig' %}
-            {% do form.permissions.setRendered %}
-        </div>
+        {{ form_widget(form.permissions) }}
 
         {{ form_rest(form) }}
         <input type='submit' value='Save User' />

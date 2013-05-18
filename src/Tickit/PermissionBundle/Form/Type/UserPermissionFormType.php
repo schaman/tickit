@@ -47,10 +47,16 @@ class UserPermissionFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $userValueDisabled = true;
+        $permission = $builder->getData();
+        if ($permission instanceof Permission && $permission->getUserValue() !== null) {
+            $userValueDisabled = false;
+        }
+
         $builder->add('id', 'hidden')
                 ->add('name', 'text', array('read_only' => true))
                 ->add('groupValue', 'checkbox', array('disabled' => true))
-                ->add('userValue', 'checkbox');
+                ->add('userValue', 'checkbox', array('disabled' => $userValueDisabled));
     }
 
     /**

@@ -1,0 +1,8 @@
+{% extends 'TickitUserBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@TickitUserBundle/Resources/public/js/app.user.form.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
