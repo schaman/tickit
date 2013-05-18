@@ -24,7 +24,8 @@ script:
   - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice
 
 after_script:
-  - php bin/coveralls -v
+  - ls -la build/logs #debug coveralls
+  - php bin/coveralls -vvv
 
 notifications:
   email:
