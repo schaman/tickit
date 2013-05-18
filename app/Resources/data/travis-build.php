@@ -96,6 +96,10 @@ function createPhpUnitXml()
         </whitelist>
     </filter>
 
+    <logging>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+    </logging>
+
 </phpunit>
 CONTENT;
 
