@@ -55,7 +55,7 @@ class PermissionsJsonDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $decoded = json_decode($output, true);
         $this->assertInternalType('array', $decoded);
-        $this->assertEquals(2, count($decoded));
+        $this->assertEquals(2, count($decoded['permissions']));
 
         $expected1 = array(
             'name' => 'permission 1',
@@ -65,7 +65,7 @@ class PermissionsJsonDecoratorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->assertEquals($expected1, $decoded[1]);
+        $this->assertEquals($expected1, $decoded['permissions'][1]);
 
         $expected2 = array(
             'name' => 'permission 2',
@@ -75,7 +75,7 @@ class PermissionsJsonDecoratorTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->assertEquals($expected2, $decoded[2]);
+        $this->assertEquals($expected2, $decoded['permissions'][2]);
     }
 
     /**

@@ -46,6 +46,6 @@ class PermissionsJsonDecorator extends AbstractJsonDecorator
             $flattenedData[$permissionId]['values']['user'] = $permission->getUserValue();
         }
 
-        return $flattenedData;
+        return array('permissions' => $flattenedData);
     }
 }
