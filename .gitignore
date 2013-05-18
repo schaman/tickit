@@ -8,5 +8,5 @@ app/Resources/public/js/extra/*/*
 app/phpunit.xml
 vendor/*
 composer.phar
-web/bundle
+web/bundles
 coverage.xml
