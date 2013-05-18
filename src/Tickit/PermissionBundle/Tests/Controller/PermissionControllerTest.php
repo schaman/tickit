@@ -2,7 +2,9 @@
 
 namespace Tickit\PermissionBundle\Tests\Controller;
 
+use Doctrine\Common\Collections\Collection;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\PermissionBundle\Entity\UserPermissionValue;
 use Tickit\UserBundle\Entity\Group;
 
 /**
@@ -22,6 +24,13 @@ class PermissionControllerTest extends AbstractFunctionalTest
     protected static $developersGroup;
 
     /**
+     * All system permissions
+     *
+     * @var array
+     */
+    protected static $permissions;
+
+    /**
      * {@inheritDoc}
      *
      * @return void
@@ -31,11 +40,13 @@ class PermissionControllerTest extends AbstractFunctionalTest
         parent::setUpBeforeClass();
 
         $container = static::createClient()->getContainer();
-        $group = $container->get('doctrine')
-                           ->getRepository('TickitUserBundle:Group')
-                           ->findOneByName('Developers');
+        static::$developersGroup = $container->get('doctrine')
+                                             ->getRepository('TickitUserBundle:Group')
+                                             ->findOneByName('Developers');
 
-        static::$developersGroup = $group;
+        static::$permissions = $container->get('doctrine')
+                                         ->getRepository('TickitPermissionBundle:Permission')
+                                         ->findAll();
     }
 
     /**
@@ -45,14 +56,16 @@ class PermissionControllerTest extends AbstractFunctionalTest
      */
     public function testPermissionFormListActionRendersPermissionListForEmptyUserId()
     {
-        $this->markTestSkipped('Need to update for permission controller');
-
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
-        $route = $container->get('router')->generate('user_permissions_form_list', array('groupId' => static::$developersGroup->getId()));
+        $route = $container->get('router')->generate('permissions_list', array('groupId' => static::$developersGroup->getId()));
 
-        $crawler = $client->request('get', $route);
-        $this->assertGreaterThan(2, $crawler->filter('table tr')->count());
+        $client->request('get', $route);
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertInstanceOf('\stdClass', $response);
+        $permissions = get_object_vars($response);
+        $this->assertEquals(count(static::$permissions), count($permissions));
+        $this->assertInstanceOf('\stdClass', array_shift($permissions));
     }
 
     /**
@@ -62,11 +75,9 @@ class PermissionControllerTest extends AbstractFunctionalTest
      */
     public function testPermissionFormListActionReturns404ForInvalidUserId()
     {
-        $this->markTestSkipped('Need to update for permission controller');
-
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
-        $route = $router->generate('user_permissions_form_list', array('groupId' => static::$developersGroup->getId(), 'userId' => 999999));
+        $route = $router->generate('permissions_list', array('groupId' => static::$developersGroup->getId(), 'userId' => 999999));
 
         $client->request('get', $route);
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
@@ -79,14 +90,14 @@ class PermissionControllerTest extends AbstractFunctionalTest
      */
     public function testPermissionFormListActionReturnsEmptyPermissionsForInvalidGroupId()
     {
-        $this->markTestSkipped('Need to update for permission controller');
-
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
-        $route = $router->generate('user_permissions_form_list', array('groupId' => 999999));
+        $route = $router->generate('permissions_list', array('groupId' => 999999));
 
-        $crawler = $client->request('get', $route);
-        $this->assertEquals(2, $crawler->filter('table tr')->count());
+        $client->request('get', $route);
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(1, count($response));
+        $this->assertEquals('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $response[0]->class);
     }
 
     /**
@@ -96,8 +107,6 @@ class PermissionControllerTest extends AbstractFunctionalTest
      */
     public function testPermissionFormListActionRendersCorrectPermissionListForUserOverriddenPermissions()
     {
-        $this->markTestSkipped('Need to update for permission controller');
-
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
         $doctrine = $container->get('doctrine');
@@ -128,13 +137,13 @@ class PermissionControllerTest extends AbstractFunctionalTest
         $doctrine->getManager()->flush();
 
         $router = $client->getContainer()->get('router');
-        $route = $router->generate('user_permissions_form_list', array('groupId' => static::$developersGroup->getId(), 'userId' => $user->getId()));
+        $route = $router->generate('permissions_list', array('groupId' => static::$developersGroup->getId(), 'userId' => $user->getId()));
 
-        $crawler = $client->request('get', $route);
-        $permissionRow = $crawler->filter('table tr[data-permission-id="' . $permission->getId() . '"]');
-        $this->assertGreaterThan(0, $permissionRow->count());
-        $this->assertGreaterThan(0, $permissionRow->filter('input[type="checkbox"]:nth-child(1):checked')->count());
-        $userCheckbox = $permissionRow->filter('input[name="tickit_user[permissions][' . $permission->getId() . '][user]"]');
-        $this->assertEmpty($userCheckbox->attr('checked'));
+        $client->request('get', $route);
+        $response = json_decode($client->getResponse()->getContent());
+        $permissions = get_object_vars($response);
+        $this->assertEquals(count(static::$permissions), count($permissions));
+        $this->assertFalse($permissions[$permission->getId()]->values->user);
+        $this->assertTrue($permissions[$permission->getId()]->values->group);
     }
 }

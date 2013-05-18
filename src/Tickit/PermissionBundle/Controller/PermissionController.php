@@ -5,6 +5,7 @@ namespace Tickit\PermissionBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\PermissionBundle\Model\Decorator\PermissionsJsonDecorator;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
@@ -51,9 +52,8 @@ class PermissionController extends Controller
             }
         }
 
-        //TODO: add output renderer for permission data
         $permissions = $this->get('tickit_permission.manager')->getUserPermissionData($groupId, $userId);
 
-        return array('data' => $permissions);
+        return array('permissions' => new PermissionsJsonDecorator($permissions->toArray()));
     }
 }
