@@ -5,6 +5,7 @@ namespace Tickit\PermissionBundle\Form\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Tickit\PermissionBundle\Model\Permission;
 
 /**
  * Event subscriber for the UserPermissionForm.
@@ -29,13 +30,13 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
-        if (null === $data || null === $data->getUserValue()) {
-            $userValueDisabled = true;
-        } else {
-            $userValueDisabled = false;
+        $disabled = true;
+
+        if ($data instanceof Permission && $data->isOverridden() !== false) {
+            $disabled = false;
         }
 
-        $form->add('userValue', 'checkbox', array('disabled' => $userValueDisabled, 'required' => false));
+        $form->add('userValue', 'checkbox', array('disabled' => $disabled, 'required' => false));
     }
 
     /**
