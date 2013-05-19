@@ -60,6 +60,14 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
         $permission = $event->getForm()->getData();
         if ($permission instanceof Permission) {
             $permission->setUserValue($userValue);
+        } else {
+            $overridden = isset($data['overridden']) ? $data['overridden'] : false;
+            $permission = new Permission();
+            $permission->setOverridden($overridden);
+            $permission->setUserValue($userValue);
+            $permission->setName(isset($data['name']) ? $data['name'] : '');
+            $permission->setId(isset($data['id']) ? $data['id'] : null);
+            $event->getForm()->setData($permission);
         }
     }
 

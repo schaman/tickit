@@ -43,9 +43,7 @@ class UserController extends AbstractCoreController
     public function addAction()
     {
         $user = new User();
-        $user->setEnabled(true);
-
-        $form = $this->createForm('tickit_user');
+        $form = $this->createForm('tickit_user', $user);
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
