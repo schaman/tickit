@@ -49,7 +49,6 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
             // PermissionBundle related permissions
             'permissions.users.manage' => 'Manage user permissions',
             'permissions.users.clone' => 'Clone user permissions',
-            'permissions.users.resync' => 'Resync user permissions',
             'permissions.groups.manage' => 'Manage group permissions',
             'permissions.groups.manage_defaults' => 'Manage default group permissions'
         );
