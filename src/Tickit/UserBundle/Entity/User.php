@@ -325,4 +325,16 @@ class User extends BaseUser implements AvatarAwareInterface
 
         return $this;
     }
+
+    /**
+     * Clears permissions on the current user.
+     *
+     * @return User
+     */
+    public function clearPermissions()
+    {
+        $this->permissions = null;
+
+        return $this;
+    }
 }
