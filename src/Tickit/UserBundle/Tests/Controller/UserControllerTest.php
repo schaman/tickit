@@ -64,6 +64,11 @@ class UserControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
+        $container = static::createClient()->getContainer();
+        $developersGroup = $container->get('doctrine')
+                                     ->getRepository('TickitUserBundle:Group')
+                                     ->findOneByName('Developers');
+
         $crawler = $client->request('get', $router->generate('user_index'));
         $totalUsers = $crawler->filter('div.data-list table tbody tr')->count();
 
@@ -74,6 +79,7 @@ class UserControllerTest extends AbstractFunctionalTest
             'tickit_user[surname]' => 'surname',
             'tickit_user[username]' => 'user' . uniqid(),
             'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
+            'tickit_user[group]' => $developersGroup->getId(),
             'tickit_user[password][first]' => 'somepassword',
             'tickit_user[password][second]' => 'somepassword'
         );
@@ -98,6 +104,8 @@ class UserControllerTest extends AbstractFunctionalTest
 
         $crawler = $client->request('get', $router->generate('user_add'));
         $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
+        $expectedMessage = 'You need to select a group for this user before you can edit permissions';
+        $this->assertContains($expectedMessage, $client->getResponse()->getContent());
     }
 
     /**
