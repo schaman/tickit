@@ -21,6 +21,9 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - 'TickitPermissionBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -28,6 +31,7 @@ assetic:
     use_controller: false
     bundles:
         - TickitProjectBundle
+        - TickitUserBundle
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

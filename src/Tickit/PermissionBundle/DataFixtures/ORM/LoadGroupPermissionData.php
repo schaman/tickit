@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\PermissionBundle\Entity\Permission;
 use Tickit\PermissionBundle\Entity\DefaultGroupPermissionValue;
 use Tickit\PermissionBundle\Entity\GroupPermissionValue;
+use Tickit\UserBundle\Entity\Group;
 
 /**
  * Loads default group permission value records into the database
@@ -62,16 +63,17 @@ class LoadGroupPermissionData extends AbstractFixture implements OrderedFixtureI
      * @param array $permissions An array containing all system permissions
      * @param array $groups      An array containing all user groups in the system
      *
-     * @todo This needs to be refactored to suit the ManyToMany direct relationship
+     * @return void
      */
     protected function loadGroupPermissionValues(array $permissions, array $groups)
     {
-        /** @var \Tickit\PermissionBundle\Entity\Permission $permission */
+        /** @var Permission $permission */
         foreach ($permissions as $permission) {
-            /** @var \Tickit\UserBundle\Entity\Group $group */
+            /** @var Group $group */
             foreach ($groups as $group) {
 
-                $value = true; //todo: this needs to change based on group
+                 //todo: this needs to change based on group
+                $value = true;
 
                 $defaultGroupPermValue = new DefaultGroupPermissionValue();
                 $defaultGroupPermValue->setGroup($group);

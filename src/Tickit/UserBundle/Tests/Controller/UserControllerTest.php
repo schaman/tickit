@@ -2,7 +2,10 @@
 
 namespace Tickit\UserBundle\Tests\Controller;
 
+use Doctrine\DBAL\DBALException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\PermissionBundle\Entity\UserPermissionValue;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Manager\UserManager;
 
@@ -61,6 +64,11 @@ class UserControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
+        $container = static::createClient()->getContainer();
+        $developersGroup = $container->get('doctrine')
+                                     ->getRepository('TickitUserBundle:Group')
+                                     ->findOneByName('Developers');
+
         $crawler = $client->request('get', $router->generate('user_index'));
         $totalUsers = $crawler->filter('div.data-list table tbody tr')->count();
 
@@ -71,6 +79,7 @@ class UserControllerTest extends AbstractFunctionalTest
             'tickit_user[surname]' => 'surname',
             'tickit_user[username]' => 'user' . uniqid(),
             'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
+            'tickit_user[group]' => $developersGroup->getId(),
             'tickit_user[password][first]' => 'somepassword',
             'tickit_user[password][second]' => 'somepassword'
         );
@@ -83,6 +92,39 @@ class UserControllerTest extends AbstractFunctionalTest
     }
 
     /**
+     * Tests the addAction() method
+     *
+     * @return void
+     */
+    public function testAddActionRendersEmptyPermissionsData()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $router = $container->get('router');
+
+        $crawler = $client->request('get', $router->generate('user_add'));
+        $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
+        $expectedMessage = 'You need to select a group for this user before you can edit permissions';
+        $this->assertContains($expectedMessage, $client->getResponse()->getContent());
+    }
+
+    /**
+     * Tests the editAction() method
+     *
+     * @return void
+     */
+    public function testEditActionRendersPermissionsData()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $router = $container->get('router');
+
+        $user = $container->get('tickit_user.manager')->findUserByUsername('james');
+        $crawler = $client->request('get', $router->generate('user_edit', array('id' => $user->getId())));
+        $this->assertGreaterThan(2, $crawler->filter('div.data-list table tr')->count());
+    }
+
+    /**
      * Tests the editAction()
      *
      * Ensures that a valid attempt to update a user is successful
@@ -92,14 +134,20 @@ class UserControllerTest extends AbstractFunctionalTest
     public function testEditActionUpdatesUserWithValidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $container = $client->getContainer();
+        $router = $container->get('router');
+
+        $group = $container->get('doctrine')
+                           ->getRepository('TickitUserBundle:Group')
+                           ->findOneByName('Developers');
 
         $user = new User();
         $user->setForename('forename_123')
              ->setSurname('surname_123')
              ->setUsername('user' . uniqid())
              ->setEmail(sprintf('%s@email.com', uniqid()))
-             ->setPassword('password');
+             ->setPassword('password')
+             ->setGroup($group);
 
         $user = $client->getContainer()->get('tickit_user.manager')->create($user);
 

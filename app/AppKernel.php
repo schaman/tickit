@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\CoreBundle\TickitCoreBundle(),
             new Tickit\PermissionBundle\TickitPermissionBundle(),
@@ -31,7 +32,7 @@ class AppKernel extends Kernel
             new Tickit\TicketBundle\TickitTicketBundle(),
             new Tickit\ProjectBundle\TickitProjectBundle(),
             new Tickit\DashboardBundle\TickitDashboardBundle(),
-            new Tickit\CacheBundle\TickitCacheBundle()
+            new Tickit\CacheBundle\TickitCacheBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

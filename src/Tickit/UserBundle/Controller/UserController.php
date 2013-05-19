@@ -6,9 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-use Tickit\PermissionBundle\Form\Type\PermissionsFormType;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Form\Type\UserFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -45,9 +43,7 @@ class UserController extends AbstractCoreController
     public function addAction()
     {
         $user = new User();
-        $user->setEnabled(true);
-
-        $form = $this->createForm('tickit_user');
+        $form = $this->createForm('tickit_user', $user);
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
@@ -80,20 +76,23 @@ class UserController extends AbstractCoreController
      */
     public function editAction($id)
     {
-        $existingUser = $this->get('tickit_user.manager')
-                             ->getRepository()
-                             ->findOneById($id);
+        $existingUser = $this->get('tickit_user.manager')->find($id);
+        $permissionManager = $this->get('tickit_permission.manager');
 
         if (empty($existingUser)) {
             throw $this->createNotFoundException('User not found');
         }
 
+        $existingUserGroupId = $existingUser->getGroup()->getId();
+        $permissions = $permissionManager->getUserPermissionData($existingUserGroupId, $existingUser->getId());
+        $existingUser->setPermissions($permissions);
         $form = $this->createForm('tickit_user', $existingUser);
 
         $existingPassword = $existingUser->getPassword();
 
         if ('POST' === $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
+
             if ($form->isValid()) {
                 /** @var User $user */
                 $user = $form->getData();
@@ -108,7 +107,8 @@ class UserController extends AbstractCoreController
                 }
 
                 $manager = $this->get('tickit_user.manager');
-                $manager->create($user);
+                $user = $manager->create($user);
+                $form = $this->createForm('tickit_user', $user);
 
                 $flash = $this->get('tickit.flash_messages');
                 $flash->addEntityUpdatedMessage('user');

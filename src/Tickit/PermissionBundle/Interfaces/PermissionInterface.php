@@ -28,6 +28,8 @@ interface PermissionInterface
      * Sets the name of the permission
      *
      * @param string $name The name for the permission
+     *
+     * @return mixed
      */
     public function setName($name);
 
@@ -35,6 +37,8 @@ interface PermissionInterface
      * Sets the system friendly name of the permission
      *
      * @param string $systemName The system name for the permission
+     *
+     * @return mixed
      */
     public function setSystemName($systemName);
 }

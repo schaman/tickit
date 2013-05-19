@@ -2,6 +2,7 @@
 
 namespace Tickit\UserBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -62,7 +63,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * The group that this user belongs to
      *
-     * @ORM\ManyToOne(targetEntity="Group")
+     * @ORM\ManyToOne(targetEntity="Group", cascade={"persist"})
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
     protected $group;
@@ -77,8 +78,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Permissions that this user has been granted
      *
-     * @ORM\ManyToMany(targetEntity="Tickit\PermissionBundle\Entity\Permission", inversedBy="users")
-     * @ORM\JoinTable(name="users_permissions")
+     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\UserPermissionValue", mappedBy="user", cascade={"persist"})
      */
     protected $permissions;
 
@@ -94,6 +94,7 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function __construct()
     {
+        $this->enabled = true;
         $this->sessions = new ArrayCollection();
         $this->permissions = new ArrayCollection();
         parent::__construct();
@@ -311,7 +312,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Sets permissions for this user
      *
-     * @param array|ArrayCollection $permissions The permissions collection
+     * @param array|Collection $permissions The permissions collection
      *
      * @return User
      */
@@ -322,6 +323,18 @@ class User extends BaseUser implements AvatarAwareInterface
         }
 
         $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * Clears permissions on the current user.
+     *
+     * @return User
+     */
+    public function clearPermissions()
+    {
+        $this->permissions = null;
 
         return $this;
     }

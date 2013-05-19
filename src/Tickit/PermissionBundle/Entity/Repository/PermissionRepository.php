@@ -2,7 +2,6 @@
 
 namespace Tickit\PermissionBundle\Entity\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Tickit\UserBundle\Entity\User;
@@ -31,15 +30,19 @@ class PermissionRepository extends EntityRepository
                             ->createQueryBuilder()
                             ->select('p')
                             ->from('TickitPermissionBundle:Permission', 'p')
-                            ->innerJoin('p.users', 'u')
-                            ->where('u.id = :user_id')
-                            ->setParameter('user_id', $user->getId());
+                            ->innerJoin('p.users', 'up')
+                            ->innerJoin('up.user', 'u')
+                            ->where('(u.id = :user_id AND up.value = :value)')
+                            ->setParameter('user_id', $user->getId())
+                            ->setParameter('value', true);
 
         $group = $user->getGroup();
         if (null !== $group) {
-            $query->leftJoin('p.groups', 'g')
-                  ->orWhere('g.id = :group_id')
-                  ->setParameter('group_id', $group->getId());
+            $query->leftJoin('p.groups', 'gp')
+                  ->leftJoin('gp.group', 'g')
+                  ->orWhere('(g.id = :group_id AND gp.value = :value)')
+                  ->setParameter('group_id', $group->getId())
+                  ->setParameter('value', true);
         }
 
         $permissions = $query->getQuery()->execute();

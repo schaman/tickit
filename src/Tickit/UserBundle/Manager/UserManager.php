@@ -3,11 +3,13 @@
 namespace Tickit\UserBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\PermissionBundle\Manager\PermissionManager;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
 
@@ -32,22 +34,39 @@ class UserManager extends AbstractManager implements UserManagerInterface
     protected $fosManager;
 
     /**
+     * The doctrine registry
+     *
+     * @var Registry
+     */
+    protected $doctrine;
+
+    /**
+     * The permission manager
+     *
+     * @var PermissionManager
+     */
+    protected $permissionManager;
+
+    /**
      * Constructor.
      *
-     * @param Registry                      $doctrine   The doctrine service
-     * @param AbstractEntityEventDispatcher $dispatcher The event dispatcher
-     * @param UserManagerInterface          $fosManager The FOS user manager
+     * @param Registry                      $doctrine          The doctrine service
+     * @param AbstractEntityEventDispatcher $dispatcher        The event dispatcher
+     * @param UserManagerInterface          $fosManager        The FOS user manager
+     * @param PermissionManager             $permissionManager The permission manager
      */
-    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
+    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager, PermissionManager $permissionManager)
     {
         parent::__construct($doctrine, $dispatcher);
+        $this->doctrine = $doctrine;
         $this->fosManager = $fosManager;
+        $this->permissionManager = $permissionManager;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @return ObjectRepository
+     * @return UserRepository
      */
     public function getRepository()
     {
@@ -75,7 +94,17 @@ class UserManager extends AbstractManager implements UserManagerInterface
         $this->fosManager->updateCanonicalFields($entity);
         $this->fosManager->updatePassword($entity);
 
-        return parent::create($entity, $flush);
+        // we clear the permissions on the user entity so they aren't persisted...
+        $permissions = $entity->getPermissions();
+        $entity->clearPermissions();
+
+        $user = parent::create($entity, $flush);
+        if ($user instanceof User) {
+            // ...then we tell the permission manager to persist the permission changes
+            $user = $this->permissionManager->updatePermissionDataForUser($user, $permissions, $flush);
+        }
+
+        return $user;
     }
 
     /**
@@ -91,7 +120,13 @@ class UserManager extends AbstractManager implements UserManagerInterface
         $this->fosManager->updateCanonicalFields($entity);
         $this->fosManager->updatePassword($entity);
 
-        return parent::create($entity, $flush);
+        $permissions = $entity->getPermissions();
+        $entity->clearPermissions();
+
+        $user = parent::update($entity, $flush);
+        if ($user instanceof User) {
+            $this->permissionManager->updatePermissionDataForUser($user, $permissions);
+        }
     }
 
     /**
@@ -270,5 +305,37 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function updatePassword(UserInterface $user)
     {
         $this->fosManager->updatePassword($user);
+    }
+
+    /**
+     * Finds a user by ID
+     *
+     * @param integer $id The user ID to find by
+     *
+     * @return User
+     */
+    public function find($id)
+    {
+        try {
+            return $this->getRepository()->findById($id);
+        } catch (NoResultException $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Finds a user group by ID
+     *
+     * @param integer $id The group ID to find by
+     *
+     * @return Group
+     */
+    public function findGroup($id)
+    {
+        $group = $this->doctrine
+                      ->getRepository('TickitUserBundle:Group')
+                      ->find($id);
+
+        return $group;
     }
 }

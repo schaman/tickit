@@ -36,7 +36,8 @@
         "tickit-project/cache-bundle": "dev-master",
         "squizlabs/php_codesniffer": "1.*",
         "behat/symfony2-extension": "dev-master",
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "dev-master",
+        "friendsofsymfony/jsrouting-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

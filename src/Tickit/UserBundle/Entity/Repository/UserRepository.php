@@ -104,4 +104,29 @@ class UserRepository extends EntityRepository
 
         return $user;
     }
+
+    /**
+     * Finds a user by ID.
+     *
+     * This method will also return associated permissions for the user.
+     *
+     * @param integer $id The user ID
+     *
+     * @return User
+     */
+    public function findById($id)
+    {
+        $query = $this->getEntityManager()
+                      ->createQueryBuilder()
+                      ->select('u, up, p, g')
+                      ->from('TickitUserBundle:User', 'u')
+                      ->leftJoin('u.group', 'g')
+                      ->leftJoin('u.permissions', 'up')
+                      ->leftJoin('up.permission', 'p')
+                      ->where('u.id = :user_id')
+                      ->setParameter('user_id', $id)
+                      ->getQuery();
+
+        return $query->getSingleResult();
+    }
 }
