@@ -59,6 +59,7 @@ class PermissionsJsonDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $expected1 = array(
             'name' => 'permission 1',
+            'overridden' => true,
             'values' => array(
                 'group' => true,
                 'user' => false
@@ -69,6 +70,7 @@ class PermissionsJsonDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $expected2 = array(
             'name' => 'permission 2',
+            'overridden' => false,
             'values' => array(
                 'group' => false,
                 'user' => null
@@ -89,11 +91,13 @@ class PermissionsJsonDecoratorTest extends \PHPUnit_Framework_TestCase
         $permission1->setId(1);
         $permission1->setGroupValue(true);
         $permission1->setUserValue(false);
+        $permission1->setOverridden(true);
         $permission1->setName('permission 1');
 
         $permission2 = new Permission();
         $permission2->setId(2);
         $permission2->setGroupValue(false);
+        $permission2->setOverridden(false);
         $permission2->setName('permission 2');
 
         return array(array(array($permission1, $permission2)));

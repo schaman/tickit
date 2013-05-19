@@ -42,6 +42,7 @@ class PermissionsJsonDecorator extends AbstractJsonDecorator
 
             $permissionId = $permission->getId();
             $flattenedData[$permissionId]['name'] = $permission->getName();
+            $flattenedData[$permissionId]['overridden'] = $permission->isOverridden();
             $flattenedData[$permissionId]['values']['group'] = $permission->getGroupValue();
             $flattenedData[$permissionId]['values']['user'] = $permission->getUserValue();
         }
