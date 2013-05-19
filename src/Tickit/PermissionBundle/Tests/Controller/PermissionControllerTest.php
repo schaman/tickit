@@ -50,11 +50,11 @@ class PermissionControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the permissionFormListAction() method
+     * Tests the permissionListAction() method
      *
      * @return void
      */
-    public function testPermissionFormListActionRendersPermissionListForEmptyUserId()
+    public function testPermissionListActionRendersPermissionListForEmptyUserId()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
@@ -69,11 +69,11 @@ class PermissionControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the permissionFormListAction() method
+     * Tests the permissionListAction() method
      *
      * @return void
      */
-    public function testPermissionFormListActionReturns404ForInvalidUserId()
+    public function testPermissionListActionReturns404ForInvalidUserId()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
@@ -84,11 +84,11 @@ class PermissionControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the permissionFormListAction() method
+     * Tests the permissionListAction() method
      *
      * @return void
      */
-    public function testPermissionFormListActionReturnsEmptyPermissionsForInvalidGroupId()
+    public function testPermissionListActionReturnsEmptyPermissionsForInvalidGroupId()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
@@ -101,11 +101,11 @@ class PermissionControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the permissionFormListAction() method
+     * Tests the permissionListAction() method
      *
      * @return void
      */
-    public function testPermissionFormListActionRendersCorrectPermissionListForUserOverriddenPermissions()
+    public function testPermissionListActionRendersCorrectPermissionListForUserOverriddenPermissions()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
