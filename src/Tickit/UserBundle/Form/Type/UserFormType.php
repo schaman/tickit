@@ -56,7 +56,7 @@ class UserFormType extends AbstractType
             $passwordLabel = 'New Password';
         }
 
-        $builder->add('id', 'hidden')
+        $builder->add('id', 'hidden', array('mapped' => false, 'data' => $user->getId()))
                 ->add('forename', 'text')
                 ->add('surname', 'text')
                 ->add('username', 'text')
