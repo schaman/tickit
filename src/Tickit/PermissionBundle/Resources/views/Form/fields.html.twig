@@ -1,5 +1,5 @@
 {% block permissions_widget %}
-    <table>
+    <table id='permissions-table' data-prototype="{{ block('permissions_row_widget')|e }}">
         {% spaceless %}
             <thead>
                 <tr>
@@ -34,4 +34,19 @@
             {% endif %}
         {% endspaceless %}
     </table>
+
 {% endblock permissions_widget %}
+
+{% block permissions_row_widget %}
+{% spaceless %}
+    <tr data-permission-id="__name__">
+        <td>
+            {{ form_widget(prototype.id) }}
+            {{ form_widget(prototype.name) }}
+        </td>
+        <td>{{ form_widget(prototype.groupValue) }}</td>
+        <td>{{ form_widget(prototype.overridden, {'attr': {'class': 'user-override'}}) }}</td>
+        <td>{{ form_widget(prototype.userValue) }}</td>
+    </tr>
+{% endspaceless %}
+{% endblock %}

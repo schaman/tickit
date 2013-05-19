@@ -26,18 +26,55 @@ app.user.form = {
         $('#tickit_user_group').on('change', function() {
             var groupId = $(this).find('option:selected').val();
             var userId = $('#tickit_user_id').val();
+            var $table = $('#permissions-table');
             $.get(Routing.generate('permissions_list', { userId: userId, groupId: groupId }), function(data) {
                 var hasPerms = false;
-                $.each(data.permissions, function(i, perm) {
-                    var $row = $('form > table tr[data-permission-id="' + i + '"]');
-                    var $groupCheck = $row.find('#tickit_user_permissions_' + i + '_groupValue');
-                    $groupCheck.prop('checked', perm.values.groupValue);
+
+                // iterate once to check length (can't call .length on a native JS object)
+                $.each(data.permissions, function() {
                     hasPerms = true;
+                    return false;
                 });
 
                 if (!hasPerms) {
                     app.messaging.error('Permission Load Error', 'No permissions could be loaded for the selected group.');
                 }
+
+                if ($table.find('tbody tr').length > 1) {
+                    updatePermissionRows(data.permissions);
+                } else {
+                    addPermissionRows(data.permissions);
+                }
+
+                /**
+                 * Updates existing permission rows with new values
+                 *
+                 * @param {Object} permissions The new permissions
+                 */
+                function updatePermissionRows(permissions) {
+                    $.each(permissions, function(i, perm) {
+                        var $row = $table.find('tr[data-permission-id="' + i + '"]');
+                        var $groupCheck = $row.find('#tickit_user_permissions_' + i + '_groupValue');
+                        $groupCheck.prop('checked', perm.values.groupValue);
+                    });
+                }
+
+                /**
+                 * Adds new permission rows to an empty permissions table
+                 *
+                 * @param {Object} permissions The new permissions
+                 */
+                function addPermissionRows(permissions) {
+                    $.each(permissions, function(i, perm) {
+                        var $row = $($table.data('prototype').replace(/__name__/g, i));
+                        $row.find('#tickit_user_permissions_' + i + '_groupValue').prop('checked', perm.values.group);
+                        $row.find('#tickit_user_permissions_' + i + '_userValue').prop('checked', perm.values.user);
+                        $row.find('#tickit_user_permissions_' + i + '_overridden').prop('checked', perm.overridden);
+                        $row.find('td').first().prepend(perm.name);
+                        $table.append($row);
+                    });
+                }
+
             });
         });
     },

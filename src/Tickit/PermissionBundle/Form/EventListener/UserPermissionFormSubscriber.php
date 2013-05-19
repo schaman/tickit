@@ -36,7 +36,7 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
             $disabled = false;
         }
 
-        $form->add('userValue', 'checkbox', array('disabled' => $disabled, 'required' => false));
+        $form->add('userValue', 'checkbox', array('label' => false, 'disabled' => $disabled, 'required' => false));
     }
 
     /**
@@ -58,7 +58,9 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
         $userValue = (boolean) !empty($data['userValue']);
 
         $permission = $event->getForm()->getData();
-        $permission->setUserValue($userValue);
+        if ($permission instanceof Permission) {
+            $permission->setUserValue($userValue);
+        }
     }
 
     /**
