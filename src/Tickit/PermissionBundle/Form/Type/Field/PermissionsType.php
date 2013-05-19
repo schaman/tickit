@@ -3,7 +3,6 @@
 namespace Tickit\PermissionBundle\Form\Type\Field;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Permissions field type.

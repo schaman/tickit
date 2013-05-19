@@ -7,8 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\PermissionBundle\Form\DataTransformer\PermissionToPermissionNameTransformer;
-use Tickit\PermissionBundle\Model\Permission;
+use Tickit\PermissionBundle\Form\EventListener\UserPermissionFormSubscriber;
 
 /**
  * User permissions form.
@@ -47,16 +46,11 @@ class UserPermissionFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $userValueDisabled = true;
-        $permission = $builder->getData();
-        if ($permission instanceof Permission && $permission->getUserValue() !== null) {
-            $userValueDisabled = false;
-        }
-
         $builder->add('id', 'hidden')
                 ->add('name', 'text', array('read_only' => true))
-                ->add('groupValue', 'checkbox', array('disabled' => true))
-                ->add('userValue', 'checkbox', array('disabled' => $userValueDisabled));
+                ->add('groupValue', 'checkbox', array('disabled' => true, 'required' => false));
+
+        $builder->addEventSubscriber(new UserPermissionFormSubscriber());
     }
 
     /**
