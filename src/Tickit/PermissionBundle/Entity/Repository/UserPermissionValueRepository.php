@@ -53,8 +53,8 @@ class UserPermissionValueRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                       ->createQuery(
-                        'DELETE FROM Tickit\PermissionBundle\Entity\UserPermissionValue upv
-                            WHERE upv.user = :user_id'
+                          'DELETE FROM Tickit\PermissionBundle\Entity\UserPermissionValue upv
+                              WHERE upv.user = :user_id'
                       )
                       ->setParameter('user_id', $user->getId());
 
