@@ -63,7 +63,7 @@ class PermissionControllerTest extends AbstractFunctionalTest
         $client->request('get', $route);
         $response = json_decode($client->getResponse()->getContent());
         $this->assertInstanceOf('\stdClass', $response);
-        $permissions = get_object_vars($response);
+        $permissions = get_object_vars($response->permissions);
         $this->assertEquals(count(static::$permissions), count($permissions));
         $this->assertInstanceOf('\stdClass', array_shift($permissions));
     }
@@ -141,7 +141,7 @@ class PermissionControllerTest extends AbstractFunctionalTest
 
         $client->request('get', $route);
         $response = json_decode($client->getResponse()->getContent());
-        $permissions = get_object_vars($response);
+        $permissions = get_object_vars($response->permissions);
         $this->assertEquals(count(static::$permissions), count($permissions));
         $this->assertFalse($permissions[$permission->getId()]->values->user);
         $this->assertTrue($permissions[$permission->getId()]->values->group);
