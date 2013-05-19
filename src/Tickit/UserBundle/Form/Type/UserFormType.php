@@ -51,12 +51,14 @@ class UserFormType extends AbstractType
         $user = $builder->getData();
 
         if (null === $user) {
+            $userId = '';
             $passwordLabel = 'Password';
         } else {
+            $userId = $user->getId();
             $passwordLabel = 'New Password';
         }
 
-        $builder->add('id', 'hidden', array('mapped' => false, 'data' => $user->getId()))
+        $builder->add('id', 'hidden', array('mapped' => false, 'data' => $userId))
                 ->add('forename', 'text')
                 ->add('surname', 'text')
                 ->add('username', 'text')

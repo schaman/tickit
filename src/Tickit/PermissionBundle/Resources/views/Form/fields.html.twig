@@ -14,10 +14,14 @@
                     {% for child in form %}
                         {% set permission = child.vars['value'] %}
                         <tr data-permission-id="{{ permission.id }}">
-                            <td>{{ permission.name }}</td>
+                            <td>
+                                {{ permission.name }}
+                                {{ form_widget(child.id) }}
+                                {{ form_widget(child.name) }}
+                            </td>
                             <td>{{ form_widget(child.groupValue) }}</td>
                             <td>
-                                <input type="checkbox" class='user-override' {% if permission.userValue != null %} checked="checked" {% endif %} />
+                                {{ form_widget(child.overridden, {'attr': {'class': 'user-override'}}) }}
                             </td>
                             <td>{{ form_widget(child.userValue) }}</td>
                         </tr>

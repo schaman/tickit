@@ -41,4 +41,23 @@ class UserPermissionValueRepository extends EntityRepository
 
         return $query->execute();
     }
+
+    /**
+     * Deletes all UserPermissionValue entities for the given user.
+     *
+     * @param User $user The user to delete permission values for
+     *
+     * @return void
+     */
+    public function deleteAllForUser(User $user)
+    {
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                        'DELETE FROM Tickit\PermissionBundle\Entity\UserPermissionValue upv
+                            WHERE upv.user = :user_id'
+                      )
+                      ->setParameter('user_id', $user->getId());
+
+        $query->execute();
+    }
 }

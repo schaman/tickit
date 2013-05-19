@@ -62,7 +62,7 @@ class UserController extends AbstractCoreController
             }
         }
 
-        return array('form' => $form->createView(), 'permissions' => array());
+        return array('form' => $form->createView());
     }
 
     /**
@@ -95,10 +95,6 @@ class UserController extends AbstractCoreController
         if ('POST' === $this->getRequest()->getMethod()) {
             $form->bind($this->getRequest());
 
-            // TODO: save these permissions via the permission manager
-            $formRequest = $this->getRequest()->request->get('tickit_user');
-            $permissionsData = $formRequest['permissions'];
-
             if ($form->isValid()) {
                 /** @var User $user */
                 $user = $form->getData();
@@ -113,13 +109,14 @@ class UserController extends AbstractCoreController
                 }
 
                 $manager = $this->get('tickit_user.manager');
-                $manager->create($user);
+                $user = $manager->create($user);
+                $form = $this->createForm('tickit_user', $user);
 
                 $flash = $this->get('tickit.flash_messages');
                 $flash->addEntityUpdatedMessage('user');
             }
         }
 
-        return array('form' => $form->createView(), 'permissions' => $permissions);
+        return array('form' => $form->createView());
     }
 }

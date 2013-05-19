@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\PermissionBundle\Model;
+
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -50,6 +51,13 @@ class Permission
      * @var User
      */
     protected $user;
+
+    /**
+     * Boolean indicating whether this permission has a user specific override
+     *
+     * @var boolean
+     */
+    protected $overridden;
 
     /**
      * Sets the group value for this permission
@@ -137,5 +145,27 @@ class Permission
     public function getUserValue()
     {
         return $this->userValue;
+    }
+
+    /**
+     * Sets whether this permission has a user specific override
+     *
+     * @param boolean $overridden True if this permission is overridden for the user, false otherwise
+     *
+     * @return void
+     */
+    public function setOverridden($overridden)
+    {
+        $this->overridden = (boolean) $overridden;
+    }
+
+    /**
+     * Returns true if this permission has a user specific override, false otherwise
+     *
+     * @return boolean
+     */
+    public function isOverridden()
+    {
+        return $this->overridden;
     }
 }

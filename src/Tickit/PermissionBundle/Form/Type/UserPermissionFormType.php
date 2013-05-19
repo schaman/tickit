@@ -47,7 +47,8 @@ class UserPermissionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', 'hidden')
-                ->add('name', 'text', array('read_only' => true))
+                ->add('name', 'hidden')
+                ->add('overridden', 'checkbox', array('required' => false))
                 ->add('groupValue', 'checkbox', array('disabled' => true, 'required' => false));
 
         $builder->addEventSubscriber(new UserPermissionFormSubscriber());

@@ -8,7 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Tickit\PermissionBundle\Entity\Repository\GroupPermissionValueRepository;
 use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
 use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
+use Tickit\PermissionBundle\Entity\UserPermissionValue;
 use Tickit\PermissionBundle\Model\Permission;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Permission manager.
@@ -86,7 +88,7 @@ class PermissionManager
         $userValues = array();
         if (null !== $userId) {
             $userValues = $this->getUserPermissionValueRepository()
-                               ->findAllForUserIndexedByName($userId);
+                               ->findAllForUserIndexedBy($userId, 'systemName');
         }
 
         $groupValues = $this->getGroupPermissionValueRepository()
@@ -105,10 +107,49 @@ class PermissionManager
             $permission->setName($groupValue['name']);
             $permission->setGroupValue($groupValue['groups'][0]['value']);
             $permission->setUserValue($userValue['users'][0]['value']);
+            $permission->setOverridden(($userValue !== null));
 
             $collection->offsetSet($groupValue['id'], $permission);
         }
 
         return $collection;
+    }
+
+    /**
+     * Updates permissions for a user using Permission model data.
+     *
+     * @param User       $user        The user to update permissions for
+     * @param Collection $permissions The collection of permission data
+     * @param boolean    $flush       False to prevent changes from being flushed to entity manager, defaults to true
+     *
+     * @return User
+     */
+    public function updatePermissionDataForUser(User $user, Collection $permissions, $flush = true)
+    {
+        $em = $this->doctrine->getManager();
+        $allPermissions = $this->getRepository()->findAllIndexedById();
+        $this->getUserPermissionValueRepository()->deleteAllForUser($user);
+
+        /** @var Permission $permission */
+        foreach ($permissions as $permission) {
+            if ($permission->getUserValue() !== null) {
+                $permissionId = $permission->getId();
+                $permissionEntity = $allPermissions[$permissionId];
+                $userPermissionValue = new UserPermissionValue();
+                $userPermissionValue->setPermission($permissionEntity)
+                                    ->setUser($user)
+                                    ->setValue($permission->getUserValue());
+
+                $em->persist($userPermissionValue);
+            }
+        }
+
+        if (false !== $flush) {
+            $em->flush();
+        }
+
+        $user->setPermissions($permissions);
+
+        return $user;
     }
 }

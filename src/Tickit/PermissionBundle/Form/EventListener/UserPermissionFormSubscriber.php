@@ -39,12 +39,37 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
     }
 
     /**
+     * Pre-bind event.
+     *
+     * Binds values to underlying permission model
+     *
+     * @param FormEvent $event The form event
+     *
+     * @return void
+     */
+    public function preBind(FormEvent $event)
+    {
+        $data = $event->getData();
+        if (empty($data['overridden'])) {
+            return;
+        }
+
+        $userValue = (boolean) !empty($data['userValue']);
+
+        $permission = $event->getForm()->getData();
+        $permission->setUserValue($userValue);
+    }
+
+    /**
      * Returns an array of event names this subscriber wants to listen to.
      *
      * @return array
      */
     public static function getSubscribedEvents()
     {
-        return array(FormEvents::PRE_SET_DATA => 'preSetData');
+        return array(
+            FormEvents::PRE_SET_DATA => 'preSetData',
+            FormEvents::PRE_BIND => 'preBind'
+        );
     }
 }
