@@ -94,6 +94,7 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function __construct()
     {
+        $this->enabled = true;
         $this->sessions = new ArrayCollection();
         $this->permissions = new ArrayCollection();
         parent::__construct();
