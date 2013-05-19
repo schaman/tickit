@@ -67,6 +67,8 @@ app.user.form = {
                 function addPermissionRows(permissions) {
                     $.each(permissions, function(i, perm) {
                         var $row = $($table.data('prototype').replace(/__name__/g, i));
+                        $row.find('#tickit_user_permissions_' + i + '_id').val(i);
+                        $row.find('#tickit_user_permissions_' + i + '_name').val(perm.name);
                         $row.find('#tickit_user_permissions_' + i + '_groupValue').prop('checked', perm.values.group);
                         $row.find('#tickit_user_permissions_' + i + '_userValue').prop('checked', perm.values.user);
                         $row.find('#tickit_user_permissions_' + i + '_overridden').prop('checked', perm.overridden);
