@@ -22,14 +22,13 @@ class PermissionsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
-        $prototype = $builder->create($options['prototype_name'], $options['type'], array_replace(array(
-            'label' => $options['prototype_name'] . 'label__',
-        ), $options['options']));
+        $prototype = $builder->create(
+            $options['prototype_name'],
+            $options['type'],
+            array_replace(array('label' => $options['prototype_name'] . 'label__',), $options['options'])
+        );
         $builder->setAttribute('prototype', $prototype->getForm());
     }
-
 
     /**
      * Sets default form options
@@ -52,7 +51,6 @@ class PermissionsType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-//        parent::buildView($view, $form, $options);
         $view->vars['allow_add'] = true;
         $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }
