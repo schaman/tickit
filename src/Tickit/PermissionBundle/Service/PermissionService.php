@@ -64,6 +64,8 @@ class PermissionService implements PermissionServiceInterface
      *
      * @throws \RuntimeException If no permissions are defined in the session
      *
+     * @deprecated Need to remove this as it is now part of the PermissionEvaluator
+     *
      * @return bool
      */
     public function has($permissionName)

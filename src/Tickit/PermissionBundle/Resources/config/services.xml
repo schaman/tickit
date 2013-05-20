@@ -4,8 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--TODO: Need to refactor these permission names to use naming standard-->
     <services>
+
+        <service id="tickit_permission.evaluator" class="Tickit\PermissionBundle\Evaluator\PermissionEvaluator">
+            <argument type="service" id="session" />
+        </service>
+
+        <!--TODO: Services below here need to be refactored use naming standard-->
         <service id="permissions" class="Tickit\PermissionBundle\Service\PermissionService">
             <argument type="service" id="session" />
             <argument type="service" id="doctrine" />
@@ -24,6 +29,8 @@
         <service id="tickit_permission.manager" class="Tickit\PermissionBundle\Manager\PermissionManager">
             <argument type="service" id="doctrine" />
         </service>
+
+
     </services>
 
 </container>
