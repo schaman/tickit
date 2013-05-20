@@ -23,6 +23,8 @@ class AvatarExtension extends Twig_Extension
     private $container;
 
     /**
+     * Constructor.
+     *
      * @param ContainerInterface       $container       Service container
      * @param SecurityContextInterface $securityContext Security context to access user object
      */
