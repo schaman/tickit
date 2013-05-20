@@ -20,6 +20,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class PermissionsType extends AbstractType
 {
+    /**
+     * Builds the form type
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options Form options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $prototype = $builder->create(
@@ -43,18 +51,19 @@ class PermissionsType extends AbstractType
     }
 
     /**
+     * Builds the form view
      *
+     * @param FormView      $view    The form view
+     * @param FormInterface $form    The form
+     * @param array         $options Form options
      *
-     * @param FormView $view
-     * @param FormInterface $form
-     * @param array $options
+     * @return void
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['allow_add'] = true;
         $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
     }
-
 
     /**
      * Gets the field that this field extends
