@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\CoreBundle\Entity\CoreSession;
+use Tickit\PermissionBundle\Loader\LoaderInterface;
 use Tickit\PermissionBundle\Service\PermissionServiceInterface;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
@@ -46,22 +47,22 @@ class Login
      *
      * @var PermissionServiceInterface
      */
-    protected $permissions;
+    protected $permissionsLoader;
 
     /**
      * Constructor.
      *
-     * @param ContainerInterface         $container   The dependency injection container
-     * @param CoreSession                $session     The current user's session instance
-     * @param Registry                   $doctrine    The doctrine registry
-     * @param PermissionServiceInterface $permissions The permission service
+     * @param ContainerInterface $container         The dependency injection container
+     * @param CoreSession        $session           The current user's session instance
+     * @param Registry           $doctrine          The doctrine registry
+     * @param LoaderInterface    $permissionsLoader The permission service
      */
-    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, PermissionServiceInterface $permissions)
+    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, LoaderInterface $permissionsLoader)
     {
         $this->container = $container;
         $this->em = $doctrine->getManager();
         $this->session = $session;
-        $this->permissions = $permissions;
+        $this->permissionsLoader = $permissionsLoader;
     }
 
     /**
@@ -89,7 +90,6 @@ class Login
         $this->em->persist($userSession);
         $this->em->flush();
 
-        $permissions = $this->permissions->loadFromProvider($user);
-        $this->permissions->writeToSession($permissions);
+        $this->permissionsLoader->loadForUser($user);
     }
 }
