@@ -16,7 +16,6 @@ use Tickit\UserBundle\Entity\User;
  */
 class PermissionRepository extends EntityRepository
 {
-
     /**
      * Finds all permissions for a user and their associated groups
      *
@@ -26,21 +25,26 @@ class PermissionRepository extends EntityRepository
      */
     public function findAllForUser(User $user)
     {
-        // TODO: fix this query, it should select all group permissions where no corresponding user permission value exists that is false :)
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPermissionBundle:Permission', 'p', 'p.id')
-                      ->leftJoin('p.users', 'up')
-                      ->leftJoin('up.user', 'u')
-                      ->innerJoin('p.groups', 'gp')
-                      ->innerJoin('gp.group', 'g')
-                      ->where('u.id = :user_id')
-                      ->orWhere('(g.id = :group_id AND gp.value = :value)')
-                      ->setParameter('user_id', $user->getId())
-                      ->setParameter('group_id', $user->getGroup()->getId())
-                      ->setParameter('value', true)
-                      ->getQuery();
+        $qb = $this->createQueryBuilder('p');
+        $query = $qb->innerJoin('p.groups', 'gv')
+                    ->leftJoin('p.users', 'uv')
+                    ->where(
+                        $qb->expr()->orX(
+                            $qb->expr()->eq('uv.value', 1),
+                            $qb->expr()->andX('gv.value = :value', $qb->expr()->isNull('uv'))
+                        )
+                    )
+                    ->andWhere(
+                        $qb->expr()->orX(
+                            $qb->expr()->isNull('uv.user'),
+                            $qb->expr()->eq('uv.user', ':user_id')
+                        )
+                    )
+                    ->andWhere('gv.group = :group_id')
+                    ->setParameter('value', true)
+                    ->setParameter('user_id', $user->getId())
+                    ->setParameter('group_id', $user->getGroup())
+                    ->getQuery();
 
         $permissions = $query->execute();
 
