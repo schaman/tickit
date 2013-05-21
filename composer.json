@@ -37,7 +37,8 @@
         "squizlabs/php_codesniffer": "1.*",
         "behat/symfony2-extension": "dev-master",
         "satooshi/php-coveralls": "dev-master",
-        "friendsofsymfony/jsrouting-bundle": "dev-master"
+        "friendsofsymfony/jsrouting-bundle": "dev-master",
+        "fzaninotto/faker": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
