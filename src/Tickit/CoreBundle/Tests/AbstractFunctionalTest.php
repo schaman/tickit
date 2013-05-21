@@ -2,6 +2,8 @@
 
 namespace Tickit\CoreBundle\Tests;
 
+use Faker\Factory;
+use Faker\Generator;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
@@ -73,5 +75,15 @@ abstract class AbstractFunctionalTest extends WebTestCase
         $client = $this->createClient($options, $server);
 
         return $client;
+    }
+
+    /**
+     * Gets a faker generator instance
+     *
+     * @return Generator
+     */
+    protected function getFakerGenerator()
+    {
+        return Factory::create();
     }
 }
