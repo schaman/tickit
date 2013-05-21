@@ -7,6 +7,7 @@ use Faker\Generator;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -19,7 +20,6 @@ use Tickit\UserBundle\Entity\User;
  */
 abstract class AbstractFunctionalTest extends WebTestCase
 {
-
     /**
      * Developer user entity used for testing
      *
@@ -85,5 +85,52 @@ abstract class AbstractFunctionalTest extends WebTestCase
     protected function getFakerGenerator()
     {
         return Factory::create();
+    }
+
+    /**
+     * Creates a new user with fake details, and returns it for use
+     *
+     * @param boolean $persist Boolean value indicating whether to auto-persist this user, defaults to false
+     * @param array   $options An array of options to create the user with
+     *
+     * @return User
+     */
+    protected function createNewUser($persist = false, array $options = array())
+    {
+        $faker = $this->getFakerGenerator();
+        $container = static::createClient()->getContainer();
+
+        if (!empty($options['group']) && $options['group'] instanceof Group) {
+            $defaultGroup = $options['group'];
+        } else {
+            $defaultGroup = $container->get('doctrine')->getRepository('TickitUserBundle:Group')->findOneByName('Administrators');
+        }
+
+        if (!empty($options['roles'])) {
+            $defaultRoles = $options['roles'];
+        } else {
+            $defaultRoles = array('ROLE_USER');
+        }
+
+        /** @var User $user */
+        $user = $container->get('tickit_user.manager')->createUser();
+        $user->setForename($faker->firstName)
+             ->setSurname($faker->lastName)
+             ->setEmail($faker->email)
+             ->setUsername($user->getEmail())
+             ->setPlainPassword($faker->md5)
+             ->setGroup($defaultGroup);
+
+        foreach ($defaultRoles as $role) {
+            $user->addRole($role);
+        }
+
+        if (false !== $persist) {
+            $em = $container->get('doctrine')->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+
+        return $user;
     }
 }
