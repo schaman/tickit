@@ -136,6 +136,8 @@ class PermissionService implements PermissionServiceInterface
      *
      * @throws \InvalidArgumentException
      *
+     * @deprecated Need to remove this as it is now part of the PermissionsHasher
+     *
      * @return string
      */
     protected function calculateChecksum(array $permissions)
