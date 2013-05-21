@@ -26,26 +26,23 @@ class PermissionRepository extends EntityRepository
      */
     public function findAllForUser(User $user)
     {
+        // TODO: fix this query, it should select all group permissions where no corresponding user permission value exists that is false :)
         $query = $this->getEntityManager()
-                            ->createQueryBuilder()
-                            ->select('p')
-                            ->from('TickitPermissionBundle:Permission', 'p')
-                            ->innerJoin('p.users', 'up')
-                            ->innerJoin('up.user', 'u')
-                            ->where('(u.id = :user_id AND up.value = :value)')
-                            ->setParameter('user_id', $user->getId())
-                            ->setParameter('value', true);
+                      ->createQueryBuilder()
+                      ->select('p')
+                      ->from('TickitPermissionBundle:Permission', 'p', 'p.id')
+                      ->leftJoin('p.users', 'up')
+                      ->leftJoin('up.user', 'u')
+                      ->innerJoin('p.groups', 'gp')
+                      ->innerJoin('gp.group', 'g')
+                      ->where('u.id = :user_id')
+                      ->orWhere('(g.id = :group_id AND gp.value = :value)')
+                      ->setParameter('user_id', $user->getId())
+                      ->setParameter('group_id', $user->getGroup()->getId())
+                      ->setParameter('value', true)
+                      ->getQuery();
 
-        $group = $user->getGroup();
-        if (null !== $group) {
-            $query->leftJoin('p.groups', 'gp')
-                  ->leftJoin('gp.group', 'g')
-                  ->orWhere('(g.id = :group_id AND gp.value = :value)')
-                  ->setParameter('group_id', $group->getId())
-                  ->setParameter('value', true);
-        }
-
-        $permissions = $query->getQuery()->execute();
+        $permissions = $query->execute();
 
         return $permissions;
     }
