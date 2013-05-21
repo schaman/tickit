@@ -22,4 +22,11 @@ interface LoaderInterface
      * @return mixed
      */
     public function loadForUser(User $user);
+
+    /**
+     * Loads and returns the permission hash for the current context
+     *
+     * @return string
+     */
+    public function loadPermissionHashFromCache();
 }
