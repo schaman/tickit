@@ -2,13 +2,12 @@
 
 namespace Tickit\PermissionBundle\Listener;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
-use Tickit\CacheBundle\Cache\Cache;
-use Tickit\PermissionBundle\Service\PermissionServiceInterface;
-use Tickit\PermissionBundle\Service\PermissionService;
-use Tickit\CacheBundle\Cache\CacheFactoryInterface;
+use Tickit\PermissionBundle\Loader\LoaderInterface;
+use Tickit\PermissionBundle\Loader\PermissionLoader;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -30,31 +29,31 @@ class Sync
     protected $context;
 
     /**
-     * The permission service
+     * The permission loader
      *
-     * @var PermissionServiceInterface
+     * @var LoaderInterface
      */
-    protected $permissions;
+    protected $permissionsLoader;
 
     /**
-     * The file cache (in future this will be configurable to change the cache type)
+     * The current session
      *
-     * @var Cache
+     * @var SessionInterface
      */
-    protected $cache;
+    protected $session;
 
     /**
      * Constructor.
      *
-     * @param SecurityContext            $context      The application SecurityContext instance
-     * @param PermissionServiceInterface $permissions  The permission service instance
-     * @param CacheFactoryInterface      $cacheFactory The caching factory service
+     * @param SecurityContext  $context           The application SecurityContext instance
+     * @param LoaderInterface  $permissionsLoader The permissions loader
+     * @param SessionInterface $session           The current session
      */
-    public function __construct(SecurityContext $context, PermissionServiceInterface $permissions, CacheFactoryInterface $cacheFactory)
+    public function __construct(SecurityContext $context, LoaderInterface $permissionsLoader, SessionInterface $session)
     {
         $this->context = $context;
-        $this->permissions = $permissions;
-        $this->cache = $cacheFactory->factory('file', array('default_namespace' => PermissionService::CACHE_NAMESPACE));
+        $this->permissionsLoader = $permissionsLoader;
+        $this->session = $session;
     }
 
     /**
@@ -64,9 +63,9 @@ class Sync
      *
      * @return void
      */
-    public function onCoreController(FilterControllerEvent $event)
+    public function synchronizePermissions(FilterControllerEvent $event)
     {
-        //if this isn't the main http request, then we aren't interested...
+        // if this isn't the main http request, then we aren't interested...
         if (HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
@@ -75,17 +74,17 @@ class Sync
         if ($token->isAuthenticated()) {
             $user = $token->getUser();
 
-            // make sure token contains user object
             if (!$user instanceof User) {
                 return;
             }
 
-            $session = $this->permissions->getSession();
-            $sessionChecksum = $session->get(PermissionService::SESSION_PERMISSIONS_CHECKSUM);
-            $existingChecksum = $this->cache->read($session->getId());
-            if ($existingChecksum != $sessionChecksum) {
-                $permissions = $this->permissions->loadFromProvider($user);
-                $this->permissions->writeToSession($permissions);
+            $sessionHash = $this->session->get(PermissionLoader::SESSION_PERMISSIONS_HASH);
+            $existingHash = $this->permissionsLoader->loadPermissionHashFromCache();
+
+            // if the hashes don't match between the cache and the session, then permissions
+            // have changed and need to be reloaded into the current session
+            if ($existingHash != $sessionHash) {
+                $this->permissionsLoader->loadForUser($user);
             }
         }
     }
