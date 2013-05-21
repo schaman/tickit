@@ -16,18 +16,13 @@
             <argument type="service" id="tickit_cache.factory" />
         </service>
 
-        <!--TODO: Services below here need to be refactored use naming standard-->
-        <service id="permissions" class="Tickit\PermissionBundle\Service\PermissionService">
-            <argument type="service" id="session" />
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="tickit_cache.factory" />
-        </service>
-        <service id="permissions_sync" class="Tickit\PermissionBundle\Listener\Sync">
+        <service id="tickit_permission.listener.sync" class="Tickit\PermissionBundle\Listener\Sync">
             <argument type="service" id="security.context" />
-            <argument type="service" id="permissions" />
-            <argument type="service" id="tickit_cache.factory" />
-            <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
+            <argument type="service" id="tickit_permission.loader" />
+            <argument type="service" id="session" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="synchronizePermissions" />
         </service>
+
         <service id="tickit_permission.user_permission_form_type" class="Tickit\PermissionBundle\Form\Type\UserPermissionFormType">
             <argument type="service" id="doctrine" />
             <tag name="form.type" alias="tickit_user_permission" />
@@ -35,7 +30,6 @@
         <service id="tickit_permission.manager" class="Tickit\PermissionBundle\Manager\PermissionManager">
             <argument type="service" id="doctrine" />
         </service>
-
 
     </services>
 
