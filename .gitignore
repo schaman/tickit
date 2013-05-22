@@ -10,3 +10,4 @@ vendor/*
 composer.phar
 web/bundles
 coverage.xml
+bin/*
