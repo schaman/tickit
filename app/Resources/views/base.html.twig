@@ -9,7 +9,7 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/css/styles.css' %}
+        {% stylesheets  '../src/Tickit/CoreBundle/Resources/public/css/styles.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -32,11 +32,11 @@
         </div>
 
         {% block javascripts %}
-            {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
+            {% javascripts '@TickitCoreBundle/Resources/public/js/extra/jquery/jquery.js'
                            'bundles/fosjsrouting/js/router.js'
-                           '../app/Resources/public/js/app.js'
+                           '@TickitCoreBundle/Resources/public/js/app.js'
                            '@TickitCoreBundle/Resources/public/js/app.messaging.js'
-                           '../app/Resources/public/js/app.nav.js' %}
+                           '@TickitCoreBundle/Resources/public/js/app.nav.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
