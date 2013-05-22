@@ -9,5 +9,7 @@ app/phpunit.xml
 vendor/*
 composer.phar
 web/bundles
+web/css
+web/js
 coverage.xml
 bin/*
