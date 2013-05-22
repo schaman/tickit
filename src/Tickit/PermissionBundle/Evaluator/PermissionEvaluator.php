@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\PermissionBundle\Evaluator;
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Tickit\PermissionBundle\Loader\PermissionLoader;
 
