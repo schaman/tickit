@@ -43,7 +43,7 @@ class PermissionRepository extends EntityRepository
                     ->andWhere('gv.group = :group_id')
                     ->setParameter('value', true)
                     ->setParameter('user_id', $user->getId())
-                    ->setParameter('group_id', $user->getGroup())
+                    ->setParameter('group_id', $user->getGroup()->getId())
                     ->getQuery();
 
         $permissions = $query->execute();

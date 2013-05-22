@@ -72,10 +72,6 @@ class PermissionLoader implements LoaderInterface
                             ->getRepository('TickitPermissionBundle:Permission')
                             ->findAllForUser($user);
 
-        if (empty($permissions)) {
-            return;
-        }
-
         $condensedPermissions = array();
 
         /** @var Permission $permission */
@@ -83,9 +79,13 @@ class PermissionLoader implements LoaderInterface
             $condensedPermissions[$permission->getSystemName()] = $permission->getName();
         }
 
-        $hasher = new PermissionsHasher();
-        $hash = $hasher->hash($permissions);
-        $this->cache->write(static::SESSION_PERMISSIONS_HASH . '-' . $this->session->getId(), $hash);
+        if (!empty($condensedPermissions)) {
+            $hasher = new PermissionsHasher();
+            $hash = $hasher->hash($permissions);
+            $this->cache->write(static::SESSION_PERMISSIONS_HASH . '-' . $this->session->getId(), $hash);
+        } else {
+            $hash = '';
+        }
 
         $this->session->set(static::SESSION_PERMISSIONS, $condensedPermissions);
         $this->session->set(static::SESSION_PERMISSIONS_HASH, $hash);
