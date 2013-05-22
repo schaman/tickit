@@ -14,7 +14,7 @@ before_script:
   - php app/Resources/data/travis-build.php
 
   - curl -s http://getcomposer.org/installer | php
-  - COMPOSER_ROOT_VERSION=dev-master php composer.phar install
+  - php composer.phar --dev install
 
   # set up test environment #
   - php app/console tickit:tests:setup --env test
