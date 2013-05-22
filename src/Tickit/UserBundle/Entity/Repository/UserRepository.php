@@ -121,8 +121,6 @@ class UserRepository extends EntityRepository
                       ->select('u, up, p, g')
                       ->from('TickitUserBundle:User', 'u')
                       ->leftJoin('u.group', 'g')
-                      ->leftJoin('u.permissions', 'up')
-                      ->leftJoin('up.permission', 'p')
                       ->where('u.id = :user_id')
                       ->setParameter('user_id', $id)
                       ->getQuery();
