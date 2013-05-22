@@ -41,15 +41,13 @@ abstract class AbstractFunctionalTest extends WebTestCase
      */
     public static function setUpBeforeClass()
     {
-        $developer = new User();
-        $developer->addRole(User::ROLE_DEFAULT)
-             ->setUsername('developer')
-             ->setPassword('password');
+        $doctrine = static::createClient()->getContainer()->get('doctrine');
+        $userRepo = $doctrine->getRepository('TickitUserBundle:User');
+        $developer = $userRepo->findOneByUsername('developer');
+        $admin = $userRepo->findOneByUsername('james');
 
-        $admin = new User();
-        $admin->addRole(User::ROLE_SUPER_ADMIN)
-              ->setUsername('james')
-              ->setPassword('password');
+        $admin->setPlainPassword('password');
+        $developer->setPlainPassword('password');
 
         static::$admin = $admin;
         static::$developer = $developer;
@@ -68,7 +66,7 @@ abstract class AbstractFunctionalTest extends WebTestCase
     {
         $baseServer = array(
             'PHP_AUTH_USER' => $user->getUsername(),
-            'PHP_AUTH_PW' => $user->getPassword()
+            'PHP_AUTH_PW' => $user->getPlainPassword()
         );
 
         $server = $baseServer + $server;

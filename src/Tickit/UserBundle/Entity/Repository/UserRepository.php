@@ -118,7 +118,7 @@ class UserRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('u, up, p, g')
+                      ->select('u, g')
                       ->from('TickitUserBundle:User', 'u')
                       ->leftJoin('u.group', 'g')
                       ->where('u.id = :user_id')
