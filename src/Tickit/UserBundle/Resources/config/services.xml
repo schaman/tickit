@@ -48,7 +48,6 @@
         </service>
         <service id="tickit_user.user_form_type" class="Tickit\UserBundle\Form\Type\UserFormType">
             <tag name="form.type" alias="tickit_user" />
-            <argument type="service" id="doctrine" />
         </service>
         <service id="tickit_user.form.event_listener" class="Tickit\UserBundle\Form\EventListener\FormSubscriber">
             <tag name="kernel.event_listener" event="tickit_project.form.event.entity_attribute_build" method="onEntityAttributeFormBuild" />
