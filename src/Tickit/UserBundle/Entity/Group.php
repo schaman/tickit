@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Tickit\UserBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\UserBundle\Entity\Repository\GroupRepository")
  * @ORM\Table(name="groups")
  */
 class Group extends BaseGroup
