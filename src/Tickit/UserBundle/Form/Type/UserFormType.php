@@ -22,23 +22,6 @@ use Tickit\PermissionBundle\Form\Type\Field\PermissionsType;
 class UserFormType extends AbstractType
 {
     /**
-     * The permissions repository
-     *
-     * @var PermissionRepository
-     */
-    protected $permissionsRepository;
-
-    /**
-     * Constructor.
-     *
-     * @param Registry $doctrine The doctrine registry
-     */
-    public function __construct(Registry $doctrine)
-    {
-        $this->permissionsRepository = $doctrine->getManager()->getRepository('TickitPermissionBundle:Permission');
-    }
-
-    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder The form builder
