@@ -322,20 +322,4 @@ class UserManager extends AbstractManager implements UserManagerInterface
             return null;
         }
     }
-
-    /**
-     * Finds a user group by ID
-     *
-     * @param integer $id The group ID to find by
-     *
-     * @return Group
-     */
-    public function findGroup($id)
-    {
-        $group = $this->doctrine
-                      ->getRepository('TickitUserBundle:Group')
-                      ->find($id);
-
-        return $group;
-    }
 }
