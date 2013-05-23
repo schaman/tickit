@@ -46,7 +46,7 @@ class PermissionController extends Controller
         }
 
         if (null !== $groupId) {
-            $group = $this->get('tickit_user.manager')->findGroup($groupId);
+            $group = $this->get('tickit_user.group_manager')->find($groupId);
             if (!$group instanceof Group) {
                 throw $this->createNotFoundException(sprintf('No group found for given ID (%d)', $groupId));
             }
