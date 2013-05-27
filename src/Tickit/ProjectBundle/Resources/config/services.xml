@@ -18,8 +18,6 @@
             <argument type="service" id="doctrine" />
         </service>
 
-        <service id="tickit_project.attribute_meta_generator" class="Tickit\ProjectBundle\Attribute\MetaGenerator" />
-
         <service id="tickit_project.form.entity_attribute" class="Tickit\ProjectBundle\Form\Type\EntityAttributeFormType">
             <argument type="service" id="event_dispatcher" />
             <tag name="form.type" alias="tickit_project_attribute_entity" />
