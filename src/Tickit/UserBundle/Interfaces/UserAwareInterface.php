@@ -5,7 +5,7 @@ namespace Tickit\UserBundle\Interfaces;
 use Tickit\UserBundle\Entity\User;
 
 /**
- * Interface for classes that are Project aware
+ * Interface for classes that are User aware
  *
  * @package Tickit\UserBundle\Interfaces
  * @author  James Halsall <jhalsall@rippleffect.com>
