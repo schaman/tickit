@@ -4,12 +4,12 @@ namespace Tickit\UserBundle\Event\Dispatcher;
 
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\UserBundle\Event\BeforeCreateEvent;
-use Tickit\UserBundle\Event\BeforeDeleteEvent;
-use Tickit\UserBundle\Event\BeforeUpdateEvent;
-use Tickit\UserBundle\Event\CreateEvent;
-use Tickit\UserBundle\Event\DeleteEvent;
-use Tickit\UserBundle\Event\UpdateEvent;
+use Tickit\UserBundle\Event\GroupBeforeCreateEvent;
+use Tickit\UserBundle\Event\GroupBeforeDeleteEvent;
+use Tickit\UserBundle\Event\GroupBeforeUpdateEvent;
+use Tickit\UserBundle\Event\GroupCreateEvent;
+use Tickit\UserBundle\Event\GroupDeleteEvent;
+use Tickit\UserBundle\Event\GroupUpdateEvent;
 use Tickit\UserBundle\TickitUserEvents;
 
 /**
@@ -33,7 +33,7 @@ class GroupEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeCreateEvent($entity)
     {
-        $beforeEvent = new BeforeCreateEvent($entity);
+        $beforeEvent = new GroupBeforeCreateEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitUserEvents::GROUP_BEFORE_CREATE, $beforeEvent);
 
         return $beforeEvent;
@@ -48,7 +48,7 @@ class GroupEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchCreateEvent($entity)
     {
-        $event = new CreateEvent($entity);
+        $event = new GroupCreateEvent($entity);
         $this->dispatcher->dispatch(TickitUserEvents::GROUP_CREATE, $event);
     }
 
@@ -61,7 +61,7 @@ class GroupEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeUpdateEvent($entity)
     {
-        $beforeEvent = new BeforeUpdateEvent($entity);
+        $beforeEvent = new GroupBeforeUpdateEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitUserEvents::GROUP_BEFORE_UPDATE, $beforeEvent);
 
         return $beforeEvent;
@@ -77,7 +77,7 @@ class GroupEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchUpdateEvent($entity, $originalEntity)
     {
-        $event = new UpdateEvent($entity, $originalEntity);
+        $event = new GroupUpdateEvent($entity, $originalEntity);
         $this->dispatcher->dispatch(TickitUserEvents::GROUP_UPDATE, $event);
     }
 
@@ -90,7 +90,7 @@ class GroupEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeDeleteEvent($entity)
     {
-        $beforeEvent = new BeforeDeleteEvent($entity);
+        $beforeEvent = new GroupBeforeDeleteEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitUserEvents::GROUP_BEFORE_DELETE, $beforeEvent);
 
         return $beforeEvent;
@@ -105,7 +105,7 @@ class GroupEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchDeleteEvent($entity)
     {
-        $event = new DeleteEvent($entity);
+        $event = new GroupDeleteEvent($entity);
         $this->dispatcher->dispatch(TickitUserEvents::GROUP_DELETE, $event);
     }
 }
