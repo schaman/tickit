@@ -55,44 +55,44 @@ class TickitUserEvents
     const USER_DELETE = 'tickit_user.event.delete';
 
     /**
-     * Constant representing the name of the "before create" event
+     * Constant representing the name of the "group before create" event
      *
      * @const string
      */
-    const GROUP_BEFORE_CREATE = 'tickit_group.event.before_create';
+    const GROUP_BEFORE_CREATE = 'tickit_user.event.group_before_create';
 
     /**
-     * Constant representing the name of the "create" event
+     * Constant representing the name of the "group create" event
      *
      * @const string
      */
-    const GROUP_CREATE = 'tickit_group.event.create';
+    const GROUP_CREATE = 'tickit_user.event.group_create';
 
     /**
-     * Constant representing the name of the "before update" event
+     * Constant representing the name of the "group before update" event
      *
      * @const string
      */
-    const GROUP_BEFORE_UPDATE = 'tickit_group.event.before_update';
+    const GROUP_BEFORE_UPDATE = 'tickit_user.event.group_before_update';
 
     /**
-     * Constant representing the name of the "update" event
+     * Constant representing the name of the "group update" event
      *
      * @const string
      */
-    const GROUP_UPDATE = 'tickit_group.event.update';
+    const GROUP_UPDATE = 'tickit_user.event.group_update';
 
     /**
-     * Constant representing the name of the "before delete" event
+     * Constant representing the name of the "group before delete" event
      *
      * @const string
      */
-    const GROUP_BEFORE_DELETE = 'tickit_group.event.before_delete';
+    const GROUP_BEFORE_DELETE = 'tickit_user.event.group_before_delete';
 
     /**
-     * Constant representing the name of the "delete" event
+     * Constant representing the name of the "group delete" event
      *
      * @const string
      */
-    const GROUP_DELETE = 'tickit_group.event.delete';
+    const GROUP_DELETE = 'tickit_user.event.group_delete';
 }
