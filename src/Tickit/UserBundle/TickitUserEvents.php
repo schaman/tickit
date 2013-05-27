@@ -53,4 +53,46 @@ class TickitUserEvents
      * @const string
      */
     const USER_DELETE = 'tickit_user.event.delete';
+
+    /**
+     * Constant representing the name of the "before create" event
+     *
+     * @const string
+     */
+    const GROUP_BEFORE_CREATE = 'tickit_group.event.before_create';
+
+    /**
+     * Constant representing the name of the "create" event
+     *
+     * @const string
+     */
+    const GROUP_CREATE = 'tickit_group.event.create';
+
+    /**
+     * Constant representing the name of the "before update" event
+     *
+     * @const string
+     */
+    const GROUP_BEFORE_UPDATE = 'tickit_group.event.before_update';
+
+    /**
+     * Constant representing the name of the "update" event
+     *
+     * @const string
+     */
+    const GROUP_UPDATE = 'tickit_group.event.update';
+
+    /**
+     * Constant representing the name of the "before delete" event
+     *
+     * @const string
+     */
+    const GROUP_BEFORE_DELETE = 'tickit_group.event.before_delete';
+
+    /**
+     * Constant representing the name of the "delete" event
+     *
+     * @const string
+     */
+    const GROUP_DELETE = 'tickit_group.event.delete';
 }

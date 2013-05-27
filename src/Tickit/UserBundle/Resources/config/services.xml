@@ -41,10 +41,14 @@
             <argument type="service" id="fos_user.user_manager.default" />
             <argument type="service" id="tickit_permission.manager" />
         </service>
+        <service id="tickit_user.user_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher">
+            <argument type="service" id="event_dispatcher" />
+        </service>
         <service id="tickit_user.group_manager" class="Tickit\UserBundle\Manager\GroupManager">
             <argument type="service" id="doctrine" />
+            <argument type="service" id="tickit_user.group_event_dispatcher" />
         </service>
-        <service id="tickit_user.user_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher">
+        <service id="tickit_user.group_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\GroupEventDispatcher">
             <argument type="service" id="event_dispatcher" />
         </service>
         <service id="tickit_user.user_provider" class="Tickit\UserBundle\Security\UserProvider">
