@@ -57,7 +57,7 @@ class ProjectController extends AbstractCoreController
         $form = $this->createForm($formType, $project);
 
         if ('POST' == $this->getRequest()->getMethod()) {
-            $form->bind($this->getRequest());
+            $form->submit($this->getRequest());
 
             if ($form->isValid()) {
                 $project = $form->getData();
@@ -105,7 +105,7 @@ class ProjectController extends AbstractCoreController
         $form = $this->createForm($formType, $project);
 
         if ('POST' === $this->getRequest()->getMethod()) {
-            $form->bind($this->getRequest());
+            $form->submit($this->getRequest());
 
             if ($form->isValid()) {
                 $project = $form->getData();
