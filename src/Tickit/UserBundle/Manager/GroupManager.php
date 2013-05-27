@@ -1,8 +1,12 @@
 <?php
 
 namespace Tickit\UserBundle\Manager;
+
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\UserBundle\Entity\Group;
+use Tickit\UserBundle\Entity\Repository\GroupRepository;
 
 /**
  * Group manager.
@@ -12,25 +16,8 @@ use Tickit\UserBundle\Entity\Group;
  * @package Tickit\UserBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class GroupManager
+class GroupManager extends AbstractManager
 {
-    /**
-     * The doctrine registry
-     *
-     * @var Registry
-     */
-    protected $doctrine;
-
-    /**
-     * Constructor.
-     *
-     * @param Registry $doctrine The doctrine registry
-      */
-    public function __construct(Registry $doctrine)
-    {
-        $this->doctrine = $doctrine;
-    }
-
     /**
      * Finds a user group by ID
      *
@@ -40,10 +27,38 @@ class GroupManager
      */
     public function findGroup($id)
     {
-        $group = $this->doctrine
+        $group = $this->em
                       ->getRepository('TickitUserBundle:Group')
                       ->find($id);
 
         return $group;
+    }
+
+    /**
+     * Gets the entity repository.
+     *
+     * This method returns the entity repository that is associated with this manager's entity.
+     *
+     * @return GroupRepository
+     */
+    public function getRepository()
+    {
+        return $this->em->getRepository('TickitUserBundle:Group');
+    }
+
+    /**
+     * Returns the original entity from the entity manager.
+     *
+     * This method takes an entity and returns a copy in its original state
+     * from the entity manager. This is used when dispatching entity update
+     * events, so a before and after comparison can take place.
+     *
+     * @param object $entity The entity in its current state
+     *
+     * @return object
+     */
+    protected function fetchEntityInOriginalState($entity)
+    {
+        return $this->em->find('\Tickit\UserBundle\Entity\Group', $entity->getId());
     }
 }
