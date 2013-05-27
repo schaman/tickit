@@ -13,3 +13,19 @@ user_edit:
     defaults: { _controller: TickitUserBundle:User:edit }
     requirements:
         id: \d+
+
+group_index:
+    pattern: /groups/{page}
+    defaults: { _controller: TickitUserBundle:Group:index, page: 1 }
+    requirements:
+        page: \d+
+
+group_create:
+    pattern: /groups/create
+    defaults: { _controller: TickitUserBundle:Group:create }
+
+group_edit:
+    pattern: /groups/edit/{id}
+    defaults: { _controller: TickitUserBundle:Group:edit }
+    requirements:
+        id: \d+

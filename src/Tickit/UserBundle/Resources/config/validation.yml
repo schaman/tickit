@@ -16,3 +16,12 @@ Tickit\UserBundle\Entity\User:
             - Email:
                 message: That email "{{ value }}" doesn't look valid. Could you double check it?
                 checkHost: true
+
+Tickit\UserBundle\Entity\Group:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: name
+            message: "Looks like that group name is already in use, could you try something else?"
+    properties:
+        name:
+            - NotBlank: { message: "You didn't provide a name, did you forget it?" }

@@ -1,0 +1,14 @@
+{% extends 'TickitUserBundle::layout.html.twig' %}
+
+{% block user_content %}
+    <h2>Create User Group</h2>
+
+    <form method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+
+        {{ form_rest(form) }}
+        <input type="submit" value="Save User Group" />
+    </form>
+{% endblock %}
