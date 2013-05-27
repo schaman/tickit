@@ -3,7 +3,6 @@
 namespace Tickit\UserBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\Repository\GroupRepository;
