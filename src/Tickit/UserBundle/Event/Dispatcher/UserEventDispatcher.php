@@ -42,7 +42,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
     /**
      * Dispatches events for the "create" event on the entity
      *
-     * @param object $entity The project entity that has just been created
+     * @param object $entity The user entity that has just been created
      *
      * @return void
      */
