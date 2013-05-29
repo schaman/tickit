@@ -86,6 +86,10 @@ class GroupController extends Controller
             throw $this->createNotFoundException(sprintf('No group could be found for the given ID (%d)', $id));
         }
 
+        // TODO: implement a GroupPermissions field type for these permissions
+        $permissions = $this->get('tickit_permission.manager')->getUserPermissionData($group->getId());
+        $group->setPermissions($permissions);
+
         $form = $this->createForm(new GroupFormType(), $group);
 
         if ('POST' === $this->getRequest()->getMethod()) {
