@@ -63,7 +63,23 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testCreateActionShowsErrorsForInvalidDetails()
     {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
 
+        $crawler = $client->request('get', $router->generate('group_create'));
+
+        $this->assertEquals('Create User Group', $crawler->filter('h2')->text());
+        $form = $crawler->selectButton('Save User Group')->form(
+            array(
+                'tickit_group[name]' => ''
+            )
+        );
+
+        $crawler = $client->submit($form);
+
+        // the request should not redirect
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals('Create User Group', $crawler->filter('h2')->text());
     }
 
     /**
@@ -85,8 +101,6 @@ class GroupControllerTest extends AbstractFunctionalTest
 
         $crawler = $client->request('get', $router->generate('group_edit', array('id' => $group->getId())));
 
-        $this->assertEquals('Edit User Group', $crawler->filter('h2')->text());
-
         $form = $crawler->selectButton('Save Changes')->form(
             array(
                 'tickit_group[name]' => 'Group-' . $faker->sha1
@@ -107,6 +121,27 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionShowsErrorsForInvalidDetails()
     {
+        $faker = $this->getFakerGenerator();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $router = $client->getContainer()->get('router');
+        $em = $client->getContainer()->get('doctrine')->getManager();
 
+        $group = new Group('Group-' . $faker->sha1);
+        $em->persist($group);
+        $em->flush();
+
+        $crawler = $client->request('get', $router->generate('group_edit', array('id' => $group->getId())));
+
+        $form = $crawler->selectButton('Save Changes')->form(
+            array(
+                'tickit_group[name]' => ''
+            )
+        );
+
+        $crawler = $client->submit($form);
+
+        // the request should not redirect
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals('Edit User Group', $crawler->filter('h2')->text());
     }
 }
