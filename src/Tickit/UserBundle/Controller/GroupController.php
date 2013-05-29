@@ -4,6 +4,8 @@ namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Form\Type\GroupFormType;
 
 /**
@@ -55,6 +57,48 @@ class GroupController extends Controller
 
                 $flash = $this->get('tickit.flash_messages');
                 $flash->addEntityCreatedMessage('group');
+
+                $route = $this->get('router')->generate('group_index');
+
+                return $this->redirect($route);
+            }
+        }
+
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * Serves content for the edit group page.
+     *
+     * @param integer $id The group ID to edit
+     *
+     * @throws NotFoundHttpException If no group is found for the given ID
+     *
+     * @Template("TickitUserBundle:Group:edit.html.twig")
+     *
+     * @return array
+     */
+    public function editAction($id)
+    {
+        $group = $this->get('tickit_user.group_manager')->findGroup($id);
+
+        if (!$group instanceof Group) {
+            throw $this->createNotFoundException(sprintf('No group could be found for the given ID (%d)', $id));
+        }
+
+        $form = $this->createForm(new GroupFormType(), $group);
+
+        if ('POST' === $this->getRequest()->getMethod()) {
+            $form->submit($this->getRequest());
+
+            if ($form->isValid()) {
+                $group = $form->getData();
+
+                $manager = $this->get('tickit_user.group_manager');
+                $manager->update($group);
+
+                $flash = $this->get('tickit.flash_messages');
+                $flash->addEntityUpdatedMessage('group');
 
                 $route = $this->get('router')->generate('group_index');
 

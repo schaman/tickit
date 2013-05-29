@@ -1,7 +1,9 @@
 <?php
 
 namespace Tickit\UserBundle\Tests\Controller;
+
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\UserBundle\Entity\Group;
 
 /**
  * GroupController tests.
@@ -50,9 +52,7 @@ class GroupControllerTest extends AbstractFunctionalTest
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-
-
-        $count = $crawler->filter('div.flash-notice:contains("The user has been created successfully")')->count();
+        $count = $crawler->filter('div.flash-notice:contains("The group has been created successfully")')->count();
         $this->assertGreaterThan(0, $count);
     }
 
@@ -73,7 +73,31 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionUpdatesExistingGroupWithValidDetails()
     {
+        $faker = $this->getFakerGenerator();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $em = $container->get('doctrine')->getManager();
+        $router = $container->get('router');
 
+        $group = new Group('Group-' . $faker->sha1);
+        $em->persist($group);
+        $em->flush();
+
+        $crawler = $client->request('get', $router->generate('group_edit', array('id' => $group->getId())));
+
+        $this->assertEquals('Edit User Group', $crawler->filter('h2')->text());
+
+        $form = $crawler->selectButton('Save Changes')->form(
+            array(
+                'tickit_group[name]' => 'Group-' . $faker->sha1
+            )
+        );
+
+        $client->submit($form);
+        $crawler  = $client->followRedirect();
+
+        $count = $crawler->filter('div.flash-notice:contains("The group has been updated successfully")')->count();
+        $this->assertGreaterThan(0, $count);
     }
 
     /**
