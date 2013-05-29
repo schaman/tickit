@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\UserBundle\Form\EventListener\GroupFormSubscriber;
 
 /**
  * Group form.
@@ -26,8 +27,8 @@ class GroupFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // TODO: add a form subscriber that customises the bind event so the group name can be set in the constructor
         $builder->add('name', 'text');
+        $builder->addEventSubscriber(new GroupFormSubscriber());
     }
 
     /**
