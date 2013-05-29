@@ -24,7 +24,6 @@
         </service>
 
         <service id="tickit_permission.user_permission_form_type" class="Tickit\PermissionBundle\Form\Type\UserPermissionFormType">
-            <argument type="service" id="doctrine" />
             <tag name="form.type" alias="tickit_user_permission" />
         </service>
         <service id="tickit_permission.manager" class="Tickit\PermissionBundle\Manager\PermissionManager">

@@ -20,23 +20,6 @@ use Tickit\PermissionBundle\Form\EventListener\UserPermissionFormSubscriber;
 class UserPermissionFormType extends AbstractType
 {
     /**
-     * The entity manager
-     *
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
-     * Constructor.
-     *
-     * @param Registry $doctrine The doctrine registry
-     */
-    public function __construct(Registry $doctrine)
-    {
-        $this->em = $doctrine->getManager();
-    }
-
-    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder The form builder
