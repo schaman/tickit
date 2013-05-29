@@ -24,7 +24,7 @@ class GroupManager extends AbstractManager
      *
      * @return Group
      */
-    public function findGroup($id)
+    public function find($id)
     {
         $group = $this->em
                       ->getRepository('TickitUserBundle:Group')

@@ -80,7 +80,7 @@ class GroupController extends Controller
      */
     public function editAction($id)
     {
-        $group = $this->get('tickit_user.group_manager')->findGroup($id);
+        $group = $this->get('tickit_user.group_manager')->find($id);
 
         if (!$group instanceof Group) {
             throw $this->createNotFoundException(sprintf('No group could be found for the given ID (%d)', $id));
