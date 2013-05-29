@@ -40,7 +40,7 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Pre-bind event.
+     * Pre-submit event.
      *
      * Binds values to underlying permission model
      *
@@ -48,7 +48,7 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
      *
      * @return void
      */
-    public function preBind(FormEvent $event)
+    public function preSubmit(FormEvent $event)
     {
         $data = $event->getData();
         if (empty($data['overridden'])) {
@@ -80,7 +80,7 @@ class UserPermissionFormSubscriber implements EventSubscriberInterface
     {
         return array(
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND => 'preBind'
+            FormEvents::PRE_SUBMIT => 'preSubmit'
         );
     }
 }
