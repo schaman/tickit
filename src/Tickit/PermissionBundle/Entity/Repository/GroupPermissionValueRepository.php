@@ -52,7 +52,7 @@ class GroupPermissionValueRepository extends EntityRepository
         $query = $this->getEntityManager()
                       ->createQuery(
                           'DELETE FROM Tickit\PermissionBundle\Entity\GroupPermissionValue gpv
-                              WHERE gpv.user = :group_id'
+                              WHERE gpv.group = :group_id'
                       )
                       ->setParameter('group_id', $group->getId());
 

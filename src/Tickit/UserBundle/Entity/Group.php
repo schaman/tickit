@@ -68,4 +68,16 @@ class Group extends BaseGroup
 
         return $this;
     }
+
+    /**
+     * Clears permissions on the current user.
+     *
+     * @return User
+     */
+    public function clearPermissions()
+    {
+        $this->permissions = null;
+
+        return $this;
+    }
 }
