@@ -5,11 +5,13 @@ namespace Tickit\PermissionBundle\Manager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Tickit\PermissionBundle\Entity\GroupPermissionValue;
 use Tickit\PermissionBundle\Entity\Repository\GroupPermissionValueRepository;
 use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
 use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
 use Tickit\PermissionBundle\Entity\UserPermissionValue;
 use Tickit\PermissionBundle\Model\Permission;
+use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -151,5 +153,45 @@ class PermissionManager
         $user->setPermissions($permissions);
 
         return $user;
+    }
+
+    /**
+     * Updates permissions for a group using Permission model data
+     *
+     * @param Group      $group       The group to update permissions for
+     * @param Collection $permissions The permissions collection
+     * @param boolean    $flush       False to prevent changes from being flushed to the entity manager, defaults to true
+     *
+     * @return Group
+     */
+    public function updatePermissionDataForGroup(Group $group, Collection $permissions, $flush = true)
+    {
+        $em = $this->doctrine->getManager();
+        $allPermissions = $this->getRepository()->findAllIndexedById();
+        $this->getGroupPermissionValueRepository()->deleteAllForGroup($group);
+
+        /** @var Permission $permission */
+        foreach ($permissions as $permission) {
+            $permissionId = $permission->getId();
+            $permissionEntity = $allPermissions[$permissionId];
+            $value = new GroupPermissionValue();
+            $value->setPermission($permissionEntity);
+            $value->setGroup($group);
+            if ($permission->getGroupValue()) {
+                $value->setValue(true);
+            } else {
+                $value->setValue(false);
+            }
+
+            $em->persist($value);
+        }
+
+        if (false !== $flush) {
+            $em->flush();
+        }
+
+        $group->setPermissions($permissions);
+
+        return $group;
     }
 }
