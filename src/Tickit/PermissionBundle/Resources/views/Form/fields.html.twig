@@ -1,38 +1,36 @@
 {% block permissions_widget %}
     <table id='permissions-table' data-prototype="{{ block('permissions_row_widget')|e }}">
-        {% spaceless %}
-            <thead>
-                <tr>
-                    <th>Permission</th>
-                    <th>Group Granted?</th>
-                    <th>Override for this user?</th>
-                    <th>User Granted?</th>
-                </tr>
-            </thead>
-            {% if form|length %}
-                <tbody>
-                    {% for child in form %}
-                        {% set permission = child.vars['value'] %}
-                        <tr data-permission-id="{{ permission.id }}">
-                            <td>
-                                {{ permission.name }}
-                                {{ form_widget(child.id) }}
-                                {{ form_widget(child.name) }}
-                            </td>
-                            <td>{{ form_widget(child.groupValue) }}</td>
-                            <td>
-                                {{ form_widget(child.overridden, {'attr': {'class': 'user-override'}}) }}
-                            </td>
-                            <td>{{ form_widget(child.userValue) }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            {% else %}
-                <tr>
-                    <td colspan="4">You need to select a group for this user before you can edit permissions.</td>
-                </tr>
-            {% endif %}
-        {% endspaceless %}
+        <thead>
+            <tr>
+                <th>Permission</th>
+                <th>Group Granted?</th>
+                <th>Override for this user?</th>
+                <th>User Granted?</th>
+            </tr>
+        </thead>
+        {% if form|length %}
+            <tbody>
+                {% for child in form %}
+                    {% set permission = child.vars['value'] %}
+                    <tr data-permission-id="{{ permission.id }}">
+                        <td>
+                            {{ permission.name }}
+                            {{ form_widget(child.id) }}
+                            {{ form_widget(child.name) }}
+                        </td>
+                        <td>{{ form_widget(child.groupValue) }}</td>
+                        <td>
+                            {{ form_widget(child.overridden, {'attr': {'class': 'user-override'}}) }}
+                        </td>
+                        <td>{{ form_widget(child.userValue) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% else %}
+            <tr>
+                <td colspan="4">You need to select a group for this user before you can edit permissions.</td>
+            </tr>
+        {% endif %}
     </table>
 
 {% endblock permissions_widget %}
@@ -49,4 +47,34 @@
         <td>{{ form_widget(prototype.userValue) }}</td>
     </tr>
 {% endspaceless %}
+{% endblock %}
+
+{% block group_permissions_widget %}
+    <table id='group-permissions-table'>
+        <thead>
+            <tr>
+                <th>Permission</th>
+                <th>Group Granted?</th>
+            </tr>
+        </thead>
+        {% if form|length %}
+            <tbody>
+                {% for child in form %}
+                    {% set permission = child.vars['value'] %}
+                    <tr data-permission-id="{{ permission.id }}">
+                        <td>
+                            {{ permission.name }}
+                            {{ form_widget(child.id) }}
+                            {{ form_widget(child.name) }}
+                        </td>
+                        <td>{{ form_widget(child.groupValue) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% else %}
+            <tr>
+                <td colspan="4">There are currently no permissions available in the application.</td>
+            </tr>
+        {% endif %}
+    </table>
 {% endblock %}

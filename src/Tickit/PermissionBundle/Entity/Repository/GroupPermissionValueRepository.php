@@ -5,6 +5,7 @@ namespace Tickit\PermissionBundle\Entity\Repository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Tickit\UserBundle\Entity\Group;
 
 /**
  * Group Permission Value repository.
@@ -37,5 +38,24 @@ class GroupPermissionValueRepository extends EntityRepository
                       ->setHydrationMode($hydrationMode);
 
         return $query->execute();
+    }
+
+    /**
+     * Deletes all GroupPermissionValue entities for the given group.
+     *
+     * @param Group $group The group to delete permission values for
+     *
+     * @return void
+     */
+    public function deleteAllForGroup(Group $group)
+    {
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                          'DELETE FROM Tickit\PermissionBundle\Entity\GroupPermissionValue gpv
+                              WHERE gpv.user = :group_id'
+                      )
+                      ->setParameter('group_id', $group->getId());
+
+        $query->execute();
     }
 }

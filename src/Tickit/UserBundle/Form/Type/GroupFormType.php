@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\PermissionBundle\Form\Type\Field\GroupPermissionsType;
 use Tickit\UserBundle\Form\EventListener\GroupFormSubscriber;
 
 /**
@@ -27,7 +28,9 @@ class GroupFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text');
+        $builder->add('name', 'text')
+                ->add('permissions', new GroupPermissionsType(), array('type' => 'tickit_group_permission'));
+
         $builder->addEventSubscriber(new GroupFormSubscriber());
     }
 
