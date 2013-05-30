@@ -3,7 +3,9 @@
 namespace Tickit\UserBundle\Manager;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\PermissionBundle\Manager\PermissionManager;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\Repository\GroupRepository;
 
@@ -18,6 +20,26 @@ use Tickit\UserBundle\Entity\Repository\GroupRepository;
 class GroupManager extends AbstractManager
 {
     /**
+     * The permission manager
+     *
+     * @var PermissionManager
+     */
+    protected $permissionManager;
+
+    /**
+     * Constructor.
+     *
+     * @param Registry                      $doctrine          The doctrine registry
+     * @param AbstractEntityEventDispatcher $dispatcher        The entity event dispatcher
+     * @param PermissionManager             $permissionManager The permission manager
+     */
+    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, PermissionManager $permissionManager)
+    {
+        $this->permissionManager = $permissionManager;
+        parent::__construct($doctrine, $dispatcher);
+    }
+
+    /**
      * Finds a user group by ID
      *
      * @param integer $id The group ID to find by
@@ -31,6 +53,25 @@ class GroupManager extends AbstractManager
                       ->find($id);
 
         return $group;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param object  $entity The group object to update in the entity manager
+     * @param boolean $flush  True to flush changes in the entity manager
+     *
+     * @return Group
+     */
+    public function update($entity, $flush = true)
+    {
+        $permissions = $entity->getPermissions();
+        $entity->clearPermissions();
+
+        $group = parent::update($entity, $flush);
+        if ($group instanceof Group) {
+            $this->permissionManager->updatePermissionDataForGroup($group, $permissions);
+        }
     }
 
     /**
