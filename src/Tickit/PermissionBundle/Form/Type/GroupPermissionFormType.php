@@ -5,7 +5,6 @@ namespace Tickit\PermissionBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\PermissionBundle\Form\EventListener\GroupPermissionFormSubscriber;
 
 /**
  * Group permissions form.
@@ -30,8 +29,6 @@ class GroupPermissionFormType extends AbstractType
         $builder->add('id', 'hidden')
                 ->add('name', 'hidden')
                 ->add('groupValue', 'checkbox', array('label' => false, 'required' => false));
-
-        $builder->addEventSubscriber(new GroupPermissionFormSubscriber());
     }
 
     /**
