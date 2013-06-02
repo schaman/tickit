@@ -46,7 +46,7 @@ class UserController extends AbstractCoreController
         $form = $this->createForm('tickit_user', $user);
 
         if ('POST' == $this->getRequest()->getMethod()) {
-            $form->bind($this->getRequest());
+            $form->submit($this->getRequest());
             if ($form->isValid()) {
                 $user = $form->getData();
                 $manager = $this->getUserManager();
@@ -91,7 +91,7 @@ class UserController extends AbstractCoreController
         $existingPassword = $existingUser->getPassword();
 
         if ('POST' === $this->getRequest()->getMethod()) {
-            $form->bind($this->getRequest());
+            $form->submit($this->getRequest());
 
             if ($form->isValid()) {
                 /** @var User $user */
