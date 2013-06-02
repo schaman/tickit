@@ -4,9 +4,9 @@ user_index:
     requirements:
         page: \d+
 
-user_add:
-    pattern: /add
-    defaults: { _controller: TickitUserBundle:User:add }
+user_create:
+    pattern: /create
+    defaults: { _controller: TickitUserBundle:User:create }
 
 user_edit:
     pattern: /edit/{id}

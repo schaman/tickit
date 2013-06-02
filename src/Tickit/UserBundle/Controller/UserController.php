@@ -34,13 +34,13 @@ class UserController extends AbstractCoreController
     }
 
     /**
-     * Loads the add user page
+     * Loads the create user page
      *
-     * @Template("TickitUserBundle:User:add.html.twig")
+     * @Template("TickitUserBundle:User:create.html.twig")
      *
      * @return array|RedirectResponse
      */
-    public function addAction()
+    public function createAction()
     {
         $user = new User();
         $form = $this->createForm('tickit_user', $user);

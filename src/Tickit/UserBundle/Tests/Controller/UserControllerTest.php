@@ -53,13 +53,13 @@ class UserControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the addAction()
+     * Tests the createAction()
      *
      * Ensures that a valid attempt to create a user is successful
      *
      * @return void
      */
-    public function testAddActionCreatesUserWithValidDetails()
+    public function testCreateActionCreatesUserWithValidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
@@ -72,7 +72,7 @@ class UserControllerTest extends AbstractFunctionalTest
         $crawler = $client->request('get', $router->generate('user_index'));
         $totalUsers = $crawler->filter('div.data-list table tbody tr')->count();
 
-        $crawler = $client->request('get', $router->generate('user_add'));
+        $crawler = $client->request('get', $router->generate('user_create'));
         $form = $crawler->selectButton('Save User')->form();
         $formValues = array(
             'tickit_user[forename]' => 'forename',
@@ -92,17 +92,17 @@ class UserControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the addAction() method
+     * Tests the createAction() method
      *
      * @return void
      */
-    public function testAddActionRendersEmptyPermissionsData()
+    public function testCreateActionRendersEmptyPermissionsData()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
         $router = $container->get('router');
 
-        $crawler = $client->request('get', $router->generate('user_add'));
+        $crawler = $client->request('get', $router->generate('user_create'));
         $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
         $expectedMessage = 'You need to select a group for this user before you can edit permissions';
         $this->assertContains($expectedMessage, $client->getResponse()->getContent());
