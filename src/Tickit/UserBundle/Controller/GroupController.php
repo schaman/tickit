@@ -44,7 +44,11 @@ class GroupController extends Controller
      */
     public function createAction()
     {
-        $form = $this->createForm(new GroupFormType());
+        $group = new Group('');
+        $permissions = $this->get('tickit_permission.manager')->getPermissionModels();
+        $group->setPermissions($permissions);
+
+        $form = $this->createForm(new GroupFormType(), $group);
 
         if ('POST' === $this->getRequest()->getMethod()) {
             $form->submit($this->getRequest());

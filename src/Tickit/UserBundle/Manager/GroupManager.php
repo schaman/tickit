@@ -58,6 +58,27 @@ class GroupManager extends AbstractManager
     /**
      * {@inheritDoc}
      *
+     * @param object   $entity The group object to create in the entity manager
+     * @param boolean  $flush  True to flush changes in the entity manager
+     *
+     * @return Group
+     */
+    public function create($entity, $flush = true)
+    {
+        $permissions = $entity->getPermissions();
+        $entity->clearPermissions();
+
+        $group = parent::create($entity, $flush);
+        if ($group instanceof Group) {
+            $this->permissionManager->updatePermissionDataForGroup($group, $permissions);
+        }
+
+        return $group;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param object  $entity The group object to update in the entity manager
      * @param boolean $flush  True to flush changes in the entity manager
      *
@@ -72,6 +93,8 @@ class GroupManager extends AbstractManager
         if ($group instanceof Group) {
             $this->permissionManager->updatePermissionDataForGroup($group, $permissions);
         }
+
+        return $group;
     }
 
     /**

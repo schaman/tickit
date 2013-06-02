@@ -118,6 +118,30 @@ class PermissionManager
     }
 
     /**
+     * Returns a collection of Permission model instances representing permissions.
+     *
+     * @return Collection
+     */
+    public function getPermissionModels()
+    {
+        $permissions  = $this->getRepository()->findAllIndexedById();
+
+        $models = array();
+        /** @var \Tickit\PermissionBundle\Entity\Permission $permission */
+        foreach ($permissions as $permission) {
+            $model = new Permission();
+            $model->setId($permission->getId());
+            $model->setName($permission->getName());
+            $model->setGroupValue(false);
+            $model->setOverridden(false);
+
+            $models[] = $model;
+        }
+
+        return new ArrayCollection($models);
+    }
+
+    /**
      * Updates permissions for a user using Permission model data.
      *
      * @param User       $user        The user to update permissions for
