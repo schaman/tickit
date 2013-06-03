@@ -31,5 +31,6 @@ class TickitProjectExtension extends Extension
         $xmlLoader->load('services.xml');
         $xmlLoader->load('forms.xml');
         $xmlLoader->load('listeners.xml');
+        $xmlLoader->load('managers.xml');
     }
 }
