@@ -18,24 +18,6 @@
             <argument type="service" id="doctrine" />
         </service>
 
-        <service id="tickit_project.form.entity_attribute" class="Tickit\ProjectBundle\Form\Type\EntityAttributeFormType">
-            <argument type="service" id="event_dispatcher" />
-            <tag name="form.type" alias="tickit_project_attribute_entity" />
-        </service>
-
-        <service id="tickit_project.form.project" class="Tickit\ProjectBundle\Form\Type\ProjectFormType">
-            <argument type="service" id="tickit_project.form.attribute_value" />
-            <tag name="form.type" alias="tickit_project" />
-        </service>
-
-        <service id="tickit_project.form.attribute_value" class="Tickit\ProjectBundle\Form\Type\AttributeValueFormType">
-            <argument type="service" id="doctrine" />
-            <tag name="form.type" alias="tickit_project_attribute_value" />
-        </service>
-
-        <service id="tickit_project.form.event_listener" class="Tickit\ProjectBundle\Form\EventListener\FormSubscriber">
-                <tag name="kernel.event_listener" event="tickit_project.form.event.entity_attribute_build" method="onEntityAttributeFormBuild" />
-        </service>
     </services>
 
 </container>
