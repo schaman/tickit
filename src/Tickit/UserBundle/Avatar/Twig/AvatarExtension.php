@@ -55,7 +55,7 @@ class AvatarExtension extends Twig_Extension
      */
     public function getCurrentUserAvatarImageUrl($size)
     {
-        $avatarAdapter = $this->container->get('avatar')->getAdapter();
+        $avatarAdapter = $this->container->get('tickit_user.avatar')->getAdapter();
         $user          = $this->context->getToken()->getUser();
 
         return $avatarAdapter->getImageUrl($user, $size);

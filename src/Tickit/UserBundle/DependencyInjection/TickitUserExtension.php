@@ -31,6 +31,9 @@ class TickitUserExtension extends Extension
 
         $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $xmlLoader->load('services.xml');
+        $xmlLoader->load('forms.xml');
+        $xmlLoader->load('managers.xml');
+        $xmlLoader->load('listeners.xml');
 
         $container->setParameter('tickit_user.avatar.adapter_class', $config['avatar']['adapter_class']);
     }

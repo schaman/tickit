@@ -5,62 +5,29 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="tickit_user.listener.login" class="Tickit\UserBundle\Listener\Login">
-            <argument type="service" id="service_container" />
-            <argument type="service" id="session" />
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="tickit_permission.loader" />
-            <tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin" />
-        </service>
-        <service id="tickit_user.listener.activity" class="Tickit\UserBundle\Listener\Activity">
-            <argument type="service" id="security.context" />
-            <argument type="service" id="doctrine" />
-            <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
-        </service>
-        <!-- TODO: Rewrite the avatar service IDs -->
-        <service id="avatar" class="Tickit\UserBundle\Avatar\AvatarService" scope="request">
+
+        <service id="tickit_user.avatar" class="Tickit\UserBundle\Avatar\AvatarService" scope="request">
             <argument type="service" id="request" />
             <argument>%tickit_user.avatar.adapter_class%</argument>
         </service>
-        <service id="avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension">
+
+        <service id="tickit_user.avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension">
             <argument type="service" id="service_container" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
         </service>
-        <service id="tickit_user.profile.form.type" class="Tickit\UserBundle\Form\Type\ProfileFormType">
-            <tag name="form.type" alias="tickit_user_profile" />
-            <argument>%fos_user.model.user.class%</argument>
-        </service>
-        <service id="tickit_user.registration.form.type" class="Tickit\UserBundle\Form\Type\RegistrationFormType">
-            <tag name="form.type" alias="tickit_user_registration" />
-            <argument>%fos_user.model.user.class%</argument>
-        </service>
-        <service id='tickit_user.manager' class='Tickit\UserBundle\Manager\UserManager'>
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="tickit_user.user_event_dispatcher" />
-            <argument type="service" id="fos_user.user_manager.default" />
-            <argument type="service" id="tickit_permission.manager" />
-        </service>
+
         <service id="tickit_user.user_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher">
             <argument type="service" id="event_dispatcher" />
         </service>
-        <service id="tickit_user.group_manager" class="Tickit\UserBundle\Manager\GroupManager">
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="tickit_user.group_event_dispatcher" />
-            <argument type="service" id="tickit_permission.manager" />
-        </service>
+
         <service id="tickit_user.group_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\GroupEventDispatcher">
             <argument type="service" id="event_dispatcher" />
         </service>
         <service id="tickit_user.user_provider" class="Tickit\UserBundle\Security\UserProvider">
             <argument type="service" id="tickit_user.manager" />
         </service>
-        <service id="tickit_user.user_form_type" class="Tickit\UserBundle\Form\Type\UserFormType">
-            <tag name="form.type" alias="tickit_user" />
-        </service>
-        <service id="tickit_user.form.event_listener" class="Tickit\UserBundle\Form\EventListener\FormSubscriber">
-            <tag name="kernel.event_listener" event="tickit_project.form.event.entity_attribute_build" method="onEntityAttributeFormBuild" />
-        </service>
+
     </services>
 
 </container>
