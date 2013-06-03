@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_permission.user_permission_form_type" class="Tickit\PermissionBundle\Form\Type\UserPermissionFormType">
+            <tag name="form.type" alias="tickit_user_permission" />
+        </service>
+
+        <service id="tickit_permission.group_permission_form_type" class="Tickit\PermissionBundle\Form\Type\GroupPermissionFormType">
+            <tag name="form.type" alias="tickit_group_permission" />
+        </service>
+
+    </services>
+
+</container>

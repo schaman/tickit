@@ -27,6 +27,9 @@ class TickitPermissionExtension extends Extension
     {
         $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $xmlLoader->load('services.xml');
+        $xmlLoader->load('listeners.xml');
+        $xmlLoader->load('managers.xml');
+        $xmlLoader->load('forms.xml');
     }
 
     /**
