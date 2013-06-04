@@ -14,10 +14,9 @@ use Tickit\UserBundle\Entity\User;
 class PreferenceRepository extends EntityRepository
 {
     /**
-     * Finds preferences for the provided user and groups them logically based on their
+     * Finds preferences for the provided user
      *
-     *
-     * @param \Tickit\UserBundle\Entity\User $user
+     * @param User $user The user to find preferences for
      *
      * @return mixed
      */

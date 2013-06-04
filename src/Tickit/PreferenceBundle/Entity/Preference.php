@@ -6,17 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * The Preference entity represents either a User preference of a System preference in the application
  *
+ * @package Tickit\PreferenceBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ *
  * @ORM\Entity(repositoryClass="Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository")
  * @ORM\Table(name="preferences")
  */
 class Preference
 {
-    //create constants here to map to setting names
-
     const TYPE_USER = 'user';
     const TYPE_SYSTEM = 'system';
 
     /**
+     * The unique identifier for this preference
+     *
+     * @var integer
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,27 +28,39 @@ class Preference
     protected $id;
 
     /**
+     * The name of the preference
+     *
+     * @var string
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
 
     /**
+     * The system friendly name of the preference
+     *
+     * @var string
      * @ORM\Column(name="system_name", type="string", length=100)
      */
     protected $systemName;
 
     /**
+     * The default value of the preference
+     *
+     * @var string
      * @ORM\Column(name="default_value", type="string", length=250)
      */
     protected $defaultValue;
 
     /**
+     * The preference type
+     *
+     * @var string
      * @ORM\Column(type="string", length=8)
      */
     protected $type;
 
     /**
-     * Get id
+     * Gets the unique identifier for this preference
      *
      * @return integer 
      */
@@ -56,15 +72,19 @@ class Preference
     /**
      * Sets the name of this preference
      *
-     * @param string $name The new name
+     * @param string $name The new preference name
+     *
+     * @return Preference
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
-     * Get name
+     * Gets the preference name
      *
      * @return string 
      */
@@ -74,19 +94,21 @@ class Preference
     }
 
     /**
-     * Sets the system friendly name
+     * Sets the system friendly name of the preference
      *
-     * @param string $name The new name
+     * @param string $name The new system friendly name
      *
-     * @return void
+     * @return Preference
      */
     public function setSystemName($name)
     {
         $this->systemName = str_replace(' ', '', $name);
+
+        return $this;
     }
 
     /**
-     * Gets the system friendly name
+     * Gets the system friendly name of the preference
      *
      * @return string
      */
@@ -99,10 +121,14 @@ class Preference
      * Sets the default value for this preference
      *
      * @param string $defaultValue The new default value
+     *
+     * @return Preference
      */
     public function setDefaultValue($defaultValue)
     {
         $this->defaultValue = $defaultValue;
+
+        return $this;
     }
 
     /**
@@ -122,7 +148,7 @@ class Preference
      *
      * @throws \InvalidArgumentException If the given type is not valid
      *
-     * @return void
+     * @return Preference
      */
     public function setType($type)
     {
@@ -130,6 +156,8 @@ class Preference
             throw new \InvalidArgumentException('An invalid type has been specified in Preference entity');
         }
         $this->type = $type;
+
+        return $this;
     }
 
     /**
