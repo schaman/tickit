@@ -11,7 +11,7 @@ use Tickit\UserBundle\Entity\User;
  * @package Tickit\PreferenceBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceRepository extends EntityRepository
+class UserPreferenceValueRepository extends EntityRepository
 {
     /**
      * Finds preferences for the provided user
