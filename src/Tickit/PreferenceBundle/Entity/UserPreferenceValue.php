@@ -15,7 +15,7 @@ use Tickit\UserBundle\Interfaces\UserAwareInterface;
  * @package Tickit\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository")
  * @ORM\Table(name="user_preferences")
  */
 class UserPreferenceValue implements UserAwareInterface
