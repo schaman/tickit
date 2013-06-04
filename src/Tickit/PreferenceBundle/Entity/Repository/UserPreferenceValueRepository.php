@@ -22,16 +22,14 @@ class UserPreferenceValueRepository extends EntityRepository
      */
     public function findForUser(User $user)
     {
-        $preferences = $this->getEntityManager()
-                            ->createQuery(
-                                'SELECT COALESCE(up.value, p.value), p.name, p.system_name, p.id
-                                  FROM Tickit\PreferenceBundle\Entity\Preference p
-                                   JOIN Tickit\UserBundle\Entity\User u
-                                WHERE u.user_id = :user_id'
-                            )
+        $query = $this->getEntityManager()
+                            ->createQueryBuilder()
+                            ->select('upv')
+                            ->from('TickitPreferenceBundle:UserPreferenceValue', 'upv')
+                            ->where('upv.user = :user_id')
                             ->setParameter('user_id', $user->getId())
-                            ->execute();
+                            ->getQuery();
 
-        return $preferences;
+        return $query->execute();
     }
 }
