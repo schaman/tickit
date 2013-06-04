@@ -4,7 +4,7 @@ namespace Tickit\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use FOS\UserBundle\Entity\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
