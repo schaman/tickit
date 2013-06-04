@@ -8,7 +8,9 @@ use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Interfaces\UserAwareInterface;
 
 /**
- * The UserPreference entity represents a user's desired value for a preference
+ * UserPreferenceValue entity.
+ *
+ * Represents a user's desired value for a preference in the application.
  *
  * @package Tickit\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -16,10 +18,12 @@ use Tickit\UserBundle\Interfaces\UserAwareInterface;
  * @ORM\Entity
  * @ORM\Table(name="user_preferences")
  */
-class UserPreference implements UserAwareInterface
+class UserPreferenceValue implements UserAwareInterface
 {
-
     /**
+     * The user that this preference value relates to
+     *
+     * @var User
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -27,6 +31,9 @@ class UserPreference implements UserAwareInterface
     protected $user;
 
     /**
+     * The preference that this
+     *
+     * @var Preference
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Preference")
      * @ORM\JoinColumn(name="preference_id", referencedColumnName="id")
@@ -34,18 +41,26 @@ class UserPreference implements UserAwareInterface
     protected $preference;
 
     /**
+     * The value for the associated preference
+     *
+     * @var string
      * @ORM\Column(type="text")
      */
     protected $value;
 
-
     /**
+     * The date and time that this preference value was created
+     *
+     * @var \DateTime
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
     protected $created;
 
     /**
+     * The date and time that this preference value was updated
+     *
+     * @var \DateTime
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
@@ -55,11 +70,15 @@ class UserPreference implements UserAwareInterface
     /**
      * Sets the created time as an instance of DateTime
      *
-     * @param \DateTime $created
+     * @param \DateTime $created The DateTime that this preference value was updated
+     *
+     * @return UserPreferenceValue
      */
-    public function setCreated($created)
+    public function setCreated(\DateTime $created)
     {
         $this->created = $created;
+
+        return $this;
     }
 
     /**
@@ -75,11 +94,15 @@ class UserPreference implements UserAwareInterface
     /**
      * Sets the Preference object
      *
-     * @param Preference $preference
+     * @param Preference $preference The preference that this value relates to
+     *
+     * @return UserPreferenceValue
      */
     public function setPreference(Preference $preference)
     {
         $this->preference = $preference;
+
+        return $this;
     }
 
     /**
@@ -95,7 +118,9 @@ class UserPreference implements UserAwareInterface
     /**
      * Sets the updated time as an instance of DateTime
      *
-     * @param \DateTime $updated
+     * @param \DateTime $updated The updated time for this preference value
+     *
+     * @return UserPreferenceValue
      */
     public function setUpdated($updated)
     {
@@ -113,11 +138,11 @@ class UserPreference implements UserAwareInterface
     }
 
     /**
-     * Sets the user
+     * Sets the user that this value is for
      *
-     * @param User $user The new user
+     * @param User $user The user object
      *
-     * @return UserPreference
+     * @return UserPreferenceValue
      */
     public function setUser(User $user)
     {
@@ -127,7 +152,7 @@ class UserPreference implements UserAwareInterface
     }
 
     /**
-     * Gets the user
+     * Gets the user that this value is for
      *
      * @return User
      */
@@ -139,17 +164,21 @@ class UserPreference implements UserAwareInterface
     /**
      * Sets the value for this user preference
      *
-     * @param mixed $value
+     * @param mixed $value The new permission value
+     *
+     * @return UserPreferenceValue
      */
     public function setValue($value)
     {
         $this->value = $value;
+
+        return $this;
     }
 
     /**
      * Gets the value for this user preference
      *
-     * @return mixed
+     * @return string
      */
     public function getValue()
     {
