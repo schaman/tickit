@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Tickit\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository")
  * @ORM\Table(name="preferences")
  */
 class Preference

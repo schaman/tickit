@@ -21,7 +21,9 @@ class PreferenceRepository extends EntityRepository
      */
     public function findAllIndexedBySystemName()
     {
-        $query = $this->createQueryBuilder('p')
+        $query = $this->getEntityManager()
+                      ->createQueryBuilder()
+                      ->select('p')
                       ->from('TickitPreferenceBundle:Preference', 'p', 'p.systemName')
                       ->getQuery();
 

@@ -57,7 +57,7 @@ class PreferenceLoader implements LoaderInterface
     {
         $doctrine = $this->doctrine;
         $userPreferences = $doctrine->getRepository('TickitPreferenceBundle:UserPreferenceValue')
-                                    ->findAllForUser($user, 'systemName');
+                                    ->findAllForUserIndexedBySystemName($user);
 
         $allPreferences = $doctrine->getRepository('TickitPreferenceBundle:Preference')
                                    ->findAllIndexedBySystemName();
