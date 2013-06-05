@@ -20,13 +20,13 @@ class UserPreferenceValueRepository extends EntityRepository
      *
      * @return mixed
      */
-    public function findAllForUserIndexedBySystemName(User $user)
+    public function findAllForUser(User $user)
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('upv')
+                      ->select('upv, p')
                       ->from('TickitPreferenceBundle:UserPreferenceValue', 'upv')
-                      ->join('upv.preference', 'p', 'p.systemName')
+                      ->join('upv.preference', 'p')
                       ->where('upv.user = :user_id')
                       ->setParameter('user_id', $user->getId())
                       ->getQuery();

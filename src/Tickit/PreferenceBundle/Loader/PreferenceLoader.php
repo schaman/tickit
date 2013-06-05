@@ -55,29 +55,33 @@ class PreferenceLoader implements LoaderInterface
      */
     public function loadForUser(User $user)
     {
+        $condensedPreferences = array();
         $doctrine = $this->doctrine;
         $userPreferences = $doctrine->getRepository('TickitPreferenceBundle:UserPreferenceValue')
-                                    ->findAllForUserIndexedBySystemName($user);
+                                    ->findAllForUser($user);
 
+        $userPreferenceIds = array_map(function(UserPreferenceValue $userPreference) {
+            return $userPreference->getPreference()->getId();
+        }, $userPreferences);
+
+        // get preferences that the user does not have a value for
         $allPreferences = $doctrine->getRepository('TickitPreferenceBundle:Preference')
-                                   ->findAllIndexedBySystemName();
+                                   ->findAllWithExclusionsIndexedBySystemName($userPreferenceIds);
 
-        $condensedPreferences = array();
+        $mergedPreferences = $userPreferences + $allPreferences;
 
-        /** @var Preference $preference */
-        foreach ($allPreferences as $preference) {
-            $systemName = $preference->getSystemName();
-            if (!empty($userPreferences[$preference->getSystemName()])) {
-                $userPreference = $userPreferences[$systemName];
+        array_walk($mergedPreferences, function ($item) use ($user, &$condensedPreferences) {
+            if ($item instanceof UserPreferenceValue) {
+                $condensedPreferences[$item->getPreference()->getSystemName()] = $item;
             } else {
-                $userPreference = new UserPreferenceValue();
-                $userPreference->setUser($user)
-                               ->setPreference($preference)
-                               ->setValue($preference->getDefaultValue());
-            }
+                $prefValue = new UserPreferenceValue();
+                $prefValue->setUser($user)
+                          ->setPreference($item)
+                          ->setValue($item->getDefaultValue());
 
-            $condensedPreferences[$systemName] = $userPreference;
-        }
+                $condensedPreferences[$item->getSystemName()] = $prefValue;
+            }
+        });
 
         $this->session->set(static::SESSION_PREFERENCES, $condensedPreferences);
     }

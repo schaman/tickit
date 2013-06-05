@@ -17,16 +17,21 @@ class PreferenceRepository extends EntityRepository
     /**
      * Finds all preferences and returns them indexed by their system name
      *
+     * @param integer[] $exclusions An array of Preference ids to ignore
+     *
      * @return array
      */
-    public function findAllIndexedBySystemName()
+    public function findAllWithExclusionsIndexedBySystemName(array $exclusions = array())
     {
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPreferenceBundle:Preference', 'p', 'p.systemName')
-                      ->getQuery();
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
-        return $query->execute();
+        $query = $qb->select('p')
+                    ->from('TickitPreferenceBundle:Preference', 'p', 'p.systemName');
+
+        if (!empty($exclusions)) {
+            $query->where($qb->expr()->notIn('p.id', $exclusions));
+        }
+
+        return $query->getQuery()->execute();
     }
 }
