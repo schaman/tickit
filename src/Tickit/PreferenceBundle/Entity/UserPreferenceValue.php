@@ -16,7 +16,7 @@ use Tickit\UserBundle\Interfaces\UserAwareInterface;
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity(repositoryClass="Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository")
- * @ORM\Table(name="user_preferences")
+ * @ORM\Table(name="user_preference_values")
  */
 class UserPreferenceValue implements UserAwareInterface
 {
@@ -31,7 +31,7 @@ class UserPreferenceValue implements UserAwareInterface
     protected $user;
 
     /**
-     * The preference that this
+     * The preference that this value is for
      *
      * @var Preference
      * @ORM\Id
