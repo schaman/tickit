@@ -1,7 +1,8 @@
 {
   "name": "tickit",
   "dependencies": {
-    "jquery": "~1.9.1"
+    "jquery": "~1.9.1",
+    "backbone.marionette": "1.x"
   },
   "ignore": [
     "**/.*"
