@@ -3,6 +3,8 @@ project_index:
     defaults: { _controller: TickitProjectBundle:Project:index, page: 1 }
     requirements:
         page: \d+
+    options:
+        expose: true
 
 project_create:
     pattern: /create

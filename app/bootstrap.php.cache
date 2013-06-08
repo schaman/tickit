@@ -1801,6 +1801,7 @@ class Container implements IntrospectableContainerInterface
 protected $parameterBag;
 protected $services;
 protected $methodMap;
+protected $aliases;
 protected $scopes;
 protected $scopeChildren;
 protected $scopedServices;
@@ -1866,6 +1867,9 @@ return array_key_exists($id, $this->services) || method_exists($this,'get'.strtr
 public function get($id, $invalidBehavior = self::EXCEPTION_ON_INVALID_REFERENCE)
 {
 $id = strtolower($id);
+if (isset($this->aliases[$id])) {
+$id = $this->aliases[$id];
+}
 if (array_key_exists($id, $this->services)) {
 return $this->services[$id];
 }

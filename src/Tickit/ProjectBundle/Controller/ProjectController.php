@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
@@ -35,6 +36,19 @@ class ProjectController extends AbstractCoreController
                          ->findByFilters();
 
         $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
+
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $data = array();
+            // TODO: this would need to go into a decorator
+            foreach ($projects as $project) {
+                $data[] = array(
+                    'id' => $project->getId(),
+                    'name' => $project->getName(),
+                    'created' => $project->getCreated()->format('Y-m-d H:i:s')
+                );
+            }
+            return new JsonResponse($data);
+        }
 
         return array('projects' => $projects, 'token' => $token);
     }

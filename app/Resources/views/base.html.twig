@@ -33,18 +33,45 @@
 
         {% block javascripts %}
             {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
+                           '../app/Resources/public/js/extra/underscore/underscore.js'
+                           '../app/Resources/public/js/extra/backbone/backbone.js'
+                           '../app/Resources/public/js/extra/backbone.marionette/lib/backbone.marionette.js'
+                           '../app/Resources/public/js/App.js'
                            'bundles/fosjsrouting/js/router.js'
-                           '../app/Resources/public/js/app.js'
-                           '@TickitCoreBundle/Resources/public/js/app.messaging.js'
-                           '../app/Resources/public/js/app.nav.js' %}
+                           '@TickitProjectBundle/Resources/public/js/App.Project.js'
+                           '@TickitProjectBundle/Resources/public/js/Project.js'
+                           '@TickitProjectBundle/Resources/public/js/ProjectCollection.js'
+                           '@TickitProjectBundle/Resources/public/js/ProjectRowView.js'
+                           '@TickitProjectBundle/Resources/public/js/ProjectListView.js'
+                           '../app/Resources/public/js/App.Router.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}
 
-        <footer>
+        <footer id='footer'>
             {% block footer %}{% endblock %}
         </footer>
 
+        <!-- TODO: move these to a JIT loader -->
+        <script type="text/template" id="project_list-template">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Created</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </script>
+
+        <script type="text/template" id="project_row-template">
+            <td><%= id %></td>
+            <td><%= name %></td>
+            <td><%= created %></td>
+            <td><a href="">Edit</a></td>
+            <td><a href="">Delete</a></td>
+        </script>
     </body>
 </html>
