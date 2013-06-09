@@ -32,12 +32,13 @@
         </div>
 
         {% block javascripts %}
-            {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
+            {% javascripts '../app/Resources/public/js/extra/requirejs/require.js'
+                           '../app/Resources/public/js/extra/requirejs-text/text.js'
+                           '../app/Resources/public/js/extra/jquery/jquery.js'
                            '../app/Resources/public/js/extra/underscore/underscore.js'
                            '../app/Resources/public/js/extra/backbone/backbone.js'
                            '../app/Resources/public/js/extra/backbone.marionette/lib/backbone.marionette.js'
                            '../app/Resources/public/js/App.js'
-                           'bundles/fosjsrouting/js/router.js'
                            '@TickitProjectBundle/Resources/public/js/App.Project.js'
                            '@TickitProjectBundle/Resources/public/js/Project.js'
                            '@TickitProjectBundle/Resources/public/js/ProjectCollection.js'
@@ -46,6 +47,7 @@
                            '../app/Resources/public/js/App.Router.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}
 
@@ -53,25 +55,5 @@
             {% block footer %}{% endblock %}
         </footer>
 
-        <!-- TODO: move these to a JIT loader -->
-        <script type="text/template" id="project_list-template">
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>Name</td>
-                    <td>Created</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </script>
-
-        <script type="text/template" id="project_row-template">
-            <td><%= id %></td>
-            <td><%= name %></td>
-            <td><%= created %></td>
-            <td><a href="">Edit</a></td>
-            <td><a href="">Delete</a></td>
-        </script>
     </body>
 </html>
