@@ -27,7 +27,9 @@ $(function() {
         },
 
         "projects" : function() {
-            App.Project.loadProjectList();
+            require(['project'], function() {
+                App.Project.loadProjectList();
+            });
         }
     });
 

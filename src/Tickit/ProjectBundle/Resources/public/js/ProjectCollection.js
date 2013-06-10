@@ -3,7 +3,10 @@
  *
  * @type {Backbone.Collection.extend}
  */
-var ProjectCollection = Backbone.Collection.extend({
-    model: Project,
-    url: '/projects'
+var ProjectCollection;
+define(['tickitproject/js/Project'], function() {
+    ProjectCollection = Backbone.Collection.extend({
+        model: Project,
+        url: '/projects'
+    });
 });

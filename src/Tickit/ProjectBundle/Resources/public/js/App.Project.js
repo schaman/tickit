@@ -4,20 +4,27 @@
  * @author  James Halsall <james.t.halsall@googlemail.coM>
  * @license MIT <http://opensource.org/licenses/MIT>
  */
-App.module('Project', function() {
+define([
+    'tickitproject/js/Project',
+    'tickitproject/js/ProjectCollection',
+    'tickitproject/js/ProjectListView',
+    'tickitproject/js/ProjectRowView'
+], function() {
+    App.module('Project', function(module) {
 
-    this.startWithParent = false;
+        module.startWithParent = false;
 
-    /**
-     * Loads projects
-     */
-    this.loadProjectList = function() {
-        var projects = new ProjectCollection;
-        projects.fetch();
-        var view = new ProjectListView({
-            collection: projects
-        });
+        /**
+         * Loads projects
+         */
+        module.loadProjectList = function() {
+            var projects = new ProjectCollection;
+            projects.fetch();
+            var view = new ProjectListView({
+                collection: projects
+            });
 
-        App.mainRegion.show(view);
-    }
+            App.mainRegion.show(view);
+        }
+    });
 });
