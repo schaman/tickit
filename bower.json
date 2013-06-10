@@ -5,7 +5,8 @@
     "underscore": "1.4.x",
     "backbone.marionette": "1.x",
     "requirejs": "2.1.x",
-    "requirejs-text": "*"
+    "requirejs-text": "*",
+    "requirejs-tpl": "*"
   },
   "ignore": [
     "**/.*"

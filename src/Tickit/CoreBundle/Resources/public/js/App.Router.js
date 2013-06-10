@@ -1,4 +1,4 @@
-$(function() {
+define(['modules/app'], function(App) {
     /**
      * Application router.
      *
@@ -27,7 +27,7 @@ $(function() {
         },
 
         "projects" : function() {
-            require(['project'], function() {
+            require(['modules/project'], function() {
                 App.Project.loadProjectList();
             });
         }

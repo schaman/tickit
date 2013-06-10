@@ -5,12 +5,15 @@ require.config({
     baseUrl: "/bundles",
     paths: {
         "text": "tickitcore/js/vendor/requirejs-text/text",
+        "tpl": "tickitcore/js/vendor/requirejs-tpl/tpl",
         "jquery": "tickitcore/js/vendor/jquery/jquery",
         "backbone": "tickitcore/js/vendor/backbone/backbone",
         "marionette": "tickitcore/js/vendor/backbone.marionette/lib/backbone.marionette",
         "underscore": "tickitcore/js/vendor/underscore/underscore",
-        "project": "tickitproject/js/App.Project",
-        "router": "tickitcore/js/App.Router"
+        "modules/app": "tickitcore/js/App",
+        "modules/core": "tickitcore/js/App.Core",
+        "modules/project": "tickitproject/js/App.Project",
+        "modules/router": "tickitcore/js/App.Router"
     },
     shim : {
         jquery : {
@@ -36,9 +39,8 @@ require.config({
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @license MIT License <http://opensource.org/licenses/MIT>
  */
-var App;
 require(['backbone', 'jquery', 'underscore', 'marionette'], function() {
-    App = new Backbone.Marionette.Application();
+    window.App = new Backbone.Marionette.Application();
 
     App.addRegions({
         mainRegion: '#container',
@@ -47,5 +49,5 @@ require(['backbone', 'jquery', 'underscore', 'marionette'], function() {
     });
 
     // load any other modules here
-    require(['text', 'router']);
+    require(['text', 'tpl', 'modules/router']);
 });
