@@ -36,13 +36,6 @@
             {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js' %}
                 <script data-main="bundles/tickitcore/js/App" src="{{ asset_url }}"></script>
             {% endjavascripts %}
-{#'@TickitProjectBundle/Resources/public/js/Project.js'
-                           '@TickitProjectBundle/Resources/public/js/ProjectCollection.js'
-                           '@TickitProjectBundle/Resources/public/js/ProjectRowView.js'
-                           '@TickitProjectBundle/Resources/public/js/ProjectListView.js'#}
-            {% javascripts  %}
-                <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}
