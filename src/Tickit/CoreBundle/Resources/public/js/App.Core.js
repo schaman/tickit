@@ -1,8 +1,22 @@
-define(['modules/app'], function(App) {
+define(function() {
     /**
      * Application core module.
+     *
+     * @type {Marionette.Module}
      */
     App.module('Core', function(module) {
-        // todo: bind core module stuff
+
+        /**
+         * Loads view template content into the DOM
+         *
+         * @param {string} tpl The template content to load into the DOM
+         *
+         * @return {void}
+         */
+        module.loadView = function(tpl) {
+            $('body').append($(tpl));
+        }
     });
+
+    return App.Core;
 });
