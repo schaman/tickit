@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_core.listener.xmlhttprequest" class="Tickit\CoreBundle\Listener\XmlHttpRequestListener">
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="beforeControllerAction" />
+        </service>
+
+    </services>
+
+</container>
