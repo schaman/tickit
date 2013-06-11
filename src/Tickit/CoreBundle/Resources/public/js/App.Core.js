@@ -1,8 +1,12 @@
-define(['modules/app'], function(App) {
+define(function() {
     /**
      * Application core module.
+     *
+     * @type {Marionette.Module}
      */
     App.module('Core', function(module) {
-        // todo: bind core module stuff
+
     });
+
+    return App.Core;
 });

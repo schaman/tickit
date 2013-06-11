@@ -3,4 +3,6 @@
  *
  * @type {Backbone.Model}
  */
-var Project = Backbone.Model.extend({});
+define(function() {
+    return Backbone.Model.extend({});
+});

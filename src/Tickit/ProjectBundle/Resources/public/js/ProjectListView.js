@@ -3,12 +3,15 @@
  *
  * @type {Backbone.Marionette.CompositeView}
  */
-define(['tickitproject/js/ProjectRowView', 'tpl!tickitproject/views/ProjectListView.html'], function(view, tpl) {
-    window.ProjectListView = Backbone.Marionette.CompositeView.extend({
+define(['modules/template', 'tickitproject/js/ProjectRowView', 'text!tickitproject/views/ProjectListView.html'], function(Template, rowView, tpl) {
+
+    Template.loadView(tpl);
+
+    return Backbone.Marionette.CompositeView.extend({
         tagName: 'table',
         id: 'project-list',
-        template: tpl(),
-        itemView: view,
+        template: '#project_list-template',
+        itemView: rowView,
 
         appendHtml: function(collectionView, itemView) {
             collectionView.$('tbody').append(itemView.el);

@@ -13,7 +13,9 @@ require.config({
         "modules/app": "tickitcore/js/App",
         "modules/core": "tickitcore/js/App.Core",
         "modules/project": "tickitproject/js/App.Project",
-        "modules/router": "tickitcore/js/App.Router"
+        "modules/router": "tickitcore/js/App.Router",
+        "modules/template": "tickitcore/js/App.Template",
+        "modules/login": "tickituser/js/App.Login"
     },
     shim : {
         jquery : {
@@ -39,8 +41,8 @@ require.config({
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @license MIT License <http://opensource.org/licenses/MIT>
  */
-require(['backbone', 'jquery', 'underscore', 'marionette'], function() {
-    window.App = new Backbone.Marionette.Application();
+require(['backbone', 'underscore', 'marionette', 'jquery', 'text', 'tpl'], function(Backbone, _, Marionette) {
+    var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: '#container',
@@ -48,6 +50,12 @@ require(['backbone', 'jquery', 'underscore', 'marionette'], function() {
         footerRegion: '#footer'
     });
 
+    window.App = App;
+
     // load any other modules here
-    require(['text', 'tpl', 'modules/router']);
+    require(['modules/router', 'modules/core', 'modules/template'], function() {
+        App.start();
+    });
+
+    return App;
 });
