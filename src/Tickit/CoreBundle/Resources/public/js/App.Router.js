@@ -16,14 +16,16 @@ var AppRouter = Backbone.Router.extend({
      * Route patterns
      */
     routes : {
-        ""          : "dashboard",
+        "/"         : "dashboard",
         "dashboard" : "dashboard",
         "login"     : "login",
         "projects"  : "projects"
     },
 
     "login" : function() {
-        consoloe.log('login init');
+        require(['modules/login'], function(Login) {
+            Login.loadLoginView();
+        });
     },
 
     "dashboard" : function() {
@@ -31,8 +33,8 @@ var AppRouter = Backbone.Router.extend({
     },
 
     "projects" : function() {
-        require(['modules/project'], function() {
-            App.Project.loadProjectList();
+        require(['modules/project'], function(Project) {
+            Project.loadProjectList();
         });
     }
 });

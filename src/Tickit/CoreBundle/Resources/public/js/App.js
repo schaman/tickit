@@ -13,7 +13,9 @@ require.config({
         "modules/app": "tickitcore/js/App",
         "modules/core": "tickitcore/js/App.Core",
         "modules/project": "tickitproject/js/App.Project",
-        "modules/router": "tickitcore/js/App.Router"
+        "modules/router": "tickitcore/js/App.Router",
+        "modules/template": "tickitcore/js/App.Template",
+        "modules/login": "tickituser/js/App.Login"
     },
     shim : {
         jquery : {
@@ -51,7 +53,7 @@ require(['backbone', 'underscore', 'marionette', 'jquery', 'text', 'tpl'], funct
     window.App = App;
 
     // load any other modules here
-    require(['modules/router', 'modules/core'], function() {
+    require(['modules/router', 'modules/core', 'modules/template'], function() {
         App.start();
     });
 

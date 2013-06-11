@@ -3,9 +3,9 @@
  *
  * @type {Backbone.Marionette.ItemView}
  */
-define(['text!tickitproject/views/ProjectRowView.html'], function(tpl) {
+define(['modules/template', 'text!tickitproject/views/ProjectRowView.html'], function(Template, tpl) {
 
-    $('body').append($(tpl));
+    Template.loadView(tpl);
 
     return Backbone.Marionette.ItemView.extend({
         template: '#project_row-template',
