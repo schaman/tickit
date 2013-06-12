@@ -18,6 +18,8 @@ use Tickit\CoreBundle\Controller\DefaultController;
  * don't want these requests hitting the target controller actions. Instead
  * we direct them to a dummy controller action that renders the base layout.
  *
+ * @deprecated This can probably be removed pending discussions with @markwilson
+ *
  * @package Tickit\CoreBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
