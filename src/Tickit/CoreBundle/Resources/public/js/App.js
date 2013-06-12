@@ -10,6 +10,7 @@ require.config({
         "backbone": "tickitcore/js/vendor/backbone/backbone",
         "marionette": "tickitcore/js/vendor/backbone.marionette/lib/backbone.marionette",
         "underscore": "tickitcore/js/vendor/underscore/underscore",
+        "cookie": "tickitcore/js/vendor/cookie/cookie",
         "modules/app": "tickitcore/js/App",
         "modules/core": "tickitcore/js/App.Core",
         "modules/project": "tickitproject/js/App.Project",
@@ -53,8 +54,9 @@ require(['backbone', 'underscore', 'marionette', 'jquery', 'text', 'tpl'], funct
     window.App = App;
 
     // load any other modules here
-    require(['modules/router', 'modules/core', 'modules/template'], function() {
+    require(['tickituser/js/models/Session', 'modules/router', 'modules/core', 'modules/template'], function(Session) {
         App.start();
+        App.Session = new Session;
     });
 
     return App;

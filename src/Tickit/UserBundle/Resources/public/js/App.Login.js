@@ -5,11 +5,15 @@
  *
  * @type {Marionette.Module}
  */
-define(['modules/core'], function(Core) {
+define(['modules/core'], function() {
 
     // load any require templates here
 
-    return App.module('Core', function(module) {
+    return App.module('Login', function(module) {
+
+        module.addInitializer(function() {
+            // bind any events ??
+        });
 
         /**
          * Loads the main login view
