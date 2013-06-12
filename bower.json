@@ -1,14 +1,14 @@
 {
-  "name": "tickit",
-  "dependencies": {
-    "jquery": "~1.9.1",
-    "underscore": "1.4.x",
-    "backbone.marionette": "1.x",
-    "requirejs": "2.1.x",
-    "requirejs-text": "*",
-    "requirejs-tpl": "*"
-  },
-  "ignore": [
-    "**/.*"
-  ]
+    "name": "tickit",
+    "dependencies": {
+        "jquery": "~1.9.1",
+        "underscore": "1.4.x",
+        "backbone.marionette": "1.x",
+        "requirejs": "2.1.x",
+        "requirejs-text": "*",
+        "cookie": "*"
+    },
+    "ignore": [
+        "**/.*"
+    ]
 }
