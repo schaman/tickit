@@ -9,7 +9,7 @@ var AppRouter = Backbone.Router.extend({
      * Router initialize
      */
     initialize : function() {
-        Backbone.history.start({ pushState: true });
+        Backbone.history.start({ pushState: false });
     },
 
     /**

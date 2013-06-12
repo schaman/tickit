@@ -5,10 +5,10 @@
  * @license MIT <http://opensource.org/licenses/MIT>
  */
 define([
-    'tickitproject/js/Project',
-    'tickitproject/js/ProjectCollection',
-    'tickitproject/js/ProjectListView',
-    'tickitproject/js/ProjectRowView'
+    'tickitproject/js/models/Project',
+    'tickitproject/js/collections/ProjectCollection',
+    'tickitproject/js/views/ProjectListView',
+    'tickitproject/js/views/ProjectRowView'
 ], function(Project, collection, listView) {
     App.module('Project', function(module) {
 

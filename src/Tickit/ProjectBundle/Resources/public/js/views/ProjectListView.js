@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Marionette.CompositeView}
  */
-define(['modules/template', 'tickitproject/js/ProjectRowView', 'text!tickitproject/views/ProjectListView.html'], function(Template, rowView, tpl) {
+define(['modules/template', 'tickitproject/js/views/ProjectRowView', 'text!tickitproject/views/ProjectListView.html'], function(Template, rowView, tpl) {
 
     Template.loadView(tpl);
 
