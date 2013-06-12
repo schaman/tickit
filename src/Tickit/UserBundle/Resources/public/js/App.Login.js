@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['modules/core'], function() {
+define(['tickituser/js/views/LoginView'], function() {
 
     // load any require templates here
 
@@ -21,7 +21,11 @@ define(['modules/core'], function() {
          * @return {void}
          */
         module.loadLoginView = function() {
-            console.log('login view load');
+            if (!App.Session.isAuthenticated()) {
+                // display login
+            } else {
+                App.Router.goTo('dashboard');
+            }
         }
     });
 });

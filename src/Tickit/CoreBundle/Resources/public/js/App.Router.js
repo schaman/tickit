@@ -13,6 +13,17 @@ var AppRouter = Backbone.Router.extend({
     },
 
     /**
+     * Navigates the client to a path and triggers the change event
+     *
+     * @param {string} path The path to navigate to
+     *
+     * @return {void}
+     */
+    goTo : function(path) {
+        this.navigate(path, { trigger: true });
+    },
+
+    /**
      * Route patterns
      */
     routes : {
