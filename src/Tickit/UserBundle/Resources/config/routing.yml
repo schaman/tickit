@@ -1,3 +1,7 @@
+user_login_form:
+    pattern: /login-form
+    defaults: { _controller: TickitUserBundle:Security:login }
+
 user_index:
     pattern: /{page}
     defaults: { _controller: TickitUserBundle:User:index, page: 1 }

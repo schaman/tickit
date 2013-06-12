@@ -1,6 +1,6 @@
-{% extends "TickitUserBundle::layout.html.twig" %}
+{% extends "::no-content.html.twig" %}
 
-{% block user_content %}
+{% block content %}
 
     <h2>Login</h2>
 
@@ -22,4 +22,4 @@
 
         <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
     </form>
-{% endblock user_content %}
+{% endblock content %}

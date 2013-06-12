@@ -26,10 +26,6 @@ permissions:
 dashboard:
   resource: "@TickitDashboardBundle/Resources/config/routing.yml"
 
-# FOSUserBundle Routes
-fos_user_security:
-  resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
 fos_user_profile:
   resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
   prefix: /profile
@@ -52,3 +48,20 @@ fos_user_group:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+#
+# FOSUserBundle routes
+#
+fos_user_security_login:
+    pattern: /login
+    defaults: { _controller: TickitCoreBundle:Default:default }
+
+fos_user_security_check:
+    pattern: /login_check
+    defaults: { _controller: FOSUserBundle:Security:check }
+    requirements:
+        _method: POST
+
+fos_user_security_logout:
+    pattern: /logout
+    defaults: { _controller: FOSUserBundle:Security:logout }
