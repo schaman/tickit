@@ -61,7 +61,7 @@ class PreferenceLoader implements LoaderInterface
                                     ->findAllForUser($user);
 
         $userPreferenceIds = array_map(
-            function(UserPreferenceValue $userPreference) {
+            function (UserPreferenceValue $userPreference) {
                 return $userPreference->getPreference()->getId();
             },
             $userPreferences
