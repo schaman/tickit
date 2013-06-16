@@ -3,9 +3,11 @@
  *
  * Provides methods for making requests to the server.
  *
+ * @TODO: remove this, as it probably isn't needed
+ *
  * @type {Marionette.Module}
  */
-define(['jquery'], function($) {
+define(['jquery', 'modules/login'], function($, Login) {
     return App.module('Request', function(module) {
 
         /**
@@ -59,5 +61,12 @@ define(['jquery'], function($) {
                 }
             });
         };
+    });
+});
+
+// TODO: finish this off so it handles 302 redirects to the login page properly
+$(function() {
+    $(document).ajaxComplete(function() {
+        console.log(arguments);
     });
 });
