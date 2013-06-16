@@ -1,0 +1,217 @@
+/******************************************************************************************/
+/* header and navigation
+/******************************************************************************************/
+
+.twitter-btn{
+    background-image: url('../images/site/twitter-logo.png');
+    background-position: 10% center;
+    background-repeat: no-repeat;
+    &:hover{
+        background-position: 10% center;
+    }
+}
+
+
+@keyframes bounce {
+  45% {
+    height: 63px;
+    margin-top: 20px;
+  }
+  55% {
+    height: 63px;
+    margin-top: -11px;
+  }
+  75% {
+    height: 63px;
+    margin-top: -18px;
+
+  }
+}
+
+@-webkit-keyframes bounce {
+  45% {
+    height: 63px;
+    margin-top: 20px;
+  }
+  55% {
+    height: 63px;
+    margin-top: -11px;
+  }
+  75% {
+    height: 63px;
+    margin-top: -18px;
+  }
+}
+
+
+
+
+body{
+    font-family: 'Lato', sans-serif;    
+}   
+header.main-header{
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    min-width: 930px;
+    .account{
+        background: @midnight-blue;
+        float: right;
+        padding: 5px 20px;
+        .account-thumb{
+            float: left;
+            img{
+                .border-radius(50%);
+                overflow: hidden;
+                margin-right: 10px;
+            }
+        }
+        div.fui-chat{
+            color: @clouds;
+            float: left;
+            position: relative;
+            padding: 10px 29px 0px 0px;
+            .transition(0.25s);
+            &:hover{cursor: pointer; color: @silver;}
+            span{
+                position: absolute;
+                background: @alizarin;
+                width:  10px;
+                height: 10px;
+                top: 5px;
+                left: 12px;
+                border: 1px solid @pomegranate;
+                .border-radius(50%);
+            }
+        }
+        a{
+            padding: 10px 0px;
+            display: block;
+            float: left;
+            color: #fff;
+            &:hover{
+                color: @turquoise;
+                text-decoration: none;
+            }
+        }
+    }
+}
+.navbar-inner{
+    .border-radius(0px);
+}
+.nav{
+    float: left;
+}
+#logo{
+    float: left;
+    color: #fff;
+    text-decoration: none;
+    padding: 11px 20px;
+    font-family: 'Rambla', sans-serif;
+    line-height: 29px;
+    width: 120px;
+    &:hover{
+        text-decoration: none;
+    }
+}
+.navbar-inverse .nav > li > a{
+    border-bottom: none;
+}
+.navbar-inverse .nav > li.active > a, 
+.navbar-inverse .nav > li.active > a:hover, 
+.navbar-inverse .nav > li.active > a:focus{
+    padding-left: 20px;
+}
+.navbar .nav > li:first-child > a{
+     .border-radius(0px);
+}
+
+/******************************************************************************************/
+/* Login panel
+/******************************************************************************************/
+
+.login-wrap{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: @midnight-blue;
+    .login-container{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -175px;
+        margin-top: -235px;
+        .logo-wrap{
+            height: 70px;
+            position: relative;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            display: block;
+            padding: 10px 0px;
+            position: absolute;
+            left: 50%;
+            top: 0px;
+            width: 300px;
+            margin-left: -150px;
+            a{
+                color: #fff;
+                text-decoration: none;
+                text-align: center;
+                font-family: 'Rambla', sans-serif;
+            }
+             &:hover{
+                  -webkit-animation-name: bounce;
+                  -webkit-animation-duration: 0.5s;
+                  -webkit-animation-timing-function: linear;
+                  -webkit-animation-iteration-count: 1;                
+             }
+        }
+    }
+    .login-panel{
+        width: 350px;
+        margin: 0px auto;
+        .twitter-login{
+            border-bottom: 1px solid @silver;
+            padding: 5px 0px 20px 0px;
+            margin: 0px 0px 20px 0px
+        }
+        .remember-login{
+            width: 100%;
+            position: relative;
+            height: 40px;
+            color: #34495e;
+            .remember-login{
+                position: absolute;
+                width: 100px;
+                top: 0px;
+                left: 0px;
+            }
+            .remember-check{
+                position: absolute;
+                top: 0px;
+                right: 0px;
+            }
+        }
+    }
+    .login-form{
+        &:before{
+          content: none;  
+        }
+        .login-field {
+            width: 255px;
+            padding-right: 40px;
+        }
+    }
+}     
+
+
+
+
+
+
+
+
+
+
