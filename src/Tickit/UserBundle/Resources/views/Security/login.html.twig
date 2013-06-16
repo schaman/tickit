@@ -2,24 +2,47 @@
 
 {% block content %}
 
-    <h2>Login</h2>
+    <div class="login-container">
+        <div class="logo-wrap">
+            <h1 class="logo"><a href="">Tickit</a></h1>
+        </div>
+        <form action="{{ path('fos_user_security_check') }}" method="post">
+            <div class="login-panel">
+                {% if error %}
+                    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}
+                <div class="login-form">
+                    <div class="twitter-login">
+                        <a href="javascript:void(0);" class="btn btn-large btn-block btn-info twitter-btn">Login with Twitter</a>
+                    </div>
 
-    {% if error %}
-        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-    {% endif %}
+                    <div class="control-group">
+                        <input type="text" class="login-field" name="_username" value="{{ last_username }}" placeholder="Email or username" id="email-name">
+                        <label class="login-field-icon fui-user" for="login-name"></label>
+                    </div>
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <div class="control-group">
+                        <input type="password" class="login-field" name="_password" value="" placeholder="Password" id="login-pass">
+                        <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    </div>
 
-        <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                    <div class="remember-login">
+                        <div class="remember-label">
+                            <p>Remember me</p>
+                        </div>
+                        <div class="remember-check">
+                              <input type="checkbox" id="login-remember" name="_remember" checked="" data-toggle="switch" />
+                        </div>
+                    </div>
 
-        <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-        <input type="password" id="password" name="_password" />
+                    <input type="submit" id="login-submit" name="_submit" class="btn btn-primary btn-large btn-block" name="Login">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                </div>
 
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                <a class="login-link" href="#">Lost your password?</a>
 
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-    </form>
+            </div>
+        </form>
+    </div>
+
 {% endblock content %}

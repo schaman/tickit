@@ -5,8 +5,6 @@ require.config({
     baseUrl: "/bundles",
     paths: {
         "text": "tickitcore/js/vendor/requirejs-text/text",
-        "tpl": "tickitcore/js/vendor/requirejs-tpl/tpl",
-        "jquery": "tickitcore/js/vendor/jquery/jquery",
         "backbone": "tickitcore/js/vendor/backbone/backbone",
         "marionette": "tickitcore/js/vendor/backbone.marionette/lib/backbone.marionette",
         "underscore": "tickitcore/js/vendor/underscore/underscore",
@@ -20,9 +18,6 @@ require.config({
         "modules/request": "tickitcore/js/App.Request"
     },
     shim : {
-        jquery : {
-            exports : '$'
-        },
         underscore : {
             exports : '_'
         },
@@ -43,12 +38,12 @@ require.config({
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @license MIT License <http://opensource.org/licenses/MIT>
  */
-require(['backbone', 'underscore', 'marionette', 'jquery', 'text', 'tpl'], function(Backbone, _, Marionette) {
+require(['backbone', 'underscore', 'marionette', 'text'], function(Backbone, _, Marionette) {
     var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: '#container',
-        navRegion: '', // nav container ID here
+        navRegion: 'header.main-header',
         footerRegion: '#footer'
     });
 

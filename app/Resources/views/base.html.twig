@@ -9,7 +9,12 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/less/styles.less' filter='less' %}
+        {% stylesheets '../app/Resources/public/bootstrap/css/bootstrap.css'
+                       '../app/Resources/public/css/flat-ui.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+        {% stylesheets  '../app/Resources/public/less/master/styles.less' filter='less' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -19,21 +24,27 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body style="zoom: 1">
 
-        {% render controller('TickitCoreBundle:Navigation:topNavigation') %}
+        <header class='main-header' role='banner'></header>
 
-        <div id='container'>
-            {% if is_granted('ROLE_USER') %}
-                {% render controller('TickitCoreBundle:Navigation:subNavigation') %}
-            {% endif %}
-
+        <div id="container">
             {% block body %}{% endblock %}
         </div>
 
         {% block javascripts %}
-
-            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js' %}
+            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js'
+                           '@TickitCoreBundle/Resources/public/js/vendor/jquery/jquery.js'
+                           '../app/Resources/public/js/vendor/jquery-ui-1.10.3.custom.min.js'
+                           '../app/Resources/public/js/bootstrap.min.js'
+                           '../app/Resources/public/js/bootstrap-switch.js'
+                           '../app/Resources/public/js/bootstrap-select.js'
+                           '../app/Resources/public/js/flatui-checkbox.js'
+                           '../app/Resources/public/js/flatui-radio.js'
+                           '../app/Resources/public/js/jquery.placeholder.js'
+                           '../app/Resources/public/js/jquery.tagsinput.js'
+                           '../app/Resources/public/bootstrap/js/application.js'
+                           '../app/Resources/public/js/application.js' %}
                 <script data-main="bundles/tickitcore/js/App" src="{{ asset_url }}"></script>
             {% endjavascripts %}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
