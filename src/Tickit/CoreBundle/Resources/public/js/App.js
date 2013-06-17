@@ -38,7 +38,7 @@ require.config({
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @license MIT License <http://opensource.org/licenses/MIT>
  */
-require(['backbone', 'underscore', 'marionette', 'text'], function(Backbone, _, Marionette) {
+require(['backbone', 'underscore', 'marionette', 'tickituser/js/models/Session', 'text'], function(Backbone, _, Marionette, Session) {
     var App = new Marionette.Application();
 
     App.addRegions({
@@ -48,11 +48,11 @@ require(['backbone', 'underscore', 'marionette', 'text'], function(Backbone, _, 
     });
 
     window.App = App;
+    App.Session = new Session;
 
     // load any other modules here
-    require(['tickituser/js/models/Session', 'modules/router', 'modules/core', 'modules/template'], function(Session) {
+    require(['modules/router', 'modules/core', 'modules/template'], function() {
         App.start();
-        App.Session = new Session;
     });
 
     return App;
