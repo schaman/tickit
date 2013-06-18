@@ -1,12 +1,16 @@
+# UserBundle Routes
+users:
+  resource: "@TickitUserBundle/Resources/config/routing.yml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+######## BELOW THIS POINT IS OLD ROUTING FORMAT - NEEDS REFACTORING TO MATCH ABOVE ########
+
 # TeamBundle Routes
 teams:
   resource: "@TickitTeamBundle/Resources/config/routing.yml"
   prefix: /teams
-
-# UserBundle Routes
-users:
-  resource: "@TickitUserBundle/Resources/config/routing.yml"
-  prefix: /users
 
 projects:
   resource: "@TickitProjectBundle/Resources/config/routing.yml"
@@ -41,20 +45,6 @@ fos_user_resetting:
 fos_user_change_password:
   resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
   prefix: /profile
-
-fos_user_group:
-  resource: "@FOSUserBundle/Resources/config/routing/group.xml"
-  prefix: /group
-
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-#
-# FOSUserBundle routes
-#
-fos_user_security_login:
-    pattern: /login
-    defaults: { _controller: TickitCoreBundle:Default:default }
 
 fos_user_security_check:
     pattern: /login_check
