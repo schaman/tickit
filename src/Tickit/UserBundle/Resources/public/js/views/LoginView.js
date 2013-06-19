@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['text!/users/login-form'], function(tpl) {
+define(['text!/templates/users/login-form'], function(tpl) {
     return Backbone.View.extend({
 
         tagName: 'div',

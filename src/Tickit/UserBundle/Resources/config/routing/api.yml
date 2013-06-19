@@ -1,0 +1,3 @@
+user_login:
+    pattern: /auth/{type}
+    defaults: { _controller: TickitUserBundle:Security:login, type: form }

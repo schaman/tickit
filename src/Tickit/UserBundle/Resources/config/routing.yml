@@ -1,6 +1,16 @@
-user_login_form:
-    pattern: /login-form
-    defaults: { _controller: TickitUserBundle:Security:login }
+api:
+    resource: "@TickitUserBundle/Resources/config/routing/api.yml"
+    prefix: /api/users
+
+templates:
+    resource: "@TickitUserBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/users
+
+cosmetic:
+    resource: "@TickitUserBundle/Resources/config/routing/cosmetic.yml"
+
+
+###### ROUTES BELOW HERE NEED TO BE REFACTORED INTO THE RELEVANT FILES ABOVE ######
 
 user_index:
     pattern: /{page}
