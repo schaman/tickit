@@ -3,19 +3,32 @@
  *
  * Provides methods for helping with login
  *
- * @type {Marionette.Module}
+ * @type {Backbone.View}
  */
-define(['text!/templates/users/login-form', 'modules/request', 'cookie'], function(tpl, Request, cookie) {
+define([
+    'text!/templates/users/login-form',
+    'modules/request',
+    'tickitcore/js/views/SingleFormErrorView',
+    'tickitcore/js/models/FormError',
+    'cookie'
+], function(tpl, Request, FormErrorView, FormError, cookie) {
     return Backbone.View.extend({
 
         tagName: 'div',
         className: 'login-wrap',
+        errorRegion: null,
 
         /**
          * Event bindings
          */
         events : {
             'click #login-submit' : "submit"
+        },
+
+        initialize: function() {
+            this.errorRegion = new Backbone.Marionette.Region({
+                el: '#errors'
+            });
         },
 
         /**
@@ -38,7 +51,6 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
                 success: function(data) {
                     if (data.success) {
                         cookie.set('uid', data.userId);
-
                         App.Session.load();
                         App.Router.goTo(data.url);
                     } else {
@@ -56,8 +68,10 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
          * @return {void}
          */
         addError: function(error) {
-            // TODO: make this an error template in the CoreBundle
-            this.$el.find('div.twitter-login').after('<div class="alert alert-error"><p>' + error + '</p></div>');
+            var errorView = new FormErrorView({
+                model: new FormError({error: error})
+            });
+            this.errorRegion.show(errorView);
         },
 
         /**
@@ -66,7 +80,7 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
          * @return {void}
          */
         clearErrors: function() {
-            this.$el.find('div.alert-error').remove();
+            this.errorRegion.reset();
         },
 
         /**
