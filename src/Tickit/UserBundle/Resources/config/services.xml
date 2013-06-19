@@ -29,6 +29,10 @@
             <argument type="service" id="tickit_user.manager" />
         </service>
 
+        <service id="tickit_user.security.authentication_handler" class="Tickit\UserBundle\Security\AuthenticationHandler">
+            <argument type="service" id="router" />
+        </service>
+
     </services>
 
 </container>

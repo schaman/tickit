@@ -1,3 +1,5 @@
 user_login:
-    pattern: /auth/{type}
-    defaults: { _controller: TickitUserBundle:Security:login, type: form }
+    pattern: /auth
+    defaults: { _controller: FOSUserBundle:Security:check }
+#    requirements:
+#        _method: POST
