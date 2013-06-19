@@ -7,7 +7,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['jquery', 'modules/login'], function($, Login) {
+define(['jquery'], function($) {
     return App.module('Request', function(module) {
 
         /**
@@ -47,13 +47,13 @@ define(['jquery', 'modules/login'], function($, Login) {
                 type: params.type,
                 data: params.data,
                 dataType: params.dataType,
-                success: function(xml, status, xhr) {
+                success: function(resp, status, xhr) {
                     if (xhr.status == 410) {
                         // TODO: symfony needs to send a 410 when login is required
                     }
 
                     if (typeof params.success == 'function') {
-                        params.success();
+                        params.success(resp, status, xhr);
                     }
                 },
                 failure: function() {

@@ -26,7 +26,7 @@ define(['backbone', 'cookie'], function(Backbone, cookie) {
          */
         load: function() {
             this.set('sessionId', cookie.get('sessionId'));
-            this.set('userId', cookie.get('userId'));
+            this.set('userId', cookie.get('uid'));
         },
 
         /**

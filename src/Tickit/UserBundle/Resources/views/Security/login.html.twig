@@ -6,7 +6,7 @@
         <div class="logo-wrap">
             <h1 class="logo"><a href="">Tickit</a></h1>
         </div>
-        <form action="{{ path('fos_user_security_check') }}" method="post">
+        <form action="{{ path('user_login_check') }}" method="post">
             <div class="login-panel">
                 {% if error %}
                     <div>{{ error|trans({}, 'FOSUserBundle') }}</div>

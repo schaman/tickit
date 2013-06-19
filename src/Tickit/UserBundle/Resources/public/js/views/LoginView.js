@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['text!/templates/users/login-form'], function(tpl) {
+define(['text!/templates/users/login-form', 'modules/request', 'cookie'], function(tpl, Request, cookie) {
     return Backbone.View.extend({
 
         tagName: 'div',
@@ -18,6 +18,12 @@ define(['text!/templates/users/login-form'], function(tpl) {
             'click #login-submit' : "submit"
         },
 
+        initialize : function() {
+            if (App.Session.isAuthenticated()) {
+                App.Router.goTo('dashboard');
+            }
+        },
+
         /**
          * Submits the login form and attempts to log the user in
          *
@@ -27,7 +33,21 @@ define(['text!/templates/users/login-form'], function(tpl) {
          */
         submit : function(e) {
             e.preventDefault();
-            console.log('submit');
+            var $form = $(e.target).closest('form');
+
+            Request.post({
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function(data) {
+                    if (data.success) {
+                        cookie.set('sessionId', data.sessionId);
+                        cookie.set('uid', data.userId);
+
+                        App.Session.load();
+                        App.Router.goTo(data.url);
+                    }
+                }
+            });
         },
 
         /**

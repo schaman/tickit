@@ -1,5 +1,5 @@
-user_login:
+user_login_check:
     pattern: /auth
-    defaults: { _controller: FOSUserBundle:Security:check }
-#    requirements:
-#        _method: POST
+    defaults: { _controller: TickitUserBundle:Security:check }
+    requirements:
+        _method: POST
