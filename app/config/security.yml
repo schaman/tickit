@@ -24,7 +24,12 @@ security:
                  check_path: user_login_check
                  failure_handler: tickit_user.security.authentication_handler
                  success_handler: tickit_user.security.authentication_handler
-             logout:       true
+             logout:
+                 path: /logout
+                 invalidate_session: true
+                 delete_cookies:
+                     sessionId: { path: /. domain: * }
+                     uid: { path: /, domain: * }
              anonymous:    true
 
      access_control:

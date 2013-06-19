@@ -28,6 +28,7 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
         submit : function(e) {
             e.preventDefault();
             var $form = $(e.target).closest('form');
+            var me = this;
 
             Request.post({
                 url: $form.attr('action'),
@@ -39,9 +40,22 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
 
                         App.Session.load();
                         App.Router.goTo(data.url);
+                    } else {
+                        me.addError(data.error);
                     }
                 }
             });
+        },
+
+        /**
+         * Displays an error on the login form
+         *
+         * @param {string} error The error message to display
+         */
+        addError : function(error) {
+            this.$el.find('div.alert-error').remove();
+            // TODO: make this an error template in the CoreBundle
+            this.$el.find('div.twitter-login').after('<div class="alert alert-error"><p>' + error + '</p></div>');
         },
 
         /**
