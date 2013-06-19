@@ -30,12 +30,13 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
             var $form = $(e.target).closest('form');
             var me = this;
 
+            this.clearErrors();
+
             Request.post({
                 url: $form.attr('action'),
                 data: $form.serialize(),
                 success: function(data) {
                     if (data.success) {
-                        cookie.set('sessionId', data.sessionId);
                         cookie.set('uid', data.userId);
 
                         App.Session.load();
@@ -51,11 +52,21 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
          * Displays an error on the login form
          *
          * @param {string} error The error message to display
+         *
+         * @return {void}
          */
-        addError : function(error) {
-            this.$el.find('div.alert-error').remove();
+        addError: function(error) {
             // TODO: make this an error template in the CoreBundle
             this.$el.find('div.twitter-login').after('<div class="alert alert-error"><p>' + error + '</p></div>');
+        },
+
+        /**
+         * Clears errors on the login form
+         *
+         * @return {void}
+         */
+        clearErrors: function() {
+            this.$el.find('div.alert-error').remove();
         },
 
         /**
