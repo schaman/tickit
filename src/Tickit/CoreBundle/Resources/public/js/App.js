@@ -4,11 +4,20 @@
 require.config({
     baseUrl: "/bundles",
     paths: {
+        "jquery": "tickitcore/js/vendor/jquery/jquery",
+        "jquery-ui": "/js/vendor/jquery-ui-1.10.3.min",
         "text": "tickitcore/js/vendor/requirejs-text/text",
         "backbone": "tickitcore/js/vendor/backbone/backbone",
         "marionette": "tickitcore/js/vendor/backbone.marionette/lib/backbone.marionette",
         "underscore": "tickitcore/js/vendor/underscore/underscore",
         "cookie": "tickitcore/js/vendor/cookie/cookie",
+        "bootstrap-js": "/js/bootstrap.min",
+        "bootstrap-switch": "/js/bootstrap-switch",
+        "bootstrap-select": "/js/bootstrap-select",
+        "flatui-checkbox": "/js/flatui-checkbox",
+        "flatui-radio": "/js/flatui-radio",
+        "jquery-placeholder": "/js/jquery.placeholder",
+        "jquery-tagsinput": "/js/jquery.tagsinput",
         "modules/app": "tickitcore/js/App",
         "modules/core": "tickitcore/js/App.Core",
         "modules/project": "tickitproject/js/App.Project",
@@ -18,17 +27,28 @@ require.config({
         "modules/request": "tickitcore/js/App.Request"
     },
     shim : {
-        underscore : {
+        "jquery": {
+            exports: '$'
+        },
+        "underscore" : {
             exports : '_'
         },
-        backbone : {
+        "backbone" : {
             deps : ['jquery', 'underscore'],
             exports : 'Backbone'
         },
-        marionette : {
+        "marionette" : {
             deps : ['jquery', 'underscore', 'backbone'],
             exports : 'Backbone.Marionette'
-        }
+        },
+        "jquery-ui": ['jquery'],
+        "bootstrap-js":  ['jquery'],
+        "bootstrap-switch": ['bootstrap-js'],
+        "bootstrap-select": ['bootstrap-js'],
+        "flatui-checkbox": ['jquery'],
+        "flatui-radio": ['jquery'],
+        "jquery-placeholder": ['jquery'],
+        "jquery-tagsinput": ['jquery']
     }
 });
 
@@ -38,7 +58,18 @@ require.config({
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @license MIT License <http://opensource.org/licenses/MIT>
  */
-require(['backbone', 'underscore', 'marionette', 'tickituser/js/models/Session', 'text'], function(Backbone, _, Marionette, Session) {
+require([
+    'marionette',
+    'tickituser/js/models/Session',
+    'jquery-ui',
+    'bootstrap-select',
+    'bootstrap-switch',
+    'flatui-checkbox',
+    'flatui-radio',
+    'jquery-placeholder',
+    'jquery-tagsinput',
+    'text'
+], function(Marionette, Session) {
     var App = new Marionette.Application();
 
     App.addRegions({

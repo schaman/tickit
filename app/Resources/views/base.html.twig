@@ -33,18 +33,7 @@
         </div>
 
         {% block javascripts %}
-            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js'
-                           '@TickitCoreBundle/Resources/public/js/vendor/jquery/jquery.js'
-                           '../app/Resources/public/js/vendor/jquery-ui-1.10.3.custom.min.js'
-                           '../app/Resources/public/js/bootstrap.min.js'
-                           '../app/Resources/public/js/bootstrap-switch.js'
-                           '../app/Resources/public/js/bootstrap-select.js'
-                           '../app/Resources/public/js/flatui-checkbox.js'
-                           '../app/Resources/public/js/flatui-radio.js'
-                           '../app/Resources/public/js/jquery.placeholder.js'
-                           '../app/Resources/public/js/jquery.tagsinput.js'
-                           '../app/Resources/public/bootstrap/js/application.js'
-                           '../app/Resources/public/js/application.js' %}
+            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js' %}
                 <script data-main="bundles/tickitcore/js/App" src="{{ asset_url }}"></script>
             {% endjavascripts %}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
