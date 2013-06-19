@@ -18,12 +18,6 @@ define(['text!/templates/users/login-form', 'modules/request', 'cookie'], functi
             'click #login-submit' : "submit"
         },
 
-        initialize : function() {
-            if (App.Session.isAuthenticated()) {
-                App.Router.goTo('dashboard');
-            }
-        },
-
         /**
          * Submits the login form and attempts to log the user in
          *
