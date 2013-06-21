@@ -40,7 +40,9 @@ var AppRouter = Backbone.Router.extend({
     },
 
     "dashboard" : function() {
-        console.log('dashboard init');
+        require(['modules/dashboard'], function(Dashboard) {
+            Dashboard.loadDashboard();
+        });
     },
 
     "projects" : function() {
