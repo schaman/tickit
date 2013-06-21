@@ -32,8 +32,8 @@ security:
                  path: /logout
                  invalidate_session: true
                  delete_cookies:
-                     sessionId: { path: /. domain: * }
-                     uid: { path: /, domain: * }
+                     sessionId: { path: /, domain: null }
+                     uid: { path: /, domain: null }
              anonymous:    true
 
      access_control:
