@@ -1,6 +1,9 @@
 # UserBundle Routes
 users:
-  resource: "@TickitUserBundle/Resources/config/routing.yml"
+    resource: "@TickitUserBundle/Resources/config/routing.yml"
+
+core:
+    resource: "@TickitCoreBundle/Resources/config/routing.yml"
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

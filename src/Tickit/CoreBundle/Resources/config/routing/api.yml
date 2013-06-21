@@ -1,0 +1,3 @@
+api_navigation_items:
+    pattern: /items
+    defaults: { _controller: TickitCoreBundle:Navigation:navItems }

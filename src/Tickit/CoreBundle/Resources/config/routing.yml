@@ -1,0 +1,3 @@
+api:
+    resource: "@TickitCoreBundle/Resources/config/routing/api.yml"
+    prefix: /api/navigation

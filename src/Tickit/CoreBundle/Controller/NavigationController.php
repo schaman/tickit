@@ -2,6 +2,7 @@
 
 namespace Tickit\CoreBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -12,8 +13,36 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class NavigationController extends AbstractCoreController
 {
+
+    /**
+     * Lists available navigation items for the currently authenticated user
+     *
+     * @todo This needs to be built dynamically using events
+     *
+     * @return JsonResponse
+     */
+    public function navItemsAction()
+    {
+        $data = array(
+            array(
+                'name' => 'Dashboard',
+                'uri' => $this->generateUrl('dashboard_index'),
+                'active' => false
+            ),
+            array(
+                'name' => 'Projects',
+                'uri' => $this->generateUrl('project_index'),
+                'active' => false
+            )
+        );
+
+        return new JsonResponse($data);
+    }
+
     /**
      * Renders the top navigation bar for the application based on the current user type
+     *
+     * @deprecated Since moving to backbone
      *
      * @return Response
      */
