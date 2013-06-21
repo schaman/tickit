@@ -8,6 +8,8 @@
 define(['backbone', 'tickitcore/js/models/NavigationItem'], function(Backbone, NavigationItem) {
     return Backbone.Collection.extend({
         mode: NavigationItem,
-        url: '/api/navigation'
+        url: function() {
+            return Routing.generate('api_navigation_items')
+        }
     });
 });
