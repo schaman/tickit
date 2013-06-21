@@ -5,15 +5,19 @@
  *
  * @type {Marionette.CollectionView}
  */
-define(['marionette', 'tickitcore/js/views/NavigationItemView', 'text!tickitcore/views/MainNavigation.html'], function(Marionette, ItemView) {
+define([
+    'marionette',
+    'tickitcore/js/views/NavigationItemView',
+    'text!tickitcore/views/MainNavigation.html'
+], function(Marionette, ItemView) {
     return Marionette.CollectionView.extend({
         tagName: 'div',
         className: 'navbar navbar-inverse',
         template: '#navigation_item_collection-template',
         itemView: ItemView,
 
-        appendHtml : function(collectionView, itemView) {
-            collectionView.$('ul.nav').append(itemView.el);
+        appendHtml : function(navView, itemView) {
+            navView.$('ul.nav').append(itemView.el);
         }
     });
 });
