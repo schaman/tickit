@@ -5,7 +5,7 @@ api_user_login_check:
         _method: POST
 
 api_user_fetch:
-    pattern: /{id}
+    pattern: /fetch/{id}
     defaults: { _controller: TickitUserBundle:Api:fetch, id: null }
     requirements:
         id: \d+
