@@ -86,6 +86,21 @@ abstract class AbstractFunctionalTest extends WebTestCase
     }
 
     /**
+     * Generates and returns a URL
+     *
+     * @param string $routeName      The name of the route to generate
+     * @param array $routeParameters The route parameters (defaults to empty)
+     *
+     * @return string
+     */
+    protected function generateRoute($routeName, array $routeParameters = array())
+    {
+        $router = $this->createClient()->getContainer()->get('router');
+
+        return $router->generate($routeName, $routeParameters);
+    }
+
+    /**
      * Creates a new user with fake details, and returns it for use
      *
      * @param boolean $persist Boolean value indicating whether to auto-persist this user, defaults to false
