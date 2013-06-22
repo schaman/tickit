@@ -3,3 +3,11 @@ api_user_login_check:
     defaults: { _controller: TickitUserBundle:Security:check }
     requirements:
         _method: POST
+
+api_user_fetch:
+    pattern: /{id}
+    defaults: { _controller: TickitUserBundle:Api:fetch, id: null }
+    requirements:
+        id: \d+
+    options:
+        expose: true
