@@ -24,7 +24,11 @@ define([
          * @return {Marionette.ItemView}
          */
         render: function() {
-            this.$el.html(_.template($(tpl).html(), this.model.attributes));
+            var d = this.model.attributes;
+            this.$el.html(_.template($(tpl).html(), {
+                fullname: this.model.getFullName(),
+                avatarIdentifier: d.avatarIdentifier
+            }, { variable: 'user' }));
             return this;
         }
     });
