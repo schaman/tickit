@@ -5,12 +5,15 @@
  *
  * @type {Marionette.ItemView}
  */
-define(['marionette', 'modules/template', 'text!tickitcore/views/NavigationItem.html'], function(Marionette, Template, tpl) {
-
-    Template.loadView(tpl);
-
+define(['marionette', 'text!tickitcore/views/NavigationItem.html'], function(Marionette, tpl) {
     return Marionette.ItemView.extend({
-        template: '#navigation_item-template',
+        template: function(data) {
+            return _.template($(tpl).html(), {
+                name: data.name,
+                uri: data.uri,
+                active: data.active
+            });
+        },
         tagName: 'li'
     });
 });
