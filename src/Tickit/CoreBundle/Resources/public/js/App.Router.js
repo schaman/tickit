@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Router}
  */
-var AppRouter = Backbone.Router.extend({
+App.Router = Backbone.Router.extend({
 
     /**
      * Router initialize
@@ -51,5 +51,3 @@ var AppRouter = Backbone.Router.extend({
         });
     }
 });
-
-App.Router = new AppRouter;
