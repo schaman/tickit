@@ -15,11 +15,10 @@ define(['marionette'], function(Marionette) {
          * @return {void}
          */
         onShow: function() {
-            if (App.Session.isAuthenticated()) {
+            if (App.Session.isAuthenticated() && typeof App.Navigation == 'undefined') {
                 require(['tickitcore/js/App.Navigation'], function(Navigation) {
                     Navigation.loadMainNavigation();
                 });
-
             }
         }
     });
