@@ -7,12 +7,9 @@
  */
 define([
     'marionette',
-    'modules/template',
     'tickitcore/js/views/NavigationItemView',
     'text!tickitcore/views/MainNavigation.html'
-], function(Marionette, Template, ItemView, tpl) {
-
-    Template.loadView(tpl);
+], function(Marionette, ItemView, tpl) {
 
     return Marionette.CompositeView.extend({
         tagName: 'div',
@@ -20,7 +17,26 @@ define([
         template: '#navigation_item_collection-template',
         itemView: ItemView,
 
-        appendHtml : function(navView, itemView) {
+        /**
+         * Renders the HTML content of this view
+         *
+         * @return {Marionette.CompositeView}
+         */
+        render: function() {
+            var $tpl = $(tpl);
+            this.$el.html($tpl.html());
+            return this;
+        },
+
+        /**
+         * Method used to append collection items to this view
+         *
+         * @param {Marionette.CompositeView} navView  The composite navigation view object
+         * @param {Marionette.ItemView}      itemView The navigation item view object
+         *
+         * @return {void}
+         */
+        appendHtml: function(navView, itemView) {
             navView.$('ul.nav').append(itemView.el);
         }
     });
