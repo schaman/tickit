@@ -25,7 +25,7 @@ security:
                  csrf_provider: form.csrf_provider
                  default_target_path: /dashboard
                  always_use_default_target_path: false
-                 check_path: user_login_check
+                 check_path: api_user_login_check
                  failure_handler: tickit_user.security.authentication_handler
                  success_handler: tickit_user.security.authentication_handler
              logout:
