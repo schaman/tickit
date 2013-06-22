@@ -7,10 +7,14 @@
  */
 define([
     'marionette',
+    'modules/template',
     'tickitcore/js/views/NavigationItemView',
     'text!tickitcore/views/MainNavigation.html'
-], function(Marionette, ItemView) {
-    return Marionette.CollectionView.extend({
+], function(Marionette, Template, ItemView, tpl) {
+
+    Template.loadView(tpl);
+
+    return Marionette.CompositeView.extend({
         tagName: 'div',
         className: 'navbar navbar-inverse',
         template: '#navigation_item_collection-template',

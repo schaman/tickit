@@ -7,7 +7,7 @@
  */
 define(['backbone', 'tickitcore/js/models/NavigationItem'], function(Backbone, NavigationItem) {
     return Backbone.Collection.extend({
-        mode: NavigationItem,
+        model: NavigationItem,
         url: function() {
             return Routing.generate('api_navigation_items')
         }

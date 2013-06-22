@@ -16,8 +16,8 @@ define(['marionette'], function(Marionette) {
          */
         onShow: function() {
             if (App.Session.isAuthenticated()) {
-                require(['tickitcore/js/views/MainNavigationView'], function(MainNavigationView) {
-                    App.navRegion.show(new MainNavigationView);
+                require(['tickitcore/js/App.Navigation'], function(Navigation) {
+                    Navigation.loadMainNavigation();
                 });
 
             }

@@ -5,7 +5,7 @@
  *
  * @type {Marionette.ItemView}
  */
-define(['marionette', 'modules/template', 'text!tickitcore/views/NavigationItem.html'], function(Marionette, Template) {
+define(['marionette', 'modules/template', 'text!tickitcore/views/NavigationItem.html'], function(Marionette, Template, tpl) {
 
     Template.loadView(tpl);
 
