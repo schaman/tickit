@@ -18,6 +18,7 @@ class NavigationController extends AbstractCoreController
      * Lists available navigation items for the currently authenticated user
      *
      * @todo This needs to be built dynamically using events
+     * @todo Possibly move this to an ApiController
      *
      * @return JsonResponse
      */
@@ -30,8 +31,23 @@ class NavigationController extends AbstractCoreController
                 'active' => false
             ),
             array(
+                'name' => 'Tickets',
+                'uri' => '#',
+                'active' => false
+            ),
+            array(
                 'name' => 'Projects',
                 'uri' => $this->generateUrl('project_index'),
+                'active' => false
+            ),
+            array(
+                'name' => 'Users',
+                'uri' => $this->generateUrl('user_index'),
+                'active' => false
+            ),
+            array(
+                'name' => 'Preferences',
+                'uri' => $this->generateUrl('preference_index'),
                 'active' => false
             )
         );
