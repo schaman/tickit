@@ -1,5 +1,5 @@
 api_navigation_items:
     pattern: /items
-    defaults: { _controller: TickitCoreBundle:Navigation:navItems }
+    defaults: { _controller: TickitNavigationBundle:Api:navItems }
     options:
         expose: true

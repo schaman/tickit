@@ -5,6 +5,9 @@ users:
 core:
     resource: "@TickitCoreBundle/Resources/config/routing.yml"
 
+navigation:
+    resource: "@TickitNavigationBundle/Resources/config/routing.yml"
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
