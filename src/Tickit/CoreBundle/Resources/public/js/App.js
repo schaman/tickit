@@ -26,7 +26,8 @@ require.config({
         "modules/login": "tickituser/js/App.Login",
         "modules/request": "tickitcore/js/App.Request",
         "modules/dashboard": "tickitdashboard/js/App.Dashboard",
-        "modules/user": "tickituser/js/App.User"
+        "modules/user": "tickituser/js/App.User",
+        "modules/navigation": "tickitnavigation/js/App.Navigation"
     },
     shim : {
         "jquery": {

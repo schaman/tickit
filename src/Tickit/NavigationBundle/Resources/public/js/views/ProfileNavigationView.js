@@ -8,11 +8,8 @@
 define([
     'marionette',
     'modules/user',
-    'modules/template',
-    'text!tickitcore/views/ProfileNavigation.html'
-], function(Marionette, User, Template, tpl) {
-
-    Template.loadView(tpl);
+    'text!tickitnavigation/views/ProfileNavigation.html'
+], function(Marionette, User, tpl) {
 
     return Marionette.ItemView.extend({
         tagName: 'div',

@@ -16,7 +16,7 @@ define(['marionette'], function(Marionette) {
          */
         onShow: function() {
             if (App.Session.isAuthenticated() && typeof App.Navigation == 'undefined') {
-                require(['tickitcore/js/App.Navigation'], function(Navigation) {
+                require(['modules/navigation'], function(Navigation) {
                     Navigation.loadMainNavigation();
                 });
             }

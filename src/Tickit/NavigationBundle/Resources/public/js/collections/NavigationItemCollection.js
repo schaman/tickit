@@ -5,7 +5,7 @@
  *
  * @type {Backbone.Collection}
  */
-define(['backbone', 'tickitcore/js/models/NavigationItem'], function(Backbone, NavigationItem) {
+define(['backbone', 'tickitnavigation/js/models/NavigationItem'], function(Backbone, NavigationItem) {
     return Backbone.Collection.extend({
         model: NavigationItem,
         url: function() {

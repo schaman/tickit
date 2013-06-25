@@ -4,8 +4,8 @@
  * @type {Marionette.Module}
  */
 define([
-    'tickitcore/js/collections/NavigationItemCollection',
-    'tickitcore/js/views/NavigationView'
+    'tickitnavigation/js/collections/NavigationItemCollection',
+    'tickitnavigation/js/views/NavigationView'
 ], function(NavigationItemCollection, NavigationView) {
 
     return App.module('Navigation', function(module) {

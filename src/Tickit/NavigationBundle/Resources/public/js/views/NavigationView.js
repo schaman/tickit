@@ -7,10 +7,10 @@
  */
 define([
     'marionette',
-    'tickitcore/js/views/NavigationItemView',
-    'tickitcore/js/views/ProfileNavigationView',
+    'tickitnavigation/js/views/NavigationItemView',
+    'tickitnavigation/js/views/ProfileNavigationView',
     'modules/user',
-    'text!tickitcore/views/MainNavigation.html'
+    'text!tickitnavigation/views/MainNavigation.html'
 ], function(Marionette, ItemView, ProfileNavigationView, User, tpl) {
 
     return Marionette.CompositeView.extend({

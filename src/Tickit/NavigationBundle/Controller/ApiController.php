@@ -5,6 +5,7 @@ namespace Tickit\NavigationBundle\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\NavigationBundle\Model\NavigationItem;
 
 /**
  * Provides actions related to the application navigation
@@ -17,39 +18,24 @@ class ApiController extends AbstractCoreController
     /**
      * Lists available navigation items for the currently authenticated user
      *
-     * @todo This needs to be built dynamically using events
-     *
      * @return JsonResponse
      */
     public function navItemsAction()
     {
-        $data = array(
-            array(
-                'name' => 'Dashboard',
-                'uri' => $this->generateUrl('dashboard_index'),
+        $items = $this->get('tickit_navigation.builder')->build();
+
+        $data = array();
+        $items->top();
+        /** @var NavigationItem $navItem */
+        foreach ($items as $navItem) {
+            // When we move to PHP 5.4 we can make NavigationItem JsonSerializable to avoid having
+            // the builder responsible for constructing the Json representation
+            $data[] = array(
+                'name' => $navItem->getText(),
+                'uri' => $navItem->getRouteName(),
                 'active' => false
-            ),
-            array(
-                'name' => 'Tickets',
-                'uri' => '#',
-                'active' => false
-            ),
-            array(
-                'name' => 'Projects',
-                'uri' => $this->generateUrl('project_index'),
-                'active' => false
-            ),
-            array(
-                'name' => 'Users',
-                'uri' => $this->generateUrl('user_index'),
-                'active' => false
-            ),
-            array(
-                'name' => 'Preferences',
-                'uri' => $this->generateUrl('preference_index'),
-                'active' => false
-            )
-        );
+            );
+        }
 
         return new JsonResponse($data);
     }
