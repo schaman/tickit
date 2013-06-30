@@ -20,6 +20,10 @@ define([
         itemView: ItemView,
         profileRegion: null,
 
+        events: {
+            "click ul.nav a": "itemClick"
+        },
+
         /**
          * Initialises the view
          *
@@ -29,6 +33,18 @@ define([
             this.profileRegion = new Backbone.Marionette.Region({
                 el: '#account'
             });
+        },
+
+        /**
+         * Handles a navigation item click
+         *
+         * @param {object} e The event object
+         *
+         * @return {void}
+         */
+        itemClick: function(e) {
+            e.preventDefault();
+            App.Router.goTo($(e.target).attr('href'));
         },
 
         /**

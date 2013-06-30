@@ -32,7 +32,7 @@ class ApiController extends AbstractCoreController
             // the builder responsible for constructing the Json representation
             $data[] = array(
                 'name' => $navItem->getText(),
-                'uri' => $navItem->getRouteName(),
+                'routeName' => $navItem->getRouteName(),
                 'active' => false
             );
         }

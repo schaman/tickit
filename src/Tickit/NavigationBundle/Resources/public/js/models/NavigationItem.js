@@ -9,8 +9,17 @@ define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
         defaults: {
             name: '',
-            uri: '',
+            routeName: '',
             active: true
+        },
+
+        /**
+         * Gets the URI for this item based off its route name
+         *
+         * @return {string}
+         */
+        getUri: function() {
+            return Routing.generate(this.get('routeName'));
         }
     });
 });

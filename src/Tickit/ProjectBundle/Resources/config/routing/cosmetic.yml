@@ -3,3 +3,5 @@ project_index:
     defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
     requirements:
         page: \d+
+    options:
+        expose: true
