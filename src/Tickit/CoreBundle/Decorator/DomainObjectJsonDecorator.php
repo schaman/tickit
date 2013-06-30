@@ -29,17 +29,41 @@ class DomainObjectJsonDecorator implements DomainObjectDecoratorInterface
 
         $data = array();
         foreach ($propertyNames as $property) {
-            $getter = sprintf('get%s', ucfirst($property));
+            $match = false;
+            $accessors = $this->guessAccessorNames($property);
 
-            if (!method_exists($object, $getter)) {
+            foreach ($accessors as $accessor) {
+                if (true === method_exists($object, $accessor)) {
+                    $match = true;
+                    $data[] = $object->{$accessor}();
+                }
+            }
+
+            if (false === $match) {
                 throw new \RuntimeException(
                     sprintf('The property %s does not have a getter on the provided object', $getter)
                 );
             }
-
-            $data[] = $object->{$getter}();
         }
 
         return json_encode($data);
+    }
+
+    /**
+     * Guesses a bunch of field accessor method names based off a property name
+     *
+     * @param string $propertyName The property name to guess accessors for
+     *
+     * @return array
+     */
+    protected function guessAccessorNames($propertyName)
+    {
+        $guesses = array();
+        $accessorPrefixes = array('get', 'is', '');
+        foreach ($accessorPrefixes as $prefix) {
+            $guesses[] = sprintf('%s%s', $prefix, ucfirst($propertyName));
+        }
+
+        return $guesses;
     }
 }
