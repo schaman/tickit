@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\ProjectBundle\Tests\Listener;
+
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\ProjectBundle\Listener\NavigationBuilder;
 
