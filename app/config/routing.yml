@@ -8,6 +8,9 @@ core:
 navigation:
     resource: "@TickitNavigationBundle/Resources/config/routing.yml"
 
+projects:
+    resource: "@TickitProjectBundle/Resources/config/routing.yml"
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
@@ -17,10 +20,6 @@ fos_js_routing:
 teams:
   resource: "@TickitTeamBundle/Resources/config/routing.yml"
   prefix: /teams
-
-projects:
-  resource: "@TickitProjectBundle/Resources/config/routing.yml"
-  prefix: /projects
 
 # PreferenceBundle Routes
 preferences:

@@ -23,37 +23,6 @@ use Tickit\ProjectBundle\Manager\ProjectManager;
 class ProjectController extends AbstractCoreController
 {
     /**
-     * Lists all projects in the application
-     *
-     * @Template("TickitProjectBundle:Project:index.html.twig")
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        $projects = $this->get('tickit_project.manager')
-                         ->getRepository()
-                         ->findByFilters();
-
-        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
-
-        if ($this->getRequest()->isXmlHttpRequest()) {
-            $data = array();
-            // TODO: this would need to go into a decorator
-            foreach ($projects as $project) {
-                $data[] = array(
-                    'id' => $project->getId(),
-                    'name' => $project->getName(),
-                    'created' => $project->getCreated()->format('Y-m-d H:i:s')
-                );
-            }
-            return new JsonResponse($data);
-        }
-
-        return array('projects' => $projects, 'token' => $token);
-    }
-
-    /**
      * Loads the create project page
      *
      * @Template("TickitProjectBundle:Project:create.html.twig")

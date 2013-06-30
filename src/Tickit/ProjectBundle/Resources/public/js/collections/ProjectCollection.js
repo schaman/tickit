@@ -6,6 +6,8 @@
 define(['tickitproject/js/models/Project'], function(Project) {
     return Backbone.Collection.extend({
         model: Project,
-        url: '/projects'
+        url: function() {
+            return Routing.generate('api_project_list');
+        }
     });
 });

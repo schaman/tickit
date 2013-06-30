@@ -1,0 +1,7 @@
+api_project_list:
+    pattern: /list/{page}
+    defaults: { _controller: TickitProjectBundle:Api:list, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true

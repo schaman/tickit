@@ -1,0 +1,5 @@
+project_index:
+    pattern: /projects/{page}
+    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
+    requirements:
+        page: \d+
