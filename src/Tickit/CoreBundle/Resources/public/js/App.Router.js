@@ -27,7 +27,7 @@ var AppRouter = Backbone.Router.extend({
      * Route patterns
      */
     routes : {
-        "/"         : "dashboard",
+        ""          : "dashboard",
         "dashboard" : "dashboard",
         "login"     : "login",
         "projects"  : "projects"
