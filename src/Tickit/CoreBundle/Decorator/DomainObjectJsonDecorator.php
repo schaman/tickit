@@ -35,13 +35,13 @@ class DomainObjectJsonDecorator implements DomainObjectDecoratorInterface
             foreach ($accessors as $accessor) {
                 if (true === method_exists($object, $accessor)) {
                     $match = true;
-                    $data[] = $object->{$accessor}();
+                    $data[$property ] = $object->{$accessor}();
                 }
             }
 
             if (false === $match) {
                 throw new \RuntimeException(
-                    sprintf('The property %s does not have a getter on the provided object', $getter)
+                    sprintf('The property %s does not have a getter on the provided object', $accessor)
                 );
             }
         }
