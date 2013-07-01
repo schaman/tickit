@@ -45,7 +45,7 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
 
             if (false === $match) {
                 throw new \RuntimeException(
-                    sprintf('The property %s does not have a getter on the provided object', $accessor)
+                    sprintf('The property %s does not have a getter on the provided object', $property)
                 );
             }
         }
