@@ -3,9 +3,9 @@
 namespace Tickit\CoreBundle\Tests\Decorator\Mock;
 
 /**
- * Description
+ * Mock domain object
  *
- * @package Namespace\Class
+ * @package Tickit\CoreBundle\Tests\Decorator\Mock
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class MockDomainObject
