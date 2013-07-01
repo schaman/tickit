@@ -1,16 +1,17 @@
 <?php
 
 namespace Tickit\CoreBundle\Tests\Decorator;
-use Tickit\CoreBundle\Decorator\DomainObjectJsonDecorator;
+
+use Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator;
 use Tickit\CoreBundle\Tests\Decorator\Mock\MockDomainObject;
 
 /**
- * DomainObjectJsonDecorator tests
+ * DomainObjectArrayDecorator tests
  *
  * @package Tickit\CoreBundle\Tests\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class DomainObjectJsonDecoratorTest extends \PHPUnit_Framework_TestCase
+class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests the decorate() method
@@ -21,7 +22,7 @@ class DomainObjectJsonDecoratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecorateThrowsExceptionForNonObject()
     {
-        $decorator = new DomainObjectJsonDecorator();
+        $decorator = new DomainObjectArrayDecorator();
         $decorator->decorate('', array());
     }
 
@@ -34,7 +35,7 @@ class DomainObjectJsonDecoratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecorateThrowsExceptionForInaccessibleProperty()
     {
-        $decorator = new DomainObjectJsonDecorator();
+        $decorator = new DomainObjectArrayDecorator();
         $decorator->decorate(new MockDomainObject(), array('fake'));
     }
 
@@ -45,17 +46,15 @@ class DomainObjectJsonDecoratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecorateHandlesMockObjectCorrectly()
     {
-        $decorator = new DomainObjectJsonDecorator();
+        $decorator = new DomainObjectArrayDecorator();
         $mock = new MockDomainObject();
-        $mock->setName('name');
-        $mock->setActive(true);
-        $mock->setEnabled(false);
 
-        $decorated = $decorator->decorate($mock, array('name', 'active', 'enabled'));
-        $decoratedObject = json_decode($decorated);
-        $this->assertInstanceOf('\stdClass', $decoratedObject);
-        $this->assertEquals('name', $decoratedObject->name);
-        $this->assertTrue($decoratedObject->active);
-        $this->assertFalse($decoratedObject->enabled);
+        $decorated = $decorator->decorate($mock, array('name', 'active', 'enabled', 'date'));
+
+        $this->assertInternalType('array', $decorated);
+        $this->assertEquals('name', $decorated['name']);
+        $this->assertTrue($decorated['active']);
+        $this->assertFalse($decorated['enabled']);
+        $this->assertEquals(date('Y-m-d H:i:s'), $decorated['date']);
     }
 }

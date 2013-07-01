@@ -15,21 +15,36 @@ class MockDomainObject
      *
      * @var string
      */
-    protected $name;
+    protected $name = 'name';
 
     /**
      * Boolean
      *
      * @var boolean
      */
-    protected $active;
+    protected $active = true;
 
     /**
      * Boolean
      *
      * @var boolean
      */
-    protected $enabled;
+    protected $enabled = false;
+
+    /**
+     * DateTime
+     *
+     * @var \DateTime
+     */
+    protected $date;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
     /**
      * Returns string
@@ -62,32 +77,12 @@ class MockDomainObject
     }
 
     /**
-     * Sets active
+     * Returns DateTime
      *
-     * @param boolean $active Boolean value
+     * @return \DateTime
      */
-    public function setActive($active)
+    public function getDate()
     {
-        $this->active = $active;
-    }
-
-    /**
-     * Sets enabled
-     *
-     * @param boolean $enabled Boolean value
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
-     * Sets the name
-     *
-     * @param string $name String value
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+        return $this->date;
     }
 }

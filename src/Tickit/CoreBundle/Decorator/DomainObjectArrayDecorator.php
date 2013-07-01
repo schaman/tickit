@@ -3,17 +3,17 @@
 namespace Tickit\CoreBundle\Decorator;
 
 /**
- * JSON decorator for domain objects.
+ * Array decorator for domain objects.
  *
  * @package Tickit\CoreBundle\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class DomainObjectJsonDecorator implements DomainObjectDecoratorInterface
+class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
 {
     /**
-     * Decorates an object as a JSON string using the specified property names
+     * Decorates an object as an array using the specified property names
      *
-     * @param object $object        The domain object to decorate
+     * @param object $object       The domain object to decorate
      * @param array $propertyNames The property names used in the decoration
      *
      * @throws \InvalidArgumentException If the $object property is not an object
@@ -35,7 +35,11 @@ class DomainObjectJsonDecorator implements DomainObjectDecoratorInterface
             foreach ($accessors as $accessor) {
                 if (true === method_exists($object, $accessor)) {
                     $match = true;
-                    $data[$property ] = $object->{$accessor}();
+                    $value = $object->{$accessor}();
+                    if ($value instanceof \DateTime) {
+                        $value = $value->format('Y-m-d H:i:s');
+                    }
+                    $data[$property ] = $value;
                 }
             }
 
@@ -46,7 +50,7 @@ class DomainObjectJsonDecorator implements DomainObjectDecoratorInterface
             }
         }
 
-        return json_encode($data);
+        return $data;
     }
 
     /**

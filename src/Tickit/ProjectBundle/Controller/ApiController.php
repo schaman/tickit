@@ -27,13 +27,9 @@ class ApiController extends Controller
                          ->findByFilters();
 
         $data = array();
-        // TODO: this would need to go into a decorator
+        $decorator = $this->get('tickit.domain_object_array_decorator');
         foreach ($projects as $project) {
-            $data[] = array(
-                'id' => $project->getId(),
-                'name' => $project->getName(),
-                'created' => $project->getCreated()->format('Y-m-d H:i:s')
-            );
+            $data[] = $decorator->decorate($project, array('id', 'name', 'created'));
         }
 
         return new JsonResponse($data);
