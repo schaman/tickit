@@ -103,6 +103,15 @@ tickit_cache:
                     retry_time: 5
                     enabled: true
 
+hearsay_require_js:
+    base_directory: %kernel.root_dir%/Resources/public/js
+    paths:
+        vendor: %kernel.root_dir%/Resources/public/js # todo: need to refactor the structure here
+        core: "@TickitCoreBundle/Resources/public"
+        navigation: "@TickitNavigationBundle/Resources/public"
+        project: "@TickitProjectBundle/Resources/public"
+        user: "@TickitUserBundle/Resources/public"
+
 tickit_user:
     avatar:
         adapter_class: Tickit\UserBundle\Avatar\Adapter\GravatarAdapter
