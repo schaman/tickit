@@ -47,14 +47,26 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
     public function testDecorateHandlesMockObjectCorrectly()
     {
         $decorator = new DomainObjectArrayDecorator();
-        $mock = new MockDomainObject();
+        $mock      = new MockDomainObject();
 
-        $decorated = $decorator->decorate($mock, array('name', 'active', 'enabled', 'date'));
+        $decorated = $decorator->decorate(
+            $mock,
+            array(
+                'name',
+                'active',
+                'enabled',
+                'date',
+                'childObject.enabled',
+                'childObject.childObject.enabled'
+            )
+        );
 
         $this->assertInternalType('array', $decorated);
         $this->assertEquals('name', $decorated['name']);
         $this->assertTrue($decorated['active']);
         $this->assertFalse($decorated['enabled']);
         $this->assertEquals(date('Y-m-d H:i:s'), $decorated['date']);
+        $this->assertTrue($decorated['childObject.enabled']);
+        $this->assertTrue($decorated['childObject.childObject.enabled']);
     }
 }

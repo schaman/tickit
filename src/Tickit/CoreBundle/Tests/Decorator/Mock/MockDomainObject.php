@@ -39,11 +39,20 @@ class MockDomainObject
     protected $date;
 
     /**
+     * Child object
+     *
+     * @var MockDomainChildObject
+     */
+    protected $childObject;
+
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->date = new \DateTime();
+        $this->date        = new \DateTime();
+        $this->childObject = new MockDomainChildObject(true);
     }
 
     /**
@@ -84,5 +93,15 @@ class MockDomainObject
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Returns a child object
+     *
+     * @return MockDomainChildObject
+     */
+    public function getChildObject()
+    {
+        return $this->childObject;
     }
 }
