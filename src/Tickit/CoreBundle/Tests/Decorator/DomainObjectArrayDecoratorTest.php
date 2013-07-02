@@ -42,6 +42,19 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests the decorate() method
      *
+     * @expectedException \RuntimeException
+     *
+     * @return void
+     */
+    public function testDecorateThrowsExceptionForInaccessibleChildProperty()
+    {
+        $decorator = new DomainObjectArrayDecorator();
+        $decorator->decorate(new MockDomainObject(), array('childProperty.fake'));
+    }
+
+    /**
+     * Tests the decorate() method
+     *
      * @return void
      */
     public function testDecorateHandlesMockObjectCorrectly()
