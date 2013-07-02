@@ -27,27 +27,59 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
             throw new \InvalidArgumentException('You must provide a valid domain object to decorate');
         }
 
+        // initialise data array output
         $data = array();
         foreach ($propertyNames as $property) {
             $match = false;
-            $accessors = $this->guessAccessorNames($property);
+            $value = false;
 
-            foreach ($accessors as $accessor) {
-                if (true === method_exists($object, $accessor)) {
-                    $match = true;
-                    $value = $object->{$accessor}();
-                    if ($value instanceof \DateTime) {
-                        $value = $value->format('Y-m-d H:i:s');
+            // find the heirarchy of properties being accessed
+            $heirarchy         = explode('.', $property);
+            $heirarchyIterator = new \ArrayIterator($heirarchy);
+
+            // initialise a current object
+            $currentObject = $object;
+            // loop through the heirarchy
+            while ($heirarchyIterator->valid()) {
+                // current property name
+                $currentNode = $heirarchyIterator->current();
+                $accessors   = $this->guessAccessorNames($currentNode);
+
+                // try each potential accessor method for this property
+                foreach ($accessors as $accessor) {
+                    // if the method exists on current object
+                    if (true === method_exists($currentObject, $accessor)) {
+                        $match = true;
+
+                        // execute accessor method
+                        $value = $currentObject->{$accessor}();
+
+                        // no need to test for any further accessor methods
+                        break;
                     }
-                    $data[$property ] = $value;
                 }
+
+                // no match found
+                if (false === $match) {
+                    throw new \RuntimeException(
+                        sprintf('The property %s does not have a getter on the provided object', $property)
+                    );
+                }
+
+                // update the current object to the value - only relevant if there are no more nodes in heirarchy
+                $currentObject = $value;
+
+                // move to next node
+                $heirarchyIterator->next();
             }
 
-            if (false === $match) {
-                throw new \RuntimeException(
-                    sprintf('The property %s does not have a getter on the provided object', $property)
-                );
+            // if value is a date instance, change to string
+            if ($value instanceof \DateTime) {
+                $value = $value->format('Y-m-d H:i:s');
             }
+
+            // append property to data array
+            $data[$property] = $value;
         }
 
         return $data;
