@@ -7,6 +7,7 @@ namespace Tickit\CoreBundle\Decorator;
  *
  * @package Tickit\CoreBundle\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
 {

@@ -10,6 +10,7 @@ use Tickit\CoreBundle\Tests\Decorator\Mock\MockDomainObject;
  *
  * @package Tickit\CoreBundle\Tests\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
 {
