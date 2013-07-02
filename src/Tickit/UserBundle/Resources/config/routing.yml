@@ -12,12 +12,6 @@ cosmetic:
 
 ###### ROUTES BELOW HERE NEED TO BE REFACTORED INTO THE RELEVANT FILES ABOVE ######
 
-#user_index:
-#    pattern: /{page}
-#    defaults: { _controller: TickitUserBundle:User:index, page: 1 }
-#    requirements:
-#        page: \d+
-#
 #user_create:
 #    pattern: /create
 #    defaults: { _controller: TickitUserBundle:User:create }

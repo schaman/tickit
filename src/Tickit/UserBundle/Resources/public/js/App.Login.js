@@ -6,9 +6,6 @@
  * @type {Marionette.Module}
  */
 define(['tickituser/js/views/LoginView'], function(LoginView) {
-
-    // load any require templates here
-
     return App.module('Login', function(module) {
 
         /**
@@ -18,7 +15,7 @@ define(['tickituser/js/views/LoginView'], function(LoginView) {
          */
         module.loadLoginView = function() {
             if (!App.Session.isAuthenticated()) {
-                App.mainRegion.show(new LoginView());
+                App.loginRegion.show(new LoginView());
             } else {
                 App.Router.goTo('dashboard');
             }

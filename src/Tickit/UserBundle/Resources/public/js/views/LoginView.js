@@ -52,7 +52,9 @@ define([
                     if (data.success) {
                         cookie.set('uid', data.userId);
                         App.Session.load();
-                        App.Router.goTo(data.url);
+                        App.loginRegion.close(function() {
+                            App.Router.goTo(data.url);
+                        });
                     } else {
                         me.addError(data.error);
                     }
@@ -92,6 +94,17 @@ define([
             this.$el.html(tpl);
             this.$el.find('#login-remember').wrap('<div class="switch" />').parent().bootstrapSwitch();
             return this;
+        },
+
+        fadeIn: function(cb) {
+            this.$el.fadeIn();
+            if (cb) {
+                cb();
+            }
+        },
+
+        fadeOut: function(cb) {
+            this.$el.fadeOut(cb);
         }
     });
 });
