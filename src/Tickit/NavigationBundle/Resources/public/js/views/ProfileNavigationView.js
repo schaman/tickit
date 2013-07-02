@@ -24,7 +24,7 @@ define([
             var d = this.model.attributes;
             this.$el.html(_.template($(tpl).html(), {
                 fullname: this.model.getFullName(),
-                avatarIdentifier: d.avatarIdentifier
+                avatarUrl: d.avatarUrl
             }, { variable: 'user' }));
             return this;
         }

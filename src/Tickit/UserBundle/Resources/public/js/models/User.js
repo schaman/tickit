@@ -16,7 +16,7 @@ define([
             email: '',
             forename: '',
             surname: '',
-            avatarIdentifier: ''
+            avatarUrl: ''
         },
 
         /**
