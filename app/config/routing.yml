@@ -2,9 +2,6 @@
 users:
     resource: "@TickitUserBundle/Resources/config/routing.yml"
 
-core:
-    resource: "@TickitCoreBundle/Resources/config/routing.yml"
-
 navigation:
     resource: "@TickitNavigationBundle/Resources/config/routing.yml"
 
