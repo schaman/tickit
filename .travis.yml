@@ -16,6 +16,9 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar --dev install
 
+  - npm install bower
+  - bower install
+
   # set up test environment #
   - php app/console tickit:tests:setup --env test
 
