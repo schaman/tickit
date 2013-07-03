@@ -31,7 +31,7 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertEquals($requestedUser->getEmail(), $response->email);
         $this->assertEquals($requestedUser->getForename(), $response->forename);
         $this->assertEquals($requestedUser->getSurname(), $response->surname);
-        $this->assertEquals($requestedUser->getAvatarIdentifier(), $response->avatarIdentifier);
+        $this->assertNotEmpty($response->avatarUrl);
     }
 
     /**
@@ -51,7 +51,7 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertEquals(static::$developer->getEmail(), $response->email);
         $this->assertEquals(static::$developer->getForename(), $response->forename);
         $this->assertEquals(static::$developer->getSurname(), $response->surname);
-        $this->assertEquals(static::$developer->getAvatarIdentifier(), $response->avatarIdentifier);
+        $this->assertNotEmpty($response->avatarUrl);
     }
 
     /**
@@ -71,6 +71,6 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertEquals(static::$developer->getEmail(), $response->email);
         $this->assertEquals(static::$developer->getForename(), $response->forename);
         $this->assertEquals(static::$developer->getSurname(), $response->surname);
-        $this->assertEquals(static::$developer->getAvatarIdentifier(), $response->avatarIdentifier);
+        $this->assertNotEmpty($response->avatarUrl);
     }
 }
