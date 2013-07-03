@@ -27,3 +27,5 @@ team_index:
   defaults: { _controller: TickitTeamBundle:Team:index, page: 1 }
   requirements:
     page: \d+
+  options:
+    expose: true

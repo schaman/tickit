@@ -4,10 +4,11 @@ app/cache/*
 app/sqlite_test
 app/config/parameters.yml
 app/logs/*
-app/Resources/public/js/extra/*/*
+src/Tickit/CoreBundle/Resources/public/js/vendor/*
 app/phpunit.xml
 vendor/*
 composer.phar
 web/bundles
+web/css
 coverage.xml
 bin/*

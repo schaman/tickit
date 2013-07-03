@@ -12,5 +12,8 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    node_bin: /usr/local/bin/node
+    node_lib: /usr/local/share/npm/lib/node_modules
+
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt

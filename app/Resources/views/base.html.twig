@@ -9,7 +9,12 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/css/styles.css' %}
+        {% stylesheets '../app/Resources/public/bootstrap/css/bootstrap.css'
+                       '../app/Resources/public/css/flat-ui.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+        {% stylesheets  '../app/Resources/public/less/master/styles.less' filter='less' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -19,30 +24,24 @@
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
+    <body style="zoom: 1">
 
-        {% render controller('TickitCoreBundle:Navigation:topNavigation') %}
+        <header class='main-header' role='banner'></header>
 
-        <div id='container'>
-            {% if is_granted('ROLE_USER') %}
-                {% render controller('TickitCoreBundle:Navigation:subNavigation') %}
-            {% endif %}
-
+        <div id="container">
             {% block body %}{% endblock %}
         </div>
 
         {% block javascripts %}
-            {% javascripts '../app/Resources/public/js/extra/jquery/jquery.js'
-                           'bundles/fosjsrouting/js/router.js'
-                           '../app/Resources/public/js/app.js'
-                           '@TickitCoreBundle/Resources/public/js/app.messaging.js'
-                           '../app/Resources/public/js/app.nav.js' %}
-                <script src="{{ asset_url }}"></script>
+            {#{{ require_js_initialize({ 'main' : 'core/js/App' }) }}#}
+            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js' %}
+                <script data-main="bundles/tickitcore/js/App" src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}
 
-        <footer>
+        <footer id='footer'>
             {% block footer %}{% endblock %}
         </footer>
 

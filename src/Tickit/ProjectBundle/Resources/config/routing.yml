@@ -1,8 +1,15 @@
-project_index:
-    pattern: /{page}
-    defaults: { _controller: TickitProjectBundle:Project:index, page: 1 }
-    requirements:
-        page: \d+
+cosmetic:
+    resource: "@TickitProjectBundle/Resources/config/routing/cosmetic.yml"
+
+api:
+    resource: "@TickitProjectBundle/Resources/config/routing/api.yml"
+    prefix: /api/projects
+
+templates:
+    resource: "@TickitProjectBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/projects
+
+###################################
 
 project_create:
     pattern: /create

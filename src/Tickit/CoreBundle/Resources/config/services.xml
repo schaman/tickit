@@ -10,6 +10,7 @@
             <argument>%kernel.root_dir%/config/extra</argument>
             <argument>%kernel.environment%</argument>
         </service>
+        <service id="tickit.domain_object_array_decorator" class="Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator" />
     </services>
 
 </container>

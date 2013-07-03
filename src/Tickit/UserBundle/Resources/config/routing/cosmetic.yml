@@ -1,0 +1,9 @@
+fos_user_security_login:
+    pattern: /login
+    defaults: { _controller: TickitCoreBundle:Default:default }
+
+user_index:
+    pattern: /{page}
+    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
+    requirements:
+        page: \d+

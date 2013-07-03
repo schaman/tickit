@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
@@ -21,24 +22,6 @@ use Tickit\ProjectBundle\Manager\ProjectManager;
  */
 class ProjectController extends AbstractCoreController
 {
-    /**
-     * Lists all projects in the application
-     *
-     * @Template("TickitProjectBundle:Project:index.html.twig")
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        $projects = $this->get('tickit_project.manager')
-                         ->getRepository()
-                         ->findByFilters();
-
-        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_project');
-
-        return array('projects' => $projects, 'token' => $token);
-    }
-
     /**
      * Loads the create project page
      *

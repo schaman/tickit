@@ -1,31 +1,59 @@
-user_index:
-    pattern: /{page}
-    defaults: { _controller: TickitUserBundle:User:index, page: 1 }
-    requirements:
-        page: \d+
+api:
+    resource: "@TickitUserBundle/Resources/config/routing/api.yml"
+    prefix: /api/users
+
+templates:
+    resource: "@TickitUserBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/users
+
+cosmetic:
+    resource: "@TickitUserBundle/Resources/config/routing/cosmetic.yml"
+
+
+###### ROUTES BELOW HERE NEED TO BE REFACTORED INTO THE RELEVANT FILES ABOVE ######
 
 user_create:
-    pattern: /create
+    pattern: /users/create
     defaults: { _controller: TickitUserBundle:User:create }
 
 user_edit:
-    pattern: /edit/{id}
+    pattern: /users/edit/{id}
     defaults: { _controller: TickitUserBundle:User:edit }
     requirements:
         id: \d+
 
 group_index:
-    pattern: /groups/{page}
+    pattern: /users/groups/{page}
     defaults: { _controller: TickitUserBundle:Group:index, page: 1 }
     requirements:
         page: \d+
 
 group_create:
-    pattern: /groups/create
+    pattern: /users/groups/create
     defaults: { _controller: TickitUserBundle:Group:create }
 
 group_edit:
-    pattern: /groups/edit/{id}
+    pattern: /users/groups/edit/{id}
     defaults: { _controller: TickitUserBundle:Group:edit }
     requirements:
         id: \d+
+
+fos_user_profile:
+  resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+  prefix: /profile
+
+fos_user_register:
+  resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+  prefix: /register
+
+fos_user_resetting:
+  resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+  prefix: /resetting
+
+fos_user_change_password:
+  resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+  prefix: /profile
+
+fos_user_security_logout:
+    pattern: /logout
+    defaults: { _controller: FOSUserBundle:Security:logout }

@@ -1,7 +1,2 @@
-dashboard_index:
-  pattern: /dashboard
-  defaults: { _controller: TickitDashboardBundle:Dashboard:index }
-
-index:
-  pattern: /
-  defaults: { _controller: TickitDashboardBundle:Dashboard:index }
+cosmetic:
+    resource: "@TickitDashboardBundle/Resources/config/routing/cosmetic.yml"
