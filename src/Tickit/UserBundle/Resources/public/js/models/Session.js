@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Model}
  */
-define(['backbone', 'cookie'], function(Backbone, cookie) {
+define(['backbone', 'cookie'], function(Backbone) {
     return Backbone.Model.extend({
         defaults: {
             sessionId: null,
@@ -25,8 +25,8 @@ define(['backbone', 'cookie'], function(Backbone, cookie) {
          * @return {void}
          */
         load: function() {
-            this.set('sessionId', cookie.get('sessionId'));
-            this.set('userId', cookie.get('uid'));
+            this.set('sessionId', $.cookie('sessionId'));
+            this.set('userId', $.cookie('uid'));
         },
 
         /**

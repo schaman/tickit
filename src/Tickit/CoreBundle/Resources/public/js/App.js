@@ -10,7 +10,7 @@ require.config({
         "backbone": "tickitcore/js/vendor/backbone/backbone",
         "marionette": "tickitcore/js/vendor/backbone.marionette/lib/backbone.marionette",
         "underscore": "tickitcore/js/vendor/underscore/underscore",
-        "cookie": "tickitcore/js/vendor/cookie/cookie",
+        "cookie": "tickitcore/js/vendor/jquery.cookie/jquery.cookie",
         "bootstrap-js": "/js/bootstrap.min",
         "bootstrap-switch": "/js/bootstrap-switch",
         "bootstrap-select": "/js/bootstrap-select",
@@ -45,6 +45,7 @@ require.config({
             exports : 'Backbone.Marionette'
         },
         "jquery-ui": ['jquery'],
+        "cookie": ['jquery'],
         "bootstrap-js":  ['jquery'],
         "bootstrap-switch": ['bootstrap-js'],
         "bootstrap-select": ['bootstrap-js'],
