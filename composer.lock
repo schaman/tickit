@@ -744,9 +744,9 @@
             },
             "require": {
                 "php": ">=5.3.2",
-                "symfony/console": ">=2.0,<3.0",
-                "symfony/framework-bundle": ">=2.0,<3.0",
-                "symfony/serializer": ">=2.0,<3.0"
+                "symfony/console": "~2.0",
+                "symfony/framework-bundle": "~2.0",
+                "symfony/serializer": "~2.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1080,7 +1080,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1243,7 +1243,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1915,7 +1915,7 @@
             "require": {
                 "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
-                "symfony/intl": ">=2.3,<3.0"
+                "symfony/intl": "~2.3"
             },
             "type": "library",
             "autoload": {
@@ -1968,7 +1968,7 @@
                 "symfony/monolog-bridge": "~2.2-beta2"
             },
             "require-dev": {
-                "symfony/yaml": "~2.2-beta2"
+                "symfony/yaml": ">=2.2-beta2,<3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -2064,12 +2064,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "4c0bfd3313615195cde3d66fcf256cca5beddee7"
+                "reference": "f03a4894d59e2b170ac3b2dfe49ef6ee0484d198"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/4c0bfd3313615195cde3d66fcf256cca5beddee7",
-                "reference": "4c0bfd3313615195cde3d66fcf256cca5beddee7",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/f03a4894d59e2b170ac3b2dfe49ef6ee0484d198",
+                "reference": "f03a4894d59e2b170ac3b2dfe49ef6ee0484d198",
                 "shasum": ""
             },
             "require": {
@@ -2164,7 +2164,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-07-01 12:24:43"
+            "time": "2013-07-03 10:44:49"
         },
         {
             "name": "tickit-project/cache-bundle",
@@ -2459,12 +2459,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Symfony2Extension.git",
-                "reference": "8eea5d6156fefb35042d01800e5683f3efc8a497"
+                "reference": "ae30307a6a6844eb4ddbdb4dcc9572bf835c8756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Symfony2Extension/zipball/8eea5d6156fefb35042d01800e5683f3efc8a497",
-                "reference": "8eea5d6156fefb35042d01800e5683f3efc8a497",
+                "url": "https://api.github.com/repos/Behat/Symfony2Extension/zipball/ae30307a6a6844eb4ddbdb4dcc9572bf835c8756",
+                "reference": "ae30307a6a6844eb4ddbdb4dcc9572bf835c8756",
                 "shasum": ""
             },
             "require": {
@@ -2507,7 +2507,7 @@
                 "framework",
                 "symfony"
             ],
-            "time": "2013-07-01 14:53:06"
+            "time": "2013-07-02 17:51:22"
         },
         {
             "name": "fzaninotto/faker",
@@ -2561,12 +2561,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "7949ba06b3eddf8abec181adf803ab1807b96caa"
+                "reference": "b1677c00021756705c5e7535c4dc34ae7f93be3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7949ba06b3eddf8abec181adf803ab1807b96caa",
-                "reference": "7949ba06b3eddf8abec181adf803ab1807b96caa",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b1677c00021756705c5e7535c4dc34ae7f93be3d",
+                "reference": "b1677c00021756705c5e7535c4dc34ae7f93be3d",
                 "shasum": ""
             },
             "require": {
@@ -2645,7 +2645,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-07-02 16:15:48"
+            "time": "2013-07-02 19:53:26"
         },
         {
             "name": "satooshi/php-coveralls",
