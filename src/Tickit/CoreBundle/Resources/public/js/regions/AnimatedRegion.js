@@ -1,8 +1,11 @@
 define(['marionette'], function (Marionette) {
-    return Backbone.Marionette.Region.extend({
+    return Marionette.Region.extend({
 
-        el: '#container',
-
+        /**
+         * Called when a view is shown in the region
+         *
+         * @param {Backbone.View} view The view to be displayed in the region
+         */
         show: function(view) {
             this.ensureEl();
             view.render();
@@ -25,9 +28,13 @@ define(['marionette'], function (Marionette) {
                     this.trigger("view:show", view);
                 });
             });
-
         },
 
+        /**
+         * Called when the region is closed
+         *
+         * @param {function} cb A callback function
+         */
         close: function (cb) {
             var view = this.currentView;
             delete this.currentView;
@@ -40,7 +47,7 @@ define(['marionette'], function (Marionette) {
             }
 
             var me = this;
-            view.fadeOut(function () {
+            view.animateOut(function () {
                 if (view.close) {
                     view.close();
                 }
@@ -51,13 +58,18 @@ define(['marionette'], function (Marionette) {
             });
         },
 
+        /**
+         * Called when the region is opened
+         *
+         * @param {Backbone.View} view The view that is displayed when the region is opened
+         * @param {function}      cb   A callback function
+         */
         open: function (view, cb) {
             var me = this;
             this.$el.html(view.$el.hide());
-            view.fadeIn(function () {
+            view.animateIn(function () {
                 cb.call(me);
             });
         }
-
     });
 });

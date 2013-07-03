@@ -65,7 +65,7 @@ require([
     'marionette',
     'tickituser/js/models/Session',
     'tickitcore/js/regions/MainRegion',
-    'tickituser/js/regions/LoginRegion',
+    'tickitcore/js/regions/AnimatedRegion',
     'jquery-ui',
     'bootstrap-select',
     'bootstrap-switch',
@@ -74,12 +74,12 @@ require([
     'jquery-placeholder',
     'jquery-tagsinput',
     'text'
-], function(Marionette, Session, MainRegion, LoginRegion) {
+], function(Marionette, Session, MainRegion, AnimatedRegion) {
     var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: new MainRegion,
-        loginRegion: new LoginRegion,
+        loginRegion: new AnimatedRegion({ el: '#container' }),
         navRegion: 'header.main-header',
         footerRegion: '#footer'
     });

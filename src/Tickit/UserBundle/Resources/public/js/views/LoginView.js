@@ -96,14 +96,24 @@ define([
             return this;
         },
 
-        fadeIn: function(cb) {
+        /**
+         * Animates the login view in
+         *
+         * @param {function} cb A callback function
+         */
+        animateIn: function(cb) {
             this.$el.fadeIn();
             if (cb) {
                 cb();
             }
         },
 
-        fadeOut: function(cb) {
+        /**
+         * Animates the login view out
+         *
+         * @param {function} cb A callback function
+         */
+        animateOut: function(cb) {
             this.$el.fadeOut(cb);
         }
     });
