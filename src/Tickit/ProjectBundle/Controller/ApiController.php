@@ -29,7 +29,7 @@ class ApiController extends AbstractCoreController
                          ->findByFilters();
 
         $data = array();
-        $decorator = $this->get('tickit.domain_object_array_decorator');
+        $decorator = $this->getArrayDecorator();
         foreach ($projects as $project) {
             $data[] = $decorator->decorate($project, array('id', 'name', 'created'));
         }
@@ -49,7 +49,7 @@ class ApiController extends AbstractCoreController
                            ->findByFilters();
 
         $data = array();
-        $decorator = $this->get('tickit.domain_object_array_decorator');
+        $decorator = $this->getArrayDecorator();
         /** @var AbstractAttribute $attribute */
         foreach ($attributes as $attribute) {
             $data[] = $decorator->decorate($attribute, array('id', 'type', 'name'));
