@@ -27,12 +27,6 @@ project_delete:
     requirements:
         id: \d+
 
-project_attribute_index:
-    pattern: /attributes/{page}
-    defaults: { _controller: TickitProjectBundle:Attribute:index, page: 1 }
-    requirements:
-        page: \d+
-
 project_attribute_create:
     pattern: /attributes/{type}/create
     defaults: { _controller: TickitProjectBundle:Attribute:create }

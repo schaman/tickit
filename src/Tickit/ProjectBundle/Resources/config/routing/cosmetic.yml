@@ -5,3 +5,11 @@ project_index:
         page: \d+
     options:
         expose: true
+
+project_attribute_index:
+    pattern: /attributes/{page}
+    defaults: { _controller: TickitProjectBundle:Default:default, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true

@@ -3,24 +3,23 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Manager\AttributeManager;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
- * Description
+ * ApiController tests
  *
- * @package Namespace\Class
+ * @package Tickit\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractFunctionalTest
 {
     /**
-     * Tests the indexAction()
-     *
-     * Ensures that the indexAction() displays the correct number of projects
+     * Tests the listAction() method
      *
      * @return void
      */
-    public function testIndexActionDisplaysCorrectNumberOfProjects()
+    public function testListActionDisplaysCorrectNumberOfProjects()
     {
         $client = $this->getAuthenticatedClient(static::$developer);
 
@@ -35,5 +34,26 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertInternalType('array', $response);
 
         $this->assertCount($totalProjects, $response);
+    }
+
+    /**
+     * Tests the listAction() method
+     *
+     * @return void
+     */
+    public function testAttributesListActionDisplaysCorrectNumberOfAttributes()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+
+        $client->request('get', $this->generateRoute('api_project_attribute_list'));
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        /** @var AttributeManager $manager */
+        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
+        $total = count($manager->getRepository()->findAll());
+
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertInternalType('array', $response);
+
+        $this->assertCount($total, $response);
     }
 }
