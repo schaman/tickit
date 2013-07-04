@@ -74,21 +74,6 @@ class AttributeControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the indexAction()
-     *
-     * @return void
-     */
-    public function testIndexActionLayout()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals('Manage Project Attributes', $crawler->filter('h2')->text());
-    }
-
-    /**
      * Tests the createAction()
      *
      * Ensures that a 404 response is thrown for invalid type in URL
@@ -105,25 +90,6 @@ class AttributeControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the indexAction()
-     *
-     * @return void
-     */
-    public function testIndexActionDisplaysCorrectNumberOfAttributes()
-    {
-        $client = $this->getAuthenticatedClient(static::$developer);
-        $router = $client->getContainer()->get('router');
-
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
-        $repository = $manager->getRepository();
-        $total = count($repository->findAll());
-
-        $this->assertEquals($total, $crawler->filter('.data-list table tbody tr')->count());
-    }
-
-    /**
      * Tests the createAction()
      *
      * Makes sure that the creation process works for LiteralAttribute types
@@ -136,9 +102,9 @@ class AttributeControllerTest extends AbstractFunctionalTest
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
+        $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $totalAttributes = $crawler->filter('div.data-list table tbody tr')->count();
+        $totalAttributes = count($attributeRepo->findAll());
 
         $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_LITERAL));
         $crawler = $client->request('get', $createRoute);
@@ -153,13 +119,8 @@ class AttributeControllerTest extends AbstractFunctionalTest
             )
         );
         $client->submit($form);
-        $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count()
-        );
-        $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
+        $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
     }
 
     /**
@@ -171,9 +132,9 @@ class AttributeControllerTest extends AbstractFunctionalTest
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
+        $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $totalAttributes = $crawler->filter('div.data-list table tbody tr')->count();
+        $totalAttributes = count($attributeRepo->findAll());
 
         $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_ENTITY));
         $crawler = $client->request('get', $createRoute);
@@ -188,13 +149,8 @@ class AttributeControllerTest extends AbstractFunctionalTest
             )
         );
         $client->submit($form);
-        $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count()
-        );
-        $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
+        $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
     }
 
     /**
@@ -209,8 +165,9 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $totalAttributes = $crawler->filter('div.data-list table tbody tr')->count();
+        $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
+
+        $totalAttributes = count($attributeRepo->findAll());
 
         $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_CHOICE));
         $crawler = $client->request('get', $createRoute);
@@ -228,13 +185,8 @@ class AttributeControllerTest extends AbstractFunctionalTest
         );
         $values = $form->getPhpValues();
         $client->request($form->getMethod(), $form->getUri(), $values);
-        $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The attribute has been created successfully")')->count()
-        );
-        $this->assertEquals($totalAttributes + 1, $crawler->filter('div.data-list table tbody tr')->count());
+        $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
     }
 
     /**
@@ -474,6 +426,8 @@ class AttributeControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionDeletesAttribute()
     {
+        $this->markTestSkipped('Needs refactoring to new api format');
+
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
@@ -497,6 +451,8 @@ class AttributeControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionReturns404ForInvalidToken()
     {
+        $this->markTestSkipped('Needs refactoring to new api format');
+
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
 
