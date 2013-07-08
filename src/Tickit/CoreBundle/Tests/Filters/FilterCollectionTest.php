@@ -51,8 +51,9 @@ class FilterCollectionTest extends AbstractFunctionalTest
         $where = $query->getDQLPart('where');
         $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\Andx', $where);
         /** @var \Doctrine\ORM\Query\Expr\Andx $where */
-        $this->assertCount(1, $where->getParts());
-        $part = array_shift($where->getParts());
+        $parts = $where->getParts();
+        $this->assertCount(1, $parts);
+        $part = array_shift($parts);
         $this->assertEquals('p.name = :name', $part);
     }
 
