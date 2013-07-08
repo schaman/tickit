@@ -56,7 +56,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         $data = array(
             'success' => true,
             'userId' => $token->getUser()->getId(),
-            'sessionId' => session_id(),
+            'sessionId' => $request->getSession()->getId(),
             'url' => $targetPath
         );
 
