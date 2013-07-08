@@ -2,7 +2,6 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
