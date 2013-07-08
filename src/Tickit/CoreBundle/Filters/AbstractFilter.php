@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\CoreBundle\Filters;
+
 use Doctrine\ORM\QueryBuilder;
 
 /**
