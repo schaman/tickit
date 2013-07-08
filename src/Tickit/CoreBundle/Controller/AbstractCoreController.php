@@ -4,6 +4,7 @@ namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator;
 use Tickit\UserBundle\Manager\UserManager;
 use Tickit\UserBundle\Entity\User;
 use Tickit\CacheBundle\Cache\CacheFactory;
@@ -51,6 +52,16 @@ abstract class AbstractCoreController extends Controller
     protected function getCacheFactory()
     {
         return $this->get('tickit_cache.factory');
+    }
+
+    /**
+     * Gets an array decorator
+     *
+     * @return DomainObjectArrayDecorator
+     */
+    protected function getArrayDecorator()
+    {
+        return $this->get('tickit.domain_object_array_decorator');
     }
 
     /**

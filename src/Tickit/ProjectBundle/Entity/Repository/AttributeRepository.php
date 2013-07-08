@@ -3,6 +3,8 @@
 namespace Tickit\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
 /**
  * Attribute entity repository.
@@ -12,28 +14,23 @@ use Doctrine\ORM\EntityRepository;
  * @package Tickit\ProjectBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttributeRepository extends EntityRepository
+class AttributeRepository extends EntityRepository implements FilterableRepositoryInterface
 {
     /**
-     * Returns a collection of project attributes that match the given filters
+     * Finds results based off a set of filters.
      *
-     * @param array $filters An array of filters
+     * @param FilterCollection $filters The filter collection
      *
      * @return mixed
      */
-    public function findByFilters(array $filters = array())
+    public function findByFilters(FilterCollection $filters)
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
                       ->select('a')
                       ->from('TickitProjectBundle:AbstractAttribute', 'a');
 
-        foreach ($filters as $column => $value) {
-            if (is_string($value)) {
-                $query->where(sprintf('%s LIKE :%s', $column, $column));
-                $query->setParameter($column, $value);
-            }
-        }
+        $filters->applyToQuery($query);
 
         return $query->getQuery()->execute();
     }

@@ -3,6 +3,8 @@
 namespace Tickit\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
 /**
  * Project entity repository.
@@ -11,28 +13,23 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectRepository extends EntityRepository
+class ProjectRepository extends EntityRepository implements FilterableRepositoryInterface
 {
     /**
-     * Returns a collection of projects that match the given criteria
+     * Finds results based off a set of filters.
      *
-     * @param array $filters An array of filters used to filter the result
+     * @param FilterCollection $filters The filter collection
      *
      * @return mixed
      */
-    public function findByFilters(array $filters = array())
+    public function findByFilters(FilterCollection $filters)
     {
         $projectsQ = $this->getEntityManager()
                       ->createQueryBuilder()
                       ->select('p')
                       ->from('TickitProjectBundle:Project', 'p');
 
-        foreach ($filters as $column => $value) {
-            if (is_string($value)) {
-                $projectsQ->where(sprintf('%s LIKE :%s', $column, $column));
-                $projectsQ->setParameter($column, $value);
-            }
-        }
+        $filters->applyToQuery($projectsQ);
 
         return $projectsQ->getQuery()->execute();
     }

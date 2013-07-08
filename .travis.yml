@@ -16,15 +16,14 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar --dev install
 
-  - npm install bower
-  - bower install
-
   # set up test environment #
   - php app/console tickit:tests:setup --env test
 
 script:
+  - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice --extensions=php
+  - npm install bower
+  - bower install
   - phpunit -c app/phpunit.xml
-  - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice
 
 after_script:
   - ls -la build/logs #debug coveralls
