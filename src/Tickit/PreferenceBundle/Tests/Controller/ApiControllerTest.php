@@ -3,6 +3,7 @@
 namespace Tickit\PreferenceBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\PreferenceBundle\Manager\PreferenceManager;
 
 /**
  * ApiController tests
@@ -19,6 +20,16 @@ class ApiControllerTest extends AbstractFunctionalTest
      */
     public function testListActionDisplaysCorrectNumberOfPreferences()
     {
-        // todo
+        $client = $this->getAuthenticatedClient(static::$developer);
+
+        $client->request('get', $this->generateRoute('api_preference_list'));
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $preferenceManager = $client->getContainer()->get('tickit_preference.manager');
+        $repository = $preferenceManager->getRepository();
+        $total = count($repository->findAll());
+
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertInternalType('array', $response);
+        $this->assertCount($total, $response);
     }
 }

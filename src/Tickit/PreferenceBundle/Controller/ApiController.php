@@ -35,5 +35,7 @@ class ApiController extends AbstractCoreController
         foreach ($preferences as $preference) {
             $data[] = $decorator->decorate($preference, array('id', 'name', 'systemName', 'type'));
         }
+
+        return new JsonResponse($data);
     }
 }
