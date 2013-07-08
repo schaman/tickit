@@ -49,8 +49,9 @@ class OrderByFilterTest extends AbstractFunctionalTest
         $order = array_shift($allOrderBy);
         $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\OrderBy', $order);
         /** @var \Doctrine\ORM\Query\Expr\OrderBy $part */
-        $this->assertCount(1, $order->getParts());
-        $part = array_shift($order->getParts());
+        $parts = $order->getParts();
+        $this->assertCount(1, $parts);
+        $part = array_shift($parts);
         $this->assertEquals('p.name ASC', $part);
     }
 
@@ -74,8 +75,9 @@ class OrderByFilterTest extends AbstractFunctionalTest
         $order = array_shift($allOrderBy);
         $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\OrderBy', $order);
         /** @var \Doctrine\ORM\Query\Expr\OrderBy $part */
-        $this->assertCount(1, $order->getParts());
-        $part = array_shift($order->getParts());
+        $parts = $order->getParts();
+        $this->assertCount(1, $parts);
+        $part = array_shift($parts);
         $this->assertEquals('p.name DESC', $part);
     }
 

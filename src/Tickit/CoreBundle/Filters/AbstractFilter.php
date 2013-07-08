@@ -80,7 +80,8 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
      */
     protected function filterKeyIsValidOnQuery(QueryBuilder $query, $key)
     {
-        $entity = array_shift($query->getRootEntities());
+        $entities = $query->getRootEntities();
+        $entity = array_shift($entities);
 
         if (empty($entity)) {
             return false;
