@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Listener;
 
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\NavigationBundle\Model\NavigationItem;
 use Tickit\ProjectBundle\Listener\NavigationBuilder;
 
 /**
@@ -26,6 +27,10 @@ class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->onBuild($event);
 
         $this->assertEquals(1, $event->getItems()->count());
+        $first = $event->getItems()->top();
+        $this->assertInstanceOf('\Tickit\NavigationBundle\Model\NavigationItem', $first);
+        /** @var NavigationItem $first */
+        $this->assertEquals('Projects', $first->getText());
     }
 
     /**
