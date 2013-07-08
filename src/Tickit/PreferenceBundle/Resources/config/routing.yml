@@ -1,3 +1,4 @@
-preference_index:
-  pattern: /
-  defaults: { _controller: TickitPreferenceBundle:Preference:index }
+api:
+    resource: "@TickitPreferenceBundle/Resources/config/routing/api.yml"
+    prefix: /api/preferences
+

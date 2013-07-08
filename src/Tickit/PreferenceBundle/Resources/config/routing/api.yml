@@ -1,0 +1,7 @@
+api_preference_list:
+    pattern: /list/{page}
+    defaults: { _controller: TickitPreferenceBundle:Api:list, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true
