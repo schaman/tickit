@@ -1,4 +1,3 @@
-# UserBundle Routes
 users:
     resource: "@TickitUserBundle/Resources/config/routing.yml"
 
@@ -7,6 +6,9 @@ navigation:
 
 projects:
     resource: "@TickitProjectBundle/Resources/config/routing.yml"
+
+preferences:
+    resource: "@TickitPreferenceBundle/Resources/config/routing.yml"
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
@@ -17,11 +19,6 @@ fos_js_routing:
 teams:
   resource: "@TickitTeamBundle/Resources/config/routing.yml"
   prefix: /teams
-
-# PreferenceBundle Routes
-preferences:
-  resource: "@TickitPreferenceBundle/Resources/config/routing.yml"
-  prefix: /preferences
 
 # PermissionBundle Routes
 permissions:
