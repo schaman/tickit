@@ -25,4 +25,14 @@ class TemplateControllerTest extends AbstractFunctionalTest
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertGreaterThan(0, $crawler->filter('input')->count());
     }
+
+    /**
+     * Tests the editProjectFormAction() method
+     *
+     * @return void
+     */
+    public function testEditProjectFormActionServesCorrectMarkup()
+    {
+        // todo
+    }
 }

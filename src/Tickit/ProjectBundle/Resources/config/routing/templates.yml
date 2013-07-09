@@ -1,3 +1,13 @@
 project_create_form:
     pattern: /create
     defaults: { _controller: TickitProjectBundle:Template:createProjectForm }
+    options:
+        expose: true
+
+project_edit_form:
+    pattern: /edit/{id}
+    defaults: { _controller: TickitProjectBundle:Template:editProjectForm }
+    requirements:
+        id: \d+
+    options:
+        expose: true

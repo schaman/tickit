@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\ProjectBundle\Entity\Project;
@@ -32,5 +33,23 @@ class TemplateController extends Controller
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
 
         return $this->render('TickitProjectBundle:Project:create.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * Edit project form action.
+     *
+     * Serves a template for the project edit form.
+     *
+     * @param Project $project The project that is being edited
+     *
+     * @ParamConverter("project", class="TickitProjectBundle:Project")
+     *
+     * @return Response
+     */
+    public function editProjectFormAction(Project $project)
+    {
+        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
+
+        return $this->render('TickitProjectBundle:Project:edit.html.twig', array('form' => $form->createView()));
     }
 }
