@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Entity\Project;
 
 /**
  * TemplateController tests
@@ -12,6 +13,28 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  */
 class TemplateControllerTest extends AbstractFunctionalTest
 {
+    /**
+     * Sample project entity
+     *
+     * @var Project
+     */
+    protected static $project;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        $doctrine = static::createClient()->getContainer()->get('doctrine');
+
+        static::$project = $doctrine->getRepository('TickitProjectBundle:Project')
+                                    ->findOneByName('Test Project 1');
+    }
+
     /**
      * Tests the createProjectFormAction() method
      *
@@ -33,6 +56,11 @@ class TemplateControllerTest extends AbstractFunctionalTest
      */
     public function testEditProjectFormActionServesCorrectMarkup()
     {
-        // todo
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute('project_edit_form', array('id' => static::$project->getId()));
+        $crawler = $client->request('get', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(0, $crawler->filter('input')->count());
     }
 }
