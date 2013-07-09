@@ -26,8 +26,9 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $router = $client->getContainer()->get('router');
 
         $client->request('get', $router->generate('project_index'));
-
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
+
+        $client->followRedirect();
         $this->assertContains('/login', $client->getRequest()->getUri());
     }
 
