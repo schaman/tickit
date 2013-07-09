@@ -5,6 +5,8 @@ namespace Tickit\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\Project;
 
 /**
@@ -51,5 +53,35 @@ class TemplateController extends Controller
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
 
         return $this->render('TickitProjectBundle:Project:edit.html.twig', array('form' => $form->createView()));
+    }
+
+    /**
+     * Create project attribute form action.
+     *
+     * Serves a template for the project attribute form.
+     *
+     * @param string $type The type of the attribute to add
+     *
+     * @throws NotFoundHttpException If the attribute type is invalid
+     *
+     * @return Response
+     */
+    public function createProjectAttributeFormAction($type)
+    {
+        try {
+            $attribute = AbstractAttribute::factory($type);
+        } catch (\InvalidArgumentException $e) {
+            throw $this->createNotFoundException('An invalid attribute type was specified');
+        }
+
+        $formType = $this->get('tickit_project.attribute_form_type_guesser')
+                         ->guessByAttributeType($attribute->getType());
+
+        $form = $this->createForm($formType, $attribute);
+
+        return $this->render(
+            'TickitProjectBundle:Attribute:create.html.twig',
+            array('form' => $form->createView(), 'type' => $type)
+        );
     }
 }
