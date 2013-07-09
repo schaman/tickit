@@ -1,6 +1,6 @@
-{% extends 'TickitProjectBundle::layout.html.twig' %}
+{% extends '::no-content.html.twig' %}
 
-{% block project_content %}
+{% block content %}
     <h2>Edit Project</h2>
 
     {% if app.session.flashbag.has('notice') %}
