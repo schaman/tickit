@@ -31,13 +31,13 @@ class ProjectController extends AbstractCoreController
      */
     public function createAction()
     {
+        $responseData = array('success' => false);
         $project = new Project();
-        $formType = $this->get('tickit_project.form.project');
 
         $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
         $project->setAttributes($attributes);
 
-        $form = $this->createForm($formType, $project);
+        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
 
         if ('POST' == $this->getRequest()->getMethod()) {
             $form->submit($this->getRequest());
@@ -52,13 +52,14 @@ class ProjectController extends AbstractCoreController
                 $flash = $this->get('tickit.flash_messages');
                 $flash->addEntityCreatedMessage('project');
 
-                $route = $this->generateUrl('project_index');
-
-                return $this->redirect($route);
+                $responseData['success'] = true;
+                $responseData['returnUrl'] = $this->generateUrl('project_index');
+            } else {
+                $responseData['form'] = $this->render('TickitProjectBundle:Project:create.html.twig')->getContent();
             }
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 
     /**
