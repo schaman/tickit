@@ -9,7 +9,8 @@ use Tickit\ProjectBundle\Entity\Project;
  * TemplateController tests
  *
  * @package Tickit\ProjectBundle\Tests\Controller
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class TemplateControllerTest extends AbstractFunctionalTest
 {
@@ -47,6 +48,9 @@ class TemplateControllerTest extends AbstractFunctionalTest
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertGreaterThan(0, $crawler->filter('input')->count());
+
+        $formActionRoute = $this->generateRoute('project_create');
+        $this->assertEquals($formActionRoute, $crawler->filter('form')->attr('action'));
     }
 
     /**
@@ -62,5 +66,8 @@ class TemplateControllerTest extends AbstractFunctionalTest
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertGreaterThan(0, $crawler->filter('input')->count());
+
+        $formActionRoute = $this->generateRoute('project_edit', array('id' => static::$project->getId()));
+        $this->assertEquals($formActionRoute, $crawler->filter('form')->attr('action'));
     }
 }

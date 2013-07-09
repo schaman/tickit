@@ -1,6 +1,6 @@
-{% extends 'TickitProjectBundle::layout.html.twig' %}
+{% extends '::no-content.html.twig' %}
 
-{% block project_content %}
+{% block content %}
     <h2>Edit Project</h2>
 
     {% if app.session.flashbag.has('notice') %}
@@ -19,7 +19,7 @@
         </div>
     {% endif %}
 
-    <form method='post' {{ form_enctype(form) }}>
+    <form method='post' action='{{ path('project_edit', { 'id': form.vars.value.id }) }}' {{ form_enctype(form) }}>
         {{ form_errors(form) }}
         {{ form_row(form.name) }}
 

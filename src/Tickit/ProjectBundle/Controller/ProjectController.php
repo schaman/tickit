@@ -2,6 +2,8 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -37,19 +39,17 @@ class ProjectController extends AbstractCoreController
 
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
 
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
+        $form->submit($this->getRequest());
 
-            if ($form->isValid()) {
-                $project = $form->getData();
-                $manager = $this->get('tickit_project.manager');
-                $manager->create($project);
+        if ($form->isValid()) {
+            $project = $form->getData();
+            $manager = $this->get('tickit_project.manager');
+            $manager->create($project);
 
-                $responseData['success'] = true;
-                $responseData['returnUrl'] = $this->generateUrl('project_index');
-            } else {
-                $responseData['errors'] = $form->getErrors();
-            }
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $this->generateUrl('project_index');
+        } else {
+            $responseData['errors'] = $form->getErrors();
         }
 
         return new JsonResponse($responseData);
@@ -58,42 +58,46 @@ class ProjectController extends AbstractCoreController
     /**
      * Loads the edit project page
      *
-     * @param integer $id The ID of the project to edit
+     * @param Project $project The ID of the project to edit
      *
      * @Template("TickitProjectBundle:Project:edit.html.twig")
      *
      * @throws NotFoundHttpException If no project was found for the given ID
      *
+     * @ParamConverter("project", class="TickitProjectBundle:Project")
+     *
      * @return array
      */
-    public function editAction($id)
+    public function editAction($project)
     {
-        /** @var ProjectManager $manager */
-        $manager = $this->get('tickit_project.manager');
-        $repo = $manager->getRepository();
-
-        $project = $repo->find($id);
-
-        if (empty($project)) {
-            throw $this->createNotFoundException('Project not found');
-        }
+        $responseData = array('success' => false, 'errors' => array());
 
         $formType = $this->get('tickit_project.form.project');
         $form = $this->createForm($formType, $project);
 
-        if ('POST' === $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
+        $form->submit($this->getRequest());
 
-            if ($form->isValid()) {
-                $project = $form->getData();
-                $manager->update($project);
+        if ($form->isValid()) {
+            $project = $form->getData();
 
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityUpdatedMessage('project');
-            }
+            $manager = $this->get('tickit_project.manager');
+            $manager->update($project);
+
+            $flash = $this->get('tickit.flash_messages');
+            $flash->addEntityUpdatedMessage('project');
+
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $this->generateUrl('project_index');
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitProjectBundle:Project:edit.html.twig',
+                array(
+                    'form' => $form->createView()
+                )
+            )->getContent();
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 
     /**

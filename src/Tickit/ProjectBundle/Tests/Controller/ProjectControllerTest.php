@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 use Tickit\UserBundle\Entity\User;
 
@@ -15,6 +16,28 @@ use Tickit\UserBundle\Entity\User;
  */
 class ProjectControllerTest extends AbstractFunctionalTest
 {
+    /**
+     * Sample project entity
+     *
+     * @var Project
+     */
+    protected static $project;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        $doctrine = static::createClient()->getContainer()->get('doctrine');
+
+        static::$project = $doctrine->getRepository('TickitProjectBundle:Project')
+            ->findOneByName('Test Project 1');
+    }
+
     /**
      * Makes sure project actions are not publicly accessible
      *
@@ -92,23 +115,32 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionUpdatesProject()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
 
-        $crawler = $client->request('get', '/projects');
-        $currentProjectName = $crawler->filter('div.data-list tbody tr td')->eq(1)->text();
-        $link = $crawler->filter('div.data-list a:contains("Edit")')->first()->link();
-        $crawler = $client->click($link);
+        $oldProjectName = static::$project->getName();
+        $newProjectName = $oldProjectName . ' ' . __FUNCTION__;
 
-        $newProjectName = strrev($currentProjectName);
-        $form = $crawler->selectButton('Save Changes')->form();
-        $crawler = $client->submit($form, array('tickit_project[name]' => $newProjectName));
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The project has been updated successfully")')->count()
+        // fetch form (just to get the CSRF token)
+        $crawler = $client->request('get', $this->generateRoute('project_edit_form', array('id' => static::$project->getId())));
+
+        $form = $crawler->selectButton('Save Changes')->form(
+            array(
+                'tickit_project[name]' => $newProjectName
+            )
         );
-        $this->assertEquals($newProjectName, $crawler->filter('input[name="tickit_project[name]"]')->attr('value'));
+        $client->submit($form);
+
+        $jsonResponse = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($jsonResponse->success);
+
+        $doctrine = $this->createClient()->getContainer()->get('doctrine');
+        $project  = $doctrine->getRepository('TickitProjectBundle:Project')->find(static::$project->getId());
+
+        $this->assertEquals($newProjectName, $project->getName());
+
+        // revert back to old project name for other tests to still pass
+        $project->setName($oldProjectName);
+        $doctrine->getManager()->flush();
     }
 
     /**
