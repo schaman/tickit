@@ -278,45 +278,6 @@ class AttributeControllerTest extends AbstractFunctionalTest
     /**
      * Tests the editAction()
      *
-     * Ensures that a 404 response is returned for an invalid attribute ID
-     */
-    public function testEditActionThrows404ForInvalidAttributeId()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-
-        $editRoute = $router->generate(
-            'project_attribute_edit',
-            array('id' => 99999999, 'type' => AbstractAttribute::TYPE_LITERAL)
-        );
-        $client->request('get', $editRoute);
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * Tests the editAction()
-     *
-     * Ensures that a 404 response is returned for an invalid type
-     */
-    public function testEditActionThrows404ForInvalidAttributeType()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
-        $attribute = clone static::$literalAttribute;
-        $manager->create($attribute);
-
-        $editRoute = $router->generate(
-            'project_attribute_edit',
-            array('type' => 'aaaaaa', 'id' => $attribute->getId())
-        );
-        $client->request('get', $editRoute);
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * Tests the editAction()
-     *
      * Ensures that the editAction() updates literal attribute with valid details
      *
      * @return void
