@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
@@ -65,10 +66,9 @@ class AttributeController extends AbstractCoreController
     /**
      * Edit attribute action.
      *
-     * Displays relevant form for editing an existing attribute.
+     * Handles a request to update an attribute.
      *
-     * @param string  $type The attribute type being edited
-     * @param integer $id   The ID of the attribute being edited
+     * @param AbstractAttribute $attribute The attribute that is being edited
      *
      * @Template("TickitProjectBundle:Attribute:edit.html.twig")
      *
@@ -76,35 +76,32 @@ class AttributeController extends AbstractCoreController
      *
      * @return array
      */
-    public function editAction($type, $id)
+    public function editAction(AbstractAttribute $attribute)
     {
-        $manager = $this->get('tickit_project.attribute_manager');
-        $repo = $manager->getRepository();
+        $responseData = array('success' => false);
 
-        $attribute = $repo->find($id);
+        $formType = $this->get('tickit_project.attribute_form_type_guesser')
+                         ->guessByAttributeType($attribute->getType());
 
-        if (empty($attribute)) {
-            throw $this->createNotFoundException('Attribute not found');
-        }
-
-        if ($attribute->getType() !== $type) {
-            throw $this->createNotFoundException('An invalid attribute type was specified');
-        }
-
-        $formType = $this->getFormTypeForAttributeType($type);
         $form = $this->createForm($formType, $attribute);
+        $form->submit($this->getRequest());
+        if ($form->isValid()) {
+            $this->get('tickit_project.attribute_manager')
+                 ->update($attribute);
 
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
-            if ($form->isValid()) {
-                $manager->update($attribute);
-
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityUpdatedMessage('attribute');
-            }
+            $flash = $this->get('tickit.flash_messages');
+            $flash->addEntityUpdatedMessage('attribute');
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitProject:Attribute:edit.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'type' => $attribute->getType()
+                )
+            )->getContent();
         }
 
-        return array('attributeName' => $attribute->getName(), 'type' => $type, 'form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 
     /**
