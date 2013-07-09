@@ -77,6 +77,21 @@ class TemplateControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
+    public function testCreateProjectAttributeFormActionThrowsExceptionForInvalidType()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute('project_attribute_create', array('type' => 'invalid'));
+
+        $client->request('get', $route);
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the createProjectAttributeFormAction() method
+     *
+     * @return void
+     */
     public function testCreateProjectAttributeFormActionServesCorrectMarkup()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
