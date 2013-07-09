@@ -64,22 +64,47 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testCreateActionCreatesProject()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
-        $repo = $client->getContainer()->get('doctrine')->getRepository('TickitProjectBundle:Project');
-        $totalProjects = $repo->findAll();
 
-        $crawler = $client->request('get', $this->generateRoute(''));
+        // fetch form (just to get the CSRF token)
+        $crawler = $client->request('get', $this->generateRoute('project_create_form'));
+
+        $projectName = __FUNCTION__ . time();
+
+        $attribute0 = $crawler->filter('select[name="tickit_project[attributes][0][value]"] option:first-child')
+                              ->attr('value');
+
+        $attribute1 = array(
+            'month' => $crawler->filter('select[name="tickit_project[attributes][1][value][month]"] option:first-child')
+                               ->attr('value'),
+            'day'   => $crawler->filter('select[name="tickit_project[attributes][1][value][day]"] option:first-child')
+                               ->attr('value'),
+            'year'  => $crawler->filter('select[name="tickit_project[attributes][1][value][year]"] option:first-child')
+                               ->attr('value')
+        );
+
+        $attribute2 = $crawler->filter('input[name^="tickit_project[attributes][2][value]"]:first-child')
+                              ->attr('value');
+
         $form = $crawler->selectButton('Save Project')->form(
             array(
-                'tickit_project[name]' => 'Valid Project Name'
+                'tickit_project[name]' => $projectName,
+                'tickit_project[attributes][0][value]' => $attribute0,
+                'tickit_project[attributes][1][value][month]' => $attribute1['month'],
+                'tickit_project[attributes][1][value][day]' => $attribute1['day'],
+                'tickit_project[attributes][1][value][year]' => $attribute1['year'],
+                'tickit_project[attributes][2][value]' => array($attribute2),
             )
         );
         $client->submit($form);
-        $client->followRedirect();
 
-        $this->assertEquals(++$totalProjects, $repo->findAll());
+        $jsonResponse = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($jsonResponse->success);
+
+        $doctrine = $this->createClient()->getContainer()->get('doctrine');
+        $project  = $doctrine->getRepository('TickitProjectBundle:Project')->findOneByName($projectName);
+
+        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\Project', $project);
     }
 
     /**
