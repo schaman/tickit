@@ -2,15 +2,12 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
-use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Form\Type\ProjectFormType;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
@@ -24,13 +21,15 @@ use Tickit\ProjectBundle\Manager\ProjectManager;
 class ProjectController extends AbstractCoreController
 {
     /**
-     * Loads the create project page
+     * Create action.
      *
-     * @return Response
+     * Serves a JsonResponse containing the form markup template
+     *
+     * @return JsonResponse
      */
     public function createAction()
     {
-        $responseData = array('success' => false);
+        $responseData = array('success' => false, 'errors' => array());
         $project = new Project();
 
         $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
@@ -43,18 +42,13 @@ class ProjectController extends AbstractCoreController
 
             if ($form->isValid()) {
                 $project = $form->getData();
-
-                /** @var ProjectManager $manager  */
                 $manager = $this->get('tickit_project.manager');
                 $manager->create($project);
-
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityCreatedMessage('project');
 
                 $responseData['success'] = true;
                 $responseData['returnUrl'] = $this->generateUrl('project_index');
             } else {
-                $responseData['form'] = $this->render('TickitProjectBundle:Project:create.html.twig')->getContent();
+                $responseData['errors'] = $form->getErrors();
             }
         }
 

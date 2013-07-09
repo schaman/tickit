@@ -1,0 +1,3 @@
+project_create_form:
+    pattern: /create
+    defaults: { _controller: TickitProjectBundle:Template:createProjectForm }
