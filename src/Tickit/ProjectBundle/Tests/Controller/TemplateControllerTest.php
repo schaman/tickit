@@ -23,5 +23,6 @@ class TemplateControllerTest extends AbstractFunctionalTest
         $crawler = $client->request('get', $this->generateRoute('project_create_form'));
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(0, $crawler->filter('input')->count());
     }
 }
