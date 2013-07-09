@@ -5,6 +5,7 @@ namespace Tickit\ProjectBundle\Controller;
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -25,9 +26,7 @@ class ProjectController extends AbstractCoreController
     /**
      * Loads the create project page
      *
-     * @Template("TickitProjectBundle:Project:create.html.twig")
-     *
-     * @return array|RedirectResponse
+     * @return Response
      */
     public function createAction()
     {
