@@ -13,10 +13,12 @@ project_edit_form:
         expose: true
 
 project_attribute_create_form:
-    pattern: /attribute/create
+    pattern: /attribute/create/{type}
     defaults: { _controller: TickitProjectBundle:Template:createProjectAttributeForm }
     options:
         expose: true
+    requirements:
+        type: \w{6,7}
 
 project_attribute_edit_form:
     pattern: /attribute/edit/{id}
