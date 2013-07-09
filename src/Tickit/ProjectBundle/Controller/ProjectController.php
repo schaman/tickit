@@ -39,19 +39,17 @@ class ProjectController extends AbstractCoreController
 
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
 
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
+        $form->submit($this->getRequest());
 
-            if ($form->isValid()) {
-                $project = $form->getData();
-                $manager = $this->get('tickit_project.manager');
-                $manager->create($project);
+        if ($form->isValid()) {
+            $project = $form->getData();
+            $manager = $this->get('tickit_project.manager');
+            $manager->create($project);
 
-                $responseData['success'] = true;
-                $responseData['returnUrl'] = $this->generateUrl('project_index');
-            } else {
-                $responseData['errors'] = $form->getErrors();
-            }
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $this->generateUrl('project_index');
+        } else {
+            $responseData['errors'] = $form->getErrors();
         }
 
         return new JsonResponse($responseData);
