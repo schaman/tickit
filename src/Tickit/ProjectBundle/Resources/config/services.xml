@@ -10,6 +10,10 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
+        <service id="tickit_project.attribute_form_type_guesser" class="Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser">
+            <argument type="service" id="service_container" />
+        </service>
+
     </services>
 
 </container>
