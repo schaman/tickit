@@ -1,7 +1,7 @@
 {% extends '::no-content.html.twig' %}
 
 {% block content %}
-    <h2>Edit {{ type|title }} Attribute "{{ attributeName }}"</h2>
+    <h2>Edit {{ type|title }} Attribute "{{ form.vars.value.name }}"</h2>
 
     {% if app.session.flashbag.has('notice') %}
         <div class="flash-notice">

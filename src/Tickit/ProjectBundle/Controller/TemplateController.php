@@ -103,7 +103,7 @@ class TemplateController extends Controller
 
         return $this->render(
             'TickitProjectBundle:Attribute:edit.html.twig',
-            array('form' => $form->createView(), 'type' => $attribute->getType(), 'attributeName' => $attribute->getName())
+            array('form' => $form->createView(), 'type' => $attribute->getType())
         );
     }
 }
