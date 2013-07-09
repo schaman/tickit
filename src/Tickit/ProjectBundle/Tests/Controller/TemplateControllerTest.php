@@ -23,6 +23,13 @@ class TemplateControllerTest extends AbstractFunctionalTest
     protected static $project;
 
     /**
+     * Sample attribute entity
+     *
+     * @var AbstractAttribute
+     */
+    protected static $attribute;
+
+    /**
      * {@inheritDoc}
      *
      * @return void
@@ -35,6 +42,9 @@ class TemplateControllerTest extends AbstractFunctionalTest
 
         static::$project = $doctrine->getRepository('TickitProjectBundle:Project')
                                     ->findOneByName('Test Project 1');
+
+        static::$attribute = $doctrine->getRepository('TickitProjectBundle:LiteralAttribute')
+                                      ->findOneByName('Due Date');
     }
 
     /**
@@ -104,6 +114,24 @@ class TemplateControllerTest extends AbstractFunctionalTest
             'project_attribute_create',
             array('type' => AbstractAttribute::TYPE_LITERAL)
         );
+        $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
+    }
+
+    /**
+     * Tests the editProjectAttributeFormAction() method
+     *
+     * @return void
+     */
+    public function testEditProjectAttributeFormActionServesCorrectMarkup()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute('project_attribute_edit_form', array('id' => static::$attribute->getId()));
+        $crawler = $client->request('get', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(0, $crawler->filter('input')->count());
+        $expectedRoute = $this->generateRoute('project_attribute_edit', array('id' => static::$attribute->getId()));
+
         $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
     }
 }

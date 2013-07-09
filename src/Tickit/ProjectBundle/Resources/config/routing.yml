@@ -37,10 +37,9 @@ project_attribute_create:
         type: \w{6,7}
 
 project_attribute_edit:
-    pattern: /project/attributes/{type}/edit/{id}
+    pattern: /project/attributes/edit/{id}
     defaults: { _controller: TickitProjectBundle:Attribute:edit }
     requirements:
-        type: \w{6,7}
         id: \d+
 
 project_attribute_delete:

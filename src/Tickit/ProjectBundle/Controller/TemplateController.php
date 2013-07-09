@@ -84,4 +84,26 @@ class TemplateController extends Controller
             array('form' => $form->createView(), 'type' => $type)
         );
     }
+
+    /**
+     * Edit project attribute form action.
+     *
+     * Serves a template for the edit project attribute form.
+     *
+     * @param AbstractAttribute $attribute The attribute to serve the edit form for
+     *
+     * @ParamConverter("attribute", class="TickitProjectBundle:AbstractAttribute")
+     */
+    public function editProjectAttributeFormAction(AbstractAttribute $attribute)
+    {
+        $formType = $this->get('tickit_project.attribute_form_type_guesser')
+                         ->guessByAttributeType($attribute->getType());
+
+        $form = $this->createForm($formType, $attribute);
+
+        return $this->render(
+            'TickitProjectBundle:Attribute:edit.html.twig',
+            array('form' => $form->createView(), 'type' => $attribute->getType(), 'attributeName' => $attribute->getName())
+        );
+    }
 }
