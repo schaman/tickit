@@ -22,16 +22,13 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testProjectActionsAreBehindFirewall()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = static::createClient();
         $router = $client->getContainer()->get('router');
 
         $client->request('get', $router->generate('project_index'));
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $crawler = $client->followRedirect();
-        $this->assertEquals('Login', $crawler->filter('h2')->text(), '<h2> contains correct content');
+        $this->assertContains('/login', $client->getRequest()->getUri());
     }
 
     /**
