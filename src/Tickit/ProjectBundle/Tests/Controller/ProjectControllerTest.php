@@ -39,28 +39,24 @@ class ProjectControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testAddActionCreatesProject()
+    public function testCreateActionCreatesProject()
     {
         $this->markTestSkipped('Needs refactoring to new API format');
 
         $client = $this->getAuthenticatedClient(static::$admin);
+        $repo = $client->getContainer()->get('doctrine')->getRepository('TickitProjectBundle:Project');
+        $totalProjects = $repo->findAll();
 
-        $crawler = $client->request('get', '/projects');
-        $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
-
-        $crawler = $client->request('get', '/projects/create');
+        $crawler = $client->request('get', $this->generateRoute(''));
         $form = $crawler->selectButton('Save Project')->form(
             array(
                 'tickit_project[name]' => 'Valid Project Name'
             )
         );
         $client->submit($form);
-        $crawler = $client->followRedirect();
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The project has been created successfully")')->count()
-        );
-        $this->assertEquals($totalProjects + 1, $crawler->filter('div.data-list table tbody tr')->count());
+        $client->followRedirect();
+
+        $this->assertEquals(++$totalProjects, $repo->findAll());
     }
 
     /**
@@ -147,10 +143,6 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $client->click($link);
 
         $crawler = $client->followRedirect();
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The project has been successfully deleted")')->count()
-        );
         $this->assertEquals(--$totalProjects, $crawler->filter('div.data-list table tbody tr')->count());
     }
 
