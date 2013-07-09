@@ -12,36 +12,39 @@ templates:
 ###################################
 
 project_create:
-    pattern: /create
+    pattern: /project/create
     defaults: { _controller: TickitProjectBundle:Project:create }
+    requirements:
+        _method: post
 
 project_edit:
-    pattern: /edit/{id}
+    pattern: /project/edit/{id}
     defaults: { _controller: TickitProjectBundle:Project:edit }
     requirements:
         id: \d+
+        _method: post
 
 project_delete:
-    pattern: /delete/{id}
+    pattern: /project/delete/{id}
     defaults: { _controller: TickitProjectBundle:Project:delete }
     requirements:
         id: \d+
 
 project_attribute_create:
-    pattern: /attributes/{type}/create
+    pattern: /project/attributes/{type}/create
     defaults: { _controller: TickitProjectBundle:Attribute:create }
     requirements:
         type: \w{6,7}
 
 project_attribute_edit:
-    pattern: /attributes/{type}/edit/{id}
+    pattern: /project/attributes/{type}/edit/{id}
     defaults: { _controller: TickitProjectBundle:Attribute:edit }
     requirements:
         type: \w{6,7}
         id: \d+
 
 project_attribute_delete:
-    pattern: /attributes/delete/{id}
+    pattern: /project/attributes/delete/{id}
     defaults: { _controller: TickitProjectBundle:Attribute:delete }
     requirements:
         id: \d+

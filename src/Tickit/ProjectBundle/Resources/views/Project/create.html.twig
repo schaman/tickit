@@ -11,7 +11,7 @@
         </div>
     {% endif %}
 
-    <form method='post' {{ form_enctype(form) }}>
+    <form method='post' action='{{ path('project_create') }}' {{ form_enctype(form) }}>
         {{ form_errors(form) }}
 
         {{ form_row(form.name) }}
