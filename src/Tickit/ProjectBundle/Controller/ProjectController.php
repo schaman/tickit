@@ -49,7 +49,12 @@ class ProjectController extends AbstractCoreController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
-            $responseData['errors'] = $form->getErrors();
+            $responseData['form'] = $this->render(
+                'TickitProjectBundle:Project:create.html.twig',
+                array(
+                    'form' => $form->createView()
+                )
+            )->getContent();
         }
 
         return new JsonResponse($responseData);
