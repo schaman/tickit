@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\Project;
 
 /**
@@ -69,5 +70,40 @@ class TemplateControllerTest extends AbstractFunctionalTest
 
         $formActionRoute = $this->generateRoute('project_edit', array('id' => static::$project->getId()));
         $this->assertEquals($formActionRoute, $crawler->filter('form')->attr('action'));
+    }
+
+    /**
+     * Tests the createProjectAttributeFormAction() method
+     *
+     * @return void
+     */
+    public function testCreateProjectAttributeFormActionThrowsExceptionForInvalidType()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute('project_attribute_create', array('type' => 'invalid'));
+
+        $client->request('get', $route);
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the createProjectAttributeFormAction() method
+     *
+     * @return void
+     */
+    public function testCreateProjectAttributeFormActionServesCorrectMarkup()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute('project_attribute_create_form', array('type' => AbstractAttribute::TYPE_LITERAL));
+        $crawler = $client->request('get', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertGreaterThan(0, $crawler->filter('input')->count());
+        $expectedRoute = $this->generateRoute(
+            'project_attribute_create',
+            array('type' => AbstractAttribute::TYPE_LITERAL)
+        );
+        $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
     }
 }

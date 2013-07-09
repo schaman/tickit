@@ -143,6 +143,8 @@ class AttributeController extends AbstractCoreController
      *
      * @param string $attributeType The attribute type
      *
+     * @deprecated Use the AttributeFormTypeGuesser instead
+     *
      * @return AbstractAttributeFormType
      */
     protected function getFormTypeForAttributeType($attributeType)

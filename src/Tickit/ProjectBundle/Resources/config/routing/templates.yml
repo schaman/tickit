@@ -11,3 +11,19 @@ project_edit_form:
         id: \d+
     options:
         expose: true
+
+project_attribute_create_form:
+    pattern: /attributes/create/{type}
+    defaults: { _controller: TickitProjectBundle:Template:createProjectAttributeForm }
+    options:
+        expose: true
+    requirements:
+        type: \w{6,7}
+
+project_attribute_edit_form:
+    pattern: /attributes/edit/{id}
+    defaults: { _controller: TickitProjectBundle:Template:editProjectAttributeForm }
+    requirements:
+        id: \d+
+    options:
+        expose: true
