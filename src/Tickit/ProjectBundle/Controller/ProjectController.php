@@ -31,7 +31,7 @@ class ProjectController extends AbstractCoreController
      */
     public function createAction()
     {
-        $responseData = array('success' => false, 'errors' => array());
+        $responseData = array('success' => false);
         $project = new Project();
 
         $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
@@ -51,9 +51,7 @@ class ProjectController extends AbstractCoreController
         } else {
             $responseData['form'] = $this->render(
                 'TickitProjectBundle:Project:create.html.twig',
-                array(
-                    'form' => $form->createView()
-                )
+                array('form' => $form->createView())
             )->getContent();
         }
 

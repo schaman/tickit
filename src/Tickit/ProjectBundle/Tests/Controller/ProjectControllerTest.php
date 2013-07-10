@@ -4,8 +4,6 @@ namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Manager\ProjectManager;
-use Tickit\UserBundle\Entity\User;
 
 /**
  * Tests for the ProjectController
@@ -39,26 +37,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Makes sure project actions are not publicly accessible
-     *
-     * @return void
-     */
-    public function testProjectActionsAreBehindFirewall()
-    {
-        $client = static::createClient();
-        $router = $client->getContainer()->get('router');
-
-        $client->request('get', $router->generate('project_index'));
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-
-        $client->followRedirect();
-        $this->assertContains('/login', $client->getRequest()->getUri());
-    }
-
-    /**
-     * Tests the addAction()
-     *
-     * Ensures that the addAction() creates a project with valid details
+     * Tests the createAction()
      *
      * @return void
      */
@@ -110,48 +89,43 @@ class ProjectControllerTest extends AbstractFunctionalTest
     /**
      * Tests the createAction()
      *
-     * Ensures that the createAction() displays validation messages for invalid details
-     *
      * @return void
      */
-    public function testCreateActionDisplaysErrorsForInvalidDetails()
+    public function testCreateActionReturnsFormContentForInvalidDetails()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
 
-        $crawler = $client->request('get', '/projects/create');
-        $form = $crawler->selectButton('Save Project')->form();
-        $crawler = $client->submit($form, array('tickit_project[name]' => ''));
-        $this->assertGreaterThan(0, $crawler->filter('form ul li')->count());
+        $createRoute = $this->generateRoute('project_create_form');
+        $crawler = $client->request('get', $createRoute);
+        $form = $crawler->selectButton('Save Project')->form(
+            array('tickit_project[name]' => '')
+        );
 
-        $longName = 'ajfwadpalfowagjiawjfwaidjwaofjwoagkowakfowakgowakfowagjwoajgwiadwadjwaijda' .
-                    'adwiafjwaigjaiwofjawdawokfo'; //101 characters
-        $crawler = $client->submit($form, array('tickit_project[name]' => $longName));
-        $this->assertGreaterThan(0, $crawler->filter('form ul li')->count());
+        $client->submit($form);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($response->success);
+        $this->assertNotEmpty($response->form);
     }
 
     /**
      * Tests the editAction()
      *
-     * Ensures that the editAction() updates a project with valid details
-     *
      * @return void
      */
-    public function testEditActionUpdatesProject()
+    public function testEditActionUpdatesProjectForValidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
 
         $oldProjectName = static::$project->getName();
         $newProjectName = $oldProjectName . ' ' . __FUNCTION__;
 
-        // fetch form (just to get the CSRF token)
-        $crawler = $client->request('get', $this->generateRoute('project_edit_form', array('id' => static::$project->getId())));
+        $editRoute = $this->generateRoute('project_edit_form', array('id' => static::$project->getId()));
+        $crawler = $client->request('get', $editRoute);
 
         $form = $crawler->selectButton('Save Changes')->form(
-            array(
-                'tickit_project[name]' => $newProjectName
-            )
+            array('tickit_project[name]' => $newProjectName)
         );
         $client->submit($form);
 
@@ -171,7 +145,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
     /**
      * Tests the editAction()
      *
-     * Ensures that a 404 response is returned for an invalid project ID
+     * @return void
      */
     public function testEditActionThrows404ForInvalidProjectId()
     {
