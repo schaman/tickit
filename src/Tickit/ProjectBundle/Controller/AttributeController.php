@@ -25,15 +25,13 @@ class AttributeController extends AbstractCoreController
     /**
      * Create attribute action.
      *
-     * Displays relevant form for creating a project attribute of the given type.
+     * Handles a request to create an attribute
      *
-     * @param string $type The type of the attribute to add
-     *
-     * @Template("TickitProjectBundle:Attribute:create.html.twig")
+     * @param string $type The type of the attribute to create
      *
      * @throws NotFoundHttpException If the given type is not valid
      *
-     * @return array
+     * @return JsonResponse
      */
     public function createAction($type)
     {
@@ -43,24 +41,29 @@ class AttributeController extends AbstractCoreController
             throw $this->createNotFoundException('An invalid attribute type was specified');
         }
 
-        $formType = $this->getFormTypeForAttributeType($type);
+        $responseData = array('success' => false);
+        $formType = $this->get('tickit_project.attribute_form_type_guesser')
+                         ->guessByAttributeType($type);
+
         $form = $this->createForm($formType, $attribute);
+        $form->submit($this->getRequest());
+        if ($form->isValid()) {
+            $manager = $this->get('tickit_project.attribute_manager');
+            $manager->create($form->getData());
 
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
-            if ($form->isValid()) {
-                $manager = $this->get('tickit_project.attribute_manager');
-                $manager->create($form->getData());
-
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityCreatedMessage('attribute');
-                $route = $this->generateUrl('project_attribute_index');
-
-                return $this->redirect($route);
-            }
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $this->generateUrl('project_attribute_index');
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitProjectBundle:Attribute:create.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'type' => $attribute->getType()
+                )
+            )->getContent();
         }
 
-        return array('form' => $form->createView(), 'type' => $type);
+        return new JsonResponse($responseData);
     }
 
     /**
@@ -70,11 +73,7 @@ class AttributeController extends AbstractCoreController
      *
      * @param AbstractAttribute $attribute The attribute that is being edited
      *
-     * @Template("TickitProjectBundle:Attribute:edit.html.twig")
-     *
-     * @throws NotFoundHttpException
-     *
-     * @return array
+     * @return JsonResponse
      */
     public function editAction(AbstractAttribute $attribute)
     {
@@ -92,7 +91,7 @@ class AttributeController extends AbstractCoreController
             $responseData['success'] = true;
         } else {
             $responseData['form'] = $this->render(
-                'TickitProject:Attribute:edit.html.twig',
+                'TickitProjectBundle:Attribute:edit.html.twig',
                 array(
                     'form' => $form->createView(),
                     'type' => $attribute->getType()

@@ -64,9 +64,8 @@ class AttributeControllerTest extends AbstractFunctionalTest
     public function testCreateActionThrows404ForInvalidAttributeType()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
 
-        $client->request('get', $router->generate('project_attribute_create', array('type' => 'aaaaaa')));
+        $client->request('post', $this->generateRoute('project_attribute_create', array('type' => 'aaaaaa')));
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -75,25 +74,26 @@ class AttributeControllerTest extends AbstractFunctionalTest
      *
      * Makes sure that the creation process works for LiteralAttribute types
      *
-     * @todo Improve this when templating is finalised
-     *
      * @return void
      */
     public function testCreateActionForLiteralAttributeCreatesAttribute()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
         $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
         $totalAttributes = count($attributeRepo->findAll());
 
-        $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_LITERAL));
+        $createRoute = $this->generateRoute(
+            'project_attribute_create_form',
+            array('type' => AbstractAttribute::TYPE_LITERAL)
+        );
         $crawler = $client->request('get', $createRoute);
 
+        $newAttributeName = 'Test Attribute ' . uniqid();
         $form = $crawler->selectButton('Save Project Attribute')->form(
             array(
                 'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
-                'tickit_project_attribute_literal[name]' => 'Test Attribute ' . uniqid(), //needs to be unique
+                'tickit_project_attribute_literal[name]' => $newAttributeName,
                 'tickit_project_attribute_literal[default_value]' => 'n/a',
                 'tickit_project_attribute_literal[allow_blank]' => 1,
                 'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_EMAIL
@@ -101,7 +101,12 @@ class AttributeControllerTest extends AbstractFunctionalTest
         );
         $client->submit($form);
 
-        $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
+        $this->assertEquals(++$totalAttributes, count($attributeRepo->findAll()));
+
+        /** @var LiteralAttribute $newAttribute */
+        $newAttribute = $attributeRepo->findOneByName($newAttributeName);
+        $this->assertInstanceOf('Tickit\ProjectBundle\Entity\LiteralAttribute', $newAttribute);
+        $this->assertEquals(LiteralAttribute::VALIDATION_EMAIL, $newAttribute->getValidationType());
     }
 
     /**
