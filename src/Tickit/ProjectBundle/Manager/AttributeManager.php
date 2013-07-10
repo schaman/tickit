@@ -158,6 +158,13 @@ class AttributeManager
             $this->em->flush();
         }
 
+        $existingChoices  = $this->em->getRepository('TickitProjectBundle:ChoiceAttributeChoice')
+                                     ->findByAttribute($attribute);
+
+        foreach ($existingChoices as $existingChoice) {
+            $this->em->remove($existingChoice);
+        }
+
         /** @var ArrayCollection $choices */
         foreach ($choices as $key => $choice) {
             if (is_array($choice)) {

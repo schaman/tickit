@@ -3,9 +3,12 @@
 
 namespace Tickit\ProjectBundle\Tests\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\ProjectBundle\Controller\AttributeController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
 
@@ -315,7 +318,63 @@ class AttributeControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionForChoiceAttributeUpdatesAttribute()
     {
-        $this->markTestSkipped('Testing this form is not possible due to its use of JS');
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $manager = $container->get('tickit_project.attribute_manager');
+        $doctrine = $container->get('doctrine');
+
+        $choices = new ArrayCollection();
+        $i = 3;
+        while ($i--) {
+            $choice = new ChoiceAttributeChoice();
+            $choice->setName('choice ' . $i);
+            $choices->add($choice);
+        }
+
+        /** @var ChoiceAttribute $newAttribute */
+        $newAttribute = AbstractAttribute::factory(AbstractAttribute::TYPE_CHOICE);
+        $newAttribute->setName(__FUNCTION__ . time());
+        $newAttribute->setChoices($choices);
+
+        $manager->create($newAttribute);
+
+        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $newAttribute->getId()));
+        $crawler = $client->request('get', $editRoute);
+        $form = $crawler->selectButton('Save Changes')->form();
+
+        $newName = strrev($newAttribute->getName());
+        $values = array(
+            'tickit_project_attribute_choice' => array(
+                'type' => AbstractAttribute::TYPE_CHOICE,
+                '_token' => $form['tickit_project_attribute_choice[_token]']->getValue(),
+                'name' => $newName,
+                'default_value' => 'off',
+                'allow_blank' => 1,
+                'expanded' => 0,
+                'choices' => array(
+                    0 => array(
+                        'name' => 'Choice 3',
+                    ),
+                    1 => array(
+                        'name' => 'Choice 4'
+                    )
+                )
+            )
+        );
+        $client->request($form->getMethod(), $form->getUri(), $values);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+
+        $doctrine->getManager()->refresh($newAttribute);
+
+        $this->assertEquals($newName, $newAttribute->getName());
+        $this->assertEquals(AbstractAttribute::TYPE_CHOICE, $newAttribute->getType());
+        $this->assertEquals('off', $newAttribute->getDefaultValue());
+        $this->assertFalse($newAttribute->getExpanded());
+        $this->assertCount(2, $newAttribute->getChoicesAsArray());
     }
 
     /**
