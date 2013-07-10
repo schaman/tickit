@@ -150,31 +150,42 @@ class AttributeControllerTest extends AbstractFunctionalTest
      */
     public function testCreateActionForChoiceAttributeCreatesAttribute()
     {
-        $this->markTestSkipped('Testing this form is not possible due to its use of JS');
-
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-
         $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
         $totalAttributes = count($attributeRepo->findAll());
 
-        $createRoute = $router->generate('project_attribute_create', array('type' => AbstractAttribute::TYPE_CHOICE));
-        $crawler = $client->request('get', $createRoute);
+        $route = $this->generateRoute('project_attribute_create_form', array('type' => AbstractAttribute::TYPE_CHOICE));
+        $crawler = $client->request('get', $route);
 
+        $newAttributeName = 'Test Attribute' . uniqid();
         $form = $crawler->selectButton('Save Project Attribute')->form();
-        $form->setValues(
-            array(
-                'tickit_project_attribute_choice[type]' => AbstractAttribute::TYPE_CHOICE,
-                'tickit_project_attribute_choice[name]' => 'Test Attribute' . uniqid(), //needs to be unique
-                'tickit_project_attribute_choice[default_value]' => 'Off',
-                'tickit_project_attribute_choice[allow_blank]' => 1,
-                'tickit_project_attribute_choice[expanded]' => 1,
-                'tickit_project_attribute_choice[allow_multiple]' => 0
+        $values = array(
+            'tickit_project_attribute_choice' => array(
+                'type' => AbstractAttribute::TYPE_CHOICE,
+                '_token' => $form['tickit_project_attribute_choice[_token]']->getValue(),
+                'name' => $newAttributeName,
+                'default_value' => 'Off',
+                'allow_blank' => 1,
+                'expanded' => 1,
+                'allow_multiple' => 0,
+                'choices' => array(
+                    0 => array(
+                        'name' => 'Choice 1'
+                    ),
+                    1 => array(
+                        'name' => 'Choice 2'
+                    )
+                )
             )
         );
-        $values = $form->getPhpValues();
         $client->request($form->getMethod(), $form->getUri(), $values);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
 
         $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
     }
