@@ -285,19 +285,19 @@ class AttributeControllerTest extends AbstractFunctionalTest
     public function testEditActionForLiteralAttributeUpdatesAttribute()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $doctrine = $client->getContainer()->get('doctrine');
         $manager = $client->getContainer()->get('tickit_project.attribute_manager');
 
         $attribute = clone static::$literalAttribute;
         $attribute->setName(__FUNCTION__ . uniqid());
         $manager->create($attribute);
 
-        $editRoute = $router->generate('project_attribute_edit', array('id' => $attribute->getId(), 'type' => AbstractAttribute::TYPE_LITERAL));
+        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $attribute->getId()));
         $crawler = $client->request('get', $editRoute);
 
         $newAttributeName = strrev($attribute->getName());
         $form = $crawler->selectButton('Save Changes')->form();
-        $crawler = $client->submit(
+        $client->submit(
             $form,
             array(
                 'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
@@ -308,17 +308,15 @@ class AttributeControllerTest extends AbstractFunctionalTest
             )
         );
 
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The attribute has been updated successfully")')->count()
-        );
-        $this->assertEquals(
-            $newAttributeName,
-            $crawler->filter('input[name="tickit_project_attribute_literal[name]"]')->attr('value')
-        );
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
 
-        $matcher = 'select[name="tickit_project_attribute_literal[validation_type]"] option[selected="selected"]';
-        $this->assertEquals(LiteralAttribute::VALIDATION_IP, $crawler->filter($matcher)->attr('value'));
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+
+        $doctrine->getManager()->refresh($attribute);
+        $this->assertEquals($newAttributeName, $attribute->getName());
+        $this->assertEquals(AbstractAttribute::TYPE_LITERAL, $attribute->getType());
     }
 
     /**

@@ -89,8 +89,7 @@ class AttributeController extends AbstractCoreController
             $this->get('tickit_project.attribute_manager')
                  ->update($attribute);
 
-            $flash = $this->get('tickit.flash_messages');
-            $flash->addEntityUpdatedMessage('attribute');
+            $responseData['success'] = true;
         } else {
             $responseData['form'] = $this->render(
                 'TickitProject:Attribute:edit.html.twig',
