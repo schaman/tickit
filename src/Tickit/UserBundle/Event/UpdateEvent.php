@@ -13,7 +13,7 @@ use Tickit\UserBundle\Interfaces\UserAwareInterface;
  * Event name: "tickit_user.event.update"
  *
  * @package Tickit\UserBundle\Event
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UpdateEvent extends Event implements UpdateEventInterface, UserAwareInterface
 {

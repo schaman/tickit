@@ -16,7 +16,7 @@ use Tickit\UserBundle\Entity\User;
  * Loads permissions into the current session.
  *
  * @package Tickit\PermissionBundle\Loader
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionLoader implements LoaderInterface
 {

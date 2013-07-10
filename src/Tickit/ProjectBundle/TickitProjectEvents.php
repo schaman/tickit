@@ -8,7 +8,7 @@ namespace Tickit\ProjectBundle;
  * This class contains a collection of constants representing event names for the project bundle
  *
  * @package Tickit\ProjectBundle
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitProjectEvents
 {

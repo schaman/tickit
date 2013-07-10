@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  * Responsible for dealing with post-authentication attempts.
  *
  * @package Tickit\UserBundle\Security
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {

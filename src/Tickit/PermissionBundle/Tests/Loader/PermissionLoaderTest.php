@@ -13,7 +13,7 @@ use Tickit\UserBundle\Entity\Group;
  * PermissionLoader tests
  *
  * @package Tickit\PermissionBundle\Tests\Loader
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionLoaderTest extends AbstractFunctionalTest
 {

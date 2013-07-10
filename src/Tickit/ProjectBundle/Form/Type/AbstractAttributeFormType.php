@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Provides common fields for all attribute forms.
  *
  * @package Tickit\ProjectBundle\Form\Type
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractAttributeFormType extends AbstractType
 {

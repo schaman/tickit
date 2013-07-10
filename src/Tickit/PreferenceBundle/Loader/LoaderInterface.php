@@ -10,7 +10,7 @@ use Tickit\UserBundle\Entity\User;
  * Loaders are responsible for loading preference data into a context.
  *
  * @package Tickit\PreferenceBundle\Loader
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface LoaderInterface
 {

@@ -9,7 +9,7 @@ namespace Tickit\CoreBundle\Decorator;
  * decorating it using a specific format.
  *
  * @package Tickit\CoreBundle\Decorator
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface DomainObjectDecoratorInterface
 {

@@ -12,7 +12,7 @@ use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
  * Event name: "tickit_project.event.create"
  *
  * @package Tickit\ProjectBundle\Event
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CreateEvent extends Event implements ProjectAwareInterface
 {

@@ -16,7 +16,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * security component
  *
  * @package Tickit\UserBundle\Security
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserProvider implements UserProviderInterface
 {

@@ -11,7 +11,7 @@ use Tickit\UserBundle\Interfaces\GroupAwareInterface;
  * Event dispatched when a group is updated
  *
  * @package Tickit\UserBundle\Event
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class GroupUpdateEvent extends Event implements UpdateEventInterface, GroupAwareInterface
 {

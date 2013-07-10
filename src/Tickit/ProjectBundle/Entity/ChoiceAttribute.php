@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Represents a project attribute that has a predefined list of choices
  *
  * @package Tickit\ProjectBundle\Entity
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
  */

@@ -14,7 +14,7 @@ use Tickit\ProjectBundle\Entity\Project;
  * with the rest of the application
  *
  * @package Tickit\ProjectBundle\Manager
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManager extends AbstractManager
 {

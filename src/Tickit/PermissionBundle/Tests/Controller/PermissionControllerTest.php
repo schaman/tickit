@@ -11,7 +11,7 @@ use Tickit\UserBundle\Entity\Group;
  * Permission controller tests.
  *
  * @package Tickit\PermissionBundle\Tests\Controller
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  * @group   functional
  */
 class PermissionControllerTest extends AbstractFunctionalTest

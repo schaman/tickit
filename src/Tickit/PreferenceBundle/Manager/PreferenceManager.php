@@ -11,7 +11,7 @@ use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
  * Provides functionality for managing preference data in the application.
  *
  * @package Tickit\PreferenceBundle\Manager
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceManager
 {

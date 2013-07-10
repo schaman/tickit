@@ -9,7 +9,7 @@ namespace Tickit\ProjectBundle\Form;
  * that are specific to forms.
  *
  * @package Tickit\ProjectBundle\Form
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitProjectFormEvents
 {

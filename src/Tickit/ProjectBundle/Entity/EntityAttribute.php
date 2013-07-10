@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * are used as choices.
  *
  * @package Tickit\ProjectBundle\Entity
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
  */

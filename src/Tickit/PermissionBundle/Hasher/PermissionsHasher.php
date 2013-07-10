@@ -10,7 +10,7 @@ use Tickit\PermissionBundle\Entity\Permission;
  * Hashes permission data into a hash value.
  *
  * @package Tickit\PermissionBundle\Hasher
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionsHasher implements HasherInterface
 {

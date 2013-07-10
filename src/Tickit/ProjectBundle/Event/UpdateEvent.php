@@ -13,7 +13,7 @@ use Tickit\ProjectBundle\Interfaces\ProjectAwareInterface;
  * Event name: "tickit_project.event.update"
  *
  * @package Tickit\ProjectBundle\Event
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UpdateEvent extends Event implements UpdateEventInterface, ProjectAwareInterface
 {

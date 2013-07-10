@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
  * Represents a value associated with a ChoiceAttribute entity
  *
  * @package Tickit\ProjectBundle\Entity
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
  */

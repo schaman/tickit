@@ -11,7 +11,7 @@ use Tickit\UserBundle\Entity\Group;
  * File description
  *
  * @package Namespace\Class
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class GroupFormSubscriber implements EventSubscriberInterface
 {

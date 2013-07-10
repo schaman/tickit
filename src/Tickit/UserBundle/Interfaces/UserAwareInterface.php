@@ -8,7 +8,7 @@ use Tickit\UserBundle\Entity\User;
  * Interface for classes that are User aware
  *
  * @package Tickit\UserBundle\Interfaces
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\UserBundle\Entity\User
  */
 interface UserAwareInterface

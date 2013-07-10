@@ -8,7 +8,7 @@ namespace Tickit\UserBundle;
  * This class contains a collection of constants representing event names for the user bundle
  *
  * @package Tickit\UserBundle
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitUserEvents
 {

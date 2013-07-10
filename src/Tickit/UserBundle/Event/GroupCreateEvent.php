@@ -10,7 +10,7 @@ use Tickit\UserBundle\Interfaces\GroupAwareInterface;
  * Event dispatched when a group is created in the application
  *
  * @package Tickit\UserBundle\Event
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class GroupCreateEvent extends Event implements GroupAwareInterface
 {

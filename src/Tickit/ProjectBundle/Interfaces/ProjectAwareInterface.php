@@ -8,7 +8,7 @@ use Tickit\ProjectBundle\Entity\Project;
  * Interface for classes that are Project aware
  *
  * @package Tickit\ProjectBundle\Interfaces
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\ProjectBundle\Entity\Project
  */
 interface ProjectAwareInterface

@@ -15,7 +15,7 @@ use Tickit\UserBundle\Entity\User;
  * Provides actions for interacting with anything permission related in the application.
  *
  * @package Tickit\PermissionBundle\Controller
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionController extends Controller
 {

@@ -12,7 +12,7 @@ use Tickit\UserBundle\Interfaces\UserAwareInterface;
  * Event name: "tickit_user.event.create"
  *
  * @package Tickit\UserBundle\Event
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CreateEvent extends Event implements UserAwareInterface
 {

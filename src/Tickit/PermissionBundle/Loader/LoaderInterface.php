@@ -10,7 +10,7 @@ use Tickit\UserBundle\Entity\User;
  * Loaders are responsible for loading permission data into a context.
  *
  * @package Tickit\PermissionBundle\Loader
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface LoaderInterface
 {

@@ -8,7 +8,7 @@ use Tickit\UserBundle\Entity\Group;
  * Interface for classes that are Group aware
  *
  * @package Tickit\UserBundle\Interfaces
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\UserBundle\Entity\Group
  */
 interface GroupAwareInterface

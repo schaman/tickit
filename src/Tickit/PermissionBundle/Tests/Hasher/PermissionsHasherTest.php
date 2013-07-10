@@ -11,7 +11,7 @@ use Tickit\PermissionBundle\Hasher\PermissionsHasher;
  * PermissionsHasher tests.
  *
  * @package Tickit\PermissionBundle\Tests\Hasher
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionsHasherTest extends PHPUnit_Framework_TestCase
 {

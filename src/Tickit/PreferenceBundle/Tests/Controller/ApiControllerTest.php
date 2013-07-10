@@ -9,7 +9,7 @@ use Tickit\PreferenceBundle\Manager\PreferenceManager;
  * ApiController tests
  *
  * @package Tickit\PreferenceBundle\Tests\Controller
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractFunctionalTest
 {

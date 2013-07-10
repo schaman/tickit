@@ -8,7 +8,7 @@ namespace Tickit\PermissionBundle\Hasher;
  * Hashers are responsible for hashing permission data.
  *
  * @package Tickit\PermissionBundle\Hasher
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface HasherInterface
 {
