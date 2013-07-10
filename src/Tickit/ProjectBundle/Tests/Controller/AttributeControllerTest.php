@@ -55,25 +55,6 @@ class AttributeControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Makes sure project attribute actions are behind firewall
-     *
-     * @return void
-     */
-    public function testAttributeActionsAreBehindFirewall()
-    {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
-        $client = static::createClient();
-        $router = $client->getContainer()->get('router');
-
-        $client->request('get', $router->generate('project_attribute_index'));
-
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $crawler = $client->followRedirect();
-        $this->assertEquals('Login', $crawler->filter('h2')->text());
-    }
-
-    /**
      * Tests the createAction()
      *
      * Ensures that a 404 response is thrown for invalid type in URL
