@@ -15,12 +15,15 @@ cosmetic:
 user_create:
     pattern: /users/create
     defaults: { _controller: TickitUserBundle:User:create }
+    requirements:
+        _method: post
 
 user_edit:
     pattern: /users/edit/{id}
     defaults: { _controller: TickitUserBundle:User:edit }
     requirements:
         id: \d+
+        _method: post
 
 group_index:
     pattern: /users/groups/{page}
