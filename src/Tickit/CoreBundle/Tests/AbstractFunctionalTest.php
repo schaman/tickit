@@ -7,6 +7,7 @@ use Faker\Generator;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
@@ -71,6 +72,16 @@ abstract class AbstractFunctionalTest extends WebTestCase
 
         $server = $baseServer + $server;
         $client = $this->createClient($options, $server);
+        $container = $client->getContainer();
+        $session = $container->get('session');
+
+        $token = new UsernamePasswordToken($user, $user->getPlainPassword(), 'main', $user->getRoles());
+
+        $session->set('_security_main', serialize($token));
+        $session->save();
+
+        $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
+        $container->get('security.context')->setToken($token);
 
         return $client;
     }
