@@ -4,6 +4,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Controller\AttributeController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
@@ -315,22 +316,38 @@ class AttributeControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionDeletesAttribute()
     {
-        $this->markTestSkipped('Needs refactoring to new api format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $container = $client->getContainer();
+        $manager = $container->get('tickit_project.attribute_manager');
 
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $totalAttributes = $crawler->filter('div.data-list table tbody tr')->count();
-        $link = $crawler->filter('div.data-list a:contains("Delete")')->first()->link();
-        $client->click($link);
+        $newAttribute = AbstractAttribute::factory(AbstractAttribute::TYPE_LITERAL);
+        $newAttribute->setName(__FUNCTION__ . time());
+        $manager->create($newAttribute);
 
-        $crawler = $client->followRedirect();
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('div.flash-notice:contains("The attribute has been successfully deleted")')->count()
+        $totalAttributes = count($manager->getRepository()->findAll());
+
+        $token = $container->get('form.csrf_provider')->generateCsrfToken(AttributeController::CSRF_DELETE_INTENTION);
+
+        $deleteRoute = $this->generateRoute(
+            'project_attribute_delete',
+            array(
+                'id' => $newAttribute->getId(),
+                'token' => $token
+            )
         );
-        $this->assertEquals(--$totalAttributes, $crawler->filter('div.data-list table tbody tr')->count());
+        $client->request('post', $deleteRoute);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertEquals(--$totalAttributes, count($manager->getRepository()->findAll()));
+
+        $nonExistentAttribute = $container->get('doctrine')
+                                          ->getRepository('TickitProjectBundle:LiteralAttribute')
+                                          ->findOneByName($newAttribute->getName());
+
+        $this->assertNull($nonExistentAttribute);
     }
 
     /**
@@ -340,16 +357,26 @@ class AttributeControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionReturns404ForInvalidToken()
     {
-        $this->markTestSkipped('Needs refactoring to new api format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $container = $client->getContainer();
+        $manager = $container->get('tickit_project.attribute_manager');
 
-        $crawler = $client->request('get', $router->generate('project_attribute_index'));
-        $linkHref = $crawler->filter('div.data-list a:contains("Delete")')->first()->attr('href');
-        $linkHref .= 'dkwoadkowadawd';
+        $newAttribute = AbstractAttribute::factory(AbstractAttribute::TYPE_LITERAL);
+        $newAttribute->setName(__FUNCTION__ . time());
+        $manager->create($newAttribute);
 
-        $client->request('get', $linkHref);
+        $totalAttributes = count($manager->getRepository()->findAll());
+
+        $deleteRoute = $this->generateRoute(
+            'project_attribute_delete',
+            array(
+                'id' => $newAttribute->getId(),
+                'token' => 'djwoajdowad'
+            )
+        );
+        $client->request('post', $deleteRoute);
+
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->assertEquals($totalAttributes, count($manager->getRepository()->findAll()));
     }
 }

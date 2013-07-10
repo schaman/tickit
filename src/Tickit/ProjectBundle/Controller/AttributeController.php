@@ -2,15 +2,11 @@
 
 namespace Tickit\ProjectBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Form\Type\AbstractAttributeFormType;
-use Tickit\ProjectBundle\Form\Type\ChoiceAttributeFormType;
-use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
  * Project attribute controller.
@@ -22,6 +18,13 @@ use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
  */
 class AttributeController extends AbstractCoreController
 {
+    /**
+     * String intention for deleting a project attribute
+     *
+     * @const string
+     */
+    const CSRF_DELETE_INTENTION = 'delete_project_attribute';
+
     /**
      * Create attribute action.
      *
@@ -71,6 +74,8 @@ class AttributeController extends AbstractCoreController
      *
      * Handles a request to update an attribute.
      *
+     * @ParamConverter("attribute", class="TickitProjectBundle:AbstractAttribute")
+     *
      * @param AbstractAttribute $attribute The attribute that is being edited
      *
      * @return JsonResponse
@@ -105,56 +110,20 @@ class AttributeController extends AbstractCoreController
     /**
      * Deletes an attribute from the application
      *
-     * @param integer $id The ID of the attribute to delete
+     * @param AbstractAttribute $attribute The attribute to delete
      *
-     * @throws NotFoundHttpException If no attribute was found for the given ID or an invalid CSRF token is provided
+     * @ParamConverter("attribute", class="TickitProjectBundle:AbstractAttribute")
      *
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(AbstractAttribute $attribute)
     {
         $token = $this->getRequest()->query->get('token');
-        $this->checkCsrfToken($token, 'delete_project_attribute');
+        $this->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
 
         $manager = $this->get('tickit_project.attribute_manager');
-        $attribute = $manager->getRepository()->find($id);
-
-        if (empty($attribute)) {
-            throw $this->createNotFoundException('Attribute not found');
-        }
-
         $manager->delete($attribute);
 
-        $flash = $this->get('tickit.flash_messages');
-        $flash->addEntityDeletedMessage('attribute');
-
-        $route = $this->generateUrl('project_attribute_index');
-
-        return $this->redirect($route);
-    }
-
-    /**
-     * Controller helper for resolving form type instance for attributes.
-     *
-     * @param string $attributeType The attribute type
-     *
-     * @deprecated Use the AttributeFormTypeGuesser instead
-     *
-     * @return AbstractAttributeFormType
-     */
-    protected function getFormTypeForAttributeType($attributeType)
-    {
-        switch ($attributeType) {
-            case AbstractAttribute::TYPE_CHOICE:
-                $formType = new ChoiceAttributeFormType();
-                break;
-            case AbstractAttribute::TYPE_ENTITY:
-                $formType = $this->get('tickit_project.form.entity_attribute');
-                break;
-            default:
-                $formType = new LiteralAttributeFormType();
-        }
-
-        return $formType;
+        return new JsonResponse(array('success' => true));
     }
 }
