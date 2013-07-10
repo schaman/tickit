@@ -83,6 +83,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
     public function testCreateActionForLiteralAttributeCreatesAttribute()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
+        $doctrine = $client->getContainer()->get('doctrine');
         $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
         $totalAttributes = count($attributeRepo->findAll());
@@ -111,6 +112,11 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $newAttribute = $attributeRepo->findOneByName($newAttributeName);
         $this->assertInstanceOf('Tickit\ProjectBundle\Entity\LiteralAttribute', $newAttribute);
         $this->assertEquals(LiteralAttribute::VALIDATION_EMAIL, $newAttribute->getValidationType());
+
+        // clean up new attribute
+        $em = $doctrine->getManager();
+        $em->remove($newAttribute);
+        $em->flush();
     }
 
     /**
@@ -121,6 +127,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
     public function testCreateActionForEntityAttributeCreatesAttribute()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
+        $doctrine = $client->getContainer()->get('doctrine');
         $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
         $totalAttributes = count($attributeRepo->findAll());
@@ -128,10 +135,11 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $route = $this->generateRoute('project_attribute_create_form', array('type' => AbstractAttribute::TYPE_ENTITY));
         $crawler = $client->request('get', $route);
 
+        $newAttributeName = 'Test Attribute ' . uniqid();
         $form = $crawler->selectButton('Save Project Attribute')->form(
             array(
                 'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
-                'tickit_project_attribute_entity[name]' => 'Test Attribute ' . uniqid(), //needs to be unique
+                'tickit_project_attribute_entity[name]' => $newAttributeName,
                 'tickit_project_attribute_entity[default_value]' => 'n/a',
                 'tickit_project_attribute_entity[allow_blank]' => 1,
                 'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
@@ -144,6 +152,13 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $response = json_decode($client->getResponse()->getContent());
         $this->assertTrue($response->success);
         $this->assertEquals(++$totalAttributes, count($attributeRepo->findAll()));
+
+        $newAttribute = $attributeRepo->findOneByName($newAttributeName);
+        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\EntityAttribute', $newAttribute);
+        $em = $doctrine->getManager();
+
+        $em->remove($newAttribute);
+        $em->flush();
     }
 
     /**
@@ -154,6 +169,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
     public function testCreateActionForChoiceAttributeCreatesAttribute()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
+        $doctrine = $client->getContainer()->get('doctrine');
         $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
 
         $totalAttributes = count($attributeRepo->findAll());
@@ -191,6 +207,14 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $this->assertFalse(isset($response->form));
 
         $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
+
+        $attribute = $attributeRepo->findOneByName($newAttributeName);
+        $this->assertInstanceOf('Tickit\ProjectBundle\Entity\ChoiceAttribute', $attribute);
+
+        // clean up new attribute
+        $em = $doctrine->getManager();
+        $em->remove($attribute);
+        $em->flush();
     }
 
     /**
@@ -270,6 +294,10 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $doctrine->getManager()->refresh($attribute);
         $this->assertEquals($newAttributeName, $attribute->getName());
         $this->assertEquals(AbstractAttribute::TYPE_LITERAL, $attribute->getType());
+
+        // clean up new attribute
+        $doctrine->getManager()->remove($attribute);
+        $doctrine->getManager()->flush();
     }
 
     /**
@@ -309,6 +337,10 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $this->assertEquals($newAttributeName, $attribute->getName());
         $this->assertTrue($attribute->getAllowBlank());
         $this->assertEquals('1', $attribute->getDefaultValue());
+
+        // clean up new attribute
+        $doctrine->getManager()->remove($attribute);
+        $doctrine->getManager()->flush();
     }
 
     /**
@@ -375,6 +407,10 @@ class AttributeControllerTest extends AbstractFunctionalTest
         $this->assertEquals('off', $newAttribute->getDefaultValue());
         $this->assertFalse($newAttribute->getExpanded());
         $this->assertCount(2, $newAttribute->getChoicesAsArray());
+
+        // clean up created object
+        $doctrine->getManager()->remove($newAttribute);
+        $doctrine->getManager()->flush();
     }
 
     /**
@@ -448,5 +484,7 @@ class AttributeControllerTest extends AbstractFunctionalTest
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
         $this->assertEquals($totalAttributes, count($manager->getRepository()->findAll()));
+
+        $manager->delete($newAttribute);
     }
 }
