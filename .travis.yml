@@ -22,7 +22,6 @@ script:
   - phpunit -c app/phpunit.xml
 
 after_script:
-  - ls -la build/logs #debug coveralls
   - php bin/coveralls -vvv
 
 notifications:
