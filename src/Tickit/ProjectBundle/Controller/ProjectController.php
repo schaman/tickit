@@ -23,6 +23,13 @@ use Tickit\ProjectBundle\Manager\ProjectManager;
 class ProjectController extends AbstractCoreController
 {
     /**
+     * String intention for deleting a project
+     *
+     * @const string
+     */
+    const CSRF_DELETE_INTENTION = 'delete_project';
+
+    /**
      * Create action.
      *
      * Serves a JsonResponse containing the form markup template
@@ -65,13 +72,11 @@ class ProjectController extends AbstractCoreController
      *
      * @Template("TickitProjectBundle:Project:edit.html.twig")
      *
-     * @throws NotFoundHttpException If no project was found for the given ID
-     *
      * @ParamConverter("project", class="TickitProjectBundle:Project")
      *
      * @return array
      */
-    public function editAction($project)
+    public function editAction(Project $project)
     {
         $responseData = array('success' => false, 'errors' => array());
 
@@ -106,32 +111,20 @@ class ProjectController extends AbstractCoreController
     /**
      * Deletes a project from the application.
      *
-     * @param integer $id The ID of the project to delete
+     * @param Project $project The project to delete
      *
-     * @throws NotFoundHttpException If no project was found for the given ID or an invalid CSRF token is provided
+     * @ParamConverter("project", class="TickitProjectBundle:Project")
      *
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Project $project)
     {
         $token = $this->getRequest()->query->get('token');
-        $this->checkCsrfToken($token, 'delete_project');
+        $this->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
 
-        /** @var ProjectManager $manager  */
         $manager = $this->get('tickit_project.manager');
-        $project = $manager->getRepository()->find($id);
-
-        if (empty($project)) {
-            throw $this->createNotFoundException('Project not found');
-        }
-
         $manager->delete($project);
 
-        $flash = $this->get('tickit.flash_messages');
-        $flash->addEntityDeletedMessage('project');
-
-        $route = $this->generateUrl('project_index');
-
-        return $this->redirect($route);
+        return new JsonResponse(array('success' => true));
     }
 }

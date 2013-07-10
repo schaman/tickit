@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\ProjectBundle\Controller\ProjectController;
 use Tickit\ProjectBundle\Entity\Project;
 
 /**
@@ -164,17 +165,24 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionDeletesProject()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $token = $container->get('form.csrf_provider')->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION);
+        $manager = $container->get('tickit_project.manager');
 
-        $crawler = $client->request('get', '/projects');
-        $totalProjects = $crawler->filter('div.data-list table tbody tr')->count();
-        $link = $crawler->filter('div.data-list a:contains("Delete")')->first()->link();
-        $client->click($link);
+        $project = new Project();
+        $project->setName(__FUNCTION__ . time());
+        $manager->create($project);
 
-        $crawler = $client->followRedirect();
-        $this->assertEquals(--$totalProjects, $crawler->filter('div.data-list table tbody tr')->count());
+        $totalProjects = count($manager->getRepository()->findAll());
+        $deleteRoute = $this->generateRoute('project_delete', array('id' => $project->getId(), 'token' => $token));
+
+        $client->request('post', $deleteRoute);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertEquals(--$totalProjects, count($manager->getRepository()->findAll()));
     }
 
     /**
@@ -186,15 +194,14 @@ class ProjectControllerTest extends AbstractFunctionalTest
      */
     public function testDeleteActionReturns404ForInvalidToken()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
 
-        $crawler = $client->request('get', '/projects');
-        $linkHref = $crawler->filter('div.data-list a:contains("Delete")')->first()->attr('href');
-        $linkHref .= 'dkwoadkowadawd';
+        $deleteRoute = $this->generateRoute(
+            'project_delete',
+            array('id' => static::$project->getId(), 'token' => 'adwadw32da')
+        );
 
-        $client->request('get', $linkHref);
+        $client->request('post', $deleteRoute);
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 }
