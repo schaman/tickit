@@ -148,6 +148,28 @@ class ProjectControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
+    public function testEditActionInvalidFormSubmission()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+
+        $editRoute = $this->generateRoute('project_edit_form', array('id' => static::$project->getId()));
+        $crawler = $client->request('get', $editRoute);
+
+        $form = $crawler->selectButton('Save Changes')->form(
+            array('tickit_project[name]' => '')
+        );
+        $client->submit($form);
+
+        $jsonResponse = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($jsonResponse->success);
+        $this->assertNotEmpty($jsonResponse->form);
+    }
+
+    /**
+     * Tests the editAction()
+     *
+     * @return void
+     */
     public function testEditActionThrows404ForInvalidProjectId()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
