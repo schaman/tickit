@@ -2,7 +2,7 @@
 
 namespace Tickit\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
@@ -20,31 +20,31 @@ class UserController extends AbstractCoreController
     /**
      * Loads the create user page
      *
-     * @Template("TickitUserBundle:User:create.html.twig")
-     *
-     * @return array|RedirectResponse
+     * @return JsonResponse
      */
     public function createAction()
     {
-        $user = new User();
+        $responseData = array('success' => true);
+        $manager = $this->get('tickit_user.manager');
+        $user = $manager->createUser();
         $form = $this->createForm('tickit_user', $user);
 
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
-            if ($form->isValid()) {
-                $user = $form->getData();
-                $manager = $this->getUserManager();
-                $manager->create($user);
-                $router = $this->get('router');
+        $form->submit($this->getRequest());
+        if ($form->isValid()) {
+            $user = $form->getData();
+            $manager->create($user);
+            $router = $this->get('router');
 
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityCreatedMessage('user');
-
-                return $this->redirect($router->generate('user_index'));
-            }
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $router->generate('user_index');
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitUserBundle:User:create.html.twig',
+                array('form' => $form->createView())
+            );
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 
     /**
