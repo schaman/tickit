@@ -3,7 +3,7 @@
 {% block user_content %}
     <h2>Create User</h2>
 
-    <form method='post' {{ form_enctype(form) }}>
+    <form method='post' action='{{ path('user_create') }}' {{ form_enctype(form) }}>
 
         {{ form_errors(form) }}
 

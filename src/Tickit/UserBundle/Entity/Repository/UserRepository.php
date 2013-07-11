@@ -5,6 +5,8 @@ namespace Tickit\UserBundle\Entity\Repository;
 use Doctrine\ORM\EntityRepository;
 use DateTime;
 use Doctrine\ORM\NoResultException;
+use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -13,7 +15,7 @@ use Tickit\UserBundle\Entity\User;
  * @package Tickit\UserBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserRepository extends EntityRepository
+class UserRepository extends EntityRepository implements FilterableRepositoryInterface
 {
     const COLUMN_EMAIL = 'email';
     const COLUMN_USERNAME = 'username';
@@ -126,5 +128,25 @@ class UserRepository extends EntityRepository
                       ->getQuery();
 
         return $query->getSingleResult();
+    }
+
+    /**
+     * Finds results based off a set of filters.
+     *
+     * @param FilterCollection $filters The filter collection
+     *
+     * @return mixed
+     */
+    public function findByFilters(FilterCollection $filters)
+    {
+        $query = $this->getEntityManager()
+                      ->createQueryBuilder()
+                      ->select('u, g')
+                      ->from('TickitUserBundle:User', 'u')
+                      ->leftJoin('u.group', 'g');
+
+        $filters->applyToQuery($query);
+
+        return $query->getQuery()->execute();
     }
 }

@@ -68,7 +68,7 @@ class ChoiceAttributeValue extends AbstractAttributeValue
      *
      * @return ChoiceAttributeValue
      */
-    public function setValue(Collection $value)
+    public function setValue(Collection $value = null)
     {
         $this->value = $value;
 

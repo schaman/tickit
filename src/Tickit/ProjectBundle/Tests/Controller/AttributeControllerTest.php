@@ -253,6 +253,47 @@ class AttributeControllerTest extends AbstractFunctionalTest
     }
 
     /**
+     * Tests the editAction() method
+     *
+     * @return void
+     */
+    public function testEditActionForAttributeReturnsFormForInvalidDetails()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $doctrine = $client->getContainer()->get('doctrine');
+        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
+
+        $attribute = clone static::$literalAttribute;
+        $attribute->setName(__FUNCTION__ . uniqid());
+        $manager->create($attribute);
+
+        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $attribute->getId()));
+        $crawler = $client->request('get', $editRoute);
+
+        $form = $crawler->selectButton('Save Changes')->form();
+        $client->submit(
+            $form,
+            array(
+                'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
+                'tickit_project_attribute_literal[name]' => '',
+                'tickit_project_attribute_literal[default_value]' => '',
+                'tickit_project_attribute_literal[allow_blank]' => 0,
+                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_IP
+            )
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+
+        $this->assertFalse($response->success);
+        $this->assertNotEmpty($response->form);
+
+        // clean up new attribute
+        $doctrine->getManager()->remove($attribute);
+        $doctrine->getManager()->flush();
+    }
+
+    /**
      * Tests the editAction()
      *
      * Ensures that the editAction() updates literal attribute with valid details

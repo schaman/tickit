@@ -73,4 +73,22 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertEquals(static::$developer->getSurname(), $response->surname);
         $this->assertNotEmpty($response->avatarUrl);
     }
+
+    /**
+     * Tests the listAction() method
+     *
+     * @return void
+     */
+    public function testListActionReturnsCorrectResponse()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $client->request('get', $this->generateRoute('api_user_list'));
+        $repo = $container->get('doctrine')->getRepository('TickitUserBundle:User');
+        $totalUsers = count($repo->findAll());
+
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertInternalType('array', $response);
+        $this->assertCount($totalUsers, $response);
+    }
 }

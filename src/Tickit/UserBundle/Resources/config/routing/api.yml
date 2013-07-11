@@ -11,3 +11,11 @@ api_user_fetch:
         id: \d+
     options:
         expose: true
+
+api_user_list:
+    pattern: /list/{page}
+    defaults: { _controller: TickitUserBundle:Api:list, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true

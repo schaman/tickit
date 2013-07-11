@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -16,7 +17,7 @@ use Tickit\UserBundle\Entity\User;
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class ApiController extends Controller
+class ApiController extends AbstractCoreController
 {
     /**
      * Fetches data for a particular user and serves as JSON
@@ -44,6 +45,34 @@ class ApiController extends Controller
             'surname' => $user->getSurname(),
             'avatarUrl' => $avatarUrl
         );
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Lists users in the application.
+     *
+     * @param integer $page The page number of the results to display
+     *
+     * @return JsonResponse
+     */
+    public function listAction($page = 1)
+    {
+        $filters = $this->get('tickit.filter_collection_builder')
+                        ->buildFromRequest($this->getRequest());
+
+        $users = $this->get('tickit_user.manager')
+                      ->getRepository()
+                      ->findByFilters($filters);
+
+        $data = array();
+        $decorator = $this->getArrayDecorator();
+        foreach ($users as $user) {
+            $data[] = $decorator->decorate(
+                $user,
+                array('id', 'forename', 'surname', 'email', 'username', 'lastActivity')
+            );
+        }
 
         return new JsonResponse($data);
     }

@@ -1,3 +1,17 @@
 user_login_form:
     pattern: /login-form
     defaults: { _controller: TickitUserBundle:Security:login }
+
+user_create_form:
+    pattern: /create
+    defaults: { _controller: TickitUserBundle:Template:createUserForm }
+    options:
+        expose: true
+
+user_edit_form:
+    pattern: /edit/{id}
+    defaults: { _controller: TickitUserBundle:Template:editUserForm }
+    requirements:
+        id: \d+
+    options:
+        expose: true
