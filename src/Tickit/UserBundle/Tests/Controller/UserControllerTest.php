@@ -19,24 +19,6 @@ use Tickit\UserBundle\Manager\UserManager;
 class UserControllerTest extends AbstractFunctionalTest
 {
     /**
-     * Ensures that the user actions are not publicly accessible
-     *
-     * @return void
-     */
-    public function testUserActionsAreBehindFirewall()
-    {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
-        $client = static::createClient();
-        $router = $client->getContainer()->get('router');
-
-        $client->request('get', $router->generate('user_index'));
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $crawler = $client->followRedirect();
-        $this->assertEquals('Login', $crawler->filter('h2')->text());
-    }
-
-    /**
      * Tests the createAction()
      *
      * Ensures that a valid attempt to create a user is successful
@@ -45,36 +27,39 @@ class UserControllerTest extends AbstractFunctionalTest
      */
     public function testCreateActionCreatesUserWithValidDetails()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $container = $client->getContainer();
+        $doctrine = $container->get('doctrine');
+        $developersGroup = $doctrine->getRepository('TickitUserBundle:Group')->findOneByName('Developers');
 
-        $container = static::createClient()->getContainer();
-        $developersGroup = $container->get('doctrine')
-                                     ->getRepository('TickitUserBundle:Group')
-                                     ->findOneByName('Developers');
+        $totalUsers = count($doctrine->getRepository('TickitUserBundle:User')->findAll());
 
-        $crawler = $client->request('get', $router->generate('user_index'));
-        $totalUsers = $crawler->filter('div.data-list table tbody tr')->count();
-
-        $crawler = $client->request('get', $router->generate('user_create'));
+        $newUsername = 'user' . uniqid();
+        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
         $form = $crawler->selectButton('Save User')->form();
         $formValues = array(
             'tickit_user[forename]' => 'forename',
             'tickit_user[surname]' => 'surname',
-            'tickit_user[username]' => 'user' . uniqid(),
+            'tickit_user[username]' => $newUsername,
             'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
             'tickit_user[group]' => $developersGroup->getId(),
             'tickit_user[password][first]' => 'somepassword',
             'tickit_user[password][second]' => 'somepassword'
         );
         $client->submit($form, $formValues);
-        $crawler = $client->followRedirect();
 
-        $count = $crawler->filter('div.flash-notice:contains("The user has been created successfully")')->count();
-        $this->assertGreaterThan(0, $count);
-        $this->assertEquals($totalUsers + 1, $crawler->filter('div.data-list table tbody tr')->count());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+        $this->assertEquals(++$totalUsers, count($doctrine->getRepository('TickitUserBundle:User')->findAll()));
+
+        $createdUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
+        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $createdUser);
+
+        // tidy up created user
+        $doctrine->getManager()->remove($createdUser);
+        $doctrine->getManager()->flush();
     }
 
     /**
@@ -82,32 +67,30 @@ class UserControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testCreateActionRendersEmptyPermissionsData()
+    public function testCreateActionReturnsFormContentForInvalidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
+        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
+        $form = $crawler->selectButton('Save User')->form();
         $container = $client->getContainer();
-        $router = $container->get('router');
+        $doctrine = $container->get('doctrine');
+        $developersGroup = $doctrine->getRepository('TickitUserBundle:Group')->findOneByName('Developers');
 
-        $crawler = $client->request('get', $router->generate('user_create'));
-        $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
-        $expectedMessage = 'You need to select a group for this user before you can edit permissions';
-        $this->assertContains($expectedMessage, $client->getResponse()->getContent());
-    }
+        $formValues = array(
+            'tickit_user[forename]' => '',
+            'tickit_user[surname]' => '',
+            'tickit_user[username]' => '',
+            'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
+            'tickit_user[group]' => $developersGroup->getId(),
+            'tickit_user[password][first]' => 'somepassword',
+            'tickit_user[password][second]' => 'somepassword'
+        );
+        $client->submit($form, $formValues);
 
-    /**
-     * Tests the editAction() method
-     *
-     * @return void
-     */
-    public function testEditActionRendersPermissionsData()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $router = $container->get('router');
-
-        $user = $container->get('tickit_user.manager')->findUserByUsername('james');
-        $crawler = $client->request('get', $router->generate('user_edit', array('id' => $user->getId())));
-        $this->assertGreaterThan(2, $crawler->filter('div.data-list table tr')->count());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($response->success);
+        $this->assertTrue(isset($response->form));
     }
 
     /**
@@ -121,13 +104,13 @@ class UserControllerTest extends AbstractFunctionalTest
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
-        $router = $container->get('router');
+        $manager = $client->getContainer()->get('tickit_user.manager');
+        $doctrine = $container->get('doctrine');
 
-        $group = $container->get('doctrine')
-                           ->getRepository('TickitUserBundle:Group')
-                           ->findOneByName('Developers');
+        $group = $doctrine->getRepository('TickitUserBundle:Group')
+                          ->findOneByName('Developers');
 
-        $user = new User();
+        $user = $manager->createUser();
         $user->setForename('forename_123')
              ->setSurname('surname_123')
              ->setUsername('user' . uniqid())
@@ -135,27 +118,38 @@ class UserControllerTest extends AbstractFunctionalTest
              ->setPassword('password')
              ->setGroup($group);
 
-        $user = $client->getContainer()->get('tickit_user.manager')->create($user);
+        $user = $manager->create($user);
 
-        $crawler = $client->request('get', $router->generate('user_edit', array('id' => $user->getId())));
-        $form = $crawler->selectButton('Save Changes')->form();
         $newUsername = 'user' . uniqid();
         $newEmail = sprintf('%s@mail.com', uniqid());
-        $formValues = array(
-            'tickit_user[username]' => $newUsername,
-            'tickit_user[forename]' => 'forename_12345',
-            'tickit_user[surname]' => 'surname_12345',
-            'tickit_user[email]' => $newEmail,
-            'tickit_user[password][first]' => 'password',
-            'tickit_user[password][second]' => 'password'
+        $crawler = $client->request('get', $this->generateRoute('user_edit_form', array('id' => $user->getId())));
+        $form = $crawler->selectButton('Save Changes')->form(
+            array(
+                'tickit_user[username]' => $newUsername,
+                'tickit_user[forename]' => 'forename_12345',
+                'tickit_user[surname]' => 'surname_12345',
+                'tickit_user[email]' => $newEmail,
+                'tickit_user[password][first]' => 'password',
+                'tickit_user[password][second]' => 'password'
+            )
         );
-        $crawler = $client->submit($form, $formValues);
+        $client->submit($form);
 
-        $count = $crawler->filter('div.flash-notice:contains("The user has been updated successfully")')->count();
-        $this->assertGreaterThan(0, $count);
-        $this->assertEquals($newUsername, $crawler->filter('input[name="tickit_user[username]"]')->attr('value'));
-        $this->assertEquals($newEmail, $crawler->filter('input[name="tickit_user[email]"]')->attr('value'));
-        $this->assertEquals('forename_12345', $crawler->filter('input[name="tickit_user[forename]"]')->attr('value'));
-        $this->assertEquals('surname_12345', $crawler->filter('input[name="tickit_user[surname]"]')->attr('value'));
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+
+        $newUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
+        $doctrine->getManager()->refresh($newUser);
+
+        /** @var User $newUser */
+        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $newUser);
+        $this->assertEquals($newEmail, $newUser->getEmail());
+        $this->assertEquals('forename_12345', $newUser->getForename());
+        $this->assertEquals('surname_12345', $newUser->getSurname());
+
+        $doctrine->getManager()->remove($newUser);
+        $doctrine->getManager()->flush();
     }
 }

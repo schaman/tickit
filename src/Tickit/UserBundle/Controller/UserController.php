@@ -2,12 +2,11 @@
 
 namespace Tickit\UserBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\UserBundle\Entity\User;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Controller that provides actions to manipulate user entities
@@ -24,7 +23,7 @@ class UserController extends AbstractCoreController
      */
     public function createAction()
     {
-        $responseData = array('success' => true);
+        $responseData = array('success' => false);
         $manager = $this->get('tickit_user.manager');
         $user = $manager->createUser();
         $form = $this->createForm('tickit_user', $user);
@@ -48,57 +47,50 @@ class UserController extends AbstractCoreController
     }
 
     /**
-     * Loads the edit user page
+     * Edit user action.
      *
-     * @param integer $id The user ID to edit
+     * Handles a request to update a user.
      *
-     * @Template("TickitUserBundle:User:edit.html.twig")
+     * @param User $existingUser The user to update
      *
-     * @throws NotFoundHttpException If no user was found for the given ID
+     * @ParamConverter("user", class="TickitUserBundle:User")
      *
-     * @return array
+     * @return JsonResponse
      */
-    public function editAction($id)
+    public function editAction(User $existingUser)
     {
-        $existingUser = $this->get('tickit_user.manager')->find($id);
+        $responseData = array('success' => false);
         $permissionManager = $this->get('tickit_permission.manager');
-
-        if (empty($existingUser)) {
-            throw $this->createNotFoundException('User not found');
-        }
-
         $existingUserGroupId = $existingUser->getGroup()->getId();
         $permissions = $permissionManager->getUserPermissionData($existingUserGroupId, $existingUser->getId());
         $existingUser->setPermissions($permissions);
         $form = $this->createForm('tickit_user', $existingUser);
-
         $existingPassword = $existingUser->getPassword();
+        $form->submit($this->getRequest());
 
-        if ('POST' === $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
+        if ($form->isValid()) {
+            /** @var User $user */
+            $user = $form->getData();
 
-            if ($form->isValid()) {
-                /** @var User $user */
-                $user = $form->getData();
-
-                // we restore the password if no new one was provided on the form so that the user's
-                // password isn't set to a blank string in the database
-                if ($user->getPassword() === null) {
-                    $user->setPassword($existingPassword);
-                } else {
-                    // set the plain password on the user from the one that was provided in the form
-                    $user->setPlainPassword($user->getPassword());
-                }
-
-                $manager = $this->get('tickit_user.manager');
-                $user = $manager->create($user);
-                $form = $this->createForm('tickit_user', $user);
-
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityUpdatedMessage('user');
+            // we restore the password if no new one was provided on the form so that the user's
+            // password isn't set to a blank string in the database
+            if ($user->getPassword() === null) {
+                $user->setPassword($existingPassword);
+            } else {
+                // set the plain password on the user from the one that was provided in the form
+                $user->setPlainPassword($user->getPassword());
             }
+
+            $manager = $this->get('tickit_user.manager');
+            $manager->update($user);
+            $responseData['success'] = true;
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitUserBundle:User:edit.html.twig',
+                array('form' => $form->createView())
+            );
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 }

@@ -117,8 +117,8 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function update($entity, $flush = true)
     {
-        $this->fosManager->updateCanonicalFields($entity);
-        $this->fosManager->updatePassword($entity);
+        $this->updateCanonicalFields($entity);
+        $this->updatePassword($entity);
 
         $permissions = $entity->getPermissions();
         $entity->clearPermissions();
