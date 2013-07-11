@@ -37,26 +37,6 @@ class UserControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the indexAction()
-     *
-     * Ensures that any layout components are as we expect
-     */
-    public function testIndexActionLayout()
-    {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-        /** @var UserManager $manager */
-        $manager = $client->getContainer()->get('tickit_user.manager');
-        $totalUsers = count($manager->getRepository()->findAll());
-
-        $crawler = $client->request('get', $router->generate('user_index'));
-        $this->assertEquals($totalUsers, $crawler->filter('div.data-list tbody tr')->count());
-        $this->assertEquals('Manage Users', $crawler->filter('h2')->text());
-    }
-
-    /**
      * Tests the createAction()
      *
      * Ensures that a valid attempt to create a user is successful

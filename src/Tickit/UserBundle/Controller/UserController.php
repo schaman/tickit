@@ -18,22 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class UserController extends AbstractCoreController
 {
     /**
-     * Lists all users in the system
-     *
-     * @Template("TickitUserBundle:User:index.html.twig")
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        $users = $this->get('tickit_user.manager')
-                      ->getRepository()
-                      ->findUsers();
-
-        return array('users' => $users);
-    }
-
-    /**
      * Loads the create user page
      *
      * @Template("TickitUserBundle:User:create.html.twig")
