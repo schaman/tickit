@@ -52,6 +52,11 @@ class TemplateControllerTest extends AbstractFunctionalTest
      */
     public function testEditUserFormActionReturns404ForNonExistentUser()
     {
-        $this->markTestIncomplete('TODO');
+        $client = $this->getAuthenticatedClient(static::$admin);
+
+        $editRoute = $this->generateRoute('user_edit_form', array('id' => 9999999999));
+        $client->request('get', $editRoute);
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 }
