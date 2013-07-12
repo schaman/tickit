@@ -18,7 +18,9 @@ class LoadTeamData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * Loads team data into the application database
      *
-     * @param ObjectManager $manager
+     * @param ObjectManager $manager The entity manager
+     *
+     * @return void
      */
     public function load(ObjectManager $manager)
     {
@@ -31,13 +33,14 @@ class LoadTeamData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($team);
         $manager->persist($team2);
 
+        $manager->persist($team);
         $manager->flush();
     }
 
     /**
      * Returns the order number for this set of fixtures
      *
-     * @return int
+     * @return integer
      */
     public function getOrder()
     {
