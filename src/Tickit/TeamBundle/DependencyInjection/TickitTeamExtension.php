@@ -2,13 +2,13 @@
 
 namespace Tickit\TeamBundle\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Config\FileLocator;
 
 /**
- * TeamBundle DI extension
+ * Extension class for the team bundle
  *
  * @package Tickit\TeamBundle\DependencyInjection
  * @author  Mark Wilson <mark@89allport.co.uk>
@@ -21,6 +21,8 @@ class TickitTeamExtension extends Extension
      * @param array            $config    An array of configuration values
      * @param ContainerBuilder $container A ContainerBuilder instance
      *
+     * @throws \InvalidArgumentException When provided tag is not defined in this extension
+     *
      * @return void
      */
     public function load(array $config, ContainerBuilder $container)
@@ -31,6 +33,8 @@ class TickitTeamExtension extends Extension
 
     /**
      * {@inheritDoc}
+     *
+     * @return string
      */
     public function getAlias()
     {

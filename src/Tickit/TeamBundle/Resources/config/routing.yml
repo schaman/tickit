@@ -1,27 +1,3 @@
-team_edit:
-  pattern: /{id}/edit
-  defaults: { _controller: TickitTeamBundle:Team:edit }
-  requirements:
-    _method: GET
-
-team_update:
-  pattern: /{id}/update
-  defaults: { _controller: TickitTeamBundle:Team:update }
-  requirements:
-    _method: POST
-
-team_new:
-  pattern: /new
-  defaults: { _controller: TickitTeamBundle:Team:new }
-  requirements:
-      _method: GET
-
-team_create:
-  pattern: /create
-  defaults: { _controller: TickitTeamBundle:Team:create }
-  requirements:
-    _method: POST
-
 team_index:
   pattern: /{page}
   defaults: { _controller: TickitTeamBundle:Team:index, page: 1 }
@@ -29,3 +5,15 @@ team_index:
     page: \d+
   options:
     expose: true
+
+team_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TickitTeamBundle:Team:edit }
+    requirements:
+        id: \d+
+
+team_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TickitTeamBundle:Team:delete }
+    requirements:
+        id: \d+

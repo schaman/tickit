@@ -1,0 +1,27 @@
+{% extends 'TickitTeamBundle::layout.html.twig' %}
+
+{% block team_content %}
+    <h2>Edit Team</h2>
+
+    {% if app.session.flashbag.has('notice') %}
+        <div class="flash-notice">
+            {% for message in app.session.flashbag.get('notice') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if app.session.flashbag.has('error') %}
+        <div class="flash-error">
+            {% for message in app.session.flashbag.get('error') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method='post' {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <input type='submit' value='Save Changes' />
+    </form>
+{% endblock %}
