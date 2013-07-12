@@ -39,6 +39,8 @@
         "fzaninotto/faker": "dev-master",
         "squizlabs/php_codesniffer": "1.*",
         "behat/symfony2-extension": "dev-master",
+        "behat/mink-extension": "dev-master",
+        "behat/mink-browserkit-driver": "dev-master",
         "satooshi/php-coveralls": "dev-master"
     },
     "scripts": {
