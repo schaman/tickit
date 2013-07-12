@@ -1,8 +1,10 @@
 default:
-    paths:
-        features: ../Resources/features
+#    paths:
+#        features: ../../src/Tickit/CoreBundle/Resources/features
     extensions:
         Behat\Symfony2Extension\Extension:
             mink_driver: true
         Behat\MinkExtension\Extension:
             default_session: 'symfony2'
+    context:
+        class: Tickit\Behat\AppContext
