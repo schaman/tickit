@@ -1,7 +1,7 @@
-{% extends 'TickitTeamBundle::layout.html.twig' %}
+{% extends '::no-content.html.twig' %}
 
-{% block team_content %}
-    <h2>Add Team</h2>
+{% block content %}
+    <h2>Create Team</h2>
 
     {% if app.session.flashbag.has('error') %}
         <div class="flash-error">
@@ -11,7 +11,7 @@
         </div>
     {% endif %}
 
-    <form method='post' {{ form_enctype(form) }}>
+    <form method='post' action='{{ path('team_create') }}' {{ form_enctype(form) }}>
         {{ form_widget(form) }}
 
         <input type='submit' value='Save Team' />
