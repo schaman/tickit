@@ -20,6 +20,7 @@ script:
   - npm install bower
   - bower install
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
+  - ./bin/behat -c app/config/behat.yml
 
 after_script:
   - php bin/coveralls -vvv
