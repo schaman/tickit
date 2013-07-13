@@ -2,12 +2,12 @@
 
 namespace Tickit\TeamBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tickit\TeamBundle\Entity\Team;
 use Tickit\TeamBundle\Form\Type\TeamFormType;
-use Tickit\TeamBundle\Manager\TeamManager;
 
 /**
  * Teams controller.
@@ -20,110 +20,92 @@ use Tickit\TeamBundle\Manager\TeamManager;
 class TeamController extends AbstractCoreController
 {
     /**
-     * Loads the create team page
+     * String constant containing the intention for CSRF delete action
      *
-     * @Template("TickitTeamBundle:Team:create.html.twig")
+     * @const string
+     */
+    const CSRF_DELETE_INTENTION = 'delete_team';
+
+    /**
+     * Create team action.
      *
-     * @return array|RedirectResponse
+     * Handles a request to create a new team in the application.
+     *
+     * @return JsonResponse
      */
     public function createAction()
     {
+        $responseData = array('success' => false);
         $formType = new TeamFormType();
-        $form = $this->createForm($formType);
+        $form = $this->createForm($formType, new Team());
 
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
-
-            if ($form->isValid()) {
-                $team = $form->getData();
-
-                /** @var TeamManager $manager  */
-                $manager = $this->get('tickit_team.manager');
-                $manager->create($team);
-
-                $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashBag()->add('notice', $generator->getEntityCreatedMessage('team'));
-                $route = $this->generateUrl('team_index');
-
-                return $this->redirect($route);
-            }
+        $form->submit($this->getRequest());
+        if ($form->isValid()) {
+            $this->get('tickit_team.manager')->create($form->getData());
+            $data['success'] = true;
+        } else {
+            $data['form'] = $this->render(
+                'TickitTeam:Team:create.html.twig',
+                array('form' => $form->createView())
+            );
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 
     /**
-     * Loads the edit team page
+     * Edit team action.
      *
-     * @param integer $id The ID of the team to edit
+     * Handles a request to update a team in the application.
      *
-     * @Template("TickitTeamBundle:Team:edit.html.twig")
+     * @param Team $team The team to edit
      *
-     * @throws NotFoundHttpException If no team was found for the given ID
+     * @ParamConverter("team", class="TickitTeamBundle:Team")
      *
-     * @return array
+     * @return JsonResponse
      */
-    public function editAction($id)
+    public function editAction(Team $team)
     {
-        /** @var TeamManager $manager */
-        $manager = $this->get('tickit_team.manager');
-        $repo = $manager->getRepository();
+        $responseData = array('success' => false);
+        $form = $this->createForm(new TeamFormType(), $team);
+        $form->submit($this->getRequest());
 
-        $team = $repo->find($id);
-
-        if (empty($team)) {
-            throw $this->createNotFoundException('Team not found');
+        if ($form->isValid()) {
+            $this->get('tickit_team.manager')->update($form->getData());
+            $responseData['success'] = true;
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitTeamBundle:Team:edit.html.twig',
+                array('form' => $form->createView())
+            );
         }
 
-        $formType = new TeamFormType();
-        $form = $this->createForm($formType, $team);
-
-        if ('POST' === $this->getRequest()->getMethod()) {
-            $form->bind($this->getRequest());
-
-            if ($form->isValid()) {
-                $team = $form->getData();
-                $manager->update($team);
-
-                $generator = $this->get('tickit.flash_messages');
-                $this->get('session')->getFlashbag()->add('notice', $generator->getEntityUpdatedMessage('team'));
-            }
-        }
-
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData)
     }
 
     /**
      * Deletes a team from the application.
      *
-     * @param integer $id The ID of the team to delete
+     * @param Team $team The team to delete
      *
-     * @return RedirectResponse
+     * @ParamConverter("team", class="TickitTeamBundle:Team")
+     *
+     * @throws NotFoundHttpException If the CSRF token is invalid
+     *
+     * @return JsonResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Team $team)
     {
         $token = $this->getRequest()->query->get('token');
         $tokenProvider = $this->get('form.csrf_provider');
 
-        if (!$tokenProvider->isCsrfTokenValid('delete_team', $token)) {
+        if (!$tokenProvider->isCsrfTokenValid(static::CSRF_DELETE_INTENTION, $token)) {
             throw $this->createNotFoundException('Invalid CSRF token');
         }
 
-        /** @var TeamManager $manager  */
         $manager = $this->get('tickit_team.manager');
-        $team = $manager->getRepository()->find($id);
-
-        if (empty($team)) {
-            throw $this->createNotFoundException('Team not found');
-        }
-
         $manager->delete($team);
 
-        $generator = $this->get('tickit.flash_messages');
-        $this->get('session')->getFlashBag()->add('notice', $generator->getEntityDeletedMessage('team'));
-
-        $route = $this->generateUrl('team_index');
-
-        return $this->redirect($route);
+        return new JsonResponse(array('success' => true));
     }
 }
