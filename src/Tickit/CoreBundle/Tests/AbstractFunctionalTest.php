@@ -124,6 +124,12 @@ abstract class AbstractFunctionalTest extends WebTestCase
         $faker = $this->getFakerGenerator();
         $container = static::createClient()->getContainer();
 
+        if (!empty($options['group']) && $options['group'] instanceof Group) {
+            $defaultGroup = $options['group'];
+        } else {
+            $defaultGroup = $container->get('doctrine')->getRepository('TickitUserBundle:Group')->findOneByName('Administrators');
+        }
+
         if (!empty($options['roles'])) {
             $defaultRoles = $options['roles'];
         } else {
@@ -136,12 +142,8 @@ abstract class AbstractFunctionalTest extends WebTestCase
              ->setSurname($faker->lastName)
              ->setEmail($faker->email)
              ->setUsername($user->getEmail())
-             ->setPlainPassword($faker->md5);
-
-        if (!empty($options['group']) && $options['group'] instanceof Group) {
-            $group = $options['group'];
-            $user->setGroup($group);
-        }
+             ->setPlainPassword($faker->md5)
+             ->setGroup($defaultGroup);
 
         foreach ($defaultRoles as $role) {
             $user->addRole($role);
