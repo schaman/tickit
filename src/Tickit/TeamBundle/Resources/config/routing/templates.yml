@@ -1,0 +1,16 @@
+team_create_form:
+    pattern: /create
+    defaults: { _controller: TickitTeamBundle:Template:createTeamForm }
+    requirements:
+        _method: GET
+    options:
+        expose: true
+
+team_edit_form:
+    pattern: /edit/{id}
+    defaults: { _controller: TickitTeamBundle:Template:editTeamForm }
+    requirements:
+        _method: GET
+        id: \d+
+    options:
+        expose: true
