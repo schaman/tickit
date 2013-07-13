@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\TeamBundle\Tests\Controller;
+
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\TeamBundle\Controller\TeamController;
 use Tickit\TeamBundle\Entity\Team;

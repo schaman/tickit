@@ -18,7 +18,7 @@ interface TeamAwareInterface
      *
      * @return Team
      */
-    function getTeam();
+    public function getTeam();
 
     /**
      * Sets the team on this object
@@ -27,5 +27,5 @@ interface TeamAwareInterface
      *
      * @return mixed
      */
-    function setTeam(Team $team);
+    public function setTeam(Team $team);
 }
