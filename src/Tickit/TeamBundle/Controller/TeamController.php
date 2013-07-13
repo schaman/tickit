@@ -20,24 +20,6 @@ use Tickit\TeamBundle\Manager\TeamManager;
 class TeamController extends AbstractCoreController
 {
     /**
-     * Lists all teams in the application
-     *
-     * @Template("TickitTeamBundle:Team:index.html.twig")
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        $teams = $this->get('tickit_team.manager')
-                      ->getRepository()
-                      ->findByFilters();
-
-        $token = $this->get('form.csrf_provider')->generateCsrfToken('delete_team');
-
-        return array('teams' => $teams, 'token' => $token);
-    }
-
-    /**
      * Loads the create team page
      *
      * @Template("TickitTeamBundle:Team:create.html.twig")
