@@ -9,7 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\CoreBundle\Entity\CoreSession;
 use Tickit\PermissionBundle\Loader\LoaderInterface;
-use Tickit\PermissionBundle\Service\PermissionServiceInterface;
+use Tickit\PermissionBundle\Loader\PermissionLoader;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 
@@ -45,7 +45,7 @@ class Login
     /**
      * The permissions service
      *
-     * @var PermissionServiceInterface
+     * @var PermissionLoader
      */
     protected $permissionsLoader;
 
