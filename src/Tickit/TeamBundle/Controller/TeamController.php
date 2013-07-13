@@ -80,7 +80,7 @@ class TeamController extends AbstractCoreController
             );
         }
 
-        return new JsonResponse($responseData)
+        return new JsonResponse($responseData);
     }
 
     /**
