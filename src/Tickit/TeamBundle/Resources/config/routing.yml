@@ -28,4 +28,5 @@ team_delete:
     pattern: /delete/{id}
     defaults: { _controller: TickitTeamBundle:Team:delete }
     requirements:
+        _method: POST
         id: \d+

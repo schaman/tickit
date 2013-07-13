@@ -2,6 +2,7 @@
 
 namespace Tickit\TeamBundle\Tests\Controller;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\TeamBundle\Controller\TeamController;
 use Tickit\TeamBundle\Entity\Team;
 
 /**
@@ -140,5 +141,49 @@ class TeamControllerTest extends AbstractFunctionalTest
         $doctrine->getManager()->refresh($updatedTeam);
 
         $this->assertEquals($newName . '_updated', $updatedTeam->getName());
+    }
+
+    /**
+     * Tests the deleteTeamAction() method
+     *
+     * @return void
+     */
+    public function testDeleteTeamActionThrows404ForInvalidToken()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute(
+            'team_delete',
+            array('id' => static::$team->getId(), 'token' => 'adkowagjiwaga')
+        );
+
+        $client->request('post', $route);
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the deleteTeamAction() method
+     *
+     * @return void
+     */
+    public function testDeleteTeamActionDeletesTeam()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $token = $container->get('form.csrf_provider')->generateCsrfToken(TeamController::CSRF_DELETE_INTENTION);
+        $manager = $container->get('tickit_team.manager');
+
+        $team = new Team();
+        $team->setName(__FUNCTION__ . time());
+        $manager->create($team);
+
+        $totalTeams = count($manager->getRepository()->findAll());
+        $route = $this->generateRoute('team_delete', array('id' => $team->getId(), 'token' => $token));
+
+        $client->request('post', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertEquals(--$totalTeams, count($manager->getRepository()->findAll()));
     }
 }
