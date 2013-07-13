@@ -80,7 +80,7 @@ class Login
             return;
         }
 
-        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        $ipAddress = @$_SERVER['REMOTE_ADDR'] ?: 'unknown';
         $sessionToken = $this->session->getId();
 
         $userSession = new UserSession();
