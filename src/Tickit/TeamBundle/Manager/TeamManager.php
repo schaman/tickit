@@ -2,8 +2,8 @@
 
 namespace Tickit\TeamBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\TeamBundle\Entity\Repository\TeamRepository;
 
 /**
  * Team Manager
@@ -39,7 +39,7 @@ class TeamManager extends AbstractManager
      *
      * This method returns the entity repository that is associated with this manager's entity.
      *
-     * @return ObjectRepository
+     * @return TeamRepository
      */
     public function getRepository()
     {
