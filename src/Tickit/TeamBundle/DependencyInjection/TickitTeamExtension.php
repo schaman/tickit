@@ -28,6 +28,7 @@ class TickitTeamExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $xmlLoader->load('services.xml');
         $xmlLoader->load('listeners.xml');
     }
 
