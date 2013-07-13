@@ -37,7 +37,7 @@ class TemplateControllerTest extends AbstractFunctionalTest
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $doctrine = $client->getContainer()->get('doctrine');
-        $team = $doctrine->getRepository('TickitTeamBundle:Team')->findOneByName('Test Development Team');
+        $team = $doctrine->getRepository('TickitTeamBundle:Team')->findOneByName('Test Team 1');
         $route = $this->generateRoute('team_edit_form', array('id' => $team->getId()));
 
         $crawler = $client->request('get', $route);
