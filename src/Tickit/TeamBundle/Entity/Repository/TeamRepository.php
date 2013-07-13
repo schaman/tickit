@@ -3,6 +3,8 @@
 namespace Tickit\TeamBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
 /**
  * Team entity repository.
@@ -12,28 +14,23 @@ use Doctrine\ORM\EntityRepository;
  * @package Tickit\TeamBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TeamRepository extends EntityRepository
+class TeamRepository extends EntityRepository implements FilterableRepositoryInterface
 {
     /**
-     * Returns a collection of teams that match the given criteria
+     * Finds results based off a set of filters.
      *
-     * @param array $filters An array of filters used to filter the result
+     * @param FilterCollection $filters The filter collection
      *
      * @return mixed
      */
-    public function findByFilters(array $filters = array())
+    public function findByFilters(FilterCollection $filters)
     {
         $teamsQ = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('p')
-            ->from('TickitTeamBundle:Team', 'p');
+                       ->createQueryBuilder()
+                       ->select('p')
+                       ->from('TickitTeamBundle:Team', 'p');
 
-        foreach ($filters as $column => $value) {
-            if (is_string($value)) {
-                $teamsQ->where(sprintf('%s LIKE :%s', $column, $column));
-                $teamsQ->setParameter($column, $value);
-            }
-        }
+        $filters->applyToQuery($teamsQ);
 
         return $teamsQ->getQuery()->execute();
     }
