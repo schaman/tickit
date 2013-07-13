@@ -42,10 +42,10 @@ class TeamController extends AbstractCoreController
         $form->submit($this->getRequest());
         if ($form->isValid()) {
             $this->get('tickit_team.manager')->create($form->getData());
-            $data['success'] = true;
+            $responseData['success'] = true;
         } else {
-            $data['form'] = $this->render(
-                'TickitTeam:Team:create.html.twig',
+            $responseData['form'] = $this->render(
+                'TickitTeamBundle:Team:create.html.twig',
                 array('form' => $form->createView())
             );
         }
