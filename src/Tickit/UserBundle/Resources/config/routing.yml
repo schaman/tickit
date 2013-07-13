@@ -10,7 +10,7 @@ cosmetic:
     resource: "@TickitUserBundle/Resources/config/routing/cosmetic.yml"
 
 
-###### ROUTES BELOW HERE NEED TO BE REFACTORED INTO THE RELEVANT FILES ABOVE ######
+##########################################
 
 user_create:
     pattern: /users/create
@@ -21,6 +21,13 @@ user_create:
 user_edit:
     pattern: /users/edit/{id}
     defaults: { _controller: TickitUserBundle:User:edit }
+    requirements:
+        id: \d+
+        _method: post
+
+user_delete:
+    pattern: /users/delete/{id}
+    defaults: { _controller: TickitUserBundle:User:delete }
     requirements:
         id: \d+
         _method: post
