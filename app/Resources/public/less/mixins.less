@@ -38,6 +38,105 @@
   filter: ~"alpha(opacity=@{value})";
 }
 
+//
+// Key frames
+// --------------------------------------------------
+
+
+@-webkit-keyframes todoWobble {
+    0% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+    50% {
+        -webkit-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+    100% {
+        -webkit-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+}
+
+@-moz-keyframes todoWobble {
+    0% {
+        -moz-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+    50% {
+        -moz-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+    100% {
+        -moz-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+}
+
+@-o-keyframes todoWobble {
+    0% {
+        -o-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+    50% {
+        -o-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+    100% {
+        -o-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+}
+
+@keyframes todoWobble {
+    0% {
+        -ms-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+    50% {
+        -ms-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+    100% {
+        -ms-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+}
+
+
+@keyframes bounce {
+  45% {
+    height: 63px;
+    margin-top: 20px;
+  }
+  55% {
+    height: 63px;
+    margin-top: -11px;
+  }
+  75% {
+    height: 63px;
+    margin-top: -18px;
+
+  }
+}
+
+@-webkit-keyframes bounce {
+  45% {
+    height: 63px;
+    margin-top: 20px;
+  }
+  55% {
+    height: 63px;
+    margin-top: -11px;
+  }
+  75% {
+    height: 63px;
+    margin-top: -18px;
+  }
+}
+
+
+
 // User select
 // For selecting text on the page
 .user-select(@select) {
