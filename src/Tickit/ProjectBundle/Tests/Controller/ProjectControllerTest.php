@@ -80,6 +80,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
 
         $jsonResponse = json_decode($client->getResponse()->getContent());
         $this->assertTrue($jsonResponse->success);
+        $this->assertEquals($this->generateRoute('project_index'), $jsonResponse->returnUrl);
 
         $doctrine = $this->createClient()->getContainer()->get('doctrine');
         $project  = $doctrine->getRepository('TickitProjectBundle:Project')->findOneByName($projectName);
@@ -137,6 +138,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
         $project  = $doctrine->getRepository('TickitProjectBundle:Project')->find(static::$project->getId());
 
         $this->assertEquals($newProjectName, $project->getName());
+        $this->assertEquals($this->generateRoute('project_index'), $jsonResponse->returnUrl);
 
         // revert back to old project name for other tests to still pass
         $project->setName($oldProjectName);
@@ -174,7 +176,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
     {
         $client = $this->getAuthenticatedClient(static::$admin);
 
-        $client->request('get', '/projects/edit/999999999999999999');
+        $client->request('post', '/projects/edit/999999999999999999');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
