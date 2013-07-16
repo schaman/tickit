@@ -14,7 +14,7 @@ project_create_view:
     options:
         expose: true
 
-project_create_view:
+project_edit_view:
     pattern: /projects/edit/{id}
     defaults: { _controller: TickitCoreBundle:Default:default }
     requirements:
