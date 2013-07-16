@@ -5,15 +5,15 @@
  */
 define(['backbone', 'modules/request'], function(Backbone, Request) {
     return Backbone.View.extend({
-        tagName: 'div',
-
         render: function() {
+            var me = this;
             Request.get({
                 url: Routing.generate('project_create_form'),
                 success: function(resp) {
-                    this.$el.html(resp);
+                    me.$el.html(resp);
                 }
             });
+            return this;
         }
     });
 });

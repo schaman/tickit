@@ -4,7 +4,7 @@
  * @author  James Halsall <james.t.halsall@googlemail.coM>
  * @license MIT <http://opensource.org/licenses/MIT>
  */
-define(function(collection, listView) {
+define(function() {
     return App.module('Project', function(module) {
 
         module.startWithParent = false;
@@ -19,7 +19,7 @@ define(function(collection, listView) {
                 'tickitproject/js/collections/ProjectCollection',
                 'tickitproject/js/views/ProjectListView',
                 'tickitproject/js/views/ProjectRowView'
-            ], function() {
+            ], function(collection, listView) {
                 var projects = new collection;
                 projects.fetch();
                 var view = new listView({
