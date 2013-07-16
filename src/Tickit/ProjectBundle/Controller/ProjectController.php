@@ -91,9 +91,6 @@ class ProjectController extends AbstractCoreController
             $manager = $this->get('tickit_project.manager');
             $manager->update($project);
 
-            $flash = $this->get('tickit.flash_messages');
-            $flash->addEntityUpdatedMessage('project');
-
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
