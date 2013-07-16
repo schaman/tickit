@@ -49,6 +49,12 @@ var AppRouter = Backbone.Router.extend({
         require(['modules/project'], function(Project) {
             Project.loadProjectList();
         });
+    },
+
+    "project/create" : function() {
+        require(['modules/project'], function(Project) {
+            Project.loadProjectCreate();
+        });
     }
 });
 
