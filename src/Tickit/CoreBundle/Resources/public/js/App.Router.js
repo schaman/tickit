@@ -30,9 +30,9 @@ var AppRouter = Backbone.Router.extend({
         ""                     : "dashboard",
         "dashboard"            : "dashboard",
         "login"                : "login",
-        "projects"             : "projects",
         "projects/create"      : "projectCreate",
-        "projects/edit/:id"    : "projectEdit"
+        "projects/edit/:id"    : "projectEdit",
+        "projects"             : "projects"
     },
 
     "login" : function() {
