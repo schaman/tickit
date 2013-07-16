@@ -31,7 +31,8 @@ var AppRouter = Backbone.Router.extend({
         "dashboard"         : "dashboard",
         "login"             : "login",
         "projects"          : "projects",
-        "projects/create"   : "project-create"
+        "project/create"   : "project-create",
+        "project/edit/*"   : "project-edit"
     },
 
     "login" : function() {
@@ -55,6 +56,12 @@ var AppRouter = Backbone.Router.extend({
     "project-create" : function() {
         require(['modules/project'], function(Project) {
             Project.loadProjectCreate();
+        });
+    },
+
+    "project-edit" : function() {
+        require(['modules/Project'], function(Project) {
+            Project.loadProjectEdit();
         });
     }
 });

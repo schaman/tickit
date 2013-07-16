@@ -37,6 +37,15 @@ define(function(collection, listView) {
          */
         module.loadProjectCreate = function() {
 
+        };
+
+        /**
+         * Loads edit project view
+         *
+         * @return {void}
+         */
+        module.loadProjectEdit = function() {
+
         }
     });
 });
