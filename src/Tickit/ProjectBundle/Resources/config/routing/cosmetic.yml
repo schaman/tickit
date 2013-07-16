@@ -14,6 +14,15 @@ project_create_view:
     options:
         expose: true
 
+project_create_view:
+    pattern: /projects/edit/{id}
+    defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        id: \d+
+        _method: get
+    options:
+        expose: true
+
 project_attribute_index:
     pattern: /attributes/{page}
     defaults: { _controller: TickitProjectBundle:Default:default, page: 1 }

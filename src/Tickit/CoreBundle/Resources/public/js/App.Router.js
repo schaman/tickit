@@ -60,8 +60,8 @@ var AppRouter = Backbone.Router.extend({
     },
 
     "projectEdit" : function(id) {
-        require(['modules/Project'], function(Project) {
-            Project.loadProjectEdit();
+        require(['modules/project'], function(Project) {
+            Project.loadProjectEdit(id);
         });
     }
 });

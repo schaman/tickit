@@ -36,7 +36,7 @@ define(function() {
          * @return {void}
          */
         module.loadProjectCreate = function() {
-            require(['tickitproject/js/views/ProjectCreateView'], function(view) {
+            require(['tickitproject/js/views/ProjectFormView'], function(view) {
                 App.mainRegion.show(new view);
             });
         };
@@ -46,8 +46,10 @@ define(function() {
          *
          * @return {void}
          */
-        module.loadProjectEdit = function() {
-
+        module.loadProjectEdit = function(id) {
+            require(['tickitproject/js/views/ProjectFormView'], function(view) {
+                App.mainRegion.show(new view({ id: id }));
+            });
         }
     });
 });
