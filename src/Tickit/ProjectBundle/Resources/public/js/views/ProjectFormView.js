@@ -3,23 +3,19 @@
  *
  * @type {Backbone.View}
  */
-define(['backbone', 'modules/request'], function(Backbone, Request) {
-    return Backbone.View.extend({
+define(['tickitcore/js/views/FormView'], function(FormView) {
+    return FormView.extend({
 
         /**
-         * Initializes the form view
+         * Gets the URL for loading the view template
          *
          * @return {void}
          */
-        initialize: function() {
+        getUrl: function() {
             if (!isNaN(this.id)) {
-                this.url = function() {
-                    return Routing.generate('project_edit_form', { "id": this.id });
-                }
+                return Routing.generate('project_edit_form', { "id": this.id });
             } else {
-                this.url = function() {
-                    return Routing.generate('project_create_form');
-                }
+                return Routing.generate('project_create_form');
             }
         },
 
@@ -28,47 +24,6 @@ define(['backbone', 'modules/request'], function(Backbone, Request) {
          */
         events: {
             "submit" : "onSubmit"
-        },
-
-        /**
-         * Handles a submit event
-         *
-         * @return {void}
-         */
-        onSubmit : function(e) {
-            var me = this;
-            e.preventDefault();
-            var $form = $(e.target).closest('form');
-
-            Request.ajax({
-                url: $form.attr('action'),
-                type: $form.attr('method'),
-                data: $form.serialize(),
-                success: function(resp) {
-                    if (resp.success) {
-                        App.Router.goTo(resp.returnUrl);
-                    } else {
-                        me.$el.html(resp.form);
-                    }
-                }
-            });
-
-        },
-
-        /**
-         * Renders the view
-         *
-         * @returns {Backbone.View}
-         */
-        render: function() {
-            var me = this;
-            Request.get({
-                url: this.url(),
-                success: function(resp) {
-                    me.$el.html(resp);
-                }
-            });
-            return this;
         }
     });
 });
