@@ -6,6 +6,14 @@ project_index:
     options:
         expose: true
 
+project_create_view:
+    pattern: /projects/create
+    defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        _method: get
+    options:
+        expose: true
+
 project_attribute_index:
     pattern: /attributes/{page}
     defaults: { _controller: TickitProjectBundle:Default:default, page: 1 }

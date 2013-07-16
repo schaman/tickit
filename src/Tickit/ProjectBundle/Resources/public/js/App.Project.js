@@ -36,7 +36,9 @@ define(function(collection, listView) {
          * @return {void}
          */
         module.loadProjectCreate = function() {
-
+            require(['tickitproject/js/views/ProjectCreateView'], function(view) {
+                App.mainRegion.show(new view);
+            });
         };
 
         /**
