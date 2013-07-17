@@ -34,10 +34,10 @@ define([
          * @return {void}
          */
         module.loadHeaderNavigation = function() {
-            var user = User.loadCurrentUser();
-            var view = new ProfileNavigationView({ model: user });
-
-            App.headerRegion.show(view);
+            User.loadCurrentUser(function(user) {
+                var view = new ProfileNavigationView({ model: user });
+                App.headerRegion.show(view);
+            });
         }
     });
 });

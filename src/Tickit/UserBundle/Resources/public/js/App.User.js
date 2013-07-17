@@ -19,12 +19,20 @@ define([
          *
          * @return {Backbone.Model}
          */
-        module.loadCurrentUser = function() {
+        module.loadCurrentUser = function(callback) {
             if (null === module.currentUser) {
                 module.currentUser = new User();
-                module.currentUser.fetch({ id: App.Session.get('userId') });
+                return module.currentUser.fetch({
+                    id: App.Session.get('userId'),
+                    success: function(user) {
+                        if (typeof callback == 'function') {
+                            callback(user);
+                        }
+                    }
+                });
+            } else {
+                return module.currentUser;
             }
-            return module.currentUser;
         };
 
         /**
