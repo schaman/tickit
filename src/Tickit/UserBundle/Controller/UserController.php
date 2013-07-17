@@ -48,7 +48,7 @@ class UserController extends AbstractCoreController
             $responseData['form'] = $this->render(
                 'TickitUserBundle:User:create.html.twig',
                 array('form' => $form->createView())
-            );
+            )->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -96,7 +96,7 @@ class UserController extends AbstractCoreController
             $responseData['form'] = $this->render(
                 'TickitUserBundle:User:edit.html.twig',
                 array('form' => $form->createView())
-            );
+            )->getContent();
         }
 
         return new JsonResponse($responseData);
