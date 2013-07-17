@@ -13,8 +13,7 @@ define([
 
     return Marionette.ItemView.extend({
         tagName: 'div',
-        template: 'profile_navigation-template',
-        className: 'navbar-inner',
+        className: 'navbar navbar-inverse',
 
         /**
          * Renders the HTML markup for the profile navigation
@@ -23,6 +22,7 @@ define([
          */
         render: function() {
             var d = this.model.attributes;
+
             this.$el.html(_.template($(tpl).html(), {
                 fullname: this.model.getFullName(),
                 avatarUrl: d.avatarUrl
