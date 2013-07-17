@@ -81,7 +81,8 @@ require([
     App.addRegions({
         mainRegion: new MainRegion,
         loginRegion: new AnimatedRegion({ el: '#container' }),
-        navRegion: 'header.main-header',
+        navRegion: '#main',
+        headerRegion: 'header.main-header',
         footerRegion: '#footer'
     });
 

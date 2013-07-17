@@ -5,8 +5,10 @@
  */
 define([
     'tickitnavigation/js/collections/NavigationItemCollection',
-    'tickitnavigation/js/views/NavigationView'
-], function(NavigationItemCollection, NavigationView) {
+    'tickitnavigation/js/views/NavigationView',
+    'tickitnavigation/js/views/ProfileNavigationView',
+    'modules/user'
+], function(NavigationItemCollection, NavigationView, ProfileNavigationView, User) {
 
     return App.module('Navigation', function(module) {
         module.startWithParent = true;
@@ -24,6 +26,18 @@ define([
             });
 
             App.navRegion.show(view);
+        };
+
+        /**
+         * Loads the header navigation
+         *
+         * @return {void}
+         */
+        module.loadHeaderNavigation = function() {
+            var user = User.loadCurrentUser();
+            var view = new ProfileNavigationView({ model: user });
+
+            App.headerRegion.show(view);
         }
     });
 });

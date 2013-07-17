@@ -13,7 +13,8 @@ define([
 
     return Marionette.ItemView.extend({
         tagName: 'div',
-        className: 'account',
+        template: 'profile_navigation-template',
+        className: 'navbar-inner',
 
         /**
          * Renders the HTML markup for the profile navigation
