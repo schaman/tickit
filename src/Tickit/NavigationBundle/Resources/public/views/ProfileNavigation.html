@@ -1,7 +1,16 @@
 <script type="text/template" id="profile_navigation-template">
-    <div class="fui-chat"><span></span></div>
-    <div class="account-thumb">
-        <img height="35px" width="35px" src="<%= user.avatarUrl %>">
+    <div class="container">
+        <div class="nav-collapse collapse">
+            <a href="/" id="logo">Tickit</a>
+            <ul class="nav"></ul>
+        </div>
+
+        <div id="account">
+            <div class="fui-chat"><span></span></div>
+            <div class="account-thumb">
+                <img height="35px" width="35px" src="<%= user.avatarUrl %>">
+            </div>
+            <a href="#"><%= user.fullname %></a>
+        </div>
     </div>
-    <a href="#"><%= user.fullname %></a>
 </script>
