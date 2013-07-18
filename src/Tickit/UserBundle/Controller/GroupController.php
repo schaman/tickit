@@ -2,8 +2,9 @@
 
 namespace Tickit\UserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Form\Type\GroupFormType;
@@ -20,83 +21,71 @@ use Tickit\UserBundle\Form\Type\GroupFormType;
 class GroupController extends Controller
 {
     /**
-     * Serves content for the create group page.
+     * Handles a request to create a group.
      *
-     * @Template("TickitUserBundle:Group:create.html.twig")
-     *
-     * @return array
+     * @return JsonResponse
      */
     public function createAction()
     {
+        $responseData = ['success' => false];
         $group = new Group('');
         $permissions = $this->get('tickit_permission.manager')->getPermissionModels();
         $group->setPermissions($permissions);
 
         $form = $this->createForm(new GroupFormType(), $group);
+        $form->submit($this->getRequest());
 
-        if ('POST' === $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
-
-            if ($form->isValid()) {
-                $group = $form->getData();
-
-                $manager = $this->get('tickit_user.group_manager');
-                $manager->create($group);
-
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityCreatedMessage('group');
-
-                $route = $this->get('router')->generate('group_index');
-
-                return $this->redirect($route);
-            }
+        if ($form->isValid()) {
+            $group = $form->getData();
+            $this->get('tickit_user.group_manager')->create($group);
+            $route = $this->get('router')->generate('group_index');
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $route;
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitUserBundle:Group:create.html.twig',
+                ['form' => $form->createView()]
+            );
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 
     /**
-     * Serves content for the edit group page.
+     * Handles a request to update a group.
      *
-     * @param integer $id The group ID to edit
+     * @param Group $group The group to edit
      *
      * @throws NotFoundHttpException If no group is found for the given ID
      *
      * @Template("TickitUserBundle:Group:edit.html.twig")
      *
-     * @return array
+     * @ParamConverter("group", class="TickitUserBundle:Group")
+     *
+     * @return JsonResponse
      */
-    public function editAction($id)
+    public function editAction(Group $group)
     {
-        $group = $this->get('tickit_user.group_manager')->find($id);
-
-        if (!$group instanceof Group) {
-            throw $this->createNotFoundException(sprintf('No group could be found for the given ID (%d)', $id));
-        }
-
+        $responseData = ['success' => false];
         $permissions = $this->get('tickit_permission.manager')->getUserPermissionData($group->getId());
         $group->setPermissions($permissions);
 
         $form = $this->createForm(new GroupFormType(), $group);
+        $form->submit($this->getRequest());
 
-        if ('POST' === $this->getRequest()->getMethod()) {
-            $form->submit($this->getRequest());
-
-            if ($form->isValid()) {
-                $group = $form->getData();
-
-                $manager = $this->get('tickit_user.group_manager');
-                $manager->update($group);
-
-                $flash = $this->get('tickit.flash_messages');
-                $flash->addEntityUpdatedMessage('group');
-
-                $route = $this->get('router')->generate('group_index');
-
-                return $this->redirect($route);
-            }
+        if ($form->isValid()) {
+            $group = $form->getData();
+            $this->get('tickit_user.group_manager')->update($group);
+            $route = $this->get('router')->generate('group_index');
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $route;
+        } else {
+            $responseData['form'] = $this->render(
+                'TickitUserBundle:Group:edit.html.twig',
+                ['form' => $form->createView()]
+            )->getContent();
         }
 
-        return array('form' => $form->createView());
+        return new JsonResponse($responseData);
     }
 }
