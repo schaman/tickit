@@ -9,6 +9,7 @@ api_user_fetch:
     defaults: { _controller: TickitUserBundle:Api:fetch, id: null }
     requirements:
         id: \d+
+        _method: GET
     options:
         expose: true
 
@@ -17,6 +18,7 @@ api_user_list:
     defaults: { _controller: TickitUserBundle:Api:list, page: 1 }
     requirements:
         page: \d+
+        _method: GET
     options:
         expose: true
 
@@ -25,5 +27,6 @@ api_group_list:
     defaults: { _controller: TickitUserBundle:Api:listGroups, page: 1 }
     requirements:
         page: \d+
+        _method: GET
     options:
         expose: true

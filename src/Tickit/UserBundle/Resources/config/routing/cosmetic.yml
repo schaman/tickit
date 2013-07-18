@@ -1,9 +1,19 @@
 fos_user_security_login:
     pattern: /login
     defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        _method: GET
 
 user_index:
-    pattern: /{page}
+    pattern: /users/{page}
     defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
     requirements:
         page: \d+
+        _method: GET
+
+group_index:
+    pattern: /users/groups/{page}
+    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
+    requirements:
+        page: \d+
+        _method: GET
