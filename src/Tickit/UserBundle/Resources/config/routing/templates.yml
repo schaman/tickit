@@ -1,7 +1,7 @@
 user_login_form:
     pattern: /login-form
     defaults: { _controller: TickitUserBundle:Security:login }
-    requirement:
+    requirements:
         _method: GET
 
 user_create_form:
