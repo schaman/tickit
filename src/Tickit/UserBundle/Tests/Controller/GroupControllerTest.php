@@ -14,30 +14,12 @@ use Tickit\UserBundle\Entity\Group;
 class GroupControllerTest extends AbstractFunctionalTest
 {
     /**
-     * Tests the indexAction() method
-     *
-     * @return void
-     */
-    public function testIndexActionRendersGroups()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-
-        $crawler = $client->request('get', $router->generate('group_index'));
-
-        $this->assertEquals('Manage Groups', $crawler->filter('h2')->text());
-        $this->assertGreaterThan(0, $crawler->filter('div.data-list table tbody tr')->count());
-    }
-
-    /**
      * Tests the createAction() method
      *
      * @return void
      */
     public function testCreateActionCreatesGroupWithValidDetails()
     {
-        $this->markTestSkipped('Needs refactoring to new API format');
-
         $faker = $this->getFakerGenerator();
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
