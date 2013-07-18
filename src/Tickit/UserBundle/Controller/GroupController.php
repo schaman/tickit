@@ -58,8 +58,6 @@ class GroupController extends Controller
      *
      * @throws NotFoundHttpException If no group is found for the given ID
      *
-     * @Template("TickitUserBundle:Group:edit.html.twig")
-     *
      * @ParamConverter("group", class="TickitUserBundle:Group")
      *
      * @return JsonResponse
