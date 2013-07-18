@@ -20,22 +20,6 @@ use Tickit\UserBundle\Form\Type\GroupFormType;
 class GroupController extends Controller
 {
     /**
-     * Lists all groups in the application.
-     *
-     * @Template("TickitUserBundle:Group:index.html.twig")
-     *
-     * @return array
-     */
-    public function indexAction()
-    {
-        $groups = $this->get('doctrine')
-                       ->getRepository('TickitUserBundle:Group')
-                       ->findGroups();
-
-        return array('groups' => $groups);
-    }
-
-    /**
      * Serves content for the create group page.
      *
      * @Template("TickitUserBundle:Group:create.html.twig")

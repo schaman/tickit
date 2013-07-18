@@ -19,3 +19,11 @@ api_user_list:
         page: \d+
     options:
         expose: true
+
+api_group_list:
+    pattern: /groups/list/{page}
+    defaults: { _controller: TickitUserBundle:Api:listGroups, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true

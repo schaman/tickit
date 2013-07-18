@@ -3,6 +3,8 @@
 namespace Tickit\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
 /**
  * Group repository.
@@ -12,29 +14,21 @@ use Doctrine\ORM\EntityRepository;
  * @package Tickit\UserBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class GroupRepository extends EntityRepository
+class GroupRepository extends EntityRepository implements FilterableRepositoryInterface
 {
     /**
-     * Finds groups that match the provided filters.
+     * Finds results based off a set of filters.
      *
-     * @param array $filters An array of filters to search on
+     * @param FilterCollection $filters The filter collection
      *
      * @return mixed
      */
-    public function findGroups(array $filters = array())
+    public function findByFilters(FilterCollection $filters)
     {
-        $groupsQ = $this->getEntityManager()
-                        ->createQueryBuilder()
-                        ->select('g')
-                        ->from('TickitUserBundle:Group', 'g');
+        $query = $this->createQueryBuilder('g');
 
-        foreach ($filters as $column => $value) {
-            if (is_string($value)) {
-                $groupsQ->where(sprintf('%s LIKE :%s', $column, $column));
-                $groupsQ->setParameter($column, $value);
-            }
-        }
+        $filters->applyToQuery($query);
 
-        return $groupsQ->getQuery()->execute();
+        return $query->getQuery()->execute();
     }
 }
