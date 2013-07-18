@@ -61,7 +61,11 @@ class TemplateController extends Controller
      */
     public function createGroupFormAction()
     {
-        $form = $this->createForm(new GroupFormType(), new Group(''));
+        $group = new Group('');
+        $permissions = $this->get('tickit_permission.manager')->getPermissionModels();
+        $group->setPermissions($permissions);
+
+        $form = $this->createForm(new GroupFormType(), $group);
 
         return $this->render('TickitUserBundle:Group:create.html.twig', array('form' => $form->createView()));
     }
