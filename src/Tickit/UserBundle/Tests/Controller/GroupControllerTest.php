@@ -43,7 +43,19 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testCreateActionReturnsFormContentsForInvalidDetails()
     {
-        $this->markTestIncomplete();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $createRoute = $this->generateRoute('group_create_form');
+        $crawler = $client->request('get', $createRoute);
+
+        $form = $crawler->selectButton('Save User Group')->form(
+            array('tickit_group[name]' => '')
+        );
+        $client->submit($form);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($response->success);
+        $this->assertTrue(isset($response->form));
     }
 
     /**
@@ -53,7 +65,26 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionUpdatesExistingGroupWithValidDetails()
     {
-        $this->markTestIncomplete();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $doctrine = $container->get('doctrine');
+        $group = new Group(__FUNCTION__ . time());
+        $container->get('tickit_user.group_manager')->create($group);
+
+        $editRoute = $this->generateRoute('group_edit_form', ['id' => $group->getId()]);
+        $crawler = $client->request('get', $editRoute);
+
+        $newName = __FUNCTION__ . uniqid();
+        $form = $crawler->selectButton('Save Changes')->form(['tickit_group[name]' => $newName]);
+        $client->submit($form);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+
+        $doctrine->getManager()->refresh($group);
+        $this->assertEquals($newName, $group->getName());
     }
 
     /**
@@ -63,6 +94,20 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionReturnsFormContentsForInvalidDetails()
     {
-        $this->markTestIncomplete();
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $group = new Group(__FUNCTION__ . time());
+        $container->get('tickit_user.group_manager')->create($group);
+
+        $editRoute = $this->generateRoute('group_edit_form', ['id' => $group->getId()]);
+        $crawler = $client->request('get', $editRoute);
+
+        $form = $crawler->selectButton('Save Changes')->form(['tickit_group[name]' => '']);
+        $client->submit($form);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($response->success);
+        $this->assertTrue(isset($response->form));
     }
 }
