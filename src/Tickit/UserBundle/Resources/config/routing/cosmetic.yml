@@ -17,3 +17,29 @@ group_index:
     requirements:
         page: \d+
         _method: GET
+
+user_create_view:
+    pattern: /users/create
+    defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        _method: GET
+
+user_edit_view:
+    pattern: /users/edit/{id}
+    defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        id: \d+
+        _method: GET
+
+group_create_view:
+    pattern: /users/groups/create
+    defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        _method: GET
+
+group_edit_view:
+    pattern: /users/groups/edit/{id}
+    defaults: { _controller: TickitCoreBundle:Default:default }
+    requirements:
+        id: \d+
+        _method: GET
