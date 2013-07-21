@@ -16,6 +16,13 @@ define([
         className: 'navbar navbar-inverse',
 
         /**
+         * Event bindings
+         */
+        events: {
+            "click #logo": "logoClick"
+        },
+
+        /**
          * Renders the HTML markup for the profile navigation
          *
          * @return {Marionette.ItemView}
@@ -28,6 +35,14 @@ define([
                 avatarUrl: d.avatarUrl
             }, { variable: 'user' }));
             return this;
+        },
+
+        /**
+         * Handles a click event on the logo
+         */
+        logoClick: function(e) {
+            e.preventDefault();
+            App.Router.goTo($(e.target).attr('href'));
         }
     });
 });
