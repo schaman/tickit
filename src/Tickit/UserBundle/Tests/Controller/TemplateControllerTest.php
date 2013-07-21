@@ -3,6 +3,7 @@
 namespace Tickit\UserBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\UserBundle\Entity\Group;
 
 /**
  * TemplateController tests
@@ -12,6 +13,28 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  */
 class TemplateControllerTest extends AbstractFunctionalTest
 {
+    /**
+     * Sample group
+     *
+     * @var Group
+     */
+    protected static $developersGroup;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return void
+     */
+    public static function setUpBeforeClass()
+    {
+        parent::setUpBeforeClass();
+
+        $doctrine = static::createClient()->getContainer()->get('doctrine');
+
+        static::$developersGroup = $doctrine->getRepository('TickitUserBundle:Group')
+                                            ->findOneByName('Developers');
+    }
+
     /**
      * Tests the createUserFormAction() method
      *
@@ -88,5 +111,46 @@ class TemplateControllerTest extends AbstractFunctionalTest
         $client->request('get', $editRoute);
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the editGroupFormAction() method
+     *
+     * @return void
+     */
+    public function testCreateGroupFormActionServesCorrectMarkup()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $createRoute = $this->generateRoute('group_create_form');
+
+        $crawler = $client->request('get', $createRoute);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals($this->generateRoute('group_create'), $crawler->filter('form')->attr('action'));
+    }
+
+    /**
+     * Tests the editGroupFormAction() method
+     *
+     * @return void
+     */
+    public function testEditGroupFormActionServesFormMarkupForExistingGroup()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $editRoute = $this->generateRoute('group_edit_form', ['id' => static::$developersGroup->getId()]);
+
+        $crawler = $client->request('get', $editRoute);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $expectedRoute = $this->generateRoute('group_edit', ['id' => static::$developersGroup->getId()]);
+        $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
+    }
+
+    /**
+     * Tests the editGroupFormAction() method
+     *
+     * @return void
+     */
+    public function testEditGroupFormActionReturns404ForNonExistentGroup()
+    {
+
     }
 }
