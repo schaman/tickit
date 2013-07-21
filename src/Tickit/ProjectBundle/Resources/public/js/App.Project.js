@@ -16,9 +16,9 @@ define(function() {
          */
         module.loadProjectList = function() {
             require([
-                'tickitproject/js/collections/ProjectCollection',
-                'tickitproject/js/views/ProjectListView',
-                'tickitproject/js/views/ProjectRowView'
+                'project/js/collections/ProjectCollection',
+                'project/js/views/ProjectListView',
+                'project/js/views/ProjectRowView'
             ], function(collection, listView) {
                 var projects = new collection;
                 projects.fetch();
@@ -36,7 +36,7 @@ define(function() {
          * @return {void}
          */
         module.loadProjectCreate = function() {
-            require(['tickitproject/js/views/ProjectFormView'], function(view) {
+            require(['project/js/views/ProjectFormView'], function(view) {
                 App.mainRegion.show(new view);
             });
         };
@@ -47,7 +47,7 @@ define(function() {
          * @return {void}
          */
         module.loadProjectEdit = function(id) {
-            require(['tickitproject/js/views/ProjectFormView'], function(view) {
+            require(['project/js/views/ProjectFormView'], function(view) {
                 App.mainRegion.show(new view({ id: id }));
             });
         }

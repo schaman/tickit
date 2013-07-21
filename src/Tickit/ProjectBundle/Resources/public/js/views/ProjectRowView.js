@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Marionette.ItemView}
  */
-define(['modules/template', 'text!tickitproject/views/ProjectRowView.html'], function(Template, tpl) {
+define(['modules/template', 'text!project/views/ProjectRowView.html'], function(Template, tpl) {
 
     Template.loadView(tpl);
 

@@ -4,9 +4,9 @@
  * @type {Marionette.Module}
  */
 define([
-    'tickitnavigation/js/collections/NavigationItemCollection',
-    'tickitnavigation/js/views/NavigationView',
-    'tickitnavigation/js/views/ProfileNavigationView',
+    'navigation/js/collections/NavigationItemCollection',
+    'navigation/js/views/NavigationView',
+    'navigation/js/views/ProfileNavigationView',
     'modules/user'
 ], function(NavigationItemCollection, NavigationView, ProfileNavigationView, User) {
 

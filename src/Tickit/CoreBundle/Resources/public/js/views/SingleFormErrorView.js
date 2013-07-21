@@ -5,7 +5,7 @@
  *
  * @type {Marionette.ItemView}
  */
-define(['modules/template', 'text!tickitcore/views/FormErrorSingle.html'], function(Template, tpl) {
+define(['modules/template', 'text!core/views/FormErrorSingle.html'], function(Template, tpl) {
 
     Template.loadView(tpl);
 

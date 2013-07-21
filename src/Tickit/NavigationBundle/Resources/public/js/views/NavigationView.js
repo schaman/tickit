@@ -7,8 +7,8 @@
  */
 define([
     'marionette',
-    'tickitnavigation/js/views/NavigationItemView',
-    'text!tickitnavigation/views/MainNavigation.html'
+    'navigation/js/views/NavigationItemView',
+    'text!navigation/views/MainNavigation.html'
 ], function(Marionette, ItemView, tpl) {
 
     return Marionette.CompositeView.extend({

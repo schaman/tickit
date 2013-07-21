@@ -3,7 +3,7 @@
  *
  * @type {Backbone.View}
  */
-define(['tickitcore/js/views/FormView'], function(FormView) {
+define(['core/js/views/FormView'], function(FormView) {
     return FormView.extend({
 
         /**

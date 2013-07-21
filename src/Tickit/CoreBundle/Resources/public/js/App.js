@@ -6,17 +6,17 @@
  */
 require([
     'marionette',
-    'tickituser/js/models/Session',
-    'tickitcore/js/regions/MainRegion',
-    'tickitcore/js/regions/AnimatedRegion',
-    'tickitnavigation/js/regions/NavigationRegion',
-    'jquery-ui',
-    'bootstrap-select',
-    'bootstrap-switch',
-    'flatui-checkbox',
-    'flatui-radio',
-    'jquery-placeholder',
-    'jquery-tagsinput',
+    'user/js/models/Session',
+    'core/js/regions/MainRegion',
+    'core/js/regions/AnimatedRegion',
+    'navigation/js/regions/NavigationRegion',
+    'jqueryui',
+    'bootstrapselect',
+    'bootstrapswitch',
+    'flatuicheckbox',
+    'flatuiradio',
+    'jqueryplaceholder',
+    'jquerytagsinput',
     'text'
 ], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion) {
     var App = new Marionette.Application();

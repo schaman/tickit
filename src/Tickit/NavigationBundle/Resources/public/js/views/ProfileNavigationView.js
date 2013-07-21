@@ -8,7 +8,7 @@
 define([
     'marionette',
     'modules/user',
-    'text!tickitnavigation/views/ProfileNavigation.html'
+    'text!navigation/views/ProfileNavigation.html'
 ], function(Marionette, User, tpl) {
 
     return Marionette.ItemView.extend({

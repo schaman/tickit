@@ -6,8 +6,8 @@
  * @type {Marionette.Module}
  */
 define([
-    'tickituser/js/models/User',
-    'tickituser/js/models/Session'
+    'user/js/models/User',
+    'user/js/models/Session'
 ], function(User) {
     return App.module('User', function(module) {
 

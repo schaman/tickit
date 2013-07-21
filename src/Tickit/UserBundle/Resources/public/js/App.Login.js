@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['tickituser/js/views/LoginView'], function(LoginView) {
+define(['user/js/views/LoginView'], function(LoginView) {
     return App.module('Login', function(module) {
 
         /**
