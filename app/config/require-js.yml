@@ -1,0 +1,66 @@
+hearsay_require_js:
+    require_js_src: http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js
+    base_directory: %kernel.root_dir%/Resources/public/js
+    paths:
+        jquery: "@TickitCoreBundle/Resources/public/js/vendor/jquery/jquery"
+        jquery-ui: %kernel.root_dir%/Resources/public/js/vendor/jquery-ui-1.10.3.min
+        text: "@TickitCoreBundle/Resources/public/js/vendor/requirejs-text/text"
+        backbone: "@TickitCoreBundle/Resources/public/js/vendor/backbone/backbone"
+        marionette: "@TickitCoreBundle/Resources/public/js/vendor/backbone.marionette/lib/backbone.marionette"
+        underscore: "@TickitCoreBundle/Resources/public/js/vendor/underscore/underscore"
+        cookie: "@TickitCoreBundle/Resources/public/js/vendor/jquery.cookie/jquery.cookie"
+        bootstrap-js: %kernel.root_dir%/Resources/public/js/bootstrap.min
+        bootstrap-switch: %kernel.root_dir%/Resources/public/js/bootstrap-switch
+        bootstrap-select: %kernel.root_dir%/Resources/public/js/bootstrap-select
+        flatui-checkbox: %kernel.root_dir%/Resources/public/js/flatui-checkbox
+        flatui-radio: %kernel.root_dir%/Resources/public/js/flatui-radio
+        jquery-placeholder: %kernel.root_dir%/Resources/public/js/jquery.placeholder
+        jquery-tagsinput: %kernel.root_dir%/Resources/public/js/jquery.tagsinput
+        modules/app: '@TickitCoreBundle/Resources/public/js/App'
+        core: '@TickitCoreBundle/Resources/public'
+        navigation: "@TickitNavigationBundle/Resources/public"
+        project: "@TickitProjectBundle/Resources/public"
+        user: "@TickitUserBundle/Resources/public"
+        dashboard: "@TickitDashboardBundle/Resources/public"
+    shim:
+        jquery:
+            name: jquery
+            exports: '$'
+        underscore:
+            name: underscore
+            exports: '_'
+        backbone:
+            name: backbone
+            deps: [jquery, underscore]
+            exports: 'Backbone'
+        marionette:
+            name: marionette
+            deps: [backbone]
+            exports: 'Backbone.Marionette'
+        jquery-ui:
+            name: jquery-ui
+            deps: [jquery]
+        cookie:
+            name: cookie
+            deps: [jquery]
+        bootstrap-js:
+            name: bootstrap-js
+            deps: [jquery]
+        bootstrap-switch:
+            name: bootstrap-switch
+            deps: [bootstrap-js]
+        bootstrap-select:
+            name: bootstrap-select
+            deps: [bootstrap-js]
+        flatui-checkbox:
+            name: flatui-checkbox
+            deps: [jquery]
+        flatui-radio:
+            name: flatui-radio
+            deps: [jquery]
+        jquery-placeholder:
+            name: jquery-placeholder
+            deps: [jquery]
+        jquery-tagsinput:
+            name: jquery-tagsinput
+            deps: [jquery]

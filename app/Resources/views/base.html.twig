@@ -38,10 +38,7 @@
         </div>
 
         {% block javascripts %}
-            {#{{ require_js_initialize({ 'main' : 'core/js/App' }) }}#}
-            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js' %}
-                <script data-main="/bundles/tickitcore/js/App" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+            {{ require_js_initialize({ 'main' : 'modules/app' }) }}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}
