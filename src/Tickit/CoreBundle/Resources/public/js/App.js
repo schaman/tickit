@@ -82,7 +82,7 @@ require([
         mainRegion: new MainRegion,
         loginRegion: new AnimatedRegion({ el: '#container' }),
         navRegion: '#main',
-        headerRegion: 'header.main-header',
+        toolbarRegion: 'header.main-header',
         footerRegion: '#footer'
     });
 

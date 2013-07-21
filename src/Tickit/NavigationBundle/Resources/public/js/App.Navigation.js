@@ -36,7 +36,7 @@ define([
         module.loadHeaderNavigation = function() {
             User.loadCurrentUser(function(user) {
                 var view = new ProfileNavigationView({ model: user });
-                App.headerRegion.show(view);
+                App.toolbarRegion.show(view);
             });
         }
     });
