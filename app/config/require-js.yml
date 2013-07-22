@@ -1,5 +1,7 @@
 hearsay_require_js:
     require_js_src: http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js
+    optimizer:
+        path: %requirejs_bin%
     base_directory: %kernel.root_dir%/Resources/public/js
     paths:
         jquery: "@TickitCoreBundle/Resources/public/js/vendor/jquery/jquery"
