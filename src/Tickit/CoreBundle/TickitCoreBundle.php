@@ -12,4 +12,5 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class TickitCoreBundle extends Bundle
 {
+    // TODO: add compiler pass
 }
