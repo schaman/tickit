@@ -19,6 +19,7 @@ script:
   - npm install bower
   - bower install
   - chmod -R +r src/Tickit/CoreBundle/Resources/public/js/vendor
+  - ls -la src/Tickit/CoreBundle/Resources/public/js/vendor
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
 
 after_script:
