@@ -9,7 +9,7 @@ define([
     'text!team/views/TeamListView.html'
 ], function(Template, rowView, tpl) {
 
-    Template.loadView(tpl);
+    Template.load(tpl);
 
     return Backbone.Marionette.CompositeView.extend({
         tagName: 'table',
