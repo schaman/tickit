@@ -2,7 +2,9 @@
 
 namespace Tickit\CoreBundle;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Tickit\CoreBundle\DependencyInjection\Compiler\RequireJsOptimizerFilterServiceCompilerPass;
 
 /**
  * Bundle build file for the TickitCoreBundle
@@ -12,5 +14,18 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class TickitCoreBundle extends Bundle
 {
-    // TODO: add compiler pass
+    /**
+     * {@inheritDoc}
+     *
+     * @param ContainerBuilder $container The service container
+     *
+     * @return void
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new RequireJsOptimizerFilterServiceCompilerPass());
+    }
+
 }

@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * @package Namespace\Class
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class OverrideServiceCompilerPass implements CompilerPassInterface
+class RequireJsOptimizerFilterServiceCompilerPass implements CompilerPassInterface
 {
     /**
     * You can modify the container here before it is dumped to PHP code.
