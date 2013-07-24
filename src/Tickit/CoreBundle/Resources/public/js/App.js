@@ -10,6 +10,7 @@ require([
     'core/js/regions/MainRegion',
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/NavigationRegion',
+    'jquery',
     'jqueryui',
     'bootstrapselect',
     'bootstrapswitch',
