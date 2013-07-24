@@ -95,10 +95,6 @@ class Provider implements ProviderInterface
      */
     protected function addMessageToFlashBag($messageType, array $replacement)
     {
-        if (empty($this->messages[$messageType])) {
-            throw new \RuntimeException('Flash message generator cannot parse an empty message');
-        }
-
         $messageTemplate = $this->messages[$messageType];
 
         // currently we only replace entity names, but we might add more replacements in future

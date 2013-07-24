@@ -33,7 +33,7 @@
         "psr/log": "1.0.0",
         "tickit-project/cache-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "dev-master",
-        "hearsay/require-js-bundle": "1.x"
+        "hearsay/require-js-bundle": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "dev-master",

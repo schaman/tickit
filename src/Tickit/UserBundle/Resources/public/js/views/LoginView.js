@@ -8,8 +8,8 @@
 define([
     'text!/templates/users/login-form',
     'modules/request',
-    'tickitcore/js/views/SingleFormErrorView',
-    'tickitcore/js/models/FormError'
+    'core/js/views/SingleFormErrorView',
+    'core/js/models/FormError'
 ], function(tpl, Request, FormErrorView, FormError) {
     return Backbone.View.extend({
 

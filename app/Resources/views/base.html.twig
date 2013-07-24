@@ -10,7 +10,8 @@
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
         {% stylesheets '../app/Resources/public/bootstrap/css/bootstrap.css'
-                       '../app/Resources/public/css/flat-ui.css' %}
+                       '../app/Resources/public/css/flat-ui.css'
+                       '../app/Resources/public/bootstrap/css/bootstrap-responsive.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -27,16 +28,17 @@
     <body style="zoom: 1">
 
         <header class='main-header' role='banner'></header>
+        <nav id="main" class='main' style='display:none;'></nav>
 
         <div id="container">
+            <div id="spin-wrap">
+                <div id="spin"></div>
+            </div>
             {% block body %}{% endblock %}
         </div>
 
         {% block javascripts %}
-            {#{{ require_js_initialize({ 'main' : 'core/js/App' }) }}#}
-            {% javascripts '@TickitCoreBundle/Resources/public/js/vendor/requirejs/require.js' %}
-                <script data-main="bundles/tickitcore/js/App" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+            {{ require_js_initialize({ 'main' : 'modules/app' }) }}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% endblock %}

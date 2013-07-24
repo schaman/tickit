@@ -14,46 +14,26 @@ use Tickit\UserBundle\Entity\Group;
 class GroupControllerTest extends AbstractFunctionalTest
 {
     /**
-     * Tests the indexAction() method
-     *
-     * @return void
-     */
-    public function testIndexActionRendersGroups()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-
-        $crawler = $client->request('get', $router->generate('group_index'));
-
-        $this->assertEquals('Manage Groups', $crawler->filter('h2')->text());
-        $this->assertGreaterThan(0, $crawler->filter('div.data-list table tbody tr')->count());
-    }
-
-    /**
      * Tests the createAction() method
      *
      * @return void
      */
     public function testCreateActionCreatesGroupWithValidDetails()
     {
-        $faker = $this->getFakerGenerator();
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $createRoute = $this->generateRoute('group_create_form');
+        $crawler = $client->request('get', $createRoute);
 
-        $crawler = $client->request('get', $router->generate('group_create'));
-
-        $this->assertEquals('Create User Group', $crawler->filter('h2')->text());
+        $groupName = __FUNCTION__ . time();
         $form = $crawler->selectButton('Save User Group')->form(
-            array(
-                'tickit_group[name]' => 'Group-' . $faker->sha1
-            )
+            array('tickit_group[name]' => $groupName)
         );
-
         $client->submit($form);
-        $crawler = $client->followRedirect();
 
-        $count = $crawler->filter('div.flash-notice:contains("The group has been created successfully")')->count();
-        $this->assertGreaterThan(0, $count);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
     }
 
     /**
@@ -61,25 +41,21 @@ class GroupControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testCreateActionShowsErrorsForInvalidDetails()
+    public function testCreateActionReturnsFormContentsForInvalidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
+        $createRoute = $this->generateRoute('group_create_form');
+        $crawler = $client->request('get', $createRoute);
 
-        $crawler = $client->request('get', $router->generate('group_create'));
-
-        $this->assertEquals('Create User Group', $crawler->filter('h2')->text());
         $form = $crawler->selectButton('Save User Group')->form(
-            array(
-                'tickit_group[name]' => ''
-            )
+            array('tickit_group[name]' => '')
         );
+        $client->submit($form);
 
-        $crawler = $client->submit($form);
-
-        // the request should not redirect
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals('Create User Group', $crawler->filter('h2')->text());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($response->success);
+        $this->assertTrue(isset($response->form));
     }
 
     /**
@@ -89,29 +65,26 @@ class GroupControllerTest extends AbstractFunctionalTest
      */
     public function testEditActionUpdatesExistingGroupWithValidDetails()
     {
-        $faker = $this->getFakerGenerator();
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
-        $em = $container->get('doctrine')->getManager();
-        $router = $container->get('router');
+        $doctrine = $container->get('doctrine');
+        $group = new Group(__FUNCTION__ . time());
+        $container->get('tickit_user.group_manager')->create($group);
 
-        $group = new Group('Group-' . $faker->sha1);
-        $em->persist($group);
-        $em->flush();
+        $editRoute = $this->generateRoute('group_edit_form', ['id' => $group->getId()]);
+        $crawler = $client->request('get', $editRoute);
 
-        $crawler = $client->request('get', $router->generate('group_edit', array('id' => $group->getId())));
-
-        $form = $crawler->selectButton('Save Changes')->form(
-            array(
-                'tickit_group[name]' => 'Group-' . $faker->sha1
-            )
-        );
-
+        $newName = __FUNCTION__ . uniqid();
+        $form = $crawler->selectButton('Save Changes')->form(['tickit_group[name]' => $newName]);
         $client->submit($form);
-        $crawler  = $client->followRedirect();
 
-        $count = $crawler->filter('div.flash-notice:contains("The group has been updated successfully")')->count();
-        $this->assertGreaterThan(0, $count);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+
+        $doctrine->getManager()->refresh($group);
+        $this->assertEquals($newName, $group->getName());
     }
 
     /**
@@ -119,29 +92,22 @@ class GroupControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testEditActionShowsErrorsForInvalidDetails()
+    public function testEditActionReturnsFormContentsForInvalidDetails()
     {
-        $faker = $this->getFakerGenerator();
         $client = $this->getAuthenticatedClient(static::$admin);
-        $router = $client->getContainer()->get('router');
-        $em = $client->getContainer()->get('doctrine')->getManager();
+        $container = $client->getContainer();
+        $group = new Group(__FUNCTION__ . time());
+        $container->get('tickit_user.group_manager')->create($group);
 
-        $group = new Group('Group-' . $faker->sha1);
-        $em->persist($group);
-        $em->flush();
+        $editRoute = $this->generateRoute('group_edit_form', ['id' => $group->getId()]);
+        $crawler = $client->request('get', $editRoute);
 
-        $crawler = $client->request('get', $router->generate('group_edit', array('id' => $group->getId())));
+        $form = $crawler->selectButton('Save Changes')->form(['tickit_group[name]' => '']);
+        $client->submit($form);
 
-        $form = $crawler->selectButton('Save Changes')->form(
-            array(
-                'tickit_group[name]' => ''
-            )
-        );
-
-        $crawler = $client->submit($form);
-
-        // the request should not redirect
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals('Edit User Group', $crawler->filter('h2')->text());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertFalse($response->success);
+        $this->assertTrue(isset($response->form));
     }
 }

@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Tickit\TeamBundle\Entity\Team;
 
 /**
- * Loads default team data into the application
+ * Loads team data into the application
  *
  * @package Tickit\TeamBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -16,20 +16,31 @@ use Tickit\TeamBundle\Entity\Team;
 class LoadTeamData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Initiates the loading of data
+     * Loads team data into the application database
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
+     * @param ObjectManager $manager The entity manager
+     *
+     * @return void
      */
     public function load(ObjectManager $manager)
     {
         $team = new Team();
-        $team->setName('Test Development Team');
+        $team->setName('Test Team 1');
+
+        $team2 = clone $team;
+        $team2->setName('Test Team 2');
+
+        $manager->persist($team);
+        $manager->persist($team2);
+
+        $manager->persist($team);
+        $manager->flush();
     }
 
     /**
-     * Returns the order number for the data fixtures
+     * Returns the order number for this set of fixtures
      *
-     * @return int
+     * @return integer
      */
     public function getOrder()
     {

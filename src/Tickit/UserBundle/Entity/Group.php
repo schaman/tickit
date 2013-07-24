@@ -37,6 +37,18 @@ class Group extends BaseGroup
     protected $permissions;
 
     /**
+     * Constructor.
+     *
+     * @param string $name  The name for the group
+     * @param array  $roles An array of user roles
+     */
+    public function __construct($name, $roles = array())
+    {
+        parent::__construct($name, $roles);
+        $this->permissions = new ArrayCollection();
+    }
+
+    /**
      * __toString method
      *
      * @return string

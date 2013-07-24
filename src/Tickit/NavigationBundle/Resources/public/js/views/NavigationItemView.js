@@ -5,7 +5,7 @@
  *
  * @type {Marionette.ItemView}
  */
-define(['marionette', 'text!tickitnavigation/views/NavigationItem.html'], function(Marionette, tpl) {
+define(['marionette', 'text!navigation/views/NavigationItem.html'], function(Marionette, tpl) {
     return Marionette.ItemView.extend({
         tagName: 'li',
 

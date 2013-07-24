@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\UserBundle\Entity\User;
 
@@ -16,6 +17,13 @@ use Tickit\UserBundle\Entity\User;
  */
 class UserController extends AbstractCoreController
 {
+    /**
+     * String constant containing the intention for CSRF delete action
+     *
+     * @const string
+     */
+    const CSRF_DELETE_INTENTION = 'delete_user';
+
     /**
      * Loads the create user page
      *
@@ -40,7 +48,7 @@ class UserController extends AbstractCoreController
             $responseData['form'] = $this->render(
                 'TickitUserBundle:User:create.html.twig',
                 array('form' => $form->createView())
-            );
+            )->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -88,9 +96,36 @@ class UserController extends AbstractCoreController
             $responseData['form'] = $this->render(
                 'TickitUserBundle:User:edit.html.twig',
                 array('form' => $form->createView())
-            );
+            )->getContent();
         }
 
         return new JsonResponse($responseData);
+    }
+
+    /**
+     * Delete user action
+     *
+     * Handles a request to delete a user
+     *
+     * @param User $user The user to delete
+     *
+     * @ParamConverter("user", class="TickitUserBundle:User")
+     *
+     * @throws NotFoundHttpException If the CSRF token is invalid
+     *
+     * @return JsonResponse
+     */
+    public function deleteAction(User $user)
+    {
+        $token = $this->getRequest()->query->get('token');
+        $tokenProvider = $this->get('form.csrf_provider');
+
+        if (!$tokenProvider->isCsrfTokenValid(static::CSRF_DELETE_INTENTION, $token)) {
+            throw $this->createNotFoundException('Invalid CSRF token');
+        }
+
+        $this->get('tickit_user.manager')->deleteUser($user);
+
+        return new JsonResponse(array('success' => true));
     }
 }

@@ -4,9 +4,11 @@
  * @type {Marionette.Module}
  */
 define([
-    'tickitnavigation/js/collections/NavigationItemCollection',
-    'tickitnavigation/js/views/NavigationView'
-], function(NavigationItemCollection, NavigationView) {
+    'navigation/js/collections/NavigationItemCollection',
+    'navigation/js/views/NavigationView',
+    'navigation/js/views/ProfileNavigationView',
+    'modules/user'
+], function(NavigationItemCollection, NavigationView, ProfileNavigationView, User) {
 
     return App.module('Navigation', function(module) {
         module.startWithParent = true;
@@ -24,6 +26,18 @@ define([
             });
 
             App.navRegion.show(view);
+        };
+
+        /**
+         * Loads the header navigation
+         *
+         * @return {void}
+         */
+        module.loadHeaderNavigation = function() {
+            User.loadCurrentUser(function(user) {
+                var view = new ProfileNavigationView({ model: user });
+                App.toolbarRegion.show(view);
+            });
         }
     });
 });

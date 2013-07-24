@@ -1,0 +1,8 @@
+team_index:
+    pattern: /teams/{page}
+    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
+    requirements:
+        page: \d+
+        _method: GET
+    options:
+        expose: true

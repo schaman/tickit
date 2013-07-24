@@ -1,31 +1,32 @@
-team_edit:
-  pattern: /{id}/edit
-  defaults: { _controller: TickitTeamBundle:Team:edit }
-  requirements:
-    _method: GET
+api:
+    resource: "@TickitTeamBundle/Resources/config/routing/api.yml"
+    prefix: /api/teams
 
-team_update:
-  pattern: /{id}/update
-  defaults: { _controller: TickitTeamBundle:Team:update }
-  requirements:
-    _method: POST
+templates:
+    resource: "@TickitTeamBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/teams
 
-team_new:
-  pattern: /new
-  defaults: { _controller: TickitTeamBundle:Team:new }
-  requirements:
-      _method: GET
+cosmetic:
+    resource: "@TickitTeamBundle/Resources/config/routing/cosmetic.yml"
+
+########################################
 
 team_create:
-  pattern: /create
-  defaults: { _controller: TickitTeamBundle:Team:create }
-  requirements:
-    _method: POST
+    pattern: /teams/create
+    defaults: { _controller: TickitTeamBundle:Team:create }
+    requirements:
+        _method: POST
 
-team_index:
-  pattern: /{page}
-  defaults: { _controller: TickitTeamBundle:Team:index, page: 1 }
-  requirements:
-    page: \d+
-  options:
-    expose: true
+team_edit:
+    pattern: /teams/edit/{id}
+    defaults: { _controller: TickitTeamBundle:Team:edit }
+    requirements:
+        _method: POST
+        id: \d+
+
+team_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TickitTeamBundle:Team:delete }
+    requirements:
+        _method: POST
+        id: \d+
