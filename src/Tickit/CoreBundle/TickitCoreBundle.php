@@ -27,5 +27,4 @@ class TickitCoreBundle extends Bundle
 
         $container->addCompilerPass(new RequireJsOptimizerFilterServiceCompilerPass());
     }
-
 }
