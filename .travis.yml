@@ -18,6 +18,7 @@ script:
   - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice --extensions=php
   - npm install bower
   - bower install
+  - chmod -R +r src/Tickit/CoreBundle/Resources/public/js/vendor
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
 
 after_script:
