@@ -34,7 +34,7 @@ class ApiController extends AbstractCoreController
         $data = array();
         $decorator = $this->getArrayDecorator();
         foreach ($teams as $team) {
-            $data[] = $decorator->decorate($team, array('id', 'name'));
+            $data[] = $decorator->decorate($team, array('id', 'name', 'created'));
         }
 
         return new JsonResponse($data);
