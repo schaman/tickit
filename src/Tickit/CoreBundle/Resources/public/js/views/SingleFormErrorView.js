@@ -7,8 +7,10 @@
  */
 define(['modules/template', 'text!core/views/FormErrorSingle.html'], function(Template, tpl) {
 
+    Template.load(tpl);
+
     return Backbone.Marionette.ItemView.extend({
-        template: Template.load(tpl),
+        template: '#form_error_single-template',
         tagName: 'div',
         className: 'alert alert-error'
     });
