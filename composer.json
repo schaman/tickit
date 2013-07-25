@@ -43,7 +43,7 @@
     },
     "require-dev": {
         "fzaninotto/faker": "dev-master",
-        "squizlabs/php_codesniffer": "1.*",
+        "squizlabs/php_codesniffer": "1.4.5",
         "behat/symfony2-extension": "dev-master",
         "satooshi/php-coveralls": "dev-master"
     },

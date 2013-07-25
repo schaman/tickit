@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4b0cb9052ec422e52972cf12238bf0e9",
+    "hash": "263867122264790a8d0d2560f788ee38",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2343,24 +2343,20 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.0RC3",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1.5.0RC3"
+                "reference": "1.4.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1.5.0RC3",
-                "reference": "1.5.0RC3",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1.4.5",
+                "reference": "1.4.5",
                 "shasum": ""
             },
             "require": {
-                "ext-tokenizer": "*",
                 "php": ">=5.1.2"
-            },
-            "suggest": {
-                "phpunit/php-timer": "dev-master"
             },
             "bin": [
                 "scripts/phpcs"
@@ -2372,6 +2368,7 @@
                     "CodeSniffer/CLI.php",
                     "CodeSniffer/Exception.php",
                     "CodeSniffer/File.php",
+                    "CodeSniffer/MultiFileSniff.php",
                     "CodeSniffer/Report.php",
                     "CodeSniffer/Reporting.php",
                     "CodeSniffer/Sniff.php",
@@ -2409,7 +2406,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2013-07-25 04:12:54"
+            "time": "2013-04-03 23:16:28"
         }
     ],
     "aliases": [
