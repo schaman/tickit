@@ -39,7 +39,8 @@
         "psr/log": "1.0.0",
         "tickit-project/cache-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "dev-master",
-        "hearsay/require-js-bundle": "dev-filename-resource-fix"
+        "hearsay/require-js-bundle": "dev-filename-resource-fix",
+        "ircmaxell/password-compat": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "dev-master",
