@@ -1,0 +1,3 @@
+api:
+    resource: "@TickitNotificationBundle/Resources/config/routing/api.yml"
+    prefix: /api/notifications
