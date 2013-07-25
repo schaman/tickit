@@ -38,7 +38,7 @@
         </div>
 
         {% block javascripts %}
-            {% javascripts filter='requirejs' '@TickitCoreBundle/Resources/public/js/App.js' %}
+            {% javascripts filter='?requirejs' '@TickitCoreBundle/Resources/public/js/App.js' %}
                 {{ require_js_initialize({ 'main' : asset_url }) }}
             {% endjavascripts %}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
