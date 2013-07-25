@@ -937,12 +937,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git",
-                "reference": "8e7eb9364c8162c459da2020158b0f47e772d7ed"
+                "reference": "3fe11f9402e22ea785ddf54a9f29666860572354"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jameshalsall/HearsayRequireJSBundle/zipball/8e7eb9364c8162c459da2020158b0f47e772d7ed",
-                "reference": "8e7eb9364c8162c459da2020158b0f47e772d7ed",
+                "url": "https://api.github.com/repos/jameshalsall/HearsayRequireJSBundle/zipball/3fe11f9402e22ea785ddf54a9f29666860572354",
+                "reference": "3fe11f9402e22ea785ddf54a9f29666860572354",
                 "shasum": ""
             },
             "require": {
@@ -983,7 +983,7 @@
             "support": {
                 "source": "https://github.com/jameshalsall/HearsayRequireJSBundle/tree/filename-resource-fix"
             },
-            "time": "2013-07-25 07:56:38"
+            "time": "2013-07-25 08:19:35"
         },
         {
             "name": "jdorn/sql-formatter",
