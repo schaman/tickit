@@ -1686,12 +1686,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b45f18b81d52a730c5857a5f886e6b0d96368c89"
+                "reference": "2e2a36ca2468e3fcd1b41aa40654ea9dcf086a26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b45f18b81d52a730c5857a5f886e6b0d96368c89",
-                "reference": "b45f18b81d52a730c5857a5f886e6b0d96368c89",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/2e2a36ca2468e3fcd1b41aa40654ea9dcf086a26",
+                "reference": "2e2a36ca2468e3fcd1b41aa40654ea9dcf086a26",
                 "shasum": ""
             },
             "require": {
@@ -1786,7 +1786,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-07-21 20:18:49"
+            "time": "2013-07-24 17:57:25"
         },
         {
             "name": "tickit-project/cache-bundle",
