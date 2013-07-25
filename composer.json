@@ -12,6 +12,12 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "web"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git"
+        }
+    ],
     "minimum-stability": "dev",
     "name": "tickit-project/tickit",
     "require": {
@@ -33,7 +39,7 @@
         "psr/log": "1.0.0",
         "tickit-project/cache-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "dev-master",
-        "hearsay/require-js-bundle": "dev-master"
+        "hearsay/require-js-bundle": "dev-filename-resource-fix"
     },
     "require-dev": {
         "fzaninotto/faker": "dev-master",

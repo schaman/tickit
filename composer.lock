@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ccfaa2de4f1c159cd5df9537c2c5e2ae",
+    "hash": "4b0cb9052ec422e52972cf12238bf0e9",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -932,17 +932,17 @@
         },
         {
             "name": "hearsay/require-js-bundle",
-            "version": "dev-master",
+            "version": "dev-filename-resource-fix",
             "target-dir": "Hearsay/RequireJSBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hearsayit/HearsayRequireJSBundle.git",
-                "reference": "88fdf212aae382781ac7c6345acb6931abdb4457"
+                "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git",
+                "reference": "8e7eb9364c8162c459da2020158b0f47e772d7ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hearsayit/HearsayRequireJSBundle/zipball/88fdf212aae382781ac7c6345acb6931abdb4457",
-                "reference": "88fdf212aae382781ac7c6345acb6931abdb4457",
+                "url": "https://api.github.com/repos/jameshalsall/HearsayRequireJSBundle/zipball/8e7eb9364c8162c459da2020158b0f47e772d7ed",
+                "reference": "8e7eb9364c8162c459da2020158b0f47e772d7ed",
                 "shasum": ""
             },
             "require": {
@@ -964,7 +964,6 @@
                     "Hearsay\\RequireJSBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -981,7 +980,10 @@
                 "requirejs",
                 "rjs"
             ],
-            "time": "2013-07-21 16:14:39"
+            "support": {
+                "source": "https://github.com/jameshalsall/HearsayRequireJSBundle/tree/filename-resource-fix"
+            },
+            "time": "2013-07-25 07:56:38"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2183,12 +2185,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "9faeeaf4baa2c9e1c1c4848eea62818eeaa54f02"
+                "reference": "edb9816c59ed5f4c7c829ebf6a0ec40768a0b7eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9faeeaf4baa2c9e1c1c4848eea62818eeaa54f02",
-                "reference": "9faeeaf4baa2c9e1c1c4848eea62818eeaa54f02",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/edb9816c59ed5f4c7c829ebf6a0ec40768a0b7eb",
+                "reference": "edb9816c59ed5f4c7c829ebf6a0ec40768a0b7eb",
                 "shasum": ""
             },
             "require": {
@@ -2267,7 +2269,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-07-18 20:50:44"
+            "time": "2013-07-24 21:43:10"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -2341,20 +2343,24 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.0RC2",
+            "version": "1.5.0RC3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1.5.0RC2"
+                "reference": "1.5.0RC3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1.5.0RC2",
-                "reference": "1.5.0RC2",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1.5.0RC3",
+                "reference": "1.5.0RC3",
                 "shasum": ""
             },
             "require": {
+                "ext-tokenizer": "*",
                 "php": ">=5.1.2"
+            },
+            "suggest": {
+                "phpunit/php-timer": "dev-master"
             },
             "bin": [
                 "scripts/phpcs"
@@ -2366,7 +2372,6 @@
                     "CodeSniffer/CLI.php",
                     "CodeSniffer/Exception.php",
                     "CodeSniffer/File.php",
-                    "CodeSniffer/MultiFileSniff.php",
                     "CodeSniffer/Report.php",
                     "CodeSniffer/Reporting.php",
                     "CodeSniffer/Sniff.php",
@@ -2404,7 +2409,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2013-04-03 23:23:03"
+            "time": "2013-07-25 04:12:54"
         }
     ],
     "aliases": [
