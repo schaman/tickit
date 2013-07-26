@@ -26,7 +26,7 @@ class TickitNotificationExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        //$loader->load('services.xml');
 
         $container->setParameter('tickit_notification.api_message_limit', $config['api_message_limit']);
     }
