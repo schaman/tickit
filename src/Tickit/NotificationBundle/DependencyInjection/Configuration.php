@@ -6,21 +6,27 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * todo
+ * Configuration class for notification bundle
+ *
+ *
+ * @package Tickit\NotificationBundle\DependencyInjection
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritDoc}
+     *
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('tickit_notification');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $treeBuilder->root('tickit_notification')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->integerNode('api_message_limit')->defaultValue(25)->end()
+                    ->end();
 
         return $treeBuilder;
     }
