@@ -4,6 +4,7 @@ namespace Tickit\NotificationBundle\Tests\Controller;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\NotificationBundle\Entity\GroupNotification;
+use Tickit\NotificationBundle\Entity\GroupNotificationUserReadStatus;
 use Tickit\NotificationBundle\Entity\UserNotification;
 
 /**
@@ -119,6 +120,19 @@ class ApiControllerTest extends AbstractFunctionalTest
         $notification = $response[0];
         $this->assertEquals($groupNotification->getMessage(), $notification->message);
         $this->assertEquals($groupNotification->getActionUri(), $notification->actionUri);
+
+        $readStatus = new GroupNotificationUserReadStatus();
+        $readStatus->setNotification($groupNotification)
+                   ->setUser($user);
+
+        $em->persist($readStatus);
+        $em->flush();
+
+        $client->request('get', $route);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertInternalType('array', $response);
+        $this->assertEmpty($response);
 
         // cleanup
         $em->remove($groupNotification);

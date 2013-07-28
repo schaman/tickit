@@ -24,7 +24,7 @@ class GroupNotificationUserReadStatus
      * @var GroupNotification
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Tickit\NotificationBundle\Entity\GroupNotification", inversedBy="readStatuses")
-     * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="notification_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $notification;
 
@@ -45,6 +45,14 @@ class GroupNotificationUserReadStatus
      * @ORM\Column(type="datetime", name="read_at")
      */
     protected $readAt;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->readAt = new \DateTime();
+    }
 
     /**
      * Sets the notification
