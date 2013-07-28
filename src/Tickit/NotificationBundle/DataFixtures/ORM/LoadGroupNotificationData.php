@@ -49,5 +49,4 @@ class LoadGroupNotificationData extends AbstractFixture implements OrderedFixtur
     {
         return 21;
     }
-
 }

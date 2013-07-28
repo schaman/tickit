@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\NotificationBundle\Entity\Repository;
+
 use Doctrine\ORM\EntityRepository;
 use Tickit\UserBundle\Entity\User;
 
