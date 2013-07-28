@@ -33,9 +33,8 @@ define([
             } else {
                 if (typeof callback == 'function') {
                     callback(module.currentUser);
-                } else {
-                    return module.currentUser;
                 }
+                return module.currentUser;
             }
         };
 
