@@ -43,6 +43,8 @@ class GroupNotification extends AbstractNotification
     public function setRecipient($recipient)
     {
         $this->recipient = $recipient;
+
+        return $this;
     }
 
     /**
