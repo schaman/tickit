@@ -6,6 +6,9 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Tickit\NotificationBundle\Entity\GroupNotification;
 use Tickit\NotificationBundle\Entity\UserNotification;
+use Tickit\NotificationBundle\Model\NotificationMessageInterface;
+use Tickit\UserBundle\Entity\Group;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Notification factory.
@@ -19,49 +22,50 @@ use Tickit\NotificationBundle\Entity\UserNotification;
 class NotificationFactory
 {
     /**
-     * The entity manager
+     * Creates a new user notification from a message object.
      *
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
-     * Constructor.
+     * @param NotificationMessageInterface $message The user notification message
+     * @param User                         $user    The user that is being notified
      *
-     * @param Registry $doctrine The doctrine registry
+     * @throws \InvalidArgumentException If the notification message is empty
+     *
+     * @return UserNotification
      */
-    public function __construct(Registry $doctrine)
+    public function notifyUser(NotificationMessageInterface $message, User $user)
     {
-        $this->em = $doctrine->getManager();
+        $messageBody = $message->getMessage();
+        if (empty($messageBody)) {
+            throw new \InvalidArgumentException('You must provide a notification message');
+        }
+
+        $notification = new UserNotification();
+        $notification->setRecipient($user)
+                     ->setMessage($message->getMessage());
+
+        return $notification;
     }
 
     /**
-     * Notifies a user of a new notification.
+     * Creates a new group notification from a message object
      *
-     * @param UserNotification $notification The user notification
+     * @param NotificationMessageInterface $message The group notification
+     * @param Group                        $group   The group that is being notified
      *
-     * @return void
+     * @throws \InvalidArgumentException If the notification message is empty
+     *
+     * @return GroupNotification
      */
-    public function notifyUser(UserNotification $notification)
+    public function notifyGroup(NotificationMessageInterface $message, Group $group)
     {
-        $this->em->persist($notification);
-        $this->em->flush();
+        $messageBody = $message->getMessage();
+        if (empty($messageBody)) {
+            throw new \InvalidArgumentException('You must provide a notification message');
+        }
 
-        // TODO: push to the client ??
-    }
+        $notification = new GroupNotification();
+        $notification->setRecipient($group)
+                     ->setMessage($message->getMessage());
 
-    /**
-     * Notifies a group of a new notification.
-     *
-     * @param GroupNotification $notification The group notification
-     *
-     * @return void
-     */
-    public function notifyGroup(GroupNotification $notification)
-    {
-        $this->em->persist($notification);
-        $this->em->flush();
-
-        // TODO: push to the client ??
+        return $notification;
     }
 }
