@@ -2,7 +2,8 @@
 
 namespace Tickit\NotificationBundle\Entity;
 
-
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Abstract notification entity.
@@ -14,9 +15,102 @@ namespace Tickit\NotificationBundle\Entity;
  */
 class AbstractNotification
 {
+    /**
+     * Unique identifier
+     *
+     * @var integer
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="bigint")
+     */
     protected $id;
 
+    /**
+     * The message body of the notification
+     *
+     * @var string
+     * @ORM\Column(type="string", length=220)
+     */
     protected $message;
 
+    /**
+     * The time that this notification was created
+     *
+     * @var \DateTime
+     * @ORM\Column(type="datetime", name="created_at")
+     * @Gedmo\Timestampable(on="create")
+     */
     protected $createdAt;
+
+    /**
+     * Sets the created time
+     *
+     * @param \DateTime $createdAt The datetime that this notification was created
+     *
+     * @return AbstractNotification
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the created time
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the identifier
+     *
+     * @param integer $id The unique identifer
+     *
+     * @return AbstractNotification
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the identifier
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the message content
+     *
+     * @param string $message The message
+     *
+     * @return AbstractNotification
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets the message content
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
 }
