@@ -2,6 +2,7 @@
 
 namespace Tickit\NotificationBundle\Provider;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -49,6 +50,16 @@ class NotificationProvider
      */
     public function findUnreadForUser(User $user)
     {
-        //todo
+        return $this->getUserNotificationRepository()->findUnreadForUser($user);
+    }
+
+    /**
+     * Gets the user notification repository
+     *
+     * @return UserNotificationRepository
+     */
+    public function getUserNotificationRepository()
+    {
+        return $this->doctrine->getRepository('TickitNotificationBundle:UserNotification');
     }
 }
