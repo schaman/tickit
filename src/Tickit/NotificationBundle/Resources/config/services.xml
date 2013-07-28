@@ -6,7 +6,10 @@
 
     <services>
 
-        <!-- Add services -->
+        <service id="tickit_notification.provider" class="Tickit\NotificationBundle\Provider\NotificationProvider">
+            <argument type="service" id="doctrine" />
+            <argument>%tickit_notification.api_message_limit%</argument>
+        </service>
 
     </services>
 
