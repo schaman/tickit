@@ -58,7 +58,7 @@ class NotificationProvider
         $groupNotifications = $this->getGroupNotificationRepository()
                                    ->findUnreadForUser($user);
 
-        return $userNotifications + $groupNotifications;
+        return array_merge($userNotifications, $groupNotifications);
     }
 
     /**
