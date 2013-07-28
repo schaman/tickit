@@ -75,20 +75,6 @@ class AbstractNotification
     }
 
     /**
-     * Sets the identifier
-     *
-     * @param integer $id The unique identifer
-     *
-     * @return AbstractNotification
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Gets the identifier
      *
      * @return integer
