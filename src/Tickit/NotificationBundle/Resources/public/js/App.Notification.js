@@ -26,7 +26,7 @@ define([
                     collection: notifications
                 });
 
-                App.navRegion.show(view);
+                App.notificationRegion.show(view);
             });
         }
     });
