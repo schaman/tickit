@@ -7,11 +7,11 @@
  */
 define([
     'marionette',
-    'notification/js/views/NotificationItemView'
-], function(Marionette, NotificationView) {
+    'notification/js/views/NotificationItemView',
+    'text!notification/views/NotificationList.html'
+], function(Marionette, NotificationView, tpl) {
 
     return Marionette.CompositeView.extend({
-        tagName: 'ul',
         itemView: NotificationView,
 
         events: {
@@ -36,20 +36,21 @@ define([
          * @return {Marionette.CompositeView}
          */
         render: function() {
-//            this.$el.html($(tpl).html());
-//            return this;
+            this.$el.html($(tpl).html());
+
+            return this;
         },
 
         /**
          * Method used to append collection items to this view
          *
-         * @param {Marionette.CompositeView} navView  The composite navigation view object
-         * @param {Marionette.ItemView}      itemView The navigation item view object
+         * @param {Marionette.CompositeView} notificationView The composite notification view object
+         * @param {Marionette.ItemView}      itemView         The navigation item view object
          *
          * @return {void}
          */
-        appendHtml: function(navView, itemView) {
-            navView.$('ul').append(itemView.el);
+        appendHtml: function(notificationView, itemView) {
+            notificationView.$('ul').append(itemView.el);
         }
     });
 });

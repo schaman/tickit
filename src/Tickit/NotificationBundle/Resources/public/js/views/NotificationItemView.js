@@ -15,8 +15,7 @@ define(['marionette', 'text!notification/views/NotificationItem.html'], function
          * @return {Marionette.ItemView}
          */
         render: function() {
-            var d = this.model.attributes;
-            this.$el.html(_.template($(tpl).html(), this.model));
+            this.$el.html(_.template($(tpl).html(), this.model.attributes));
             return this;
         }
     });
