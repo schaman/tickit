@@ -20,6 +20,9 @@ define(['marionette'], function(Marionette) {
                     Navigation.loadHeaderNavigation();
                     Navigation.loadMainNavigation();
                 });
+                require(['modules/notification'], function(Notification) {
+                    Notification.loadNotifications();
+                });
             }
         }
     });

@@ -37,6 +37,8 @@
             {% block body %}{% endblock %}
         </div>
 
+        <div id="notification-side" class="sidr right"></div>
+
         {% block javascripts %}
             {% javascripts filter='?requirejs' '@TickitCoreBundle/Resources/public/js/App.js' %}
                 {{ require_js_initialize({ 'main' : asset_url }) }}

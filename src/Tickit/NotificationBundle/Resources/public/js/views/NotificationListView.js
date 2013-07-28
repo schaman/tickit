@@ -7,13 +7,11 @@
  */
 define([
     'marionette',
-    'notification/js/views/NotificationView',
-    'text!notification/views/NotificationList.html'
-], function(Marionette, NotificationView, tpl) {
+    'notification/js/views/NotificationItemView'
+], function(Marionette, NotificationView) {
 
     return Marionette.CompositeView.extend({
-        tagName: 'div',
-        className: 'notifications',
+        tagName: 'ul',
         itemView: NotificationView,
 
         events: {
@@ -38,8 +36,8 @@ define([
          * @return {Marionette.CompositeView}
          */
         render: function() {
-            this.$el.html($(tpl).html());
-            return this;
+//            this.$el.html($(tpl).html());
+//            return this;
         },
 
         /**

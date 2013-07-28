@@ -8,8 +8,8 @@ define([
     'modules/user',
     'notification/js/views/NotificationListView',
     'notification/js/collections/NotificationCollection'
-], function(User) {
-    return App.module('Notification', function(module, NotificationListView, NotificationCollection) {
+], function(User, NotificationListView, NotificationCollection) {
+    return App.module('Notification', function(module) {
 
         module.startWithParent = false;
 

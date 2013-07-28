@@ -31,7 +31,11 @@ define([
                     }
                 });
             } else {
-                return module.currentUser;
+                if (typeof callback == 'function') {
+                    callback(module.currentUser);
+                } else {
+                    return module.currentUser;
+                }
             }
         };
 
