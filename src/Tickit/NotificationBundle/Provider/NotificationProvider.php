@@ -1,6 +1,7 @@
 <?php
 
 namespace Tickit\NotificationBundle\Provider;
+
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Tickit\NotificationBundle\Entity\Repository\GroupNotificationRepository;
 use Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository;
