@@ -2,8 +2,8 @@
 
 namespace Tickit\NotificationBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Tickit\CoreBundle\Controller\AbstractCoreController;
 
 /**
  * Notification API controller.
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @package Tickit\NotificationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends Controller
+class ApiController extends AbstractCoreController
 {
     /**
      * List action.
@@ -24,6 +24,15 @@ class ApiController extends Controller
      */
     public function listAction()
     {
-        return new JsonResponse(array());
+        $notifications = $this->get('tickit_notification.provider')
+                              ->findUnreadForUser($this->getUser());
+
+        $data = array();
+        $decorator = $this->getArrayDecorator();
+        foreach ($notifications as $notification) {
+            $data[] = $decorator->decorate($notification, array('message', 'createdAt', 'actionUri'));
+        }
+
+        return new JsonResponse($data);
     }
 }

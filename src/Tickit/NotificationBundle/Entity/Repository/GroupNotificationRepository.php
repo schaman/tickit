@@ -28,7 +28,7 @@ class GroupNotificationRepository extends EntityRepository
         $qb->select('n')
            ->from('TickitNotificationBundle:GroupNotification', 'n')
            ->leftJoin('n.readStatuses', 'gnr')
-           ->where('g.recipient = :group_id')
+           ->where('n.recipient = :group_id')
            ->andWhere($qb->expr()->isNull('gnr.readAt'))
            ->setParameter('group_id', $user->getGroup()->getId());
 
