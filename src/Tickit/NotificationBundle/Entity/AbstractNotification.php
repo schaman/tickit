@@ -43,6 +43,14 @@ class AbstractNotification
     protected $createdAt;
 
     /**
+     * The action URI for the notification (if any)
+     *
+     * @var string
+     * @ORM\Column(type="string", name="action_uri")
+     */
+    protected $actionUri;
+
+    /**
      * Sets the created time
      *
      * @param \DateTime $createdAt The datetime that this notification was created
@@ -112,5 +120,29 @@ class AbstractNotification
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Sets the action URI for the notification
+     *
+     * @param string $actionUri The action URI
+     *
+     * @return AbstractNotification
+     */
+    public function setActionUri($actionUri)
+    {
+        $this->actionUri = $actionUri;
+
+        return $this;
+    }
+
+    /**
+     * Gets the action URI for the notification
+     *
+     * @return string
+     */
+    public function getActionUri()
+    {
+        return $this->actionUri;
     }
 }
