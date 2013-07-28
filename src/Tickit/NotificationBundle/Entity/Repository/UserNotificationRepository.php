@@ -27,7 +27,7 @@ class UserNotificationRepository extends EntityRepository
         $qb->select('n')
            ->from('TickitNotificationBundle:UserNotification', 'n')
            ->where('n.recipient = :user_id')
-           ->where($qb->expr()->isNull('n.readAt'))
+           ->andWhere($qb->expr()->isNull('n.readAt'))
            ->setParameter('user_id', $user->getId());
 
         return $qb->getQuery()->execute();
