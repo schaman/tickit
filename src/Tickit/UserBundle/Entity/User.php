@@ -93,7 +93,7 @@ class User extends BaseUser implements AvatarAwareInterface
      * Notifications for this user
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Tickit\NotificationBundle\Entity\UserNotification", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Tickit\NotificationBundle\Entity\UserNotification", mappedBy="recipient")
      */
     protected $notifications;
 
