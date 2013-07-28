@@ -2,6 +2,7 @@
 
 namespace Tickit\NotificationBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\UserBundle\Entity\Group;
 
@@ -25,6 +26,14 @@ class GroupNotification extends AbstractNotification
     protected $recipient;
 
     /**
+     * Read statuses for users in the group that this notification is for
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Tickit\NotificationBundle\Entity\GroupNotificationUserReadStatus", mappedBy="notification")
+     */
+    protected $readStatuses;
+
+    /**
      * Sets the recipient group for this notifications
      *
      * @param Group $recipient The recipient group
@@ -44,5 +53,15 @@ class GroupNotification extends AbstractNotification
     public function getRecipient()
     {
         return $this->recipient;
+    }
+
+    /**
+     * Gets read statuses associated with this group notification
+     *
+     * @return Collection
+     */
+    public function getReadStatuses()
+    {
+        return $this->readStatuses;
     }
 }

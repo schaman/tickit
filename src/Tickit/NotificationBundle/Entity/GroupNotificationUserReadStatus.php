@@ -23,7 +23,7 @@ class GroupNotificationUserReadStatus
      *
      * @var GroupNotification
      * @ORM\Id
-     * @ORM\OneToOne(targetEntity="Tickit\NotificationBundle\Entity\GroupNotification")
+     * @ORM\ManyToOne(targetEntity="Tickit\NotificationBundle\Entity\GroupNotification", inversedBy="readStatuses")
      * @ORM\JoinColumn(name="notification_id", referencedColumnName="id")
      */
     protected $notification;
