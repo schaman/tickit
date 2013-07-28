@@ -11,7 +11,7 @@ use Tickit\UserBundle\Entity\Group;
  *
  * @package Tickit\NotificationBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\NotificationBundle\Entity\Repository\GroupNotificationRepository")
  * @ORM\Table(name="group_notifications")
  */
 class GroupNotification extends AbstractNotification

@@ -12,7 +12,7 @@ use Tickit\UserBundle\Entity\User;
  *
  * @package Tickit\NotificationBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository")
  * @ORM\Table(name="user_notifications")
  */
 class UserNotification extends AbstractNotification
