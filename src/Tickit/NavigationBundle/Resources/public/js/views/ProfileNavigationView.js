@@ -8,7 +8,8 @@
 define([
     'marionette',
     'modules/user',
-    'text!navigation/views/ProfileNavigation.html'
+    'text!navigation/views/ProfileNavigation.html',
+    'sidr'
 ], function(Marionette, User, tpl) {
 
     return Marionette.ItemView.extend({
@@ -20,6 +21,17 @@ define([
          */
         events: {
             "click #logo": "logoClick"
+        },
+
+        /**
+         * Triggers sidr integration after the view has been rendered
+         */
+        onRender: function() {
+            console.log('RENDER');
+            this.$el.find('#notification').sidr({
+                name: 'notification-side',
+                side: 'right'
+            });
         },
 
         /**
