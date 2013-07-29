@@ -6,7 +6,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Tickit\NotificationBundle\Entity\GroupNotification;
 use Tickit\NotificationBundle\Entity\UserNotification;
-use Tickit\NotificationBundle\Model\NotificationMessageInterface;
+use Tickit\NotificationBundle\Model\NotificationDataInterface;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
@@ -24,14 +24,14 @@ class NotificationFactory
     /**
      * Creates a new user notification from a message object.
      *
-     * @param NotificationMessageInterface $message The user notification message
-     * @param User                         $user    The user that is being notified
+     * @param NotificationDataInterface $message The user notification message
+     * @param User                      $user    The user that is being notified
      *
      * @throws \InvalidArgumentException If the notification message is empty
      *
      * @return UserNotification
      */
-    public function notifyUser(NotificationMessageInterface $message, User $user)
+    public function notifyUser(NotificationDataInterface $message, User $user)
     {
         $messageBody = $message->getMessage();
         if (empty($messageBody)) {
@@ -48,14 +48,14 @@ class NotificationFactory
     /**
      * Creates a new group notification from a message object
      *
-     * @param NotificationMessageInterface $message The group notification
-     * @param Group                        $group   The group that is being notified
+     * @param NotificationDataInterface $message The group notification
+     * @param Group                     $group   The group that is being notified
      *
      * @throws \InvalidArgumentException If the notification message is empty
      *
      * @return GroupNotification
      */
-    public function notifyGroup(NotificationMessageInterface $message, Group $group)
+    public function notifyGroup(NotificationDataInterface $message, Group $group)
     {
         $messageBody = $message->getMessage();
         if (empty($messageBody)) {

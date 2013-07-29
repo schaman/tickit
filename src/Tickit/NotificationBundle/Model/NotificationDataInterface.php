@@ -3,15 +3,14 @@
 namespace Tickit\NotificationBundle\Model;
 
 /**
- * Notification message interface.
+ * Notification data interface.
  *
- * Messages are used to inject content into a notification object, and
- * they will change between notification types.
+ * Used to inject data into a notification object, these will change between notification types.
  *
  * @package Tickit\NotificationBundle\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface NotificationMessageInterface
+interface NotificationDataInterface
 {
     /**
      * Gets the notification message body.
