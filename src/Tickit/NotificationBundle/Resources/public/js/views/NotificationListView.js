@@ -14,8 +14,11 @@ define([
     return Marionette.CompositeView.extend({
         itemView: NotificationView,
 
+        /**
+         * Event bindings
+         */
         events: {
-            // TODO
+            "click li a span": "itemClick"
         },
 
         /**
@@ -27,7 +30,7 @@ define([
          */
         itemClick: function(e) {
             e.preventDefault();
-            App.Router.goTo($(e.target).attr('href'));
+            App.Router.goTo($(e.target).parent().attr('href'));
         },
 
         /**
