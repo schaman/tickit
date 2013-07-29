@@ -26,8 +26,7 @@ define([
         /**
          * Triggers sidr integration after the view has been rendered
          */
-        onRender: function() {
-            console.log('RENDER');
+        onShow: function() {
             this.$el.find('#notification').sidr({
                 name: 'notification-side',
                 side: 'right'
