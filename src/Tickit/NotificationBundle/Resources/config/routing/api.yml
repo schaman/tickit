@@ -1,0 +1,7 @@
+api_notification_list:
+    pattern: /list
+    defaults: { _controller: TickitNotificationBundle:Api:list }
+    requirements:
+        _method: GET
+    options:
+        expose: true

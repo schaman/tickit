@@ -108,3 +108,6 @@ tickit_cache:
 tickit_user:
     avatar:
         adapter_class: Tickit\UserBundle\Avatar\Adapter\GravatarAdapter
+
+tickit_notification:
+    api_message_limit: 25

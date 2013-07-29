@@ -90,6 +90,14 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $lastActivity;
 
     /**
+     * Notifications for this user
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Tickit\NotificationBundle\Entity\UserNotification", mappedBy="recipient")
+     */
+    protected $notifications;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -337,5 +345,15 @@ class User extends BaseUser implements AvatarAwareInterface
         $this->permissions = null;
 
         return $this;
+    }
+
+    /**
+     * Gets notifications for this user
+     *
+     * @return Collection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }

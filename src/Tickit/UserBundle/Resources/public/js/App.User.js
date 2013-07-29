@@ -31,6 +31,9 @@ define([
                     }
                 });
             } else {
+                if (typeof callback == 'function') {
+                    callback(module.currentUser);
+                }
                 return module.currentUser;
             }
         };

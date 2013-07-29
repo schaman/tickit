@@ -27,6 +27,7 @@ require([
         loginRegion: new AnimatedRegion({ el: '#container' }),
         navRegion: new NavigationRegion,
         toolbarRegion: 'header.main-header',
+        notificationRegion: '#notification-side',
         footerRegion: '#footer'
     });
 

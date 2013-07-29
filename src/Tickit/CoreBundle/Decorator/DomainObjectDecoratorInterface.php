@@ -21,5 +21,5 @@ interface DomainObjectDecoratorInterface
      *
      * @return string
      */
-    public function decorate($object, $propertyNames);
+    public function decorate($object, array $propertyNames);
 }

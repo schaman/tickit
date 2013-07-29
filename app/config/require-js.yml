@@ -29,12 +29,14 @@ hearsay_require_js:
         modules/user: '@TickitUserBundle/Resources/public/js/App.User'
         modules/project: '@TickitProjectBundle/Resources/public/js/App.Project'
         modules/team: '@TickitTeamBundle/Resources/public/js/App.Team'
+        modules/notification: "@TickitNotificationBundle/Resources/public/js/App.Notification"
         core: '@TickitCoreBundle/Resources/public'
         navigation: "@TickitNavigationBundle/Resources/public"
         project: "@TickitProjectBundle/Resources/public"
         user: "@TickitUserBundle/Resources/public"
         dashboard: "@TickitDashboardBundle/Resources/public"
         team: "@TickitTeamBundle/Resources/public"
+        notification: "@TickitNotificationBundle/Resources/public"
     shim:
         -
             name: jquery

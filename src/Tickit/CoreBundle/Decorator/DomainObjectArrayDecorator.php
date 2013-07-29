@@ -22,7 +22,7 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
      *
      * @return string
      */
-    public function decorate($object, $propertyNames)
+    public function decorate($object, array $propertyNames)
     {
         if (!is_object($object)) {
             throw new \InvalidArgumentException('You must provide a valid domain object to decorate');
