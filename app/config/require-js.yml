@@ -18,6 +18,7 @@ hearsay_require_js:
         flatuiradio: %kernel.root_dir%/Resources/public/js/flatui-radio
         jqueryplaceholder: %kernel.root_dir%/Resources/public/js/jquery.placeholder
         jquerytagsinput: %kernel.root_dir%/Resources/public/js/jquery.tagsinput
+        sidr: "@TickitCoreBundle/Resources/public/js/vendor/sidr/jquery.sidr.min"
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'
@@ -78,4 +79,7 @@ hearsay_require_js:
             deps: [jquery]
         -
             name: jquerytagsinput
+            deps: [jquery]
+        -
+            name: sidr
             deps: [jquery]
