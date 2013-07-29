@@ -23,7 +23,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotifyUserThrowsExceptionForEmptyMessageObject()
     {
-        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationMessageInterface');
+        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationDataInterface');
 
         $factory = new NotificationFactory();
         $factory->notifyUser($mockMessage, new User());
@@ -38,7 +38,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotifyGroupThrowsExceptionForEmptyMessageObject()
     {
-        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationMessageInterface');
+        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationDataInterface');
 
         $factory = new NotificationFactory();
         $factory->notifyGroup($mockMessage, new Group('test'));
