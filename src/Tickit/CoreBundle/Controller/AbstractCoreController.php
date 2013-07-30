@@ -49,8 +49,9 @@ abstract class AbstractCoreController extends Controller
     /**
      * Gets a rendered form's content inside a given template
      *
-     * @param string $template The template to render the form with
-     * @param Form   $form     The form to render
+     * @param string $template         The template to render the form with
+     * @param Form   $form             The form to render
+     * @param array  $additionalParams Any additional view parameters
      *
      * @return string
      */
