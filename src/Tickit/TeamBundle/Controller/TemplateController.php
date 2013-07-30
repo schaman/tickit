@@ -2,7 +2,6 @@
 
 namespace Tickit\TeamBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\TeamBundle\Entity\Team;

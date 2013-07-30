@@ -3,7 +3,6 @@
 namespace Tickit\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * The TicketAttachment entity represents a file attachment on a ticket

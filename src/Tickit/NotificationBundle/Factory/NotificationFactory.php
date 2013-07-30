@@ -2,8 +2,6 @@
 
 namespace Tickit\NotificationBundle\Factory;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\ORM\EntityManager;
 use Tickit\NotificationBundle\Entity\GroupNotification;
 use Tickit\NotificationBundle\Entity\UserNotification;
 use Tickit\NotificationBundle\Model\NotificationDataInterface;

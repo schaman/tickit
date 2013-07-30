@@ -3,7 +3,6 @@
 namespace Tickit\PermissionBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 use Tickit\UserBundle\Entity\User;
 
 /**

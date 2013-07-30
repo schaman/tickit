@@ -4,7 +4,6 @@ namespace Tickit\PreferenceBundle\Loader;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Tickit\PreferenceBundle\Entity\Preference;
 use Tickit\PreferenceBundle\Entity\UserPreferenceValue;
 use Tickit\UserBundle\Entity\User;
 

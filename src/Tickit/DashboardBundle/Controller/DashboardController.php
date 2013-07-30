@@ -2,8 +2,6 @@
 
 namespace Tickit\DashboardBundle\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 

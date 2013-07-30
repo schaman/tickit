@@ -3,7 +3,6 @@
 namespace Tickit\NavigationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\NavigationBundle\Model\NavigationItem;
 

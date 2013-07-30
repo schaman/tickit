@@ -1,4 +1,3 @@
-.idea
 app/bootstrap*
 app/cache/*
 app/sqlite_test

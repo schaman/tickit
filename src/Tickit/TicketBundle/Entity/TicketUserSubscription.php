@@ -3,7 +3,6 @@
 namespace Tickit\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * The TicketUserSubscription entity represents a user's subscription settings for a ticket
