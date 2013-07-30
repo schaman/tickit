@@ -30,23 +30,19 @@ class UserController extends AbstractCoreController
      */
     public function createAction()
     {
-        $responseData = array('success' => false);
+        $responseData = ['success' => false];
         $manager = $this->get('tickit_user.manager');
-        $user = $manager->createUser();
-        $form = $this->createForm('tickit_user', $user);
+        $form = $this->createForm('tickit_user', $manager->createUser());
 
         $form->submit($this->getRequest());
         if ($form->isValid()) {
-            $user = $form->getData();
-            $manager->create($user);
-            $router = $this->get('router');
-
+            $manager->create($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $router->generate('user_index');
+            $responseData['returnUrl'] = $this->get('router')->generate('user_index');
         } else {
             $responseData['form'] = $this->render(
                 'TickitUserBundle:User:create.html.twig',
-                array('form' => $form->createView())
+                ['form' => $form->createView()]
             )->getContent();
         }
 
@@ -66,7 +62,7 @@ class UserController extends AbstractCoreController
      */
     public function editAction(User $existingUser)
     {
-        $responseData = array('success' => false);
+        $responseData = ['success' => false];
         $permissionManager = $this->get('tickit_permission.manager');
         $existingUserGroupId = $existingUser->getGroup()->getId();
         $permissions = $permissionManager->getUserPermissionData($existingUserGroupId, $existingUser->getId());
@@ -94,7 +90,7 @@ class UserController extends AbstractCoreController
         } else {
             $responseData['form'] = $this->render(
                 'TickitUserBundle:User:edit.html.twig',
-                array('form' => $form->createView())
+                ['form' => $form->createView()]
             )->getContent();
         }
 
