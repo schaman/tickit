@@ -18,4 +18,4 @@ parameters:
     requirejs_bin: /usr/local/bin/r.js
 
     locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            0b3652cd3673080142a5562bc7440f0d
