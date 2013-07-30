@@ -3,9 +3,9 @@
 namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Form\Type\GroupFormType;
 
@@ -18,7 +18,7 @@ use Tickit\UserBundle\Form\Type\GroupFormType;
  * @package Tickit\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class GroupController extends Controller
+class GroupController extends AbstractCoreController
 {
     /**
      * Handles a request to create a group.
@@ -40,10 +40,7 @@ class GroupController extends Controller
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->get('router')->generate('group_index');
         } else {
-            $responseData['form'] = $this->render(
-                'TickitUserBundle:Group:create.html.twig',
-                ['form' => $form->createView()]
-            )->getContent();
+            $responseData['form'] = $this->renderForm('TickitUserBundle:Group:create.html.twig', $form);
         }
 
         return new JsonResponse($responseData);
@@ -74,10 +71,7 @@ class GroupController extends Controller
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->get('router')->generate('group_index');
         } else {
-            $responseData['form'] = $this->render(
-                'TickitUserBundle:Group:edit.html.twig',
-                ['form' => $form->createView()]
-            )->getContent();
+            $responseData['form'] = $this->renderForm('TickitUserBundle:Group:edit.html.twig', $form);
         }
 
         return new JsonResponse($responseData);

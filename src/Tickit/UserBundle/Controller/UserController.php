@@ -40,10 +40,7 @@ class UserController extends AbstractCoreController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->get('router')->generate('user_index');
         } else {
-            $responseData['form'] = $this->render(
-                'TickitUserBundle:User:create.html.twig',
-                ['form' => $form->createView()]
-            )->getContent();
+            $responseData['form'] = $this->renderForm('TickitUserBundle:User:create.html.twig', $form);
         }
 
         return new JsonResponse($responseData);
@@ -88,10 +85,7 @@ class UserController extends AbstractCoreController
             $manager->update($user);
             $responseData['success'] = true;
         } else {
-            $responseData['form'] = $this->render(
-                'TickitUserBundle:User:edit.html.twig',
-                ['form' => $form->createView()]
-            )->getContent();
+            $responseData['form'] = $this->renderForm('TickitUserBundle:User:edit.html.twig', $form);
         }
 
         return new JsonResponse($responseData);

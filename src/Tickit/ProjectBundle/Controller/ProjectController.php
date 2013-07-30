@@ -48,10 +48,7 @@ class ProjectController extends AbstractCoreController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->render(
-                'TickitProjectBundle:Project:create.html.twig',
-                ['form' => $form->createView()]
-            )->getContent();
+            $responseData['form'] = $this->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
         }
 
         return new JsonResponse($responseData);
@@ -79,10 +76,7 @@ class ProjectController extends AbstractCoreController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->render(
-                'TickitProjectBundle:Project:edit.html.twig',
-                ['form' => $form->createView()]
-            )->getContent();
+            $responseData['form'] = $this->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
         }
 
         return new JsonResponse($responseData);

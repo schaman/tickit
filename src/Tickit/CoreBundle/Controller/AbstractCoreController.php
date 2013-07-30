@@ -3,6 +3,7 @@
 namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator;
 
@@ -43,5 +44,18 @@ abstract class AbstractCoreController extends Controller
         if (!$tokenProvider->isCsrfTokenValid($intent, $token)) {
             throw $this->createNotFoundException('Invalid CSRF token');
         }
+    }
+
+    /**
+     * Gets a rendered form's content inside a given template
+     *
+     * @param string $template The template to render the form with
+     * @param Form   $form     The form to render
+     *
+     * @return string
+     */
+    protected  function renderForm($template, Form $form)
+    {
+        return $this->render($template, ['form' => $form->createView()])->getContent();
     }
 }
