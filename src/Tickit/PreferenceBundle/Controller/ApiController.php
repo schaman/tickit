@@ -3,7 +3,6 @@
 namespace Tickit\PreferenceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 
 /**
