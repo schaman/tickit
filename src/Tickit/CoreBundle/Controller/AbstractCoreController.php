@@ -55,7 +55,7 @@ abstract class AbstractCoreController extends Controller
      *
      * @return string
      */
-    protected  function renderForm($template, Form $form, array $additionalParams = array())
+    protected function renderForm($template, Form $form, array $additionalParams = array())
     {
         return $this->render(
             $template,
