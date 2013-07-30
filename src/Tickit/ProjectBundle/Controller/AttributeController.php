@@ -45,9 +45,7 @@ class AttributeController extends AbstractCoreController
         }
 
         $responseData = ['success' => false];
-        $formType = $this->get('tickit_project.attribute_form_type_guesser')
-                         ->guessByAttributeType($type);
-
+        $formType = $this->get('tickit_project.attribute_form_type_guesser')->guessByAttributeType($type);
         $form = $this->createForm($formType, $attribute);
         $form->submit($this->getRequest());
         if ($form->isValid()) {
@@ -55,10 +53,8 @@ class AttributeController extends AbstractCoreController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_attribute_index');
         } else {
-            $responseData['form'] = $this->render(
-                'TickitProjectBundle:Attribute:create.html.twig',
-                ['form' => $form->createView(), 'type' => $attribute->getType()]
-            )->getContent();
+            $params = ['type' => $attribute->getType()];
+            $responseData['form'] = $this->renderForm('TickitProjectBundle:Attribute:create.html.twig', $form, $params);
         }
 
         return new JsonResponse($responseData);
@@ -87,10 +83,8 @@ class AttributeController extends AbstractCoreController
             $this->get('tickit_project.attribute_manager')->update($attribute);
             $responseData['success'] = true;
         } else {
-            $responseData['form'] = $this->render(
-                'TickitProjectBundle:Attribute:edit.html.twig',
-                ['form' => $form->createView(), 'type' => $attribute->getType()]
-            )->getContent();
+            $params = ['type' => $attribute->getType()];
+            $responseData['form'] = $this->renderForm('TickitProjectBundle:Attribute:edit.html.twig', $form, $params);
         }
 
         return new JsonResponse($responseData);
