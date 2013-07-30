@@ -44,25 +44,20 @@ class AttributeController extends AbstractCoreController
             throw $this->createNotFoundException('An invalid attribute type was specified');
         }
 
-        $responseData = array('success' => false);
+        $responseData = ['success' => false];
         $formType = $this->get('tickit_project.attribute_form_type_guesser')
                          ->guessByAttributeType($type);
 
         $form = $this->createForm($formType, $attribute);
         $form->submit($this->getRequest());
         if ($form->isValid()) {
-            $manager = $this->get('tickit_project.attribute_manager');
-            $manager->create($form->getData());
-
+            $this->get('tickit_project.attribute_manager')->create($form->getData());
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_attribute_index');
         } else {
             $responseData['form'] = $this->render(
                 'TickitProjectBundle:Attribute:create.html.twig',
-                array(
-                    'form' => $form->createView(),
-                    'type' => $attribute->getType()
-                )
+                ['form' => $form->createView(), 'type' => $attribute->getType()]
             )->getContent();
         }
 
@@ -82,25 +77,19 @@ class AttributeController extends AbstractCoreController
      */
     public function editAction(AbstractAttribute $attribute)
     {
-        $responseData = array('success' => false);
-
+        $responseData = ['success' => false];
         $formType = $this->get('tickit_project.attribute_form_type_guesser')
                          ->guessByAttributeType($attribute->getType());
 
         $form = $this->createForm($formType, $attribute);
         $form->submit($this->getRequest());
         if ($form->isValid()) {
-            $this->get('tickit_project.attribute_manager')
-                 ->update($attribute);
-
+            $this->get('tickit_project.attribute_manager')->update($attribute);
             $responseData['success'] = true;
         } else {
             $responseData['form'] = $this->render(
                 'TickitProjectBundle:Attribute:edit.html.twig',
-                array(
-                    'form' => $form->createView(),
-                    'type' => $attribute->getType()
-                )
+                ['form' => $form->createView(), 'type' => $attribute->getType()]
             )->getContent();
         }
 
