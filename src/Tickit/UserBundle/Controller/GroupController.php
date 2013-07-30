@@ -36,16 +36,14 @@ class GroupController extends Controller
         $form->submit($this->getRequest());
 
         if ($form->isValid()) {
-            $group = $form->getData();
-            $this->get('tickit_user.group_manager')->create($group);
-            $route = $this->get('router')->generate('group_index');
+            $this->get('tickit_user.group_manager')->create($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $route;
+            $responseData['returnUrl'] = $this->get('router')->generate('group_index');
         } else {
             $responseData['form'] = $this->render(
                 'TickitUserBundle:Group:create.html.twig',
                 ['form' => $form->createView()]
-            );
+            )->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -72,11 +70,9 @@ class GroupController extends Controller
         $form->submit($this->getRequest());
 
         if ($form->isValid()) {
-            $group = $form->getData();
-            $this->get('tickit_user.group_manager')->update($group);
-            $route = $this->get('router')->generate('group_index');
+            $this->get('tickit_user.group_manager')->update($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $route;
+            $responseData['returnUrl'] = $this->get('router')->generate('group_index');
         } else {
             $responseData['form'] = $this->render(
                 'TickitUserBundle:Group:edit.html.twig',
