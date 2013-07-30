@@ -8,8 +8,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * The TicketAttachment entity represents a file attachment on a ticket
  *
- * TODO: this class should extend a File type class, providing file upload functionality
- *
  * @package Tickit\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *

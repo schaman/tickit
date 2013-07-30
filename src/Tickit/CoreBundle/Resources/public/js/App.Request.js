@@ -3,8 +3,6 @@
  *
  * Provides methods for making requests to the server.
  *
- * @TODO: remove this, as it probably isn't needed
- *
  * @type {Marionette.Module}
  */
 define(['jquery'], function($) {
