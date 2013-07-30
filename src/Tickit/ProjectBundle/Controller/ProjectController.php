@@ -35,27 +35,22 @@ class ProjectController extends AbstractCoreController
      */
     public function createAction()
     {
-        $responseData = array('success' => false);
+        $responseData = ['success' => false];
         $project = new Project();
-
         $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
         $project->setAttributes($attributes);
 
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
-
         $form->submit($this->getRequest());
 
         if ($form->isValid()) {
-            $project = $form->getData();
-            $manager = $this->get('tickit_project.manager');
-            $manager->create($project);
-
+            $this->get('tickit_project.manager')->create($form->getData());
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
             $responseData['form'] = $this->render(
                 'TickitProjectBundle:Project:create.html.twig',
-                array('form' => $form->createView())
+                ['form' => $form->createView()]
             )->getContent();
         }
 
@@ -75,27 +70,18 @@ class ProjectController extends AbstractCoreController
      */
     public function editAction(Project $project)
     {
-        $responseData = array('success' => false, 'errors' => array());
-
-        $formType = $this->get('tickit_project.form.project');
-        $form = $this->createForm($formType, $project);
-
+        $responseData = ['success' => false, 'errors' => []];
+        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
         $form->submit($this->getRequest());
 
         if ($form->isValid()) {
-            $project = $form->getData();
-
-            $manager = $this->get('tickit_project.manager');
-            $manager->update($project);
-
+            $this->get('tickit_project.manager')->update($form->getData());
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
             $responseData['form'] = $this->render(
                 'TickitProjectBundle:Project:edit.html.twig',
-                array(
-                    'form' => $form->createView()
-                )
+                ['form' => $form->createView()]
             )->getContent();
         }
 
