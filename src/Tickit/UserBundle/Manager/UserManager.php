@@ -9,7 +9,6 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\PermissionBundle\Manager\PermissionManager;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
 

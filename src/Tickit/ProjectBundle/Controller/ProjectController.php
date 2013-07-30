@@ -3,7 +3,6 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
