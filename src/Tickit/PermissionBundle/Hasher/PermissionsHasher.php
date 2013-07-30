@@ -34,9 +34,7 @@ class PermissionsHasher implements HasherInterface
         foreach ($permissions as $permission) {
             if (!$permission instanceof Permission) {
                 $exceptionMsg = sprintf(
-                    '$permission must be an instance of \Tickit\PermissionBundle\Entity\Permission in %s on line %d',
-                    __FILE__,
-                    __LINE__
+                    '$permission must be an instance of \Tickit\PermissionBundle\Entity\Permission'
                 );
                 throw new \InvalidArgumentException($exceptionMsg);
             }
