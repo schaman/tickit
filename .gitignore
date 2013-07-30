@@ -10,5 +10,6 @@ vendor/*
 composer.phar
 web/bundles
 web/css
+web/config.php
 coverage.xml
 bin/*
