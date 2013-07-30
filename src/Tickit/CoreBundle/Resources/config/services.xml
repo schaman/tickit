@@ -12,6 +12,10 @@
             <argument>%kernel.environment%</argument>
         </service>
 
+        <service id="session" class="Tickit\CoreBundle\Entity\CoreSession">
+            <argument type="service" id="session.storage" />
+        </service>
+
         <service id="tickit.domain_object_array_decorator" class="Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator" />
 
         <service id="tickit.filter_collection_builder" class="Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder" />
