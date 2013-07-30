@@ -21,7 +21,7 @@ doctrine:
     dbal:
         driver:   %database_driver%
         user:     %database_user%
-        dbname:   %database_name%_tests
+        dbname:   %database_name_test%
         host:     %database_host%
         port:     %database_port%
         password: %database_password%
