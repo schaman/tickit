@@ -2,15 +2,16 @@ hearsay_require_js:
     require_js_src: http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js
     optimizer:
         path: %requirejs_bin%
+        options: { findNestedDependencies: true }
     base_directory: %kernel.root_dir%/Resources/public/js
     paths:
-        jquery: "@TickitCoreBundle/Resources/public/js/vendor/jquery/jquery"
+        jquery: %kernel.root_dir%/Resources/public/js/vendor/jquery/jquery
         jqueryui: %kernel.root_dir%/Resources/public/js/vendor/jquery-ui-1.10.3.min
-        text: "@TickitCoreBundle/Resources/public/js/vendor/requirejs-text/text"
-        backbone: "@TickitCoreBundle/Resources/public/js/vendor/backbone/backbone"
-        marionette: "@TickitCoreBundle/Resources/public/js/vendor/backbone.marionette/lib/backbone.marionette"
-        underscore: "@TickitCoreBundle/Resources/public/js/vendor/underscore/underscore"
-        cookie: "@TickitCoreBundle/Resources/public/js/vendor/jquery.cookie/jquery.cookie"
+        text: %kernel.root_dir%/Resources/public/js/vendor/requirejs-text/text
+        backbone: %kernel.root_dir%/Resources/public/js/vendor/backbone/backbone
+        marionette: %kernel.root_dir%/Resources/public/js/vendor/backbone.marionette/lib/backbone.marionette
+        underscore: %kernel.root_dir%/Resources/public/js/vendor/underscore/underscore
+        cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
         bootstrapjs: %kernel.root_dir%/Resources/public/js/bootstrap.min
         bootstrapswitch: %kernel.root_dir%/Resources/public/js/bootstrap-switch
         bootstrapselect: %kernel.root_dir%/Resources/public/js/bootstrap-select
@@ -18,7 +19,7 @@ hearsay_require_js:
         flatuiradio: %kernel.root_dir%/Resources/public/js/flatui-radio
         jqueryplaceholder: %kernel.root_dir%/Resources/public/js/jquery.placeholder
         jquerytagsinput: %kernel.root_dir%/Resources/public/js/jquery.tagsinput
-        sidr: "@TickitCoreBundle/Resources/public/js/vendor/sidr/jquery.sidr.min"
+        sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'

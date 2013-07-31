@@ -3,7 +3,7 @@ app/cache/*
 app/sqlite_test
 app/config/parameters.yml
 app/logs/*
-src/Tickit/CoreBundle/Resources/public/js/vendor/*
+app/Resources/public/js/vendor/*
 app/phpunit.xml
 vendor/*
 composer.phar

@@ -33,10 +33,9 @@ class PermissionsHasher implements HasherInterface
         $permissionString = '';
         foreach ($permissions as $permission) {
             if (!$permission instanceof Permission) {
-                $exceptionMsg = sprintf(
+                throw new \InvalidArgumentException(
                     '$permission must be an instance of \Tickit\PermissionBundle\Entity\Permission'
                 );
-                throw new \InvalidArgumentException($exceptionMsg);
             }
             $permissionString .= $permission->getSystemName();
         }
