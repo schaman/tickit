@@ -29,15 +29,12 @@ doctrine:
 
 # Test specific firewall
 security:
-    providers:
-        fos_userbundle:
-            id: tickit_user.user_provider
     firewalls:
         main:
             pattern: ^/
             http_basic:
                 realm: "Secured Test"
-                provider: fos_userbundle
+                provider: tickit_userbundle
 
 #TickitCacheBundle configuration
 tickit_cache:
