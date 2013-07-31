@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e59458eaf98eacd0a0e49e82e491fce3",
+    "hash": "63f5be6b6d43709f288319854c781470",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -82,12 +82,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "dc3438804c6303f1b5892f184a79aa8e3ce5d81d"
+                "reference": "beb242e0e22eebdca1db571edb1bac788b054124"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/dc3438804c6303f1b5892f184a79aa8e3ce5d81d",
-                "reference": "dc3438804c6303f1b5892f184a79aa8e3ce5d81d",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/beb242e0e22eebdca1db571edb1bac788b054124",
+                "reference": "beb242e0e22eebdca1db571edb1bac788b054124",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +143,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2013-07-04 15:48:06"
+            "time": "2013-07-31 00:07:06"
         },
         {
             "name": "doctrine/collections",
@@ -218,12 +218,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "6a39bb947b20d12a16820f2709509e41e28af005"
+                "reference": "9c6b8615a988117dec83bdbb0fad80afef23eab8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/6a39bb947b20d12a16820f2709509e41e28af005",
-                "reference": "6a39bb947b20d12a16820f2709509e41e28af005",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/9c6b8615a988117dec83bdbb0fad80afef23eab8",
+                "reference": "9c6b8615a988117dec83bdbb0fad80afef23eab8",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-07-02 11:26:20"
+            "time": "2013-07-30 05:35:10"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -788,12 +788,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "be211eced9820a7ed4cb5bd80b0774e00eef1845"
+                "reference": "f82149141bedbb966ae409e54f4c6fdeaaab2080"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/be211eced9820a7ed4cb5bd80b0774e00eef1845",
-                "reference": "be211eced9820a7ed4cb5bd80b0774e00eef1845",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/f82149141bedbb966ae409e54f4c6fdeaaab2080",
+                "reference": "f82149141bedbb966ae409e54f4c6fdeaaab2080",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +848,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-07-25 15:37:42"
+            "time": "2013-07-31 06:42:13"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -856,12 +856,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "33cd84cd10ae2887698bd82bbbc016149cdd53ed"
+                "reference": "7ba748cf8b024de45bad9133482ee224744dce7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/33cd84cd10ae2887698bd82bbbc016149cdd53ed",
-                "reference": "33cd84cd10ae2887698bd82bbbc016149cdd53ed",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/7ba748cf8b024de45bad9133482ee224744dce7d",
+                "reference": "7ba748cf8b024de45bad9133482ee224744dce7d",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-07-28 08:06:50"
+            "time": "2013-07-30 15:21:07"
         },
         {
             "name": "hearsay/require-js-bundle",
@@ -984,6 +984,58 @@
                 "source": "https://github.com/jameshalsall/HearsayRequireJSBundle/tree/filename-resource-fix"
             },
             "time": "2013-07-25 08:19:35"
+        },
+        {
+            "name": "incenteev/composer-parameter-handler",
+            "version": "dev-master",
+            "target-dir": "Incenteev/ParameterHandler",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Incenteev/ParameterHandler.git",
+                "reference": "d76d17d14abfaa5103342a43cfeb4126000abab6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/d76d17d14abfaa5103342a43cfeb4126000abab6",
+                "reference": "d76d17d14abfaa5103342a43cfeb4126000abab6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/yaml": "~2.0"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpspec/prophecy-phpunit": "~1.0",
+                "symfony/filesystem": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Incenteev\\ParameterHandler": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Coevoet",
+                    "email": "stof@notk.org"
+                }
+            ],
+            "description": "Composer script handling your ignored parameter file",
+            "homepage": "https://github.com/Incenteev/ParameterHandler",
+            "keywords": [
+                "parameters management"
+            ],
+            "time": "2013-07-20 18:35:49"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1151,12 +1203,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "1.6.0"
+                "reference": "b33357d16bb84ca83be119e67abaff7321702b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1.6.0",
-                "reference": "1.6.0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b33357d16bb84ca83be119e67abaff7321702b22",
+                "reference": "b33357d16bb84ca83be119e67abaff7321702b22",
                 "shasum": ""
             },
             "require": {
@@ -1205,7 +1257,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-07-28 22:38:30"
+            "time": "2013-07-30 11:01:58"
         },
         {
             "name": "psr/log",
@@ -2224,12 +2276,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "f9760bc410ca6ca1bb2b637bf76d2afc5ee2d4d8"
+                "reference": "c079683bb581a7da9ccd394adb26c27f457d1307"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/f9760bc410ca6ca1bb2b637bf76d2afc5ee2d4d8",
-                "reference": "f9760bc410ca6ca1bb2b637bf76d2afc5ee2d4d8",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/c079683bb581a7da9ccd394adb26c27f457d1307",
+                "reference": "c079683bb581a7da9ccd394adb26c27f457d1307",
                 "shasum": ""
             },
             "require": {
@@ -2308,7 +2360,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-07-26 16:01:09"
+            "time": "2013-07-30 22:07:23"
         },
         {
             "name": "satooshi/php-coveralls",
