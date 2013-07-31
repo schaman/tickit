@@ -46,8 +46,7 @@ define(['jquery'], function($) {
                 data: params.data,
                 dataType: params.dataType,
                 success: function(resp, status, xhr) {
-                    if (xhr.status === 401) {
-                        // TODO: symfony needs to send a 401 when login is required
+                    if (xhr.status === 403) {
                         App.Router.goTo('login');
                     }
 
@@ -60,12 +59,14 @@ define(['jquery'], function($) {
                 }
             });
         };
-    });
-});
 
-// TODO: finish this off so it handles 302 redirects to the login page properly
-$(function() {
-    $(document).ajaxComplete(function() {
-        console.log(arguments);
+        /**
+         * Bind ajax error handler to the document
+         */
+        $(document).ajaxError(function (event, jqXHR) {
+            if (403 === jqXHR.status) {
+                App.Router.goTo('login');
+            }
+        });
     });
 });

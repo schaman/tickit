@@ -50,7 +50,6 @@ define([
                 success: function(data) {
                     if (data.success) {
                         $.cookie('uid', data.userId);
-                        App.Session.load();
                         App.loginRegion.close(function() {
                             App.Router.goTo(data.url);
                         });
