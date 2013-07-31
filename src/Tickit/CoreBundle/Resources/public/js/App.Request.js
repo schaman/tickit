@@ -46,8 +46,9 @@ define(['jquery'], function($) {
                 data: params.data,
                 dataType: params.dataType,
                 success: function(resp, status, xhr) {
-                    if (xhr.status == 410) {
-                        // TODO: symfony needs to send a 410 when login is required
+                    if (xhr.status === 401) {
+                        // TODO: symfony needs to send a 401 when login is required
+                        App.Router.goTo('login');
                     }
 
                     if (typeof params.success == 'function') {
