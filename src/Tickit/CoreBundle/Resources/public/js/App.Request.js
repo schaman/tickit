@@ -73,7 +73,7 @@ define(['jquery'], function($) {
          * Handles an expired session in the application.
          */
         function handleExpiredSession() {
-            App.Router.goTo('login');
+            window.location = Routing.generate('fos_user_security_login');
         }
     });
 });
