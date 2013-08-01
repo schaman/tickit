@@ -47,7 +47,7 @@ define(['jquery'], function($) {
                 dataType: params.dataType,
                 success: function(resp, status, xhr) {
                     if (xhr.status === 403) {
-                        App.Router.goTo('login');
+                        handleExpiredSession();
                     }
 
                     if (typeof params.success == 'function') {
@@ -65,8 +65,15 @@ define(['jquery'], function($) {
          */
         $(document).ajaxError(function (event, jqXHR) {
             if (403 === jqXHR.status) {
-                App.Router.goTo('login');
+                handleExpiredSession();
             }
         });
+
+        /**
+         * Handles an expired session in the application.
+         */
+        function handleExpiredSession() {
+            App.Router.goTo('login');
+        }
     });
 });
