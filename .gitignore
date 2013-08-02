@@ -1,4 +1,6 @@
 app/bootstrap*
+app/SymfonyRequirements.php
+app/check.php
 app/cache/*
 app/sqlite_test
 app/config/parameters.yml
