@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * The TeamUser entity represents a user's affiliation with a team in the application
  *
+ * @todo This needs to be reworked so that a doctrine many-to-many table is used for teams --> users
+ *
  * @ORM\Entity
  * @ORM\Table(name="team_users")
  */
