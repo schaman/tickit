@@ -2,7 +2,7 @@
     "name": "tickit",
     "dependencies": {
         "jquery": "~2.0.0",
-        "underscore": "1.4.x",
+        "underscore": "1.x",
         "backbone.marionette": "1.x",
         "requirejs": "2.1.x",
         "requirejs-text": "2.0.*",
