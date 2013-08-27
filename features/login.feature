@@ -5,5 +5,4 @@ Feature: User Login
 
     Scenario: The login form is visible
         Given I am on "/login"
-         Then the response code should be "200"
-          And I should see a "form" element
+         Then I should see a "form" element

@@ -1,9 +1,9 @@
 <?php
 
 use Behat\Behat\Context\BehatContext;
-use Behat\Behat\Exception\PendingException;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Session;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Features context.
@@ -23,13 +23,22 @@ class FeatureContext extends BehatContext
     protected $session;
 
     /**
+     * Service container
+     *
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
      * Constructor.
      *
      * @param array $parameters Context parameters (see app/config/behat.yml)
      */
     public function __construct(array $parameters)
     {
-        $driver = new Selenium2Driver('firefox', null, 'http://tickit.local');
+        $this->container = $this->getContainer();
+
+        $driver = new Selenium2Driver('firefox', null);
         $this->session = new Session($driver);
         $this->session->start();
     }
@@ -37,24 +46,22 @@ class FeatureContext extends BehatContext
     /**
      * @Given /^I am on "([^"]*)"$/
      */
-    public function iAmOn($url)
+    public function iAmOn($path)
     {
-        $this->session->visit($url);
-    }
+        $host = $this->container->getParameter('hostname');
+        $url = sprintf('http://%s%s', $host, $path);
 
-    /**
-     * @Then /^the response code should be "([^"]*)"$/
-     */
-    public function theResponseCodeShouldBe($responseCode)
-    {
-        // todo: assert
+        $this->session->visit($url);
+        $this->session->wait(15000, 'typeof $ == "function"');
     }
 
     /**
      * @Given /^I should see a "([^"]*)" element$/
      */
-    public function iShouldSeeAElement($arg1)
+    public function iShouldSeeAElement($tagName)
     {
-        throw new PendingException();
+        $success = $this->session->evaluateScript('$("' + $tagName +'").length > 0');
+
+        return $success;
     }
 }

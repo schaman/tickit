@@ -22,3 +22,5 @@ parameters:
     secret:            0b3652cd3673080142a5562bc7440f0d
 
     remember_me_key: remember-%secret%
+
+    hostname: tickit.local
