@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "63f5be6b6d43709f288319854c781470",
+    "hash": "d195bdf419bb49502bcfba69a22a65b7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -734,12 +734,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
-                "reference": "1.2.0"
+                "reference": "b93f01e8f81918bd86fc673afaaf26e5fc51b3ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/1.2.0",
-                "reference": "1.2.0",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/b93f01e8f81918bd86fc673afaaf26e5fc51b3ae",
+                "reference": "b93f01e8f81918bd86fc673afaaf26e5fc51b3ae",
                 "shasum": ""
             },
             "require": {
@@ -788,12 +788,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "96c58334211aab5f57376f0f4f817a7fda853c4f"
+                "reference": "3b8643c573b93ab2a5d2c0cab893cb0fedcac757"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/96c58334211aab5f57376f0f4f817a7fda853c4f",
-                "reference": "96c58334211aab5f57376f0f4f817a7fda853c4f",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/3b8643c573b93ab2a5d2c0cab893cb0fedcac757",
+                "reference": "3b8643c573b93ab2a5d2c0cab893cb0fedcac757",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +848,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-08-09 14:47:08"
+            "time": "2013-08-27 13:19:17"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -856,12 +856,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "8f9f41b1218eb3084fec41140337ffd407bd3785"
+                "reference": "e4829eee5d249250dabedbd4af1a7d5e1fa5d58e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/8f9f41b1218eb3084fec41140337ffd407bd3785",
-                "reference": "8f9f41b1218eb3084fec41140337ffd407bd3785",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/e4829eee5d249250dabedbd4af1a7d5e1fa5d58e",
+                "reference": "e4829eee5d249250dabedbd4af1a7d5e1fa5d58e",
                 "shasum": ""
             },
             "require": {
@@ -928,7 +928,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-08-22 17:42:52"
+            "time": "2013-08-26 15:55:06"
         },
         {
             "name": "hearsay/require-js-bundle",
@@ -992,12 +992,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Incenteev/ParameterHandler.git",
-                "reference": "d76d17d14abfaa5103342a43cfeb4126000abab6"
+                "reference": "548ea586258845b68e8142b0e3f0a7dbac2e6f49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/d76d17d14abfaa5103342a43cfeb4126000abab6",
-                "reference": "d76d17d14abfaa5103342a43cfeb4126000abab6",
+                "url": "https://api.github.com/repos/Incenteev/ParameterHandler/zipball/548ea586258845b68e8142b0e3f0a7dbac2e6f49",
+                "reference": "548ea586258845b68e8142b0e3f0a7dbac2e6f49",
                 "shasum": ""
             },
             "require": {
@@ -1035,7 +1035,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2013-07-20 18:35:49"
+            "time": "2013-08-27 09:48:45"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1203,12 +1203,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "7a8844d4db868cf20040facb8c3413802dd0ec9b"
+                "reference": "933f7e26beb19ce15d97031a3fdd21d8bd83a3d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/7a8844d4db868cf20040facb8c3413802dd0ec9b",
-                "reference": "7a8844d4db868cf20040facb8c3413802dd0ec9b",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/933f7e26beb19ce15d97031a3fdd21d8bd83a3d3",
+                "reference": "933f7e26beb19ce15d97031a3fdd21d8bd83a3d3",
                 "shasum": ""
             },
             "require": {
@@ -1257,7 +1257,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-08-09 12:12:38"
+            "time": "2013-08-26 09:42:58"
         },
         {
             "name": "psr/log",
@@ -1445,12 +1445,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stof/StofDoctrineExtensionsBundle.git",
-                "reference": "6577f2388abeac4896aa0aef37fc1b6f2c6923e9"
+                "reference": "fe3f6551a41d0bce874159fd4c46296fdd697d2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/6577f2388abeac4896aa0aef37fc1b6f2c6923e9",
-                "reference": "6577f2388abeac4896aa0aef37fc1b6f2c6923e9",
+                "url": "https://api.github.com/repos/stof/StofDoctrineExtensionsBundle/zipball/fe3f6551a41d0bce874159fd4c46296fdd697d2b",
+                "reference": "fe3f6551a41d0bce874159fd4c46296fdd697d2b",
                 "shasum": ""
             },
             "require": {
@@ -1498,7 +1498,7 @@
                 "translatable",
                 "tree"
             ],
-            "time": "2013-06-25 08:05:01"
+            "time": "2013-08-27 13:42:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1779,12 +1779,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "fcb51c97dd098feb03cbd6f65586b121763eea17"
+                "reference": "196227bd83f2b1593756903be9de5f94e8b07681"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/fcb51c97dd098feb03cbd6f65586b121763eea17",
-                "reference": "fcb51c97dd098feb03cbd6f65586b121763eea17",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/196227bd83f2b1593756903be9de5f94e8b07681",
+                "reference": "196227bd83f2b1593756903be9de5f94e8b07681",
                 "shasum": ""
             },
             "require": {
@@ -1879,7 +1879,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-08-24 15:27:17"
+            "time": "2013-08-27 13:39:19"
         },
         {
             "name": "tickit-project/cache-bundle",
@@ -1995,12 +1995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "fcf007e9a2e6c65594360ae7fa3c410ae8d56a11"
+                "reference": "cacbf201af1500852f83ad9c5d389a13d52f654e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/fcf007e9a2e6c65594360ae7fa3c410ae8d56a11",
-                "reference": "fcf007e9a2e6c65594360ae7fa3c410ae8d56a11",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/cacbf201af1500852f83ad9c5d389a13d52f654e",
+                "reference": "cacbf201af1500852f83ad9c5d389a13d52f654e",
                 "shasum": ""
             },
             "require": {
@@ -2036,7 +2036,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-08-07 12:53:34"
+            "time": "2013-08-26 08:23:34"
         }
     ],
     "packages-dev": [
@@ -2169,17 +2169,184 @@
             "time": "2013-08-11 18:27:33"
         },
         {
+            "name": "behat/mink",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/Mink.git",
+                "reference": "ed95d7dabc28a2f9cac45ce662be0645116212f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/Mink/zipball/ed95d7dabc28a2f9cac45ce662be0645116212f5",
+                "reference": "ed95d7dabc28a2f9cac45ce662be0645116212f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1",
+                "symfony/css-selector": "~2.0"
+            },
+            "suggest": {
+                "behat/mink-browserkit-driver": "extremely fast headless driver for Symfony\\Kernel-based apps (Sf2, Silex)",
+                "behat/mink-goutte-driver": "fast headless driver for any app without JS emulation",
+                "behat/mink-selenium2-driver": "slow, but JS-enabled driver for any app (requires Selenium2)",
+                "behat/mink-zombie-driver": "fast and JS-enabled headless driver for any app (requires node.js)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Mink": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Konstantin Kudryashov",
+                    "email": "ever.zet@gmail.com",
+                    "homepage": "http://everzet.com"
+                }
+            ],
+            "description": "Web acceptance testing framework for PHP 5.3",
+            "homepage": "http://mink.behat.org/",
+            "keywords": [
+                "browser",
+                "testing",
+                "web"
+            ],
+            "time": "2013-08-26 17:55:59"
+        },
+        {
+            "name": "behat/mink-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/MinkExtension.git",
+                "reference": "v1.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/MinkExtension/zipball/v1.2.0",
+                "reference": "v1.2.0",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~2.5.0",
+                "behat/mink": ">=1.4.3,<1.6-dev",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "behat/mink-goutte-driver": "~1.0"
+            },
+            "type": "behat-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\MinkExtension": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Konstantin Kudryashov",
+                    "email": "ever.zet@gmail.com",
+                    "homepage": "http://everzet.com"
+                }
+            ],
+            "description": "Mink extension for Behat",
+            "homepage": "http://mink.behat.org",
+            "keywords": [
+                "browser",
+                "gui",
+                "test",
+                "web"
+            ],
+            "time": "2013-08-17 19:01:06"
+        },
+        {
+            "name": "behat/mink-selenium2-driver",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/MinkSelenium2Driver.git",
+                "reference": "185bbee848b44c4c6e0e63edefd85c2b1683c90e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/MinkSelenium2Driver/zipball/185bbee848b44c4c6e0e63edefd85c2b1683c90e",
+                "reference": "185bbee848b44c4c6e0e63edefd85c2b1683c90e",
+                "shasum": ""
+            },
+            "require": {
+                "behat/mink": "~1.5.0",
+                "instaclick/php-webdriver": "~1.0.12",
+                "php": ">=5.3.1"
+            },
+            "type": "mink-driver",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Mink\\Driver": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Konstantin Kudryashov",
+                    "email": "ever.zet@gmail.com",
+                    "homepage": "http://everzet.com"
+                },
+                {
+                    "name": "Pete Otaqui",
+                    "email": "pete@otaqui.com",
+                    "homepage": "https://github.com/pete-otaqui"
+                }
+            ],
+            "description": "Selenium2 (WebDriver) driver for Mink framework",
+            "homepage": "http://mink.behat.org/",
+            "keywords": [
+                "ajax",
+                "browser",
+                "javascript",
+                "selenium",
+                "testing",
+                "webdriver"
+            ],
+            "time": "2013-08-26 17:52:34"
+        },
+        {
             "name": "behat/symfony2-extension",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Symfony2Extension.git",
-                "reference": "v1.1.0"
+                "reference": "15d6ba65c381415a7c57980e7540ddeb95088f0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Symfony2Extension/zipball/v1.1.0",
-                "reference": "v1.1.0",
+                "url": "https://api.github.com/repos/Behat/Symfony2Extension/zipball/15d6ba65c381415a7c57980e7540ddeb95088f0b",
+                "reference": "15d6ba65c381415a7c57980e7540ddeb95088f0b",
                 "shasum": ""
             },
             "require": {
@@ -2276,12 +2443,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "898c7c7831096d36a0701fe29e8c9952ceabd2c8"
+                "reference": "efef3c29068b9a91953db439780007bcb46f0a29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/898c7c7831096d36a0701fe29e8c9952ceabd2c8",
-                "reference": "898c7c7831096d36a0701fe29e8c9952ceabd2c8",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/efef3c29068b9a91953db439780007bcb46f0a29",
+                "reference": "efef3c29068b9a91953db439780007bcb46f0a29",
                 "shasum": ""
             },
             "require": {
@@ -2360,7 +2527,65 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-08-23 17:19:06"
+            "time": "2013-08-25 02:15:08"
+        },
+        {
+            "name": "instaclick/php-webdriver",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/instaclick/php-webdriver.git",
+                "reference": "5ff757c6daf1cfc223928e860385952abbbdb531"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/5ff757c6daf1cfc223928e860385952abbbdb531",
+                "reference": "5ff757c6daf1cfc223928e860385952abbbdb531",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.2"
+            },
+            "bin": [
+                "bin/webunit"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "WebDriver": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Bishop",
+                    "email": "jubishop@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "role": "Fork Maintainer"
+                }
+            ],
+            "description": "PHP WebDriver for Selenium 2",
+            "homepage": "http://instaclick.com/",
+            "keywords": [
+                "browser",
+                "selenium",
+                "webdriver",
+                "webtest"
+            ],
+            "time": "2013-08-08 14:22:54"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -2524,6 +2749,8 @@
         "ircmaxell/password-compat": 20,
         "fzaninotto/faker": 20,
         "behat/symfony2-extension": 20,
+        "behat/mink-extension": 20,
+        "behat/mink-selenium2-driver": 20,
         "satooshi/php-coveralls": 20
     },
     "platform": {
