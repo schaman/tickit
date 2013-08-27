@@ -88,16 +88,14 @@ class PermissionControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testPermissionListActionReturnsEmptyPermissionsForInvalidGroupId()
+    public function testPermissionListActionReturns404ForInvalidGroupId()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $router = $client->getContainer()->get('router');
         $route = $router->generate('permissions_list', array('groupId' => 999999));
 
         $client->request('get', $route);
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertEquals(1, count($response));
-        $this->assertEquals('Symfony\Component\HttpKernel\Exception\NotFoundHttpException', $response[0]->class);
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
     /**
