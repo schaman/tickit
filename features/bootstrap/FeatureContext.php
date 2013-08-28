@@ -23,11 +23,11 @@ class FeatureContext extends BehatContext
     protected $session;
 
     /**
-     * Service container
+     * Hostname of the current session
      *
-     * @var ContainerInterface
+     * @var string
      */
-    protected $container;
+    protected $hostname;
 
     /**
      * Constructor.
@@ -36,8 +36,7 @@ class FeatureContext extends BehatContext
      */
     public function __construct(array $parameters)
     {
-        $this->container = $this->getContainer();
-
+        $this->hostname = $parameters['hostname'];
         $driver = new Selenium2Driver('firefox', null);
         $this->session = new Session($driver);
         $this->session->start();
@@ -48,8 +47,7 @@ class FeatureContext extends BehatContext
      */
     public function iAmOn($path)
     {
-        $host = $this->container->getParameter('hostname');
-        $url = sprintf('http://%s%s', $host, $path);
+        $url = sprintf('http://%s%s', $this->hostname, $path);
 
         $this->session->visit($url);
         $this->session->wait(15000, 'typeof $ == "function"');
@@ -60,7 +58,7 @@ class FeatureContext extends BehatContext
      */
     public function iShouldSeeAElement($tagName)
     {
-        $success = $this->session->evaluateScript('$("' + $tagName +'").length > 0');
+        $success = $this->session->evaluateScript('$("' . $tagName . '").length > 0');
 
         return $success;
     }

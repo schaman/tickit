@@ -4,9 +4,9 @@ default:
     context:
         parameters:
             javascript_session: selenium2
+            hostname: %hostname%
     extensions:
         Behat\MinkExtension\Extension:
-            base_url: "http://tickit.local/app_test.php"
             default_session: symfony2
             browser_name: firefox
             selenium2: ~
