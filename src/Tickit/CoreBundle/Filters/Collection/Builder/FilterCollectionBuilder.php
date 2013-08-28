@@ -5,7 +5,6 @@ namespace Tickit\CoreBundle\Filters\Collection\Builder;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\CoreBundle\Filters\Collection\FilterCollectionInterface;
 use Tickit\CoreBundle\Filters\ExactMatchFilter;
 use Tickit\CoreBundle\Filters\OrderByFilter;
 use Tickit\CoreBundle\Filters\SearchFilter;

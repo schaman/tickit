@@ -3,8 +3,6 @@
  *
  * Provides methods for making requests to the server.
  *
- * @TODO: remove this, as it probably isn't needed
- *
  * @type {Marionette.Module}
  */
 define(['jquery'], function($) {
@@ -48,8 +46,8 @@ define(['jquery'], function($) {
                 data: params.data,
                 dataType: params.dataType,
                 success: function(resp, status, xhr) {
-                    if (xhr.status == 410) {
-                        // TODO: symfony needs to send a 410 when login is required
+                    if (xhr.status === 403) {
+                        handleExpiredSession();
                     }
 
                     if (typeof params.success == 'function') {
@@ -61,12 +59,21 @@ define(['jquery'], function($) {
                 }
             });
         };
-    });
-});
 
-// TODO: finish this off so it handles 302 redirects to the login page properly
-$(function() {
-    $(document).ajaxComplete(function() {
-        console.log(arguments);
+        /**
+         * Bind ajax error handler to the document
+         */
+        $(document).ajaxError(function (event, jqXHR) {
+            if (403 === jqXHR.status) {
+                handleExpiredSession();
+            }
+        });
+
+        /**
+         * Handles an expired session in the application.
+         */
+        function handleExpiredSession() {
+            window.location = Routing.generate('fos_user_security_login');
+        }
     });
 });

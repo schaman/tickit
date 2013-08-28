@@ -1,47 +1,46 @@
 security:
-     providers:
-         fos_userbundle:
-             id: tickit_user.user_provider
+    providers:
+        tickit_userbundle:
+            id: tickit_user.user_provider
 
-     encoders:
-         "FOS\UserBundle\Model\UserInterface":
-             algorithm: sha512
-             encode_as_base64: true
-             iterations: 5
+    encoders:
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: bcrypt
+            cost: 10
 
-     firewalls:
-         main:
-             pattern: ^/
-             remember_me:
-                key: remember-%secret%
+    firewalls:
+        main:
+            pattern: ^/
+            remember_me:
+                key: %remember_me_key%
                 name: remember_me
                 lifetime: 604800 # 1 week
-             form_login:
-                 provider: fos_userbundle
-                 csrf_provider: form.csrf_provider
-                 default_target_path: /dashboard
-                 always_use_default_target_path: false
-                 check_path: api_user_login_check
-                 failure_handler: tickit_user.security.authentication_handler
-                 success_handler: tickit_user.security.authentication_handler
-             logout:
-                 path: /logout
-                 invalidate_session: true
-                 delete_cookies:
-                     sessionId: { path: /, domain: null }
-                     uid: { path: /, domain: null }
-             anonymous:    true
+            form_login:
+                provider: tickit_userbundle
+                csrf_provider: form.csrf_provider
+                default_target_path: /dashboard
+                always_use_default_target_path: false
+                check_path: api_user_login_check
+                failure_handler: tickit_user.security.authentication_handler
+                success_handler: tickit_user.security.authentication_handler
+            logout:
+                path: /logout
+                invalidate_session: true
+                delete_cookies:
+                    sessionId: { path: /, domain: null }
+                    uid: { path: /, domain: null }
+            anonymous:    true
 
-     access_control:
-         - { path: ^/css|js|images, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/templates/users/login-form, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/, role: ROLE_USER }
+    access_control:
+        - { path: ^/css|js|images, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/templates/users/login-form, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }
 
-     role_hierarchy:
-         ROLE_ADMIN:       ROLE_USER
-         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]

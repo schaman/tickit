@@ -7,32 +7,19 @@
  */
 define([
     'marionette',
-    'tickitnavigation/js/views/NavigationItemView',
-    'tickitnavigation/js/views/ProfileNavigationView',
-    'modules/user',
-    'text!tickitnavigation/views/MainNavigation.html'
-], function(Marionette, ItemView, ProfileNavigationView, User, tpl) {
+    'navigation/js/views/NavigationItemView',
+    'text!navigation/views/MainNavigation.html'
+], function(Marionette, ItemView, tpl) {
 
     return Marionette.CompositeView.extend({
         tagName: 'div',
-        className: 'navbar navbar-inverse',
+        className: 'side-menu',
         template: '#navigation_item_collection-template',
         itemView: ItemView,
         profileRegion: null,
 
         events: {
             "click ul.nav a": "itemClick"
-        },
-
-        /**
-         * Initialises the view
-         *
-         * @return {void}
-         */
-        initialize: function() {
-            this.profileRegion = new Backbone.Marionette.Region({
-                el: '#account'
-            });
         },
 
         /**
@@ -54,10 +41,7 @@ define([
          */
         render: function() {
             this.$el.html($(tpl).html());
-            var user = User.loadCurrentUser();
-            user.on('sync', function() {
-                this.profileRegion.show(new ProfileNavigationView({ model: user }));
-            }, this);
+
             return this;
         },
 

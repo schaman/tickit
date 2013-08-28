@@ -1,62 +1,4 @@
 /**
- * RequireJS config
- */
-require.config({
-    baseUrl: "/bundles",
-    paths: {
-        "jquery": "tickitcore/js/vendor/jquery/jquery",
-        "jquery-ui": "/js/vendor/jquery-ui-1.10.3.min",
-        "text": "tickitcore/js/vendor/requirejs-text/text",
-        "backbone": "tickitcore/js/vendor/backbone/backbone",
-        "marionette": "tickitcore/js/vendor/backbone.marionette/lib/backbone.marionette",
-        "underscore": "tickitcore/js/vendor/underscore/underscore",
-        "cookie": "tickitcore/js/vendor/jquery.cookie/jquery.cookie",
-        "bootstrap-js": "/js/bootstrap.min",
-        "bootstrap-switch": "/js/bootstrap-switch",
-        "bootstrap-select": "/js/bootstrap-select",
-        "flatui-checkbox": "/js/flatui-checkbox",
-        "flatui-radio": "/js/flatui-radio",
-        "jquery-placeholder": "/js/jquery.placeholder",
-        "jquery-tagsinput": "/js/jquery.tagsinput",
-        "modules/app": "tickitcore/js/App",
-        "modules/core": "tickitcore/js/App.Core",
-        "modules/project": "tickitproject/js/App.Project",
-        "modules/router": "tickitcore/js/App.Router",
-        "modules/template": "tickitcore/js/App.Template",
-        "modules/login": "tickituser/js/App.Login",
-        "modules/request": "tickitcore/js/App.Request",
-        "modules/dashboard": "tickitdashboard/js/App.Dashboard",
-        "modules/user": "tickituser/js/App.User",
-        "modules/navigation": "tickitnavigation/js/App.Navigation"
-    },
-    shim : {
-        "jquery": {
-            exports: '$'
-        },
-        "underscore" : {
-            exports : '_'
-        },
-        "backbone" : {
-            deps : ['jquery', 'underscore'],
-            exports : 'Backbone'
-        },
-        "marionette" : {
-            deps : ['jquery', 'underscore', 'backbone'],
-            exports : 'Backbone.Marionette'
-        },
-        "jquery-ui": ['jquery'],
-        "cookie": ['jquery'],
-        "bootstrap-js":  ['jquery'],
-        "bootstrap-switch": ['bootstrap-js'],
-        "bootstrap-select": ['bootstrap-js'],
-        "flatui-checkbox": ['jquery'],
-        "flatui-radio": ['jquery'],
-        "jquery-placeholder": ['jquery'],
-        "jquery-tagsinput": ['jquery']
-    }
-});
-
-/**
  * Base application object.
  *
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -64,24 +6,28 @@ require.config({
  */
 require([
     'marionette',
-    'tickituser/js/models/Session',
-    'tickitcore/js/regions/MainRegion',
-    'tickitcore/js/regions/AnimatedRegion',
-    'jquery-ui',
-    'bootstrap-select',
-    'bootstrap-switch',
-    'flatui-checkbox',
-    'flatui-radio',
-    'jquery-placeholder',
-    'jquery-tagsinput',
+    'user/js/models/Session',
+    'core/js/regions/MainRegion',
+    'core/js/regions/AnimatedRegion',
+    'navigation/js/regions/NavigationRegion',
+    'jquery',
+    'jqueryui',
+    'bootstrapselect',
+    'bootstrapswitch',
+    'flatuicheckbox',
+    'flatuiradio',
+    'jqueryplaceholder',
+    'jquerytagsinput',
     'text'
-], function(Marionette, Session, MainRegion, AnimatedRegion) {
+], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion) {
     var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: new MainRegion,
         loginRegion: new AnimatedRegion({ el: '#container' }),
-        navRegion: 'header.main-header',
+        navRegion: new NavigationRegion,
+        toolbarRegion: 'header.main-header',
+        notificationRegion: '#notification-side',
         footerRegion: '#footer'
     });
 

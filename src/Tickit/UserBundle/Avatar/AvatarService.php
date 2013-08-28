@@ -4,7 +4,6 @@ namespace Tickit\UserBundle\Avatar;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use Tickit\UserBundle\Entity;
 use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 
 /**

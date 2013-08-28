@@ -5,9 +5,9 @@
  *
  * @type {Marionette.ItemView}
  */
-define(['modules/template', 'text!tickitcore/views/FormErrorSingle.html'], function(Template, tpl) {
+define(['modules/template', 'text!core/views/FormErrorSingle.html'], function(Template, tpl) {
 
-    Template.loadView(tpl);
+    Template.load(tpl);
 
     return Backbone.Marionette.ItemView.extend({
         template: '#form_error_single-template',

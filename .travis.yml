@@ -1,6 +1,5 @@
 language: php
 php:
-  - 5.3
   - 5.4
   - 5.5
 
@@ -19,6 +18,7 @@ script:
   - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice --extensions=php
   - npm install bower
   - bower install
+  - php app/console cache:warmup --env test
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
   - ./bin/behat -c app/config/behat.yml
 

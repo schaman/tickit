@@ -3,37 +3,35 @@
 namespace Tickit\TeamBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
 /**
- * Team repository.
+ * Team entity repository.
  *
- * Provides methods for fetching Team related data from the DBAL
+ * Provides methods for retrieving Team related data from the data layer
  *
  * @package Tickit\TeamBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TeamRepository extends EntityRepository
+class TeamRepository extends EntityRepository implements FilterableRepositoryInterface
 {
-
     /**
-     * Returns a query that fetches all teams in the system that match a set of specific filters
+     * Finds results based off a set of filters.
      *
-     * @param array $options
+     * @param FilterCollection $filters The filter collection
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return mixed
      */
-    public function getFiltered(array $options)
+    public function findByFilters(FilterCollection $filters)
     {
-        $qb = $this->getEntityManager()
-                   ->createQueryBuilder();
+        $teamsQ = $this->getEntityManager()
+                       ->createQueryBuilder()
+                       ->select('p')
+                       ->from('TickitTeamBundle:Team', 'p');
 
-        $query = $qb->select('t.id, t.name, t.created, t.updated')
-                    ->from('TickitTeamBundle:Team', 't');
+        $filters->applyToQuery($teamsQ);
 
-        if (!empty($options['name'])) {
-            $query->expr()->like('t.name', $query->expr()->literal($options['name']));
-        }
-
-        return $query;
+        return $teamsQ->getQuery()->execute();
     }
 }

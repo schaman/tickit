@@ -17,7 +17,11 @@ define(['marionette'], function(Marionette) {
         onShow: function() {
             if (App.Session.isAuthenticated() && typeof App.Navigation == 'undefined') {
                 require(['modules/navigation'], function(Navigation) {
+                    Navigation.loadHeaderNavigation();
                     Navigation.loadMainNavigation();
+                });
+                require(['modules/notification'], function(Notification) {
+                    Notification.loadNotifications();
                 });
             }
         }

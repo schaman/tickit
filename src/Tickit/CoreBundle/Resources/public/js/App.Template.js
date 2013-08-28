@@ -15,7 +15,7 @@ define(function() {
          *
          * @return {void}
          */
-        module.loadView = function(tpl) {
+        module.load = function(tpl) {
             $('body').append($(tpl));
         }
     });

@@ -1,6 +1,6 @@
-{% extends 'TickitUserBundle:Form:base_form.html.twig' %}
+{% extends '::no-content.html.twig' %}
 
-{% block user_content %}
+{% block content %}
     <h2>Edit User</h2>
 
     <form method='post' action='{{ path('user_edit', { "id": form.vars.value.id }) }}' {{ form_enctype(form) }}>

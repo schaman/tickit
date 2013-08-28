@@ -5,7 +5,6 @@ namespace Tickit\PermissionBundle\Entity\Repository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
 use Tickit\UserBundle\Entity\User;
 
 /**

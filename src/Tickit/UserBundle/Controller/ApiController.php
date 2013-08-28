@@ -3,7 +3,6 @@
 namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\CoreBundle\Controller\AbstractCoreController;
 use Tickit\UserBundle\Entity\User;
@@ -72,6 +71,31 @@ class ApiController extends AbstractCoreController
                 $user,
                 array('id', 'forename', 'surname', 'email', 'username', 'lastActivity')
             );
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Lists groups in the application
+     *
+     * @param integer $page The page number of the results to display
+     *
+     * @return JsonResponse
+     */
+    public function listGroupsAction($page = 1)
+    {
+        $filters = $this->get('tickit.filter_collection_builder')
+                        ->buildFromRequest($this->getRequest());
+
+        $groups = $this->get('tickit_user.group_manager')
+                      ->getRepository()
+                      ->findByFilters($filters);
+
+        $data = array();
+        $decorator = $this->getArrayDecorator();
+        foreach ($groups as $group) {
+            $data[] = $decorator->decorate($group, array('id', 'name'));
         }
 
         return new JsonResponse($data);

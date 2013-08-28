@@ -1,0 +1,8 @@
+api_team_list:
+    pattern: /list/{page}
+    defaults: { _controller: TickitTeamBundle:Api:list, page: 1 }
+    requirements:
+        page: \d+
+        _method: GET
+    options:
+        expose: true

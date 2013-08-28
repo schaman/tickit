@@ -1,4 +1,4 @@
 {
-    "directory": "src/Tickit/CoreBundle/Resources/public/js/vendor",
+    "directory": "app/Resources/public/js/vendor",
     "json": "bower.json"
 }

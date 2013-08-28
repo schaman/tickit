@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Tests\Controller;
 use Doctrine\DBAL\DBALException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\PermissionBundle\Entity\UserPermissionValue;
+use Tickit\UserBundle\Controller\UserController;
 use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Manager\UserManager;
@@ -151,5 +152,43 @@ class UserControllerTest extends AbstractFunctionalTest
 
         $doctrine->getManager()->remove($newUser);
         $doctrine->getManager()->flush();
+    }
+
+    /**
+     * Tests the deleteAction() method
+     *
+     * @return void
+     */
+    public function testDeleteActionReturns404ForInvalidToken()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $route = $this->generateRoute('user_delete', array('id' => static::$developer->getId(), 'token' => 'wadwadwa'));
+
+        $client->request('post', $route);
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the deleteAction() method
+     *
+     * @return void
+     */
+    public function testDeleteActionDeletesUser()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $token = $container->get('form.csrf_provider')->generateCsrfToken(UserController::CSRF_DELETE_INTENTION);
+
+        $user = $this->createNewUser(true);
+        $route = $this->generateRoute('user_delete', array('id' => $user->getId(), 'token' => $token));
+
+        $client->request('post', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+
+        $nonExistentUser = $container->get('doctrine')->getRepository('TickitUserBundle:User')->find($user->getId());
+        $this->assertNull($nonExistentUser);
     }
 }

@@ -1,9 +1,9 @@
-{% extends 'TickitUserBundle::layout.html.twig' %}
+{% extends '::no-content.html.twig' %}
 
-{% block user_content %}
+{% block content %}
     <h2>Create User Group</h2>
 
-    <form method="post" {{ form_enctype(form) }}>
+    <form method="post" action='{{ path('group_create') }}' {{ form_enctype(form) }}>
         {{ form_errors(form) }}
 
         {{ form_row(form.name) }}

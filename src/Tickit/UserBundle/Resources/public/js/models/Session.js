@@ -6,27 +6,26 @@
 define(['backbone', 'cookie'], function(Backbone) {
     return Backbone.Model.extend({
         defaults: {
-            sessionId: null,
-            userId: null
+            sessionId: $.cookie('sessionId'),
+            userId: $.cookie('uid')
         },
 
         /**
-         * Initialises the model
+         * Gets the current session ID
          *
-         * @return {void}
+         * @return {string}
          */
-        initialize: function() {
-            this.load();
+        getSessionId: function() {
+            return $.cookie('sessionId');
         },
 
         /**
-         * Loads latest session data into the model instance
+         * Gets the current user ID
          *
-         * @return {void}
+         * @return {number}
          */
-        load: function() {
-            this.set('sessionId', $.cookie('sessionId'));
-            this.set('userId', $.cookie('uid'));
+        getUserId: function() {
+            return $.cookie('uid');
         },
 
         /**
@@ -35,7 +34,7 @@ define(['backbone', 'cookie'], function(Backbone) {
          * @return {boolean}
          */
         isAuthenticated: function() {
-            return Boolean(this.get('sessionId') && this.get('userId'));
+            return Boolean(this.getSessionId() && this.getUserId());
         }
     });
 });

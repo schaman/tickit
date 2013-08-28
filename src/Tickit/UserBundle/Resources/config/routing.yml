@@ -10,7 +10,7 @@ cosmetic:
     resource: "@TickitUserBundle/Resources/config/routing/cosmetic.yml"
 
 
-###### ROUTES BELOW HERE NEED TO BE REFACTORED INTO THE RELEVANT FILES ABOVE ######
+##########################################
 
 user_create:
     pattern: /users/create
@@ -25,21 +25,25 @@ user_edit:
         id: \d+
         _method: post
 
-group_index:
-    pattern: /users/groups/{page}
-    defaults: { _controller: TickitUserBundle:Group:index, page: 1 }
+user_delete:
+    pattern: /users/delete/{id}
+    defaults: { _controller: TickitUserBundle:User:delete }
     requirements:
-        page: \d+
+        id: \d+
+        _method: post
 
 group_create:
     pattern: /users/groups/create
     defaults: { _controller: TickitUserBundle:Group:create }
+    requirements:
+        _method: POST
 
 group_edit:
     pattern: /users/groups/edit/{id}
     defaults: { _controller: TickitUserBundle:Group:edit }
     requirements:
         id: \d+
+        _method: POST
 
 fos_user_profile:
   resource: "@FOSUserBundle/Resources/config/routing/profile.xml"

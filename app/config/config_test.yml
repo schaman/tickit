@@ -6,6 +6,8 @@ framework:
     router:   { resource: "%kernel.root_dir%/config/routing_test.yml" }
     session:
         storage_id: session.storage.mock_file
+    profiler:
+        enabled: false
 
 web_profiler:
     toolbar: false
@@ -19,7 +21,7 @@ doctrine:
     dbal:
         driver:   %database_driver%
         user:     %database_user%
-        dbname:   %database_name%_tests
+        dbname:   %database_name_test%
         host:     %database_host%
         port:     %database_port%
         password: %database_password%
@@ -27,15 +29,12 @@ doctrine:
 
 # Test specific firewall
 security:
-    providers:
-        fos_userbundle:
-            id: tickit_user.user_provider
     firewalls:
         main:
             pattern: ^/
             http_basic:
                 realm: "Secured Test"
-                provider: fos_userbundle
+                provider: tickit_userbundle
 
 #TickitCacheBundle configuration
 tickit_cache:

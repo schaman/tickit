@@ -2,10 +2,10 @@
 
 namespace Tickit\ProjectBundle\Form\Guesser;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Form\Type\ChoiceAttributeFormType;
+use Tickit\ProjectBundle\Form\Type\EntityAttributeFormType;
 use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
@@ -17,20 +17,20 @@ use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 class AttributeFormTypeGuesser
 {
     /**
-     * The container
+     * An instance of the entity attribute form type
      *
-     * @var ContainerInterface
+     * @var EntityAttributeFormType
      */
-    protected $container;
+    protected $entityAttributeFormType;
 
     /**
      * Constructor.
      *
-     * @param ContainerInterface $container The service container
+     * @param EntityAttributeFormType $entityAttributeFormType An entity attribute form type instance
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(EntityAttributeFormType $entityAttributeFormType)
     {
-        $this->container = $container;
+        $this->entityAttributeFormType = $entityAttributeFormType;
     }
 
     /**
@@ -55,7 +55,7 @@ class AttributeFormTypeGuesser
                 $formType = new ChoiceAttributeFormType();
                 break;
             case AbstractAttribute::TYPE_ENTITY:
-                $formType = $this->container->get('tickit_project.form.entity_attribute');
+                $formType = $this->entityAttributeFormType;
                 break;
             default:
                 $formType = new LiteralAttributeFormType();
