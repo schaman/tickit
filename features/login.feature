@@ -4,5 +4,5 @@ Feature: User Login
     I need to be able to login
 
     Scenario: The login form is visible
-        Given I am on "/login"
+        Given I am currently on "/login"
          Then I should see a "form" element

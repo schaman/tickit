@@ -31,12 +31,14 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
-     * @Given /^I should see a "([^"]*)" element$/
+     * Opens specified page.
+     *
+     * @Given /^(?:|I )am currently on "(?P<page>[^"]+)"$/
+     * @When /^(?:|I )navigate to "(?P<page>[^"]+)"$/
      */
-    public function iShouldSeeAElement($tagName)
+    public function visit($page)
     {
-        $success = $this->getSession()->evaluateScript('$("' . $tagName . '").length > 0');
-
-        return $success;
+        $this->getSession()->visit($this->locatePath($page));
+        $this->getSession()->wait(15000, 'window.App.started');
     }
 }
