@@ -1,9 +1,11 @@
 <?php
 
-use Behat\Behat\Context\BehatContext;
 use Behat\Mink\Driver\Selenium2Driver;
 use Behat\Mink\Session;
+use Behat\MinkExtension\Context\RawMinkContext;
+use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Features context.
@@ -11,23 +13,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @author James Halsall <james.t.halsall@googlemail.com>
  * @author Mark Wilson   <mark@89allport.co.uk>
  */
-class FeatureContext extends BehatContext
+class FeatureContext extends RawMinkContext implements KernelAwareInterface
 {
-    use Behat\Symfony2Extension\Context\KernelDictionary;
+    /**
+     * The application kernel
+     *
+     * @var KernelInterface
+     */
+    private $kernel;
 
     /**
-     * Mink session
+     * Context parameters
      *
-     * @var Session
+     * @var array
      */
-    protected $session;
-
-    /**
-     * Hostname of the current session
-     *
-     * @var string
-     */
-    protected $hostname;
+    private $parameters = array();
 
     /**
      * Constructor.
@@ -36,30 +36,39 @@ class FeatureContext extends BehatContext
      */
     public function __construct(array $parameters)
     {
-        $this->hostname = $parameters['hostname'];
-        $driver = new Selenium2Driver('firefox', null);
-        $this->session = new Session($driver);
-        $this->session->start();
+        $this->parameters = $parameters;
+        $this->useContext('web-user', new WebUserContext());
     }
 
     /**
-     * @Given /^I am on "([^"]*)"$/
+     * Sets Kernel instance.
+     *
+     * @param KernelInterface $kernel HttpKernel instance
      */
-    public function iAmOn($path)
+    public function setKernel(KernelInterface $kernel)
     {
-        $url = sprintf('http://%s%s', $this->hostname, $path);
-
-        $this->session->visit($url);
-        $this->session->wait(15000, 'typeof $ == "function"');
+        $this->kernel = $kernel;
     }
 
     /**
-     * @Given /^I should see a "([^"]*)" element$/
+     * Returns Container instance.
+     *
+     * @return ContainerInterface
      */
-    public function iShouldSeeAElement($tagName)
+    private function getContainer()
     {
-        $success = $this->session->evaluateScript('$("' . $tagName . '").length > 0');
+        return $this->kernel->getContainer();
+    }
 
-        return $success;
+    /**
+     * Returns a container parameter value.
+     *
+     * @param string $name The parameter name to fetch
+     *
+     * @return mixed
+     */
+    private function getContainerParameter($name)
+    {
+        return $this->getContainer()->getParameter($name);
     }
 }
