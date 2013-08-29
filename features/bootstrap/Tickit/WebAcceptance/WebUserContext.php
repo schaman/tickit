@@ -1,4 +1,7 @@
 <?php
+
+namespace Tickit\WebAcceptance;
+
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -25,17 +28,6 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     public function setKernel(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
-    }
-
-    /**
-     * @Given /^I am on "([^"]*)"$/
-     */
-    public function iAmOn($path)
-    {
-//        $url = sprintf('http://%s%s', $this->getContainerParameter('hostname'), $path);
-
-        $this->getSession()->visit($path);
-        $this->getSession()->wait(15000, 'typeof $ == "function"');
     }
 
     /**
