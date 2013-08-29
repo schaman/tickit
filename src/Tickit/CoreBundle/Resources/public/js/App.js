@@ -39,7 +39,5 @@ require([
         App.start();
     });
 
-    App.started = true;
-
     return App;
 });

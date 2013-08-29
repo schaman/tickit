@@ -39,6 +39,6 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     public function visit($page)
     {
         $this->getSession()->visit($this->locatePath($page));
-        $this->getSession()->wait(15000, 'window.App.started');
+        $this->getSession()->wait(15000, 'typeof $ != undefined && $("#spin-wrap").length === 0');
     }
 }
