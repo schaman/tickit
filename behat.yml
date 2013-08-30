@@ -7,7 +7,7 @@ default:
         class: Tickit\WebAcceptance\FeatureContext
     extensions:
         Behat\MinkExtension\Extension:
-            base_url: "http://tickit.local"
+            base_url: "http://tickit.local/app_test.php"
             default_session: selenium2
             selenium2: ~
         Behat\Symfony2Extension\Extension:
