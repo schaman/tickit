@@ -14,4 +14,4 @@ Feature: User Login
             | Password          | kdowakodwakodwakodwako  |
           And I press "Login"
          Then I should be on "/login"
-          And I should see "Bad credentials"
+          And I should wait and see "Bad credentials"
