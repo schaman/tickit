@@ -40,6 +40,7 @@ class FeatureContext extends RawMinkContext implements KernelAwareInterface
     {
         $this->parameters = $parameters;
         $this->useContext('web-user', new WebUserContext());
+        $this->useContext('data', new DataContext());
     }
 
     /**

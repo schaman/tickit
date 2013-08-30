@@ -3,7 +3,7 @@ default:
         features: features
     context:
         parameters:
-            base_url: "http://tickit.local"
+            base_url: "http://tickit.local/app_test.php"
         class: Tickit\WebAcceptance\FeatureContext
     extensions:
         Behat\MinkExtension\Extension:
@@ -15,8 +15,8 @@ default:
             kernel:
                 env: test
                 debug: true
-#        VIPSoft\DoctrineDataFixturesExtension\Extension:
-#            lifetime:    feature
-#            autoload:    true
-#            directories: ~
-#            fixtures:    ~
+        VIPSoft\DoctrineDataFixturesExtension\Extension:
+            lifetime:    feature
+            autoload:    true
+            directories: ~
+            fixtures:    ~
