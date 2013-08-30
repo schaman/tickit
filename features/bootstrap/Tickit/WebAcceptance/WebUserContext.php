@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * Web user context.
  *
+ * @package Tickit\WebAcceptance
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class WebUserContext extends MinkContext implements KernelAwareInterface

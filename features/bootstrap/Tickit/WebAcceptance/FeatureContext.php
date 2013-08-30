@@ -11,8 +11,9 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * Features context.
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
- * @author Mark Wilson   <mark@89allport.co.uk>
+ * @package Tickit\WebAcceptance
+ * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson   <mark@89allport.co.uk>
  */
 class FeatureContext extends RawMinkContext implements KernelAwareInterface
 {
