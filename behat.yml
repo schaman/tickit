@@ -15,3 +15,8 @@ default:
             kernel:
                 env: test
                 debug: true
+#        VIPSoft\DoctrineDataFixturesExtension\Extension:
+#            lifetime:    feature
+#            autoload:    true
+#            directories: ~
+#            fixtures:    ~
