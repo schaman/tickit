@@ -28,6 +28,7 @@ script:
   - bower install
   - php app/console cache:warmup --env test
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
+#  - bin/behat --profile saucelabs_win7_firefox
 
 after_script:
   - php bin/coveralls -vvv

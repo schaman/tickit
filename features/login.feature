@@ -3,11 +3,6 @@ Feature: User Login
     As a registered user
     I need to be able to login
 
-    Background:
-        Given there are following users:
-            | email                   | username | password |
-            | alexsnow@googlemail.com | alexsnow | secret   |
-
     Scenario: The login form is visible
         Given I am currently on "/login"
          Then I should see a "form" element
@@ -15,8 +10,8 @@ Feature: User Login
     Scenario: User cannot log in with bad credentials
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | alexsnow@googlemail.com |
-            | Password          | secret                  |
+            | Email or username | james.t.halsall@googlemail.com |
+            | Password          | wrongpassword                  |
           And I press "Login"
          Then I should be on "/login"
           And I should wait and see "Bad credentials"
@@ -40,8 +35,8 @@ Feature: User Login
     Scenario: User can login with valid email and password
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | alexsnow@googlemail.com  |
-            | Password          | secret                   |
+            | Email or username | james.t.halsall@googlemail.com  |
+            | Password          | password                        |
           And I press "Login"
          Then I should wait and see a "#account" element
           And I should be logged in
@@ -50,8 +45,8 @@ Feature: User Login
     Scenario: User can login with valid email and password
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | alexsnow  |
-            | Password          | secret    |
+            | Email or username | james     |
+            | Password          | password  |
           And I press "Login"
          Then I should wait and see a "#account" element
           And I should be logged in
