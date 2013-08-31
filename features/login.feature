@@ -15,8 +15,8 @@ Feature: User Login
     Scenario: User cannot log in with bad credentials
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | invalidaddress@mail.com |
-            | Password          | kdowakodwakodwakodwako  |
+            | Email or username | alexsnow@googlemail.com |
+            | Password          | secret                  |
           And I press "Login"
          Then I should be on "/login"
           And I should wait and see "Bad credentials"
@@ -34,4 +34,25 @@ Feature: User Login
         Given I am currently on "/login"
           And I press "Login"
          Then I should be on "/login"
+          And I should not be logged in
           And I should wait and see "Bad credentials"
+
+    Scenario: User can login with valid email and password
+        Given I am currently on "/login"
+         When I fill in the following:
+            | Email or username | alexsnow@googlemail.com  |
+            | Password          | secret                   |
+          And I press "Login"
+         Then I should wait and see a "#account" element
+          And I should be logged in
+          And I should be on "/dashboard"
+
+    Scenario: User can login with valid email and password
+        Given I am currently on "/login"
+         When I fill in the following:
+            | Email or username | alexsnow  |
+            | Password          | secret    |
+          And I press "Login"
+         Then I should wait and see a "#account" element
+          And I should be logged in
+          And I should be on "/dashboard"
