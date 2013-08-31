@@ -21,7 +21,7 @@ default:
             directories: ~
             fixtures:    ~
 
-saucelabs:
+saucelabs_win7_firefox:
     extensions:
         Behat\MinkExtension\Extension:
             selenium2:
