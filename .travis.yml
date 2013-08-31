@@ -3,6 +3,13 @@ php:
   - 5.4
   - 5.5
 
+addons:
+  sauce_connect:
+    username: "jameshalsall"
+    access_key: "fcf4c1eb-3fcf-4179-b683-0f3ef0a1201f"
+  hosts:
+    - tickit.local
+
 before_script:
 
   # prepare config files and get vendors#
@@ -13,6 +20,7 @@ before_script:
 
   # set up test environment #
   - php app/console tickit:tests:setup --env test
+  - php app/console assets:install --symlink
 
 script:
   - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice --extensions=php

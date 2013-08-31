@@ -20,3 +20,11 @@ default:
             autoload:    true
             directories: ~
             fixtures:    ~
+
+saucelabs:
+    extensions:
+        Behat\MinkExtension\Extension:
+            selenium2:
+                browser: firefox
+                wd_host: jameshalsall:fcf4c1eb-3fcf-4179-b683-0f3ef0a1201f@ondemand.saucelabs.com/wd/hub
+                capabilities: { "platform": "Windows 7", "browser": "firefox", "version": "23"}
