@@ -4,7 +4,8 @@ namespace Tickit\WebAcceptance;
 
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Tickit\WebAcceptance\Mixins\ContainerMixin;
 
 /**
  * Web user context.
@@ -14,22 +15,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class WebUserContext extends MinkContext implements KernelAwareInterface
 {
-    /**
-     * The application kernel
-     *
-     * @var KernelInterface
-     */
-    private $kernel;
-
-    /**
-     * Sets Kernel instance.
-     *
-     * @param KernelInterface $kernel HttpKernel instance
-     */
-    public function setKernel(KernelInterface $kernel)
-    {
-        $this->kernel = $kernel;
-    }
+    use ContainerMixin;
 
     /**
      * Opens specified page.
@@ -51,6 +37,36 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
         $this->spin(function(WebUserContext $context) use ($text) {
             return $context->getSession()->getPage()->hasContent($text);
         });
+    }
+
+    /**
+     * @Then /^I should wait and see a "([^"]*)" element$/
+     */
+    public function iShouldWaitAndSeeAElement($selector)
+    {
+        $this->spin(function(WebUserContext $context) use ($selector) {
+            return $context->getSession()->getPage()->find('css', $selector);
+        });
+    }
+
+    /**
+     * @Given /^I should be logged in$/
+     */
+    public function iShouldBeLoggedIn()
+    {
+        if (!$this->getSecurityContext()->isGranted('ROLE_USER')) {
+            throw new AuthenticationException('User not authenticated');
+        }
+    }
+
+    /**
+     * @Given /^I should not be logged in$/
+     */
+    public function iShouldNotBeLoggedIn()
+    {
+        if ($this->getSecurityContext()->isGranted('ROLE_USER')) {
+            throw new AuthenticationException('User is authenticated but shouldn\'t be.');
+        }
     }
 
     /**
@@ -78,10 +94,9 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
 
         throw new \RuntimeException(
             sprintf(
-                "Timeout thrown by %s::%s() in %s on line %d",
+                "Timeout thrown by %s::%s() on line %d",
                 $backtrace[1]['class'],
                 $backtrace[1]['function'],
-                $backtrace[1]['file'],
                 $backtrace[1]['line']
             )
         );

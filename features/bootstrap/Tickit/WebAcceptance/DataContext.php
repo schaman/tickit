@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Manager\UserManager;
+use Tickit\WebAcceptance\Mixins\ContainerMixin;
 
 /**
  * Data context
@@ -20,12 +21,7 @@ use Tickit\UserBundle\Manager\UserManager;
  */
 class DataContext extends BehatContext implements KernelAwareInterface
 {
-    /**
-     * The application kernel
-     *
-     * @var KernelInterface
-     */
-    private $kernel;
+    use ContainerMixin;
 
     /**
      * Constructor.
@@ -79,6 +75,8 @@ class DataContext extends BehatContext implements KernelAwareInterface
             return;
         }
 
+        $role = null === $role ? User::ROLE_DEFAULT : $role;
+
         $user = new User();
         $user->setEmail($email)
              ->setEnabled($enabled)
@@ -105,27 +103,5 @@ class DataContext extends BehatContext implements KernelAwareInterface
         return $this->getService('doctrine')
                     ->getManager()
                     ->getRepository($entityName);
-    }
-
-    /**
-     * Fetches a service from the container by its ID
-     *
-     * @param string $id The service ID to fetch
-     *
-     * @return object
-     */
-    private function getService($id)
-    {
-        return $this->getContainer()->get($id);
-    }
-
-    /**
-     * Gets the service container
-     *
-     * @return ContainerInterface
-     */
-    private function getContainer()
-    {
-        return $this->kernel->getContainer();
     }
 }
