@@ -20,7 +20,6 @@ script:
   - bower install
   - php app/console cache:warmup --env test
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
-  - ./bin/behat -c app/config/behat.yml
 
 after_script:
   - php bin/coveralls -vvv
