@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d195bdf419bb49502bcfba69a22a65b7",
+    "hash": "4d02ad44f4dce90ed38ab264713a96da",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -151,12 +151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "623caf42551b416460df786154d89bc50e3d1798"
+                "reference": "bcb53776a096a0c64579cc8d8ec0db62f1109fbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/623caf42551b416460df786154d89bc50e3d1798",
-                "reference": "623caf42551b416460df786154d89bc50e3d1798",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/bcb53776a096a0c64579cc8d8ec0db62f1109fbc",
+                "reference": "bcb53776a096a0c64579cc8d8ec0db62f1109fbc",
                 "shasum": ""
             },
             "require": {
@@ -210,7 +210,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2013-07-23 08:27:26"
+            "time": "2013-08-29 16:56:45"
         },
         {
             "name": "doctrine/common",
@@ -788,12 +788,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "3b8643c573b93ab2a5d2c0cab893cb0fedcac757"
+                "reference": "e536e8b87db29854cacc214dff5d41fbcf188674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/3b8643c573b93ab2a5d2c0cab893cb0fedcac757",
-                "reference": "3b8643c573b93ab2a5d2c0cab893cb0fedcac757",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/e536e8b87db29854cacc214dff5d41fbcf188674",
+                "reference": "e536e8b87db29854cacc214dff5d41fbcf188674",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +848,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-08-27 13:19:17"
+            "time": "2013-08-28 08:24:11"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -1502,16 +1502,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.0.1",
+            "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "v5.0.1"
+                "reference": "f3917ecef35a4e4d98b303eb9fee463bc983f379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/v5.0.1",
-                "reference": "v5.0.1",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/f3917ecef35a4e4d98b303eb9fee463bc983f379",
+                "reference": "f3917ecef35a4e4d98b303eb9fee463bc983f379",
                 "shasum": ""
             },
             "require": {
@@ -1547,7 +1547,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-06-17 13:32:32"
+            "time": "2013-08-30 12:35:21"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -1779,12 +1779,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "196227bd83f2b1593756903be9de5f94e8b07681"
+                "reference": "47b32437e15852157bbc979a2780d89962b6290a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/196227bd83f2b1593756903be9de5f94e8b07681",
-                "reference": "196227bd83f2b1593756903be9de5f94e8b07681",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/47b32437e15852157bbc979a2780d89962b6290a",
+                "reference": "47b32437e15852157bbc979a2780d89962b6290a",
                 "shasum": ""
             },
             "require": {
@@ -1879,7 +1879,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-08-27 13:39:19"
+            "time": "2013-08-31 06:12:22"
         },
         {
             "name": "tickit-project/cache-bundle",
@@ -1995,12 +1995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "cacbf201af1500852f83ad9c5d389a13d52f654e"
+                "reference": "3db6b6aeb9442abf85d2a9f6d5c3ae3e07398597"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/cacbf201af1500852f83ad9c5d389a13d52f654e",
-                "reference": "cacbf201af1500852f83ad9c5d389a13d52f654e",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/3db6b6aeb9442abf85d2a9f6d5c3ae3e07398597",
+                "reference": "3db6b6aeb9442abf85d2a9f6d5c3ae3e07398597",
                 "shasum": ""
             },
             "require": {
@@ -2036,7 +2036,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-08-26 08:23:34"
+            "time": "2013-08-28 06:01:53"
         }
     ],
     "packages-dev": [
@@ -2224,6 +2224,61 @@
             "time": "2013-08-26 17:55:59"
         },
         {
+            "name": "behat/mink-browserkit-driver",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Behat/MinkBrowserKitDriver.git",
+                "reference": "c1b6d20b85280e19e774dc7e316225c61c833d7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Behat/MinkBrowserKitDriver/zipball/c1b6d20b85280e19e774dc7e316225c61c833d7d",
+                "reference": "c1b6d20b85280e19e774dc7e316225c61c833d7d",
+                "shasum": ""
+            },
+            "require": {
+                "behat/mink": "~1.5.0",
+                "php": ">=5.3.1",
+                "symfony/browser-kit": "~2.0",
+                "symfony/dom-crawler": "~2.0"
+            },
+            "require-dev": {
+                "silex/silex": "@dev"
+            },
+            "type": "mink-driver",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Mink\\Driver": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Konstantin Kudryashov",
+                    "email": "ever.zet@gmail.com",
+                    "homepage": "http://everzet.com"
+                }
+            ],
+            "description": "Symfony2 BrowserKit driver for Mink framework",
+            "homepage": "http://mink.behat.org/",
+            "keywords": [
+                "Mink",
+                "Symfony2",
+                "browser",
+                "testing"
+            ],
+            "time": "2013-07-17 08:22:56"
+        },
+        {
             "name": "behat/mink-extension",
             "version": "dev-master",
             "source": {
@@ -2397,12 +2452,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "feb6492762a77db946bc13cc44a20a01546be0e6"
+                "reference": "77a4e394d99a67e7fb611e8b402c2da4b80fa4f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/feb6492762a77db946bc13cc44a20a01546be0e6",
-                "reference": "feb6492762a77db946bc13cc44a20a01546be0e6",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/77a4e394d99a67e7fb611e8b402c2da4b80fa4f8",
+                "reference": "77a4e394d99a67e7fb611e8b402c2da4b80fa4f8",
                 "shasum": ""
             },
             "require": {
@@ -2435,7 +2490,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2013-08-12 10:05:47"
+            "time": "2013-08-29 19:11:59"
         },
         {
             "name": "guzzle/guzzle",
@@ -2443,12 +2498,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "efef3c29068b9a91953db439780007bcb46f0a29"
+                "reference": "40602780fcc40ceddef43216334da6ad0ddb7ff3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/efef3c29068b9a91953db439780007bcb46f0a29",
-                "reference": "efef3c29068b9a91953db439780007bcb46f0a29",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/40602780fcc40ceddef43216334da6ad0ddb7ff3",
+                "reference": "40602780fcc40ceddef43216334da6ad0ddb7ff3",
                 "shasum": ""
             },
             "require": {
@@ -2527,7 +2582,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-08-25 02:15:08"
+            "time": "2013-08-29 20:54:09"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -2723,6 +2778,55 @@
                 "standards"
             ],
             "time": "2013-04-03 23:16:28"
+        },
+        {
+            "name": "vipsoft/doctrine-data-fixtures-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vipsoft/DoctrineDataFixturesExtension.git",
+                "reference": "e07050d667093b6b86a3e73f2864efd1988a27ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vipsoft/DoctrineDataFixturesExtension/zipball/e07050d667093b6b86a3e73f2864efd1988a27ff",
+                "reference": "e07050d667093b6b86a3e73f2864efd1988a27ff",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": ">=2.4.0,<3.0",
+                "behat/symfony2-extension": ">=1.0",
+                "doctrine/data-fixtures": "dev-master",
+                "php": ">=5.3.6",
+                "symfony/config": ">=2.0.0,<3.0-dev",
+                "symfony/dependency-injection": ">=2.0.0,<3.0-dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "VIPSoft\\DoctrineDataFixturesExtension": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthon Pang",
+                    "email": "apang@softwaredevelopment.ca",
+                    "role": "developer"
+                }
+            ],
+            "description": "Doctrine data fixtures extension for Behat",
+            "homepage": "http://github.com/vipsoft/",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "Data fixtures",
+                "doctrine"
+            ],
+            "time": "2013-08-22 19:24:02"
         }
     ],
     "aliases": [
@@ -2751,10 +2855,12 @@
         "behat/symfony2-extension": 20,
         "behat/mink-extension": 20,
         "behat/mink-selenium2-driver": 20,
-        "satooshi/php-coveralls": 20
+        "satooshi/php-coveralls": 20,
+        "behat/mink-browserkit-driver": 20,
+        "vipsoft/doctrine-data-fixtures-extension": 20
     },
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.4.0"
     },
     "platform-dev": [
 
