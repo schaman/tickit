@@ -31,10 +31,6 @@ running through these steps...
 
         php composer.phar install
 
-   And again using [bower][2] for the 3rd party JS libraries...
-
-        bower install
-
    It should install all required vendor bundles.
 
 4. Run the following commands from the project directory in your terminal...
@@ -48,5 +44,22 @@ running through these steps...
 
         php app/console doctrine:fixtures:load
 
+6. Install NodeJS from http://nodejs.org
+
+7. Update your parameters.yml paths for `node_lib` and `node_bin` to point to your node modules library path and node binary respectively
+
+8. Install [requireJS][2]...
+
+        sudo npm install -g requirejs
+
+9. Install [bower][3]...
+
+        sudo npm install -g bower
+
+10. Install JS dependencies with bower...
+
+        bower install
+
 [1]:  http://getcomposer.org/
-[2]:  http://twitter.github.com/bower/
+[2]:  http://requirejs.org/
+[3]:  http://twitter.github.com/bower/
