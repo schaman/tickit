@@ -55,14 +55,6 @@ class Permission implements PermissionInterface
     protected $users;
 
     /**
-     * The groups that have a value associated with this permission
-     *
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="GroupPermissionValue", mappedBy="permission")
-     */
-    protected $groups;
-
-    /**
      * Gets the ID for this permission
      *
      * @return integer
