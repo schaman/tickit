@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\GroupInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
@@ -59,14 +58,6 @@ class User extends BaseUser implements AvatarAwareInterface
      * @Gedmo\Timestampable(on="update")
      */
     protected $updated;
-
-    /**
-     * The group that this user belongs to
-     *
-     * @ORM\ManyToOne(targetEntity="Group", cascade={"persist"})
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
-     */
-    protected $group;
 
     /**
      * @todo make this Many-to-Many
@@ -234,67 +225,6 @@ class User extends BaseUser implements AvatarAwareInterface
     public function getCreated()
     {
         return new \DateTime($this->created);
-    }
-
-    /**
-     * Gets the group that this user belongs to
-     *
-     * @return Group
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * Sets the group that this user belongs to
-     *
-     * @param Group $group The new group
-     *
-     * @return User
-     */
-    public function setGroup(Group $group)
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * Adds a new group to this user
-     *
-     * @param GroupInterface $group The new group to add
-     *
-     * @throws \RuntimeException If this user already has a group
-     *
-     * @return $this
-     */
-    public function addGroup(GroupInterface $group)
-    {
-        $existingGroup = $this->getGroup();
-        if (!empty($existingGroup)) {
-            throw new \RuntimeException(
-                sprintf('This user already has a group (%s)', $this->getGroupName())
-            );
-        }
-
-        $this->group = $group;
-    }
-
-    /**
-     * Gets the name of the user group, if any
-     *
-     * @return string
-     */
-    public function getGroupName()
-    {
-        $group = $this->getGroup();
-
-        if (null !== $group) {
-            return $group->getName();
-        }
-
-        return '';
     }
 
     /**

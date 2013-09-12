@@ -3,7 +3,6 @@
 namespace Tickit\UserBundle\Tests\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -26,25 +25,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
              ->setSurname('surname');
 
         $this->assertEquals('forename surname', $user->getFullName());
-    }
-
-    /**
-     * Tests the addGroup() method
-     *
-     * @expectedException \RuntimeException
-     *
-     * @return void
-     */
-    public function testAddGroupThrowsExceptionWhenUserAlreadyHasAGroup()
-    {
-        $user = new User();
-        $group = new Group('test');
-
-        $user->addGroup($group);
-        $this->assertEquals('test', $user->getGroupName());
-
-        $anotherGroup = new Group('test 2');
-        $user->addGroup($anotherGroup);
     }
 
     /**

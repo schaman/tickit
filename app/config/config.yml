@@ -76,8 +76,6 @@ fos_user:
     profile:
         form:
             type: tickit_user_profile
-    group:
-        group_class: Tickit\UserBundle\Entity\Group
     service:
         user_manager: tickit_user.manager
 
