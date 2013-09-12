@@ -56,10 +56,15 @@ running through these steps...
 
         sudo npm install -g bower
 
-10. Install JS dependencies with bower...
+10. Install [uglifyJS][4]...
+
+        sudo npm install -g uglify-js
+
+11. Install JS dependencies with bower...
 
         bower install
 
 [1]:  http://getcomposer.org/
 [2]:  http://requirejs.org/
 [3]:  http://twitter.github.com/bower/
+[4]:  http://lisperator.net/uglifyjs/
