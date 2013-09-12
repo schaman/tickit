@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\PermissionBundle\Model\Decorator\PermissionsJsonDecorator;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -42,13 +41,6 @@ class PermissionController extends Controller
             $user = $this->get('tickit_user.manager')->find($userId);
             if (!$user instanceof User) {
                 throw $this->createNotFoundException(sprintf('No user found for given ID (%d)', $userId));
-            }
-        }
-
-        if (null !== $groupId) {
-            $group = $this->get('tickit_user.group_manager')->find($groupId);
-            if (!$group instanceof Group) {
-                throw $this->createNotFoundException(sprintf('No group found for given ID (%d)', $groupId));
             }
         }
 

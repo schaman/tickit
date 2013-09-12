@@ -5,13 +5,10 @@ namespace Tickit\PermissionBundle\Manager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Tickit\PermissionBundle\Entity\GroupPermissionValue;
-use Tickit\PermissionBundle\Entity\Repository\GroupPermissionValueRepository;
 use Tickit\PermissionBundle\Entity\Repository\PermissionRepository;
 use Tickit\PermissionBundle\Entity\Repository\UserPermissionValueRepository;
 use Tickit\PermissionBundle\Entity\UserPermissionValue;
 use Tickit\PermissionBundle\Model\Permission;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**

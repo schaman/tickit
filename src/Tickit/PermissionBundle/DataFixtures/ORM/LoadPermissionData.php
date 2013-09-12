@@ -48,9 +48,7 @@ class LoadPermissionData extends AbstractFixture implements OrderedFixtureInterf
             'projects.close' => 'Close existing projects',
             // PermissionBundle related permissions
             'permissions.users.manage' => 'Manage user permissions',
-            'permissions.users.clone' => 'Clone user permissions',
-            'permissions.groups.manage' => 'Manage group permissions',
-            'permissions.groups.manage_defaults' => 'Manage default group permissions'
+            'permissions.users.clone' => 'Clone user permissions'
         );
 
         foreach ($permissions as $systemName => $name) {

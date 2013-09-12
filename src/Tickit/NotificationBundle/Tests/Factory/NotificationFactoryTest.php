@@ -3,7 +3,6 @@
 namespace Tickit\NotificationBundle\Tests\Factory;
 
 use Tickit\NotificationBundle\Factory\NotificationFactory;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**

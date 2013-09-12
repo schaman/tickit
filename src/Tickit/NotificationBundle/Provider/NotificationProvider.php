@@ -3,7 +3,6 @@
 namespace Tickit\NotificationBundle\Provider;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Tickit\NotificationBundle\Entity\Repository\GroupNotificationRepository;
 use Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository;
 use Tickit\UserBundle\Entity\User;
 
@@ -55,10 +54,7 @@ class NotificationProvider
         $userNotifications = $this->getUserNotificationRepository()
                                   ->findUnreadForUser($user);
 
-        $groupNotifications = $this->getGroupNotificationRepository()
-                                   ->findUnreadForUser($user);
-
-        return array_merge($userNotifications, $groupNotifications);
+        return $userNotifications;
     }
 
     /**
@@ -69,15 +65,5 @@ class NotificationProvider
     public function getUserNotificationRepository()
     {
         return $this->doctrine->getRepository('TickitNotificationBundle:UserNotification');
-    }
-
-    /**
-     * Gets the group notification repository
-     *
-     * @return GroupNotificationRepository
-     */
-    public function getGroupNotificationRepository()
-    {
-        return $this->doctrine->getRepository('TickitNotificationBundle:GroupNotification');
     }
 }

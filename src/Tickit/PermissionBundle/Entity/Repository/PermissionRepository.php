@@ -16,7 +16,7 @@ use Tickit\UserBundle\Entity\User;
 class PermissionRepository extends EntityRepository
 {
     /**
-     * Finds all permissions for a user and their associated groups
+     * Finds all permissions for a user
      *
      * @param User $user The user to find permissions for
      *
@@ -25,24 +25,11 @@ class PermissionRepository extends EntityRepository
     public function findAllForUser(User $user)
     {
         $qb = $this->createQueryBuilder('p');
-        $query = $qb->innerJoin('p.groups', 'gv')
-                    ->leftJoin('p.users', 'uv')
-                    ->where(
-                        $qb->expr()->orX(
-                            $qb->expr()->eq('uv.value', 1),
-                            $qb->expr()->andX('gv.value = :value', $qb->expr()->isNull('uv'))
-                        )
-                    )
-                    ->andWhere(
-                        $qb->expr()->orX(
-                            $qb->expr()->isNull('uv.user'),
-                            $qb->expr()->eq('uv.user', ':user_id')
-                        )
-                    )
-                    ->andWhere('gv.group = :group_id')
+        $query = $qb->leftJoin('p.users', 'uv')
+                    ->where($qb->expr()->eq('uv.value', 1))
+                    ->andWhere($qb->expr()->eq('uv.user', ':user_id'))
                     ->setParameter('value', true)
                     ->setParameter('user_id', $user->getId())
-                    ->setParameter('group_id', $user->getGroup()->getId())
                     ->getQuery();
 
         $permissions = $query->execute();
