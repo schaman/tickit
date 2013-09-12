@@ -28,19 +28,4 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new NotificationFactory();
         $factory->notifyUser($mockMessage, new User());
     }
-
-    /**
-     * Tests the notifyGroup() method
-     *
-     * @expectedException \InvalidArgumentException
-     *
-     * @return void
-     */
-    public function testNotifyGroupThrowsExceptionForEmptyMessageObject()
-    {
-        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationDataInterface');
-
-        $factory = new NotificationFactory();
-        $factory->notifyGroup($mockMessage, new Group('test'));
-    }
 }
