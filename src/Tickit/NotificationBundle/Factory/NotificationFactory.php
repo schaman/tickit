@@ -2,10 +2,8 @@
 
 namespace Tickit\NotificationBundle\Factory;
 
-use Tickit\NotificationBundle\Entity\GroupNotification;
 use Tickit\NotificationBundle\Entity\UserNotification;
 use Tickit\NotificationBundle\Model\NotificationDataInterface;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**
