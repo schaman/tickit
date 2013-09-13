@@ -1,0 +1,21 @@
+{
+    "name": "tickit",
+    "version": "0.1.0",
+    "author": "James Halsall <james.t.halsall@googlemail.com>",
+    "contributors": [
+        {
+            "name": "Mark Wilson",
+            "email": "mark@89allport.co.uk"
+        }
+    ],
+    "dependencies": {
+        "less": "*",
+        "requirejs": "*",
+        "bower": "*",
+        "uglify-js": "*"
+    },
+    "license": "Apache",
+    "engines": {
+        "node": ">=0.8"
+    }
+}
