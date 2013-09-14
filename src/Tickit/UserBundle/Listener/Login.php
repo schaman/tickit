@@ -55,7 +55,7 @@ class Login
     }
 
     /**
-     * Post login event handler. Records the user's session in the database and triggers the loading of permissions
+     * Post login event handler. Records the user's session in the database
      *
      * @param InteractiveLoginEvent $event The login event
      *
