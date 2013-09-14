@@ -35,27 +35,3 @@ security:
             http_basic:
                 realm: "Secured Test"
                 provider: tickit_userbundle
-
-#TickitCacheBundle configuration
-tickit_cache:
-    default_namespace: "tickit.test"
-    types:
-        file:
-            auto_serialize: true
-            default_path: "%kernel.cache_dir%/tickit_cache"
-        memcached:
-            persistence_id: tickit
-            servers:
-                main:
-                    host: localhost
-                    name: main
-                    weight: 100
-                    retry_time: 5
-                    enabled: true
-                alternate:
-                    name: alternate
-                    host: localhost
-                    weight: 0
-                    port: 11211
-                    retry_time: 10
-                    enabled: true

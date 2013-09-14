@@ -83,22 +83,6 @@ stof_doctrine_extensions:
       timestampable: true
       softdeleteable: true
 
-# TickitCacheBundle configuration
-tickit_cache:
-    default_namespace: tickit
-    types:
-        file:
-            auto_serialize: true
-        memcached:
-            persistence_id: tickit
-            servers:
-                main:
-                    host: localhost
-                    name: main
-                    weight: 90
-                    retry_time: 5
-                    enabled: true
-
 tickit_user:
     avatar:
         adapter_class: Tickit\UserBundle\Avatar\Adapter\GravatarAdapter

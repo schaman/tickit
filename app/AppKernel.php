@@ -31,7 +31,6 @@ class AppKernel extends Kernel
             new Tickit\TicketBundle\TickitTicketBundle(),
             new Tickit\ProjectBundle\TickitProjectBundle(),
             new Tickit\DashboardBundle\TickitDashboardBundle(),
-            new Tickit\CacheBundle\TickitCacheBundle(),
             new Tickit\NotificationBundle\TickitNotificationBundle(),
         );
 
