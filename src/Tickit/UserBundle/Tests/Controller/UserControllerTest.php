@@ -4,11 +4,8 @@ namespace Tickit\UserBundle\Tests\Controller;
 
 use Doctrine\DBAL\DBALException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
-use Tickit\PermissionBundle\Entity\UserPermissionValue;
 use Tickit\UserBundle\Controller\UserController;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Manager\UserManager;
 
 /**
  * UserController tests
@@ -31,7 +28,6 @@ class UserControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
         $doctrine = $container->get('doctrine');
-        $developersGroup = $doctrine->getRepository('TickitUserBundle:Group')->findOneByName('Developers');
 
         $totalUsers = count($doctrine->getRepository('TickitUserBundle:User')->findAll());
 
@@ -43,7 +39,6 @@ class UserControllerTest extends AbstractFunctionalTest
             'tickit_user[surname]' => 'surname',
             'tickit_user[username]' => $newUsername,
             'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
-            'tickit_user[group]' => $developersGroup->getId(),
             'tickit_user[password][first]' => 'somepassword',
             'tickit_user[password][second]' => 'somepassword'
         );
@@ -75,14 +70,12 @@ class UserControllerTest extends AbstractFunctionalTest
         $form = $crawler->selectButton('Save User')->form();
         $container = $client->getContainer();
         $doctrine = $container->get('doctrine');
-        $developersGroup = $doctrine->getRepository('TickitUserBundle:Group')->findOneByName('Developers');
 
         $formValues = array(
             'tickit_user[forename]' => '',
             'tickit_user[surname]' => '',
             'tickit_user[username]' => '',
             'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
-            'tickit_user[group]' => $developersGroup->getId(),
             'tickit_user[password][first]' => 'somepassword',
             'tickit_user[password][second]' => 'somepassword'
         );
@@ -108,16 +101,12 @@ class UserControllerTest extends AbstractFunctionalTest
         $manager = $client->getContainer()->get('tickit_user.manager');
         $doctrine = $container->get('doctrine');
 
-        $group = $doctrine->getRepository('TickitUserBundle:Group')
-                          ->findOneByName('Developers');
-
         $user = $manager->createUser();
         $user->setForename('forename_123')
              ->setSurname('surname_123')
              ->setUsername('user' . uniqid())
              ->setEmail(sprintf('%s@email.com', uniqid()))
-             ->setPassword('password')
-             ->setGroup($group);
+             ->setPassword('password');
 
         $user = $manager->create($user);
 

@@ -60,9 +60,8 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
     {
         $usersQ = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('u, g')
-                      ->from('TickitUserBundle:User', 'u')
-                      ->leftJoin('u.group', 'g');
+                      ->select('u')
+                      ->from('TickitUserBundle:User', 'u');
 
         foreach ($filters as $column => $value) {
             if (is_string($value)) {
@@ -86,9 +85,8 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
     {
         $usersQ = $this->getEntityManager()
                        ->createQueryBuilder()
-                       ->select('u, g')
-                       ->from('TickitUserBundle:User', 'u')
-                       ->leftJoin('u.group', 'g');
+                       ->select('u')
+                       ->from('TickitUserBundle:User', 'u');
 
         if ($column == static::COLUMN_USERNAME) {
             $usersQ->where('u.username = :username')
@@ -120,9 +118,8 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('u, g')
+                      ->select('u')
                       ->from('TickitUserBundle:User', 'u')
-                      ->leftJoin('u.group', 'g')
                       ->where('u.id = :user_id')
                       ->setParameter('user_id', $id)
                       ->getQuery();
@@ -141,9 +138,8 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
-                      ->select('u, g')
-                      ->from('TickitUserBundle:User', 'u')
-                      ->leftJoin('u.group', 'g');
+                      ->select('u')
+                      ->from('TickitUserBundle:User', 'u');
 
         $filters->applyToQuery($query);
 

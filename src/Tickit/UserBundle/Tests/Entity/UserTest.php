@@ -60,13 +60,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
      */
     public function testClearPermissionsResetsPermissionsToNull()
     {
-        $group = new User();
-        $group->setPermissions(array(1, 2, 3));
+        $user = new User();
+        $user->setPermissions(array(1, 2, 3));
 
-        $permissions = $group->getPermissions();
+        $permissions = $user->getPermissions();
         $this->assertEquals(array(1, 2, 3), $permissions->toArray());
 
-        $group->clearPermissions();
-        $this->assertNull($group->getPermissions());
+        $user->clearPermissions();
+        $this->assertNull($user->getPermissions());
     }
 }
