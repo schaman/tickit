@@ -10,8 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * Represents a team of users in the application.
  *
- * These are not the same as Groups.
- *
  * @package Tickit\TeamBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
