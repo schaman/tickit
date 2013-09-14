@@ -12,11 +12,5 @@
                 <argument type="service" id="tickit_permission.manager" />
             </service>
 
-            <service id="tickit_user.group_manager" class="Tickit\UserBundle\Manager\GroupManager">
-                <argument type="service" id="doctrine" />
-                <argument type="service" id="tickit_user.group_event_dispatcher" />
-                <argument type="service" id="tickit_permission.manager" />
-            </service>
-
         </services>
 </container>
