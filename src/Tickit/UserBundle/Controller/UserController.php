@@ -61,9 +61,6 @@ class UserController extends AbstractCoreController
     {
         $responseData = ['success' => false];
         $permissionManager = $this->get('tickit_permission.manager');
-        $existingUserGroupId = $existingUser->getGroup()->getId();
-        $permissions = $permissionManager->getUserPermissionData($existingUserGroupId, $existingUser->getId());
-        $existingUser->setPermissions($permissions);
         $form = $this->createForm('tickit_user', $existingUser);
         $existingPassword = $existingUser->getPassword();
         $form->submit($this->getRequest());
