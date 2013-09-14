@@ -1,8 +1,0 @@
-permissions_list:
-    pattern: /list/{groupId}/{userId}
-    defaults: { _controller: TickitPermissionBundle:Permission:permissionList, userId: null, _format: json }
-    requirements:
-        groupId: \d+
-        userId: \d+
-    options:
-        expose: true
