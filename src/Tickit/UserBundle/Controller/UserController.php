@@ -60,7 +60,6 @@ class UserController extends AbstractCoreController
     public function editAction(User $existingUser)
     {
         $responseData = ['success' => false];
-        $permissionManager = $this->get('tickit_permission.manager');
         $form = $this->createForm('tickit_user', $existingUser);
         $existingPassword = $existingUser->getPassword();
         $form->submit($this->getRequest());
