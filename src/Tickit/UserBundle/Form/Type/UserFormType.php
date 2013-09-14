@@ -5,7 +5,6 @@ namespace Tickit\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\PermissionBundle\Form\Type\Field\PermissionsType;
 
 /**
  * User form.
@@ -54,8 +53,7 @@ class UserFormType extends AbstractType
                         'second_options' => array('label' => 'Confirm ' . $passwordLabel),
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
-                )
-                ->add('permissions', new PermissionsType(), array('type' => 'tickit_user_permission'));
+                );
     }
 
     /**

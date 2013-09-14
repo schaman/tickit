@@ -108,8 +108,6 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
     /**
      * Finds a user by ID.
      *
-     * This method will also return associated permissions for the user.
-     *
      * @param integer $id The user ID
      *
      * @return User

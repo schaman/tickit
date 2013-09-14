@@ -29,21 +29,6 @@ class TemplateControllerTest extends AbstractFunctionalTest
     }
 
     /**
-     * Tests the createUserFormAction() method
-     *
-     * @return void
-     */
-    public function testCreateUserFormActionRendersEmptyPermissionsData()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-
-        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
-        $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
-        $expectedMessage = 'You need to select a group for this user before you can edit permissions';
-        $this->assertContains($expectedMessage, $client->getResponse()->getContent());
-    }
-
-    /**
      * Tests the editUserFormAction() method
      *
      * @return void
@@ -58,21 +43,6 @@ class TemplateControllerTest extends AbstractFunctionalTest
         $expectedRoute = $this->generateRoute('user_edit', array('id' => static::$developer->getId()));
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
-    }
-
-    /**
-     * Tests the editUserFormAction() method
-     *
-     * @return void
-     */
-    public function testEditUserFormActionRendersPermissionsData()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('user_edit_form', array('id' => static::$developer->getId()));
-        $crawler = $client->request('get', $route);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertEquals(2, $crawler->filter('div.data-list table tr')->count());
     }
 
     /**

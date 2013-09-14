@@ -67,13 +67,6 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $sessions;
 
     /**
-     * Permissions that this user has been granted
-     *
-     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\UserPermissionValue", mappedBy="user", cascade={"persist"})
-     */
-    protected $permissions;
-
-    /**
      * The date and time of this user's last activity
      *
      * @ORM\Column(name="last_activity", type="datetime", nullable=true)
@@ -95,7 +88,6 @@ class User extends BaseUser implements AvatarAwareInterface
     {
         $this->enabled = true;
         $this->sessions = new ArrayCollection();
-        $this->permissions = new ArrayCollection();
         parent::__construct();
     }
 
@@ -235,46 +227,6 @@ class User extends BaseUser implements AvatarAwareInterface
     public function getAvatarIdentifier()
     {
         return $this->getEmail();
-    }
-
-    /**
-     * Gets associated permissions from this user
-     *
-     * @return ArrayCollection
-     */
-    public function getPermissions()
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * Sets permissions for this user
-     *
-     * @param array|Collection $permissions The permissions collection
-     *
-     * @return User
-     */
-    public function setPermissions($permissions)
-    {
-        if (is_array($permissions)) {
-            $permissions = new ArrayCollection($permissions);
-        }
-
-        $this->permissions = $permissions;
-
-        return $this;
-    }
-
-    /**
-     * Clears permissions on the current user.
-     *
-     * @return User
-     */
-    public function clearPermissions()
-    {
-        $this->permissions = null;
-
-        return $this;
     }
 
     /**
