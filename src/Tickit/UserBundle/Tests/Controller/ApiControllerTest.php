@@ -91,23 +91,4 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertInternalType('array', $response);
         $this->assertCount($totalUsers, $response);
     }
-
-    /**
-     * Tests the listGroupsAction() method
-     *
-     * @return void
-     */
-    public function testListGroupsActionReturnsCorrectResponse()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $client->request('get', $this->generateRoute('api_group_list'));
-        $repo = $container->get('doctrine')->getRepository('TickitUserBundle:Group');
-        $totalGroups = count($repo->findAll());
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertInternalType('array', $response);
-        $this->assertCount($totalGroups, $response);
-    }
 }

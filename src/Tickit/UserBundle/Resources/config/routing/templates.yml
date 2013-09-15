@@ -20,19 +20,3 @@ user_edit_form:
         _method: GET
     options:
         expose: true
-
-group_create_form:
-    pattern: /groups/create
-    defaults: { _controller: TickitUserBundle:Template:createGroupForm }
-    options:
-        expose: true
-    requirements:
-        _method: GET
-
-group_edit_form:
-    pattern: /groups/edit/{id}
-    defaults: { _controller: TickitUserBundle:Template:editGroupForm }
-    options:
-        expose: true
-    requirements:
-        _method: GET

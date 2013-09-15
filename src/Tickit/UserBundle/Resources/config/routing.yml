@@ -32,19 +32,6 @@ user_delete:
         id: \d+
         _method: post
 
-group_create:
-    pattern: /users/groups/create
-    defaults: { _controller: TickitUserBundle:Group:create }
-    requirements:
-        _method: POST
-
-group_edit:
-    pattern: /users/groups/edit/{id}
-    defaults: { _controller: TickitUserBundle:Group:edit }
-    requirements:
-        id: \d+
-        _method: POST
-
 fos_user_profile:
   resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
   prefix: /profile

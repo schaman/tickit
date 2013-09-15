@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\GroupInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
@@ -61,26 +60,11 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $updated;
 
     /**
-     * The group that this user belongs to
-     *
-     * @ORM\ManyToOne(targetEntity="Group", cascade={"persist"})
-     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
-     */
-    protected $group;
-
-    /**
      * @todo make this Many-to-Many
      *
      * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
      */
     protected $sessions;
-
-    /**
-     * Permissions that this user has been granted
-     *
-     * @ORM\OneToMany(targetEntity="Tickit\PermissionBundle\Entity\UserPermissionValue", mappedBy="user", cascade={"persist"})
-     */
-    protected $permissions;
 
     /**
      * The date and time of this user's last activity
@@ -104,7 +88,6 @@ class User extends BaseUser implements AvatarAwareInterface
     {
         $this->enabled = true;
         $this->sessions = new ArrayCollection();
-        $this->permissions = new ArrayCollection();
         parent::__construct();
     }
 
@@ -237,67 +220,6 @@ class User extends BaseUser implements AvatarAwareInterface
     }
 
     /**
-     * Gets the group that this user belongs to
-     *
-     * @return Group
-     */
-    public function getGroup()
-    {
-        return $this->group;
-    }
-
-    /**
-     * Sets the group that this user belongs to
-     *
-     * @param Group $group The new group
-     *
-     * @return User
-     */
-    public function setGroup(Group $group)
-    {
-        $this->group = $group;
-
-        return $this;
-    }
-
-    /**
-     * Adds a new group to this user
-     *
-     * @param GroupInterface $group The new group to add
-     *
-     * @throws \RuntimeException If this user already has a group
-     *
-     * @return $this
-     */
-    public function addGroup(GroupInterface $group)
-    {
-        $existingGroup = $this->getGroup();
-        if (!empty($existingGroup)) {
-            throw new \RuntimeException(
-                sprintf('This user already has a group (%s)', $this->getGroupName())
-            );
-        }
-
-        $this->group = $group;
-    }
-
-    /**
-     * Gets the name of the user group, if any
-     *
-     * @return string
-     */
-    public function getGroupName()
-    {
-        $group = $this->getGroup();
-
-        if (null !== $group) {
-            return $group->getName();
-        }
-
-        return '';
-    }
-
-    /**
      * Get the avatar identifier
      *
      * @return string
@@ -305,46 +227,6 @@ class User extends BaseUser implements AvatarAwareInterface
     public function getAvatarIdentifier()
     {
         return $this->getEmail();
-    }
-
-    /**
-     * Gets associated permissions from this user
-     *
-     * @return ArrayCollection
-     */
-    public function getPermissions()
-    {
-        return $this->permissions;
-    }
-
-    /**
-     * Sets permissions for this user
-     *
-     * @param array|Collection $permissions The permissions collection
-     *
-     * @return User
-     */
-    public function setPermissions($permissions)
-    {
-        if (is_array($permissions)) {
-            $permissions = new ArrayCollection($permissions);
-        }
-
-        $this->permissions = $permissions;
-
-        return $this;
-    }
-
-    /**
-     * Clears permissions on the current user.
-     *
-     * @return User
-     */
-    public function clearPermissions()
-    {
-        $this->permissions = null;
-
-        return $this;
     }
 
     /**

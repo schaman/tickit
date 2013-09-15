@@ -8,8 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\CoreBundle\Entity\CoreSession;
-use Tickit\PermissionBundle\Loader\LoaderInterface;
-use Tickit\PermissionBundle\Loader\PermissionLoader;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 
@@ -43,30 +41,21 @@ class Login
     protected $session;
 
     /**
-     * The permissions service
-     *
-     * @var PermissionLoader
-     */
-    protected $permissionsLoader;
-
-    /**
      * Constructor.
      *
      * @param ContainerInterface $container         The dependency injection container
      * @param CoreSession        $session           The current user's session instance
      * @param Registry           $doctrine          The doctrine registry
-     * @param LoaderInterface    $permissionsLoader The permission service
      */
-    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine, LoaderInterface $permissionsLoader)
+    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine)
     {
         $this->container = $container;
         $this->em = $doctrine->getManager();
         $this->session = $session;
-        $this->permissionsLoader = $permissionsLoader;
     }
 
     /**
-     * Post login event handler. Records the user's session in the database and triggers the loading of permissions
+     * Post login event handler. Records the user's session in the database
      *
      * @param InteractiveLoginEvent $event The login event
      *
@@ -89,7 +78,5 @@ class Login
         $userSession->setSessionToken($sessionToken);
         $this->em->persist($userSession);
         $this->em->flush();
-
-        $this->permissionsLoader->loadForUser($user);
     }
 }

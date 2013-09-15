@@ -13,13 +13,6 @@ user_index:
         page: \d+
         _method: GET
 
-group_index:
-    pattern: /users/groups/{page}
-    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
-    requirements:
-        page: \d+
-        _method: GET
-
 user_create_view:
     pattern: /users/create
     defaults: { _controller: TickitCoreBundle:Default:default }
@@ -28,19 +21,6 @@ user_create_view:
 
 user_edit_view:
     pattern: /users/edit/{id}
-    defaults: { _controller: TickitCoreBundle:Default:default }
-    requirements:
-        id: \d+
-        _method: GET
-
-group_create_view:
-    pattern: /users/groups/create
-    defaults: { _controller: TickitCoreBundle:Default:default }
-    requirements:
-        _method: GET
-
-group_edit_view:
-    pattern: /users/groups/edit/{id}
     defaults: { _controller: TickitCoreBundle:Default:default }
     requirements:
         id: \d+

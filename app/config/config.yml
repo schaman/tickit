@@ -22,9 +22,6 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - 'TickitPermissionBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -76,8 +73,6 @@ fos_user:
     profile:
         form:
             type: tickit_user_profile
-    group:
-        group_class: Tickit\UserBundle\Entity\Group
     service:
         user_manager: tickit_user.manager
 
@@ -87,22 +82,6 @@ stof_doctrine_extensions:
     default:
       timestampable: true
       softdeleteable: true
-
-# TickitCacheBundle configuration
-tickit_cache:
-    default_namespace: tickit
-    types:
-        file:
-            auto_serialize: true
-        memcached:
-            persistence_id: tickit
-            servers:
-                main:
-                    host: localhost
-                    name: main
-                    weight: 90
-                    retry_time: 5
-                    enabled: true
 
 tickit_user:
     avatar:
