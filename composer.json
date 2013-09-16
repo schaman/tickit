@@ -55,7 +55,8 @@
         "behat/mink-selenium2-driver": "dev-master",
         "satooshi/php-coveralls": "dev-master",
         "behat/mink-browserkit-driver": "dev-master",
-        "vipsoft/doctrine-data-fixtures-extension": "dev-master"
+        "vipsoft/doctrine-data-fixtures-extension": "dev-master",
+        "phpunit/phpunit": "3.8.x-dev"
     },
     "scripts": {
         "post-install-cmd": [
