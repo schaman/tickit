@@ -14,3 +14,4 @@ web/css
 web/config.php
 coverage.xml
 bin/*
+.idea
