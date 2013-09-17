@@ -108,7 +108,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     "userEdit" : function(id) {
-        require(['modules/team'], function(User) {
+        require(['modules/user'], function(User) {
             User.loadUserEdit(id);
         });
     }
