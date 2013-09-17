@@ -1,8 +1,11 @@
 {
     "name": "tickit",
     "version": "0.1.0",
-    "author": "James Halsall <james.t.halsall@googlemail.com>",
     "contributors": [
+        {
+            "name": "James Halsall",
+            "email": "james.t.halsall@googlemail.com"
+        },
         {
             "name": "Mark Wilson",
             "email": "mark@89allport.co.uk"
