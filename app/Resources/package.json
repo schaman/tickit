@@ -9,6 +9,10 @@
         {
             "name": "Mark Wilson",
             "email": "mark@89allport.co.uk"
+        },
+        {
+            "name": "Stuart Rayson",
+            "email": "stuart.rayson@me.com"
         }
     ],
     "dependencies": {
