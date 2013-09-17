@@ -46,25 +46,14 @@ running through these steps...
 
 6. Install NodeJS from http://nodejs.org
 
-7. Update your parameters.yml paths for `node_lib` and `node_bin` to point to your node modules library path and node binary respectively
+7. Update your parameters.yml paths for `node_bin` to point to your node binary
 
-8. Install [requireJS][2]...
+8. Install node modules...
 
-        sudo npm install -g requirejs
+        cd app/Resources && npm install && cd ../../
 
-9. Install [bower][3]...
+9. Install JS dependencies with bower...
 
-        sudo npm install -g bower
-
-10. Install [uglifyJS][4]...
-
-        sudo npm install -g uglify-js
-
-11. Install JS dependencies with bower...
-
-        bower install
+        bin/bower install
 
 [1]:  http://getcomposer.org/
-[2]:  http://requirejs.org/
-[3]:  http://twitter.github.com/bower/
-[4]:  http://lisperator.net/uglifyjs/
