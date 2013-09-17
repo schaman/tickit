@@ -39,6 +39,33 @@ define([
         };
 
         /**
+         * Loads the user listing view
+         *
+         * @return {void}
+         */
+        module.loadUserList = function() {
+            // todo
+        };
+
+        /**
+         * Loads the user create view
+         *
+         * @return {void}
+         */
+        module.loadUserCreate = function() {
+            // todo
+        };
+
+        /**
+         * Loads the user edit view
+         *
+         * @return {void}
+         */
+        module.loadUserEdit = function() {
+            // todo
+        };
+
+        /**
          * Gets the currently logged in user
          *
          * @return {Backbone.Model}
