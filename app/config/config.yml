@@ -31,7 +31,7 @@ assetic:
         cssrewrite: ~
         less:
             node: %node_bin%
-            node_paths: [%node_lib%]
+            node_paths: [%kernel.root_dir%/Resources/node_modules]
 
 # Doctrine Configuration
 doctrine:

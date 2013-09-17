@@ -14,8 +14,7 @@
     "dependencies": {
         "less": "*",
         "requirejs": "*",
-        "bower": "*",
-        "uglify-js": "*"
+        "bower": "*"
     },
     "license": "Apache",
     "engines": {
