@@ -85,13 +85,6 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
         $systemPreference2->setType(Preference::TYPE_SYSTEM);
         $manager->persist($systemPreference2);
 
-        $systemPreference3 = new Preference();
-        $systemPreference3->setName('Maximum users per team');
-        $systemPreference3->setSystemName('system.teams.maximum_users');
-        $systemPreference3->setDefaultValue('0');
-        $systemPreference3->setType(Preference::TYPE_SYSTEM);
-        $manager->persist($systemPreference3);
-
         $manager->flush();
     }
 
