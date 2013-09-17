@@ -103,7 +103,7 @@ var AppRouter = Backbone.Router.extend({
 
     "userCreate" : function() {
         require(['modules/user'], function(User) {
-            Team.loadUserCreate();
+            User.loadUserCreate();
         });
     },
 

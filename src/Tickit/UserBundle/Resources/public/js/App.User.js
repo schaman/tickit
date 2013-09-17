@@ -65,7 +65,9 @@ define([
          * @return {void}
          */
         module.loadUserCreate = function() {
-            // todo
+            require(['user/js/views/UserFormView'], function(view) {
+                App.mainRegion.show(new view);
+            });
         };
 
         /**
@@ -74,7 +76,9 @@ define([
          * @return {void}
          */
         module.loadUserEdit = function(id) {
-            // todo
+            require(['user/js/views/UserFormView'], function(view) {
+                App.mainRegion.show(new view({ id: id }));
+            });
         };
 
         /**
