@@ -16,3 +16,4 @@ web/config.php
 coverage.xml
 bin/*
 .idea
+npm-debug.log
