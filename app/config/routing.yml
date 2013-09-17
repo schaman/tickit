@@ -21,11 +21,6 @@ fos_js_routing:
 
 ######## BELOW THIS POINT IS OLD ROUTING FORMAT - NEEDS REFACTORING TO MATCH ABOVE #######
 
-# PermissionBundle Routes
-permissions:
-  resource: "@TickitPermissionBundle/Resources/config/routing.yml"
-  prefix: /permissions
-
 # DashboardBundle Routes
 dashboard:
   resource: "@TickitDashboardBundle/Resources/config/routing.yml"

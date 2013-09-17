@@ -27,7 +27,7 @@
     "name": "tickit-project/tickit",
     "require": {
         "doctrine/doctrine-bundle": "1.2.x-dev",
-        "doctrine/doctrine-fixtures-bundle": "2.1.x-dev",
+        "doctrine/doctrine-fixtures-bundle": "2.2.x-dev",
         "doctrine/orm": "2.4.x-dev",
         "friendsofsymfony/user-bundle": "2.0.x-dev",
         "php": ">=5.4.0",
@@ -41,7 +41,6 @@
         "symfony/console": "2.4.x-dev",
         "twig/extensions": "1.0.x-dev",
         "psr/log": "1.0.0",
-        "tickit-project/cache-bundle": "1.0.x-dev",
         "friendsofsymfony/jsrouting-bundle": "1.1.x-dev",
         "hearsay/require-js-bundle": "dev-filename-resource-fix",
         "ircmaxell/password-compat": "1.0.x-dev",
@@ -56,7 +55,8 @@
         "behat/mink-selenium2-driver": "dev-master",
         "satooshi/php-coveralls": "dev-master",
         "behat/mink-browserkit-driver": "dev-master",
-        "vipsoft/doctrine-data-fixtures-extension": "dev-master"
+        "vipsoft/doctrine-data-fixtures-extension": "dev-master",
+        "phpunit/phpunit": "3.8.x-dev"
     },
     "scripts": {
         "post-install-cmd": [

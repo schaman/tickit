@@ -3,7 +3,7 @@
 namespace Tickit\NotificationBundle\Tests\Factory;
 
 use Tickit\NotificationBundle\Factory\NotificationFactory;
-use Tickit\UserBundle\Entity\Group;
+use Tickit\NotificationBundle\Tests\Mock\Model\MockNotification;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -30,17 +30,24 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests the notifyGroup() method
-     *
-     * @expectedException \InvalidArgumentException
+     * Tests the notifyUser() method
      *
      * @return void
      */
-    public function testNotifyGroupThrowsExceptionForEmptyMessageObject()
+    public function testNotifyUserReturnsCorrectMessageObject()
     {
-        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationDataInterface');
+        $message = new MockNotification();
+
+        $user = new User();
+        $user->setForename('forename')
+             ->getSurname('surname');
 
         $factory = new NotificationFactory();
-        $factory->notifyGroup($mockMessage, new Group('test'));
+        $notification = $factory->notifyUser($message, $user);
+
+        $this->assertInstanceOf('Tickit\NotificationBundle\Entity\UserNotification', $notification);
+        $this->assertEquals($message->getMessage(), $notification->getMessage());
+        $this->assertEquals($user->getForename(), $notification->getRecipient()->getForename());
+        $this->assertEquals($user->getSurname(), $notification->getRecipient()->getSurname());
     }
 }

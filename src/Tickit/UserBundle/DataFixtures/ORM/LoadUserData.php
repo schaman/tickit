@@ -32,7 +32,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin1->setEnabled(true);
         $admin1->setLastActivity(new DateTime());
         $admin1->addRole('ROLE_SUPER_ADMIN');
-        $admin1->addGroup($this->getReference('admin-group'));
 
         $manager->persist($admin1);
         $this->addReference('admin-james', $admin1);
@@ -47,7 +46,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin2->setEnabled(true);
         $admin2->setLastActivity(new DateTime());
         $admin2->addRole('ROLE_SUPER_ADMIN');
-        $admin2->addGroup($this->getReference('admin-group'));
 
         $manager->persist($admin2);
         $this->addReference('admin-mark', $admin2);
@@ -61,7 +59,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $developer->setSurname('Developer');
         $developer->setEnabled(true);
         $developer->setLastActivity(new DateTime());
-        $developer->addGroup($this->getReference('dev-group'));
 
         $manager->persist($developer);
         $this->addReference('developer', $developer);

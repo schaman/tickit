@@ -7,10 +7,9 @@
  */
 define([
     'marionette',
-    'modules/user',
     'text!navigation/views/ProfileNavigation.html',
     'sidr'
-], function(Marionette, User, tpl) {
+], function(Marionette, tpl) {
 
     return Marionette.ItemView.extend({
         tagName: 'div',

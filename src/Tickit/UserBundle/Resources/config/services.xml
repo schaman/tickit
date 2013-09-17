@@ -21,10 +21,6 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="tickit_user.group_event_dispatcher" class="Tickit\UserBundle\Event\Dispatcher\GroupEventDispatcher">
-            <argument type="service" id="event_dispatcher" />
-        </service>
-
         <service id="tickit_user.user_provider" class="Tickit\UserBundle\Security\UserProvider">
             <argument type="service" id="tickit_user.manager" />
         </service>

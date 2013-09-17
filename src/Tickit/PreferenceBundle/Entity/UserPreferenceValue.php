@@ -164,7 +164,7 @@ class UserPreferenceValue implements UserAwareInterface
     /**
      * Sets the value for this user preference
      *
-     * @param mixed $value The new permission value
+     * @param mixed $value The new preference value
      *
      * @return UserPreferenceValue
      */

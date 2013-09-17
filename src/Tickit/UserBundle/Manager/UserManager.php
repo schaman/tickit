@@ -8,7 +8,6 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
-use Tickit\PermissionBundle\Manager\PermissionManager;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
 
@@ -40,26 +39,17 @@ class UserManager extends AbstractManager implements UserManagerInterface
     protected $doctrine;
 
     /**
-     * The permission manager
-     *
-     * @var PermissionManager
-     */
-    protected $permissionManager;
-
-    /**
      * Constructor.
      *
      * @param Registry                      $doctrine          The doctrine service
      * @param AbstractEntityEventDispatcher $dispatcher        The event dispatcher
      * @param UserManagerInterface          $fosManager        The FOS user manager
-     * @param PermissionManager             $permissionManager The permission manager
      */
-    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager, PermissionManager $permissionManager)
+    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
     {
         parent::__construct($doctrine, $dispatcher);
         $this->doctrine = $doctrine;
         $this->fosManager = $fosManager;
-        $this->permissionManager = $permissionManager;
     }
 
     /**
@@ -93,17 +83,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
         $this->fosManager->updateCanonicalFields($entity);
         $this->fosManager->updatePassword($entity);
 
-        // we clear the permissions on the user entity so they aren't persisted...
-        $permissions = $entity->getPermissions();
-        $entity->clearPermissions();
-
-        $user = parent::create($entity, $flush);
-        if ($user instanceof User) {
-            // ...then we tell the permission manager to persist the permission changes
-            $user = $this->permissionManager->updatePermissionDataForUser($user, $permissions, $flush);
-        }
-
-        return $user;
+        return parent::create($entity, $flush);
     }
 
     /**
@@ -119,13 +99,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
         $this->updateCanonicalFields($entity);
         $this->updatePassword($entity);
 
-        $permissions = $entity->getPermissions();
-        $entity->clearPermissions();
-
-        $user = parent::update($entity, $flush);
-        if ($user instanceof User) {
-            $this->permissionManager->updatePermissionDataForUser($user, $permissions);
-        }
+        return parent::update($entity, $flush);
     }
 
     /**

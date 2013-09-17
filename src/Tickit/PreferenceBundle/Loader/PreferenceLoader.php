@@ -17,7 +17,7 @@ use Tickit\UserBundle\Entity\User;
  */
 class PreferenceLoader implements LoaderInterface
 {
-    const SESSION_PREFERENCES = 'permissions';
+    const SESSION_PREFERENCES = 'preferences';
 
     /**
      * The session instance

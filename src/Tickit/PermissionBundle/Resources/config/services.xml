@@ -10,12 +10,6 @@
             <argument type="service" id="session" />
         </service>
 
-        <service id="tickit_permission.loader" class="Tickit\PermissionBundle\Loader\PermissionLoader">
-            <argument type="service" id="session" />
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="tickit_cache.factory" />
-        </service>
-
     </services>
 
 </container>
