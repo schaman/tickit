@@ -44,7 +44,19 @@ define([
          * @return {void}
          */
         module.loadUserList = function() {
-            // todo
+            require([
+                'user/js/collections/UserCollection',
+                'user/js/views/UserListView',
+                'user/js/views/UserRowView'
+            ], function(collection, listView) {
+                var users = new collection;
+                users.fetch();
+                var view = new listView({
+                    collection: users
+                });
+
+                App.mainRegion.show(view);
+            });
         };
 
         /**
@@ -61,7 +73,7 @@ define([
          *
          * @return {void}
          */
-        module.loadUserEdit = function() {
+        module.loadUserEdit = function(id) {
             // todo
         };
 
