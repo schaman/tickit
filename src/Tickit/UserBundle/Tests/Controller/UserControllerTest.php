@@ -113,7 +113,6 @@ class UserControllerTest extends AbstractFunctionalTest
         $client = $this->getAuthenticatedClient(static::$admin);
         $crawler = $client->request('get', $this->generateRoute('user_create_form'));
         $form = $crawler->selectButton('Save User')->form();
-        $container = $client->getContainer();
 
         $formValues = array(
             'tickit_user[forename]' => '',
