@@ -34,7 +34,12 @@ var AppRouter = Backbone.Router.extend({
         /* ProjectBundle routes */
         "projects/create"      : "projectCreate",
         "projects/edit/:id"    : "projectEdit",
-        "projects"             : "projects"
+        "projects"             : "projects",
+
+        /* UserBundle routes */
+        "users/create"         : "userCreate",
+        "users/edit/:id"       : "userEdit",
+        "users"                : "users"
     },
 
     "login" : function() {
@@ -65,6 +70,45 @@ var AppRouter = Backbone.Router.extend({
         require(['modules/project'], function(Project) {
             Project.loadProjectEdit(id);
         });
+<<<<<<< HEAD
+=======
+    },
+
+    "teams" : function() {
+        require(['modules/team'], function(Team) {
+            Team.loadTeamList();
+        });
+    },
+
+    "teamCreate" : function() {
+        require(['modules/team'], function(Team) {
+            Team.loadTeamCreate();
+        });
+    },
+
+    "teamEdit" : function(id) {
+        require(['modules/team'], function(Team) {
+            Team.loadTeamEdit(id);
+        });
+    },
+
+    "users" : function() {
+        require(['modules/user'], function(User) {
+            User.loadUserList();
+        });
+    },
+
+    "userCreate" : function() {
+        require(['modules/user'], function(User) {
+            User.loadUserCreate();
+        });
+    },
+
+    "userEdit" : function(id) {
+        require(['modules/user'], function(User) {
+            User.loadUserEdit(id);
+        });
+>>>>>>> feature/user-module
     }
 });
 

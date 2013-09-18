@@ -24,6 +24,6 @@ class ApiControllerTest extends AbstractFunctionalTest
         $response = json_decode($client->getResponse()->getContent());
 
         $this->assertInternalType('array', $response);
-        $this->assertCount(3, $response);
+        $this->assertCount(4, $response);
     }
 }
