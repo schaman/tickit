@@ -16,7 +16,8 @@ define([
             email: '',
             forename: '',
             surname: '',
-            avatarUrl: ''
+            avatarUrl: '',
+            lastActive: new Date()
         },
 
         /**
@@ -26,6 +27,25 @@ define([
          */
         getFullName: function() {
             return this.get('forename') + ' ' + this.get('surname');
+        },
+
+        /**
+         * Gets the date and time that this user was last active
+         *
+         * @return {Date}
+         */
+        getLastActive: function() {
+            var la = this.get('lastActivity');
+            return new Date(la);
+        },
+
+        /**
+         * Gets the edit URL for this user
+         *
+         * @returns {string}
+         */
+        getEditUrl : function() {
+            return Routing.generate('user_edit_view', { "id": this.get('id') });
         },
 
         /**
