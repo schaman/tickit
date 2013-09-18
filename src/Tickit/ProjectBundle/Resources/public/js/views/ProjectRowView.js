@@ -18,7 +18,8 @@ define(['modules/template', 'text!project/views/ProjectRowView.html'], function(
                 id: d.id,
                 name: d.name,
                 created: this.model.getCreated(),
-                editUrl: this.model.getEditUrl()
+                editUrl: this.model.getEditUrl(),
+                deleteUrl: this.model.getDeleteUrl()
             }));
             return this;
         }
