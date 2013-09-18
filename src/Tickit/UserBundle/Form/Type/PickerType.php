@@ -49,6 +49,9 @@ class PickerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // TODO: move attribute generation to a separate attribute builder class
+        //       use values available in $builder to get the current content value to translate into display names
+        
         // initialise text field's attributes
         $attributes = array(
             'data-restriction' => $options['picker_restriction']
@@ -56,7 +59,7 @@ class PickerType extends AbstractType
 
         // if there is a restriction, set the foreign ID in on the input field
         if ($options['picker_restriction'] !== self::NO_RESTRICTION) {
-            $attributes['data-foreign-id']  = $options['foreign_id'];
+            $attributes['data-foreign-id'] = $options['foreign_id'];
         }
 
         // add the user Ids input field
