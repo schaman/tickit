@@ -53,7 +53,8 @@ class UserFormType extends AbstractType
                         'second_options' => array('label' => 'Confirm ' . $passwordLabel),
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
-                );
+                )
+                ->add('admin', 'checkbox', array('label' => 'Is admin?'));
     }
 
     /**
