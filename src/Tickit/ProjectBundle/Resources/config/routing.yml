@@ -29,6 +29,8 @@ project_delete:
     defaults: { _controller: TickitProjectBundle:Project:delete }
     requirements:
         id: \d+
+    options:
+        expose: true
 
 project_attribute_create:
     pattern: /projects/attributes/{type}/create
