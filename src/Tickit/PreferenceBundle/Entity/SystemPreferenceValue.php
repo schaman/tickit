@@ -128,7 +128,7 @@ class SystemPreferenceValue
     /**
      * Sets the value for this system preference
      *
-     * @param mixed $value The new permission value
+     * @param mixed $value The new preference value
      *
      * @return SystemPreferenceValue
      */

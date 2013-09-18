@@ -27,10 +27,7 @@ class LoginTest extends AbstractFunctionalTest
         $doctrine = $container->get('doctrine');
         $manager = $container->get('tickit_user.manager');
 
-        $group = $doctrine->getRepository('TickitUserBundle:Group')->findOneByName('Administrators');
-
         $user = $this->createNewUser();
-        $user->setGroup($group);
         $manager->create($user);
 
         $event = $this->getLoginEvent($user);

@@ -2,8 +2,6 @@
 
 namespace Tickit\UserBundle\Tests\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\UserBundle\Entity\Group;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -29,64 +27,30 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests the addGroup() method
-     *
-     * @expectedException \RuntimeException
+     * Tests the setAdmin() method
      *
      * @return void
      */
-    public function testAddGroupThrowsExceptionWhenUserAlreadyHasAGroup()
+    public function testSetAdminGrantsAdminRoleWhenPassingTrue()
     {
         $user = new User();
-        $group = new Group('test');
+        $user->setAdmin(true);
 
-        $user->addGroup($group);
-        $this->assertEquals('test', $user->getGroupName());
-
-        $anotherGroup = new Group('test 2');
-        $user->addGroup($anotherGroup);
+        $this->assertTrue($user->isAdmin());
     }
 
     /**
-     * Tests the setPermissions() method
+     * Tests the setAdmin() method
      *
      * @return void
      */
-    public function testSetPermissionsConvertsArrayToCollection()
+    public function testSetAdminRemovesAdminRoleWhenPassingFalse()
     {
         $user = new User();
-        $user->setPermissions(array(1, 2, 3));
+        $user->setAdmin(true);
 
-        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $user->getPermissions());
-    }
-
-    /**
-     * Tests the setPermissions() method
-     *
-     * @return void
-     */
-    public function testSetPermissionsAcceptsCollection()
-    {
-        $user = new User();
-        $user->setPermissions(new ArrayCollection(array(1, 2, 3)));
-
-        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $user->getPermissions());
-    }
-
-    /**
-     * Tests the clearPermissions() method
-     *
-     * @return void
-     */
-    public function testClearPermissionsResetsPermissionsToNull()
-    {
-        $group = new User();
-        $group->setPermissions(array(1, 2, 3));
-
-        $permissions = $group->getPermissions();
-        $this->assertEquals(array(1, 2, 3), $permissions->toArray());
-
-        $group->clearPermissions();
-        $this->assertNull($group->getPermissions());
+        $this->assertTrue($user->isAdmin());
+        $user->setAdmin(false);
+        $this->assertFalse($user->isAdmin());
     }
 }

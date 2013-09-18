@@ -27,11 +27,9 @@ class AppKernel extends Kernel
             new Tickit\PermissionBundle\TickitPermissionBundle(),
             new Tickit\UserBundle\TickitUserBundle(),
             new Tickit\PreferenceBundle\TickitPreferenceBundle(),
-            new Tickit\TeamBundle\TickitTeamBundle(),
             new Tickit\TicketBundle\TickitTicketBundle(),
             new Tickit\ProjectBundle\TickitProjectBundle(),
             new Tickit\DashboardBundle\TickitDashboardBundle(),
-            new Tickit\CacheBundle\TickitCacheBundle(),
             new Tickit\NotificationBundle\TickitNotificationBundle(),
         );
 

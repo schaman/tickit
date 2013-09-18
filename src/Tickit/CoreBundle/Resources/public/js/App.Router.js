@@ -9,7 +9,7 @@ var AppRouter = Backbone.Router.extend({
      * Router initialize
      */
     initialize : function() {
-        Backbone.history.start({ pushState: true });
+        Backbone.history.start({ pushState: true, root: appRoot });
     },
 
     /**
@@ -36,10 +36,10 @@ var AppRouter = Backbone.Router.extend({
         "projects/edit/:id"    : "projectEdit",
         "projects"             : "projects",
 
-        /* TeamBundle routes */
-        "teams/create"         : "teamCreate",
-        "teams/edit/:id"       : "teamEdit",
-        "teams"                : "teams"
+        /* UserBundle routes */
+        "users/create"         : "userCreate",
+        "users/edit/:id"       : "userEdit",
+        "users"                : "users"
     },
 
     "login" : function() {
@@ -72,21 +72,21 @@ var AppRouter = Backbone.Router.extend({
         });
     },
 
-    "teams" : function() {
-        require(['modules/team'], function(Team) {
-            Team.loadTeamList();
+    "users" : function() {
+        require(['modules/user'], function(User) {
+            User.loadUserList();
         });
     },
 
-    "teamCreate" : function() {
-        require(['modules/team'], function(Team) {
-            Team.loadTeamCreate();
+    "userCreate" : function() {
+        require(['modules/user'], function(User) {
+            User.loadUserCreate();
         });
     },
 
-    "teamEdit" : function(id) {
-        require(['modules/team'], function(Team) {
-            Team.loadTeamEdit(id);
+    "userEdit" : function(id) {
+        require(['modules/user'], function(User) {
+            User.loadUserEdit(id);
         });
     }
 });

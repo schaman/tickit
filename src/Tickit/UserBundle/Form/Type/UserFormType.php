@@ -5,7 +5,6 @@ namespace Tickit\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\PermissionBundle\Form\Type\Field\PermissionsType;
 
 /**
  * User form.
@@ -55,15 +54,7 @@ class UserFormType extends AbstractType
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
                 )
-                ->add(
-                    'group',
-                    'entity',
-                    array(
-                        'class' => 'Tickit\UserBundle\Entity\Group',
-                        'empty_value' => 'Choose a Group...'
-                    )
-                )
-                ->add('permissions', new PermissionsType(), array('type' => 'tickit_user_permission'));
+                ->add('admin', 'checkbox', array('label' => 'Is admin?'));
     }
 
     /**

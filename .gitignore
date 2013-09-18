@@ -6,6 +6,7 @@ app/sqlite_test
 app/config/parameters.yml
 app/logs/*
 app/Resources/public/js/vendor/*
+app/Resources/node_modules
 app/phpunit.xml
 vendor/*
 composer.phar
@@ -14,3 +15,5 @@ web/css
 web/config.php
 coverage.xml
 bin/*
+.idea
+npm-debug.log

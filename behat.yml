@@ -1,0 +1,30 @@
+default:
+    paths:
+        features: features
+    context:
+        parameters:
+            base_url: "http://tickit.local/app_test.php"
+        class: Tickit\WebAcceptance\FeatureContext
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url: "http://tickit.local/app_test.php"
+            default_session: selenium2
+            selenium2: ~
+        Behat\Symfony2Extension\Extension:
+            mink_driver: true
+            kernel:
+                env: test
+                debug: true
+        VIPSoft\DoctrineDataFixturesExtension\Extension:
+            lifetime:    feature
+            autoload:    true
+            directories: ~
+            fixtures:    ~
+
+saucelabs_win7_firefox:
+    extensions:
+        Behat\MinkExtension\Extension:
+            selenium2:
+                browser: firefox
+                wd_host: jameshalsall:fcf4c1eb-3fcf-4179-b683-0f3ef0a1201f@ondemand.saucelabs.com/wd/hub
+                capabilities: { "platform": "Windows 7", "browser": "firefox", "version": "23"}

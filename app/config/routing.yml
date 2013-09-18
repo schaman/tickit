@@ -10,9 +10,6 @@ projects:
 preferences:
     resource: "@TickitPreferenceBundle/Resources/config/routing.yml"
 
-teams:
-    resource: "@TickitTeamBundle/Resources/config/routing.yml"
-
 notifications:
     resource: "@TickitNotificationBundle/Resources/config/routing.yml"
 
@@ -20,11 +17,6 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 ######## BELOW THIS POINT IS OLD ROUTING FORMAT - NEEDS REFACTORING TO MATCH ABOVE #######
-
-# PermissionBundle Routes
-permissions:
-  resource: "@TickitPermissionBundle/Resources/config/routing.yml"
-  prefix: /permissions
 
 # DashboardBundle Routes
 dashboard:

@@ -1,7 +1,7 @@
 hearsay_require_js:
     require_js_src: http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js
     optimizer:
-        path: %requirejs_bin%
+        path: %kernel.root_dir%/Resources/node_modules/requirejs/bin/r.js
         options: { findNestedDependencies: true }
     base_directory: %kernel.root_dir%/Resources/public/js
     paths:
@@ -30,14 +30,12 @@ hearsay_require_js:
         modules/navigation: '@TickitNavigationBundle/Resources/public/js/App.Navigation'
         modules/user: '@TickitUserBundle/Resources/public/js/App.User'
         modules/project: '@TickitProjectBundle/Resources/public/js/App.Project'
-        modules/team: '@TickitTeamBundle/Resources/public/js/App.Team'
         modules/notification: "@TickitNotificationBundle/Resources/public/js/App.Notification"
         core: '@TickitCoreBundle/Resources/public'
         navigation: "@TickitNavigationBundle/Resources/public"
         project: "@TickitProjectBundle/Resources/public"
         user: "@TickitUserBundle/Resources/public"
         dashboard: "@TickitDashboardBundle/Resources/public"
-        team: "@TickitTeamBundle/Resources/public"
         notification: "@TickitNotificationBundle/Resources/public"
     shim:
         -

@@ -40,7 +40,7 @@ class FilterCollectionTest extends AbstractFunctionalTest
     {
         $collection = new FilterCollection();
         $collection->add(new SearchFilter('fake_column', 100));
-        $collection->add(new ExactMatchFilter('name', 'permission name'));
+        $collection->add(new ExactMatchFilter('name', 'preference name'));
 
         $query = $this->getQueryBuilder();
         $query->select('p')
