@@ -114,7 +114,6 @@ class UserControllerTest extends AbstractFunctionalTest
         $crawler = $client->request('get', $this->generateRoute('user_create_form'));
         $form = $crawler->selectButton('Save User')->form();
         $container = $client->getContainer();
-        $doctrine = $container->get('doctrine');
 
         $formValues = array(
             'tickit_user[forename]' => '',
