@@ -10,9 +10,6 @@ projects:
 preferences:
     resource: "@TickitPreferenceBundle/Resources/config/routing.yml"
 
-teams:
-    resource: "@TickitTeamBundle/Resources/config/routing.yml"
-
 notifications:
     resource: "@TickitNotificationBundle/Resources/config/routing.yml"
 
