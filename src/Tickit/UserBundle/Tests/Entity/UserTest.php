@@ -36,7 +36,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setAdmin(true);
 
-        $this->assertTrue($user->hasRole(User::ROLE_ADMIN));
+        $this->assertTrue($user->isAdmin());
     }
 
     /**
@@ -49,8 +49,8 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setAdmin(true);
 
-        $this->assertTrue($user->hasRole(User::ROLE_ADMIN));
+        $this->assertTrue($user->isAdmin());
         $user->setAdmin(false);
-        $this->assertFalse($user->hasRole(User::ROLE_ADMIN));
+        $this->assertFalse($user->isAdmin());
     }
 }

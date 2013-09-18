@@ -258,4 +258,14 @@ class User extends BaseUser implements AvatarAwareInterface
 
         return $this;
     }
+
+    /**
+     * Returns true if the user is an administrator, false otherwise
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole(static::ROLE_ADMIN);
+    }
 }
