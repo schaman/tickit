@@ -25,4 +25,32 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('forename surname', $user->getFullName());
     }
+
+    /**
+     * Tests the setAdmin() method
+     *
+     * @return void
+     */
+    public function testSetAdminGrantsAdminRoleWhenPassingTrue()
+    {
+        $user = new User();
+        $user->setAdmin(true);
+
+        $this->assertTrue($user->hasRole(User::ROLE_ADMIN));
+    }
+
+    /**
+     * Tests the setAdmin() method
+     *
+     * @return void
+     */
+    public function testSetAdminRemovesAdminRoleWhenPassingFalse()
+    {
+        $user = new User();
+        $user->setAdmin(true);
+
+        $this->assertTrue($user->hasRole(User::ROLE_ADMIN));
+        $user->setAdmin(false);
+        $this->assertFalse($user->hasRole(User::ROLE_ADMIN));
+    }
 }

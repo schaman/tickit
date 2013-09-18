@@ -20,6 +20,8 @@ use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
  */
 class User extends BaseUser implements AvatarAwareInterface
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * The unique identifier for this user
      *
@@ -237,5 +239,23 @@ class User extends BaseUser implements AvatarAwareInterface
     public function getNotifications()
     {
         return $this->notifications;
+    }
+
+    /**
+     * Sets whether this user is an administrator or not
+     *
+     * @param boolean $value True if the user is an administrator, false otherwise
+     *
+     * @return User
+     */
+    public function setAdmin($value)
+    {
+        if (true === $value) {
+            $this->addRole(static::ROLE_ADMIN);
+        } else {
+            $this->removeRole(static::ROLE_ADMIN);
+        }
+
+        return $this;
     }
 }
