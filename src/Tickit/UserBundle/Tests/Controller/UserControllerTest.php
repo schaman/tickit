@@ -23,7 +23,51 @@ class UserControllerTest extends AbstractFunctionalTest
      *
      * @return void
      */
-    public function testCreateActionCreatesUserWithValidDetails()
+    public function testCreateActionCreatesAdminUserWithValidDetails()
+    {
+        $client = $this->getAuthenticatedClient(static::$admin);
+        $container = $client->getContainer();
+        $doctrine = $container->get('doctrine');
+
+        $totalUsers = count($doctrine->getRepository('TickitUserBundle:User')->findAll());
+
+        $newUsername = 'user' . uniqid();
+        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
+        $form = $crawler->selectButton('Save User')->form();
+        $formValues = array(
+            'tickit_user[forename]' => 'forename',
+            'tickit_user[surname]' => 'surname',
+            'tickit_user[username]' => $newUsername,
+            'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
+            'tickit_user[password][first]' => 'somepassword',
+            'tickit_user[password][second]' => 'somepassword',
+            'tickit_user[admin]' => 1
+        );
+        $client->submit($form, $formValues);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $response = json_decode($client->getResponse()->getContent());
+        $this->assertTrue($response->success);
+        $this->assertFalse(isset($response->form));
+        $this->assertEquals(++$totalUsers, count($doctrine->getRepository('TickitUserBundle:User')->findAll()));
+
+        $createdUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
+        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $createdUser);
+        $this->assertTrue($createdUser->isAdmin());
+
+        // tidy up created user
+        $doctrine->getManager()->remove($createdUser);
+        $doctrine->getManager()->flush();
+    }
+
+    /**
+     * Tests the createAction()
+     *
+     * Ensures that a valid attempt to create a user is successful
+     *
+     * @return void
+     */
+    public function testCreateActionCreatesNonAdminUserWithValidDetails()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
         $container = $client->getContainer();
@@ -52,6 +96,7 @@ class UserControllerTest extends AbstractFunctionalTest
 
         $createdUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
         $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $createdUser);
+        $this->assertFalse($createdUser->isAdmin());
 
         // tidy up created user
         $doctrine->getManager()->remove($createdUser);
