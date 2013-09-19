@@ -49,6 +49,15 @@ define([
         },
 
         /**
+         * Gets the delete URL for this user
+         *
+         * @return {string}
+         */
+        getDeleteUrl: function() {
+            return Routing.generate('user_delete', { "id": this.get('id'), 'token': this.get('csrf_token') });
+        },
+
+        /**
          * Defines the root URL where the model data is fetched
          *
          * @return {string}

@@ -21,7 +21,8 @@ define(['modules/template', 'text!user/views/UserRowView.html'], function(Templa
                 username: d.username,
                 isAdmin: false,
                 lastActive: this.model.getLastActive(),
-                editUrl: this.model.getEditUrl()
+                editUrl: this.model.getEditUrl(),
+                deleteUrl: this.model.getDeleteUrl()
             }));
             return this;
         }
