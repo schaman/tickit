@@ -34,7 +34,7 @@ class UserController extends AbstractCoreController
         $manager = $this->get('tickit_user.manager');
         $form = $this->createForm('tickit_user', $manager->createUser());
 
-        $form->submit($this->getRequest());
+        $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
             $manager->create($form->getData());
             $responseData['success'] = true;
@@ -62,7 +62,7 @@ class UserController extends AbstractCoreController
         $responseData = ['success' => false];
         $form = $this->createForm('tickit_user', $existingUser);
         $existingPassword = $existingUser->getPassword();
-        $form->submit($this->getRequest());
+        $form->handleRequest($this->getRequest());
 
         if ($form->isValid()) {
             /** @var User $user */
