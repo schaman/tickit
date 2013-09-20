@@ -90,5 +90,8 @@ class ApiControllerTest extends AbstractFunctionalTest
         $response = json_decode($client->getResponse()->getContent());
         $this->assertInternalType('array', $response);
         $this->assertCount($totalUsers, $response);
+
+        $first = array_shift($response);
+        $this->assertTrue(isset($first->csrf_token));
     }
 }

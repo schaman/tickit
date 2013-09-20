@@ -34,6 +34,9 @@ class ApiControllerTest extends AbstractFunctionalTest
         $this->assertInternalType('array', $response);
 
         $this->assertCount($totalProjects, $response);
+
+        $first = array_shift($response);
+        $this->assertTrue(isset($first->csrf_token));
     }
 
     /**

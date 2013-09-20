@@ -47,6 +47,20 @@ abstract class AbstractCoreController extends Controller
     }
 
     /**
+     * Generates a new CSRF token for the given intent
+     *
+     * @param string $intent The intent of the CSRF token
+     *
+     * @return string
+     */
+    protected function generateCsrfToken($intent)
+    {
+        $tokenProvider = $this->get('form.csrf_provider');
+
+        return $tokenProvider->generateCsrfToken($intent);
+    }
+
+    /**
      * Gets a rendered form's content inside a given template
      *
      * @param string $template         The template to render the form with

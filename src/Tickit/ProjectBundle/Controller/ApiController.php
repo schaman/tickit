@@ -32,8 +32,9 @@ class ApiController extends AbstractCoreController
 
         $data = array();
         $decorator = $this->getArrayDecorator();
+        $staticProperties = array('csrf_token' => $this->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION));
         foreach ($projects as $project) {
-            $data[] = $decorator->decorate($project, array('id', 'name', 'created'));
+            $data[] = $decorator->decorate($project, array('id', 'name', 'created'), $staticProperties);
         }
 
         return new JsonResponse($data);
