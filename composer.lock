@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a5a871ed2ea0372826c91bae61fb1355",
+    "hash": "5439fa1a024860a08ac420560e5bb086",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -944,17 +944,17 @@
         },
         {
             "name": "hearsay/require-js-bundle",
-            "version": "dev-master",
+            "version": "dev-filename-resource-fix",
             "target-dir": "Hearsay/RequireJSBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git",
-                "reference": "88fdf212aae382781ac7c6345acb6931abdb4457"
+                "reference": "3fe11f9402e22ea785ddf54a9f29666860572354"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jameshalsall/HearsayRequireJSBundle/zipball/88fdf212aae382781ac7c6345acb6931abdb4457",
-                "reference": "88fdf212aae382781ac7c6345acb6931abdb4457",
+                "url": "https://api.github.com/repos/jameshalsall/HearsayRequireJSBundle/zipball/3fe11f9402e22ea785ddf54a9f29666860572354",
+                "reference": "3fe11f9402e22ea785ddf54a9f29666860572354",
                 "shasum": ""
             },
             "require": {
@@ -993,9 +993,9 @@
                 "rjs"
             ],
             "support": {
-                "source": "https://github.com/jameshalsall/HearsayRequireJSBundle/tree/master"
+                "source": "https://github.com/jameshalsall/HearsayRequireJSBundle/tree/filename-resource-fix"
             },
-            "time": "2013-07-21 16:14:39"
+            "time": "2013-07-25 08:19:35"
         },
         {
             "name": "incenteev/composer-parameter-handler",
