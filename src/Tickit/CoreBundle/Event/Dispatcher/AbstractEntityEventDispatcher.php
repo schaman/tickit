@@ -2,30 +2,30 @@
 
 namespace Tickit\CoreBundle\Event\Dispatcher;
 
-use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 
 /**
  * Abstract implementation of an entity event dispatcher
  *
- * @package Namespace\Class
+ * @package Tickit\CoreBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractEntityEventDispatcher
 {
     /**
-     * The dispatcher service
+     * An event dispatcher
      *
-     * @var ContainerAwareEventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $dispatcher;
 
     /**
      * Constructor.
      *
-     * @param ContainerAwareEventDispatcher $dispatcher The event dispatcher service
+     * @param EventDispatcherInterface $dispatcher An event dispatcher
      */
-    public function __construct(ContainerAwareEventDispatcher $dispatcher)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
