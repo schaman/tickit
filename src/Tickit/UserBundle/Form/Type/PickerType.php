@@ -13,6 +13,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * User picker custom form field type
  *
  * @package Tickit\UserBundle\Form\Type
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class PickerType extends AbstractType
 {
