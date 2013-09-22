@@ -868,12 +868,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "03a3a9f20fff6f43ff68d91bc752da4e4308b361"
+                "reference": "6b46edf005a88b9062525426bf67a2c093eb2619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/03a3a9f20fff6f43ff68d91bc752da4e4308b361",
-                "reference": "03a3a9f20fff6f43ff68d91bc752da4e4308b361",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/6b46edf005a88b9062525426bf67a2c093eb2619",
+                "reference": "6b46edf005a88b9062525426bf67a2c093eb2619",
                 "shasum": ""
             },
             "require": {
@@ -940,7 +940,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2013-09-13 14:37:16"
+            "time": "2013-09-22 11:19:58"
         },
         {
             "name": "hearsay/require-js-bundle",
@@ -1747,12 +1747,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "77d3a857da50a5074f5aa65c27262f3a18ffb646"
+                "reference": "b1542f062086929ff32955987e82dda912e3e4b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/77d3a857da50a5074f5aa65c27262f3a18ffb646",
-                "reference": "77d3a857da50a5074f5aa65c27262f3a18ffb646",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/b1542f062086929ff32955987e82dda912e3e4b7",
+                "reference": "b1542f062086929ff32955987e82dda912e3e4b7",
                 "shasum": ""
             },
             "require": {
@@ -1851,7 +1851,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-09-19 16:16:36"
+            "time": "2013-09-22 18:04:51"
         },
         {
             "name": "twig/extensions",
