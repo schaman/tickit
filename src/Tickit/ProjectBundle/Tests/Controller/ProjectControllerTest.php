@@ -45,11 +45,9 @@ class ProjectControllerTest extends AbstractFunctionalTest
     public function testCreateActionCreatesProject()
     {
         $client = $this->getAuthenticatedClient(static::$admin);
-
-        // fetch form (just to get the CSRF token)
-        $crawler = $client->request('get', $this->generateRoute('project_create_form'));
-
         $projectName = __FUNCTION__ . time();
+
+        $crawler = $client->request('get', $this->generateRoute('project_create_form'));
 
         $attribute0 = $crawler->filter('select[name="tickit_project[attributes][0][value]"] option:first-child')
                               ->attr('value');
@@ -63,7 +61,7 @@ class ProjectControllerTest extends AbstractFunctionalTest
                                ->attr('value')
         );
 
-        $attribute2 = $crawler->filter('input[name^="tickit_project[attributes][2][value]"]:first-child')
+        $attribute2 = $crawler->filter('input[name="tickit_project[attributes][2][value][]"]:first-child')
                               ->attr('value');
 
         $form = $crawler->selectButton('Save Project')->form(
