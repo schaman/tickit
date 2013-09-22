@@ -2,7 +2,7 @@
 
 namespace Tickit\NavigationBundle\Builder;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Abstract implementation of a navigation builder.
@@ -13,18 +13,18 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 abstract class AbstractBuilder
 {
     /**
-     * The event dispatcher service
+     * An event dispatcher
      *
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $dispatcher;
 
     /**
      * Constructor.
      *
-     * @param EventDispatcher $dispatcher The event dispatcher service
+     * @param EventDispatcherInterface $dispatcher An event dispatcher
      */
-    public function __construct(EventDispatcher $dispatcher)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
