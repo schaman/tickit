@@ -2,7 +2,7 @@
 
 namespace Tickit\ProjectBundle\Form\Type;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
@@ -20,18 +20,18 @@ use Tickit\ProjectBundle\Form\TickitProjectFormEvents;
 class EntityAttributeFormType extends AbstractAttributeFormType
 {
     /**
-     * The event dispatcher
+     * An event dispatcher
      *
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $dispatcher;
 
     /**
      * Constructor.
      *
-     * @param EventDispatcher $dispatcher The event dispatcher
+     * @param EventDispatcherInterface $dispatcher An event dispatcher
      */
-    public function __construct(EventDispatcher $dispatcher)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
