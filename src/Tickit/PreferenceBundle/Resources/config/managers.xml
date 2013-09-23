@@ -6,9 +6,8 @@
 
     <services>
 
-        <service id='tickit_preference.loader' class='Tickit\PreferenceBundle\Loader\PreferenceLoader'>
-            <argument type="service" id="session" />
-            <argument type="service" id="doctrine" />
+        <service id="tickit_preference.manager" class="Tickit\PreferenceBundle\Manager\PreferenceManager">
+            <argument type="service" id="tickit_preference.preference_repository" />
         </service>
 
     </services>
