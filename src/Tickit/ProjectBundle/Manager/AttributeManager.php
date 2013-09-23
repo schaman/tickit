@@ -11,6 +11,7 @@ use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
+use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * Attribute manager.
@@ -23,6 +24,20 @@ use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
 class AttributeManager
 {
     /**
+     * Attribute repo
+     *
+     * @var AttributeRepository
+     */
+    protected $attributeRepository;
+
+    /**
+     * The choice attribute choice repo
+     *
+     * @var ChoiceAttributeChoiceRepository
+     */
+    protected $choiceAttributeChoiceRepository;
+
+    /**
      * The entity manager
      *
      * @var EntityManager
@@ -32,10 +47,14 @@ class AttributeManager
     /**
      * Constructor.
      *
-     * @param Registry $doctrine The doctrine registry service
+     * @param AttributeRepository             $attributeRepository The attribute repo
+     * @param ChoiceAttributeChoiceRepository $choiceRepository    The choice attribute choice repo
+     * @param Registry                        $doctrine            The doctrine registry service
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(AttributeRepository $attributeRepository, ChoiceAttributeChoiceRepository $choiceRepository, Registry $doctrine)
     {
+        $this->attributeRepository = $attributeRepository;
+        $this->choiceAttributeChoiceRepository = $choiceRepository;
         $this->em = $doctrine->getManager();
     }
 
@@ -46,7 +65,7 @@ class AttributeManager
      */
     public function getRepository()
     {
-        return $this->em->getRepository('TickitProjectBundle:AbstractAttribute');
+        return $this->attributeRepository;
     }
 
     /**
@@ -158,8 +177,7 @@ class AttributeManager
             $this->em->flush();
         }
 
-        $existingChoices  = $this->em->getRepository('TickitProjectBundle:ChoiceAttributeChoice')
-                                     ->findByAttribute($attribute);
+        $existingChoices  = $this->choiceAttributeChoiceRepository->findByAttribute($attribute);
 
         foreach ($existingChoices as $existingChoice) {
             $this->em->remove($existingChoice);

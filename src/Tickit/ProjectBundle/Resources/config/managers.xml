@@ -13,6 +13,8 @@
         </service>
 
         <service id="tickit_project.attribute_manager" class="Tickit\ProjectBundle\Manager\AttributeManager">
+            <argument type="service" id="tickit_project.attribute_repository" />
+            <argument type="service" id="tickit_project.choice_attribute_choice_repository" />
             <argument type="service" id="doctrine" />
         </service>
 
