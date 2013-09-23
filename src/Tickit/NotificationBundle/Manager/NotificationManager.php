@@ -2,7 +2,7 @@
 
 namespace Tickit\NotificationBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
 use Tickit\NotificationBundle\Entity\AbstractNotification;
 use Tickit\NotificationBundle\Factory\NotificationFactory;
 
@@ -17,11 +17,11 @@ use Tickit\NotificationBundle\Factory\NotificationFactory;
 class NotificationManager
 {
     /**
-     * The doctrine registry.
+     * An entity manager
      *
-     * @var Registry
+     * @var EntityManagerInterface
      */
-    protected $doctrine;
+    protected $em;
 
     /**
      * The notification factory
@@ -33,12 +33,12 @@ class NotificationManager
     /**
      * Constructor.
      *
-     * @param Registry            $doctrine            The doctrine registry
-     * @param NotificationFactory $notificationFactory The notification factory
+     * @param EntityManagerInterface $entityManager       An entity manager
+     * @param NotificationFactory    $notificationFactory The notification factory
      */
-    public function __construct(Registry $doctrine, NotificationFactory $notificationFactory)
+    public function __construct(EntityManagerInterface $entityManager, NotificationFactory $notificationFactory)
     {
-        $this->doctrine = $doctrine;
+        $this->em = $entityManager;
         $this->notificationFactory = $notificationFactory;
     }
 
@@ -51,9 +51,8 @@ class NotificationManager
      */
     public function create(AbstractNotification $notification)
     {
-        $em = $this->doctrine->getManager();
-        $em->persist($notification);
-        $em->flush();
+        $this->em->persist($notification);
+        $this->em->flush();
     }
 
     /**
