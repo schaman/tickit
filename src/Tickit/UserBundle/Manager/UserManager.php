@@ -39,15 +39,26 @@ class UserManager extends AbstractManager implements UserManagerInterface
     protected $doctrine;
 
     /**
+     * The user repository
+     *
+     * @var UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Constructor.
      *
-     * @param Registry                      $doctrine          The doctrine service
-     * @param AbstractEntityEventDispatcher $dispatcher        The event dispatcher
-     * @param UserManagerInterface          $fosManager        The FOS user manager
+     *
+     * @param UserRepository                $userRepository The user repository
+     * @param Registry                      $doctrine       The doctrine service
+     * @param AbstractEntityEventDispatcher $dispatcher     The event dispatcher
+     * @param UserManagerInterface          $fosManager     The FOS user manager
      */
-    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
+    public function __construct(UserRepository $userRepository, Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
     {
         parent::__construct($doctrine, $dispatcher);
+
+        $this->userRepository = $userRepository;
         $this->doctrine = $doctrine;
         $this->fosManager = $fosManager;
     }
@@ -59,9 +70,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function getRepository()
     {
-        $repository = $this->em->getRepository('TickitUserBundle:User');
-
-        return $repository;
+        return $this->userRepository;
     }
 
     /**
@@ -121,7 +130,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     protected function fetchEntityInOriginalState($entity)
     {
-        $user = $this->em->find('\Tickit\UserBundle\Entity\User', $entity->getId());
+        $user = $this->getRepository()->find($entity->getId());
 
         return $user;
     }
