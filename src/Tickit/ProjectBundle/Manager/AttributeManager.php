@@ -2,9 +2,8 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
@@ -38,9 +37,9 @@ class AttributeManager
     protected $choiceAttributeChoiceRepository;
 
     /**
-     * The entity manager
+     * An entity manager
      *
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -49,13 +48,13 @@ class AttributeManager
      *
      * @param AttributeRepository             $attributeRepository The attribute repo
      * @param ChoiceAttributeChoiceRepository $choiceRepository    The choice attribute choice repo
-     * @param Registry                        $doctrine            The doctrine registry service
+     * @param EntityManagerInterface          $em                  An entity manager
      */
-    public function __construct(AttributeRepository $attributeRepository, ChoiceAttributeChoiceRepository $choiceRepository, Registry $doctrine)
+    public function __construct(AttributeRepository $attributeRepository, ChoiceAttributeChoiceRepository $choiceRepository, EntityManagerInterface $em)
     {
         $this->attributeRepository = $attributeRepository;
         $this->choiceAttributeChoiceRepository = $choiceRepository;
-        $this->em = $doctrine->getManager();
+        $this->em = $em;
     }
 
     /**
