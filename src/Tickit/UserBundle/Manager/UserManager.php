@@ -2,7 +2,7 @@
 
 namespace Tickit\UserBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -32,13 +32,6 @@ class UserManager extends AbstractManager implements UserManagerInterface
     protected $fosManager;
 
     /**
-     * The doctrine registry
-     *
-     * @var Registry
-     */
-    protected $doctrine;
-
-    /**
      * The user repository
      *
      * @var UserRepository
@@ -50,16 +43,19 @@ class UserManager extends AbstractManager implements UserManagerInterface
      *
      *
      * @param UserRepository                $userRepository The user repository
-     * @param Registry                      $doctrine       The doctrine service
+     * @param EntityManagerInterface        $em             An entity manager
      * @param AbstractEntityEventDispatcher $dispatcher     The event dispatcher
      * @param UserManagerInterface          $fosManager     The FOS user manager
      */
-    public function __construct(UserRepository $userRepository, Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
-    {
-        parent::__construct($doctrine, $dispatcher);
+    public function __construct(
+        UserRepository $userRepository,
+        EntityManagerInterface $em,
+        AbstractEntityEventDispatcher $dispatcher,
+        UserManagerInterface $fosManager
+    ) {
+        parent::__construct($em, $dispatcher);
 
         $this->userRepository = $userRepository;
-        $this->doctrine = $doctrine;
         $this->fosManager = $fosManager;
     }
 

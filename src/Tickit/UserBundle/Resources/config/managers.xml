@@ -7,7 +7,7 @@
 
             <service id='tickit_user.manager' class='Tickit\UserBundle\Manager\UserManager'>
                 <argument type="service" id="tickit_user.user_repository" />
-                <argument type="service" id="doctrine" />
+                <argument type="service" id="doctrine.orm.entity_manager" />
                 <argument type="service" id="tickit_user.user_event_dispatcher" />
                 <argument type="service" id="fos_user.user_manager.default" />
             </service>

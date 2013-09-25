@@ -5,6 +5,7 @@ namespace Tickit\ProjectBundle\Manager;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\ProjectBundle\Entity\Project;
@@ -32,14 +33,14 @@ class ProjectManager extends AbstractManager
      * Constructor.
      *
      * @param ProjectRepository             $projectRepository The project repo
-     * @param Registry                      $doctrine          The doctrine registry
+     * @param EntityManagerInterface        $em                An entity manager
      * @param AbstractEntityEventDispatcher $dispatcher        An event dispatcher
      */
-    public function __construct(ProjectRepository $projectRepository, Registry $doctrine, AbstractEntityEventDispatcher $dispatcher)
+    public function __construct(ProjectRepository $projectRepository, EntityManagerInterface $em, AbstractEntityEventDispatcher $dispatcher)
     {
         $this->projectRepository = $projectRepository;
 
-        parent::__construct($doctrine, $dispatcher);
+        parent::__construct($em, $dispatcher);
     }
 
     /**
