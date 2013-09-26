@@ -107,6 +107,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
                 $fieldType = 'text';
                 break;
             default:
+                $assert->add(new Assert\Type(array('type' => 'string')));
                 $fieldType = 'text';
         }
 
