@@ -28,23 +28,6 @@ use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 class AttributeValueFormSubscriber implements EventSubscriberInterface
 {
     /**
-     * An entity manager
-     *
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
-     * Constructor.
-     *
-     * @param EntityManagerInterface $em An entity manager
-     */
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
      * Gets subscribed events
      *
      * @return array
