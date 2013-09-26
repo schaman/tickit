@@ -74,7 +74,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
      * @param string $validationType          The validation type
      * @param string $expectedConstraintClass The expected constraint class for the validation type
      *
-     * @dataProvider getLiteralAttributeData
+     * @dataProvider getLiteralAttributeValueData
      *
      * @return void
      */
