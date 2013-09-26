@@ -166,7 +166,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
      *
      * @return array
      */
-    public function getLiteralAttributeData()
+    public function getLiteralAttributeValueData()
     {
         return array(
             array(
