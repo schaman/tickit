@@ -2,12 +2,16 @@
 
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
+use Tickit\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\EntityAttributeValue;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
@@ -121,6 +125,43 @@ class AttributeValueFormTypeTest extends TypeTestCase
     }
 
     /**
+     * Ensures that single select, collapsed choice attributes are built correctly
+     *
+     * @return void
+     */
+    public function testFormBuildsNonMultipleCollapsedChoiceAttributesCorrectly()
+    {
+        $attributeValue = $this->getChoiceAttributeValue();
+
+        $form = $this->factory->create($this->form);
+        $form->setData($attributeValue);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($form->getData(), $attributeValue);
+
+        $valueField = $form->get('value');
+        $this->assertInstanceOf(
+            'Symfony\Bridge\Doctrine\Form\Type\EntityType',
+            $valueField->getConfig()->getType()->getInnerType()
+        );
+    }
+
+    public function testFormBuildsMultipleCollapsedChoiceAttributesCorrectly()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testFormBuildsNonMultipleExpandedChoiceAttributesCorrectly()
+    {
+        $this->markTestIncomplete();
+    }
+
+    public function testFormBuildsMultipleExpandedChoiceAttributesCorrectly()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
      * Gets test data for testFormBuildsLiteralAttributesCorrectly()
      *
      * @return array
@@ -205,6 +246,41 @@ class AttributeValueFormTypeTest extends TypeTestCase
                   ->setDefaultValue(2);
         $attributeValue = new LiteralAttributeValue();
         $attributeValue->setAttribute($attribute)
+                       ->setProject(new Project());
+
+        return $attributeValue;
+    }
+
+    /**
+     * Gets a ChoiceAttributeValue with specified options
+     *
+     * @param boolean $allowMultiple True to allow multiple choices
+     * @param boolean $expanded      True to show an expanded form element
+     *
+     * @return ChoiceAttributeValue
+     */
+    private function getChoiceAttributeValue($allowMultiple = false, $expanded = false)
+    {
+        $choice1 = new ChoiceAttributeChoice();
+        $choice1->setName('Yes');
+
+        $choice2 = new ChoiceAttributeChoice();
+        $choice2->setName('No');
+
+        $choice3 = new ChoiceAttributeChoice();
+        $choice3->setName('Maybe');
+
+        $choices = new ArrayCollection(array($choice1, $choice2, $choice3));
+
+        $attribute = new ChoiceAttribute();
+        $attribute->setAllowMultiple($allowMultiple)
+                  ->setChoices($choices)
+                  ->setExpanded($expanded);
+
+        $value = new ArrayCollection(array($choice2));
+        $attributeValue = new ChoiceAttributeValue();
+        $attributeValue->setAttribute($attribute)
+                       ->setValue($value)
                        ->setProject(new Project());
 
         return $attributeValue;
