@@ -2,9 +2,8 @@
 
 namespace Tickit\ProjectBundle\Form\EventListener;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -29,20 +28,20 @@ use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 class AttributeValueFormSubscriber implements EventSubscriberInterface
 {
     /**
-     * The entity manager
+     * An entity manager
      *
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
      * Constructor.
      *
-     * @param Registry $doctrine The doctrine registry service
+     * @param EntityManagerInterface $em An entity manager
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $doctrine->getManager();
+        $this->em = $em;
     }
 
     /**
