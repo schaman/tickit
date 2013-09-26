@@ -2,6 +2,7 @@
 
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
@@ -21,10 +22,6 @@ class ProjectFormTypeTest extends TypeTestCase
      */
     public function testSubmitValidData()
     {
-        $data = array(
-            //TODO: add the data
-        );
-
         $mockAttributeForm = $this->getMockBuilder('Tickit\ProjectBundle\Form\Type\AttributeValueFormType')
                                   ->disableOriginalConstructor()
                                   ->getMock();
@@ -33,7 +30,11 @@ class ProjectFormTypeTest extends TypeTestCase
         $form = $this->factory->create($type);
 
         $project = new Project();
-        // TODO: set values on $project
+        $project->setName(__FUNCTION__)
+                ->setAttributes(new ArrayCollection())
+                ->setTickets(new ArrayCollection())
+                ->setCreated(new \DateTime())
+                ->setUpdated(new \DateTime());
 
         $form->setData($project);
 
