@@ -94,10 +94,14 @@ class Project
      * Sets the project name
      *
      * @param string $name
+     *
+     * @return Project
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -169,11 +173,13 @@ class Project
      *
      * @param DateTime $deletedAt The date time that this project was deleted
      *
-     * @return void
+     * @return Project
      */
     public function setDeletedAt(DateTime $deletedAt)
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 
     /**
@@ -184,5 +190,47 @@ class Project
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Set tickets on this project
+     *
+     * @param Collection $tickets The tickets collection
+     *
+     * @return Project
+     */
+    public function setTickets(Collection $tickets)
+    {
+        $this->tickets = $tickets;
+
+        return $this;
+    }
+
+    /**
+     * Sets the updated time
+     *
+     * @param \DateTime $updated The updated time
+     *
+     * @return Project
+     */
+    public function setUpdated(\DateTime $updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Sets the created time
+     *
+     * @param \DateTime $created The created time
+     *
+     * @return Project
+     */
+    public function setCreated(\DateTime $created)
+    {
+        $this->created = $created;
+
+        return $this;
     }
 }
