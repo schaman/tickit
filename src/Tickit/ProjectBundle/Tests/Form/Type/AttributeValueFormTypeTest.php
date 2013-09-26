@@ -2,12 +2,17 @@
 
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
+use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
+use Tickit\ProjectBundle\Entity\EntityAttribute;
+use Tickit\ProjectBundle\Entity\EntityAttributeValue;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\AttributeValueFormType;
 
 /**
@@ -88,6 +93,34 @@ class AttributeValueFormTypeTest extends TypeTestCase
     }
 
     /**
+     * Ensures that entity attributes are built correctly
+     *
+     * @return void
+     */
+    public function testFormBuildsEntityAttributesCorrectly()
+    {
+        $attribute = new EntityAttribute();
+        $attribute->setEntity('Tickit\ProjectBundle\Entity\Project');
+
+        $attributeValue = new EntityAttributeValue();
+        $attributeValue->setAttribute($attribute)
+                       ->setValue(1)
+                       ->setProject(new Project());
+
+        $form = $this->factory->create($this->form);
+        $form->setData($attributeValue);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($form->getData(), $attributeValue);
+
+        $valueField = $form->get('value');
+        $this->assertInstanceOf(
+            'Symfony\Bridge\Doctrine\Form\Type\EntityType',
+            $valueField->getConfig()->getType()->getInnerType()
+        );
+    }
+
+    /**
      * Gets test data for testFormBuildsLiteralAttributesCorrectly()
      *
      * @return array
@@ -137,7 +170,23 @@ class AttributeValueFormTypeTest extends TypeTestCase
      */
     protected function getExtensions()
     {
-        return array(new CoreExtension(), new ValidatorExtension(Validation::createValidator()));
+        $em = DoctrineTestHelper::createTestEntityManager();
+
+        $manager = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
+
+        $manager->expects($this->any())
+                ->method('getManager')
+                ->will($this->returnValue($em));
+
+        $manager->expects($this->any())
+                ->method('getManagerForClass')
+                ->will($this->returnValue($em));
+
+        return array(
+            new CoreExtension(),
+            new ValidatorExtension(Validation::createValidator()),
+            new DoctrineOrmExtension($manager)
+        );
     }
 
     /**
@@ -152,9 +201,11 @@ class AttributeValueFormTypeTest extends TypeTestCase
     {
         $attribute = new LiteralAttribute();
         $attribute->setValidationType($validationType)
-                  ->setAllowBlank($allowBlank);
+                  ->setAllowBlank($allowBlank)
+                  ->setDefaultValue(2);
         $attributeValue = new LiteralAttributeValue();
-        $attributeValue->setAttribute($attribute);
+        $attributeValue->setAttribute($attribute)
+                       ->setProject(new Project());
 
         return $attributeValue;
     }
