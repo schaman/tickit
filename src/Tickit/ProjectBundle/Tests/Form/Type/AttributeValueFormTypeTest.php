@@ -15,7 +15,7 @@ use Tickit\ProjectBundle\Form\Type\AttributeValueFormType;
  * AttributeValueFormType tests
  *
  * @package Tickit\ProjectBundle\Tests\Form\Type
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeValueFormTypeTest extends TypeTestCase
 {
