@@ -127,11 +127,16 @@ class AttributeValueFormTypeTest extends TypeTestCase
     /**
      * Ensures that single select, collapsed choice attributes are built correctly
      *
+     * @dataProvider getChoiceAttributeValueData
+     *
+     * @param boolean $multiple True if the choice attribute should allow multiple selections
+     * @param boolean $expanded True if the choice attribute should render as an expanded control
+     *
      * @return void
      */
-    public function testFormBuildsNonMultipleCollapsedChoiceAttributesCorrectly()
+    public function testFormBuildsChoiceAttributesCorrectly($multiple, $expanded)
     {
-        $attributeValue = $this->getChoiceAttributeValue();
+        $attributeValue = $this->getChoiceAttributeValue($multiple, $expanded);
 
         $form = $this->factory->create($this->form);
         $form->setData($attributeValue);
@@ -144,21 +149,23 @@ class AttributeValueFormTypeTest extends TypeTestCase
             'Symfony\Bridge\Doctrine\Form\Type\EntityType',
             $valueField->getConfig()->getType()->getInnerType()
         );
+
+        $options = $valueField->getConfig()->getOptions();
+
+        $this->assertFalse($options['expanded']);
+        $this->assertFalse($options['multiple']);
     }
 
-    public function testFormBuildsMultipleCollapsedChoiceAttributesCorrectly()
+    /**
+     * Gets test data for testFormBuildsChoiceAttributesCorrectly()
+     *
+     * @return array
+     */
+    public function getChoiceAttributeValueData()
     {
-        $this->markTestIncomplete();
-    }
-
-    public function testFormBuildsNonMultipleExpandedChoiceAttributesCorrectly()
-    {
-        $this->markTestIncomplete();
-    }
-
-    public function testFormBuildsMultipleExpandedChoiceAttributesCorrectly()
-    {
-        $this->markTestIncomplete();
+        return array(
+            array(false, false)
+        );
     }
 
     /**
