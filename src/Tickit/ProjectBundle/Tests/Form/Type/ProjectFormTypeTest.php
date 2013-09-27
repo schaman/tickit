@@ -41,6 +41,10 @@ class ProjectFormTypeTest extends TypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($project, $form->getData());
 
-        // TODO: assert view components
+        $expectedViewComponents = array('name', 'attributes');
+        $view = $form->createView();
+        foreach ($expectedViewComponents as $component) {
+            $this->assertArrayHasKey($component, $view->children);
+        }
     }
 }
