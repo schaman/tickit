@@ -16,18 +16,34 @@ use Tickit\ProjectBundle\Form\Type\ProjectFormType;
 class ProjectFormTypeTest extends TypeTestCase
 {
     /**
+     * The form under test
+     *
+     * @var ProjectFormType
+     */
+    private $formType;
+
+    /**
+     * Set up
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $mockAttributeForm = $this->getMockBuilder('Tickit\ProjectBundle\Form\Type\AttributeValueFormType')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+        $this->formType = new ProjectFormType($mockAttributeForm);
+    }
+
+    /**
      * Tests the form submit
      *
      * @return void
      */
     public function testSubmitValidData()
     {
-        $mockAttributeForm = $this->getMockBuilder('Tickit\ProjectBundle\Form\Type\AttributeValueFormType')
-                                  ->disableOriginalConstructor()
-                                  ->getMock();
-
-        $type = new ProjectFormType($mockAttributeForm);
-        $form = $this->factory->create($type);
+        $form = $this->factory->create($this->formType);
 
         $project = new Project();
         $project->setName(__FUNCTION__)
