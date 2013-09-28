@@ -41,7 +41,7 @@ class LiteralAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('class' => 'Tickit\ProjectBundle\Entity\LiteralAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\LiteralAttribute'));
     }
 
     /**
