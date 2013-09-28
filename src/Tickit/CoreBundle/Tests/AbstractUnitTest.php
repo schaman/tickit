@@ -8,7 +8,7 @@ namespace Tickit\CoreBundle\Tests;
  * @package Tickit\CoreBundle\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AbstractUnitTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Returns mock EntityManager
