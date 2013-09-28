@@ -176,26 +176,18 @@ class AttributeManager
             $this->em->flush();
         }
 
-        $existingChoices  = $this->choiceAttributeChoiceRepository->findByAttribute($attribute);
+        $existingChoices  = $this->choiceAttributeChoiceRepository->findBy(array('attribute' => $attribute));
 
         foreach ($existingChoices as $existingChoice) {
             $this->em->remove($existingChoice);
         }
 
-        /** @var ArrayCollection $choices */
-        foreach ($choices as $key => $choice) {
-            if (is_array($choice)) {
-                $newChoice = new ChoiceAttributeChoice();
-                $newChoice->setName($choice['name'])
-                          ->setAttribute($attribute);
-                $this->em->persist($newChoice);
-
-                $choices->remove($key);
-                $choices->add($newChoice);
-            }
+        /** @var ChoiceAttributeChoice $choice */
+        foreach ($choices as $choice) {
+            $choice->setAttribute($attribute);
+            $this->em->persist($choice);
         }
 
         $attribute->setChoices($choices);
-        $this->em->flush();
     }
 }
