@@ -3,7 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Form\Test\TypeTestCase;
+use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
 
@@ -13,15 +13,8 @@ use Tickit\ProjectBundle\Form\Type\ProjectFormType;
  * @package Tickit\ProjectBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectFormTypeTest extends TypeTestCase
+class ProjectFormTypeTest extends AbstractFormTypeTestCase
 {
-    /**
-     * The form under test
-     *
-     * @var ProjectFormType
-     */
-    private $formType;
-
     /**
      * Set up
      */

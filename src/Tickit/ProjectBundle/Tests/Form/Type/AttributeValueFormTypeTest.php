@@ -3,12 +3,9 @@
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
-use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
-use Symfony\Component\Form\Extension\Core\CoreExtension;
-use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
+use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
@@ -25,15 +22,8 @@ use Tickit\ProjectBundle\Form\Type\AttributeValueFormType;
  * @package Tickit\ProjectBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttributeValueFormTypeTest extends TypeTestCase
+class AttributeValueFormTypeTest extends AbstractFormTypeTestCase
 {
-    /**
-     * Form under test.
-     *
-     * @var AttributeValueFormType
-     */
-    private $form;
-
     /**
      * Setup
      */
@@ -41,7 +31,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
     {
         parent::setUp();
 
-        $this->form = new AttributeValueFormType();
+        $this->formType = new AttributeValueFormType();
     }
 
     /**
@@ -53,7 +43,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
     {
         $attributeValue = $this->getLiteralAttributeValue(LiteralAttribute::VALIDATION_IP, false);
 
-        $form = $this->factory->create($this->form);
+        $form = $this->factory->create($this->formType);
 
         $form->setData($attributeValue);
 
@@ -82,7 +72,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
     {
         $attributeValue = $this->getLiteralAttributeValue($validationType);
 
-        $form = $this->factory->create($this->form);
+        $form = $this->factory->create($this->formType);
         $form->setData($attributeValue);
 
         $this->assertTrue($form->isSynchronized());
@@ -111,7 +101,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
                        ->setValue(1)
                        ->setProject(new Project());
 
-        $form = $this->factory->create($this->form);
+        $form = $this->factory->create($this->formType);
         $form->setData($attributeValue);
 
         $this->assertTrue($form->isSynchronized());
@@ -138,7 +128,7 @@ class AttributeValueFormTypeTest extends TypeTestCase
     {
         $attributeValue = $this->getChoiceAttributeValue($multiple, $expanded);
 
-        $form = $this->factory->create($this->form);
+        $form = $this->factory->create($this->formType);
         $form->setData($attributeValue);
 
         $this->assertTrue($form->isSynchronized());
@@ -213,28 +203,12 @@ class AttributeValueFormTypeTest extends TypeTestCase
 
     /**
      * {@inheritDoc}
-     *
-     * @return array
      */
-    protected function getExtensions()
+    protected function configureExtensions()
     {
-        $em = DoctrineTestHelper::createTestEntityManager();
-
-        $manager = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
-
-        $manager->expects($this->any())
-                ->method('getManager')
-                ->will($this->returnValue($em));
-
-        $manager->expects($this->any())
-                ->method('getManagerForClass')
-                ->will($this->returnValue($em));
-
-        return array(
-            new CoreExtension(),
-            new ValidatorExtension(Validation::createValidator()),
-            new DoctrineOrmExtension($manager)
-        );
+        $this->enableDoctrineExtension();
+        $this->enableCoreExtension();
+        $this->enableValidatorExtension();
     }
 
     /**

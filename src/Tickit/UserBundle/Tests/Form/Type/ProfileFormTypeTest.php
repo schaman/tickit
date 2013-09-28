@@ -4,8 +4,8 @@ namespace Tickit\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
+use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Type\ProfileFormType;
 
@@ -15,15 +15,8 @@ use Tickit\UserBundle\Form\Type\ProfileFormType;
  * @package Tickit\UserBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProfileFormTypeTest extends TypeTestCase
+class ProfileFormTypeTest extends AbstractFormTypeTestCase
 {
-    /**
-     * The form under test
-     *
-     * @var ProfileFormType
-     */
-    private $formType;
-
     /**
      * Setup
      */
@@ -62,12 +55,10 @@ class ProfileFormTypeTest extends TypeTestCase
     }
 
     /**
-     * Gets form extensions
-     *
-     * @return array
+     * {@inheritDoc}
      */
-    protected function getExtensions()
+    protected function configureExtensions()
     {
-        return array(new ValidatorExtension(Validation::createValidator()));
+        $this->enableValidatorExtension();
     }
 }

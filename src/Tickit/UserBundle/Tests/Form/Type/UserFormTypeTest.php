@@ -3,8 +3,8 @@
 namespace Tickit\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
+use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Type\UserFormType;
 
@@ -14,15 +14,8 @@ use Tickit\UserBundle\Form\Type\UserFormType;
  * @package Tickit\UserBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserFormTypeTest extends TypeTestCase
+class UserFormTypeTest extends AbstractFormTypeTestCase
 {
-    /**
-     * The form under test
-     *
-     * @var UserFormType
-     */
-    private $formType;
-
     /**
      * Set up
      */
@@ -64,11 +57,9 @@ class UserFormTypeTest extends TypeTestCase
 
     /**
      * Gets form factory extensions
-     *
-     * @return array
      */
-    protected function getExtensions()
+    protected function configureExtensions()
     {
-        return array(new ValidatorExtension(Validation::createValidator()));
+        $this->enableValidatorExtension();
     }
 }
