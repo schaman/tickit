@@ -2,7 +2,6 @@
 
 namespace Tickit\UserBundle\Tests\Listener;
 
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\User;
