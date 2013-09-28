@@ -195,6 +195,10 @@ class AttributeValueFormTypeTest extends AbstractFormTypeTestCase
                 'Symfony\Component\Validator\Constraints\Ip'
             ),
             array(
+                LiteralAttribute::VALIDATION_URL,
+                'Symfony\Component\Validator\Constraints\Url'
+            ),
+            array(
                 LiteralAttribute::VALIDATION_STRING,
                 'Symfony\Component\Validator\Constraints\Type'
             )
