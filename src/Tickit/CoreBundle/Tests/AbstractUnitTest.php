@@ -45,4 +45,16 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns mock EventDispatcher
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockEventDispatcher()
+    {
+        return $this->getMockBuilder('\Symfony\Component\EventDispatcher\EventDispatcher')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }
