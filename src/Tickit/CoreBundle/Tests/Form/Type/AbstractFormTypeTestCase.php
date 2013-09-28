@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -95,5 +96,20 @@ class AbstractFormTypeTestCase extends TypeTestCase
     protected function enableValidatorExtension()
     {
         $this->extensions[] = new ValidatorExtension(Validation::createValidator());
+    }
+
+    /**
+     * Assert that a FormView instance contains all given component names
+     *
+     * @param array    $componentNames The component names
+     * @param FormView $view           The FormView instance
+     *
+     * @return void
+     */
+    protected function assertViewHasComponents(array $componentNames, FormView $view)
+    {
+        foreach ($componentNames as $name) {
+            $this->assertArrayHasKey($name, $view->children);
+        }
     }
 }
