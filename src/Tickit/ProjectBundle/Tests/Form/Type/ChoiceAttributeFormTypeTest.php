@@ -56,10 +56,7 @@ class ChoiceAttributeFormTypeTest extends AbstractFormTypeTestCase
         $this->assertEquals($choice, $form->getData());
 
         $expectedViewComponents = array('type', 'allow_multiple', 'choices', 'expanded', 'name', 'allow_blank', 'default_value');
-        $view = $form->createView();
-        foreach ($expectedViewComponents as $component) {
-            $this->assertArrayHasKey($component, $view->children);
-        }
+        $this->assertViewHasComponents($expectedViewComponents, $form->createView());
     }
 
     /**

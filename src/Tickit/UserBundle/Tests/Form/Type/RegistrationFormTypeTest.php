@@ -47,11 +47,8 @@ class RegistrationFormTypeTest extends AbstractFormTypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($user, $form->getData());
 
-        $view = $form->createView();
         $expectedViewComponents = array('forename', 'surname', 'username', 'email', 'password');
-        foreach ($expectedViewComponents as $component) {
-            $this->assertArrayHasKey($component, $view->children);
-        }
+        $this->assertViewHasComponents($expectedViewComponents, $form->createView());
     }
 
     /**

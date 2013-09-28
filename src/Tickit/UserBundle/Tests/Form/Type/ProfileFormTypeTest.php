@@ -48,10 +48,7 @@ class ProfileFormTypeTest extends AbstractFormTypeTestCase
         $this->assertEquals($user, $form->getData());
 
         $expectedViewComponents = array('forename', 'surname', 'password');
-        $view = $form->createView();
-        foreach ($expectedViewComponents as $component) {
-            $this->assertArrayHasKey($component, $view->children);
-        }
+        $this->assertViewHasComponents($expectedViewComponents, $form->createView());
     }
 
     /**

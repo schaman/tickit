@@ -48,11 +48,8 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($user, $form->getData());
 
-        $view = $form->createView();
         $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'admin');
-        foreach ($expectedViewComponents as $component) {
-            $this->assertArrayHasKey($component, $view->children);
-        }
+        $this->assertViewHasComponents($expectedViewComponents, $form->createView());
     }
 
     /**
