@@ -68,7 +68,7 @@ class ActivityListenerTest extends AbstractUnitTest
               ->will($this->returnValue(HttpKernel::SUB_REQUEST));
 
         $securityContext->expects($this->exactly(0))
-                        ->method('getToken')    ;
+                        ->method('getToken');
 
         $manager->expects($this->exactly(0))
                 ->method('persist');

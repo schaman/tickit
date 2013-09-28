@@ -1,10 +1,10 @@
 <?php
 
 namespace Tickit\NotificationBundle\Tests\Provider;
+
 use Tickit\NotificationBundle\Entity\UserNotification;
 use Tickit\NotificationBundle\Provider\NotificationProvider;
 use Tickit\UserBundle\Entity\User;
-
 
 /**
  * NotificationProviderTest tests
