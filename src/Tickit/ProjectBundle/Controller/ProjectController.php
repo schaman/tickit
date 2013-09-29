@@ -41,7 +41,7 @@ class ProjectController extends AbstractCoreController
         $project->setAttributes($attributes);
 
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
-        $form->submit($this->getRequest());
+        $form->handleRequest($this->getRequest());
 
         if ($form->isValid()) {
             $this->get('tickit_project.manager')->create($form->getData());
@@ -69,7 +69,7 @@ class ProjectController extends AbstractCoreController
     {
         $responseData = ['success' => false, 'errors' => []];
         $form = $this->createForm($this->get('tickit_project.form.project'), $project);
-        $form->submit($this->getRequest());
+        $form->handleRequest($this->getRequest());
 
         if ($form->isValid()) {
             $this->get('tickit_project.manager')->update($form->getData());

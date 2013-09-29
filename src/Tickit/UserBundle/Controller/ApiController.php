@@ -66,10 +66,12 @@ class ApiController extends AbstractCoreController
 
         $data = array();
         $decorator = $this->getArrayDecorator();
+        $staticProperties = array('csrf_token' => $this->generateCsrfToken(UserController::CSRF_DELETE_INTENTION));
         foreach ($users as $user) {
             $data[] = $decorator->decorate(
                 $user,
-                array('id', 'forename', 'surname', 'email', 'username', 'lastActivity')
+                array('id', 'forename', 'surname', 'email', 'username', 'lastActivity'),
+                $staticProperties
             );
         }
 

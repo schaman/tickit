@@ -72,6 +72,9 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
                 'date',
                 'childObject.enabled',
                 'childObject.childObject.enabled'
+            ),
+            array(
+                'static' => 'value'
             )
         );
 
@@ -82,5 +85,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(date('Y-m-d H:i:s'), $decorated['date']);
         $this->assertTrue($decorated['childObject.enabled']);
         $this->assertTrue($decorated['childObject.childObject.enabled']);
+        $this->assertEquals('value', $decorated['static']);
     }
 }

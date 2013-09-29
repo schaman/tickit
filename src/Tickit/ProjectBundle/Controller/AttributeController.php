@@ -47,7 +47,7 @@ class AttributeController extends AbstractCoreController
         $responseData = ['success' => false];
         $formType = $this->get('tickit_project.attribute_form_type_guesser')->guessByAttributeType($type);
         $form = $this->createForm($formType, $attribute);
-        $form->submit($this->getRequest());
+        $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
             $this->get('tickit_project.attribute_manager')->create($form->getData());
             $responseData['success'] = true;
@@ -78,7 +78,7 @@ class AttributeController extends AbstractCoreController
                          ->guessByAttributeType($attribute->getType());
 
         $form = $this->createForm($formType, $attribute);
-        $form->submit($this->getRequest());
+        $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
             $this->get('tickit_project.attribute_manager')->update($attribute);
             $responseData['success'] = true;

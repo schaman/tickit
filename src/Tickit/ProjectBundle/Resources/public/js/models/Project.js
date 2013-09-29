@@ -19,7 +19,7 @@ define(function() {
          * Gets the delete URL for this project
          */
         getDeleteUrl : function() {
-            // TODO: need to load CSRF
+            return Routing.generate('project_delete', { "id": this.get('id'), "token": this.get('csrf_token') });
         },
 
         /**
