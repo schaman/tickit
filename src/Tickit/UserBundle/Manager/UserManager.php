@@ -79,12 +79,6 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function create($entity, $flush = true)
     {
-        /** @var User $entity */
-        $roles = $entity->getRoles();
-        if (empty($roles)) {
-            $entity->addRole(User::ROLE_DEFAULT);
-        }
-
         $this->fosManager->updateCanonicalFields($entity);
         $this->fosManager->updatePassword($entity);
 
