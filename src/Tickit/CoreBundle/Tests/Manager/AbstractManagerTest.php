@@ -232,25 +232,25 @@ class AbstractManagerTest extends AbstractUnitTest
     {
         $entity = new \stdClass();
 
-       $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
 
-       $this->dispatcher->expects($this->once())
-                        ->method('dispatchBeforeDeleteEvent')
-                        ->with($entity)
-                        ->will($this->returnValue($event));
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatchBeforeDeleteEvent')
+                         ->with($entity)
+                         ->will($this->returnValue($event));
 
-       $this->em->expects($this->once())
-                ->method('remove')
-                ->with($entity);
+        $this->em->expects($this->once())
+                 ->method('remove')
+                 ->with($entity);
 
-       $this->em->expects($this->once())
-                ->method('flush');
+        $this->em->expects($this->once())
+                 ->method('flush');
 
-       $this->dispatcher->expects($this->once())
-                        ->method('dispatchDeleteEvent')
-                        ->with($entity);
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatchDeleteEvent')
+                         ->with($entity);
 
-       $this->getManager()->delete($entity);
+        $this->getManager()->delete($entity);
     }
 
     /**
