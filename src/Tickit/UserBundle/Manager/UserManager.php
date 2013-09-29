@@ -214,7 +214,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function findUserByConfirmationToken($token)
     {
-        return $this->findUserByConfirmationToken($token);
+        return $this->fosManager->findUserByConfirmationToken($token);
     }
 
     /**
