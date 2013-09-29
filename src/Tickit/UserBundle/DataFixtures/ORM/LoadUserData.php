@@ -40,7 +40,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin2->setUsername('mark');
         $admin2->setPlainPassword('password');
         $admin2->setSuperAdmin(true);
-        $admin2->setEmail('mw870618@gmail.com');
+        $admin2->setEmail('mark@89allport.co.uk');
         $admin2->setForename('Mark');
         $admin2->setSurname('Wilson');
         $admin2->setEnabled(true);
