@@ -203,9 +203,9 @@ class UserManagerTest extends AbstractUnitTest
     }
 
     /**
-     * Tests the delete() method
+     * Tests the deleteUser() method
      */
-    public function testDeleteRemovesUsers()
+    public function testDeleteUserRemovesUsers()
     {
         $user = new User();
 
@@ -213,7 +213,7 @@ class UserManagerTest extends AbstractUnitTest
                          ->method('deleteUser')
                          ->with($user);
 
-        $this->getUserManager()->delete($user);
+        $this->getUserManager()->deleteUser($user);
     }
 
     /**
