@@ -62,6 +62,20 @@ class ChoiceAttributeChoice
     }
 
     /**
+     * Sets the unique identifier
+     *
+     * @param integer $id The identifier
+     *
+     * @return ChoiceAttributeChoice
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the attribute that this choice belongs to
      *
      * @param ChoiceAttribute $attribute The attribute
