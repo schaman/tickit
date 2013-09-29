@@ -89,14 +89,12 @@ class AttributeManagerTest extends AbstractUnitTest
 
         $attribute = new ChoiceAttribute();
         $choices = array(new ChoiceAttributeChoice(), new ChoiceAttributeChoice());
-        $existingChoices = array(new ChoiceAttributeChoice(), new ChoiceAttributeChoice());
         $attribute->setChoices(new ArrayCollection($choices));
 
-        // it should remove the existing choices, ther are 2 of them
-        $entityManager->expects($this->exactly(2))
+        $entityManager->expects($this->never())
                       ->method('remove');
 
-        // it should persist both the choices and the attribute itself
+        // it should persist both of the new choices and the attribute itself
         $entityManager->expects($this->exactly(3))
                       ->method('persist');
 
@@ -105,7 +103,8 @@ class AttributeManagerTest extends AbstractUnitTest
 
         $choiceRepo->expects($this->once())
                    ->method('findBy')
-                   ->will($this->returnValue($existingChoices));
+                   ->with(array('attribute' => $attribute))
+                   ->will($this->returnValue(array()));
 
         $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $manager->create($attribute);
@@ -155,6 +154,46 @@ class AttributeManagerTest extends AbstractUnitTest
         $this->assertInstanceOf('\Doctrine\Common\Collections\Collection', $collection);
         $items = $collection->toArray();
         $this->assertContainsOnlyInstancesOf('Tickit\ProjectBundle\Entity\AbstractAttributeValue', $items);
+    }
+
+    /**
+     * Tests the update() method
+     *
+     * We only test the update() for choice attributes, because their logic varies between
+     * create and update.
+     */
+    public function testUpdatePersistsChoiceAttributeToEntityManager()
+    {
+        $entityManager = $this->getMockEntityManager();
+        $attributeRepo = $this->getMockAttributeRepository();
+        $choiceRepo = $this->getMockChoiceAttributeChoiceRepository();
+
+        $existingAttribute = new ChoiceAttribute();
+        $existingAttribute->setId(1);
+        $choices = array(new ChoiceAttributeChoice(), new ChoiceAttributeChoice());
+        $existingAttribute->setChoices(new ArrayCollection($choices));
+
+        // choices that already exist in the repository
+        $existingChoices = array(new ChoiceAttributeChoice(), new ChoiceAttributeChoice());
+
+        // it should remove the existing choices, there are 2 of them
+        $entityManager->expects($this->exactly(2))
+                      ->method('remove');
+
+        // it should persist both the choices and the attribute itself
+        $entityManager->expects($this->exactly(2))
+                      ->method('persist');
+
+        $entityManager->expects($this->exactly(1))
+                      ->method('flush');
+
+        $choiceRepo->expects($this->once())
+                   ->method('findBy')
+                   ->with(array('attribute' => $existingAttribute))
+                   ->will($this->returnValue($existingChoices));
+
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager->update($existingAttribute);
     }
 
     /**
