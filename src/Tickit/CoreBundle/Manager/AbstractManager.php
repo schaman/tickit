@@ -95,7 +95,6 @@ abstract class AbstractManager
 
         // a subscriber may have updated the entity so we re-fetch it from the event
         $entity = $beforeEvent->getEntity();
-        $this->em->persist($entity);
 
         if (false !== $flush) {
             $this->em->flush();
