@@ -42,7 +42,7 @@ class ChoiceAttributeTest extends \PHPUnit_Framework_TestCase
         $choice2->setName('name2')
                 ->setId(2);
 
-        $choices = new ArrayCollection($choice1, $choice2);
+        $choices = new ArrayCollection(array($choice1, $choice2));
 
         $this->attribute->setChoices($choices);
 

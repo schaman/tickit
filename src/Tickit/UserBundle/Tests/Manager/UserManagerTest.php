@@ -189,10 +189,6 @@ class UserManagerTest extends AbstractUnitTest
                          ->will($this->returnValue(new BeforeUpdateEvent($user)));
 
         $this->em->expects($this->once())
-                 ->method('persist')
-                 ->with($user);
-
-        $this->em->expects($this->once())
                  ->method('flush');
 
         $this->dispatcher->expects($this->once())
