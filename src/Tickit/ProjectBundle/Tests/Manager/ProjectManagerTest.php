@@ -5,10 +5,8 @@ namespace Tickit\ProjectBundle\Tests\Manager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 use Tickit\ProjectBundle\Event\BeforeCreateEvent;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
