@@ -93,7 +93,7 @@ abstract class AbstractManager
             return null;
         }
 
-        // a subscriber may have updated the project so we re-fetch it from the event
+        // a subscriber may have updated the entity so we re-fetch it from the event
         $entity = $beforeEvent->getEntity();
         $this->em->persist($entity);
 
