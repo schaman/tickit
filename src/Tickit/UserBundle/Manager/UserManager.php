@@ -118,20 +118,6 @@ class UserManager extends AbstractManager implements UserManagerInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param object $entity The entity in its current state
-     *
-     * @return User
-     */
-    protected function fetchEntityInOriginalState($entity)
-    {
-        $user = $this->getRepository()->find($entity->getId());
-
-        return $user;
-    }
-
-    /**
      * Creates an empty user instance.
      *
      * @return UserInterface
@@ -299,5 +285,19 @@ class UserManager extends AbstractManager implements UserManagerInterface
         } catch (NoResultException $e) {
             return null;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param object $entity The entity in its current state
+     *
+     * @return User
+     */
+    protected function fetchEntityInOriginalState($entity)
+    {
+        $user = $this->getRepository()->find($entity->getId());
+
+        return $user;
     }
 }
