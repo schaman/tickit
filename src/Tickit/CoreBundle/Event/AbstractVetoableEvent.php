@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
  * @package Tickit\CoreBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AbstractVetoableEvent extends Event
+abstract class AbstractVetoableEvent extends Event
 {
     /**
      * Boolean value indicating if this event has been vetoed
