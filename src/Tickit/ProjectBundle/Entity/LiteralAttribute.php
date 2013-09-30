@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LiteralAttribute extends AbstractAttribute
 {
+    const VALIDATION_STRING = 'string';
     const VALIDATION_EMAIL = 'email';
     const VALIDATION_NUMBER = 'number';
     const VALIDATION_URL = 'url';
@@ -92,6 +93,7 @@ class LiteralAttribute extends AbstractAttribute
     public static function getValidationTypes()
     {
         $types = array(
+            static::VALIDATION_STRING => 'String',
             static::VALIDATION_EMAIL => 'Email',
             static::VALIDATION_NUMBER => 'Number',
             static::VALIDATION_URL => 'Web Address',

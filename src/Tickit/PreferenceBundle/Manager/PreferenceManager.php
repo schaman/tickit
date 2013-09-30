@@ -2,7 +2,6 @@
 
 namespace Tickit\PreferenceBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**
@@ -16,20 +15,20 @@ use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
 class PreferenceManager
 {
     /**
-     * The doctrine registry
+     * The preference repository
      *
-     * @var Registry
+     * @var PreferenceRepository
      */
-    protected $doctrine;
+    protected $preferenceRepository;
 
     /**
      * Constructor
      *
-     * @param Registry $doctrine The doctrine registry
+     * @param PreferenceRepository $preferenceRepository The preference repository
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(PreferenceRepository $preferenceRepository)
     {
-        $this->doctrine = $doctrine;
+        $this->preferenceRepository = $preferenceRepository;
     }
 
     /**
@@ -39,6 +38,6 @@ class PreferenceManager
      */
     public function getRepository()
     {
-        return $this->doctrine->getRepository('TickitPreferenceBundle:Preference');
+        return $this->preferenceRepository;
     }
 }

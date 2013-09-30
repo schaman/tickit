@@ -2,10 +2,14 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 
 /**
  * Project Manager
@@ -19,6 +23,27 @@ use Tickit\ProjectBundle\Entity\Project;
 class ProjectManager extends AbstractManager
 {
     /**
+     * The project repo
+     *
+     * @var ProjectRepository
+     */
+    protected $projectRepository;
+
+    /**
+     * Constructor.
+     *
+     * @param ProjectRepository             $projectRepository The project repo
+     * @param EntityManagerInterface        $em                An entity manager
+     * @param AbstractEntityEventDispatcher $dispatcher        An event dispatcher
+     */
+    public function __construct(ProjectRepository $projectRepository, EntityManagerInterface $em, AbstractEntityEventDispatcher $dispatcher)
+    {
+        $this->projectRepository = $projectRepository;
+
+        parent::__construct($em, $dispatcher);
+    }
+
+    /**
      * Returns the original Project from the entity manager.
      *
      * This method takes an entity and returns a copy in its original state
@@ -31,7 +56,7 @@ class ProjectManager extends AbstractManager
      */
     protected function fetchEntityInOriginalState($entity)
     {
-        $project = $this->em->find('\Tickit\ProjectBundle\Entity\Project', $entity->getId());
+        $project = $this->projectRepository->find($entity->getId());
 
         return $project;
     }
@@ -45,9 +70,7 @@ class ProjectManager extends AbstractManager
      */
     public function getRepository()
     {
-        $repository = $this->em->getRepository('TickitProjectBundle:Project');
-
-        return $repository;
+        return $this->projectRepository;
     }
 
     /**
