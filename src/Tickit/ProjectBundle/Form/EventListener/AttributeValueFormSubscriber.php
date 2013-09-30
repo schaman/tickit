@@ -142,7 +142,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
             array(
                 'class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice',
                 'query_builder' => function (ChoiceAttributeChoiceRepository $repo) use ($attribute) {
-                    return $repo->getFindAllForAttributeQuery($attribute);
+                    return $repo->getFindAllForAttributeQueryBuilder($attribute);
                 },
                 'expanded' => $attribute->getExpanded(),
                 'multiple' => $attribute->getAllowMultiple(),
