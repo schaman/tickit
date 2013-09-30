@@ -21,30 +21,6 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
     const COLUMN_USERNAME = 'username';
 
     /**
-     * Returns a collection of users that match the given criteria
-     *
-     * @param array $filters An array of filters used to filter the result
-     *
-     * @return mixed
-     */
-    public function findUsers(array $filters = array())
-    {
-        $usersQ = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('u')
-                      ->from('TickitUserBundle:User', 'u');
-
-        foreach ($filters as $column => $value) {
-            if (is_string($value)) {
-                $usersQ->where(sprintf('%s LIKE :%s', $column, $column));
-                $usersQ->setParameter($column, $value);
-            }
-        }
-
-        return $usersQ->getQuery()->execute();
-    }
-
-    /**
      * Finds a user by username or email
      *
      * @param string $search The column value to search for
