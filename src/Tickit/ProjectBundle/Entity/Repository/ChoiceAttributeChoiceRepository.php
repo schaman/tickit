@@ -30,7 +30,7 @@ class ChoiceAttributeChoiceRepository extends EntityRepository
                       ->select('c')
                       ->from('TickitProjectBundle:ChoiceAttributeChoice', 'c')
                       ->where('c.attribute = :attribute')
-                      ->setParameter('attribute', $attribute);
+                      ->setParameter('attribute', $attribute->getId());
 
         return $query;
     }
