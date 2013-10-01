@@ -55,7 +55,8 @@ class PreferenceRepositoryTest extends AbstractOrmTest
         $this->assertNotEmpty($where);
         $this->assertNotEmpty($where->getParts());
 
-        $whereClause = array_shift($where->getParts());
+        $whereParts = $where->getParts();
+        $whereClause = array_shift($whereParts);
         $this->assertEquals('p.id NOT IN', $whereClause->getName());
         $this->assertEquals($exclusions, $whereClause->getArguments());
     }

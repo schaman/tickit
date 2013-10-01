@@ -88,7 +88,8 @@ class AttributeRepositoryTest extends AbstractOrmTest
 
         $this->assertInstanceOf('Doctrine\ORM\Query\Expr\Andx', $where);
         /** @var \Doctrine\ORM\Query\Expr\Andx $where */
-        $part = array_shift($where->getParts());
+        $whereParts = $where->getParts();
+        $part = array_shift($whereParts);
 
         $pattern = '/a INSTANCE OF TickitProjectBundle:LiteralAttribute OR\s*a INSTANCE OF TickitProjectBundle:EntityAttribute/';
         $this->assertRegExp($pattern, $part);
