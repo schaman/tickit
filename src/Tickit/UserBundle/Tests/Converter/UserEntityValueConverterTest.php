@@ -2,7 +2,6 @@
 
 namespace Tickit\UserBundle\Tests\Converter;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\UserBundle\Converter\UserEntityValueConverter;
 use Tickit\UserBundle\Entity\User;
 
