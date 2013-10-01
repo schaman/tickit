@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
 use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
@@ -25,14 +26,26 @@ class AttributeRepository extends EntityRepository implements FilterableReposito
      */
     public function findByFilters(FilterCollection $filters)
     {
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('a')
-                      ->from('TickitProjectBundle:AbstractAttribute', 'a');
+        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+    }
 
-        $filters->applyToQuery($query);
+    /**
+     * Gets the query builder for finding a filtered set of Projects
+     *
+     * @param FilterCollection $filters The filter collection
+     *
+     * @return QueryBuilder
+     */
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('a')
+                             ->from('TickitProjectBundle:AbstractAttribute', 'a');
 
-        return $query->getQuery()->execute();
+        $filters->applyToQuery($queryBuilder);
+
+        return $queryBuilder;
     }
 
     /**
