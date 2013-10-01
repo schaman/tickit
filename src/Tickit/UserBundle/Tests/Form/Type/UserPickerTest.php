@@ -117,4 +117,47 @@ class UserPickerTest extends AbstractFormTypeTestCase
         $this->assertArrayHasKey('display_names', $formView);
         $this->assertEquals($user1->getFullName() . ',' . $user2->getFullName(), $formView->display_names);
     }
+
+    /**
+     * Tests invalid user data returns correct display names - none
+     */
+    public function testInvalidUserData()
+    {
+        $form = $this->factory->create($this->formType);
+
+        $user = new User();
+        $user->setForename('Mark')
+            ->setSurname('Wilson')
+            ->setEmail('mark@89allport.co.uk')
+            ->setPlainPassword('password');
+
+        $this->userManager->expects($this->once())
+            ->method('find')
+            ->with(123)
+            ->will($this->returnValue(null));
+
+        $formData = array(
+            'user_ids' => array(
+                123
+            )
+        );
+
+        $form->setData($formData);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($formData, $form->getData());
+
+        $formView = $form->createView();
+
+        $this->assertArrayHasKey('display_names', $formView);
+        $this->assertEquals('', $formView->display_names);
+    }
+
+    /**
+     * Tests form data of an invalid user based on the restrictions returns the correct display names - none
+     */
+    public function testInvalidUserSubmissionWithFormRestriction()
+    {
+        $this->markTestIncomplete('Not yet implemented restrictions');
+    }
 }

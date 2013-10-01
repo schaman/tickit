@@ -2,6 +2,7 @@
 
 namespace Tickit\UserBundle\Form\Type;
 
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -120,10 +121,16 @@ class UserPickerType extends AbstractType
 
         $value = array_map(
             function ($userId) use ($userEntityValueConverter) {
-                return $userEntityValueConverter->convertUserIdToDisplayName($userId);
+                try {
+                    return $userEntityValueConverter->convertUserIdToDisplayName($userId);
+                } catch (EntityNotFoundException $e) {
+                    return false;
+                }
             },
             $value
         );
+
+        $value = array_filter($value);
 
         $value               = implode(',', $value);
         $view->display_names = $value;
