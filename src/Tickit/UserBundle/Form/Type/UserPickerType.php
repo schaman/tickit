@@ -3,10 +3,12 @@
 namespace Tickit\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\UserBundle\Form\EventListener\UserPickerTypeSubscriber;
 use Tickit\UserBundle\Manager\UserManager;
 
 /**
@@ -15,7 +17,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * @package Tickit\UserBundle\Form\Type
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class PickerType extends AbstractType
+class UserPickerType extends AbstractType
 {
     // TODO: add role restriction
     const NO_RESTRICTION = 'none';
@@ -71,6 +73,8 @@ class PickerType extends AbstractType
                 'attr' => $attributes
             )
         );
+
+//        $builder->get('user_ids')->addEventSubscriber(new UserPickerTypeSubscriber());
     }
 
     /**
@@ -103,7 +107,15 @@ class PickerType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['picker_restriction'] = $options['picker_restriction'];
+        /** @var Form $element */
+        $element        = $form->get('user_ids');
+        $value          = $element->getData();
+        $elementOptions = $element->getConfig()->getOptions();
+
+        // how do I add these attr back to the element itself?
+        $displayNames = implode(',', array($value));
+
+        $view->display_names = $displayNames;
     }
 
     /**
