@@ -31,6 +31,7 @@ class UserEntityValueConverterTest extends \PHPUnit_Framework_TestCase
 
         $userManager->expects($this->once())
                     ->method('find')
+                    ->with(123)
                     ->will($this->returnValue($user));
 
         $converter = new UserEntityValueConverter($userManager);
