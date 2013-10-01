@@ -73,8 +73,6 @@ class UserPickerType extends AbstractType
                 'attr' => $attributes
             )
         );
-
-//        $builder->get('user_ids')->addEventSubscriber(new UserPickerTypeSubscriber());
     }
 
     /**
