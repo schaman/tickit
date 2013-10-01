@@ -3,6 +3,7 @@
 namespace Tickit\PreferenceBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
 use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
@@ -25,16 +26,28 @@ class PreferenceRepository extends EntityRepository implements FilterableReposit
      */
     public function findAllWithExclusionsIndexedBySystemName(array $exclusions = array())
     {
-        $qb = $this->getEntityManager()->createQueryBuilder();
+        return $this->getFindAllWithExclusionsIndexedBySystemNameQueryBuilder($exclusions)->getQuery()->execute();
+    }
 
-        $query = $qb->select('p')
-                    ->from('TickitPreferenceBundle:Preference', 'p', 'p.systemName');
+    /**
+     * Gets a query builder that finds all preferences and returns them by system name.
+     *
+     * @param array $exclusions An array of excluded preference IDs not to include in the result (optional)
+     *
+     * @return QueryBuilder
+     */
+    public function getFindAllWithExclusionsIndexedBySystemNameQueryBuilder(array $exclusions = array())
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+        $queryBuilder = $queryBuilder->select('p')
+                                     ->from('TickitPreferenceBundle:Preference', 'p', 'p.systemName');
 
         if (!empty($exclusions)) {
-            $query->where($qb->expr()->notIn('p.id', $exclusions));
+            $queryBuilder->where($queryBuilder->expr()->notIn('p.id', $exclusions));
         }
 
-        return $query->getQuery()->execute();
+        return $queryBuilder;
     }
 
     /**
@@ -46,13 +59,25 @@ class PreferenceRepository extends EntityRepository implements FilterableReposit
      */
     public function findByFilters(FilterCollection $filters)
     {
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPreferenceBundle:Preference', 'p');
+        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+    }
 
-        $filters->applyToQuery($query);
+    /**
+     * Gets a query builder that returns a filtered set of preferences
+     *
+     * @param FilterCollection $filters The filter collection
+     *
+     * @return QueryBuilder
+     */
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('p')
+                             ->from('TickitPreferenceBundle:Preference', 'p');
 
-        return $query->getQuery()->execute();
+        $filters->applyToQuery($queryBuilder);
+
+        return $queryBuilder;
     }
 }
