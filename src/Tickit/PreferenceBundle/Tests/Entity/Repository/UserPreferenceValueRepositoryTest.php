@@ -41,11 +41,27 @@ class UserPreferenceValueRepositoryTest extends AbstractOrmTest
      */
     public function testGetFindAllForUserQueryBuilderBuildsQuery()
     {
-        $this->markTestIncomplete('Needs finishing');
-
         $user = new User();
         $user->setId(1);
 
         $builder = $this->repo->getFindAllForUserQueryBuilder($user);
+
+        $from = $builder->getDQLPart('from');
+        $this->assertNotEmpty($from);
+        $this->assertEquals('TickitPreferenceBundle:UserPreferenceValue', $from[0]->getFrom());
+
+        $joins = $builder->getDQLPart('join');
+        $join = array_shift($joins['upv']);
+        $this->assertEquals('INNER', $join->getJoinType());
+        $this->assertEquals('upv.preference', $join->getJoin());
+
+        $where = $builder->getDQLPart('where');
+        $whereParts = $where->getParts();
+
+        $this->assertCount(1, $whereParts);
+        $expression = array_shift($whereParts);
+        $this->assertEquals('upv.user = :user_id', $expression);
+
+        $this->assertEquals(1, $builder->getParameter('user_id')->getValue());
     }
 }
