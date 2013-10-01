@@ -75,13 +75,25 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
      */
     public function findByFilters(FilterCollection $filters)
     {
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('u')
-                      ->from('TickitUserBundle:User', 'u');
+        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+    }
 
-        $filters->applyToQuery($query);
+    /**
+     * Gets a query builder that finds a filtered collection of users
+     *
+     * @param FilterCollection $filters The filter collection
+     *
+     * @return QueryBuilder
+     */
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('u')
+                             ->from('TickitUserBundle:User', 'u');
 
-        return $query->getQuery()->execute();
+        $filters->applyToQuery($queryBuilder);
+
+        return $queryBuilder;
     }
 }
