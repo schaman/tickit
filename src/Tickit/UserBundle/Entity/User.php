@@ -96,11 +96,25 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Gets the ID for this user
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the ID for this user
+     *
+     * @param integer $id The new user ID
+     *
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

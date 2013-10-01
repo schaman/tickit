@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * @package Tickit\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ChoiceAttributeChoiceType extends AbstractType
+class ChoiceAttributeChoiceFormType extends AbstractType
 {
     /**
      * Builds the form.

@@ -25,8 +25,19 @@ class ProfileFormType extends BaseType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('forename');
-        $builder->add('surname');
+        $builder->add('forename')
+                ->add('surname')
+                ->add(
+                    'password',
+                    'repeated',
+                    array(
+                        'type' => 'password',
+                        'required' => false,
+                        'first_options' => array('label' => 'New Password'),
+                        'second_options' => array('label' => 'Confirm New Password'),
+                        'invalid_message' => 'Oops! Looks like those passwords don\'t match'
+                    )
+                );
     }
 
     /**

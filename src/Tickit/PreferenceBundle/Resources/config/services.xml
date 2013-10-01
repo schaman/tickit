@@ -11,10 +11,6 @@
             <argument type="service" id="doctrine" />
         </service>
 
-        <service id="tickit_preference.manager" class="Tickit\PreferenceBundle\Manager\PreferenceManager">
-            <argument type="service" id="doctrine" />
-        </service>
-
     </services>
 
 </container>

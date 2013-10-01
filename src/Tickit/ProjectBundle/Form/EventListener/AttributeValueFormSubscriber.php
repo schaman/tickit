@@ -2,9 +2,7 @@
 
 namespace Tickit\ProjectBundle\Form\EventListener;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,23 +26,6 @@ use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
  */
 class AttributeValueFormSubscriber implements EventSubscriberInterface
 {
-    /**
-     * The entity manager
-     *
-     * @var ObjectManager
-     */
-    protected $em;
-
-    /**
-     * Constructor.
-     *
-     * @param Registry $doctrine The doctrine registry service
-     */
-    public function __construct(Registry $doctrine)
-    {
-        $this->em = $doctrine->getManager();
-    }
-
     /**
      * Gets subscribed events
      *
@@ -125,6 +106,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
                 $fieldType = 'text';
                 break;
             default:
+                $assert->add(new Assert\Type(array('type' => 'string')));
                 $fieldType = 'text';
         }
 

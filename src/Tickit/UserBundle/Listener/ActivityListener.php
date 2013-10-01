@@ -2,24 +2,23 @@
 
 namespace Tickit\UserBundle\Listener;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Security\Core\SecurityContext;
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use DateTime;
 use Tickit\UserBundle\Entity\User;
 
 /**
- * Activity listener.
+ * Activity Listener.
  *
  * Listens for controller requests and updates the current user's activity (if a user is logged in)
  *
  * @package Tickit\UserBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Activity
+class ActivityListener
 {
     /**
      * The security context
@@ -31,20 +30,20 @@ class Activity
     /**
      * The entity manager
      *
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     protected $manager;
 
     /**
      * Class constructor
      *
-     * @param SecurityContext $context  The application SecurityContext instance
-     * @param Registry        $doctrine The doctrine registry
+     * @param SecurityContext        $context The application SecurityContext instance
+     * @param EntityManagerInterface $manager The doctrine registry
      */
-    public function __construct(SecurityContext $context, Registry $doctrine)
+    public function __construct(SecurityContext $context, EntityManagerInterface $manager)
     {
         $this->context = $context;
-        $this->manager = $doctrine->getManager();
+        $this->manager = $manager;
     }
 
     /**
@@ -67,9 +66,7 @@ class Activity
             if ($user instanceof User) {
                 $user->setLastActivity(new DateTime());
                 $this->manager->persist($user);
-                $this->manager->flush($user);
-
-                //todo: update the user's session here
+                $this->manager->flush();
             }
         }
     }

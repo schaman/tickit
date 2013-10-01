@@ -77,6 +77,20 @@ abstract class AbstractAttribute implements AttributeInterface
     }
 
     /**
+     * Sets the attribute ID
+     *
+     * @param integer $id The new ID
+     *
+     * @return AbstractAttribute
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the name of this attribute
      *
      * @param string $name

@@ -23,8 +23,21 @@ class RegistrationFormType extends BaseType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('forename');
-        $builder->add('surname');
+        $builder->add('forename', 'text')
+                ->add('surname', 'text')
+                ->add('username', 'text')
+                ->add('email', 'email')
+                ->add(
+                    'password',
+                    'repeated',
+                    array(
+                        'type' => 'password',
+                        'required' => false,
+                        'first_options' => array('label' => 'Password'),
+                        'second_options' => array('label' => 'Confirm Password'),
+                        'invalid_message' => 'Oops! Looks like those passwords don\'t match'
+                    )
+                );
     }
 
     /**
