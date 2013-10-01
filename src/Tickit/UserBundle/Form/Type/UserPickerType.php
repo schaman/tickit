@@ -8,8 +8,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\UserBundle\Converter\UserEntityValueConverter;
+use Tickit\UserBundle\Decorator\UserEntityDisplayNameDecorator;
 use Tickit\UserBundle\Form\EventListener\UserPickerTypeSubscriber;
 use Tickit\UserBundle\Manager\UserManager;
+use Tickit\UserBundle\Tests\Converter\UserEntityValueConverterTest;
 
 /**
  * User picker custom form field type
@@ -106,14 +109,24 @@ class UserPickerType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         /** @var Form $element */
-        $element        = $form->get('user_ids');
-        $value          = $element->getData();
-        $elementOptions = $element->getConfig()->getOptions();
+        $element = $form->get('user_ids');
+        $value   = $element->getData();
 
-        // how do I add these attr back to the element itself?
-        $displayNames = implode(',', array($value));
+        if (!is_array($value)) {
+            $value = explode(',', $value);
+        }
 
-        $view->display_names = $displayNames;
+        $userEntityValueConverter = new UserEntityValueConverter($this->userManager);
+
+        $value = array_map(
+            function ($userId) use ($userEntityValueConverter) {
+                return $userEntityValueConverter->convertUserIdToDisplayName($userId);
+            },
+            $value
+        );
+
+        $value               = implode(',', $value);
+        $view->display_names = $value;
     }
 
     /**

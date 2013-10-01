@@ -2,9 +2,7 @@
 
 namespace Tickit\UserBundle\Tests\Form\Type;
 
-use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\Form\Test\TypeTestCase;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Type\UserPickerType;
 
@@ -14,7 +12,7 @@ use Tickit\UserBundle\Form\Type\UserPickerType;
  * @package Tickit\UserBundle\Tests\Form\Type
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class UserPickerTest extends TypeTestCase
+class UserPickerTest extends AbstractFormTypeTestCase
 {
     // TODO: remove this when moving to extend AbstractFormTypeTestCase
     protected $formType;
@@ -44,19 +42,79 @@ class UserPickerTest extends TypeTestCase
         $this->formType = new UserPickerType($this->userManager);
     }
 
-    public function testNoRestrictionFormFieldOutput()
+    /**
+     * Tests form data of single user Id resolves to correct display name
+     */
+    public function testSingleUserSubmission()
     {
         $form = $this->factory->create($this->formType);
 
         $user = new User();
         $user->setForename('Mark')
-             ->setSurname('Wilson')
-             ->setEmail('mark@89allport.co.uk')
-             ->setPlainPassword('password');
+            ->setSurname('Wilson')
+            ->setEmail('mark@89allport.co.uk')
+            ->setPlainPassword('password');
 
-//        $this->userManager->expects($this->once())
-//             ->method('')
+        $this->userManager->expects($this->once())
+            ->method('find')
+            ->with(123)
+            ->will($this->returnValue($user));
 
-        $this->markTestIncomplete();
+        $formData = array(
+            'user_ids' => array(
+                123
+            )
+        );
+
+        $form->setData($formData);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($formData, $form->getData());
+
+        $formView = $form->createView();
+
+        $this->assertArrayHasKey('display_names', $formView);
+        $this->assertEquals($user->getFullName(), $formView->display_names);
+    }
+
+    /**
+     * Tests form data of 2 user Ids resolves to correct display names
+     */
+    public function testDoubleUserSubmission()
+    {
+        $form = $this->factory->create($this->formType);
+
+        $user1 = new User();
+        $user1->setForename('Mark')
+            ->setSurname('Wilson')
+            ->setEmail('mark@89allport.co.uk')
+            ->setPlainPassword('password');
+
+        $user2 = new User();
+        $user2->setForename('Joe')
+            ->setSurname('Bloggs')
+            ->setEmail('joe.bloggs@example.com')
+            ->setPlainPassword('password');
+
+        $this->userManager->expects($this->exactly(2))
+            ->method('find')
+            ->will($this->onConsecutiveCalls($user1, $user2));
+
+        $formData = array(
+            'user_ids' => array(
+                123,
+                456
+            )
+        );
+
+        $form->setData($formData);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($formData, $form->getData());
+
+        $formView = $form->createView();
+
+        $this->assertArrayHasKey('display_names', $formView);
+        $this->assertEquals($user1->getFullName() . ',' . $user2->getFullName(), $formView->display_names);
     }
 }
