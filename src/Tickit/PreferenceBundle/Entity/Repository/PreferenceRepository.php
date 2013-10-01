@@ -22,6 +22,8 @@ class PreferenceRepository extends EntityRepository implements FilterableReposit
      *
      * @param integer[] $exclusions An array of Preference ids to ignore
      *
+     * @codeCoverageIgnore
+     *
      * @return array
      */
     public function findAllWithExclusionsIndexedBySystemName(array $exclusions = array())
@@ -54,6 +56,8 @@ class PreferenceRepository extends EntityRepository implements FilterableReposit
      * Finds results based off a set of filters.
      *
      * @param FilterCollection $filters The filter collection
+     *
+     * @codeCoverageIgnore
      *
      * @return mixed
      */

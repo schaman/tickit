@@ -27,6 +27,8 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
      * @param string $search The column value to search for
      * @param string $column The column to search on
      *
+     * @codeCoverageIgnore
+     *
      * @return mixed
      */
     public function findByUsernameOrEmail($search, $column)
@@ -70,6 +72,8 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
      * Finds results based off a set of filters.
      *
      * @param FilterCollection $filters The filter collection
+     *
+     * @codeCoverageIgnore
      *
      * @return mixed
      */

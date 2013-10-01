@@ -19,6 +19,8 @@ class UserPreferenceValueRepository extends EntityRepository
      *
      * @param User $user The user to find preferences for
      *
+     * @codeCoverageIgnore
+     *
      * @return mixed
      */
     public function findAllForUser(User $user)

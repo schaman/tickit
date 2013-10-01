@@ -21,6 +21,8 @@ class ProjectRepository extends EntityRepository implements FilterableRepository
      *
      * @param FilterCollection $filters The filter collection
      *
+     * @codeCoverageIgnore
+     *
      * @return mixed
      */
     public function findByFilters(FilterCollection $filters)

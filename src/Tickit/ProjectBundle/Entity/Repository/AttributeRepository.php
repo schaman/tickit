@@ -22,6 +22,8 @@ class AttributeRepository extends EntityRepository implements FilterableReposito
      *
      * @param FilterCollection $filters The filter collection
      *
+     * @codeCoverageIgnore
+     *
      * @return mixed
      */
     public function findByFilters(FilterCollection $filters)
@@ -52,6 +54,8 @@ class AttributeRepository extends EntityRepository implements FilterableReposito
      * Returns a deep collection of all project attributes
      *
      * This method includes all associated meta objects related to the attributes.
+     *
+     * @codeCoverageIgnore
      *
      * @return mixed
      */
