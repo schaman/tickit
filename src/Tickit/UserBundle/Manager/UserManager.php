@@ -275,7 +275,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function find($id)
     {
         try {
-            return $this->getRepository()->findById($id);
+            return $this->getRepository()->find($id);
         } catch (NoResultException $e) {
             return null;
         }
