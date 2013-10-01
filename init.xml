@@ -1,0 +1,40 @@
+<project name="Tickit" default="target-required" xmlns:sonar="antlib:org.sonar.ant">
+    <target name="target-required">
+        <fail message="You must specify a development environment" />
+    </target>
+
+    <target name="development">
+        <antcall target="composer.install" inheritAll="true" />
+        <antcall target="npm.install" inheritAll="true" />
+    </target>
+
+    <target name="composer.exists">
+        <available file="composer.phar" property="composer.phar.present" />
+    </target>
+
+    <target name="composer.download" depends="composer.exists" unless="composer.phar.present">
+        <get src="https://getcomposer.org/installer" dest="./" />
+        <exec executable="php">
+            <arg value="installer" />
+        </exec>
+        <delete file="installer" />
+    </target>
+
+    <target name="composer.install" depends="composer.download">
+        <exec executable="./composer.phar">
+            <arg value="install" />
+        </exec>
+    </target>
+
+    <target name="npm.exists">
+        <exec executable="which" resultproperty="npm.bin.exists">
+            <arg value="npm" />
+        </exec>
+    </target>
+
+    <target name="npm.install" depends="npm.exists" if="npm.bin.exists">
+        <exec executable="npm" dir="app/Resources">
+            <arg value="install" />
+        </exec>
+    </target>
+</project>
