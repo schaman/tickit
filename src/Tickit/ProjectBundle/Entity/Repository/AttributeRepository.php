@@ -57,25 +57,46 @@ class AttributeRepository extends EntityRepository implements FilterableReposito
      */
     public function findAllAttributes()
     {
-        $choicesQuery = $this->getEntityManager()
+        $choices = $this->getFindAllChoiceAttributesQueryBuilder()->getQuery()->execute();
+        $others = $this->getFindAllNonChoiceAttributesQueryBuilder()->getQuery()->execute();
+
+        return array_merge($others, $choices);
+    }
+
+    /**
+     * Gets a query builder that finds all choice type attributes.
+     *
+     * Also fetches the available choices for those attributes.
+     *
+     * @return QueryBuilder
+     */
+    public function getFindAllChoiceAttributesQueryBuilder()
+    {
+        $queryBuilder = $this->getEntityManager()
                              ->createQueryBuilder()
                              ->select('c, ch')
                              ->from('TickitProjectBundle:ChoiceAttribute', 'c')
                              ->leftJoin('c.choices', 'ch');
 
-        $choices = $choicesQuery->getQuery()->execute();
+        return $queryBuilder;
+    }
 
-        $othersQuery = $this->getEntityManager()
-                            ->createQueryBuilder()
-                            ->select('a')
-                            ->from('TickitProjectBundle:AbstractAttribute', 'a')
-                            ->where(
-                                'a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
+    /**
+     * Gets a query builder that fetches all non-choice type attributes
+     *
+     * @return QueryBuilder
+     */
+    public function getFindAllNonChoiceAttributesQueryBuilder()
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('a')
+                             ->from('TickitProjectBundle:AbstractAttribute', 'a')
+                             ->where(
+                                 'a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
                                  a INSTANCE OF TickitProjectBundle:EntityAttribute'
-                            );
+                             );
 
-        $others = $othersQuery->getQuery()->execute();
-
-        return array_merge($others, $choices);
+        return $queryBuilder;
     }
 }
