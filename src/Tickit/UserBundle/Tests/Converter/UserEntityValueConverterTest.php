@@ -3,6 +3,8 @@
 namespace Tickit\UserBundle\Tests\Converter;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\UserBundle\Converter\UserEntityValueConverter;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * User converter tests
@@ -10,7 +12,7 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  * @package Tickit\UserBundle\Tests\Converter
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class UserEntityValueConverterTest extends AbstractFunctionalTest
+class UserEntityValueConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests convertUserIdToDisplayName()
@@ -21,14 +23,20 @@ class UserEntityValueConverterTest extends AbstractFunctionalTest
      */
     public function testConverterDisplayNameOutput()
     {
-        $container = $this->createClient()->getContainer();
+        $userManager = $this->getMockBuilder('Tickit\UserBundle\Manager\UserManager')
+                            ->disableOriginalConstructor()
+                            ->getMock();
 
-        $converter = $container->get('tickit_user.user_converter');
+        $user = new User();
+        $user->setForename('Joe')->setSurname('Bloggs');
 
-        $user = $container->get('doctrine')->getRepository('TickitUserBundle:User')
-                                           ->findOneByEmail('developer@gettickit.com');
+        $userManager->expects($this->once())
+                    ->method('find')
+                    ->will($this->returnValue($user));
 
-        $displayName = $converter->convertUserIdToDisplayName($user->getId());
+        $converter = new UserEntityValueConverter($userManager);
+
+        $displayName = $converter->convertUserIdToDisplayName(123);
 
         $this->assertEquals($user->getFullName(), $displayName);
     }
