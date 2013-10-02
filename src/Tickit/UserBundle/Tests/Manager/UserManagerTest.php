@@ -378,7 +378,7 @@ class UserManagerTest extends AbstractUnitTest
     public function testFindReturnsNullWhenNoResultExceptionThrownByRepository()
     {
         $this->userRepo->expects($this->once())
-                       ->method('findById')
+                       ->method('find')
                        ->with(1)
                        ->will($this->throwException(new NoResultException()));
 
