@@ -3,7 +3,6 @@
 namespace Tickit\UserBundle\Tests\Event;
 
 use MyProject\Proxies\__CG__\OtherProject\Proxies\__CG__\stdClass;
-use Tickit\UserBundle\Entity\User;
 use Tickit\CoreBundle\Event\EntityEvent;
 
 /**
