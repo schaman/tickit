@@ -4,12 +4,8 @@ namespace Tickit\ProjectBundle\Event\Dispatcher;
 
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\ProjectBundle\Event\BeforeCreateEvent;
-use Tickit\ProjectBundle\Event\BeforeDeleteEvent;
-use Tickit\ProjectBundle\Event\BeforeUpdateEvent;
-use Tickit\ProjectBundle\Event\CreateEvent;
-use Tickit\ProjectBundle\Event\DeleteEvent;
-use Tickit\ProjectBundle\Event\UpdateEvent;
+use Tickit\CoreBundle\Event\EntityEvent;
+use Tickit\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\ProjectBundle\TickitProjectEvents;
 
 /**
@@ -33,7 +29,7 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeCreateEvent($entity)
     {
-        $beforeEvent = new BeforeCreateEvent($entity);
+        $beforeEvent = new EntityEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_CREATE, $beforeEvent);
 
         return $beforeEvent;
@@ -48,7 +44,7 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchCreateEvent($entity)
     {
-        $event = new CreateEvent($entity);
+        $event = new EntityEvent($entity);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_CREATE, $event);
     }
 
@@ -61,7 +57,7 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeUpdateEvent($entity)
     {
-        $beforeEvent = new BeforeUpdateEvent($entity);
+        $beforeEvent = new EntityEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_UPDATE, $beforeEvent);
 
         return $beforeEvent;
@@ -77,7 +73,7 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchUpdateEvent($entity, $originalEntity)
     {
-        $event = new UpdateEvent($entity, $originalEntity);
+        $event = new EntityModifiedEvent($entity, $originalEntity);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_UPDATE, $event);
     }
 
@@ -90,7 +86,7 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeDeleteEvent($entity)
     {
-        $beforeEvent = new BeforeDeleteEvent($entity);
+        $beforeEvent = new EntityEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_BEFORE_DELETE, $beforeEvent);
 
         return $beforeEvent;
@@ -105,7 +101,7 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchDeleteEvent($entity)
     {
-        $event = new DeleteEvent($entity);
+        $event = new EntityEvent($entity);
         $this->dispatcher->dispatch(TickitProjectEvents::PROJECT_DELETE, $event);
     }
 }

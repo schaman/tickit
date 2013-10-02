@@ -3,15 +3,11 @@
 namespace Tickit\UserBundle\Tests\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
+use Tickit\CoreBundle\Event\EntityEvent;
+use Tickit\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Event\BeforeCreateEvent;
-use Tickit\UserBundle\Event\BeforeDeleteEvent;
-use Tickit\UserBundle\Event\BeforeUpdateEvent;
-use Tickit\UserBundle\Event\CreateEvent;
-use Tickit\UserBundle\Event\DeleteEvent;
 use Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher;
-use Tickit\UserBundle\Event\UpdateEvent;
 use Tickit\UserBundle\TickitUserEvents;
 
 /**
@@ -28,7 +24,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
     public function testDispatchBeforeCreateEventDispatchesEvent()
     {
         $user = new User();
-        $event = new BeforeCreateEvent($user);
+        $event = new EntityEvent($user);
 
         $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_BEFORE_CREATE, $event);
 
@@ -44,7 +40,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
     public function testDispatchCreateEventDispatchesEvent()
     {
         $user = new User();
-        $event = new CreateEvent($user);
+        $event = new EntityEvent($user);
 
         $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_CREATE, $event);
 
@@ -58,7 +54,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
     public function testDispatchBeforeUpdateEventDispatchesEvent()
     {
         $user = new User();
-        $event = new BeforeUpdateEvent($user);
+        $event = new EntityEvent($user);
 
         $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_BEFORE_UPDATE, $event);
 
@@ -75,7 +71,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
     {
         $user = new User();
         $originalUser = new User();
-        $event = new UpdateEvent($user, $originalUser);
+        $event = new EntityModifiedEvent($user, $originalUser);
 
         $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_UPDATE, $event);
 
@@ -89,7 +85,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
     public function testDispatchBeforeDeleteEventDispatchesEvent()
     {
         $user = new User();
-        $event = new BeforeDeleteEvent($user);
+        $event = new EntityEvent($user);
 
         $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_BEFORE_DELETE, $event);
 
@@ -105,7 +101,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
     public function testDispatchDeleteEventDispatchesEvent()
     {
         $user = new User();
-        $event = new DeleteEvent($user);
+        $event = new EntityEvent($user);
 
         $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_DELETE, $event);
 

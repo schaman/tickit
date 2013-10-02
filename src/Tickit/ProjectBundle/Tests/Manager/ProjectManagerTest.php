@@ -3,11 +3,11 @@
 namespace Tickit\ProjectBundle\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Tickit\CoreBundle\Event\EntityEvent;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
 use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Event\BeforeCreateEvent;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
@@ -74,7 +74,7 @@ class ProjectManagerTest extends AbstractUnitTest
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeCreateEvent')
                          ->with($project)
-                         ->will($this->returnValue(new BeforeCreateEvent($project)));
+                         ->will($this->returnValue(new EntityEvent($project)));
 
         $this->em->expects($this->once())
                  ->method('persist')
@@ -100,7 +100,7 @@ class ProjectManagerTest extends AbstractUnitTest
         $project = new Project();
         $project->setAttributes(new ArrayCollection(array(new LiteralAttributeValue(), new ChoiceAttributeValue())));
 
-        $event = new BeforeCreateEvent($project);
+        $event = new EntityEvent($project);
         $event->veto();
 
         $this->dispatcher->expects($this->once())
