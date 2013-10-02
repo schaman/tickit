@@ -3,11 +3,10 @@
 namespace Tickit\UserBundle\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
+use Tickit\CoreBundle\Event\EntityEvent;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Event\BeforeCreateEvent;
-use Tickit\UserBundle\Event\BeforeUpdateEvent;
 use Tickit\UserBundle\Manager\UserManager;
 
 /**
@@ -101,7 +100,7 @@ class UserManagerTest extends AbstractUnitTest
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeCreateEvent')
                          ->with($user)
-                         ->will($this->returnValue(new BeforeCreateEvent($user)));
+                         ->will($this->returnValue(new EntityEvent($user)));
 
         $this->em->expects($this->once())
                  ->method('persist')
@@ -137,7 +136,7 @@ class UserManagerTest extends AbstractUnitTest
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeCreateEvent')
                          ->with($user)
-                         ->will($this->returnValue(new BeforeCreateEvent($user)));
+                         ->will($this->returnValue(new EntityEvent($user)));
 
         $this->em->expects($this->once())
                  ->method('persist')
@@ -186,7 +185,7 @@ class UserManagerTest extends AbstractUnitTest
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeUpdateEvent')
                          ->with($user)
-                         ->will($this->returnValue(new BeforeUpdateEvent($user)));
+                         ->will($this->returnValue(new EntityEvent($user)));
 
         $this->em->expects($this->once())
                  ->method('flush');
