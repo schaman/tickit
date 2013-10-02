@@ -1,8 +1,7 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Event;
+namespace Tickit\CoreBundle\Tests\Event;
 
-use MyProject\Proxies\__CG__\OtherProject\Proxies\__CG__\stdClass;
 use Tickit\CoreBundle\Event\EntityEvent;
 
 /**
@@ -16,7 +15,7 @@ class EntityEventTest extends \PHPUnit_Framework_TestCase
     /**
      * Dummy entity object
      *
-     * @var stdClass
+     * @var \stdClass
      */
     private $entity;
 
