@@ -430,6 +430,7 @@ protected $session;
 protected $locale;
 protected $defaultLocale ='en';
 protected static $formats;
+protected static $requestFactory;
 public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
 {
 $this->initialize($query, $request, $attributes, $cookies, $files, $server, $content);
@@ -457,7 +458,7 @@ $this->format = null;
 }
 public static function createFromGlobals()
 {
-$request = new static($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
+$request = self::createRequestFromFactory($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
 if (0 === strpos($request->headers->get('CONTENT_TYPE'),'application/x-www-form-urlencoded')
 && in_array(strtoupper($request->server->get('REQUEST_METHOD','GET')), array('PUT','DELETE','PATCH'))
 ) {
@@ -530,7 +531,11 @@ $queryString = http_build_query($query,'','&');
 }
 $server['REQUEST_URI'] = $components['path'].(''!== $queryString ?'?'.$queryString :'');
 $server['QUERY_STRING'] = $queryString;
-return new static($query, $request, array(), $cookies, $files, $server, $content);
+return self::createRequestFromFactory($query, $request, array(), $cookies, $files, $server, $content);
+}
+public static function setFactory($callable)
+{
+self::$requestFactory = $callable;
 }
 public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null)
 {
@@ -821,7 +826,7 @@ return''=== $qs ? null : $qs;
 public function isSecure()
 {
 if (self::$trustedProxies && self::$trustedHeaders[self::HEADER_CLIENT_PROTO] && $proto = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_PROTO])) {
-return in_array(strtolower($proto), array('https','on','1'));
+return in_array(strtolower(current(explode(',', $proto))), array('https','on','ssl','1'));
 }
 return'on'== strtolower($this->server->get('HTTPS')) || 1 == $this->server->get('HTTPS');
 }
@@ -1172,6 +1177,17 @@ if (preg_match("#^(%[[:xdigit:]]{2}|.){{$len}}#", $string, $match)) {
 return $match[0];
 }
 return false;
+}
+private static function createRequestFromFactory(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
+{
+if (self::$requestFactory) {
+$request = call_user_func(self::$requestFactory, $query, $request, $attributes, $cookies, $files, $server, $content);
+if (!$request instanceof Request) {
+throw new \LogicException('The Request factory must return an instance of Symfony\Component\HttpFoundation\Request.');
+}
+return $request;
+}
+return new static($query, $request, $attributes, $cookies, $files, $server, $content);
 }
 }
 }
