@@ -2,15 +2,13 @@
 
 namespace Tickit\CoreBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
-
 /**
  * Entity related event.
  *
  * @package Tickit\CoreBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EntityEvent extends Event
+class EntityEvent extends AbstractVetoableEvent
 {
     /**
      * The entity that is to be deleted
