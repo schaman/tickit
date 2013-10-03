@@ -9,13 +9,7 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets '../app/Resources/public/bootstrap/css/bootstrap.css'
-                       '../app/Resources/public/css/flat-ui.css'
-                       '../app/Resources/public/bootstrap/css/bootstrap-responsive.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-
-        {% stylesheets  '../app/Resources/public/less/master/styles.less' filter='less' %}
+        {% stylesheets  '../app/Resources/public/less/styles.less' filter='less' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
