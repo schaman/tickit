@@ -6,19 +6,11 @@ hearsay_require_js:
     base_directory: %kernel.root_dir%/Resources/public/js
     paths:
         jquery: %kernel.root_dir%/Resources/public/js/vendor/jquery/jquery
-        jqueryui: %kernel.root_dir%/Resources/public/js/vendor/jquery-ui-1.10.3.min
         text: %kernel.root_dir%/Resources/public/js/vendor/requirejs-text/text
         backbone: %kernel.root_dir%/Resources/public/js/vendor/backbone/backbone
         marionette: %kernel.root_dir%/Resources/public/js/vendor/backbone.marionette/lib/backbone.marionette
         underscore: %kernel.root_dir%/Resources/public/js/vendor/underscore/underscore
         cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
-        bootstrapjs: %kernel.root_dir%/Resources/public/js/bootstrap.min
-        bootstrapswitch: %kernel.root_dir%/Resources/public/js/bootstrap-switch
-        bootstrapselect: %kernel.root_dir%/Resources/public/js/bootstrap-select
-        flatuicheckbox: %kernel.root_dir%/Resources/public/js/flatui-checkbox
-        flatuiradio: %kernel.root_dir%/Resources/public/js/flatui-radio
-        jqueryplaceholder: %kernel.root_dir%/Resources/public/js/jquery.placeholder
-        jquerytagsinput: %kernel.root_dir%/Resources/public/js/jquery.tagsinput
         sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
@@ -57,27 +49,6 @@ hearsay_require_js:
             deps: [jquery]
         -
             name: cookie
-            deps: [jquery]
-        -
-            name: bootstrapjs
-            deps: [jquery]
-        -
-            name: bootstrapswitch
-            deps: [bootstrapjs]
-        -
-            name: bootstrapselect
-            deps: [bootstrapjs]
-        -
-            name: flatuicheckbox
-            deps: [jquery]
-        -
-            name: flatuiradio
-            deps: [jquery]
-        -
-            name: jqueryplaceholder
-            deps: [jquery]
-        -
-            name: jquerytagsinput
             deps: [jquery]
         -
             name: sidr
