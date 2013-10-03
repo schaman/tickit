@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5439fa1a024860a08ac420560e5bb086",
+    "hash": "5463d7a45c768d3a1eac25574bd88917",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -269,7 +269,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -795,12 +795,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "b4840d8b3293386dba685d91169559eb20f2d767"
+                "reference": "5e236332c3934fbc16b79eff3cf6ee9ee21b7519"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/b4840d8b3293386dba685d91169559eb20f2d767",
-                "reference": "b4840d8b3293386dba685d91169559eb20f2d767",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/5e236332c3934fbc16b79eff3cf6ee9ee21b7519",
+                "reference": "5e236332c3934fbc16b79eff3cf6ee9ee21b7519",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +855,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-09-23 12:09:51"
+            "time": "2013-10-02 23:38:05"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -939,17 +939,17 @@
         },
         {
             "name": "hearsay/require-js-bundle",
-            "version": "dev-filename-resource-fix",
+            "version": "dev-master",
             "target-dir": "Hearsay/RequireJSBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git",
-                "reference": "3fe11f9402e22ea785ddf54a9f29666860572354"
+                "url": "https://github.com/hearsayit/HearsayRequireJSBundle.git",
+                "reference": "0805bcb486cbd37a36cd4e1be486306d8e7075b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jameshalsall/HearsayRequireJSBundle/zipball/3fe11f9402e22ea785ddf54a9f29666860572354",
-                "reference": "3fe11f9402e22ea785ddf54a9f29666860572354",
+                "url": "https://api.github.com/repos/hearsayit/HearsayRequireJSBundle/zipball/0805bcb486cbd37a36cd4e1be486306d8e7075b8",
+                "reference": "0805bcb486cbd37a36cd4e1be486306d8e7075b8",
                 "shasum": ""
             },
             "require": {
@@ -957,7 +957,6 @@
                 "php": ">=5.3.2",
                 "symfony/finder": ">=2.0",
                 "symfony/framework-bundle": ">=2.0.9",
-                "symfony/process": ">=2.0",
                 "symfony/yaml": ">=2.0"
             },
             "type": "symfony-bundle",
@@ -971,6 +970,7 @@
                     "Hearsay\\RequireJSBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -987,10 +987,7 @@
                 "requirejs",
                 "rjs"
             ],
-            "support": {
-                "source": "https://github.com/jameshalsall/HearsayRequireJSBundle/tree/filename-resource-fix"
-            },
-            "time": "2013-07-25 08:19:35"
+            "time": "2013-09-10 10:44:09"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1210,12 +1207,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "df90f919b73e2e848d767a372caf9ca036877bf6"
+                "reference": "b5fa119527f25b787fbb20e75593e0671b0ea079"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/df90f919b73e2e848d767a372caf9ca036877bf6",
-                "reference": "df90f919b73e2e848d767a372caf9ca036877bf6",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b5fa119527f25b787fbb20e75593e0671b0ea079",
+                "reference": "b5fa119527f25b787fbb20e75593e0671b0ea079",
                 "shasum": ""
             },
             "require": {
@@ -1265,7 +1262,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-09-27 14:18:10"
+            "time": "2013-10-03 15:23:01"
         },
         {
             "name": "psr/log",
@@ -1742,12 +1739,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "f8f8816e4bf427bced580a0cf02436190aed0d45"
+                "reference": "2d983b5caf763091e5706f56fee60571a3eff152"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/f8f8816e4bf427bced580a0cf02436190aed0d45",
-                "reference": "f8f8816e4bf427bced580a0cf02436190aed0d45",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/2d983b5caf763091e5706f56fee60571a3eff152",
+                "reference": "2d983b5caf763091e5706f56fee60571a3eff152",
                 "shasum": ""
             },
             "require": {
@@ -1847,7 +1844,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-10-01 14:17:10"
+            "time": "2013-10-03 07:18:41"
         },
         {
             "name": "twig/extensions",
@@ -1902,12 +1899,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "c579a8141477531ce2afd8a441aaccc11033f37d"
+                "reference": "d3b488a8b772e5f127050950c59810a867b3b002"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c579a8141477531ce2afd8a441aaccc11033f37d",
-                "reference": "c579a8141477531ce2afd8a441aaccc11033f37d",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/d3b488a8b772e5f127050950c59810a867b3b002",
+                "reference": "d3b488a8b772e5f127050950c59810a867b3b002",
                 "shasum": ""
             },
             "require": {
@@ -1943,7 +1940,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-02 05:57:25"
+            "time": "2013-10-03 07:19:21"
         }
     ],
     "packages-dev": [
@@ -2399,12 +2396,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "e024996037f14d72ce963074edd21600827a55cc"
+                "reference": "b170b028c6bb5799640e46c8803015b0f9a45ed9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/e024996037f14d72ce963074edd21600827a55cc",
-                "reference": "e024996037f14d72ce963074edd21600827a55cc",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b170b028c6bb5799640e46c8803015b0f9a45ed9",
+                "reference": "b170b028c6bb5799640e46c8803015b0f9a45ed9",
                 "shasum": ""
             },
             "require": {
@@ -2483,7 +2480,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2013-10-01 17:27:14"
+            "time": "2013-10-02 20:47:00"
         },
         {
             "name": "instaclick/php-webdriver",
