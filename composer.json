@@ -17,12 +17,6 @@
             "file": "app/config/parameters.yml"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git"
-        }
-    ],
     "minimum-stability": "dev",
     "name": "tickit-project/tickit",
     "require": {
@@ -42,7 +36,7 @@
         "twig/extensions": "1.0.x-dev",
         "psr/log": "1.0.0",
         "friendsofsymfony/jsrouting-bundle": "1.1.x-dev",
-        "hearsay/require-js-bundle": "dev-filename-resource-fix",
+        "hearsay/require-js-bundle": "dev-master",
         "ircmaxell/password-compat": "1.0.x-dev",
         "incenteev/composer-parameter-handler": "~2.0"
     },
