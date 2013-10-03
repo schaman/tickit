@@ -11,20 +11,13 @@ require([
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/NavigationRegion',
     'jquery',
-    'jqueryui',
-    'bootstrapselect',
-    'bootstrapswitch',
-    'flatuicheckbox',
-    'flatuiradio',
-    'jqueryplaceholder',
-    'jquerytagsinput',
     'text'
 ], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion) {
     var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: new MainRegion,
-        loginRegion: new AnimatedRegion({ el: '#container' }),
+        loginRegion: new AnimatedRegion({ el: '#content-container' }),
         navRegion: new NavigationRegion,
         toolbarRegion: 'header.main-header',
         notificationRegion: '#notification-side',

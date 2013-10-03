@@ -20,12 +20,6 @@
 	-webkit-font-smoothing: antialiased;
 }
 
-/* Use the following CSS code if you want to have a class per icon */
-/*
-Instead of a list of all class selectors,
-you can use the generic selector below, but it's slower:
-[class*="fui-"] {
-*/
 .fui-arrow-right, .fui-arrow-left, .fui-cmd, .fui-check-inverted, .fui-heart, .fui-location, .fui-plus, .fui-check, .fui-cross, .fui-list, .fui-new, .fui-video, .fui-photo, .fui-volume, .fui-time, .fui-eye, .fui-chat, .fui-search, .fui-user, .fui-mail, .fui-lock, .fui-gear, .fui-radio-unchecked, .fui-radio-checked, .fui-checkbox-unchecked, .fui-checkbox-checked, .fui-calendar-solid, .fui-pause, .fui-play, .fui-check-inverted-2 {
   display: inline-block;
 	font-family: 'Flat-UI-Icons';
@@ -126,3 +120,49 @@ you can use the generic selector below, but it's slower:
 .fui-check-inverted-2:before {
 	content: "\e000";
 }
+
+
+
+@font-face {
+  font-family: 'tickit-icons';
+  src: url('../fonts/tickit-icons.eot?72855350');
+  src: url('../fonts/tickit-icons.eot?72855350#iefix') format('embedded-opentype'),
+       url('../fonts/tickit-icons.woff?72855350') format('woff'),
+       url('../fonts/tickit-icons.ttf?72855350') format('truetype'),
+       url('../fonts/tickit-icons.svg?72855350#tickit-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+ 
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "tickit-icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  position: relative;
+  top: -5px;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 10px;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 0em;
+  margin-left: 0em;
+  font-size: 16px;
+
+}
+ 
+.icon-cog-alt:before { content: '\e803'; } /* '' */
+.icon-tags:before { content: '\e805'; } /* '' */
+.icon-export:before { content: '\e807'; } /* '' */
+.icon-list-alt:before { content: '\e806'; } /* '' */
+.icon-gauge:before { content: '\e804'; } /* '' */
+.icon-angle-left:before { content: '\e809'; } /* '' */
+.icon-angle-right:before { content: '\e808'; } /* '' */
+.icon-twitter:before { content: '\e800'; } /* '' */
+.icon-facebook:before { content: '\e801'; } /* '' */
+.icon-gplus:before { content: '\e80f'; } /* '' */
+.icon-users:before { content: '\e802'; } /* '' */
+
