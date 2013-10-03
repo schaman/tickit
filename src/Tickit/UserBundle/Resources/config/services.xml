@@ -29,6 +29,10 @@
             <argument type="service" id="router" />
         </service>
 
+        <service id="tickit_user.user_converter" class="Tickit\UserBundle\Converter\UserEntityValueConverter">
+            <argument type="service" id="tickit_user.manager" />
+        </service>
+
     </services>
 
 </container>

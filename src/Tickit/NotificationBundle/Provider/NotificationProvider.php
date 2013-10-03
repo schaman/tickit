@@ -2,7 +2,6 @@
 
 namespace Tickit\NotificationBundle\Provider;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository;
 use Tickit\UserBundle\Entity\User;
 
@@ -17,11 +16,11 @@ use Tickit\UserBundle\Entity\User;
 class NotificationProvider
 {
     /**
-     * The doctrine registry
+     * The user notification repository
      *
-     * @var Registry
+     * @var UserNotificationRepository
      */
-    protected $doctrine;
+    protected $userNotificationRepo;
 
     /**
      * The maximum number of notification messages to return.
@@ -33,12 +32,12 @@ class NotificationProvider
     /**
      * Constructor.
      *
-     * @param Registry $doctrine     The doctrine registry
-     * @param integer  $messageLimit The maximum number of notification messages to return
+     * @param UserNotificationRepository $userNotificationRepo The user notification repository
+     * @param integer                    $messageLimit         The maximum number of notification messages to return
      */
-    public function __construct(Registry $doctrine, $messageLimit)
+    public function __construct(UserNotificationRepository $userNotificationRepo, $messageLimit)
     {
-        $this->doctrine = $doctrine;
+        $this->userNotificationRepo = $userNotificationRepo;
         $this->messageLimit = $messageLimit;
     }
 
@@ -64,6 +63,6 @@ class NotificationProvider
      */
     public function getUserNotificationRepository()
     {
-        return $this->doctrine->getRepository('TickitNotificationBundle:UserNotification');
+        return $this->userNotificationRepo;
     }
 }

@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Tickit\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
 use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 
@@ -21,18 +22,32 @@ class AttributeRepository extends EntityRepository implements FilterableReposito
      *
      * @param FilterCollection $filters The filter collection
      *
+     * @codeCoverageIgnore
+     *
      * @return mixed
      */
     public function findByFilters(FilterCollection $filters)
     {
-        $query = $this->getEntityManager()
-                      ->createQueryBuilder()
-                      ->select('a')
-                      ->from('TickitProjectBundle:AbstractAttribute', 'a');
+        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+    }
 
-        $filters->applyToQuery($query);
+    /**
+     * Gets the query builder for finding a filtered set of Projects
+     *
+     * @param FilterCollection $filters The filter collection
+     *
+     * @return QueryBuilder
+     */
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('a')
+                             ->from('TickitProjectBundle:AbstractAttribute', 'a');
 
-        return $query->getQuery()->execute();
+        $filters->applyToQuery($queryBuilder);
+
+        return $queryBuilder;
     }
 
     /**
@@ -40,29 +55,52 @@ class AttributeRepository extends EntityRepository implements FilterableReposito
      *
      * This method includes all associated meta objects related to the attributes.
      *
+     * @codeCoverageIgnore
+     *
      * @return mixed
      */
     public function findAllAttributes()
     {
-        $choicesQuery = $this->getEntityManager()
+        $choices = $this->getFindAllChoiceAttributesQueryBuilder()->getQuery()->execute();
+        $others = $this->getFindAllNonChoiceAttributesQueryBuilder()->getQuery()->execute();
+
+        return array_merge($others, $choices);
+    }
+
+    /**
+     * Gets a query builder that finds all choice type attributes.
+     *
+     * Also fetches the available choices for those attributes.
+     *
+     * @return QueryBuilder
+     */
+    public function getFindAllChoiceAttributesQueryBuilder()
+    {
+        $queryBuilder = $this->getEntityManager()
                              ->createQueryBuilder()
                              ->select('c, ch')
                              ->from('TickitProjectBundle:ChoiceAttribute', 'c')
                              ->leftJoin('c.choices', 'ch');
 
-        $choices = $choicesQuery->getQuery()->execute();
+        return $queryBuilder;
+    }
 
-        $othersQuery = $this->getEntityManager()
-                            ->createQueryBuilder()
-                            ->select('a')
-                            ->from('TickitProjectBundle:AbstractAttribute', 'a')
-                            ->where(
-                                'a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
+    /**
+     * Gets a query builder that fetches all non-choice type attributes
+     *
+     * @return QueryBuilder
+     */
+    public function getFindAllNonChoiceAttributesQueryBuilder()
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('a')
+                             ->from('TickitProjectBundle:AbstractAttribute', 'a')
+                             ->where(
+                                 'a INSTANCE OF TickitProjectBundle:LiteralAttribute OR
                                  a INSTANCE OF TickitProjectBundle:EntityAttribute'
-                            );
+                             );
 
-        $others = $othersQuery->getQuery()->execute();
-
-        return array_merge($others, $choices);
+        return $queryBuilder;
     }
 }

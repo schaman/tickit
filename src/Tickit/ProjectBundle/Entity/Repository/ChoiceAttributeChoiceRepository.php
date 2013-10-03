@@ -23,14 +23,14 @@ class ChoiceAttributeChoiceRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getFindAllForAttributeQuery(ChoiceAttribute $attribute)
+    public function getFindAllForAttributeQueryBuilder(ChoiceAttribute $attribute)
     {
         $query = $this->getEntityManager()
                       ->createQueryBuilder()
                       ->select('c')
                       ->from('TickitProjectBundle:ChoiceAttributeChoice', 'c')
                       ->where('c.attribute = :attribute')
-                      ->setParameter('attribute', $attribute);
+                      ->setParameter('attribute', $attribute->getId());
 
         return $query;
     }

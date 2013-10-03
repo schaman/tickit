@@ -2,136 +2,123 @@
 
 namespace Tickit\ProjectBundle\Tests\Manager;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Doctrine\Common\Collections\ArrayCollection;
+use Tickit\CoreBundle\Event\EntityEvent;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
+use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
  * Tests for the project manager
  *
- * @author James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\ProjectBundle\Tests\Manager
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectManagerTest extends WebTestCase
+class ProjectManagerTest extends AbstractUnitTest
 {
     /**
-     * Project entity for tests
+     * Project repository
      *
-     * @var Project
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $project;
+    private $projectRepository;
 
     /**
-     * Sets up entities for each test
+     * Entity manager
      *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function setUp()
-    {
-        $project = new Project();
-        $project->setName(uniqid('Project ' . microtime()));
-
-        $this->project = $project;
-    }
+    private $em;
 
     /**
-     * Test to ensure that the service exists in the container
+     * Event dispatcher
      *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testServiceExists()
-    {
-        $container = static::createClient()->getContainer();
-        $manager = $container->get('tickit_project.manager');
+    private $dispatcher;
 
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Manager\ProjectManager', $manager);
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->projectRepository = $this->getMockBuilder('Tickit\ProjectBundle\Entity\Repository\ProjectRepository')
+                                        ->disableOriginalConstructor()
+                                        ->getMock();
+
+        $this->em = $this->getMockEntityManager();
+
+        $this->dispatcher = $this->getMockBuilder('Tickit\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher')
+                                 ->disableOriginalConstructor()
+                                 ->getMock();
     }
 
     /**
      * Tests the getRepository() method
-     *
-     * Ensures that a valid repository instance is returned by the method
-     *
-     * @return void
      */
-    public function testGetRepositoryReturnsValidInstance()
+    public function testGetRepositoryReturnsCorrectInstance()
     {
-        $manager = $this->getManager();
-        $repository = $manager->getRepository();
-
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\Repository\ProjectRepository', $repository);
+        $this->assertSame($this->projectRepository, $this->getManager()->getRepository());
     }
 
     /**
      * Tests the create() method
-     *
-     * Ensures that the method creates a Project in the entity manager
-     *
-     * @return void
      */
-    public function testCreateProject()
+    public function testCreatePersistsEntity()
     {
-        $manager = $this->getManager();
-        $project = $manager->create($this->project);
+        $project = new Project();
+        $project->setAttributes(new ArrayCollection(array(new LiteralAttributeValue(), new ChoiceAttributeValue())));
 
-        $persistedProject = $manager->getRepository()
-                                    ->find($project->getId());
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatchBeforeCreateEvent')
+                         ->with($project)
+                         ->will($this->returnValue(new EntityEvent($project)));
 
-        $this->assertEquals($project->getName(), $persistedProject->getName(), 'Created project has same name');
+        $this->em->expects($this->once())
+                 ->method('persist')
+                 ->with($project);
+
+        $this->em->expects($this->exactly(2))
+                 ->method('flush');
+
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatchCreateEvent')
+                         ->with($project);
+
+        $persistedProject = $this->getManager()->create($project);
+        $this->assertEquals($project, $persistedProject);
+        $this->assertEquals($project->getAttributes(), $persistedProject->getAttributes());
     }
 
     /**
-     * Tests the update() method
-     *
-     * Ensures that the method updates a Project in the entity manager
-     *
-     * @return void
+     * Tests the create() method
      */
-    public function testUpdateProject()
+    public function testCreateDoesNotPersistEntityWhenEventIsVetoed()
     {
-        $manager = $this->getManager();
-        $project = $manager->create($this->project);
-        $repository = $manager->getRepository();
+        $project = new Project();
+        $project->setAttributes(new ArrayCollection(array(new LiteralAttributeValue(), new ChoiceAttributeValue())));
 
-        $this->assertNotEmpty($project->getId(), 'Project created successfully');
+        $event = new EntityEvent($project);
+        $event->veto();
 
-        $project->setName('New project name');
-        $manager->update($project);
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatchBeforeCreateEvent')
+                         ->with($project)
+                         ->will($this->returnValue($event));
 
-        $updatedProject = $repository->find($project->getId());
+        $this->em->expects($this->never())
+                 ->method('persist');
 
-        $this->assertEquals($project->getName(), $updatedProject->getName(), 'Updated project has same name');
-    }
+        $this->em->expects($this->never())
+                 ->method('flush');
 
-    /**
-     * Tests the delete() method
-     *
-     * Ensures that the method deletes a Project in the entity manager
-     */
-    public function testDeleteProject()
-    {
-        $manager = $this->getManager();
-        $project = $manager->create($this->project);
-        $repository = $manager->getRepository();
+        $this->dispatcher->expects($this->never())
+                         ->method('dispatchCreateEvent');
 
-        $id = $project->getId();
-        $this->assertNotEmpty($id, 'Project created successfully');
-
-        $manager->delete($project);
-
-        /** @var Project $findProject */
-        $findProject = $repository->find($id);
-
-        $this->assertEmpty($findProject, 'delete() method correctly removes project');
-    }
-
-    /**
-     * Tear down the test and unset entities
-     *
-     * @return void
-     */
-    public function tearDown()
-    {
-        unset($this->project);
+        $persistedProject = $this->getManager()->create($project);
+        $this->assertNull($persistedProject);
     }
 
     /**
@@ -141,9 +128,6 @@ class ProjectManagerTest extends WebTestCase
      */
     protected function getManager()
     {
-        $container = static::createClient()->getContainer();
-        $manager = $container->get('tickit_project.manager');
-
-        return $manager;
+        return new ProjectManager($this->projectRepository, $this->em, $this->dispatcher);
     }
 }

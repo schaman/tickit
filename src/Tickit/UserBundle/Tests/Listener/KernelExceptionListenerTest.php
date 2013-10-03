@@ -5,6 +5,7 @@ namespace Tickit\UserBundle\Tests\Listener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\UserBundle\Listener\KernelExceptionListener;
@@ -72,7 +73,7 @@ class KernelExceptionListenerTest extends AbstractFunctionalTest
      */
     private function getEvent($exception = null)
     {
-        $kernel = $this->createKernel();
+        $kernel = new KernelForTest('test', false);
         $request = Request::createFromGlobals();
         $response = new Response('content');
 

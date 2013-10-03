@@ -4,12 +4,8 @@ namespace Tickit\UserBundle\Event\Dispatcher;
 
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\UserBundle\Event\BeforeCreateEvent;
-use Tickit\UserBundle\Event\BeforeDeleteEvent;
-use Tickit\UserBundle\Event\BeforeUpdateEvent;
-use Tickit\UserBundle\Event\CreateEvent;
-use Tickit\UserBundle\Event\DeleteEvent;
-use Tickit\UserBundle\Event\UpdateEvent;
+use Tickit\CoreBundle\Event\EntityEvent;
+use Tickit\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\UserBundle\TickitUserEvents;
 
 /**
@@ -33,7 +29,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeCreateEvent($entity)
     {
-        $beforeEvent = new BeforeCreateEvent($entity);
+        $beforeEvent = new EntityEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitUserEvents::USER_BEFORE_CREATE, $beforeEvent);
 
         return $beforeEvent;
@@ -48,7 +44,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchCreateEvent($entity)
     {
-        $event = new CreateEvent($entity);
+        $event = new EntityEvent($entity);
         $this->dispatcher->dispatch(TickitUserEvents::USER_CREATE, $event);
     }
 
@@ -61,7 +57,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeUpdateEvent($entity)
     {
-        $beforeEvent = new BeforeUpdateEvent($entity);
+        $beforeEvent = new EntityEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitUserEvents::USER_BEFORE_UPDATE, $beforeEvent);
 
         return $beforeEvent;
@@ -77,7 +73,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchUpdateEvent($entity, $originalEntity)
     {
-        $event = new UpdateEvent($entity, $originalEntity);
+        $event = new EntityModifiedEvent($entity, $originalEntity);
         $this->dispatcher->dispatch(TickitUserEvents::USER_UPDATE, $event);
     }
 
@@ -90,7 +86,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchBeforeDeleteEvent($entity)
     {
-        $beforeEvent = new BeforeDeleteEvent($entity);
+        $beforeEvent = new EntityEvent($entity);
         $beforeEvent = $this->dispatcher->dispatch(TickitUserEvents::USER_BEFORE_DELETE, $beforeEvent);
 
         return $beforeEvent;
@@ -105,7 +101,7 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
      */
     public function dispatchDeleteEvent($entity)
     {
-        $event = new DeleteEvent($entity);
+        $event = new EntityEvent($entity);
         $this->dispatcher->dispatch(TickitUserEvents::USER_DELETE, $event);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Tickit\ProjectBundle\Form\Type;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -19,23 +18,6 @@ use Tickit\ProjectBundle\Form\EventListener\AttributeValueFormSubscriber;
 class AttributeValueFormType extends AbstractType
 {
     /**
-     * The doctrine registry
-     *
-     * @var Registry
-     */
-    protected $doctrine;
-
-    /**
-     * Constructor.
-     *
-     * @param Registry $doctrine The doctrine registry service
-     */
-    public function __construct(Registry $doctrine)
-    {
-        $this->doctrine = $doctrine;
-    }
-
-    /**
      * Builds the form
      *
      * @param FormBuilderInterface $builder The form builder
@@ -44,7 +26,7 @@ class AttributeValueFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // we let the event subscriber build the form for us
-        $builder->addEventSubscriber(new AttributeValueFormSubscriber($this->doctrine));
+        $builder->addEventSubscriber(new AttributeValueFormSubscriber());
     }
 
     /**
