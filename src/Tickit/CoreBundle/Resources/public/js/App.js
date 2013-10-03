@@ -28,7 +28,8 @@ require([
     App.Session = new Session;
 
     // load any other modules here
-    require(['modules/router', 'modules/core', 'modules/template'], function() {
+    require(['modules/router', 'modules/core', 'modules/template'], function(Router) {
+        App.Router = Router;
         App.start();
     });
 

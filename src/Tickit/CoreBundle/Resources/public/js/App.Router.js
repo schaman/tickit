@@ -90,5 +90,3 @@ var AppRouter = Backbone.Router.extend({
         });
     }
 });
-
-App.Router = new AppRouter;
