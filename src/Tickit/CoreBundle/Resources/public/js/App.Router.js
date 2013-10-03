@@ -1,92 +1,98 @@
 /**
  * Application router.
  *
+ * Responsible for routing URLs to application actions
+ *
  * @type {Backbone.Router}
  */
-var AppRouter = Backbone.Router.extend({
+define(function() {
+    return Backbone.Router.extend({
 
-    /**
-     * Router initialize
-     */
-    initialize : function() {
-        Backbone.history.start({ pushState: true, root: appRoot });
-    },
+        /**
+         * Router initialize
+         */
+        initialize : function() {
+            Backbone.history.start({ pushState: true, root: appRoot });
+        },
 
-    /**
-     * Navigates the client to a path and triggers the change event
-     *
-     * @param {string} path The path to navigate to
-     *
-     * @return {void}
-     */
-    goTo : function(path) {
-        this.navigate(path, { trigger: true });
-    },
+        /**
+         * Navigates the client to a path and triggers the change event
+         *
+         * @param {string} path The path to navigate to
+         *
+         * @return {void}
+         */
+        goTo : function(path) {
+            this.navigate(path, { trigger: true });
+        },
 
-    /**
-     * Route patterns
-     */
-    routes : {
-        ""                     : "dashboard",
-        "dashboard"            : "dashboard",
-        "login"                : "login",
+        /**
+         * Route patterns
+         */
+        routes : {
+            ""                     : "dashboard",
+            "dashboard"            : "dashboard",
+            "login"                : "login",
 
-        /* ProjectBundle routes */
-        "projects/create"      : "projectCreate",
-        "projects/edit/:id"    : "projectEdit",
-        "projects"             : "projects",
+            /* ProjectBundle routes */
+            "projects/create"      : "projectCreate",
+            "projects/edit/:id"    : "projectEdit",
+            "projects"             : "projects",
 
-        /* UserBundle routes */
-        "users/create"         : "userCreate",
-        "users/edit/:id"       : "userEdit",
-        "users"                : "users"
-    },
+            /* UserBundle routes */
+            "users/create"         : "userCreate",
+            "users/edit/:id"       : "userEdit",
+            "users"                : "users"
+        },
 
-    "login" : function() {
-        require(['modules/login'], function(Login) {
-            Login.loadLoginView();
-        });
-    },
+        "login" : function() {
+            console.log('login');
+            require(['modules/login'], function(Login) {
+                console.log('fuck yea');
+                Login.loadLoginView();
+            });
+        },
 
-    "dashboard" : function() {
-        require(['modules/dashboard'], function(Dashboard) {
-            Dashboard.loadDashboard();
-        });
-    },
+        "dashboard" : function() {
+            require(['modules/dashboard'], function(Dashboard) {
+                Dashboard.loadDashboard();
+            });
+        },
 
-    "projects" : function() {
-        require(['modules/project'], function(Project) {
-            Project.loadProjectList();
-        });
-    },
+        "projects" : function() {
+            require(['modules/project'], function(Project) {
+                Project.loadProjectList();
+            });
+        },
 
-    "projectCreate" : function() {
-        require(['modules/project'], function(Project) {
-            Project.loadProjectCreate();
-        });
-    },
+        "projectCreate" : function() {
+            require(['modules/project'], function(Project) {
+                Project.loadProjectCreate();
+            });
+        },
 
-    "projectEdit" : function(id) {
-        require(['modules/project'], function(Project) {
-            Project.loadProjectEdit(id);
-        });
-    },
+        "projectEdit" : function(id) {
+            require(['modules/project'], function(Project) {
+                Project.loadProjectEdit(id);
+            });
+        },
 
-    "users" : function() {
-        require(['modules/user'], function(User) {
-            User.loadUserList();
-        });
-    },
+        "users" : function() {
+            require(['modules/user'], function(User) {
+                User.loadUserList();
+            });
+        },
 
-    "userCreate" : function() {
-        require(['modules/user'], function(User) {
-            User.loadUserCreate();
-        });
-    },
+        "userCreate" : function() {
+            require(['modules/user'], function(User) {
+                User.loadUserCreate();
+            });
+        },
 
-    "userEdit" : function(id) {
-        require(['modules/user'], function(User) {
-            User.loadUserEdit(id);
-        });
-    }
+        "userEdit" : function(id) {
+            require(['modules/user'], function(User) {
+                User.loadUserEdit(id);
+            });
+        }
+    });
 });
