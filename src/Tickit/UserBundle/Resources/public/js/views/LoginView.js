@@ -90,7 +90,6 @@ define([
          */
         render: function() {
             this.$el.html(tpl);
-            this.$el.find('#login-remember').wrap('<div class="switch" />').parent().bootstrapSwitch();
             return this;
         },
 

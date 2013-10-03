@@ -11,13 +11,6 @@ require([
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/NavigationRegion',
     'jquery',
-    'jqueryui',
-    'bootstrapselect',
-    'bootstrapswitch',
-    'flatuicheckbox',
-    'flatuiradio',
-    'jqueryplaceholder',
-    'jquerytagsinput',
     'text'
 ], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion) {
     var App = new Marionette.Application();
