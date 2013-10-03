@@ -20,15 +20,43 @@
     </head>
     <body style="zoom: 1">
 
-        <header class='main-header' role='banner'></header>
-        <nav id="main" class='main' style='display:none;'></nav>
-
-        <div id="container">
-            <div id="spin-wrap">
-                <div id="spin"></div>
-            </div>
+        <div class="wrapper">
+            {# Sticky header navigation #}
+            <header class='main-header' role='banner'></header>
         </div>
 
+        {# Outer application container #}
+        <div class="container-fluid">
+
+            {# Left hand navigation container #}
+            <div class="row-fluid">
+                <div id="main" class="main-nav span1"></div>
+            </div>
+
+            {# Inner application container #}
+            <div id="container" class="span11">
+
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a class="home-icon" href=""></a></li>
+                        <li><a href="">Projects</a></li>
+                        <li><a href="">Project Name</a></li>
+                        <li><a href="">#PROJ-1234</a></li>
+                    </ul>
+                </div>
+
+                {# Contextual content area for forms, listing etc. #}
+                <div class="main" id="content-container"></div>
+
+                {# Loading spinner (TODO) #}
+                <div id="spin-wrap">
+                    <div id="spin"></div>
+                </div>
+            </div>
+
+        </div>
+
+        {# Notifications container #}
         <div id="notification-side"></div>
 
         {% block javascripts %}

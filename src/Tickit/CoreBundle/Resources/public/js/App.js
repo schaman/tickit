@@ -17,7 +17,7 @@ require([
 
     App.addRegions({
         mainRegion: new MainRegion,
-        loginRegion: new AnimatedRegion({ el: '#container' }),
+        loginRegion: new AnimatedRegion({ el: '#content-container' }),
         navRegion: new NavigationRegion,
         toolbarRegion: 'header.main-header',
         notificationRegion: '#notification-side',
