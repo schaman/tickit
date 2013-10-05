@@ -6,7 +6,7 @@
  * @type {Backbone.Router}
  */
 define(function() {
-    return Backbone.Router.extend({
+    var Router = Backbone.Router.extend({
 
         /**
          * Router initialize
@@ -46,9 +46,7 @@ define(function() {
         },
 
         "login" : function() {
-            console.log('login');
             require(['modules/login'], function(Login) {
-                console.log('fuck yea');
                 Login.loadLoginView();
             });
         },
@@ -95,4 +93,6 @@ define(function() {
             });
         }
     });
+
+    return new Router;
 });
