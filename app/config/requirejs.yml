@@ -2,7 +2,7 @@ hearsay_require_js:
     require_js_src: http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.8/require.min.js
     optimizer:
         path: %kernel.root_dir%/Resources/node_modules/requirejs/bin/r.js
-        hide_unoptimized_assets: true
+        hide_unoptimized_assets: false
         options:
             findNestedDependencies: true
     base_dir: %kernel.root_dir%/Resources/public/js
