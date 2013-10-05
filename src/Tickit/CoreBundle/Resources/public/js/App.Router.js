@@ -12,7 +12,20 @@ define(function() {
          * Router initialize
          */
         initialize : function() {
-            Backbone.history.start({ pushState: true, root: appRoot });
+            Backbone.history.start({ pushState: true, root: this.getAppRoot() });
+        },
+
+        /**
+         * Gets the app root based off the environment
+         *
+         * @return {string}
+         */
+        getAppRoot : function() {
+            if ($.cookie('env') === 'test') {
+                return '/app_test.php/';
+            }
+
+            return '/';
         },
 
         /**
