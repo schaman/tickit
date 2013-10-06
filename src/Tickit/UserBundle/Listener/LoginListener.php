@@ -2,10 +2,8 @@
 
 namespace Tickit\UserBundle\Listener;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\CoreBundle\Entity\CoreSession;
 use Tickit\UserBundle\Entity\User;
@@ -17,19 +15,12 @@ use Tickit\UserBundle\Entity\UserSession;
  * @package Tickit\UserBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Login
+class LoginListener
 {
-    /**
-     * The service container
-     *
-     * @var ContainerInterface
-     */
-    protected $container;
-
     /**
      * The entity manager
      *
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -43,14 +34,12 @@ class Login
     /**
      * Constructor.
      *
-     * @param ContainerInterface $container         The dependency injection container
-     * @param CoreSession        $session           The current user's session instance
-     * @param Registry           $doctrine          The doctrine registry
+     * @param CoreSession            $session The current user's session instance
+     * @param EntityManagerInterface $em      An entity manager
      */
-    public function __construct(ContainerInterface $container, CoreSession $session, Doctrine $doctrine)
+    public function __construct(CoreSession $session, EntityManagerInterface $em)
     {
-        $this->container = $container;
-        $this->em = $doctrine->getManager();
+        $this->em = $em;
         $this->session = $session;
     }
 
