@@ -1,38 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Tickit by jaitsu87</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <title>Tickit by tickit-project</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Tickit</h1>
-        <p class="header">Open Source Support &amp; Ticket System based on Symfony2 Framework</p>
+    <div id="container">
+      <div class="inner">
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/jaitsu87/tickit/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/jaitsu87/tickit/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/jaitsu87/tickit">View On GitHub</a></li>
-        </ul>
+        <header>
+          <h1>Tickit</h1>
+          <h2>Open Source Support &amp; Ticket System based on Symfony2 Framework</h2>
+        </header>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/jaitsu87">jaitsu87</a></p>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/tickit-project/tickit/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/tickit-project/tickit/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/tickit-project/tickit" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
+        <hr>
 
-      </header>
-      <section>
-        <h1>Quick Setup Guide for Developers</h1>
+        <section id="main_content">
+          <p><a href="http://travis-ci.org/#!/tickit-project/tickit"><img src="https://secure.travis-ci.org/tickit-project/tickit.png"></a>
+<a href="https://www.versioneye.com/user/projects/51962575463e9a000200f930"><img src="https://www.versioneye.com/user/projects/51962575463e9a000200f930/badge.png"></a>
+<a href="https://coveralls.io/r/tickit-project/tickit?branch=development"><img src="https://coveralls.io/repos/tickit-project/tickit/badge.png?branch=development" alt="Coverage Status"></a>
+<a href="https://insight.sensiolabs.com/projects/6df2a619-514e-4e42-b9b2-d7fdceeb357f"><img src="https://insight.sensiolabs.com/projects/6df2a619-514e-4e42-b9b2-d7fdceeb357f/mini.png"></a></p>
+
+<h1>
+<a name="quick-setup-guide-for-developers" class="anchor" href="#quick-setup-guide-for-developers"><span class="octicon octicon-link"></span></a>Quick Setup Guide for Developers</h1>
+
+<p>Tickit will eventually come with a self-installer, but whilst development is still on-going you get started with the project by
+running through these steps...</p>
 
 <ol>
+<li><p>Copy <code>app/config/parameters.yml.dist</code> to <code>app/config/parameters.yml</code> and add in your own database/mailer configuration.</p></li>
+<li>
+<p>To correctly set the permissions on the <code>cache</code> and <code>logs</code> directories, run the following commands from your server (Debian based systems)</p>
+
+<pre><code>sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+</code></pre>
+
+<p>The <code>www-data</code> user should be replaced with whatever user your apache / nginx service is running as</p>
+</li>
 <li>
 <p>Install Composer</p>
 
@@ -43,18 +63,18 @@
 <pre><code>curl -s http://getcomposer.org/installer | php
 </code></pre>
 
-<p>Then, install dependencies using...</p>
+<p>You then need to install vendor libraries using...</p>
 
 <pre><code>php composer.phar install
 </code></pre>
 
 <p>It should install all required vendor bundles.</p>
 </li>
-<li><p>Copy <code>app/config/parameters.yml.dist</code> to app/config/parameters.yml and add in your own database/mailer configuration.</p></li>
 <li>
-<p>Run the following command from the project directory in your terminal...</p>
+<p>Run the following commands from the project directory in your terminal...</p>
 
-<pre><code>php app/console doctrine:schema:create
+<pre><code>php app/console doctrine:database:create
+php app/console doctrine:schema:create
 </code></pre>
 
 <p>This should create your database schema from the entities in the bundles located in the <code>src</code> folder. If there are any problems ensure that your database privileges and credentials are okay.</p>
@@ -65,13 +85,30 @@
 <pre><code>php app/console doctrine:fixtures:load
 </code></pre>
 </li>
+<li><p>Install NodeJS from <a href="http://nodejs.org">http://nodejs.org</a></p></li>
+<li><p>Update your parameters.yml paths for <code>node_bin</code> to point to your node binary</p></li>
+<li>
+<p>Install node modules...</p>
+
+<pre><code>cd app/Resources &amp;&amp; npm install &amp;&amp; cd ../../
+</code></pre>
+</li>
+<li>
+<p>Install JS dependencies with bower...</p>
+
+<pre><code>bin/bower install
+</code></pre>
+</li>
 </ol>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+        </section>
+
+        <footer>
+          Tickit is maintained by <a href="https://github.com/tickit-project">tickit-project</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
   </body>
 </html>
