@@ -1,94 +1,111 @@
 /**
  * Application router.
  *
+ * Responsible for routing URLs to application actions
+ *
  * @type {Backbone.Router}
  */
-var AppRouter = Backbone.Router.extend({
+define(function() {
+    var Router = Backbone.Router.extend({
 
-    /**
-     * Router initialize
-     */
-    initialize : function() {
-        Backbone.history.start({ pushState: true, root: appRoot });
-    },
+        /**
+         * Router initialize
+         */
+        initialize : function() {
+            Backbone.history.start({ pushState: true, root: this.getAppRoot() });
+        },
 
-    /**
-     * Navigates the client to a path and triggers the change event
-     *
-     * @param {string} path The path to navigate to
-     *
-     * @return {void}
-     */
-    goTo : function(path) {
-        this.navigate(path, { trigger: true });
-    },
+        /**
+         * Gets the app root based off the environment
+         *
+         * @return {string}
+         */
+        getAppRoot : function() {
+            if ($.cookie('env') === 'test') {
+                return '/app_test.php/';
+            }
 
-    /**
-     * Route patterns
-     */
-    routes : {
-        ""                     : "dashboard",
-        "dashboard"            : "dashboard",
-        "login"                : "login",
+            return '/';
+        },
 
-        /* ProjectBundle routes */
-        "projects/create"      : "projectCreate",
-        "projects/edit/:id"    : "projectEdit",
-        "projects"             : "projects",
+        /**
+         * Navigates the client to a path and triggers the change event
+         *
+         * @param {string} path The path to navigate to
+         *
+         * @return {void}
+         */
+        goTo : function(path) {
+            this.navigate(path, { trigger: true });
+        },
 
-        /* UserBundle routes */
-        "users/create"         : "userCreate",
-        "users/edit/:id"       : "userEdit",
-        "users"                : "users"
-    },
+        /**
+         * Route patterns
+         */
+        routes : {
+            ""                     : "dashboard",
+            "dashboard"            : "dashboard",
+            "login"                : "login",
 
-    "login" : function() {
-        require(['modules/login'], function(Login) {
-            Login.loadLoginView();
-        });
-    },
+            /* ProjectBundle routes */
+            "projects/create"      : "projectCreate",
+            "projects/edit/:id"    : "projectEdit",
+            "projects"             : "projects",
 
-    "dashboard" : function() {
-        require(['modules/dashboard'], function(Dashboard) {
-            Dashboard.loadDashboard();
-        });
-    },
+            /* UserBundle routes */
+            "users/create"         : "userCreate",
+            "users/edit/:id"       : "userEdit",
+            "users"                : "users"
+        },
 
-    "projects" : function() {
-        require(['modules/project'], function(Project) {
-            Project.loadProjectList();
-        });
-    },
+        "login" : function() {
+            require(['modules/login'], function(Login) {
+                Login.loadLoginView();
+            });
+        },
 
-    "projectCreate" : function() {
-        require(['modules/project'], function(Project) {
-            Project.loadProjectCreate();
-        });
-    },
+        "dashboard" : function() {
+            require(['modules/dashboard'], function(Dashboard) {
+                Dashboard.loadDashboard();
+            });
+        },
 
-    "projectEdit" : function(id) {
-        require(['modules/project'], function(Project) {
-            Project.loadProjectEdit(id);
-        });
-    },
+        "projects" : function() {
+            require(['modules/project'], function(Project) {
+                Project.loadProjectList();
+            });
+        },
 
-    "users" : function() {
-        require(['modules/user'], function(User) {
-            User.loadUserList();
-        });
-    },
+        "projectCreate" : function() {
+            require(['modules/project'], function(Project) {
+                Project.loadProjectCreate();
+            });
+        },
 
-    "userCreate" : function() {
-        require(['modules/user'], function(User) {
-            User.loadUserCreate();
-        });
-    },
+        "projectEdit" : function(id) {
+            require(['modules/project'], function(Project) {
+                Project.loadProjectEdit(id);
+            });
+        },
 
-    "userEdit" : function(id) {
-        require(['modules/user'], function(User) {
-            User.loadUserEdit(id);
-        });
-    }
+        "users" : function() {
+            require(['modules/user'], function(User) {
+                User.loadUserList();
+            });
+        },
+
+        "userCreate" : function() {
+            require(['modules/user'], function(User) {
+                User.loadUserCreate();
+            });
+        },
+
+        "userEdit" : function(id) {
+            require(['modules/user'], function(User) {
+                User.loadUserEdit(id);
+            });
+        }
+    });
+
+    return new Router;
 });
-
-App.Router = new AppRouter;

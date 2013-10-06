@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: requirejs_prod.yml }
 
 #doctrine:
 #    orm:
@@ -17,3 +18,6 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+
+framework:
+    trusted_hosts: ~

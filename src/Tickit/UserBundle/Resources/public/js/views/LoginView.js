@@ -6,11 +6,10 @@
  * @type {Backbone.View}
  */
 define([
-    'text!/templates/users/login-form',
     'modules/request',
     'core/js/views/SingleFormErrorView',
     'core/js/models/FormError'
-], function(tpl, Request, FormErrorView, FormError) {
+], function(Request, FormErrorView, FormError) {
     return Backbone.View.extend({
 
         tagName: 'div',
@@ -89,7 +88,16 @@ define([
          * @return {Marionette.Module}
          */
         render: function() {
-            this.$el.html(tpl);
+            // TODO: this needs to be migrated to App.Template and cached in some fashion to save duplicate requests
+            var t = this;
+            $.ajax({
+                url: '/templates/users/login-form',
+                dataType: 'html',
+                success: function(resp) {
+                    t.$el.html(resp);
+                }
+            });
+
             return this;
         },
 

@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: require-js.yml }
+    - { resource: requirejs.yml }
 
 framework:
     #esi:             ~

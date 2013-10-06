@@ -1,0 +1,3 @@
+hearsay_require_js:
+    optimizer:
+        hide_unoptimized_assets: true
