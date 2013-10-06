@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(function() {
+define(['modules/request'], function(Request) {
     return App.module('Template', function(module) {
 
         /**
@@ -50,9 +50,13 @@ define(function() {
             if (typeof cache[id] != 'undefined' && forceFetch === false) {
                 callback(cache[id]);
             } else {
-                $.get(url, function(tpl) {
-                    cache[id] = $(tpl);
-                    callback(cache[id]);
+                Request.get({
+                    url: url,
+                    dataType: 'html',
+                    success: function(tpl) {
+                        cache[id] = $(tpl);
+                        callback(cache[id]);
+                    }
                 });
             }
         }
