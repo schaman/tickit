@@ -10,16 +10,17 @@ require([
     'core/js/regions/MainRegion',
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/NavigationRegion',
+    'navigation/js/regions/ToolbarRegion',
     'jquery',
     'text'
-], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion) {
+], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion, ToolbarRegion) {
     var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: new MainRegion,
-        loginRegion: new AnimatedRegion({ el: '#content-container' }),
+        loginRegion: new AnimatedRegion({ el: '#login-container' }),
         navRegion: new NavigationRegion,
-        toolbarRegion: 'header.main-header',
+        toolbarRegion: new ToolbarRegion,
         notificationRegion: '#notification-side',
         footerRegion: '#footer'
     });
