@@ -44,9 +44,10 @@ define(['backbone', 'modules/request', 'modules/template'], function(Backbone, R
          */
         render: function() {
             var t = this;
+            var forceFetch = (typeof this.id != 'undefined');
             Template.fetch(this.getUrl(), function(tpl) {
                 t.$el.html(tpl);
-            });
+            }, forceFetch);
 
             return this;
         }
