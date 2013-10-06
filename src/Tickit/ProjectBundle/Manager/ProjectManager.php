@@ -2,7 +2,6 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
