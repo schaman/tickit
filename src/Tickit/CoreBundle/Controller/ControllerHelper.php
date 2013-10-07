@@ -10,14 +10,14 @@ use Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface;
 use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
 
 /**
- * Core controller.
+ * Core controller helper.
  *
- * Provides base methods for all extending controller classes in the application.
+ * Provides helper methods for controllers in the application.
  *
  * @package Tickit\CoreBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-abstract class AbstractCoreController extends Controller
+abstract class ControllerHelper extends Controller
 {
     /**
      * A CSRF token generator
