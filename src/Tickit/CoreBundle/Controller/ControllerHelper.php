@@ -62,7 +62,7 @@ abstract class ControllerHelper extends Controller
      *
      * @return DomainObjectDecoratorInterface
      */
-    protected function getObjectDecorator()
+    public function getObjectDecorator()
     {
         return $this->objectDecorator;
     }
@@ -77,7 +77,7 @@ abstract class ControllerHelper extends Controller
      *
      * @return void
      */
-    protected function checkCsrfToken($token, $intent)
+    public function checkCsrfToken($token, $intent)
     {
         $tokenProvider = $this->tokenGenerator;
 
@@ -93,7 +93,7 @@ abstract class ControllerHelper extends Controller
      *
      * @return string
      */
-    protected function generateCsrfToken($intent)
+    public function generateCsrfToken($intent)
     {
         return $this->tokenGenerator->generateCsrfToken($intent);
     }
@@ -107,7 +107,7 @@ abstract class ControllerHelper extends Controller
      *
      * @return string
      */
-    protected function renderForm($template, Form $form, array $additionalParams = array())
+    public function renderForm($template, Form $form, array $additionalParams = array())
     {
         return $this->templateEngine->render(
             $template,
