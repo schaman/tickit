@@ -10,7 +10,8 @@
             <argument type="service" id="templating" />
         </service>
 
-        <service id="tickit.controller.helper" class="Tickit\CoreBundle\Controller\ControllerHelper" public="false">
+        <service id="tickit.controller.helper" class="Tickit\CoreBundle\Controller\ControllerHelper" public="false" scope="request">
+            <argument type="service" id="request" />
             <argument type="service" id="form.csrf_provider" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
             <argument type="service" id="templating" />

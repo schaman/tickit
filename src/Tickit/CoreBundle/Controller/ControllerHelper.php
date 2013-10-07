@@ -5,6 +5,7 @@ namespace Tickit\CoreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface;
 use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
@@ -17,8 +18,15 @@ use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
  * @package Tickit\CoreBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-abstract class ControllerHelper extends Controller
+class ControllerHelper
 {
+    /**
+     * The request
+     *
+     * @var Request
+     */
+    protected $request;
+
     /**
      * A CSRF token generator
      *
@@ -43,15 +51,18 @@ abstract class ControllerHelper extends Controller
     /**
      * Constructor.
      *
-     * @param CsrfTokenGeneratorInterface    $tokenGenerator
-     * @param DomainObjectDecoratorInterface $objectDecorator
-     * @param EngineInterface                $templateEngine
+     * @param Request                        $request         The request
+     * @param CsrfTokenGeneratorInterface    $tokenGenerator  A token generator
+     * @param DomainObjectDecoratorInterface $objectDecorator A domain object decorator
+     * @param EngineInterface                $templateEngine  A template engine
      */
     public function __construct(
+        Request $request,
         CsrfTokenGeneratorInterface $tokenGenerator,
         DomainObjectDecoratorInterface $objectDecorator,
         EngineInterface $templateEngine
     ) {
+        $this->request = $request;
         $this->tokenGenerator = $tokenGenerator;
         $this->objectDecorator = $objectDecorator;
         $this->templateEngine = $templateEngine;
