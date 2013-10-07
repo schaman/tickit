@@ -3,7 +3,7 @@
 namespace Tickit\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 
 /**
  * Notification API controller.
@@ -13,7 +13,7 @@ use Tickit\CoreBundle\Controller\AbstractCoreController;
  * @package Tickit\NotificationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController extends ControllerHelper
 {
     /**
      * List action.

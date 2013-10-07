@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Tickit\ProjectBundle\Entity\Project;
 
@@ -17,7 +17,7 @@ use Tickit\ProjectBundle\Entity\Project;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectController extends AbstractCoreController
+class ProjectController extends ControllerHelper
 {
     /**
      * String intention for deleting a project

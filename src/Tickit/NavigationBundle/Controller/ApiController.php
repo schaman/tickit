@@ -3,7 +3,7 @@
 namespace Tickit\NavigationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 use Tickit\NavigationBundle\Model\NavigationItem;
 
 /**
@@ -12,7 +12,7 @@ use Tickit\NavigationBundle\Model\NavigationItem;
  * @package Tickit\NavigationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController extends ControllerHelper
 {
     /**
      * Lists available navigation items for the currently authenticated user

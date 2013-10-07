@@ -3,7 +3,7 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 
 /**
@@ -14,7 +14,7 @@ use Tickit\ProjectBundle\Entity\AbstractAttribute;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController extends ControllerHelper
 {
     /**
      * Lists all projects in the application

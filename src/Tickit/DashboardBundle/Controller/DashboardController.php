@@ -3,7 +3,7 @@
 namespace Tickit\DashboardBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 
 /**
  * Dashboard Controller.
@@ -13,7 +13,7 @@ use Tickit\CoreBundle\Controller\AbstractCoreController;
  * @package Tickit\DashboardBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class DashboardController extends AbstractCoreController
+class DashboardController extends ControllerHelper
 {
     /**
      * Index action for the dashboard

@@ -3,7 +3,7 @@
 namespace Tickit\PreferenceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 
 /**
  * Preferences controller.
@@ -13,7 +13,7 @@ use Tickit\CoreBundle\Controller\AbstractCoreController;
  * @package Tickit\PreferenceBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController extends ControllerHelper
 {
     /**
      * Lists all preferences for editing (should this just be editAction??)

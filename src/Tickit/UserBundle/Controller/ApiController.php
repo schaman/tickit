@@ -4,8 +4,11 @@ namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
+use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Entity\User;
+use Tickit\UserBundle\Manager\UserManager;
 
 /**
  * API controller for users.
@@ -16,8 +19,57 @@ use Tickit\UserBundle\Entity\User;
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class ApiController extends AbstractCoreController
+class ApiController
 {
+    /**
+     * The controller helper
+     *
+     * @var ControllerHelper
+     */
+    protected $helper;
+
+    /**
+     * Filter builder
+     *
+     * @var FilterCollectionBuilder
+     */
+    protected $filterBuilder;
+
+    /**
+     * The user manager
+     *
+     * @var UserManager
+     */
+    protected $userManager;
+
+    /**
+     * The avatar service
+     *
+     * @var AvatarService
+     */
+    protected $avatar;
+
+    /**
+     * Constructor
+     *
+     * @param ControllerHelper        $helper        The controller helper
+     * @param FilterCollectionBuilder $filterBuilder The filter collection builder
+     * @param UserManager             $userManager   The user manager
+     * @param AvatarService           $avatar        The avatar service
+     */
+    public function __construct(
+        ControllerHelper $helper,
+        FilterCollectionBuilder $filterBuilder,
+        UserManager $userManager,
+        AvatarService $avatar
+    ) {
+        $this->helper = $helper;
+        $this->filterBuilder = $filterBuilder;
+        $this->userManager = $userManager;
+        $this->avatar = $avatar;
+
+    }
+
     /**
      * Fetches data for a particular user and serves as JSON
      *
@@ -30,10 +82,10 @@ class ApiController extends AbstractCoreController
     public function fetchAction(User $user = null)
     {
         if (null === $user) {
-            $user = $this->getUser();
+            $user = $this->helper->getUser();
         }
 
-        $avatarAdapter = $this->container->get('tickit_user.avatar')->getAdapter();
+        $avatarAdapter = $this->avatar->getAdapter();
         $avatarUrl     = $avatarAdapter->getImageUrl($user, 35);
 
         $data = array(
@@ -57,16 +109,12 @@ class ApiController extends AbstractCoreController
      */
     public function listAction($page = 1)
     {
-        $filters = $this->get('tickit.filter_collection_builder')
-                        ->buildFromRequest($this->getRequest());
-
-        $users = $this->get('tickit_user.manager')
-                      ->getRepository()
-                      ->findByFilters($filters);
+        $filters = $this->filterBuilder->buildFromRequest($this->helper->getRequest());
+        $users = $this->userManager->getRepository()->findByFilters($filters);
 
         $data = array();
-        $decorator = $this->getArrayDecorator();
-        $staticProperties = array('csrf_token' => $this->generateCsrfToken(UserController::CSRF_DELETE_INTENTION));
+        $decorator = $this->helper->getObjectDecorator();
+        $staticProperties = array('csrf_token' => $this->helper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION));
         foreach ($users as $user) {
             $data[] = $decorator->decorate(
                 $user,

@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\ControllerHelper;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 
 /**
@@ -16,7 +16,7 @@ use Tickit\ProjectBundle\Entity\AbstractAttribute;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttributeController extends AbstractCoreController
+class AttributeController extends ControllerHelper
 {
     /**
      * String intention for deleting a project attribute
