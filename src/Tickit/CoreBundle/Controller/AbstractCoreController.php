@@ -3,9 +3,11 @@
 namespace Tickit\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator;
+use Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface;
+use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
 
 /**
  * Core controller.
@@ -18,13 +20,51 @@ use Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator;
 abstract class AbstractCoreController extends Controller
 {
     /**
-     * Gets an array decorator
+     * A CSRF token generator
      *
-     * @return DomainObjectArrayDecorator
+     * @var CsrfTokenGeneratorInterface
      */
-    protected function getArrayDecorator()
+    protected $tokenGenerator;
+
+    /**
+     * A domain object decorator
+     *
+     * @var DomainObjectDecoratorInterface
+     */
+    protected $objectDecorator;
+
+    /**
+     * A template engine
+     *
+     * @var EngineInterface
+     */
+    protected $templateEngine;
+
+    /**
+     * Constructor.
+     *
+     * @param CsrfTokenGeneratorInterface    $tokenGenerator
+     * @param DomainObjectDecoratorInterface $objectDecorator
+     * @param EngineInterface                $templateEngine
+     */
+    public function __construct(
+        CsrfTokenGeneratorInterface $tokenGenerator,
+        DomainObjectDecoratorInterface $objectDecorator,
+        EngineInterface $templateEngine
+    ) {
+        $this->tokenGenerator = $tokenGenerator;
+        $this->objectDecorator = $objectDecorator;
+        $this->templateEngine = $templateEngine;
+    }
+
+    /**
+     * Gets the domain object decorator
+     *
+     * @return DomainObjectDecoratorInterface
+     */
+    protected function getObjectDecorator()
     {
-        return $this->get('tickit.domain_object_array_decorator');
+        return $this->objectDecorator;
     }
 
     /**
@@ -39,10 +79,10 @@ abstract class AbstractCoreController extends Controller
      */
     protected function checkCsrfToken($token, $intent)
     {
-        $tokenProvider = $this->get('form.csrf_provider');
+        $tokenProvider = $this->tokenGenerator;
 
         if (!$tokenProvider->isCsrfTokenValid($intent, $token)) {
-            throw $this->createNotFoundException('Invalid CSRF token');
+            throw new NotFoundHttpException('Invalid CSRF token');
         }
     }
 
@@ -55,9 +95,7 @@ abstract class AbstractCoreController extends Controller
      */
     protected function generateCsrfToken($intent)
     {
-        $tokenProvider = $this->get('form.csrf_provider');
-
-        return $tokenProvider->generateCsrfToken($intent);
+        return $this->tokenGenerator->generateCsrfToken($intent);
     }
 
     /**
@@ -71,9 +109,9 @@ abstract class AbstractCoreController extends Controller
      */
     protected function renderForm($template, Form $form, array $additionalParams = array())
     {
-        return $this->render(
+        return $this->templateEngine->render(
             $template,
             array_merge(array('form' => $form->createView()), $additionalParams)
-        )->getContent();
+        );
     }
 }
