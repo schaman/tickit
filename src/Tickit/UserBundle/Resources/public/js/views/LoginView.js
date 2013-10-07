@@ -8,8 +8,9 @@
 define([
     'modules/request',
     'core/js/views/SingleFormErrorView',
-    'core/js/models/FormError'
-], function(Request, FormErrorView, FormError) {
+    'core/js/models/FormError',
+    'modules/template'
+], function(Request, FormErrorView, FormError, Template) {
     return Backbone.View.extend({
 
         tagName: 'div',
@@ -88,14 +89,9 @@ define([
          * @return {Marionette.Module}
          */
         render: function() {
-            // TODO: this needs to be migrated to App.Template and cached in some fashion to save duplicate requests
             var t = this;
-            $.ajax({
-                url: '/templates/users/login-form',
-                dataType: 'html',
-                success: function(resp) {
-                    t.$el.html(resp);
-                }
+            Template.fetch('/templates/users/login-form', function(tpl) {
+                t.$el.html(tpl);
             });
 
             return this;

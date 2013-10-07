@@ -23,6 +23,8 @@ define(['marionette'], function(Marionette) {
                 require(['modules/notification'], function(Notification) {
                     Notification.loadNotifications();
                 });
+
+                $('#outer-container').show();
             }
         }
     });

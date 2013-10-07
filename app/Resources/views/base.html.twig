@@ -20,13 +20,16 @@
     </head>
     <body style="zoom: 1">
 
-        <div class="wrapper">
+        <div class="wrapper" style="display:none;">
             {# Sticky header navigation #}
-            <header class='main-header' role='banner'></header>
+            <header id="toolbar" class='main-header' role='banner'></header>
         </div>
 
+        {# Login container #}
+        <div id="login-container"></div>
+
         {# Outer application container #}
-        <div class="container-fluid">
+        <div id="outer-container" class="container-fluid" style="display:none;">
 
             {# Left hand navigation container #}
             <div class="row-fluid">
