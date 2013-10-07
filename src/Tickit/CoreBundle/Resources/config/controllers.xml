@@ -15,6 +15,7 @@
             <argument type="service" id="form.csrf_provider" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
             <argument type="service" id="templating" />
+            <argument type="service" id="security.context" />
         </service>
 
     </services>

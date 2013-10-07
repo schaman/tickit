@@ -7,8 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface;
 use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Core controller helper.
@@ -49,18 +52,27 @@ class ControllerHelper
     protected $templateEngine;
 
     /**
+     * The security context
+     *
+     * @var SecurityContext
+     */
+    protected $securityContext;
+
+    /**
      * Constructor.
      *
      * @param Request                        $request         The request
      * @param CsrfTokenGeneratorInterface    $tokenGenerator  A token generator
      * @param DomainObjectDecoratorInterface $objectDecorator A domain object decorator
      * @param EngineInterface                $templateEngine  A template engine
+     * @param SecurityContext                $securityContext The security context
      */
     public function __construct(
         Request $request,
         CsrfTokenGeneratorInterface $tokenGenerator,
         DomainObjectDecoratorInterface $objectDecorator,
-        EngineInterface $templateEngine
+        EngineInterface $templateEngine,
+        SecurityContext $securityContext
     ) {
         $this->request = $request;
         $this->tokenGenerator = $tokenGenerator;
@@ -76,6 +88,37 @@ class ControllerHelper
     public function getObjectDecorator()
     {
         return $this->objectDecorator;
+    }
+
+    /**
+     * Gets the request object
+     *
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Gets the current user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        $token = $this->securityContext->getToken();
+
+        if (null === $token) {
+            return null;
+        }
+
+        $user = $token->getUser();
+        if (!$user instanceof UserInterface) {
+            return null;
+        }
+
+        return $user;
     }
 
     /**
