@@ -171,37 +171,47 @@ class AbstractManagerTest extends AbstractUnitTest
      */
     public function testUpdateUpdatesEntityWithoutAutoFlush()
     {
-        $this->markTestIncomplete('Need to address the AbstractVetoableEvent::getEntity() issue');
-
         $entity = new \stdClass();
-        $updatedEntity = new \stdClass();
-        $updatedEntity->property = 1;
-        $originalEntity = new \stdClass();
+        $entity->property = 1;
 
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
-        $event->expects($this->once())
-              ->method('getEntity')
-              ->will($this->returnValue($updatedEntity));
+        $updatedEntity = new \stdClass();
+        $updatedEntity->property = 2;
+
+        $originalEntity = new \stdClass();
+        $originalEntity->property = 3;
+
+        $beforeUpdateEvent = $this->getMockBuilder('Tickit\CoreBundle\Event\EntityEvent')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+        $beforeUpdateEvent->expects($this->once())
+                          ->method('isVetoed')
+                          ->will($this->returnValue(false));
+
+        $beforeUpdateEvent->expects($this->once())
+                          ->method('getEntity')
+                          ->will($this->returnValue($updatedEntity));
 
         $manager = $this->getManager();
         $manager->expects($this->once())
                 ->method('fetchEntityInOriginalState')
-                ->with($originalEntity);
+                ->with($entity)
+                ->will($this->returnValue($originalEntity));
 
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeUpdateEvent')
                          ->with($entity)
-                         ->will($this->returnValue($event));
+                         ->will($this->returnValue($beforeUpdateEvent));
 
         $this->em->expects($this->never())
                  ->method('flush');
 
         $this->dispatcher->expects($this->once())
                          ->method('dispatchUpdateEvent')
-                         ->with($entity, $originalEntity);
+                         ->with($updatedEntity, $originalEntity);
 
-        $updatedEntity = $manager->update($entity, false);
-        $this->assertEquals($entity, $updatedEntity);
+        $returnedEntity = $manager->update($entity, false);
+        $this->assertEquals($updatedEntity, $returnedEntity);
     }
 
     /**
