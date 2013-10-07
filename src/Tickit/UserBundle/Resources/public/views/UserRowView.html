@@ -1,9 +1,25 @@
 <script type="text/template" id="user_row-template">
-    <td><%= forename %></td>
-    <td><%= surname %></td>
-    <td><%= username %></td>
-    <td><%= email %></td>
-    <td><%= isAdmin %></td>
+    <td class="action">
+        <div class="cell">
+            <a href="javascript:void(0);" class="icon-export"></a>
+        </div>
+    </td>
+    <td>
+        <div class="cell"><%= forename %></div>
+    </td>
+    <td>
+        <div class="cell"><%= surname %></div>
+    </td>
+    <td>
+        <div class="cell"><%= username %></div>
+    </td>
+    <td>
+        <div class="cell"><%= email %></div>
+    </td>
+    <td>
+        <div class="cell"><%= isAdmin %></div>
+    </td>
     <td><a href="<%= editUrl %>">Edit</a></td>
     <td><a href="<%= deleteUrl %>">Delete</a></td>
+    <td class="select-cell"><div class="cell"><input type="checkbox"></div></td>
 </script>
