@@ -74,6 +74,7 @@ class ApiController
         AvatarService $avatar
     ) {
         $this->baseHelper = $baseHelper;
+        $this->csrfHelper = $csrfHelper;
         $this->filterBuilder = $filterBuilder;
         $this->userManager = $userManager;
         $this->avatar = $avatar;
