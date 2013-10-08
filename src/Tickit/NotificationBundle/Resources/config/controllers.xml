@@ -11,6 +11,8 @@
             <argument type="service" id="tickit.controller.base_helper" />
         </service>
 
+        <service id="tickit_notification.controller.notification" class="Tickit\NotificationBundle\Controller\NotificationController" />
+
     </services>
 
 </container>
