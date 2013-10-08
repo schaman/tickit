@@ -14,6 +14,7 @@
             <argument type="service" id="request" />
             <argument type="service" id="security.context" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
+            <argument type="service" id="router" />
         </service>
 
         <service id="tickit.controller.form_helper" class="Tickit\CoreBundle\Controller\Helper\FormHelper" public="false" lazy="true" scope="request">

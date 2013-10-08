@@ -3,6 +3,7 @@
 namespace Tickit\CoreBundle\Controller\Helper;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
@@ -40,20 +41,30 @@ class BaseHelper
     protected $objectDecorator;
 
     /**
+     * A router
+     *
+     * @var RouterInterface
+     */
+    protected $router;
+
+    /**
      * Constructor.
      *
-     * @param Request $request
-     * @param SecurityContextInterface $securityContext
-     * @param DomainObjectDecoratorInterface $objectDecorator
+     * @param Request                        $request         The request
+     * @param SecurityContextInterface       $securityContext The security context
+     * @param DomainObjectDecoratorInterface $objectDecorator The object decorator
+     * @param RouterInterface                $router          A router
      */
     public function __construct(
         Request $request,
         SecurityContextInterface $securityContext,
-        DomainObjectDecoratorInterface $objectDecorator
+        DomainObjectDecoratorInterface $objectDecorator,
+        RouterInterface $router
     ) {
         $this->request = $request;
         $this->securityContext = $securityContext;
         $this->objectDecorator = $objectDecorator;
+        $this->router = $router;
     }
 
     /**
@@ -74,6 +85,16 @@ class BaseHelper
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Gets the router
+     *
+     * @return RouterInterface
+     */
+    public function getRouter()
+    {
+        return $this->router;
     }
 
     /**
