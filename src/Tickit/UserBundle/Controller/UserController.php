@@ -5,7 +5,7 @@ namespace Tickit\UserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tickit\CoreBundle\Controller\ControllerHelper;
+use Tickit\CoreBundle\Controller\Helper\ControllerHelper;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -14,7 +14,7 @@ use Tickit\UserBundle\Entity\User;
  * @package Tickit\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserController extends ControllerHelper
+class UserController extends \Tickit\CoreBundle\Controller\Helper\ControllerHelper
 {
     /**
      * String constant containing the intention for CSRF delete action

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\CoreBundle\Controller;
+namespace Tickit\CoreBundle\Controller\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
