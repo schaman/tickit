@@ -31,6 +31,7 @@ class TickitPreferenceExtension extends Extension
         $xmlLoader->load('services.xml');
         $xmlLoader->load('managers.xml');
         $xmlLoader->load('repositories.xml');
+        $xmlLoader->load('controllers.xml');
     }
 
     /**
