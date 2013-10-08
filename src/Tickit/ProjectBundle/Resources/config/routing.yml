@@ -34,21 +34,21 @@ project_delete:
 
 project_attribute_create:
     pattern: /projects/attributes/{type}/create
-    defaults: { _controller: TickitProjectBundle:Attribute:create }
+    defaults: { _controller: tickit_project.controller.attribute:createAction }
     requirements:
         type: \w{6,7}
         _method: post
 
 project_attribute_edit:
     pattern: /projects/attributes/edit/{id}
-    defaults: { _controller: TickitProjectBundle:Attribute:edit }
+    defaults: { _controller: tickit_project.controller.attribute:editAction }
     requirements:
         id: \d+
         _method: post
 
 project_attribute_delete:
     pattern: /projects/attributes/delete/{id}
-    defaults: { _controller: TickitProjectBundle:Attribute:delete }
+    defaults: { _controller: tickit_project.controller.attribute:deleteAction }
     requirements:
         id: \d+
         _method: post
