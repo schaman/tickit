@@ -14,7 +14,7 @@
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
         </service>
 
-        <service id="tickit_project.controller.api" class="Tickit\ProjectBundle\Controller\ApiController">
+        <service id="tickit_project.controller.api" class="Tickit\ProjectBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
             <argument type="service" id="tickit_project.manager" />
             <argument type="service" id="tickit_project.attribute_manager" />
