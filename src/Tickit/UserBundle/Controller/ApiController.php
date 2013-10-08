@@ -4,7 +4,9 @@ namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\ControllerHelper;
+use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Entity\User;
@@ -22,11 +24,18 @@ use Tickit\UserBundle\Manager\UserManager;
 class ApiController
 {
     /**
-     * The controller helper
+     * The base controller helper
      *
-     * @var ControllerHelper
+     * @var BaseHelper
      */
-    protected $helper;
+    protected $baseHelper;
+
+    /**
+     * The CSRF controller helper
+     *
+     * @var CsrfHelper
+     */
+    protected $csrfHelper;
 
     /**
      * Filter builder
@@ -52,18 +61,20 @@ class ApiController
     /**
      * Constructor
      *
-     * @param ControllerHelper        $helper        The controller helper
+     * @param BaseHelper              $baseHelper    The base controller helper
+     * @param CsrfHelper              $csrfHelper    The csrf controller helper
      * @param FilterCollectionBuilder $filterBuilder The filter collection builder
      * @param UserManager             $userManager   The user manager
      * @param AvatarService           $avatar        The avatar service
      */
     public function __construct(
-        ControllerHelper $helper,
+        BaseHelper $baseHelper,
+        CsrfHelper $csrfHelper,
         FilterCollectionBuilder $filterBuilder,
         UserManager $userManager,
         AvatarService $avatar
     ) {
-        $this->helper = $helper;
+        $this->baseHelper = $baseHelper;
         $this->filterBuilder = $filterBuilder;
         $this->userManager = $userManager;
         $this->avatar = $avatar;
@@ -82,7 +93,7 @@ class ApiController
     public function fetchAction(User $user = null)
     {
         if (null === $user) {
-            $user = $this->helper->getUser();
+            $user = $this->baseHelper->getUser();
         }
 
         $avatarAdapter = $this->avatar->getAdapter();
@@ -109,12 +120,14 @@ class ApiController
      */
     public function listAction($page = 1)
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->helper->getRequest());
+        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
         $users = $this->userManager->getRepository()->findByFilters($filters);
 
         $data = array();
-        $decorator = $this->helper->getObjectDecorator();
-        $staticProperties = array('csrf_token' => $this->helper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION));
+        $decorator = $this->baseHelper->getObjectDecorator();
+        $staticProperties = array(
+            'csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)
+        );
         foreach ($users as $user) {
             $data[] = $decorator->decorate(
                 $user,

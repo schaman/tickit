@@ -13,6 +13,7 @@
 
             <service id="tickit_user.controller.api" class="Tickit\UserBundle\Controller\ApiController" scope="request">
                 <argument type="service" id="tickit.controller.base_helper" />
+                <argument type="service" id="tickit.controller.csrf_helper" />
                 <argument type="service" id="tickit.filter_collection_builder" />
                 <argument type="service" id="tickit_user.manager" />
                 <argument type="service" id="tickit_user.avatar" />
