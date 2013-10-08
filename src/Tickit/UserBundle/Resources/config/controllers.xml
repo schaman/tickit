@@ -19,5 +19,12 @@
                 <argument type="service" id="tickit_user.avatar" />
             </service>
 
+            <service id="tickit_user.controller.user" class="Tickit\UserBundle\Controller\UserController" scope="request">
+                <argument type="service" id="tickit.controller.csrf_helper" />
+                <argument type="service" id="tickit.controller.form_helper" />
+                <argument type="service" id="tickit.controller.base_helper" />
+                <argument type="service" id="tickit_user.manager" />
+            </service>
+
         </services>
 </container>
