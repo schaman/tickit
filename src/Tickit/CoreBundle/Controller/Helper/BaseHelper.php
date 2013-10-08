@@ -26,7 +26,7 @@ class BaseHelper
     protected $request;
 
     /**
-     * The security context
+     * A security context
      *
      * @var SecurityContextInterface
      */
@@ -51,7 +51,9 @@ class BaseHelper
         SecurityContextInterface $securityContext,
         DomainObjectDecoratorInterface $objectDecorator
     ) {
-
+        $this->request = $request;
+        $this->securityContext = $securityContext;
+        $this->objectDecorator = $objectDecorator;
     }
 
     /**
