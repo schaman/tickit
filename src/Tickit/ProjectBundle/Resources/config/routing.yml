@@ -13,20 +13,20 @@ templates:
 
 project_create:
     pattern: /projects/create
-    defaults: { _controller: TickitProjectBundle:Project:create }
+    defaults: { _controller: tickit_project.controller.project:createAction }
     requirements:
         _method: post
 
 project_edit:
     pattern: /projects/edit/{id}
-    defaults: { _controller: TickitProjectBundle:Project:edit }
+    defaults: { _controller: tickit_project.controller.project:editAction }
     requirements:
         id: \d+
         _method: post
 
 project_delete:
     pattern: /projects/delete/{id}
-    defaults: { _controller: TickitProjectBundle:Project:delete }
+    defaults: { _controller: tickit_project.controller.project:deleteAction }
     requirements:
         id: \d+
     options:

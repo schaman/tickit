@@ -98,6 +98,19 @@ class BaseHelper
     }
 
     /**
+     * Generates a URL from a route name
+     *
+     * @param string $routeName  The route name
+     * @param array  $parameters Route parameters (if any)
+     *
+     * @return string
+     */
+    public function generateUrl($routeName, array $parameters = array())
+    {
+        return $this->getRouter()->generate($routeName, $parameters);
+    }
+
+    /**
      * Gets the current user
      *
      * @return User

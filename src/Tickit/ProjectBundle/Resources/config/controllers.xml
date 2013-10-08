@@ -22,6 +22,15 @@
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
+        <service id="tickit_project.controller.project" class="Tickit\ProjectBundle\Controller\ProjectController" scope="request">
+            <argument type="service" id="tickit.controller.form_helper" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit_project.attribute_manager" />
+            <argument type="service" id="tickit_project.manager" />
+            <argument type="service" id="tickit_project.form.project" />
+            <argument type="service" id="tickit.controller.csrf_helper" />
+        </service>
+
     </services>
 
 </container>
