@@ -81,4 +81,15 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock object decorator
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockObjectDecorator()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface')
+                    ->getMock();
+    }
 }
