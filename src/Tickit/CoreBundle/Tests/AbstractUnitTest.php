@@ -69,4 +69,16 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock BaseHelper
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockBaseHelper()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\BaseHelper')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }
