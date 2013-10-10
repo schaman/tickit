@@ -3,11 +3,16 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
+use Tickit\ProjectBundle\Form\Type\ProjectFormType;
+use Tickit\ProjectBundle\Manager\AttributeManager;
+use Tickit\UserBundle\Manager\UserManager;
 
 /**
  * Template controller.
@@ -17,8 +22,65 @@ use Tickit\ProjectBundle\Entity\Project;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TemplateController extends Controller
+class TemplateController
 {
+    /**
+     * The user manager
+     *
+     * @var UserManager
+     */
+    protected $attributeManager;
+
+    /**
+     * A form factory
+     *
+     * @var FormFactoryInterface
+     */
+    protected $formFactory;
+
+    /**
+     * A template engine
+     *
+     * @var EngineInterface
+     */
+    protected $templateEngine;
+
+    /**
+     * The project form type
+     *
+     * @var ProjectFormType
+     */
+    protected $projectFormType;
+
+    /**
+     * Attribute form type guesser
+     *
+     * @var AttributeFormTypeGuesser
+     */
+    protected $attributeFormTypeGuesser;
+
+    /**
+     * Constructor.
+     *
+     * @param AttributeManager         $attributeManager         The user manager
+     * @param FormFactoryInterface     $formFactory              A form factory
+     * @param EngineInterface          $templateEngine           A template engine
+     * @param ProjectFormType          $projectFormType          The project form type
+     * @param AttributeFormTypeGuesser $attributeFormTypeGuesser The attribute form type guesser
+     */
+    public function __construct(
+        AttributeManager $attributeManager,
+        FormFactoryInterface $formFactory,
+        EngineInterface $templateEngine,
+        ProjectFormType $projectFormType,
+        AttributeFormTypeGuesser $attributeFormTypeGuesser
+    ) {
+        $this->attributeManager = $attributeManager;
+        $this->formFactory = $formFactory;
+        $this->templateEngine = $templateEngine;
+        $this->projectFormType = $projectFormType;
+    }
+
     /**
      * Create project form action.
      *
@@ -30,11 +92,14 @@ class TemplateController extends Controller
     {
         $project = new Project();
 
-        $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
+        $attributes = $this->attributeManager->getAttributeValuesForProject($project);
         $project->setAttributes($attributes);
-        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
+        $form = $this->formFactory->create($this->projectFormType, $project);
 
-        return $this->render('TickitProjectBundle:Project:create.html.twig', array('form' => $form->createView()));
+        return $this->templateEngine->renderResponse(
+            'TickitProjectBundle:Project:create.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     /**
@@ -50,9 +115,12 @@ class TemplateController extends Controller
      */
     public function editProjectFormAction(Project $project)
     {
-        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
+        $form = $this->formFactory->create($this->projectFormType, $project);
 
-        return $this->render('TickitProjectBundle:Project:edit.html.twig', array('form' => $form->createView()));
+        return $this->templateEngine->renderResponse(
+            'TickitProjectBundle:Project:edit.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     /**
@@ -71,15 +139,13 @@ class TemplateController extends Controller
         try {
             $attribute = AbstractAttribute::factory($type);
         } catch (\InvalidArgumentException $e) {
-            throw $this->createNotFoundException('An invalid attribute type was specified');
+            throw new NotFoundHttpException('An invalid attribute type was specified');
         }
 
-        $formType = $this->get('tickit_project.attribute_form_type_guesser')
-                         ->guessByAttributeType($attribute->getType());
+        $formType = $this->attributeFormTypeGuesser->guessByAttributeType($attribute->getType());
+        $form = $this->formFactory->create($formType, $attribute);
 
-        $form = $this->createForm($formType, $attribute);
-
-        return $this->render(
+        return $this->templateEngine->renderResponse(
             'TickitProjectBundle:Attribute:create.html.twig',
             array('form' => $form->createView(), 'type' => $type)
         );
@@ -93,15 +159,16 @@ class TemplateController extends Controller
      * @param AbstractAttribute $attribute The attribute to serve the edit form for
      *
      * @ParamConverter("attribute", class="TickitProjectBundle:AbstractAttribute")
+     *
+     * @return Response
      */
     public function editProjectAttributeFormAction(AbstractAttribute $attribute)
     {
-        $formType = $this->get('tickit_project.attribute_form_type_guesser')
-                         ->guessByAttributeType($attribute->getType());
+        $formType = $this->attributeFormTypeGuesser->guessByAttributeType($attribute->getType());
 
-        $form = $this->createForm($formType, $attribute);
+        $form = $this->formFactory->create($formType, $attribute);
 
-        return $this->render(
+        return $this->templateEngine->renderResponse(
             'TickitProjectBundle:Attribute:edit.html.twig',
             array('form' => $form->createView(), 'type' => $attribute->getType())
         );

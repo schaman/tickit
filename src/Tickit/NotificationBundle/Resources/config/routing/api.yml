@@ -1,6 +1,6 @@
 api_notification_list:
     pattern: /list
-    defaults: { _controller: TickitNotificationBundle:Api:list }
+    defaults: { _controller: tickit_notification.controller.api:listAction }
     requirements:
         _method: GET
     options:

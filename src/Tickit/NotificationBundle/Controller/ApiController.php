@@ -3,7 +3,9 @@
 namespace Tickit\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\CoreBundle\Controller\Helper\ControllerHelper;
+use Tickit\NotificationBundle\Provider\NotificationProvider;
 
 /**
  * Notification API controller.
@@ -13,8 +15,34 @@ use Tickit\CoreBundle\Controller\AbstractCoreController;
  * @package Tickit\NotificationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController
 {
+    /**
+     * The notification provider
+     *
+     * @var NotificationProvider
+     */
+    protected $provider;
+
+    /**
+     * The base controller helper
+     *
+     * @var BaseHelper
+     */
+    protected $baseHelper;
+
+    /**
+     * Constructor.
+     *
+     * @param NotificationProvider $provider   The notification provider
+     * @param BaseHelper           $baseHelper The base controller helper
+     */
+    public function __construct(NotificationProvider $provider, BaseHelper $baseHelper)
+    {
+        $this->provider = $provider;
+        $this->baseHelper = $baseHelper;
+    }
+
     /**
      * List action.
      *
@@ -24,11 +52,10 @@ class ApiController extends AbstractCoreController
      */
     public function listAction()
     {
-        $notifications = $this->get('tickit_notification.provider')
-                              ->findUnreadForUser($this->getUser());
+        $notifications = $this->provider->findUnreadForUser($this->baseHelper->getUser());
 
         $data = array();
-        $decorator = $this->getArrayDecorator();
+        $decorator = $this->baseHelper->getObjectDecorator();
         foreach ($notifications as $notification) {
             $data[] = $decorator->decorate($notification, array('message', 'createdAt', 'actionUri'));
         }

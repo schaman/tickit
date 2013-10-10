@@ -1,6 +1,6 @@
 project_index:
     pattern: /projects/{page}
-    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
+    defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
     requirements:
         page: \d+
     options:
@@ -8,7 +8,7 @@ project_index:
 
 project_create_view:
     pattern: /projects/create
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     requirements:
         _method: get
     options:
@@ -16,7 +16,7 @@ project_create_view:
 
 project_edit_view:
     pattern: /projects/edit/{id}
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     requirements:
         id: \d+
         _method: get
@@ -25,7 +25,7 @@ project_edit_view:
 
 project_attribute_index:
     pattern: /attributes/{page}
-    defaults: { _controller: TickitProjectBundle:Default:default, page: 1 }
+    defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
     requirements:
         page: \d+
     options:

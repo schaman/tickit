@@ -5,8 +5,12 @@ namespace Tickit\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
+use Tickit\ProjectBundle\Manager\AttributeManager;
 
 /**
  * Project attribute controller.
@@ -16,7 +20,7 @@ use Tickit\ProjectBundle\Entity\AbstractAttribute;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttributeController extends AbstractCoreController
+class AttributeController
 {
     /**
      * String intention for deleting a project attribute
@@ -24,6 +28,64 @@ class AttributeController extends AbstractCoreController
      * @const string
      */
     const CSRF_DELETE_INTENTION = 'delete_project_attribute';
+
+    /**
+     * The form controller helper
+     *
+     * @var FormHelper
+     */
+    protected $formHelper;
+
+    /**
+     * The base controller helper
+     *
+     * @var BaseHelper
+     */
+    protected $baseHelper;
+
+    /**
+     * The attribute form type guesser
+     *
+     * @var AttributeFormTypeGuesser
+     */
+    protected $formTypeGuesser;
+
+    /**
+     * The attribute manager
+     *
+     * @var AttributeManager
+     */
+    protected $attributeManager;
+
+    /**
+     * The CSRF controller helper
+     *
+     * @var CsrfHelper
+     */
+    protected $csrfHelper;
+
+    /**
+     * Constructor.
+     *
+     * @param FormHelper               $formHelper       The form controller helper
+     * @param BaseHelper               $baseHelper       The base controller helper
+     * @param AttributeFormTypeGuesser $formTypeGuesser  The attribute form type guesser
+     * @param AttributeManager         $attributeManager The attribute manager
+     * @param CsrfHelper               $csrfHelper       The CSRF form controller helper
+     */
+    public function __construct(
+        FormHelper $formHelper,
+        BaseHelper $baseHelper,
+        AttributeFormTypeGuesser $formTypeGuesser,
+        AttributeManager $attributeManager,
+        CsrfHelper $csrfHelper
+    ) {
+        $this->formHelper = $formHelper;
+        $this->baseHelper = $baseHelper;
+        $this->formTypeGuesser = $formTypeGuesser;
+        $this->attributeManager = $attributeManager;
+        $this->csrfHelper = $csrfHelper;
+    }
 
     /**
      * Create attribute action.
@@ -41,20 +103,20 @@ class AttributeController extends AbstractCoreController
         try {
             $attribute = AbstractAttribute::factory($type);
         } catch (\InvalidArgumentException $e) {
-            throw $this->createNotFoundException('An invalid attribute type was specified');
+            throw new NotFoundHttpException('An invalid attribute type was specified');
         }
 
         $responseData = ['success' => false];
-        $formType = $this->get('tickit_project.attribute_form_type_guesser')->guessByAttributeType($type);
-        $form = $this->createForm($formType, $attribute);
-        $form->handleRequest($this->getRequest());
+        $formType = $this->formTypeGuesser->guessByAttributeType($type);
+        $form = $this->formHelper->createForm($formType, $attribute);
+        $form->handleRequest($this->baseHelper->getRequest());
         if ($form->isValid()) {
-            $this->get('tickit_project.attribute_manager')->create($form->getData());
+            $this->attributeManager->create($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $this->generateUrl('project_attribute_index');
+            $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_attribute_index');
         } else {
             $params = ['type' => $attribute->getType()];
-            $responseData['form'] = $this->renderForm('TickitProjectBundle:Attribute:create.html.twig', $form, $params);
+            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Attribute:create.html.twig', $form, $params);
         }
 
         return new JsonResponse($responseData);
@@ -74,17 +136,16 @@ class AttributeController extends AbstractCoreController
     public function editAction(AbstractAttribute $attribute)
     {
         $responseData = ['success' => false];
-        $formType = $this->get('tickit_project.attribute_form_type_guesser')
-                         ->guessByAttributeType($attribute->getType());
+        $formType = $this->formTypeGuesser->guessByAttributeType($attribute->getType());
 
-        $form = $this->createForm($formType, $attribute);
-        $form->handleRequest($this->getRequest());
+        $form = $this->formHelper->createForm($formType, $attribute);
+        $form->handleRequest($this->baseHelper->getRequest());
         if ($form->isValid()) {
-            $this->get('tickit_project.attribute_manager')->update($attribute);
+            $this->attributeManager->update($attribute);
             $responseData['success'] = true;
         } else {
             $params = ['type' => $attribute->getType()];
-            $responseData['form'] = $this->renderForm('TickitProjectBundle:Attribute:edit.html.twig', $form, $params);
+            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Attribute:edit.html.twig', $form, $params);
         }
 
         return new JsonResponse($responseData);
@@ -101,12 +162,10 @@ class AttributeController extends AbstractCoreController
      */
     public function deleteAction(AbstractAttribute $attribute)
     {
-        $token = $this->getRequest()->query->get('token');
-        $this->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
+        $token = $this->baseHelper->getRequest()->query->get('token');
+        $this->csrfHelper->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
+        $this->attributeManager->delete($attribute);
 
-        $manager = $this->get('tickit_project.attribute_manager');
-        $manager->delete($attribute);
-
-        return new JsonResponse(array('success' => true));
+        return new JsonResponse(['success' => true]);
     }
 }
