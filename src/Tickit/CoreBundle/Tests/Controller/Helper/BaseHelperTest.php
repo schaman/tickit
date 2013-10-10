@@ -153,14 +153,6 @@ class BaseHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests the createForm() method
-     */
-    public function testCreateFormCreatesForm()
-    {
-
-    }
-
-    /**
      * Gets new BaseHelper instance
      *
      * @return BaseHelper
