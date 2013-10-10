@@ -57,4 +57,16 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock EngineInterface for templating
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockTemplateEngine()
+    {
+        return $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Templating\EngineInterface')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }
