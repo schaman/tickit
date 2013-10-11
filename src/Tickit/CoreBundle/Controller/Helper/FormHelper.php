@@ -54,7 +54,7 @@ class FormHelper
      */
     public function renderForm($template, FormInterface $form, array $additionalParams = array())
     {
-        return $this->templateEngine->render(
+        return $this->templateEngine->renderResponse(
             $template,
             array_merge(array('form' => $form->createView()), $additionalParams)
         );

@@ -8,8 +8,7 @@
 
         <service id="tickit_project.controller.template" class="Tickit\ProjectBundle\Controller\TemplateController">
             <argument type="service" id="tickit_project.attribute_manager" />
-            <argument type="service" id="form.factory" />
-            <argument type="service" id="templating" />
+            <argument type="service" id="tickit_project.controller.form_helper" />
             <argument type="service" id="tickit_project.form.project" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
         </service>
