@@ -68,6 +68,7 @@ class TemplateController
         $this->attributeManager = $attributeManager;
         $this->formHelper = $formHelper;
         $this->projectFormType = $projectFormType;
+        $this->attributeFormTypeGuesser = $attributeFormTypeGuesser;
     }
 
     /**
