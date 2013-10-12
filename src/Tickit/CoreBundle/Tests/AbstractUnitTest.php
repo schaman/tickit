@@ -92,4 +92,16 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
         return $this->getMockBuilder('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface')
                     ->getMock();
     }
+
+    /**
+     * Returns a mock FilterCollectionBuilder
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockFilterCollectionBuilder()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }

@@ -35,9 +35,7 @@ class ApiControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->filterCollectionBuilder = $this->getMockBuilder('\Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder')
-                                              ->disableOriginalConstructor()
-                                              ->getMock();
+        $this->filterCollectionBuilder = $this->getMockFilterCollectionBuilder();
 
         $this->preferenceRepo = $this->getMockBuilder('\Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository')
                                      ->disableOriginalConstructor()
