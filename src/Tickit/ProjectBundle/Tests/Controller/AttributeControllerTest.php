@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\AttributeController;
+use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
@@ -92,17 +93,9 @@ class AttributeControllerTest extends AbstractUnitTest
 
         $request = new Request();
         $this->trainBaseHelperToReturnRequest($request);
-        $form->expects($this->once())
-             ->method('handleRequest')
-             ->with($request);
-
-        $form->expects($this->once())
-             ->method('isValid')
-             ->will($this->returnValue(true));
-
-        $form->expects($this->once())
-             ->method('getData')
-             ->will($this->returnValue($attribute));
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnAttribute($form, $attribute);
 
         $this->attributeManager->expects($this->once())
                                ->method('create')
@@ -143,13 +136,8 @@ class AttributeControllerTest extends AbstractUnitTest
 
         $request = new Request();
         $this->trainBaseHelperToReturnRequest($request);
-        $form->expects($this->once())
-             ->method('handleRequest')
-             ->with($request);
-
-        $form->expects($this->once())
-             ->method('isValid')
-             ->will($this->returnValue(false));
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
 
         $this->formHelper->expects($this->once())
                          ->method('renderForm')
@@ -186,13 +174,9 @@ class AttributeControllerTest extends AbstractUnitTest
 
         $request = new Request();
         $this->trainBaseHelperToReturnRequest($request);
-        $form->expects($this->once())
-             ->method('handleRequest')
-             ->with($request);
+        $this->trainFormToHandleRequest($form, $request);
 
-        $form->expects($this->once())
-             ->method('isValid')
-             ->will($this->returnValue(true));
+        $this->trainFormToBeValid($form);
 
         $this->attributeManager->expects($this->once())
                                ->method('update')
@@ -225,13 +209,9 @@ class AttributeControllerTest extends AbstractUnitTest
 
         $request = new Request();
         $this->trainBaseHelperToReturnRequest($request);
-        $form->expects($this->once())
-             ->method('handleRequest')
-             ->with($request);
+        $this->trainFormToHandleRequest($form, $request);
 
-        $form->expects($this->once())
-             ->method('isValid')
-             ->will($this->returnValue(false));
+        $this->trainFormToBeInvalid($form);
 
         $this->formHelper->expects($this->once())
                          ->method('renderForm')
@@ -290,5 +270,33 @@ class AttributeControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->once())
                          ->method('getRequest')
                          ->will($this->returnValue($request));
+    }
+
+    private function trainFormToBeInvalid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(false));
+    }
+
+    private function trainFormToBeValid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(true));
+    }
+
+    private function trainFormToHandleRequest(\PHPUnit_Framework_MockObject_MockObject $form, Request $request)
+    {
+        $form->expects($this->once())
+             ->method('handleRequest')
+             ->with($request);
+    }
+
+    private function trainFormToReturnAttribute(\PHPUnit_Framework_MockObject_MockObject $form, AbstractAttribute $attribute)
+    {
+        $form->expects($this->once())
+            ->method('getData')
+            ->will($this->returnValue($attribute));
     }
 }
