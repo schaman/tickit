@@ -141,4 +141,26 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock container
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockContainer()
+    {
+        return $this->getMockForAbstractClass('\Symfony\Component\DependencyInjection\ContainerInterface');
+    }
+
+    /**
+     * Returns a mock Router
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockRouter()
+    {
+        return $this->getMockBuilder('\Symfony\Component\Routing\RouterInterface')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }
