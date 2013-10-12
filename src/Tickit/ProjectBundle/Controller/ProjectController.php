@@ -120,7 +120,8 @@ class ProjectController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -146,7 +147,8 @@ class ProjectController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
