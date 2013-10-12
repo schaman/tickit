@@ -17,7 +17,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * @package Tickit\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TemplateController extends Controller
+class TemplateController
 {
     /**
      * The user manager
