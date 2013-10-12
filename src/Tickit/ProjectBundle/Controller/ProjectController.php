@@ -134,7 +134,7 @@ class ProjectController
      *
      * @ParamConverter("project", class="TickitProjectBundle:Project")
      *
-     * @return array
+     * @return JsonResponse
      */
     public function editAction(Project $project)
     {
@@ -145,7 +145,6 @@ class ProjectController
         if ($form->isValid()) {
             $this->projectManager->update($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_index');
         } else {
             $response = $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
             $responseData['form'] = $response->getContent();
