@@ -83,6 +83,19 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Returns a mock CsrfHelper
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockCsrfHelper()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\CsrfHelper')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+
+    /**
      * Returns a mock object decorator
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
