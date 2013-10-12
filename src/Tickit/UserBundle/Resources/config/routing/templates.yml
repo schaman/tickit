@@ -6,7 +6,7 @@ user_login_form:
 
 user_create_form:
     pattern: /create
-    defaults: { _controller: tickit_user.controller.template:createUserFormAction }
+    defaults: { _controller: tickit_user.controller.template:createFormAction }
     options:
         expose: true
     requirements:
@@ -14,7 +14,7 @@ user_create_form:
 
 user_edit_form:
     pattern: /edit/{id}
-    defaults: { _controller: tickit_user.controller.template:editUserFormAction }
+    defaults: { _controller: tickit_user.controller.template:editFormAction }
     requirements:
         id: \d+
         _method: GET

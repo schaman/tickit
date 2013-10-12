@@ -4,9 +4,8 @@ namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Tickit\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Manager\UserManager;
 
@@ -28,34 +27,22 @@ class TemplateController extends Controller
     protected $userManager;
 
     /**
-     * A form factory
+     * The form helper
      *
-     * @var FormFactoryInterface
+     * @var FormHelper
      */
-    protected $formFactory;
-
-    /**
-     * A template engine
-     *
-     * @var EngineInterface
-     */
-    protected $templateEngine;
+    protected $formHelper;
 
     /**
      * Constructor.
      *
-     * @param UserManager          $userManager    The user manager
-     * @param FormFactoryInterface $formFactory    A form factory
-     * @param EngineInterface      $templateEngine A template engine
+     * @param UserManager $userManager The user manager
+     * @param FormHelper  $formHelper  The form helper
      */
-    public function __construct(
-        UserManager $userManager,
-        FormFactoryInterface $formFactory,
-        EngineInterface $templateEngine
-    ) {
+    public function __construct(UserManager $userManager, FormHelper $formHelper)
+    {
         $this->userManager = $userManager;
-        $this->formFactory = $formFactory;
-        $this->templateEngine = $templateEngine;
+        $this->formHelper = $formHelper;
     }
 
     /**
@@ -65,15 +52,12 @@ class TemplateController extends Controller
      *
      * @return Response
      */
-    public function createUserFormAction()
+    public function createFormAction()
     {
         $user = $this->userManager->createUser();
-        $form = $this->formFactory->create('tickit_user', $user);
+        $form = $this->formHelper->createForm('tickit_user', $user);
 
-        return $this->templateEngine->renderResponse(
-            'TickitUserBundle:User:create.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->formHelper->renderForm('TickitUserBundle:User:create.html.twig', $form);
     }
 
     /**
@@ -87,13 +71,10 @@ class TemplateController extends Controller
      *
      * @return Response
      */
-    public function editUserFormAction(User $user)
+    public function editFormAction(User $user)
     {
-        $form = $this->formFactory->create('tickit_user', $user);
+        $form = $this->formHelper->createForm('tickit_user', $user);
 
-        return $this->templateEngine->renderResponse(
-            'TickitUserBundle:User:edit.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->formHelper->renderForm('TickitUserBundle:User:edit.html.twig', $form);
     }
 }
