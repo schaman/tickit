@@ -3,6 +3,7 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\AttributeController;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
@@ -153,7 +154,7 @@ class AttributeControllerTest extends AbstractUnitTest
         $this->formHelper->expects($this->once())
                          ->method('renderForm')
                          ->with('TickitProjectBundle:Attribute:create.html.twig', $form, ['type' => $attribute->getType()])
-                         ->will($this->returnValue('form-content'));
+                         ->will($this->returnValue(new Response('form-content')));
 
         $expectedData = [
             'success' => false,
@@ -239,7 +240,7 @@ class AttributeControllerTest extends AbstractUnitTest
                              $form,
                              ['type' => $attribute->getType()]
                          )
-                         ->will($this->returnValue('form-content'));
+                         ->will($this->returnValue(new Response('form-content')));
 
         $expectedData = ['success' => false, 'form' => 'form-content'];
         $response = $this->getController()->editAction($attribute);
