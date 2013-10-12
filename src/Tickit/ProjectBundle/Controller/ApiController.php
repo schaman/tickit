@@ -7,8 +7,8 @@ use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 use Tickit\ProjectBundle\Manager\AttributeManager;
-use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
  * Api project controller.
@@ -28,11 +28,11 @@ class ApiController
     protected $filterBuilder;
 
     /**
-     * The project manager
+     * The project repository
      *
-     * @var ProjectManager
+     * @var ProjectRepository
      */
-    protected $projectManager;
+    protected $projectRepository;
 
     /**
      * Attribute manager
@@ -59,20 +59,20 @@ class ApiController
      * Constructor.
      *
      * @param FilterCollectionBuilder $filterBuilder     The filter collection builder
-     * @param ProjectManager          $projectManager    The project manager
+     * @param ProjectRepository       $projectRepository The project repository
      * @param AttributeManager        $attributeManager  The attribute manager
      * @param BaseHelper              $baseHelper        The base controller helper
      * @param CsrfHelper              $csrfHelper        The CSRF controller helper
      */
     public function __construct(
         FilterCollectionBuilder $filterBuilder,
-        ProjectManager $projectManager,
+        ProjectRepository $projectRepository,
         AttributeManager $attributeManager,
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper
     ) {
         $this->filterBuilder = $filterBuilder;
-        $this->projectManager = $projectManager;
+        $this->projectRepository = $projectRepository;
         $this->attributeManager = $attributeManager;
         $this->baseHelper = $baseHelper;
         $this->csrfHelper = $csrfHelper;
@@ -87,7 +87,7 @@ class ApiController
     {
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
 
-        $projects = $this->projectManager->getRepository()->findByFilters($filters);
+        $projects = $this->projectRepository->findByFilters($filters);
 
         $data = array();
         $decorator = $this->baseHelper->getObjectDecorator();
