@@ -129,4 +129,16 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock symfony Form
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockForm()
+    {
+        return $this->getMockBuilder('\Symfony\Component\Form\Form')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }
