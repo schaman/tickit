@@ -138,7 +138,7 @@ class ProjectController
      */
     public function editAction(Project $project)
     {
-        $responseData = ['success' => false, 'errors' => []];
+        $responseData = ['success' => false];
         $form = $this->formHelper->createForm($this->projectFormType, $project);
         $form->handleRequest($this->baseHelper->getRequest());
 
