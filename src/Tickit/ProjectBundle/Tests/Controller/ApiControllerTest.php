@@ -150,9 +150,9 @@ class ApiControllerTest extends AbstractUnitTest
                   ->method('decorate')
                   ->with($attribute2, array('id', 'type', 'name'));
 
-        $expcectedData = array(array('attribute'), array('attribute'));
+        $expectedData = array(array('attribute'), array('attribute'));
         $response = $this->getController()->attributesListAction();
-        $this->assertEquals($expcectedData, json_decode($response->getContent(), true));
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
