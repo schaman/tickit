@@ -7,8 +7,8 @@ use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
 use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
-use Tickit\ProjectBundle\Manager\AttributeManager;
 
 /**
  * Api project controller.
@@ -35,11 +35,11 @@ class ApiController
     protected $projectRepository;
 
     /**
-     * Attribute manager
+     * Attribute repository
      *
-     * @var AttributeManager
+     * @var AttributeRepository
      */
-    protected $attributeManager;
+    protected $attributeRepository;
 
     /**
      * The base controller helper
@@ -58,22 +58,22 @@ class ApiController
     /**
      * Constructor.
      *
-     * @param FilterCollectionBuilder $filterBuilder     The filter collection builder
-     * @param ProjectRepository       $projectRepository The project repository
-     * @param AttributeManager        $attributeManager  The attribute manager
-     * @param BaseHelper              $baseHelper        The base controller helper
-     * @param CsrfHelper              $csrfHelper        The CSRF controller helper
+     * @param FilterCollectionBuilder $filterBuilder       The filter collection builder
+     * @param ProjectRepository       $projectRepository   The project repository
+     * @param AttributeRepository     $attributeRepository The attribute repository
+     * @param BaseHelper              $baseHelper          The base controller helper
+     * @param CsrfHelper              $csrfHelper          The CSRF controller helper
      */
     public function __construct(
         FilterCollectionBuilder $filterBuilder,
         ProjectRepository $projectRepository,
-        AttributeManager $attributeManager,
+        AttributeRepository $attributeRepository,
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper
     ) {
         $this->filterBuilder = $filterBuilder;
         $this->projectRepository = $projectRepository;
-        $this->attributeManager = $attributeManager;
+        $this->attributeRepository = $attributeRepository;
         $this->baseHelper = $baseHelper;
         $this->csrfHelper = $csrfHelper;
     }
@@ -110,7 +110,7 @@ class ApiController
     {
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
 
-        $attributes = $this->attributeManager->getRepository()->findByFilters($filters);
+        $attributes = $this->attributeRepository->findByFilters($filters);
 
         $data = array();
         $decorator = $this->baseHelper->getObjectDecorator();

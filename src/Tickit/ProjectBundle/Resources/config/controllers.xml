@@ -16,7 +16,7 @@
         <service id="tickit_project.controller.api" class="Tickit\ProjectBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
             <argument type="service" id="tickit_project.project_repository" />
-            <argument type="service" id="tickit_project.attribute_manager" />
+            <argument type="service" id="tickit_project.attribute_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
