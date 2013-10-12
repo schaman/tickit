@@ -51,7 +51,7 @@ class FormHelper
      * @param FormInterface $form             The form to render
      * @param array         $additionalParams Any additional view parameters
      *
-     * @return string
+     * @return Response
      */
     public function renderForm($template, FormInterface $form, array $additionalParams = array())
     {
