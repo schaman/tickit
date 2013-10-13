@@ -4,7 +4,7 @@ namespace Tickit\CoreBundle\Tests\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use Tickit\CoreBundle\Filters\ExactMatchFilter;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * ExactMatchFilter tests
@@ -12,7 +12,7 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  * @package Tickit\CoreBundle\Tests\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ExactMatchFilterTest extends AbstractFunctionalTest
+class ExactMatchFilterTest extends AbstractUnitTest
 {
     /**
      * Tests the applyToQuery() method
@@ -22,11 +22,24 @@ class ExactMatchFilterTest extends AbstractFunctionalTest
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
         $filter = new ExactMatchFilter('invalid name', 'exact value');
-        $query = $this->getQueryBuilder();
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+
+        $classMeta = new \stdClass();
+        $classMeta->name = 'Tickit\UserBundle\Entity\User';
+
+        $this->trainEntityManagerToReturnClassMetaData($em, $classMeta);
+
+        $query->expects($this->never())
+              ->method('getRootAliases');
+
+        $query->expects($this->never())
+              ->method('andWhere');
 
         $filter->applyToQuery($query);
-        $where = $query->getDQLPart('where');
-        $this->assertNull($where);
     }
 
     /**
@@ -36,32 +49,53 @@ class ExactMatchFilterTest extends AbstractFunctionalTest
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
-        $filter = new ExactMatchFilter('name', 'exact value');
+        $filter = new ExactMatchFilter('username', 'exact value');
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
 
-        $query = $this->getQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPreferenceBundle:Preference', 'p');
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+
+        $classMeta = new \stdClass();
+        $classMeta->name = 'Tickit\UserBundle\Entity\User';
+
+        $this->trainEntityManagerToReturnClassMetaData($em, $classMeta);
+
+        $query->expects($this->once())
+              ->method('getRootAliases')
+              ->will($this->returnValue(array('u')));
+
+        $query->expects($this->once())
+              ->method('andWhere')
+              ->with('u.username = :username')
+              ->will($this->returnSelf());
+
+        $query->expects($this->once())
+              ->method('setParameter')
+              ->with('username', 'exact value');
 
         $filter->applyToQuery($query);
-
-        $where = $query->getDQLPart('where');
-        $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\Andx', $where);
-        /** @var \Doctrine\ORM\Query\Expr\Andx $where */
-        $parts = $where->getParts();
-        $this->assertCount(1, $parts);
-        $part = array_shift($parts);
-        $this->assertEquals('p.name = :name', $part);
     }
 
-    /**
-     * Gets a query builder
-     *
-     * @return QueryBuilder
-     */
-    private function getQueryBuilder()
+    private function trainQueryToReturnRootEntities(\PHPUnit_Framework_MockObject_MockObject $query)
     {
-        $doctrine = $this->createClient()->getContainer()->get('doctrine');
+        $query->expects($this->once())
+              ->method('getRootEntities')
+              ->will($this->returnValue(array('Tickit\UserBundle\Entity\User')));
+    }
 
-        return $doctrine->getManager()->createQueryBuilder();
+    private function trainQueryToReturnEntityManager(\PHPUnit_Framework_MockObject_MockObject $query, \PHPUnit_Framework_MockObject_MockObject $em)
+    {
+        $query->expects($this->once())
+              ->method('getEntityManager')
+              ->will($this->returnValue($em));
+    }
+
+    private function trainEntityManagerToReturnClassMetaData(\PHPUnit_Framework_MockObject_MockObject $em, \stdClass $classMeta)
+    {
+        $em->expects($this->once())
+           ->method('getClassMetaData')
+           ->with('Tickit\UserBundle\Entity\User')
+           ->will($this->returnValue($classMeta));
     }
 }
