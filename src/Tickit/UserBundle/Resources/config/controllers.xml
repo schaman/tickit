@@ -23,6 +23,7 @@
                 <argument type="service" id="tickit.controller.form_helper" />
                 <argument type="service" id="tickit.controller.base_helper" />
                 <argument type="service" id="tickit_user.manager" />
+                <argument type="service" id="tickit_user.form.password_updater" />
             </service>
 
         </services>

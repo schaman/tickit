@@ -55,23 +55,33 @@ class UserController
     protected $userManager;
 
     /**
+     * The password updater
+     *
+     * @var UserPasswordUpdater
+     */
+    protected $passwordUpdater;
+
+    /**
      * Constructor.
      *
-     * @param CsrfHelper  $csrfHelper  The CSRF controller helper
-     * @param FormHelper  $formHelper  The form controller helper
-     * @param BaseHelper  $baseHelper  The base controller helper
-     * @param UserManager $userManager The user manager
+     * @param CsrfHelper          $csrfHelper      The CSRF controller helper
+     * @param FormHelper          $formHelper      The form controller helper
+     * @param BaseHelper          $baseHelper      The base controller helper
+     * @param UserManager         $userManager     The user manager
+     * @param UserPasswordUpdater $passwordUpdater The password updater
      */
     public function __construct(
         CsrfHelper $csrfHelper,
         FormHelper $formHelper,
         BaseHelper $baseHelper,
-        UserManager $userManager
+        UserManager $userManager,
+        UserPasswordUpdater $passwordUpdater
     ) {
         $this->csrfHelper = $csrfHelper;
         $this->formHelper = $formHelper;
         $this->baseHelper = $baseHelper;
         $this->userManager = $userManager;
+        $this->passwordUpdater = $passwordUpdater;
     }
 
     /**
@@ -115,8 +125,7 @@ class UserController
         $form->handleRequest($this->baseHelper->getRequest());
 
         if ($form->isValid()) {
-            $passwordUpdater = new UserPasswordUpdater();
-            $user = $passwordUpdater->updatePassword($existingUser, $form->getData());
+            $user = $this->passwordUpdater->updatePassword($existingUser, $form->getData());
 
             $this->userManager->update($user);
             $responseData['success'] = true;

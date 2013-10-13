@@ -24,5 +24,7 @@
                 <argument type="service" id="tickit_user.manager" />
             </service>
 
+            <service id="tickit_user.form.password_updater" class="Tickit\UserBundle\Form\Password\UserPasswordUpdater" />
+
         </services>
 </container>
