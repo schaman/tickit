@@ -2,9 +2,9 @@
 
 namespace Tickit\CoreBundle\Tests\Filters;
 
+use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\QueryBuilder;
 use Tickit\CoreBundle\Filters\SearchFilter;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 
 /**
  * SearchFilter tests
@@ -12,7 +12,7 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  * @package Tickit\CoreBundle\Tests\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class SearchFilterTest extends AbstractFunctionalTest
+class SearchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
@@ -22,11 +22,23 @@ class SearchFilterTest extends AbstractFunctionalTest
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
         $filter = new SearchFilter('invalid name', 'search value');
-        $query = $this->getQueryBuilder();
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->never())
+              ->method('getRootAliases');
+
+        $query->expects($this->never())
+              ->method('andWhere');
+
+        $query->expects($this->never())
+              ->method('setParameter');
 
         $filter->applyToQuery($query);
-        $where = $query->getDQLPart('where');
-        $this->assertNull($where);
     }
 
     /**
@@ -36,35 +48,43 @@ class SearchFilterTest extends AbstractFunctionalTest
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
-        $filter = new SearchFilter('name', 'search value');
+        $filter = new SearchFilter('username', 'search value');
 
-        $query = $this->getQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPreferenceBundle:Preference', 'p');
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->once())
+              ->method('getRootAliases')
+              ->will($this->returnValue(['u']));
+
+        $expression = new Comparison('u.username', 'LIKE', ':username');
+
+        $expressionBuilder = $this->getMockBuilder('\Doctrine\ORM\Query\Expr')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+        $expressionBuilder->expects($this->once())
+                          ->method('like')
+                          ->with('u.username', ':username')
+                          ->will($this->returnValue($expression));
+
+        $query->expects($this->once())
+              ->method('expr')
+              ->will($this->returnValue($expressionBuilder));
+
+        $query->expects($this->once())
+              ->method('andWhere')
+              ->with($expression)
+              ->will($this->returnSelf());
+
+        $query->expects($this->once())
+              ->method('setParameter')
+              ->with('username', '%search value%');
 
         $filter->applyToQuery($query);
-
-        $where = $query->getDQLPart('where');
-        $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\Andx', $where);
-        /** @var \Doctrine\ORM\Query\Expr\Andx $where */
-        $parts = $where->getParts();
-        $this->assertCount(1, $parts);
-        $part = array_shift($parts);
-        /** @var \Doctrine\ORM\Query\Expr\Comparison $part */
-        $this->assertEquals('p.name', $part->getLeftExpr());
-        $this->assertEquals('LIKE', $part->getOperator());
-        $this->assertEquals(':name', $part->getRightExpr());
-    }
-
-    /**
-     * Gets a query builder
-     *
-     * @return QueryBuilder
-     */
-    private function getQueryBuilder()
-    {
-        $doctrine = $this->createClient()->getContainer()->get('doctrine');
-
-        return $doctrine->getManager()->createQueryBuilder();
     }
 }
