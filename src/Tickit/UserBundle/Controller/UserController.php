@@ -130,7 +130,8 @@ class UserController
             $this->userManager->update($user);
             $responseData['success'] = true;
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitUserBundle:User:edit.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitUserBundle:User:edit.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
