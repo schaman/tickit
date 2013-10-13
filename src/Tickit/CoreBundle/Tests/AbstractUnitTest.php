@@ -163,4 +163,14 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock QueryBuilder
+     */
+    protected function getMockQueryBuilder()
+    {
+        return $this->getMockBuilder('\Doctrine\ORM\QueryBuilder')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }
