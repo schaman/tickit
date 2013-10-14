@@ -2,7 +2,6 @@
 
 namespace Tickit\PreferenceBundle\Tests\Loader;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\PreferenceBundle\Entity\Preference;
 use Tickit\PreferenceBundle\Entity\UserPreferenceValue;
