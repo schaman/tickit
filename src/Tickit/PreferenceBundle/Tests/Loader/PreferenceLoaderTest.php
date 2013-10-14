@@ -3,9 +3,11 @@
 namespace Tickit\PreferenceBundle\Tests\Loader;
 
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\PreferenceBundle\Entity\Preference;
 use Tickit\PreferenceBundle\Entity\UserPreferenceValue;
 use Tickit\PreferenceBundle\Loader\PreferenceLoader;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * PreferenceLoader tests
@@ -13,90 +15,128 @@ use Tickit\PreferenceBundle\Loader\PreferenceLoader;
  * @package Tickit\PreferenceBundle\Tests\Loader
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceLoaderTest extends AbstractFunctionalTest
+class PreferenceLoaderTest extends AbstractUnitTest
 {
     /**
-     * Tests that the service container returns correct service instance
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testServiceContainerReturnsValidInstance()
-    {
-        $container = static::createClient()->getContainer();
-        $loader = $container->get('tickit_preference.loader');
+    private $session;
 
-        $this->assertInstanceOf('Tickit\PreferenceBundle\Loader\LoaderInterface', $loader);
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $userPreferenceValueRepo;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $preferenceRepo;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->session = $this->getMockSession();
+
+        $this->userPreferenceValueRepo = $this->getMockBuilder('\Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository')
+                                              ->disableOriginalConstructor()
+                                              ->getMock();
+
+        $this->preferenceRepo = $this->getMockBuilder('\Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository')
+                                     ->disableOriginalConstructor()
+                                     ->getMock();
     }
 
     /**
      * Tests the loadForUser() method
      *
+     * @param $preferenceValues
+     * @param $preferences
+     *
+     * @dataProvider getPreferenceValues
      * @return void
      */
-    public function testLoadForUserLoadsCorrectPreferenceValuesWithSystemDefaultFallbacks()
-    {
-        // create new user without any preferences
-        $user = $this->createNewUser(true);
+    public function testLoadForUserLoadsCorrectPreferenceValuesWithSystemDefaultFallbacks(
+        $preferenceValues,
+        $preferences
+    ) {
+        $user = new User();
 
-        $container = $this->getAuthenticatedClient($user)->getContainer();
-        $doctrine = $container->get('doctrine');
+        $this->userPreferenceValueRepo->expects($this->once())
+                                      ->method('findAllForUser')
+                                      ->with($user)
+                                      ->will($this->returnValue($preferenceValues));
 
-        $allPreferences = $doctrine->getRepository('TickitPreferenceBundle:Preference')->findAllWithExclusionsIndexedBySystemName();
+        $this->preferenceRepo->expects($this->once())
+                             ->method('findAllWithExclusionsIndexedBySystemName')
+                             ->with([1, 2])
+                             ->will($this->returnValue($preferences));
 
-        $loader = $container->get('tickit_preference.loader');
-        $loader->loadForUser($user);
+        $preferenceValue3 = new UserPreferenceValue();
+        $preferenceValue3->setPreference($preferences['preference.three'])
+                         ->setUser($user)
+                         ->setValue('default value 3');
 
-        $sessionPreferences = $container->get('session')->get(PreferenceLoader::SESSION_PREFERENCES);
+        $preferenceValue4 = new UserPreferenceValue();
+        $preferenceValue4->setPreference($preferences['preference.four'])
+                         ->setUser($user)
+                         ->setValue('default value 4');
 
-        $this->assertCount(count($allPreferences), $sessionPreferences);
+        $expectedPreferences = [
+            'preference.one' => $preferenceValues[0],
+            'preference.two' => $preferenceValues[1],
+            'preference.three' => $preferenceValue3,
+            'preference.four' => $preferenceValue4
+        ];
 
-        /** @var UserPreferenceValue $pref */
-        foreach ($sessionPreferences as $pref) {
-            $systemName = $pref->getPreference()->getSystemName();
-            $this->assertEquals($allPreferences[$systemName]->getDefaultValue(), $pref->getValue());
-        }
+        $this->session->expects($this->once())
+                      ->method('set')
+                      ->with(PreferenceLoader::SESSION_PREFERENCES, $expectedPreferences);
+
+        $this->getLoader()->loadForUser($user);
     }
 
     /**
-     * Tests the loadForUser() method
+     * Gets preference value data
      *
-     * @return void
+     * @return array
      */
-    public function testLoadForUserLoadsCorrectPreferenceValuesWithUserSpecificValues()
+    public function getPreferenceValues()
     {
-        // create new user without any preferences
-        $user = $this->createNewUser(true);
-        $container = $this->getAuthenticatedClient($user)->getContainer();
-        $doctrine = $container->get('doctrine');
-        $em = $doctrine->getManager();
+        $preference1 = new Preference();
+        $preference1->setId(1);
+        $preference1->setSystemName('preference.one');
+        $preference2 = new Preference();
+        $preference2->setId(2);
+        $preference2->setSystemName('preference.two');
 
-        // reload user from doctrine...
-        $user = $doctrine->getManager()->find('Tickit\UserBundle\Entity\User', $user->getId());
+        $value1 = new UserPreferenceValue();
+        $value1->setPreference($preference1);
 
-        $allPreferences = $doctrine->getRepository('TickitPreferenceBundle:Preference')->findAllWithExclusionsIndexedBySystemName();
+        $value2 = new UserPreferenceValue();
+        $value2->setPreference($preference2);
 
-        /** @var Preference $pref */
-        foreach ($allPreferences as $pref) {
-            $userValue = new UserPreferenceValue();
-            $userValue->setUser($user)
-                      ->setPreference($pref)
-                      ->setValue('overridden');
+        $preference3 = new Preference();
+        $preference3->setId(3)
+                    ->setSystemName('preference.three')
+                    ->setDefaultValue('default value 3');
 
-            $em->persist($userValue);
-        }
+        $preference4 = new Preference();
+        $preference4->setId(4)
+                    ->setSystemName('preference.four')
+                    ->setDefaultValue('default value 4');
 
-        $em->flush();
+        return [[[$value1, $value2], ['preference.three' => $preference3, 'preference.four' => $preference4]]];
+    }
 
-        $loader = $container->get('tickit_preference.loader');
-        $loader->loadForUser($user);
-
-        $sessionPreferences = $container->get('session')->get(PreferenceLoader::SESSION_PREFERENCES);
-
-        $this->assertCount(count($allPreferences), $sessionPreferences);
-
-        /** @var UserPreferenceValue $pref */
-        foreach ($sessionPreferences as $pref) {
-            $this->assertEquals('overridden', $pref->getValue());
-        }
+    /**
+     * Gets a new loader instance
+     *
+     * @return PreferenceLoader
+     */
+    private function getLoader()
+    {
+        return new PreferenceLoader($this->session, $this->userPreferenceValueRepo, $this->preferenceRepo);
     }
 }
