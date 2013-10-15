@@ -76,6 +76,22 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the loadByUsername() method
+     */
+    public function testLoadByUsernameReturnsExceptedUser()
+    {
+        $user = new User();
+        $user->setUsername('username');
+
+        $this->userManager->expects($this->once())
+                          ->method('findUserByUsernameOrEmail')
+                          ->with($user->getUsername())
+                          ->will($this->returnValue($user));
+
+        $this->assertSame($user, $this->getProvider()->loadUserByUsername($user->getUsername()));
+    }
+
+    /**
      * Tests the refreshUser() method
      *
      * @expectedException \Symfony\Component\Security\Core\Exception\UnsupportedUserException
@@ -89,8 +105,6 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
      * Tests the refreshUser() method
      *
      * @expectedException \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
-     *
-     * @return void
      */
     public function testRefreshUserThrowsExceptionForNonExistentUser()
     {
@@ -98,6 +112,23 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 
         $provider = $this->getProvider();
         $provider->refreshUser($user);
+    }
+
+    /**
+     * Tests the refreshUser() method
+     */
+    public function testRefreshUserReturnsReloadedUser()
+    {
+        $user = new User();
+        $user->setId(1);
+        $reloadedUser = new User();
+
+        $this->userManager->expects($this->once())
+                          ->method('findUserBy')
+                          ->with(['id' => $user->getId()])
+                          ->will($this->returnValue($reloadedUser));
+
+        $this->assertSame($reloadedUser, $this->getProvider()->refreshUser($user));
     }
 
     /**
