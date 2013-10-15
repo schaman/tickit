@@ -386,6 +386,14 @@ class UserManagerTest extends AbstractUnitTest
     }
 
     /**
+     * Tests the createUser() method
+     */
+    public function testCreateUserReturnsCorrectInstance()
+    {
+        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $this->getUserManager()->createUser());
+    }
+
+    /**
      * Gets an instance of UserManager
      *
      * @return UserManager
