@@ -116,7 +116,8 @@ class AttributeController
             $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_attribute_index');
         } else {
             $params = ['type' => $attribute->getType()];
-            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Attribute:create.html.twig', $form, $params);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Attribute:create.html.twig', $form, $params);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -145,7 +146,8 @@ class AttributeController
             $responseData['success'] = true;
         } else {
             $params = ['type' => $attribute->getType()];
-            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Attribute:edit.html.twig', $form, $params);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Attribute:edit.html.twig', $form, $params);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);

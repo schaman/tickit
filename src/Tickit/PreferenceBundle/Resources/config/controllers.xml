@@ -8,7 +8,7 @@
 
         <service id="tickit_preference.controller.api" class="Tickit\PreferenceBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
-            <argument type="service" id="tickit_preference.manager" />
+            <argument type="service" id="tickit_preference.preference_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
         </service>
 

@@ -61,8 +61,9 @@ class FormHelperTest extends \PHPUnit_Framework_TestCase
                      ->with('template.html.twig', $params)
                      ->will($this->returnValue('content'));
 
-        $content = $this->getHelper()->renderForm('template.html.twig', $form, array('one' => 1, 'two' => 2));
-        $this->assertEquals('content', $content);
+        $response = $this->getHelper()->renderForm('template.html.twig', $form, array('one' => 1, 'two' => 2));
+        $this->assertInstanceOf('\Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertEquals('content', $response->getContent());
     }
 
     /**

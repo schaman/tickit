@@ -3,9 +3,9 @@
 namespace Tickit\CoreBundle\Tests\Controller\Helper;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -14,7 +14,7 @@ use Tickit\UserBundle\Entity\User;
  * @package Tickit\CoreBundle\Tests\Controller\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class BaseHelperTest extends \PHPUnit_Framework_TestCase
+class BaseHelperTest extends AbstractUnitTest
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -53,9 +53,7 @@ class BaseHelperTest extends \PHPUnit_Framework_TestCase
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
-        $this->router = $this->getMockBuilder('\Symfony\Component\Routing\RouterInterface')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+        $this->router = $this->getMockRouter();
     }
     
     /**

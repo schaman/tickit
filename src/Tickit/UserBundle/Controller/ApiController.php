@@ -8,8 +8,8 @@ use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\UserBundle\Avatar\AvatarService;
+use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Manager\UserManager;
 
 /**
  * API controller for users.
@@ -44,11 +44,11 @@ class ApiController
     protected $filterBuilder;
 
     /**
-     * The user manager
+     * The user repository
      *
-     * @var UserManager
+     * @var UserRepository
      */
-    protected $userManager;
+    protected $userRepository;
 
     /**
      * The avatar service
@@ -60,23 +60,23 @@ class ApiController
     /**
      * Constructor
      *
-     * @param BaseHelper              $baseHelper    The base controller helper
-     * @param CsrfHelper              $csrfHelper    The csrf controller helper
-     * @param FilterCollectionBuilder $filterBuilder The filter collection builder
-     * @param UserManager             $userManager   The user manager
-     * @param AvatarService           $avatar        The avatar service
+     * @param BaseHelper              $baseHelper     The base controller helper
+     * @param CsrfHelper              $csrfHelper     The csrf controller helper
+     * @param FilterCollectionBuilder $filterBuilder  The filter collection builder
+     * @param UserRepository          $userRepository The user manager
+     * @param AvatarService           $avatar         The avatar service
      */
     public function __construct(
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper,
         FilterCollectionBuilder $filterBuilder,
-        UserManager $userManager,
+        UserRepository $userRepository,
         AvatarService $avatar
     ) {
         $this->baseHelper = $baseHelper;
         $this->csrfHelper = $csrfHelper;
         $this->filterBuilder = $filterBuilder;
-        $this->userManager = $userManager;
+        $this->userRepository = $userRepository;
         $this->avatar = $avatar;
 
     }
@@ -121,7 +121,7 @@ class ApiController
     public function listAction($page = 1)
     {
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
-        $users = $this->userManager->getRepository()->findByFilters($filters);
+        $users = $this->userRepository->findByFilters($filters);
 
         $data = array();
         $decorator = $this->baseHelper->getObjectDecorator();

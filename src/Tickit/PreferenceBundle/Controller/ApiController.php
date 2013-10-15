@@ -5,7 +5,7 @@ namespace Tickit\PreferenceBundle\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
-use Tickit\PreferenceBundle\Manager\PreferenceManager;
+use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**
  * Preferences controller.
@@ -25,11 +25,11 @@ class ApiController
     protected $filterBuilder;
 
     /**
-     * The preference manager
+     * The preference repository
      *
-     * @var PreferenceManager
+     * @var PreferenceRepository
      */
-    protected $preferenceManager;
+    protected $preferenceRepository;
 
     /**
      * The base controller helper
@@ -39,17 +39,17 @@ class ApiController
     protected $baseHelper;
 
     /**
-     * @param FilterCollectionBuilder $filterBuilder     The filter collection builder
-     * @param PreferenceManager       $preferenceManager The preference manager
-     * @param BaseHelper              $baseHelper        The base controller helper
+     * @param FilterCollectionBuilder $filterBuilder        The filter collection builder
+     * @param PreferenceRepository    $preferenceRepository The preference repository
+     * @param BaseHelper              $baseHelper           The base controller helper
      */
     public function __construct(
         FilterCollectionBuilder $filterBuilder,
-        PreferenceManager $preferenceManager,
+        PreferenceRepository $preferenceRepository,
         BaseHelper $baseHelper
     ) {
         $this->filterBuilder = $filterBuilder;
-        $this->preferenceManager = $preferenceManager;
+        $this->preferenceRepository = $preferenceRepository;
         $this->baseHelper = $baseHelper;
     }
 
@@ -61,7 +61,7 @@ class ApiController
     public function listAction()
     {
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
-        $preferences = $this->preferenceManager->getRepository()->findByFilters($filters);
+        $preferences = $this->preferenceRepository->findByFilters($filters);
 
         $data = array();
         $decorator = $this->baseHelper->getObjectDecorator();

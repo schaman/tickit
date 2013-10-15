@@ -37,7 +37,7 @@ class DefaultController
     /**
      * Renders the base template content.
      *
-     * @return string
+     * @return Response
      */
     public function defaultAction()
     {

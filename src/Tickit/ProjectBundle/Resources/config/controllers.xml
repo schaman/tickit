@@ -6,18 +6,17 @@
 
     <services>
 
-        <service id="tickit_project.controller.template" class="Tickit\ProjectBundle\Controller\TemplateController">
+        <service id="tickit_project.controller.template" class="Tickit\ProjectBundle\Controller\TemplateController" scope="request">
             <argument type="service" id="tickit_project.attribute_manager" />
-            <argument type="service" id="form.factory" />
-            <argument type="service" id="templating" />
+            <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit_project.form.project" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
         </service>
 
         <service id="tickit_project.controller.api" class="Tickit\ProjectBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
-            <argument type="service" id="tickit_project.manager" />
-            <argument type="service" id="tickit_project.attribute_manager" />
+            <argument type="service" id="tickit_project.project_repository" />
+            <argument type="service" id="tickit_project.attribute_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>

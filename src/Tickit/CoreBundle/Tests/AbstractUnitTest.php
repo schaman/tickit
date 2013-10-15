@@ -57,4 +57,110 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock EngineInterface for templating
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockTemplateEngine()
+    {
+        return $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Templating\EngineInterface')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock BaseHelper
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockBaseHelper()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\BaseHelper')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock CsrfHelper
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockCsrfHelper()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\CsrfHelper')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+
+    /**
+     * Returns a mock object decorator
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockObjectDecorator()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface')
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock FilterCollectionBuilder
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockFilterCollectionBuilder()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock FormHelper
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockFormHelper()
+    {
+        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\FormHelper')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock symfony Form
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockForm()
+    {
+        return $this->getMockBuilder('\Symfony\Component\Form\Form')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock container
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockContainer()
+    {
+        return $this->getMockForAbstractClass('\Symfony\Component\DependencyInjection\ContainerInterface');
+    }
+
+    /**
+     * Returns a mock Router
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockRouter()
+    {
+        return $this->getMockBuilder('\Symfony\Component\Routing\RouterInterface')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Form controller helper.
@@ -50,14 +51,16 @@ class FormHelper
      * @param FormInterface $form             The form to render
      * @param array         $additionalParams Any additional view parameters
      *
-     * @return string
+     * @return Response
      */
     public function renderForm($template, FormInterface $form, array $additionalParams = array())
     {
-        return $this->templateEngine->render(
+        $content = $this->templateEngine->render(
             $template,
             array_merge(array('form' => $form->createView()), $additionalParams)
         );
+
+        return new Response($content);
     }
 
     /**
@@ -69,7 +72,7 @@ class FormHelper
      *
      * @return Form
      */
-    public function createForm($type, $data, array $options = null)
+    public function createForm($type, $data, array $options = array())
     {
         return $this->formFactory->create($type, $data, $options);
     }

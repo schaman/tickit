@@ -120,7 +120,8 @@ class ProjectController
             $responseData['success'] = true;
             $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -133,20 +134,20 @@ class ProjectController
      *
      * @ParamConverter("project", class="TickitProjectBundle:Project")
      *
-     * @return array
+     * @return JsonResponse
      */
     public function editAction(Project $project)
     {
-        $responseData = ['success' => false, 'errors' => []];
+        $responseData = ['success' => false];
         $form = $this->formHelper->createForm($this->projectFormType, $project);
         $form->handleRequest($this->baseHelper->getRequest());
 
         if ($form->isValid()) {
             $this->projectManager->update($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);

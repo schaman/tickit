@@ -8,6 +8,7 @@ use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\UserBundle\Entity\User;
+use Tickit\UserBundle\Form\Password\UserPasswordUpdater;
 use Tickit\UserBundle\Manager\UserManager;
 
 /**
@@ -54,23 +55,33 @@ class UserController
     protected $userManager;
 
     /**
+     * The password updater
+     *
+     * @var UserPasswordUpdater
+     */
+    protected $passwordUpdater;
+
+    /**
      * Constructor.
      *
-     * @param CsrfHelper  $csrfHelper  The CSRF controller helper
-     * @param FormHelper  $formHelper  The form controller helper
-     * @param BaseHelper  $baseHelper  The base controller helper
-     * @param UserManager $userManager The user manager
+     * @param CsrfHelper          $csrfHelper      The CSRF controller helper
+     * @param FormHelper          $formHelper      The form controller helper
+     * @param BaseHelper          $baseHelper      The base controller helper
+     * @param UserManager         $userManager     The user manager
+     * @param UserPasswordUpdater $passwordUpdater The password updater
      */
     public function __construct(
         CsrfHelper $csrfHelper,
         FormHelper $formHelper,
         BaseHelper $baseHelper,
-        UserManager $userManager
+        UserManager $userManager,
+        UserPasswordUpdater $passwordUpdater
     ) {
         $this->csrfHelper = $csrfHelper;
         $this->formHelper = $formHelper;
         $this->baseHelper = $baseHelper;
         $this->userManager = $userManager;
+        $this->passwordUpdater = $passwordUpdater;
     }
 
     /**
@@ -87,9 +98,10 @@ class UserController
         if ($form->isValid()) {
             $this->userManager->create($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $this->baseHelper->getRouter()->generate('user_index');
+            $responseData['returnUrl'] = $this->baseHelper->generateUrl('user_index');
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitUserBundle:User:create.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitUserBundle:User:create.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -110,26 +122,16 @@ class UserController
     {
         $responseData = ['success' => false];
         $form = $this->formHelper->createForm('tickit_user', $existingUser);
-        $existingPassword = $existingUser->getPassword();
         $form->handleRequest($this->baseHelper->getRequest());
 
         if ($form->isValid()) {
-            /** @var User $user */
-            $user = $form->getData();
-
-            // we restore the password if no new one was provided on the form so that the user's
-            // password isn't set to a blank string in the database
-            if ($user->getPassword() === null) {
-                $user->setPassword($existingPassword);
-            } else {
-                // set the plain password on the user from the one that was provided in the form
-                $user->setPlainPassword($user->getPassword());
-            }
+            $user = $this->passwordUpdater->updatePassword($existingUser, $form->getData());
 
             $this->userManager->update($user);
             $responseData['success'] = true;
         } else {
-            $responseData['form'] = $this->formHelper->renderForm('TickitUserBundle:User:edit.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitUserBundle:User:edit.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
