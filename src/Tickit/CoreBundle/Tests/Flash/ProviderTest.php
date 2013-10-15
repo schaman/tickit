@@ -41,6 +41,14 @@ class ProviderTest extends AbstractUnitTest
     }
 
     /**
+     * Tests the __construct() method
+     */
+    public function testProviderFallsBackToDefaultMessagesForInvalidEnvironment()
+    {
+        new Provider($this->session, __DIR__ . '/../../../../../app/config/extra/', 'made_up');
+    }
+
+    /**
      * Test to ensure the correct exception is thrown when no replacement value is provided
      *
      * @expectedException \RuntimeException
