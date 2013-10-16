@@ -55,7 +55,6 @@ class Client
      */
     private $notes;
 
-
     /**
      * Get the unique identifier
      *
