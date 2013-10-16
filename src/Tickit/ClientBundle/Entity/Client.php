@@ -3,6 +3,7 @@
 namespace Tickit\ClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Client entity.
@@ -54,6 +55,24 @@ class Client
      * @ORM\Column(name="notes", type="text")
      */
     private $notes;
+
+    /**
+     * The date and time the client was created
+     *
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+
+    /**
+     * The date and time the client was last updated
+     *
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updated;
 
     /**
      * Get the unique identifier
@@ -135,5 +154,53 @@ class Client
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Sets the date and time that the client was created
+     *
+     * @param \DateTime $created The date time
+     *
+     * @return Client
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Gets the date and time that the client was created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Sets the date and time that the client was updated
+     *
+     * @param \DateTime $updated The date time
+     *
+     * @return Client
+     */
+    public function setUpdated(\DateTime $updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Gets the date and time that this client was updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
