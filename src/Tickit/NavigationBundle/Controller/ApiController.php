@@ -3,7 +3,7 @@
 namespace Tickit\NavigationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\NavigationBundle\Builder\NavigationBuilder;
 use Tickit\NavigationBundle\Model\NavigationItem;
 
 /**
@@ -12,8 +12,25 @@ use Tickit\NavigationBundle\Model\NavigationItem;
  * @package Tickit\NavigationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController
 {
+    /**
+     * The navigation builder
+     *
+     * @var NavigationBuilder
+     */
+    private $navigationBuilder;
+
+    /**
+     * Constructor.
+     *
+     * @param NavigationBuilder $builder The navigation builder
+     */
+    public function __construct(NavigationBuilder $builder)
+    {
+        $this->navigationBuilder = $builder;
+    }
+
     /**
      * Lists available navigation items for the currently authenticated user
      *
@@ -21,7 +38,7 @@ class ApiController extends AbstractCoreController
      */
     public function navItemsAction()
     {
-        $items = $this->get('tickit_navigation.builder')->build();
+        $items = $this->navigationBuilder->build();
 
         $data = array();
         $items->top();

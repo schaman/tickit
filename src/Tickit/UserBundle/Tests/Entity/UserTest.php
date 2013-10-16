@@ -3,6 +3,7 @@
 namespace Tickit\UserBundle\Tests\Entity;
 
 use Tickit\UserBundle\Entity\User;
+use Tickit\UserBundle\Entity\UserSession;
 
 /**
  * User entity tests.
@@ -24,6 +25,18 @@ class UserTest extends \PHPUnit_Framework_TestCase
              ->setSurname('surname');
 
         $this->assertEquals('forename surname', $user->getFullName());
+    }
+
+    /**
+     * Tests the addSession() method
+     */
+    public function testAddSessionAddsToCollection()
+    {
+        $user = new User();
+        $this->assertEmpty($user->getSessions()->toArray());
+
+        $user->addSession(new UserSession());
+        $this->assertEquals(1, $user->getSessions()->count());
     }
 
     /**

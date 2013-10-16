@@ -1,11 +1,11 @@
 dashboard_index:
     pattern: /dashboard
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     options:
         expose: true
 
 index:
     pattern: /
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     options:
         expose: true

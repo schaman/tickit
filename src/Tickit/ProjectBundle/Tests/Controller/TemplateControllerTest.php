@@ -2,136 +2,207 @@
 
 namespace Tickit\ProjectBundle\Tests\Controller;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Response;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\ProjectBundle\Controller\TemplateController;
+use Tickit\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
  * TemplateController tests
  *
  * @package Tickit\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class TemplateControllerTest extends AbstractFunctionalTest
+class TemplateControllerTest extends AbstractUnitTest
 {
     /**
-     * Sample project entity
-     *
-     * @var Project
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected static $project;
+    private $attributeManager;
 
     /**
-     * Sample attribute entity
-     *
-     * @var AbstractAttribute
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected static $attribute;
+    private $formHelper;
 
     /**
-     * {@inheritDoc}
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public static function setUpBeforeClass()
+    private $projectFormType;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $attributeFormTypeGuesser;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
     {
-        parent::setUpBeforeClass();
+        $this->attributeManager = $this->getMockBuilder('Tickit\ProjectBundle\Manager\AttributeManager')
+                                       ->disableOriginalConstructor()
+                                       ->getMock();
 
-        $doctrine = static::createClient()->getContainer()->get('doctrine');
+        $this->formHelper = $this->getMockFormHelper();
 
-        static::$project = $doctrine->getRepository('TickitProjectBundle:Project')
-                                    ->findOneByName('Test Project 1');
+        $this->projectFormType = $this->getMockBuilder('Tickit\ProjectBundle\Form\Type\ProjectFormType')
+                                      ->disableOriginalConstructor()
+                                      ->getMock();
 
-        static::$attribute = $doctrine->getRepository('TickitProjectBundle:LiteralAttribute')
-                                      ->findOneByName('Due Date');
+        $this->attributeFormTypeGuesser = $this->getMockBuilder('Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
+                                               ->disableOriginalConstructor()
+                                               ->getMock();
     }
-
+    
     /**
      * Tests the createProjectFormAction() method
-     *
-     * @return void
      */
-    public function testCreateProjectFormActionServesCorrectMarkup()
+    public function testCreateProjectFormActionBuildsCorrectResponse()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $crawler = $client->request('get', $this->generateRoute('project_create_form'));
+        $attributes = new ArrayCollection([new LiteralAttributeValue()]);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertGreaterThan(0, $crawler->filter('input')->count());
+        $this->attributeManager->expects($this->once())
+                               ->method('getAttributeValuesForProject')
+                               ->will($this->returnValue($attributes));
 
-        $formActionRoute = $this->generateRoute('project_create');
-        $this->assertEquals($formActionRoute, $crawler->filter('form')->attr('action'));
+        $projectWithAttributes = new Project();
+        $projectWithAttributes->setAttributes($attributes);
+
+        $projectForm = $this->getMockForm();
+
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($this->projectFormType, $projectWithAttributes)
+                         ->will($this->returnValue($projectForm));
+
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitProjectBundle:Project:create.html.twig', $projectForm);
+
+        $this->getController()->createProjectFormAction();
     }
 
     /**
      * Tests the editProjectFormAction() method
-     *
-     * @return void
      */
-    public function testEditProjectFormActionServesCorrectMarkup()
+    public function testEditProjectFormActionBuildsCorrectResponse()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('project_edit_form', array('id' => static::$project->getId()));
-        $crawler = $client->request('get', $route);
+        $project = new Project();
+        $project->setName('test');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertGreaterThan(0, $crawler->filter('input')->count());
+        $form = $this->getMockForm();
 
-        $formActionRoute = $this->generateRoute('project_edit', array('id' => static::$project->getId()));
-        $this->assertEquals($formActionRoute, $crawler->filter('form')->attr('action'));
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($this->projectFormType, $project)
+                         ->will($this->returnValue($form));
+
+        $response = new Response();
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitProjectBundle:Project:edit.html.twig', $form)
+                         ->will($this->returnValue($response));
+
+        $return = $this->getController()->editProjectFormAction($project);
+        $this->assertSame($response, $return);
     }
 
     /**
      * Tests the createProjectAttributeFormAction() method
      *
-     * @return void
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function testCreateProjectAttributeFormActionThrowsExceptionForInvalidType()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('project_attribute_create_form', array('type' => 'invalid'));
-
-        $client->request('get', $route);
-
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->getController()->createProjectAttributeFormAction('invalid type');
     }
 
     /**
      * Tests the createProjectAttributeFormAction() method
-     *
-     * @return void
      */
-    public function testCreateProjectAttributeFormActionServesCorrectMarkup()
+    public function testCreateProjectAttributeFormActionBuildsCorrectResponse()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('project_attribute_create_form', array('type' => AbstractAttribute::TYPE_LITERAL));
-        $crawler = $client->request('get', $route);
+        $formType = new LiteralAttributeFormType();
+        $attribute = new LiteralAttribute();
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertGreaterThan(0, $crawler->filter('input')->count());
-        $expectedRoute = $this->generateRoute(
-            'project_attribute_create',
-            array('type' => AbstractAttribute::TYPE_LITERAL)
-        );
-        $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
+        $this->attributeFormTypeGuesser->expects($this->once())
+                                       ->method('guessByAttributeType')
+                                       ->with($attribute->getType())
+                                       ->will($this->returnValue($formType));
+
+        $form = $this->getMockForm();
+
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType, $attribute)
+                         ->will($this->returnValue($form));
+
+        $response = new Response();
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with(
+                             'TickitProjectBundle:Attribute:create.html.twig',
+                             $form,
+                             array('type' => $attribute->getType())
+                         )
+                         ->will($this->returnValue($response));
+
+        $return = $this->getController()->createProjectAttributeFormAction($attribute->getType());
+        $this->assertSame($response, $return);
     }
 
     /**
      * Tests the editProjectAttributeFormAction() method
-     *
-     * @return void
      */
-    public function testEditProjectAttributeFormActionServesCorrectMarkup()
+    public function testEditProjectAttributeFormActionBuildsCorrectResponse()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('project_attribute_edit_form', array('id' => static::$attribute->getId()));
-        $crawler = $client->request('get', $route);
+        $formType = new LiteralAttributeFormType();
+        $attribute = new LiteralAttribute();
+        $attribute->setName('test');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertGreaterThan(0, $crawler->filter('input')->count());
-        $expectedRoute = $this->generateRoute('project_attribute_edit', array('id' => static::$attribute->getId()));
+        $this->attributeFormTypeGuesser->expects($this->once())
+                                       ->method('guessByAttributeType')
+                                       ->with($attribute->getType())
+                                       ->will($this->returnValue($formType));
 
-        $this->assertEquals($expectedRoute, $crawler->filter('form')->attr('action'));
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType)
+                         ->will($this->returnValue($form));
+
+        $response = new Response();
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with(
+                             'TickitProjectBundle:Attribute:edit.html.twig',
+                             $form,
+                             array('type' => $attribute->getType())
+                         )
+                         ->will($this->returnValue($response));
+
+        $return = $this->getController()->editProjectAttributeFormAction($attribute);
+        $this->assertSame($response, $return);
+    }
+
+    /**
+     * Gets a controller instance
+     *
+     * @return TemplateController
+     */
+    private function getController()
+    {
+        return new TemplateController(
+            $this->attributeManager,
+            $this->formHelper,
+            $this->projectFormType,
+            $this->attributeFormTypeGuesser
+        );
     }
 }

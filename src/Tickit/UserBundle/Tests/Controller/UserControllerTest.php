@@ -2,8 +2,9 @@
 
 namespace Tickit\UserBundle\Tests\Controller;
 
-use Doctrine\DBAL\DBALException;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Controller\UserController;
 use Tickit\UserBundle\Entity\User;
 
@@ -12,274 +13,245 @@ use Tickit\UserBundle\Entity\User;
  *
  * @package Tickit\UserBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @group   functional
  */
-class UserControllerTest extends AbstractFunctionalTest
+class UserControllerTest extends AbstractUnitTest
 {
     /**
-     * Tests the createAction()
-     *
-     * Ensures that a valid attempt to create a user is successful
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testCreateActionCreatesAdminUserWithValidDetails()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $doctrine = $container->get('doctrine');
-
-        $totalUsers = count($doctrine->getRepository('TickitUserBundle:User')->findAll());
-
-        $newUsername = 'user' . uniqid();
-        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
-        $form = $crawler->selectButton('Save User')->form();
-        $formValues = array(
-            'tickit_user[forename]' => 'forename',
-            'tickit_user[surname]' => 'surname',
-            'tickit_user[username]' => $newUsername,
-            'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
-            'tickit_user[password][first]' => 'somepassword',
-            'tickit_user[password][second]' => 'somepassword',
-            'tickit_user[admin]' => 1
-        );
-        $client->submit($form, $formValues);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-        $this->assertEquals(++$totalUsers, count($doctrine->getRepository('TickitUserBundle:User')->findAll()));
-
-        $createdUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
-        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $createdUser);
-        $this->assertTrue($createdUser->isAdmin());
-
-        // tidy up created user
-        $doctrine->getManager()->remove($createdUser);
-        $doctrine->getManager()->flush();
-    }
+    private $csrfHelper;
 
     /**
-     * Tests the createAction()
-     *
-     * Ensures that a valid attempt to create a user is successful
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testCreateActionCreatesNonAdminUserWithValidDetails()
+    private $formHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $baseHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $userManager;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $passwordUpdater;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $doctrine = $container->get('doctrine');
+        $this->csrfHelper = $this->getMockCsrfHelper();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->baseHelper = $this->getMockBaseHelper();
 
-        $totalUsers = count($doctrine->getRepository('TickitUserBundle:User')->findAll());
+        $this->userManager = $this->getMockBuilder('\Tickit\UserBundle\Manager\UserManager')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
 
-        $newUsername = 'user' . uniqid();
-        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
-        $form = $crawler->selectButton('Save User')->form();
-        $formValues = array(
-            'tickit_user[forename]' => 'forename',
-            'tickit_user[surname]' => 'surname',
-            'tickit_user[username]' => $newUsername,
-            'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
-            'tickit_user[password][first]' => 'somepassword',
-            'tickit_user[password][second]' => 'somepassword'
-        );
-        $client->submit($form, $formValues);
+        $this->passwordUpdater = $this->getMockBuilder('\Tickit\UserBundle\Form\Password\UserPasswordUpdater')
+                                      ->getMock();
+    }
+    
+    /**
+     * Tests the createAction() method
+     */
+    public function testCreateActionCreatesUserForValidForm()
+    {
+        $request = new Request();
+        $form = $this->getMockForm();
+        $user = new User();
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-        $this->assertEquals(++$totalUsers, count($doctrine->getRepository('TickitUserBundle:User')->findAll()));
+        $this->userManager->expects($this->once())
+                          ->method('createUser')
+                          ->will($this->returnValue($user));
 
-        $createdUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
-        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $createdUser);
-        $this->assertFalse($createdUser->isAdmin());
+        $this->trainFormHelperToCreateForm($user, $form);
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
 
-        // tidy up created user
-        $doctrine->getManager()->remove($createdUser);
-        $doctrine->getManager()->flush();
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnUser($form, $user);
+        $this->userManager->expects($this->once())
+                          ->method('create')
+                          ->with($user);
+
+        $this->baseHelper->expects($this->once())
+                         ->method('generateUrl')
+                         ->with('user_index')
+                         ->will($this->returnValue('user_route'));
+
+        $expectedData = ['success' => true, 'returnUrl' => 'user_route'];
+        $response = $this->getController()->createAction();
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
      * Tests the createAction() method
-     *
-     * @return void
      */
-    public function testCreateActionReturnsFormContentForInvalidDetails()
+    public function testCreateActionHandlesInvalidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $crawler = $client->request('get', $this->generateRoute('user_create_form'));
-        $form = $crawler->selectButton('Save User')->form();
+        $request = new Request();
+        $form = $this->getMockForm();
+        $user = new User();
+        $user->setUsername('test');
 
-        $formValues = array(
-            'tickit_user[forename]' => '',
-            'tickit_user[surname]' => '',
-            'tickit_user[username]' => '',
-            'tickit_user[email]' => sprintf('%s@googlemail.com', uniqid()),
-            'tickit_user[password][first]' => 'somepassword',
-            'tickit_user[password][second]' => 'somepassword'
-        );
-        $client->submit($form, $formValues);
+        $this->userManager->expects($this->once())
+                          ->method('createUser')
+                          ->will($this->returnValue($user));
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertFalse($response->success);
-        $this->assertTrue(isset($response->form));
+        $this->trainFormHelperToCreateForm($user, $form);
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
+
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitUserBundle:User:create.html.twig', $form)
+                         ->will($this->returnValue(new Response('form content')));
+
+        $expectedData = ['success' => false, 'form' => 'form content'];
+        $response = $this->getController()->createAction();
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the editAction()
-     *
-     * Ensures that a valid attempt to update a user is successful
-     *
-     * @return void
+     * Tests the updateAction() method
      */
-    public function testEditActionUpdatesUserWithValidDetailsAndSetsAsAdmin()
+    public function testUpdateActionUpdatesUserForValidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $manager = $client->getContainer()->get('tickit_user.manager');
-        $doctrine = $container->get('doctrine');
+        $user = new User();
+        $user->setUsername('test');
+        $form = $this->getMockForm();
+        $request = new Request();
 
-        $user = $manager->createUser();
-        $user->setForename('forename_123')
-             ->setSurname('surname_123')
-             ->setUsername('user' . uniqid())
-             ->setEmail(sprintf('%s@email.com', uniqid()))
-             ->setPassword('password');
+        $this->trainFormHelperToCreateForm($user, $form);
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnUser($form, $user);
 
-        $user = $manager->create($user);
+        $this->passwordUpdater->expects($this->once())
+                              ->method('updatePassword')
+                              ->with($user, $user)
+                              ->will($this->returnValue($user));
 
-        $newUsername = 'user' . uniqid();
-        $newEmail = sprintf('%s@mail.com', uniqid());
-        $crawler = $client->request('get', $this->generateRoute('user_edit_form', array('id' => $user->getId())));
-        $form = $crawler->selectButton('Save Changes')->form(
-            array(
-                'tickit_user[username]' => $newUsername,
-                'tickit_user[forename]' => 'forename_12345',
-                'tickit_user[surname]' => 'surname_12345',
-                'tickit_user[email]' => $newEmail,
-                'tickit_user[password][first]' => 'password',
-                'tickit_user[password][second]' => 'password',
-                'tickit_user[admin]' => 1
-            )
-        );
-        $client->submit($form);
+        $this->userManager->expects($this->once())
+                          ->method('update')
+                          ->with($user);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-
-        $newUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
-        $doctrine->getManager()->refresh($newUser);
-
-        /** @var User $newUser */
-        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $newUser);
-        $this->assertEquals($newEmail, $newUser->getEmail());
-        $this->assertEquals('forename_12345', $newUser->getForename());
-        $this->assertEquals('surname_12345', $newUser->getSurname());
-        $this->assertTrue($newUser->isAdmin());
-
-        $doctrine->getManager()->remove($newUser);
-        $doctrine->getManager()->flush();
+        $expectedData = ['success' => true];
+        $response = $this->getController()->editAction($user);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the editAction()
-     *
-     * Ensures that a valid attempt to update a user is successful
-     *
-     * @return void
+     * Tests the updateAction() method
      */
-    public function testEditActionUpdatesUserWithValidDetails()
+    public function testUpdateActionHandlesInvalidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $manager = $client->getContainer()->get('tickit_user.manager');
-        $doctrine = $container->get('doctrine');
+        $user = new User();
+        $user->setUsername('test');
+        $form = $this->getMockForm();
+        $request = new Request();
 
-        $user = $manager->createUser();
-        $user->setForename('forename_123')
-             ->setSurname('surname_123')
-             ->setUsername('user' . uniqid())
-             ->setEmail(sprintf('%s@email.com', uniqid()))
-             ->setPassword('password');
+        $this->trainFormHelperToCreateForm($user, $form);
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
 
-        $user = $manager->create($user);
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitUserBundle:User:edit.html.twig', $form)
+                         ->will($this->returnValue(new Response('form content')));
 
-        $newUsername = 'user' . uniqid();
-        $newEmail = sprintf('%s@mail.com', uniqid());
-        $crawler = $client->request('get', $this->generateRoute('user_edit_form', array('id' => $user->getId())));
-        $form = $crawler->selectButton('Save Changes')->form(
-            array(
-                'tickit_user[username]' => $newUsername,
-                'tickit_user[forename]' => 'forename_12345',
-                'tickit_user[surname]' => 'surname_12345',
-                'tickit_user[email]' => $newEmail,
-                'tickit_user[password][first]' => 'password',
-                'tickit_user[password][second]' => 'password'
-            )
-        );
-        $client->submit($form);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-
-        $newUser = $doctrine->getRepository('TickitUserBundle:User')->findOneByUsername($newUsername);
-        $doctrine->getManager()->refresh($newUser);
-
-        /** @var User $newUser */
-        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $newUser);
-        $this->assertEquals($newEmail, $newUser->getEmail());
-        $this->assertEquals('forename_12345', $newUser->getForename());
-        $this->assertEquals('surname_12345', $newUser->getSurname());
-        $this->assertFalse($newUser->isAdmin());
-
-        $doctrine->getManager()->remove($newUser);
-        $doctrine->getManager()->flush();
+        $expectedData = ['success' => false, 'form' => 'form content'];
+        $response = $this->getController()->editAction($user);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
      * Tests the deleteAction() method
-     *
-     * @return void
-     */
-    public function testDeleteActionReturns404ForInvalidToken()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('user_delete', array('id' => static::$developer->getId(), 'token' => 'wadwadwa'));
-
-        $client->request('post', $route);
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * Tests the deleteAction() method
-     *
-     * @return void
      */
     public function testDeleteActionDeletesUser()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $token = $container->get('form.csrf_provider')->generateCsrfToken(UserController::CSRF_DELETE_INTENTION);
+        $request = new Request(['token' => 'token value']);
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->csrfHelper->expects($this->once())
+                         ->method('checkCsrfToken')
+                         ->with('token value', UserController::CSRF_DELETE_INTENTION);
 
-        $user = $this->createNewUser(true);
-        $route = $this->generateRoute('user_delete', array('id' => $user->getId(), 'token' => $token));
+        $user = new User();
+        $this->userManager->expects($this->once())
+                          ->method('deleteUser')
+                          ->with($user);
 
-        $client->request('post', $route);
+        $expectedData = ['success' => true];
+        $response = $this->getController()->deleteAction($user);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
+    /**
+     * Gets a new controller instance
+     *
+     * @return UserController
+     */
+    private function getController()
+    {
+        return new UserController(
+            $this->csrfHelper,
+            $this->formHelper,
+            $this->baseHelper,
+            $this->userManager,
+            $this->passwordUpdater
+        );
+    }
 
-        $nonExistentUser = $container->get('doctrine')->getRepository('TickitUserBundle:User')->find($user->getId());
-        $this->assertNull($nonExistentUser);
+    private function trainFormHelperToCreateForm($data, \PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with('tickit_user', $data)
+                         ->will($this->returnValue($form));
+    }
+
+    private function trainBaseHelperToReturnRequest(Request $request)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getRequest')
+                         ->will($this->returnValue($request));
+    }
+
+    private function trainFormToHandleRequest(\PHPUnit_Framework_MockObject_MockObject $form, Request $request)
+    {
+        $form->expects($this->once())
+             ->method('handleRequest')
+             ->with($request);
+    }
+
+    private function trainFormToBeValid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+             ->method('isValid')
+             ->will($this->returnValue(true));
+    }
+
+    private function trainFormToBeInvalid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+             ->method('isValid')
+             ->will($this->returnValue(false));
+    }
+
+    private function trainFormToReturnUser(\PHPUnit_Framework_MockObject_MockObject $form, User $user)
+    {
+        $form->expects($this->once())
+             ->method('getData')
+             ->will($this->returnValue($user));
     }
 }

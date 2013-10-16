@@ -2,8 +2,9 @@
 
 namespace Tickit\PreferenceBundle\Loader;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository;
 use Tickit\PreferenceBundle\Entity\UserPreferenceValue;
 use Tickit\UserBundle\Entity\User;
 
@@ -27,22 +28,34 @@ class PreferenceLoader implements LoaderInterface
     protected $session;
 
     /**
-     * The doctrine registry
+     * The user preference value repository
      *
-     * @var Registry
+     * @var UserPreferenceValueRepository
      */
-    protected $doctrine;
+    protected $userPreferenceValueRepository;
+
+    /**
+     * The preference repository
+     *
+     * @var PreferenceRepository
+     */
+    protected $preferenceRepository;
 
     /**
      * Constructor.
      *
-     * @param SessionInterface $session  The current Session instance
-     * @param Registry         $doctrine The doctrine registry
+     * @param SessionInterface              $session                       The current Session instance
+     * @param UserPreferenceValueRepository $userPreferenceValueRepository The user preference value repository
+     * @param PreferenceRepository          $preferenceRepository          The preference repository
      */
-    public function __construct(SessionInterface $session, Registry $doctrine)
-    {
+    public function __construct(
+        SessionInterface $session,
+        UserPreferenceValueRepository $userPreferenceValueRepository,
+        PreferenceRepository $preferenceRepository
+    ) {
         $this->session = $session;
-        $this->doctrine = $doctrine;
+        $this->userPreferenceValueRepository = $userPreferenceValueRepository;
+        $this->preferenceRepository = $preferenceRepository;
     }
 
     /**
@@ -55,9 +68,7 @@ class PreferenceLoader implements LoaderInterface
     public function loadForUser(User $user)
     {
         $condensedPreferences = array();
-        $doctrine = $this->doctrine;
-        $userPreferences = $doctrine->getRepository('TickitPreferenceBundle:UserPreferenceValue')
-                                    ->findAllForUser($user);
+        $userPreferences = $this->userPreferenceValueRepository->findAllForUser($user);
 
         $userPreferenceIds = array_map(
             function (UserPreferenceValue $userPreference) {
@@ -67,8 +78,7 @@ class PreferenceLoader implements LoaderInterface
         );
 
         // get preferences that the user does not have a value for
-        $allPreferences = $doctrine->getRepository('TickitPreferenceBundle:Preference')
-                                   ->findAllWithExclusionsIndexedBySystemName($userPreferenceIds);
+        $allPreferences = $this->preferenceRepository->findAllWithExclusionsIndexedBySystemName($userPreferenceIds);
 
         $mergedPreferences = $userPreferences + $allPreferences;
 

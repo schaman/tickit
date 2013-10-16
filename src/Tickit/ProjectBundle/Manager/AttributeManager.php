@@ -2,15 +2,15 @@
 
 namespace Tickit\ProjectBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
+use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * Attribute manager.
@@ -23,20 +23,38 @@ use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
 class AttributeManager
 {
     /**
-     * The entity manager
+     * Attribute repo
      *
-     * @var EntityManager
+     * @var AttributeRepository
+     */
+    protected $attributeRepository;
+
+    /**
+     * The choice attribute choice repo
+     *
+     * @var ChoiceAttributeChoiceRepository
+     */
+    protected $choiceAttributeChoiceRepository;
+
+    /**
+     * An entity manager
+     *
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
      * Constructor.
      *
-     * @param Registry $doctrine The doctrine registry service
+     * @param AttributeRepository             $attributeRepository The attribute repo
+     * @param ChoiceAttributeChoiceRepository $choiceRepository    The choice attribute choice repo
+     * @param EntityManagerInterface          $em                  An entity manager
      */
-    public function __construct(Registry $doctrine)
+    public function __construct(AttributeRepository $attributeRepository, ChoiceAttributeChoiceRepository $choiceRepository, EntityManagerInterface $em)
     {
-        $this->em = $doctrine->getManager();
+        $this->attributeRepository = $attributeRepository;
+        $this->choiceAttributeChoiceRepository = $choiceRepository;
+        $this->em = $em;
     }
 
     /**
@@ -46,7 +64,7 @@ class AttributeManager
      */
     public function getRepository()
     {
-        return $this->em->getRepository('TickitProjectBundle:AbstractAttribute');
+        return $this->attributeRepository;
     }
 
     /**
@@ -158,27 +176,18 @@ class AttributeManager
             $this->em->flush();
         }
 
-        $existingChoices  = $this->em->getRepository('TickitProjectBundle:ChoiceAttributeChoice')
-                                     ->findByAttribute($attribute);
+        $existingChoices  = $this->choiceAttributeChoiceRepository->findBy(array('attribute' => $attribute));
 
         foreach ($existingChoices as $existingChoice) {
             $this->em->remove($existingChoice);
         }
 
-        /** @var ArrayCollection $choices */
-        foreach ($choices as $key => $choice) {
-            if (is_array($choice)) {
-                $newChoice = new ChoiceAttributeChoice();
-                $newChoice->setName($choice['name'])
-                          ->setAttribute($attribute);
-                $this->em->persist($newChoice);
-
-                $choices->remove($key);
-                $choices->add($newChoice);
-            }
+        /** @var ChoiceAttributeChoice $choice */
+        foreach ($choices as $choice) {
+            $choice->setAttribute($attribute);
+            $this->em->persist($choice);
         }
 
         $attribute->setChoices($choices);
-        $this->em->flush();
     }
 }

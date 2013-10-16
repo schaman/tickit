@@ -2,9 +2,8 @@
 
 namespace Tickit\CoreBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -19,9 +18,9 @@ use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 abstract class AbstractManager
 {
     /**
-     * Entity manager
+     * An entity manager
      *
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -35,12 +34,12 @@ abstract class AbstractManager
     /**
      * Constructor.
      *
-     * @param Registry                      $doctrine   The doctrine registry service
+     * @param EntityManagerInterface        $em         An entity manager
      * @param AbstractEntityEventDispatcher $dispatcher The event dispatcher
      */
-    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher)
+    public function __construct(EntityManagerInterface $em, AbstractEntityEventDispatcher $dispatcher)
     {
-        $this->em = $doctrine->getManager();
+        $this->em = $em;
         $this->dispatcher = $dispatcher;
     }
 
@@ -94,9 +93,8 @@ abstract class AbstractManager
             return null;
         }
 
-        // a subscriber may have updated the project so we re-fetch it from the event
+        // a subscriber may have updated the entity so we re-fetch it from the event
         $entity = $beforeEvent->getEntity();
-        $this->em->persist($entity);
 
         if (false !== $flush) {
             $this->em->flush();

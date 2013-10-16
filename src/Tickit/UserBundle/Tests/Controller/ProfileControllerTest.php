@@ -2,33 +2,59 @@
 
 namespace Tickit\UserBundle\Tests\Controller;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\UserBundle\Controller\ProfileController;
 
 /**
  * ProfileController tests
  *
  * @package Tickit\UserBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @group   functional
  */
-class ProfileControllerTest extends AbstractFunctionalTest
+class ProfileControllerTest extends AbstractUnitTest
 {
     /**
-     * Tests the showAction()
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testShowActionRedirectsToCorrectRoute()
-    {
-        $client = $this->getAuthenticatedClient(static::$developer);
-        $container = $client->getContainer();
-        $router = $container->get('router');
+    private $container;
 
-        $client->request('get', $router->generate('fos_user_profile_show'));
-        /** @var RedirectResponse $response  */
-        $response = $client->getResponse();
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertEquals($router->generate('fos_user_profile_edit'), $response->getTargetUrl());
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->container = $this->getMockContainer();
+    }
+
+    /**
+     * Tests the showAction()
+     */
+    public function testShowActionRedirectsToEditAction()
+    {
+        $router = $this->getMockRouter();
+
+        $this->container->expects($this->once())
+                        ->method('get')
+                        ->with('router')
+                        ->will($this->returnValue($router));
+
+        $router->expects($this->once())
+               ->method('generate')
+               ->with('fos_user_profile_edit')
+               ->will($this->returnValue('/profile/url'));
+
+        $response = $this->getController()->showAction();
+        $this->assertInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse', $response);
+    }
+
+    /**
+     * Gets a controller instance
+     */
+    private function getController()
+    {
+        $controller = new ProfileController();
+        $controller->setContainer($this->container);
+
+        return $controller;
     }
 }

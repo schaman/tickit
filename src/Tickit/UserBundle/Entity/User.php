@@ -90,17 +90,33 @@ class User extends BaseUser implements AvatarAwareInterface
     {
         $this->enabled = true;
         $this->sessions = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+
         parent::__construct();
     }
 
     /**
      * Gets the ID for this user
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the ID for this user
+     *
+     * @param integer $id The new user ID
+     *
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -184,7 +200,7 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * Returns the current session token
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getSessions()
     {
@@ -208,7 +224,7 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function getUpdated()
     {
-        return new \DateTime($this->updated);
+        return $this->updated;
     }
 
     /**
@@ -218,7 +234,7 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function getCreated()
     {
-        return new \DateTime($this->created);
+        return $this->created;
     }
 
     /**

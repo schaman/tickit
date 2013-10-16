@@ -2,7 +2,8 @@
 
 namespace Tickit\NavigationBundle\Tests\Controller;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\NavigationBundle\Controller\ApiController;
+use Tickit\NavigationBundle\Model\NavigationItem;
 
 /**
  * ApiController tests
@@ -10,20 +11,62 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  * @package Tickit\NavigationBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiControllerTest extends AbstractFunctionalTest
+class ApiControllerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tests the navItemsAction() method
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testNavItemsActionReturnsItems()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $client->request('get', $this->generateRoute('api_navigation_items'));
-        $response = json_decode($client->getResponse()->getContent());
+    private $navigationBuilder;
 
-        $this->assertInternalType('array', $response);
-        $this->assertCount(3, $response);
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->navigationBuilder = $this->getMockBuilder('Tickit\NavigationBundle\Builder\NavigationBuilder')
+                                        ->disableOriginalConstructor()
+                                        ->getMock();
+    }
+    
+    /**
+     * Tests the navItemsAction() method
+     */
+    public function testNavItemsActionBuildsCorrectResponse()
+    {
+        $item1 = new NavigationItem('item 1', 'test', 1);
+        $item2 = new NavigationItem('item 2', 'test2', 2);
+        $items = new \SplPriorityQueue();
+        $items->insert($item1, $item1->getPriority());
+        $items->insert($item2, $item2->getPriority());
+
+        $this->navigationBuilder->expects($this->once())
+                                ->method('build')
+                                ->will($this->returnValue($items));
+
+        $response = $this->getController()->navItemsAction();
+        $expectedData = array(
+            array(
+                'name' => $item2->getText(),
+                'routeName' => $item2->getRouteName(),
+                'active' => false
+            ),
+            array(
+                'name' => $item1->getText(),
+                'routeName' => $item1->getRouteName(),
+                'active' => false
+            )
+        );
+
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
+
+    /**
+     * Gets a new controller instance
+     *
+     * @return ApiController
+     */
+    private function getController()
+    {
+        return new ApiController($this->navigationBuilder);
     }
 }

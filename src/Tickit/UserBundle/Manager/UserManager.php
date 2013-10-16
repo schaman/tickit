@@ -2,7 +2,7 @@
 
 namespace Tickit\UserBundle\Manager;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -32,23 +32,30 @@ class UserManager extends AbstractManager implements UserManagerInterface
     protected $fosManager;
 
     /**
-     * The doctrine registry
+     * The user repository
      *
-     * @var Registry
+     * @var UserRepository
      */
-    protected $doctrine;
+    protected $userRepository;
 
     /**
      * Constructor.
      *
-     * @param Registry                      $doctrine          The doctrine service
-     * @param AbstractEntityEventDispatcher $dispatcher        The event dispatcher
-     * @param UserManagerInterface          $fosManager        The FOS user manager
+     *
+     * @param UserRepository                $userRepository The user repository
+     * @param EntityManagerInterface        $em             An entity manager
+     * @param AbstractEntityEventDispatcher $dispatcher     The event dispatcher
+     * @param UserManagerInterface          $fosManager     The FOS user manager
      */
-    public function __construct(Registry $doctrine, AbstractEntityEventDispatcher $dispatcher, UserManagerInterface $fosManager)
-    {
-        parent::__construct($doctrine, $dispatcher);
-        $this->doctrine = $doctrine;
+    public function __construct(
+        UserRepository $userRepository,
+        EntityManagerInterface $em,
+        AbstractEntityEventDispatcher $dispatcher,
+        UserManagerInterface $fosManager
+    ) {
+        parent::__construct($em, $dispatcher);
+
+        $this->userRepository = $userRepository;
         $this->fosManager = $fosManager;
     }
 
@@ -59,9 +66,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function getRepository()
     {
-        $repository = $this->em->getRepository('TickitUserBundle:User');
-
-        return $repository;
+        return $this->userRepository;
     }
 
     /**
@@ -74,12 +79,6 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function create($entity, $flush = true)
     {
-        /** @var User $entity */
-        $roles = $entity->getRoles();
-        if (empty($roles)) {
-            $entity->addRole(User::ROLE_DEFAULT);
-        }
-
         $this->fosManager->updateCanonicalFields($entity);
         $this->fosManager->updatePassword($entity);
 
@@ -110,20 +109,6 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function delete($entity)
     {
         $this->fosManager->deleteUser($entity);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param object $entity The entity in its current state
-     *
-     * @return User
-     */
-    protected function fetchEntityInOriginalState($entity)
-    {
-        $user = $this->em->find('\Tickit\UserBundle\Entity\User', $entity->getId());
-
-        return $user;
     }
 
     /**
@@ -209,7 +194,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function findUserByConfirmationToken($token)
     {
-        return $this->findUserByConfirmationToken($token);
+        return $this->fosManager->findUserByConfirmationToken($token);
     }
 
     /**
@@ -290,9 +275,23 @@ class UserManager extends AbstractManager implements UserManagerInterface
     public function find($id)
     {
         try {
-            return $this->getRepository()->findById($id);
+            return $this->getRepository()->find($id);
         } catch (NoResultException $e) {
             return null;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param object $entity The entity in its current state
+     *
+     * @return User
+     */
+    protected function fetchEntityInOriginalState($entity)
+    {
+        $user = $this->getRepository()->find($entity->getId());
+
+        return $user;
     }
 }

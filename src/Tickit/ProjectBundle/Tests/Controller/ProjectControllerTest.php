@@ -2,228 +2,281 @@
 
 namespace Tickit\ProjectBundle\Tests\Controller;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\ProjectController;
+use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
+use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 use Tickit\ProjectBundle\Entity\Project;
 
 /**
- * Tests for the ProjectController
+ * ProjectController tests
  *
  * @package Tickit\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @group   functional
  */
-class ProjectControllerTest extends AbstractFunctionalTest
+class ProjectControllerTest extends AbstractUnitTest
 {
     /**
-     * Sample project entity
-     *
-     * @var Project
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected static $project;
+    private $formHelper;
 
     /**
-     * {@inheritDoc}
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public static function setUpBeforeClass()
+    private $baseHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $attributeManager;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $projectManager;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $projectFormType;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $csrfHelper;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
     {
-        parent::setUpBeforeClass();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->baseHelper = $this->getMockBaseHelper();
+        $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $doctrine = static::createClient()->getContainer()->get('doctrine');
+        $this->attributeManager = $this->getMockBuilder('\Tickit\ProjectBundle\Manager\AttributeManager')
+                                       ->disableOriginalConstructor()
+                                       ->getMock();
 
-        static::$project = $doctrine->getRepository('TickitProjectBundle:Project')
-            ->findOneByName('Test Project 1');
+        $this->projectFormType = $this->getMockBuilder('\Tickit\ProjectBundle\Form\Type\ProjectFormType')
+                                      ->disableOriginalConstructor()
+                                      ->getMock();
+
+        $this->projectManager = $this->getMockBuilder('\Tickit\ProjectBundle\Manager\ProjectManager')
+                                     ->disableOriginalConstructor()
+                                     ->getMock();
+    }
+    
+    /**
+     * Tests the createAction() method
+     */
+    public function testCreateActionCreatesProjectForValidForm()
+    {
+        $project = new Project();
+        $attributes = new ArrayCollection(array(new LiteralAttributeValue(), new ChoiceAttributeValue()));
+        $project->setAttributes($attributes);
+
+        $this->attributeManager->expects($this->once())
+                               ->method('getAttributeValuesForProject')
+                               ->will($this->returnValue($attributes));
+
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($this->projectFormType, $project)
+                         ->will($this->returnValue($form));
+
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnProject($form, $project);
+
+        $this->projectManager->expects($this->once())
+                             ->method('create')
+                             ->with($project);
+
+        $this->baseHelper->expects($this->once())
+                         ->method('generateUrl')
+                         ->with('project_index')
+                         ->will($this->returnValue('redirect-url'));
+
+        $expectedData = ['success' => true, 'returnUrl' => 'redirect-url'];
+        $response = $this->getController()->createAction();
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the createAction()
-     *
-     * @return void
+     * Tests the createAction() method
      */
-    public function testCreateActionCreatesProject()
+    public function testCreateActionHandlesInvalidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $projectName = __FUNCTION__ . time();
+        $project = new Project();
+        $attributes = new ArrayCollection(array(new LiteralAttributeValue(), new ChoiceAttributeValue()));
+        $project->setAttributes($attributes);
 
-        $crawler = $client->request('get', $this->generateRoute('project_create_form'));
+        $this->attributeManager->expects($this->once())
+                               ->method('getAttributeValuesForProject')
+                               ->will($this->returnValue($attributes));
 
-        $attribute0 = $crawler->filter('select[name="tickit_project[attributes][0][value]"] option:first-child')
-                              ->attr('value');
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($this->projectFormType)
+                         ->will($this->returnValue($form));
 
-        $attribute1 = array(
-            'month' => $crawler->filter('select[name="tickit_project[attributes][1][value][month]"] option:first-child')
-                               ->attr('value'),
-            'day'   => $crawler->filter('select[name="tickit_project[attributes][1][value][day]"] option:first-child')
-                               ->attr('value'),
-            'year'  => $crawler->filter('select[name="tickit_project[attributes][1][value][year]"] option:first-child')
-                               ->attr('value')
-        );
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
 
-        $attribute2 = $crawler->filter('input[name="tickit_project[attributes][2][value][]"]:first-child')
-                              ->attr('value');
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitProjectBundle:Project:create.html.twig', $form)
+                         ->will($this->returnValue(new Response('form-content')));
 
-        $form = $crawler->selectButton('Save Project')->form(
-            array(
-                'tickit_project[name]' => $projectName,
-                'tickit_project[attributes][0][value]' => $attribute0,
-                'tickit_project[attributes][1][value][month]' => $attribute1['month'],
-                'tickit_project[attributes][1][value][day]' => $attribute1['day'],
-                'tickit_project[attributes][1][value][year]' => $attribute1['year'],
-                'tickit_project[attributes][2][value]' => array($attribute2),
-            )
-        );
-        $client->submit($form);
-
-        $jsonResponse = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($jsonResponse->success);
-        $this->assertEquals($this->generateRoute('project_index'), $jsonResponse->returnUrl);
-
-        $doctrine = $this->createClient()->getContainer()->get('doctrine');
-        $project  = $doctrine->getRepository('TickitProjectBundle:Project')->findOneByName($projectName);
-
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\Project', $project);
+        $expectedData = ['success' => false, 'form' => 'form-content'];
+        $response = $this->getController()->createAction();
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the createAction()
-     *
-     * @return void
+     * Tests the editAction() method
      */
-    public function testCreateActionReturnsFormContentForInvalidDetails()
+    public function testEditActionUpdatesProjectForValidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
+        $project = new Project();
+        $project->setName('test');
 
-        $createRoute = $this->generateRoute('project_create_form');
-        $crawler = $client->request('get', $createRoute);
-        $form = $crawler->selectButton('Save Project')->form(
-            array('tickit_project[name]' => '')
-        );
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($this->projectFormType, $project)
+                         ->will($this->returnValue($form));
 
-        $client->submit($form);
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnProject($form, $project);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertFalse($response->success);
-        $this->assertNotEmpty($response->form);
+        $this->projectManager->expects($this->once())
+                             ->method('update')
+                             ->with($project);
+
+        $expectedData = ['success' => true];
+        $response = $this->getController()->editAction($project);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the editAction()
-     *
-     * @return void
+     * Tests the editAction() method
      */
-    public function testEditActionUpdatesProjectForValidDetails()
+    public function testEditActionHandlesInvalidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
+        $project = new Project();
+        $project->setName('test');
 
-        $oldProjectName = static::$project->getName();
-        $newProjectName = $oldProjectName . ' ' . __FUNCTION__;
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($this->projectFormType, $project)
+                         ->will($this->returnValue($form));
 
-        $editRoute = $this->generateRoute('project_edit_form', array('id' => static::$project->getId()));
-        $crawler = $client->request('get', $editRoute);
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
 
-        $form = $crawler->selectButton('Save Changes')->form(
-            array('tickit_project[name]' => $newProjectName)
-        );
-        $client->submit($form);
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitProjectBundle:Project:edit.html.twig', $form)
+                         ->will($this->returnValue(new Response('form-content')));
 
-        $jsonResponse = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($jsonResponse->success);
-
-        $doctrine = $this->createClient()->getContainer()->get('doctrine');
-        $project  = $doctrine->getRepository('TickitProjectBundle:Project')->find(static::$project->getId());
-
-        $this->assertEquals($newProjectName, $project->getName());
-        $this->assertEquals($this->generateRoute('project_index'), $jsonResponse->returnUrl);
-
-        // revert back to old project name for other tests to still pass
-        $project->setName($oldProjectName);
-        $doctrine->getManager()->flush();
+        $expectedData = ['success' => false, 'form' => 'form-content'];
+        $response = $this->getController()->editAction($project);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the editAction()
-     *
-     * @return void
-     */
-    public function testEditActionInvalidFormSubmission()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-
-        $editRoute = $this->generateRoute('project_edit_form', array('id' => static::$project->getId()));
-        $crawler = $client->request('get', $editRoute);
-
-        $form = $crawler->selectButton('Save Changes')->form(
-            array('tickit_project[name]' => '')
-        );
-        $client->submit($form);
-
-        $jsonResponse = json_decode($client->getResponse()->getContent());
-        $this->assertFalse($jsonResponse->success);
-        $this->assertNotEmpty($jsonResponse->form);
-    }
-
-    /**
-     * Tests the editAction()
-     *
-     * @return void
-     */
-    public function testEditActionThrows404ForInvalidProjectId()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-
-        $client->request('post', '/projects/edit/999999999999999999');
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * Tests the deleteAction()
-     *
-     * Ensures that the deleteAction() removes a project
-     *
-     * @return void
+     * Tests the deleteAction() method
      */
     public function testDeleteActionDeletesProject()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $token = $container->get('form.csrf_provider')->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION);
-        $manager = $container->get('tickit_project.manager');
-
         $project = new Project();
-        $project->setName(__FUNCTION__ . time());
-        $manager->create($project);
+        $request = new Request(['token' => 'token-value']);
 
-        $totalProjects = count($manager->getRepository()->findAll());
-        $deleteRoute = $this->generateRoute('project_delete', array('id' => $project->getId(), 'token' => $token));
+        $this->trainBaseHelperToReturnRequest($request);
 
-        $client->request('post', $deleteRoute);
+        $this->csrfHelper->expects($this->once())
+                         ->method('checkCsrfToken')
+                         ->with('token-value', ProjectController::CSRF_DELETE_INTENTION);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertEquals(--$totalProjects, count($manager->getRepository()->findAll()));
+        $this->projectManager->expects($this->once())
+                             ->method('delete')
+                             ->with($project);
+
+        $expectedData = ['success' => true];
+        $response = $this->getController()->deleteAction($project);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the deleteAction()
+     * Gets a controller instance
      *
-     * Ensures that a 404 response is returned when an invalid token is provided
-     *
-     * @return void
+     * @return ProjectController
      */
-    public function testDeleteActionReturns404ForInvalidToken()
+    private function getController()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-
-        $deleteRoute = $this->generateRoute(
-            'project_delete',
-            array('id' => static::$project->getId(), 'token' => 'adwadw32da')
+        return new ProjectController(
+            $this->formHelper,
+            $this->baseHelper,
+            $this->attributeManager,
+            $this->projectManager,
+            $this->projectFormType,
+            $this->csrfHelper
         );
+    }
 
-        $client->request('post', $deleteRoute);
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    private function trainBaseHelperToReturnRequest(Request $request)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getRequest')
+                         ->will($this->returnValue($request));
+    }
+
+    private function trainFormToHandleRequest(\PHPUnit_Framework_MockObject_MockObject $form, Request $request)
+    {
+        $form->expects($this->once())
+             ->method('handleRequest')
+             ->with($request);
+    }
+
+    private function trainFormToBeInvalid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+             ->method('isValid')
+             ->will($this->returnValue(false));
+    }
+
+    private function trainFormToBeValid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+             ->method('isValid')
+             ->will($this->returnValue(true));
+    }
+
+    private function trainFormToReturnProject(\PHPUnit_Framework_MockObject_MockObject $form, Project $project)
+    {
+        $form->expects($this->once())
+             ->method('getData')
+             ->will($this->returnValue($project));
     }
 }

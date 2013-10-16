@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: require-js.yml }
+    - { resource: requirejs.yml }
 
 framework:
     #esi:             ~
@@ -22,11 +22,14 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+        resources:
+            - 'TickitUserBundle:Form:tickit_user_picker.html.twig'
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
-    use_controller: false
+    use_controller: true
     filters:
         cssrewrite: ~
         less:

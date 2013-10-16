@@ -3,8 +3,12 @@
 namespace Tickit\ProjectBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
+use Tickit\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
+use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 
 /**
  * Api project controller.
@@ -14,8 +18,66 @@ use Tickit\ProjectBundle\Entity\AbstractAttribute;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiController extends AbstractCoreController
+class ApiController
 {
+    /**
+     * The filter collection builder
+     *
+     * @var FilterCollectionBuilder
+     */
+    protected $filterBuilder;
+
+    /**
+     * The project repository
+     *
+     * @var ProjectRepository
+     */
+    protected $projectRepository;
+
+    /**
+     * Attribute repository
+     *
+     * @var AttributeRepository
+     */
+    protected $attributeRepository;
+
+    /**
+     * The base controller helper
+     *
+     * @var BaseHelper
+     */
+    protected $baseHelper;
+
+    /**
+     * The CSRF controller helper
+     *
+     * @var CsrfHelper
+     */
+    protected $csrfHelper;
+
+    /**
+     * Constructor.
+     *
+     * @param FilterCollectionBuilder $filterBuilder       The filter collection builder
+     * @param ProjectRepository       $projectRepository   The project repository
+     * @param AttributeRepository     $attributeRepository The attribute repository
+     * @param BaseHelper              $baseHelper          The base controller helper
+     * @param CsrfHelper              $csrfHelper          The CSRF controller helper
+     */
+    public function __construct(
+        FilterCollectionBuilder $filterBuilder,
+        ProjectRepository $projectRepository,
+        AttributeRepository $attributeRepository,
+        BaseHelper $baseHelper,
+        CsrfHelper $csrfHelper
+    ) {
+        $this->filterBuilder = $filterBuilder;
+        $this->projectRepository = $projectRepository;
+        $this->attributeRepository = $attributeRepository;
+        $this->baseHelper = $baseHelper;
+        $this->csrfHelper = $csrfHelper;
+    }
+
     /**
      * Lists all projects in the application
      *
@@ -23,16 +85,15 @@ class ApiController extends AbstractCoreController
      */
     public function listAction()
     {
-        $filters = $this->get('tickit.filter_collection_builder')
-                        ->buildFromRequest($this->getRequest());
+        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
 
-        $projects = $this->get('tickit_project.manager')
-                         ->getRepository()
-                         ->findByFilters($filters);
+        $projects = $this->projectRepository->findByFilters($filters);
 
         $data = array();
-        $decorator = $this->getArrayDecorator();
-        $staticProperties = array('csrf_token' => $this->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION));
+        $decorator = $this->baseHelper->getObjectDecorator();
+        $staticProperties = array(
+            'csrf_token' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)
+        );
         foreach ($projects as $project) {
             $data[] = $decorator->decorate($project, array('id', 'name', 'created'), $staticProperties);
         }
@@ -47,15 +108,12 @@ class ApiController extends AbstractCoreController
      */
     public function attributesListAction()
     {
-        $filters = $this->get('tickit.filter_collection_builder')
-                        ->buildFromRequest($this->getRequest());
+        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
 
-        $attributes = $this->get('tickit_project.attribute_manager')
-                           ->getRepository()
-                           ->findByFilters($filters);
+        $attributes = $this->attributeRepository->findByFilters($filters);
 
         $data = array();
-        $decorator = $this->getArrayDecorator();
+        $decorator = $this->baseHelper->getObjectDecorator();
         /** @var AbstractAttribute $attribute */
         foreach ($attributes as $attribute) {
             $data[] = $decorator->decorate($attribute, array('id', 'type', 'name'));

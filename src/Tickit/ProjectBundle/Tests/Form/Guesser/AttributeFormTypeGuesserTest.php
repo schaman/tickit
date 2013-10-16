@@ -2,7 +2,7 @@
 
 namespace Tickit\ProjectBundle\Tests\Form\Guesser;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
 
@@ -12,8 +12,23 @@ use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
  * @package Tickit\ProjectBundle\Tests\Form\Guesser
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttributeFormTypeGuesserTest extends AbstractFunctionalTest
+class AttributeFormTypeGuesserTest extends AbstractUnitTest
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $entityAttributeFormType;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->entityAttributeFormType = $this->getMockBuilder('\Tickit\ProjectBundle\Form\Type\EntityAttributeFormType')
+                                              ->disableOriginalConstructor()
+                                              ->getMock();
+    }
+
     /**
      * Tests the guessByAttributeType() method
      *
@@ -23,9 +38,7 @@ class AttributeFormTypeGuesserTest extends AbstractFunctionalTest
      */
     public function testGuessByAttributeTypeThrowsExceptionForInvalidAttributeType()
     {
-        $guesser = $this->getGuesser();
-
-        $guesser->guessByAttributeType('something not valid');
+        $this->getGuesser()->guessByAttributeType('something not valid');
     }
 
     /**
@@ -35,8 +48,7 @@ class AttributeFormTypeGuesserTest extends AbstractFunctionalTest
      */
     public function testGuessByAttributeTypeReturnsCorrectTypeForLiteralAttribute()
     {
-        $guesser = $this->getGuesser();
-        $formType = $guesser->guessByAttributeType(AbstractAttribute::TYPE_LITERAL);
+        $formType = $this->getGuesser()->guessByAttributeType(AbstractAttribute::TYPE_LITERAL);
 
         $this->assertInstanceOf('Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType', $formType);
     }
@@ -48,10 +60,9 @@ class AttributeFormTypeGuesserTest extends AbstractFunctionalTest
      */
     public function testGuessByAttributeTypeReturnsCorrectTypeForEntityAttribute()
     {
-        $guesser = $this->getGuesser();
-        $formType = $guesser->guessByAttributeType(AbstractAttribute::TYPE_ENTITY);
+        $formType = $this->getGuesser()->guessByAttributeType(AbstractAttribute::TYPE_ENTITY);
 
-        $this->assertInstanceOf('Tickit\ProjectBundle\Form\Type\EntityAttributeFormType', $formType);
+        $this->assertSame($this->entityAttributeFormType, $formType);
     }
 
     /**
@@ -74,6 +85,6 @@ class AttributeFormTypeGuesserTest extends AbstractFunctionalTest
      */
     private function getGuesser()
     {
-        return $this->createClient()->getContainer()->get('tickit_project.attribute_form_type_guesser');
+        return new AttributeFormTypeGuesser($this->entityAttributeFormType);
     }
 }

@@ -4,7 +4,6 @@ namespace Tickit\CoreBundle\Tests\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 use Tickit\CoreBundle\Filters\OrderByFilter;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
 
 /**
  * OrderByFilter tests
@@ -12,7 +11,7 @@ use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
  * @package Tickit\CoreBundle\Tests\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class OrderByFilterTest extends AbstractFunctionalTest
+class OrderByFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
@@ -22,11 +21,20 @@ class OrderByFilterTest extends AbstractFunctionalTest
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
         $filter = new OrderByFilter('invalid name', OrderByFilter::DIR_DESC);
-        $query = $this->getQueryBuilder();
+        $query = $this->getMockQueryBuilder();
+        $em = $this->getMockEntityManager();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->never())
+              ->method('getRootAliases');
+
+        $query->expects($this->never())
+              ->method('addOrderBy');
 
         $filter->applyToQuery($query);
-        $orderBy = $query->getDQLPart('orderBy');
-        $this->assertEmpty($orderBy);
     }
 
     /**
@@ -36,23 +44,24 @@ class OrderByFilterTest extends AbstractFunctionalTest
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
-        $filter = new OrderByFilter('name', OrderByFilter::DIR_ASC);
+        $filter = new OrderByFilter('username', OrderByFilter::DIR_ASC);
 
-        $query = $this->getQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPreferenceBundle:Preference', 'p');
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->once())
+              ->method('getRootAliases')
+              ->will($this->returnValue(array('u')));
+
+        $query->expects($this->once())
+              ->method('addOrderBy')
+              ->with('u.username', OrderByFilter::DIR_ASC);
 
         $filter->applyToQuery($query);
-
-        $allOrderBy = $query->getDQLPart('orderBy');
-        $this->assertInternalType('array', $allOrderBy);
-        $order = array_shift($allOrderBy);
-        $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\OrderBy', $order);
-        /** @var \Doctrine\ORM\Query\Expr\OrderBy $part */
-        $parts = $order->getParts();
-        $this->assertCount(1, $parts);
-        $part = array_shift($parts);
-        $this->assertEquals('p.name ASC', $part);
     }
 
     /**
@@ -62,34 +71,23 @@ class OrderByFilterTest extends AbstractFunctionalTest
      */
     public function testApplyToQueryFallsBackToDefaultOrderForInvalidOrderType()
     {
-        $filter = new OrderByFilter('name', 'crazy direction');
+        $filter = new OrderByFilter('username', 'crazy direction');
 
-        $query = $this->getQueryBuilder()
-                      ->select('p')
-                      ->from('TickitPreferenceBundle:Preference', 'p');
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->once())
+              ->method('getRootAliases')
+              ->will($this->returnValue(array('u')));
+
+        $query->expects($this->once())
+              ->method('addOrderBy')
+              ->with('u.username', OrderByFilter::DIR_DESC);
 
         $filter->applyToQuery($query);
-
-        $allOrderBy = $query->getDQLPart('orderBy');
-        $this->assertInternalType('array', $allOrderBy);
-        $order = array_shift($allOrderBy);
-        $this->assertInstanceOf('\Doctrine\ORM\Query\Expr\OrderBy', $order);
-        /** @var \Doctrine\ORM\Query\Expr\OrderBy $part */
-        $parts = $order->getParts();
-        $this->assertCount(1, $parts);
-        $part = array_shift($parts);
-        $this->assertEquals('p.name DESC', $part);
-    }
-
-    /**
-     * Gets a query builder
-     *
-     * @return QueryBuilder
-     */
-    private function getQueryBuilder()
-    {
-        $doctrine = $this->createClient()->getContainer()->get('doctrine');
-
-        return $doctrine->getManager()->createQueryBuilder();
     }
 }

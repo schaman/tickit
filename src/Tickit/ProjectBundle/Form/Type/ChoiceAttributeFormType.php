@@ -56,7 +56,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
                 'choices',
                 'collection',
                 array(
-                    'type' => new ChoiceAttributeChoiceType(),
+                    'type' => new ChoiceAttributeChoiceFormType(),
                     'allow_delete' => true,
                     'allow_add' => true
                 )
@@ -72,7 +72,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('class' => 'Tickit\ProjectBundle\Entity\ChoiceAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\ChoiceAttribute'));
     }
 
     /**

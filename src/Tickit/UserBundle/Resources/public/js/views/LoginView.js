@@ -6,11 +6,11 @@
  * @type {Backbone.View}
  */
 define([
-    'text!/templates/users/login-form',
     'modules/request',
     'core/js/views/SingleFormErrorView',
-    'core/js/models/FormError'
-], function(tpl, Request, FormErrorView, FormError) {
+    'core/js/models/FormError',
+    'modules/template'
+], function(Request, FormErrorView, FormError, Template) {
     return Backbone.View.extend({
 
         tagName: 'div',
@@ -89,8 +89,11 @@ define([
          * @return {Marionette.Module}
          */
         render: function() {
-            this.$el.html(tpl);
-            this.$el.find('#login-remember').wrap('<div class="switch" />').parent().bootstrapSwitch();
+            var t = this;
+            Template.fetch('/templates/users/login-form', function(tpl) {
+                t.$el.html(tpl);
+            });
+
             return this;
         },
 

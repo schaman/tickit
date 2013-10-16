@@ -1,531 +1,302 @@
 <?php
 
-
 namespace Tickit\ProjectBundle\Tests\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\AttributeController;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
  * AttributeController tests
  *
  * @package Tickit\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @group   functional
  */
-class AttributeControllerTest extends AbstractFunctionalTest
+class AttributeControllerTest extends AbstractUnitTest
 {
     /**
-     * Dummy literal attribute entity
-     *
-     * @var LiteralAttribute
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected static $literalAttribute;
+    private $formHelper;
 
     /**
-     * Dummy entity attribute entity
-     *
-     * @var EntityAttribute
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected static $entityAttribute;
+    private $baseHelper;
 
     /**
-     * Sets up entities
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public static function setUpBeforeClass()
+    private $formTypeGuesser;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $attributeManager;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $csrfHelper;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
     {
-        parent::setUpBeforeClass();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->baseHelper = $this->getMockBaseHelper();
+        $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $literal = new LiteralAttribute();
-        $literal->setName('sample literal' . uniqid())
-                ->setAllowBlank(1)
-                ->setDefaultValue('n/a');
+        $this->formTypeGuesser = $this->getMockBuilder('Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
+                                      ->disableOriginalConstructor()
+                                      ->getMock();
 
-        static::$literalAttribute = $literal;
-
-        $entity = new EntityAttribute();
-        $entity->setEntity('Tickit\ProjectBundle\Entity\Project')
-               ->setName('sample entity' . uniqid());
-
-        static::$entityAttribute = $entity;
+        $this->attributeManager = $this->getMockBuilder('Tickit\ProjectBundle\Manager\AttributeManager')
+                                       ->disableOriginalConstructor()
+                                       ->getMock();
+    }
+    
+    /**
+     * Tests the createAction() method
+     *
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function testCreateActionThrowsExceptionForInvalidType()
+    {
+        $this->getController()->createAction('invalid type');
     }
 
     /**
-     * Tests the createAction()
-     *
-     * Ensures that a 404 response is thrown for invalid type in URL
-     *
-     * @return void
+     * Tests the createAction() method
      */
-    public function testCreateActionThrows404ForInvalidAttributeType()
+    public function testCreateActionCreatesAttributeForValidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
+        $attribute = new LiteralAttribute();
+        $formType = new LiteralAttributeFormType();
 
-        $client->request('post', $this->generateRoute('project_attribute_create', array('type' => 'aaaaaa')));
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+        $this->formTypeGuesser->expects($this->once())
+                              ->method('guessByAttributeType')
+                              ->with($attribute->getType())
+                              ->will($this->returnValue($formType));
+
+        $form = $this->getMockForm();
+
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType, $attribute)
+                         ->will($this->returnValue($form));
+
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnAttribute($form, $attribute);
+
+        $this->attributeManager->expects($this->once())
+                               ->method('create')
+                               ->with($attribute);
+
+        $this->baseHelper->expects($this->once())
+                         ->method('generateUrl')
+                         ->with('project_attribute_index')
+                         ->will($this->returnValue('redirect-url'));
+
+        $expectedData = [
+            'success' => true,
+            'returnUrl' => 'redirect-url'
+        ];
+        $response = $this->getController()->createAction($attribute->getType());
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the createAction()
-     *
-     * Makes sure that the creation process works for LiteralAttribute types
-     *
-     * @return void
+     * Tests the createAction() method
      */
-    public function testCreateActionForLiteralAttributeCreatesAttribute()
+    public function testCreateActionHandlesInvalidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
+        $attribute = new LiteralAttribute();
+        $formType = new LiteralAttributeFormType();
 
-        $totalAttributes = count($attributeRepo->findAll());
+        $this->formTypeGuesser->expects($this->once())
+                              ->method('guessByAttributeType')
+                              ->with($attribute->getType())
+                              ->will($this->returnValue($formType));
 
-        $createRoute = $this->generateRoute(
-            'project_attribute_create_form',
-            array('type' => AbstractAttribute::TYPE_LITERAL)
-        );
-        $crawler = $client->request('get', $createRoute);
+        $form = $this->getMockForm();
 
-        $newAttributeName = 'Test Attribute ' . uniqid();
-        $form = $crawler->selectButton('Save Project Attribute')->form(
-            array(
-                'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
-                'tickit_project_attribute_literal[name]' => $newAttributeName,
-                'tickit_project_attribute_literal[default_value]' => 'n/a',
-                'tickit_project_attribute_literal[allow_blank]' => 1,
-                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_EMAIL
-            )
-        );
-        $client->submit($form);
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType, $attribute)
+                         ->will($this->returnValue($form));
 
-        $this->assertEquals(++$totalAttributes, count($attributeRepo->findAll()));
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
 
-        /** @var LiteralAttribute $newAttribute */
-        $newAttribute = $attributeRepo->findOneByName($newAttributeName);
-        $this->assertInstanceOf('Tickit\ProjectBundle\Entity\LiteralAttribute', $newAttribute);
-        $this->assertEquals(LiteralAttribute::VALIDATION_EMAIL, $newAttribute->getValidationType());
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitProjectBundle:Attribute:create.html.twig', $form, ['type' => $attribute->getType()])
+                         ->will($this->returnValue(new Response('form-content')));
 
-        // clean up new attribute
-        $em = $doctrine->getManager();
-        $em->remove($newAttribute);
-        $em->flush();
+        $expectedData = [
+            'success' => false,
+            'form' => 'form-content'
+        ];
+        $response = $this->getController()->createAction($attribute->getType());
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the createAction()
-     *
-     * @return void
+     * Tests the editAction method()
      */
-    public function testCreateActionForEntityAttributeCreatesAttribute()
+    public function testEditActionUpdatesAttributeFormValidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
+        $attribute = new LiteralAttribute();
+        $formType = new LiteralAttributeFormType();
 
-        $totalAttributes = count($attributeRepo->findAll());
+        $this->formTypeGuesser->expects($this->once())
+                              ->method('guessByAttributeType')
+                              ->with($attribute->getType())
+                              ->will($this->returnValue($formType));
 
-        $route = $this->generateRoute('project_attribute_create_form', array('type' => AbstractAttribute::TYPE_ENTITY));
-        $crawler = $client->request('get', $route);
+        $form = $this->getMockForm();
 
-        $newAttributeName = 'Test Attribute ' . uniqid();
-        $form = $crawler->selectButton('Save Project Attribute')->form(
-            array(
-                'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
-                'tickit_project_attribute_entity[name]' => $newAttributeName,
-                'tickit_project_attribute_entity[default_value]' => 'n/a',
-                'tickit_project_attribute_entity[allow_blank]' => 1,
-                'tickit_project_attribute_entity[entity]' => 'Tickit\ProjectBundle\Entity\Project'
-            )
-        );
-        $client->submit($form);
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType, $attribute)
+                         ->will($this->returnValue($form));
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
 
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertEquals(++$totalAttributes, count($attributeRepo->findAll()));
+        $this->trainFormToBeValid($form);
 
-        $newAttribute = $attributeRepo->findOneByName($newAttributeName);
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\EntityAttribute', $newAttribute);
-        $em = $doctrine->getManager();
+        $this->attributeManager->expects($this->once())
+                               ->method('update')
+                               ->with($attribute);
 
-        $em->remove($newAttribute);
-        $em->flush();
-    }
-
-    /**
-     * Tests the createAction()
-     *
-     * @return void
-     */
-    public function testCreateActionForChoiceAttributeCreatesAttribute()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $attributeRepo = $client->getContainer()->get('tickit_project.attribute_manager')->getRepository();
-
-        $totalAttributes = count($attributeRepo->findAll());
-
-        $route = $this->generateRoute('project_attribute_create_form', array('type' => AbstractAttribute::TYPE_CHOICE));
-        $crawler = $client->request('get', $route);
-
-        $newAttributeName = 'Test Attribute' . uniqid();
-        $form = $crawler->selectButton('Save Project Attribute')->form();
-        $values = array(
-            'tickit_project_attribute_choice' => array(
-                'type' => AbstractAttribute::TYPE_CHOICE,
-                '_token' => $form['tickit_project_attribute_choice[_token]']->getValue(),
-                'name' => $newAttributeName,
-                'default_value' => 'Off',
-                'allow_blank' => 1,
-                'expanded' => 1,
-                'allow_multiple' => 0,
-                'choices' => array(
-                    0 => array(
-                        'name' => 'Choice 1'
-                    ),
-                    1 => array(
-                        'name' => 'Choice 2'
-                    )
-                )
-            )
-        );
-        $client->request($form->getMethod(), $form->getUri(), $values);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-
-        $this->assertEquals($totalAttributes + 1, count($attributeRepo->findAll()));
-
-        $attribute = $attributeRepo->findOneByName($newAttributeName);
-        $this->assertInstanceOf('Tickit\ProjectBundle\Entity\ChoiceAttribute', $attribute);
-
-        // clean up new attribute
-        $em = $doctrine->getManager();
-        $em->remove($attribute);
-        $em->flush();
-    }
-
-    /**
-     * Tests the createAction()
-     *
-     * @return void
-     */
-    public function testCreateActionForAttributeReturnsFormForInvalidDetails()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-
-        $route = $this->generateRoute(
-            'project_attribute_create_form',
-            array('type' => AbstractAttribute::TYPE_LITERAL)
-        );
-        $crawler = $client->request('get', $route);
-        $form = $crawler->selectButton('Save Project Attribute')->form();
-        $client->submit(
-            $form,
-            array(
-                'tickit_project_attribute_literal[type]' =>  AbstractAttribute::TYPE_LITERAL,
-                'tickit_project_attribute_literal[name]' => '',
-                'tickit_project_attribute_literal[default_value]' => '',
-                'tickit_project_attribute_literal[allow_blank]' => 1,
-                'tickit_project_attribute_literal[validation_type]' => ''
-            )
-        );
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $response = json_decode($client->getResponse()->getContent());
-
-        $this->assertFalse($response->success);
-        $this->assertTrue(isset($response->form));
-        $this->assertNotEmpty($response->form);
+        $expectedData = ['success' => true];
+        $response = $this->getController()->editAction($attribute);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
      * Tests the editAction() method
-     *
-     * @return void
      */
-    public function testEditActionForAttributeReturnsFormForInvalidDetails()
+    public function testEditActionHandlesInvalidForm()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
+        $attribute = new LiteralAttribute();
+        $formType = new LiteralAttributeFormType();
 
-        $attribute = clone static::$literalAttribute;
-        $attribute->setName(__FUNCTION__ . uniqid());
-        $manager->create($attribute);
+        $this->formTypeGuesser->expects($this->once())
+                              ->method('guessByAttributeType')
+                              ->with($attribute->getType())
+                              ->will($this->returnValue($formType));
 
-        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $attribute->getId()));
-        $crawler = $client->request('get', $editRoute);
+        $form = $this->getMockForm();
 
-        $form = $crawler->selectButton('Save Changes')->form();
-        $client->submit(
-            $form,
-            array(
-                'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
-                'tickit_project_attribute_literal[name]' => '',
-                'tickit_project_attribute_literal[default_value]' => '',
-                'tickit_project_attribute_literal[allow_blank]' => 0,
-                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_IP
-            )
-        );
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType, $attribute)
+                         ->will($this->returnValue($form));
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
 
-        $this->assertFalse($response->success);
-        $this->assertNotEmpty($response->form);
+        $this->trainFormToBeInvalid($form);
 
-        // clean up new attribute
-        $doctrine->getManager()->remove($attribute);
-        $doctrine->getManager()->flush();
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with(
+                             'TickitProjectBundle:Attribute:edit.html.twig',
+                             $form,
+                             ['type' => $attribute->getType()]
+                         )
+                         ->will($this->returnValue(new Response('form-content')));
+
+        $expectedData = ['success' => false, 'form' => 'form-content'];
+        $response = $this->getController()->editAction($attribute);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the editAction()
-     *
-     * Ensures that the editAction() updates literal attribute with valid details
-     *
-     * @return void
-     */
-    public function testEditActionForLiteralAttributeUpdatesAttribute()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
-
-        $attribute = clone static::$literalAttribute;
-        $attribute->setName(__FUNCTION__ . uniqid());
-        $manager->create($attribute);
-
-        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $attribute->getId()));
-        $crawler = $client->request('get', $editRoute);
-
-        $newAttributeName = strrev($attribute->getName());
-        $form = $crawler->selectButton('Save Changes')->form();
-        $client->submit(
-            $form,
-            array(
-                'tickit_project_attribute_literal[type]' => AbstractAttribute::TYPE_LITERAL,
-                'tickit_project_attribute_literal[name]' => $newAttributeName,
-                'tickit_project_attribute_literal[default_value]' => '',
-                'tickit_project_attribute_literal[allow_blank]' => 1,
-                'tickit_project_attribute_literal[validation_type]' => LiteralAttribute::VALIDATION_IP
-            )
-        );
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-
-        $doctrine->getManager()->refresh($attribute);
-        $this->assertEquals($newAttributeName, $attribute->getName());
-        $this->assertEquals(AbstractAttribute::TYPE_LITERAL, $attribute->getType());
-
-        // clean up new attribute
-        $doctrine->getManager()->remove($attribute);
-        $doctrine->getManager()->flush();
-    }
-
-    /**
-     * Tests the editAction()
-     *
-     * @return void
-     */
-    public function testEditActionForEntityAttributeUpdatesAttribute()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $manager = $client->getContainer()->get('tickit_project.attribute_manager');
-
-        $attribute = clone static::$entityAttribute;
-        $attribute->setName(__FUNCTION__ . uniqid());
-        $manager->create($attribute);
-
-        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $attribute->getId()));
-        $crawler = $client->request('get', $editRoute);
-
-        $newAttributeName = strrev($attribute->getName());
-        $form = $crawler->selectButton('Save Changes')->form();
-        $client->submit(
-            $form,
-            array(
-                'tickit_project_attribute_entity[type]' => AbstractAttribute::TYPE_ENTITY,
-                'tickit_project_attribute_entity[name]' => $newAttributeName,
-                'tickit_project_attribute_entity[default_value]' => '1',
-                'tickit_project_attribute_entity[allow_blank]' => 1,
-                'tickit_project_attribute_entity[entity]' => $attribute->getEntity()
-            )
-        );
-
-        $doctrine->getManager()->refresh($attribute);
-
-        $this->assertEquals(AbstractAttribute::TYPE_ENTITY, $attribute->getType());
-        $this->assertEquals($newAttributeName, $attribute->getName());
-        $this->assertTrue($attribute->getAllowBlank());
-        $this->assertEquals('1', $attribute->getDefaultValue());
-
-        // clean up new attribute
-        $doctrine->getManager()->remove($attribute);
-        $doctrine->getManager()->flush();
-    }
-
-    /**
-     * Tests the editAction()
-     *
-     * @return void
-     */
-    public function testEditActionForChoiceAttributeUpdatesAttribute()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $manager = $container->get('tickit_project.attribute_manager');
-        $doctrine = $container->get('doctrine');
-
-        $choices = new ArrayCollection();
-        $i = 3;
-        while ($i--) {
-            $choice = new ChoiceAttributeChoice();
-            $choice->setName('choice ' . $i);
-            $choices->add($choice);
-        }
-
-        /** @var ChoiceAttribute $newAttribute */
-        $newAttribute = AbstractAttribute::factory(AbstractAttribute::TYPE_CHOICE);
-        $newAttribute->setName(__FUNCTION__ . time());
-        $newAttribute->setChoices($choices);
-
-        $manager->create($newAttribute);
-
-        $editRoute = $this->generateRoute('project_attribute_edit_form', array('id' => $newAttribute->getId()));
-        $crawler = $client->request('get', $editRoute);
-        $form = $crawler->selectButton('Save Changes')->form();
-
-        $newName = strrev($newAttribute->getName());
-        $values = array(
-            'tickit_project_attribute_choice' => array(
-                'type' => AbstractAttribute::TYPE_CHOICE,
-                '_token' => $form['tickit_project_attribute_choice[_token]']->getValue(),
-                'name' => $newName,
-                'default_value' => 'off',
-                'allow_blank' => 1,
-                'expanded' => 0,
-                'choices' => array(
-                    0 => array(
-                        'name' => 'Choice 3',
-                    ),
-                    1 => array(
-                        'name' => 'Choice 4'
-                    )
-                )
-            )
-        );
-        $client->request($form->getMethod(), $form->getUri(), $values);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertFalse(isset($response->form));
-
-        $doctrine->getManager()->refresh($newAttribute);
-
-        $this->assertEquals($newName, $newAttribute->getName());
-        $this->assertEquals(AbstractAttribute::TYPE_CHOICE, $newAttribute->getType());
-        $this->assertEquals('off', $newAttribute->getDefaultValue());
-        $this->assertFalse($newAttribute->getExpanded());
-        $this->assertCount(2, $newAttribute->getChoicesAsArray());
-
-        // clean up created object
-        $doctrine->getManager()->remove($newAttribute);
-        $doctrine->getManager()->flush();
-    }
-
-    /**
-     * Tests the deleteAction()
-     *
-     * Ensures that the deleteAction() removes an attribute
-     *
-     * @return void
+     * Tests the deleteAction() method
      */
     public function testDeleteActionDeletesAttribute()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $manager = $container->get('tickit_project.attribute_manager');
+        $attribute = new LiteralAttribute();
+        $request = new Request(['token' => 'token-value']);
+        $this->trainBaseHelperToReturnRequest($request);
 
-        $newAttribute = AbstractAttribute::factory(AbstractAttribute::TYPE_LITERAL);
-        $newAttribute->setName(__FUNCTION__ . time());
-        $manager->create($newAttribute);
+        $this->csrfHelper->expects($this->once())
+                         ->method('checkCsrfToken')
+                         ->with('token-value', AttributeController::CSRF_DELETE_INTENTION);
 
-        $totalAttributes = count($manager->getRepository()->findAll());
+        $this->attributeManager->expects($this->once())
+                               ->method('delete')
+                               ->with($attribute);
 
-        $token = $container->get('form.csrf_provider')->generateCsrfToken(AttributeController::CSRF_DELETE_INTENTION);
-
-        $deleteRoute = $this->generateRoute(
-            'project_attribute_delete',
-            array(
-                'id' => $newAttribute->getId(),
-                'token' => $token
-            )
-        );
-        $client->request('post', $deleteRoute);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertTrue($response->success);
-        $this->assertEquals(--$totalAttributes, count($manager->getRepository()->findAll()));
-
-        $nonExistentAttribute = $container->get('doctrine')
-                                          ->getRepository('TickitProjectBundle:LiteralAttribute')
-                                          ->findOneByName($newAttribute->getName());
-
-        $this->assertNull($nonExistentAttribute);
+        $expectedData = ['success' => true];
+        $response = $this->getController()->deleteAction($attribute);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the deleteAction()
+     * Gets a controller instance
      *
-     * @return void
+     * @return AttributeController
      */
-    public function testDeleteActionReturns404ForInvalidToken()
+    private function getController()
     {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $container = $client->getContainer();
-        $manager = $container->get('tickit_project.attribute_manager');
-
-        $newAttribute = AbstractAttribute::factory(AbstractAttribute::TYPE_LITERAL);
-        $newAttribute->setName(__FUNCTION__ . time());
-        $manager->create($newAttribute);
-
-        $totalAttributes = count($manager->getRepository()->findAll());
-
-        $deleteRoute = $this->generateRoute(
-            'project_attribute_delete',
-            array(
-                'id' => $newAttribute->getId(),
-                'token' => 'djwoajdowad'
-            )
+        return new AttributeController(
+            $this->formHelper,
+            $this->baseHelper,
+            $this->formTypeGuesser,
+            $this->attributeManager,
+            $this->csrfHelper
         );
-        $client->request('post', $deleteRoute);
+    }
 
-        $this->assertEquals(404, $client->getResponse()->getStatusCode());
-        $this->assertEquals($totalAttributes, count($manager->getRepository()->findAll()));
+    private function trainBaseHelperToReturnRequest(Request $request)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getRequest')
+                         ->will($this->returnValue($request));
+    }
 
-        $manager->delete($newAttribute);
+    private function trainFormToBeInvalid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(false));
+    }
+
+    private function trainFormToBeValid(\PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $form->expects($this->once())
+            ->method('isValid')
+            ->will($this->returnValue(true));
+    }
+
+    private function trainFormToHandleRequest(\PHPUnit_Framework_MockObject_MockObject $form, Request $request)
+    {
+        $form->expects($this->once())
+             ->method('handleRequest')
+             ->with($request);
+    }
+
+    private function trainFormToReturnAttribute(\PHPUnit_Framework_MockObject_MockObject $form, AbstractAttribute $attribute)
+    {
+        $form->expects($this->once())
+            ->method('getData')
+            ->will($this->returnValue($attribute));
     }
 }

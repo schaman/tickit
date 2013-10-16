@@ -10,23 +10,17 @@ require([
     'core/js/regions/MainRegion',
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/NavigationRegion',
+    'navigation/js/regions/ToolbarRegion',
     'jquery',
-    'jqueryui',
-    'bootstrapselect',
-    'bootstrapswitch',
-    'flatuicheckbox',
-    'flatuiradio',
-    'jqueryplaceholder',
-    'jquerytagsinput',
     'text'
-], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion) {
+], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion, ToolbarRegion) {
     var App = new Marionette.Application();
 
     App.addRegions({
         mainRegion: new MainRegion,
-        loginRegion: new AnimatedRegion({ el: '#container' }),
+        loginRegion: new AnimatedRegion({ el: '#login-container' }),
         navRegion: new NavigationRegion,
-        toolbarRegion: 'header.main-header',
+        toolbarRegion: new ToolbarRegion,
         notificationRegion: '#notification-side',
         footerRegion: '#footer'
     });
@@ -35,7 +29,8 @@ require([
     App.Session = new Session;
 
     // load any other modules here
-    require(['modules/router', 'modules/core', 'modules/template'], function() {
+    require(['modules/router', 'modules/core', 'modules/template'], function(Router) {
+        App.Router = Router;
         App.start();
     });
 

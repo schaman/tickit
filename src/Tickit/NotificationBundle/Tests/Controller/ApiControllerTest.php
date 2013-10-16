@@ -2,89 +2,99 @@
 
 namespace Tickit\NotificationBundle\Tests\Controller;
 
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\NotificationBundle\Controller\ApiController;
 use Tickit\NotificationBundle\Entity\UserNotification;
+use Tickit\UserBundle\Entity\User;
 
 /**
- * ApiController tests.
+ * ApiController tests
  *
  * @package Tickit\NotificationBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ApiControllerTest extends AbstractFunctionalTest
+class ApiControllerTest extends AbstractUnitTest
 {
     /**
-     * Tests the listAction() method
-     *
-     * @return void
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testListActionListsNotificationsWhenNotRead()
-    {
-        $client = $this->getAuthenticatedClient(static::$admin);
-        $route = $this->generateRoute('api_notification_list');
-        $client->request('get', $route);
+    private $baseHelper;
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertInternalType('array', $response);
-        $this->assertNotEmpty($response);
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $provider;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->provider = $this->getMockBuilder('\Tickit\NotificationBundle\Provider\NotificationProvider')
+                               ->disableOriginalConstructor()
+                               ->getMock();
+
+        $this->baseHelper = $this->getMockBaseHelper();
+    }
+    
+    /**
+     * Tests the listAction() method
+     */
+    public function testListActionBuildsCorrectResponse()
+    {
+        $user = new User();
+        $notification1 = new UserNotification();
+        $notification1->setMessage('notification 1');
+
+        $notification2 = new UserNotification();
+        $notification2->setMessage('notification 2');
+
+        $notifications = array($notification1, $notification2);
+
+        $this->provider->expects($this->once())
+                       ->method('findUnreadForUser')
+                       ->with($user)
+                       ->will($this->returnValue($notifications));
+
+        $this->baseHelper->expects($this->once())
+                         ->method('getUser')
+                         ->will($this->returnValue($user));
+
+        $decorator = $this->getMockBuilder('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface')
+                          ->getMock();
+
+        $decorator->expects($this->exactly(2))
+                  ->method('decorate')
+                  ->will($this->returnValue(array('notification')));
+
+        $decorator->expects($this->at(0))
+                  ->method('decorate')
+                  ->with($notification1, array('message', 'createdAt', 'actionUri'));
+
+        $decorator->expects($this->at(1))
+                  ->method('decorate')
+                  ->with($notification2, array('message', 'createdAt', 'actionUri'));
+
+        $this->baseHelper->expects($this->once())
+                         ->method('getObjectDecorator')
+                         ->will($this->returnValue($decorator));
+
+        $expectedData = array(
+            array('notification'),
+            array('notification')
+        );
+
+        $response = $this->getController()->listAction();
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
     /**
-     * Tests the listAction() method
+     * Gets a new controller instance
      *
-     * @return void
+     * @return ApiController
      */
-    public function testListActionListsNoNotificationsWhenNoneAvailable()
+    private function getController()
     {
-        $client = $this->getAuthenticatedClient(static::$developer);
-        $route = $this->generateRoute('api_notification_list');
-        $client->request('get', $route);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertInternalType('array', $response);
-        $this->assertEmpty($response);
-    }
-
-    /**
-     * Tests the listAction() method
-     *
-     * @return void
-     */
-    public function testListActionDoesNotListReadNotifications()
-    {
-        $client = $this->getAuthenticatedClient(static::$developer);
-        $doctrine = $client->getContainer()->get('doctrine');
-        $em = $doctrine->getManager();
-        $user = $doctrine->getRepository('TickitUserBundle:User')->find(static::$developer->getId());
-
-        $userNotification = new UserNotification();
-        $userNotification->setRecipient($user)
-                         ->setMessage('test')
-                         ->setActionUri('/');
-
-        $em->persist($userNotification);
-        $em->flush();
-
-        $route = $this->generateRoute('api_notification_list');
-        $client->request('get', $route);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertInternalType('array', $response);
-        $this->assertCount(1, $response);
-
-        $userNotification->setReadAt(new \DateTime());
-        $em->flush();
-
-        $client->request('get', $route);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $response = json_decode($client->getResponse()->getContent());
-        $this->assertInternalType('array', $response);
-        $this->assertEmpty($response);
-
-        // cleanup
-        $em->remove($userNotification);
-        $em->flush();
+        return new ApiController($this->provider, $this->baseHelper);
     }
 }
