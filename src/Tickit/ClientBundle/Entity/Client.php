@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Tickit\ClientBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Tickit\ClientBundle\Entity\Repository\ClientRepository")
  * @ORM\Table(name="clients")
  */
 class Client
