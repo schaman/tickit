@@ -4,7 +4,6 @@ namespace Tickit\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Controller\Helper\ControllerHelper;
 use Tickit\NotificationBundle\Provider\NotificationProvider;
 
 /**
