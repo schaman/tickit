@@ -29,19 +29,11 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
     /**
      * Tests the form submit
      *
-     * @return void
+     * @dataProvider getUser
      */
-    public function testSubmitValidData()
+    public function testSubmitValidData(User $user)
     {
         $form = $this->factory->create($this->formType);
-
-        $user = new User();
-        $user->setAdmin(false)
-             ->setForename('Forename')
-             ->setSurname('Surname')
-             ->setEmail('email@domain.com')
-             ->setSurname('username')
-             ->setPlainPassword('plain password');
 
         $form->setData($user);
 
@@ -50,6 +42,55 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
 
         $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'admin');
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
+
+        $passwordForm = $form->get('password');
+        $firstPasswordFieldOptions = $passwordForm->getConfig()->getOption('first_options');
+        $secondPasswordFieldOptions = $passwordForm->getConfig()->getOption('second_options');
+
+        $this->assertEquals('Password', $firstPasswordFieldOptions['label']);
+        $this->assertEquals('Confirm Password', $secondPasswordFieldOptions['label']);
+    }
+
+    /**
+     * Tests the form handles existing User instance
+     *
+     * @dataProvider getUser
+     */
+    public function testFormHandlesExistingUserCorrectly(User $user)
+    {
+        $form = $this->factory->create($this->formType, $user);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($user, $form->getData());
+
+        $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'admin');
+        $this->assertViewHasComponents($expectedViewComponents, $form->createView());
+
+        $passwordForm = $form->get('password');
+        $firstPasswordFieldOptions = $passwordForm->getConfig()->getOption('first_options');
+        $secondPasswordFieldOptions = $passwordForm->getConfig()->getOption('second_options');
+
+        $this->assertEquals('New Password', $firstPasswordFieldOptions['label']);
+        $this->assertEquals('Confirm New Password', $secondPasswordFieldOptions['label']);
+    }
+
+    /**
+     * Gets user for tests
+     *
+     * @return array
+     */
+    public function getUser()
+    {
+        $user = new User();
+        $user->setId(1)
+             ->setAdmin(false)
+             ->setForename('Forename')
+             ->setSurname('Surname')
+             ->setEmail('email@domain.com')
+             ->setSurname('username')
+             ->setPlainPassword('plain password');
+
+        return [[$user]];
     }
 
     /**

@@ -163,4 +163,28 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns a mock QueryBuilder
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockQueryBuilder()
+    {
+        return $this->getMockBuilder('\Doctrine\ORM\QueryBuilder')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Returns a mock Session
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockSession()
+    {
+        return $this->getMockBuilder('\Symfony\Component\HttpFoundation\Session\Session')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
 }

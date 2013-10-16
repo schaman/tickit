@@ -71,10 +71,7 @@ class ProjectManagerTest extends AbstractUnitTest
         $project = new Project();
         $project->setAttributes(new ArrayCollection(array(new LiteralAttributeValue(), new ChoiceAttributeValue())));
 
-        $this->dispatcher->expects($this->once())
-                         ->method('dispatchBeforeCreateEvent')
-                         ->with($project)
-                         ->will($this->returnValue(new EntityEvent($project)));
+        $this->trainDispatcherBeforeCreateToReturnEvent($project, new EntityEvent($project));
 
         $this->em->expects($this->once())
                  ->method('persist')
@@ -103,10 +100,7 @@ class ProjectManagerTest extends AbstractUnitTest
         $event = new EntityEvent($project);
         $event->veto();
 
-        $this->dispatcher->expects($this->once())
-                         ->method('dispatchBeforeCreateEvent')
-                         ->with($project)
-                         ->will($this->returnValue($event));
+        $this->trainDispatcherBeforeCreateToReturnEvent($project, $event);
 
         $this->em->expects($this->never())
                  ->method('persist');
@@ -126,8 +120,16 @@ class ProjectManagerTest extends AbstractUnitTest
      *
      * @return ProjectManager
      */
-    protected function getManager()
+    private function getManager()
     {
         return new ProjectManager($this->projectRepository, $this->em, $this->dispatcher);
+    }
+
+    private function trainDispatcherBeforeCreateToReturnEvent(Project $project, EntityEvent $event)
+    {
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatchBeforeCreateEvent')
+                         ->with($project)
+                         ->will($this->returnValue($event));
     }
 }

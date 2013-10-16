@@ -70,6 +70,20 @@ class Preference
     }
 
     /**
+     * Sets the unique identifier for the preference
+     *
+     * @param integer $id The new ID
+     *
+     * @return Preference
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the name of this preference
      *
      * @param string $name The new preference name

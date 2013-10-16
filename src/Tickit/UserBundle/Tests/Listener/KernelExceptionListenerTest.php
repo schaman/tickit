@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Listener\KernelExceptionListener;
 
 /**
@@ -16,7 +17,7 @@ use Tickit\UserBundle\Listener\KernelExceptionListener;
  * @package Tickit\UserBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class KernelExceptionListenerTest extends AbstractFunctionalTest
+class KernelExceptionListenerTest extends AbstractUnitTest
 {
     /**
      * Tests the onKernelException() method
