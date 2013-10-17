@@ -78,14 +78,12 @@ class ApiController
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
         $clients = $this->clientRepository->findByFilters($filters);
 
-        $data = array();
-        $decorator = $this->baseHelper->getObjectDecorator();
-        $staticProperties = array(
-            'csrf_token' => $this->csrfHelper->generateCsrfToken('client-token')
-        );
-        foreach ($clients as $client) {
-            $data[] = $decorator->decorate($client, array('id', 'name', 'url', 'created'), $staticProperties);
-        }
+        $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $staticProperties = [
+            'csrf_token' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)
+        ];
+
+        $data = $decorator->decorate($clients, ['id', 'name', 'url', 'created'], $staticProperties);
 
         return new JsonResponse($data);
     }
