@@ -99,14 +99,12 @@ class ApiController
         $avatarAdapter = $this->avatar->getAdapter();
         $avatarUrl     = $avatarAdapter->getImageUrl($user, 35);
 
-        $data = array(
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'forename' => $user->getForename(),
-            'surname' => $user->getSurname(),
-            'avatarUrl' => $avatarUrl
-        );
+        $data = $this->baseHelper->getObjectDecorator()
+                                 ->decorate(
+                                     $user,
+                                     ['id', 'username', 'email', 'forename', 'surname'],
+                                     ['avatarUrl' => $avatarUrl]
+                                 );
 
         return new JsonResponse($data);
     }
