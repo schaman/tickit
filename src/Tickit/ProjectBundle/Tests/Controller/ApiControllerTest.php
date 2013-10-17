@@ -88,27 +88,17 @@ class ApiControllerTest extends AbstractUnitTest
                           ->with($filters)
                           ->will($this->returnValue($projects));
 
-        $decorator = $this->getMockObjectDecorator();
-        $this->trainBaseHelperToReturnObjectDecorator($decorator);
-
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken')
                          ->with(ProjectController::CSRF_DELETE_INTENTION)
                          ->will($this->returnValue('csrf-token-value'));
 
-        $decorator->expects($this->exactly(2))
-                  ->method('decorate')
-                  ->will($this->returnValue(array('project')));
+        $expectedData = [['project'], ['project']];
 
-        $decorator->expects($this->at(0))
-                  ->method('decorate')
-                  ->with($project1, array('id', 'name', 'created'), array('csrf_token' => 'csrf-token-value'));
+        $decorator = $this->getMockObjectDecorator();
+        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
+        $this->trainObjectCollectionDecoratorToExpectProjectCollection($decorator, $projects, $expectedData);
 
-        $decorator->expects($this->at(1))
-                  ->method('decorate')
-                  ->with($project2, array('id', 'name', 'created'), array('csrf_token' => 'csrf-token-value'));
-
-        $expectedData = array(array('project'), array('project'));
         $response = $this->getController()->listAction();
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
@@ -135,22 +125,11 @@ class ApiControllerTest extends AbstractUnitTest
                             ->with($filters)
                             ->will($this->returnValue($attributes));
 
+        $expectedData = [['attribute'], ['attribute']];
         $decorator = $this->getMockObjectDecorator();
-        $this->trainBaseHelperToReturnObjectDecorator($decorator);
+        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
+        $this->trainObjectCollectionDecoratorToExpectAttributeCollection($decorator, $attributes, $expectedData);
 
-        $decorator->expects($this->exactly(2))
-                  ->method('decorate')
-                  ->will($this->returnValue(array('attribute')));
-
-        $decorator->expects($this->at(0))
-                  ->method('decorate')
-                  ->with($attribute1, array('id', 'type', 'name'));
-
-        $decorator->expects($this->at(1))
-                  ->method('decorate')
-                  ->with($attribute2, array('id', 'type', 'name'));
-
-        $expectedData = array(array('attribute'), array('attribute'));
         $response = $this->getController()->attributesListAction();
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
@@ -186,10 +165,36 @@ class ApiControllerTest extends AbstractUnitTest
                             ->will($this->returnValue($filters));
     }
 
-    private function trainBaseHelperToReturnObjectDecorator(DomainObjectDecoratorInterface $decorator)
+    private function trainBaseHelperToReturnObjectCollectionDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
     {
         $this->baseHelper->expects($this->once())
-                         ->method('getObjectDecorator')
+                         ->method('getObjectCollectionDecorator')
                          ->will($this->returnValue($decorator));
+    }
+
+    private function trainObjectCollectionDecoratorToExpectProjectCollection(
+        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
+        array $projects,
+        array $returnData
+    ) {
+        $objectDecorator->expects($this->once())
+                        ->method('decorate')
+                        ->with(
+                            $projects,
+                            ['id', 'name', 'created'],
+                            ['csrf_token' => 'csrf-token-value']
+                        )
+                        ->will($this->returnValue($returnData));
+    }
+
+    private function trainObjectCollectionDecoratorToExpectAttributeCollection(
+        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
+        array $attributes,
+        array $returnData
+    ) {
+        $objectDecorator->expects($this->once())
+                        ->method('decorate')
+                        ->with($attributes, ['id', 'type', 'name'])
+                        ->will($this->returnValue($returnData));
     }
 }
