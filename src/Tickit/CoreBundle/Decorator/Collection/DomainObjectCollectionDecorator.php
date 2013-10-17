@@ -10,7 +10,7 @@ use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
  * Responsible for decorating a collection of domain objects as arrays
  *
  * @package Tickit\CoreBundle\Decorator\Collection
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class DomainObjectCollectionDecorator implements DomainObjectCollectionDecoratorInterface
 {
