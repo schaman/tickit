@@ -20,7 +20,8 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
      *
      * @param object $object          The domain object to decorate
      * @param array $propertyNames    The property names used in the decoration
-     * @param array $staticProperties Any additional static properties that should be appended to the result (indexed by property name)
+     * @param array $staticProperties Any additional static properties that should be appended to the result
+     *                                (indexed by property name)
      *
      * @throws \InvalidArgumentException If the $object property is not an object
      * @throws \RuntimeException         If the any of the provided properties do not have a getter

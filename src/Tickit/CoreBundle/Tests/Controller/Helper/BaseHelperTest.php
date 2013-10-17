@@ -34,6 +34,11 @@ class BaseHelperTest extends AbstractUnitTest
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    private $objectCollectionDecorator;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     private $router;
 
     /**
@@ -45,13 +50,17 @@ class BaseHelperTest extends AbstractUnitTest
                               ->disableOriginalConstructor()
                               ->getMock();
 
-        $this->securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
-                                      ->disableOriginalConstructor()
-                                      ->getMock();
+        $this->securityContext = $this->getMockForAbstractClass(
+            '\Symfony\Component\Security\Core\SecurityContextInterface'
+        );
 
-        $this->objectDecorator = $this->getMockBuilder('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface')
-                                      ->disableOriginalConstructor()
-                                      ->getMock();
+        $this->objectDecorator = $this->getMockForAbstractClass(
+            '\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface'
+        );
+
+        $this->objectCollectionDecorator = $this->getMockForAbstractClass(
+            '\Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
+        );
 
         $this->router = $this->getMockRouter();
     }
@@ -62,6 +71,14 @@ class BaseHelperTest extends AbstractUnitTest
     public function testGetObjectDecoratorReturnsCorrectInstance()
     {
         $this->assertSame($this->objectDecorator, $this->getHelper()->getObjectDecorator());
+    }
+
+    /**
+     * Tests the getObjectCollectionDecorator() method
+     */
+    public function testGetObjectCollectionDecoratorReturnsCorrectInstance()
+    {
+        $this->assertSame($this->objectCollectionDecorator, $this->getHelper()->getObjectCollectionDecorator());
     }
 
     /**
@@ -157,6 +174,12 @@ class BaseHelperTest extends AbstractUnitTest
      */
     private function getHelper()
     {
-        return new BaseHelper($this->request, $this->securityContext, $this->objectDecorator, $this->router);
+        return new BaseHelper(
+            $this->request,
+            $this->securityContext,
+            $this->objectDecorator,
+            $this->objectCollectionDecorator,
+            $this->router
+        );
     }
 }

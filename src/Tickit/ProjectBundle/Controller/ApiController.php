@@ -86,17 +86,14 @@ class ApiController
     public function listAction()
     {
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
-
         $projects = $this->projectRepository->findByFilters($filters);
+        $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
-        $data = array();
-        $decorator = $this->baseHelper->getObjectDecorator();
-        $staticProperties = array(
+        $staticProperties = [
             'csrf_token' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)
-        );
-        foreach ($projects as $project) {
-            $data[] = $decorator->decorate($project, array('id', 'name', 'created'), $staticProperties);
-        }
+        ];
+
+        $data = $decorator->decorate($projects, ['id', 'name', 'created'], $staticProperties);
 
         return new JsonResponse($data);
     }
@@ -112,12 +109,8 @@ class ApiController
 
         $attributes = $this->attributeRepository->findByFilters($filters);
 
-        $data = array();
-        $decorator = $this->baseHelper->getObjectDecorator();
-        /** @var AbstractAttribute $attribute */
-        foreach ($attributes as $attribute) {
-            $data[] = $decorator->decorate($attribute, array('id', 'type', 'name'));
-        }
+        $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $data = $decorator->decorate($attributes, ['id', 'type', 'name']);
 
         return new JsonResponse($data);
     }

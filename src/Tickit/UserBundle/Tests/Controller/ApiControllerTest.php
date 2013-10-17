@@ -86,6 +86,10 @@ class ApiControllerTest extends AbstractUnitTest
             'avatarUrl' => 'avatar-url'
         ];
 
+        $objectDecorator = $this->getMockObjectDecorator();
+        $this->trainObjectDecoratorToExpectUserData($objectDecorator, $user, $expectedData);
+        $this->trainBaseHelperToReturnObjectDecorator($objectDecorator);
+
         $response = $this->getController()->fetchAction($user);
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
@@ -117,6 +121,10 @@ class ApiControllerTest extends AbstractUnitTest
             'avatarUrl' => 'avatar-url'
         ];
 
+        $objectDecorator = $this->getMockObjectDecorator();
+        $this->trainObjectDecoratorToExpectUserData($objectDecorator, $user, $expectedData);
+        $this->trainBaseHelperToReturnObjectDecorator($objectDecorator);
+
         $response = $this->getController()->fetchAction();
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
@@ -146,9 +154,9 @@ class ApiControllerTest extends AbstractUnitTest
                              ->with($filters)
                              ->will($this->returnValue($users));
 
-        $decorator = $this->getMockObjectDecorator();
+        $decorator = $this->getMockObjectCollectionDecorator();
         $this->baseHelper->expects($this->once())
-                         ->method('getObjectDecorator')
+                         ->method('getObjectCollectionDecorator')
                          ->will($this->returnValue($decorator));
 
         $this->csrfHelper->expects($this->once())
@@ -156,19 +164,16 @@ class ApiControllerTest extends AbstractUnitTest
                          ->with(UserController::CSRF_DELETE_INTENTION)
                          ->will($this->returnValue('token-value'));
 
-        $decorator->expects($this->exactly(2))
-                  ->method('decorate')
-                  ->will($this->returnValue(['user']));
-
-        $decorator->expects($this->at(0))
+        $decorator->expects($this->once())
                   ->method('decorate')
                   ->with(
-                      $user1,
+                      $users,
                       ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
                       ['csrf_token' => 'token-value']
-                  );
+                  )
+                  ->will($this->returnValue([['decorated user'], ['decorated user']]));
 
-        $expectedData = [['user'], ['user']];
+        $expectedData = [['decorated user'], ['decorated user']];
         $response = $this->getController()->listAction();
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
@@ -214,5 +219,27 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->once())
                          ->method('getRequest')
                          ->will($this->returnValue($request));
+    }
+
+    private function trainBaseHelperToReturnObjectDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getObjectDecorator')
+                         ->will($this->returnValue($decorator));
+    }
+
+    private function trainObjectDecoratorToExpectUserData(
+        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
+        User $user,
+        array $returnData
+    ) {
+        $objectDecorator->expects($this->once())
+                        ->method('decorate')
+                        ->with(
+                            $user,
+                            ['id', 'username', 'email', 'forename', 'surname'],
+                            ['avatarUrl' => 'avatar-url']
+                        )
+                        ->will($this->returnValue($returnData));
     }
 }

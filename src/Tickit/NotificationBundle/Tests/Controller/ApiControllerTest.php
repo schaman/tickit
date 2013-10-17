@@ -60,29 +60,10 @@ class ApiControllerTest extends AbstractUnitTest
                          ->method('getUser')
                          ->will($this->returnValue($user));
 
-        $decorator = $this->getMockBuilder('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface')
-                          ->getMock();
-
-        $decorator->expects($this->exactly(2))
-                  ->method('decorate')
-                  ->will($this->returnValue(array('notification')));
-
-        $decorator->expects($this->at(0))
-                  ->method('decorate')
-                  ->with($notification1, array('message', 'createdAt', 'actionUri'));
-
-        $decorator->expects($this->at(1))
-                  ->method('decorate')
-                  ->with($notification2, array('message', 'createdAt', 'actionUri'));
-
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectDecorator')
-                         ->will($this->returnValue($decorator));
-
-        $expectedData = array(
-            array('notification'),
-            array('notification')
-        );
+        $expectedData = [['notification'], ['notification']];
+        $decorator = $this->getMockObjectCollectionDecorator();
+        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
+        $this->trainObjectCollectionDecoratorToExpectNotificationCollection($decorator, $notifications, $expectedData);
 
         $response = $this->getController()->listAction();
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
@@ -96,5 +77,26 @@ class ApiControllerTest extends AbstractUnitTest
     private function getController()
     {
         return new ApiController($this->provider, $this->baseHelper);
+    }
+
+    private function trainBaseHelperToReturnObjectCollectionDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getObjectCollectionDecorator')
+                         ->will($this->returnValue($decorator));
+    }
+
+    private function trainObjectCollectionDecoratorToExpectNotificationCollection(
+        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
+        array $notifications,
+        array $returnData
+    ) {
+        $objectDecorator->expects($this->once())
+                        ->method('decorate')
+                        ->with(
+                            $notifications,
+                            ['message', 'createdAt', 'actionUri']
+                        )
+                        ->will($this->returnValue($returnData));
     }
 }
