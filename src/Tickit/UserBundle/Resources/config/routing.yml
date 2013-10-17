@@ -14,20 +14,20 @@ cosmetic:
 
 user_create:
     pattern: /users/create
-    defaults: { _controller: TickitUserBundle:User:create }
+    defaults: { _controller: tickit_user.controller.user:createAction }
     requirements:
         _method: post
 
 user_edit:
     pattern: /users/edit/{id}
-    defaults: { _controller: TickitUserBundle:User:edit }
+    defaults: { _controller: tickit_user.controller.user:editAction }
     requirements:
         id: \d+
         _method: post
 
 user_delete:
     pattern: /users/delete/{id}
-    defaults: { _controller: TickitUserBundle:User:delete }
+    defaults: { _controller: tickit_user.controller.user:deleteAction }
     requirements:
         id: \d+
         _method: post

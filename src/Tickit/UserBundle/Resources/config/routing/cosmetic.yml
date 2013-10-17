@@ -1,6 +1,6 @@
 fos_user_security_login:
     pattern: /login
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     requirements:
         _method: GET
     options:
@@ -8,7 +8,7 @@ fos_user_security_login:
 
 user_index:
     pattern: /users/{page}
-    defaults: { _controller: TickitCoreBundle:Default:default, page: 1 }
+    defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
     requirements:
         page: \d+
         _method: GET
@@ -17,7 +17,7 @@ user_index:
 
 user_create_view:
     pattern: /users/create
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     requirements:
         _method: GET
     options:
@@ -25,7 +25,7 @@ user_create_view:
 
 user_edit_view:
     pattern: /users/edit/{id}
-    defaults: { _controller: TickitCoreBundle:Default:default }
+    defaults: { _controller: tickit.controller.default:defaultAction }
     requirements:
         id: \d+
         _method: GET

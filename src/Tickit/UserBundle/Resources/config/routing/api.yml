@@ -6,7 +6,7 @@ api_user_login_check:
 
 api_user_fetch:
     pattern: /fetch/{id}
-    defaults: { _controller: TickitUserBundle:Api:fetch, id: null }
+    defaults: { _controller: tickit_user.controller.api:fetchAction, id: null }
     requirements:
         id: \d+
         _method: GET
@@ -15,7 +15,7 @@ api_user_fetch:
 
 api_user_list:
     pattern: /list/{page}
-    defaults: { _controller: TickitUserBundle:Api:list, page: 1 }
+    defaults: { _controller: tickit_user.controller.api:listAction, page: 1 }
     requirements:
         page: \d+
         _method: GET

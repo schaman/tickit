@@ -29,6 +29,7 @@ class TickitNotificationExtension extends Extension
         $loader->load('services.xml');
         $loader->load('managers.xml');
         $loader->load('repositories.xml');
+        $loader->load('controllers.xml');
 
         $container->setParameter('tickit_notification.api_message_limit', $config['api_message_limit']);
     }

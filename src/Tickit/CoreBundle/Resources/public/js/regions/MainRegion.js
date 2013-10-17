@@ -7,7 +7,7 @@
  */
 define(['marionette'], function(Marionette) {
     return Marionette.Region.extend({
-        el: '#container',
+        el: '#content-container',
 
         /**
          * Called whenever a view is displayed inside this region
@@ -23,6 +23,8 @@ define(['marionette'], function(Marionette) {
                 require(['modules/notification'], function(Notification) {
                     Notification.loadNotifications();
                 });
+
+                $('#outer-container').show();
             }
         }
     });

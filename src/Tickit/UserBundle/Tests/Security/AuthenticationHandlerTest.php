@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Security\AuthenticationHandler;
 
 /**
@@ -16,7 +18,7 @@ use Tickit\UserBundle\Security\AuthenticationHandler;
  * @package Tickit\UserBundle\Tests\Security
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AuthenticationHandlerTest extends AbstractFunctionalTest
+class AuthenticationHandlerTest extends AbstractUnitTest
 {
     /**
      * Tests the onAuthenticationFailure() method
@@ -52,8 +54,9 @@ class AuthenticationHandlerTest extends AbstractFunctionalTest
         $request = new Request();
         $request->setSession($session);
 
-        $container = $this->createClient()->getContainer();
-        $user = $container->get('doctrine')->getRepository('TickitUserBundle:User')->findOneByUsername('james');
+        $user = new User();
+        $user->setId(1)
+             ->setUsername('username');
 
         $token = new UsernamePasswordToken($user, 'password', 'main');
 

@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: require-js.yml }
+    - { resource: requirejs.yml }
 
 framework:
     #esi:             ~
@@ -29,7 +29,7 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
-    use_controller: false
+    use_controller: true
     filters:
         cssrewrite: ~
         less:

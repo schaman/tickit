@@ -5,9 +5,13 @@ namespace Tickit\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Tickit\CoreBundle\Controller\AbstractCoreController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Tickit\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\ProjectBundle\Entity\Project;
+use Tickit\ProjectBundle\Form\Type\ProjectFormType;
+use Tickit\ProjectBundle\Manager\AttributeManager;
+use Tickit\ProjectBundle\Manager\ProjectManager;
 
 /**
  * Project controller.
@@ -17,7 +21,7 @@ use Tickit\ProjectBundle\Entity\Project;
  * @package Tickit\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectController extends AbstractCoreController
+class ProjectController
 {
     /**
      * String intention for deleting a project
@@ -25,6 +29,74 @@ class ProjectController extends AbstractCoreController
      * @const string
      */
     const CSRF_DELETE_INTENTION = 'delete_project';
+
+    /**
+     * The form controller helper
+     *
+     * @var FormHelper
+     */
+    protected $formHelper;
+
+    /**
+     * The base controller helper
+     *
+     * @var BaseHelper
+     */
+    protected $baseHelper;
+
+    /**
+     * The attribute manager
+     *
+     * @var AttributeManager
+     */
+    protected $attributeManager;
+
+    /**
+     * The project manager
+     *
+     * @var ProjectManager
+     */
+    protected $projectManager;
+
+    /**
+     * The project form type
+     *
+     * @var ProjectFormType
+     */
+    protected $projectFormType;
+
+    /**
+     * The CSRF controller helper
+     *
+     * @var CsrfHelper
+     */
+    protected $csrfHelper;
+
+    /**
+     * Constructor.
+     *
+     * @param FormHelper       $formHelper       The form controller helper
+     * @param BaseHelper       $baseHelper       The base controller helper
+     * @param AttributeManager $attributeManager The attribute manager
+     * @param ProjectManager   $projectManager   The project manager
+     * @param ProjectFormType  $projectFormType  The project form type
+     * @param CsrfHelper       $csrfHelper       The CSRF controller helper
+     */
+    public function __construct(
+        FormHelper $formHelper,
+        BaseHelper $baseHelper,
+        AttributeManager $attributeManager,
+        ProjectManager $projectManager,
+        ProjectFormType $projectFormType,
+        CsrfHelper $csrfHelper
+    ) {
+        $this->formHelper = $formHelper;
+        $this->baseHelper = $baseHelper;
+        $this->attributeManager = $attributeManager;
+        $this->projectManager = $projectManager;
+        $this->projectFormType = $projectFormType;
+        $this->csrfHelper = $csrfHelper;
+    }
 
     /**
      * Create action.
@@ -37,18 +109,19 @@ class ProjectController extends AbstractCoreController
     {
         $responseData = ['success' => false];
         $project = new Project();
-        $attributes = $this->get('tickit_project.attribute_manager')->getAttributeValuesForProject($project);
+        $attributes = $this->attributeManager->getAttributeValuesForProject($project);
         $project->setAttributes($attributes);
 
-        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
-        $form->handleRequest($this->getRequest());
+        $form = $this->formHelper->createForm($this->projectFormType, $project);
+        $form->handleRequest($this->baseHelper->getRequest());
 
         if ($form->isValid()) {
-            $this->get('tickit_project.manager')->create($form->getData());
+            $this->projectManager->create($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $this->generateUrl('project_index');
+            $responseData['returnUrl'] = $this->baseHelper->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -59,24 +132,22 @@ class ProjectController extends AbstractCoreController
      *
      * @param Project $project The ID of the project to edit
      *
-     * @Template("TickitProjectBundle:Project:edit.html.twig")
-     *
      * @ParamConverter("project", class="TickitProjectBundle:Project")
      *
-     * @return array
+     * @return JsonResponse
      */
     public function editAction(Project $project)
     {
-        $responseData = ['success' => false, 'errors' => []];
-        $form = $this->createForm($this->get('tickit_project.form.project'), $project);
-        $form->handleRequest($this->getRequest());
+        $responseData = ['success' => false];
+        $form = $this->formHelper->createForm($this->projectFormType, $project);
+        $form->handleRequest($this->baseHelper->getRequest());
 
         if ($form->isValid()) {
-            $this->get('tickit_project.manager')->update($form->getData());
+            $this->projectManager->update($form->getData());
             $responseData['success'] = true;
-            $responseData['returnUrl'] = $this->generateUrl('project_index');
         } else {
-            $responseData['form'] = $this->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
+            $response = $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
+            $responseData['form'] = $response->getContent();
         }
 
         return new JsonResponse($responseData);
@@ -93,12 +164,10 @@ class ProjectController extends AbstractCoreController
      */
     public function deleteAction(Project $project)
     {
-        $token = $this->getRequest()->query->get('token');
-        $this->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
+        $token = $this->baseHelper->getRequest()->query->get('token');
+        $this->csrfHelper->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
+        $this->projectManager->delete($project);
 
-        $manager = $this->get('tickit_project.manager');
-        $manager->delete($project);
-
-        return new JsonResponse(array('success' => true));
+        return new JsonResponse(['success' => true]);
     }
 }

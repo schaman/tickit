@@ -17,21 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 class SecurityController extends BaseController
 {
     /**
-     * Login action that performs user login.
-     *
-     * Here we can add any custom logic that needs to take place when a user performs login to the system
-     *
-     * @param Request $request The HTTP request object
-     *
-     * @return Response
-     */
-    public function loginAction(Request $request)
-    {
-        //add our own logic here
-        return parent::loginAction($request);
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function renderLogin(array $data)

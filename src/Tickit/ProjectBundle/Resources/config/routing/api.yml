@@ -1,6 +1,6 @@
 api_project_list:
     pattern: /list/{page}
-    defaults: { _controller: TickitProjectBundle:Api:list, page: 1 }
+    defaults: { _controller: tickit_project.controller.api:listAction, page: 1 }
     requirements:
         page: \d+
     options:
@@ -8,7 +8,7 @@ api_project_list:
 
 api_project_attribute_list:
     pattern: /attributes/list/{page}
-    defaults: { _controller: TickitProjectBundle:Api:attributesList, page: 1 }
+    defaults: { _controller: tickit_project.controller.api:attributesListAction, page: 1 }
     requirements:
         page: \d+
     options:

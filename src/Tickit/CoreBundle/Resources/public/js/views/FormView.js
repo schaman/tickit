@@ -3,7 +3,7 @@
  *
  * @type {Backbone.View}
  */
-define(['backbone', 'modules/request'], function(Backbone, Request) {
+define(['backbone', 'modules/request', 'modules/template'], function(Backbone, Request, Template) {
     return Backbone.View.extend({
         /**
          * Event bindings
@@ -43,13 +43,12 @@ define(['backbone', 'modules/request'], function(Backbone, Request) {
          * @returns {Backbone.View}
          */
         render: function() {
-            var me = this;
-            Request.get({
-                url: this.getUrl(),
-                success: function(resp) {
-                    me.$el.html(resp);
-                }
-            });
+            var t = this;
+            var forceFetch = (typeof this.id != 'undefined');
+            Template.fetch(this.getUrl(), function(tpl) {
+                t.$el.html(tpl);
+            }, forceFetch);
+
             return this;
         }
     });
