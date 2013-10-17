@@ -98,13 +98,13 @@ class ApiController
 
         $avatarAdapter = $this->avatar->getAdapter();
         $avatarUrl     = $avatarAdapter->getImageUrl($user, 35);
+        $decorator = $this->baseHelper->getObjectDecorator();
 
-        $data = $this->baseHelper->getObjectDecorator()
-                                 ->decorate(
-                                     $user,
-                                     ['id', 'username', 'email', 'forename', 'surname'],
-                                     ['avatarUrl' => $avatarUrl]
-                                 );
+        $data = $decorator->decorate(
+            $user,
+            ['id', 'username', 'email', 'forename', 'surname'],
+            ['avatarUrl' => $avatarUrl]
+        );
 
         return new JsonResponse($data);
     }
@@ -120,18 +120,17 @@ class ApiController
     {
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
         $users = $this->userRepository->findByFilters($filters);
+        $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
         $staticProperties = [
             'csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)
         ];
 
-        $data = $this->baseHelper
-                     ->getObjectCollectionDecorator()
-                     ->decorate(
-                         $users,
-                         ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
-                         $staticProperties
-                     );
+        $data = $decorator->decorate(
+            $users,
+            ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
+            $staticProperties
+        );
 
         return new JsonResponse($data);
     }
