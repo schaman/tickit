@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
 use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
 use Tickit\UserBundle\Entity\User;
 
@@ -41,6 +42,13 @@ class BaseHelper
     protected $objectDecorator;
 
     /**
+     * A domain object collection decorator
+     *
+     * @var DomainObjectCollectionDecoratorInterface
+     */
+    protected $objectCollectionDecorator;
+
+    /**
      * A router
      *
      * @var RouterInterface
@@ -50,20 +58,23 @@ class BaseHelper
     /**
      * Constructor.
      *
-     * @param Request                        $request         The request
-     * @param SecurityContextInterface       $securityContext The security context
-     * @param DomainObjectDecoratorInterface $objectDecorator The object decorator
-     * @param RouterInterface                $router          A router
+     * @param Request                                  $request                   The request
+     * @param SecurityContextInterface                 $securityContext           The security context
+     * @param DomainObjectDecoratorInterface           $objectDecorator           An object decorator
+     * @param DomainObjectCollectionDecoratorInterface $objectCollectionDecorator An object collection decorator
+     * @param RouterInterface                          $router                    A router
      */
     public function __construct(
         Request $request,
         SecurityContextInterface $securityContext,
         DomainObjectDecoratorInterface $objectDecorator,
+        DomainObjectCollectionDecoratorInterface $objectCollectionDecorator,
         RouterInterface $router
     ) {
         $this->request = $request;
         $this->securityContext = $securityContext;
         $this->objectDecorator = $objectDecorator;
+        $this->objectCollectionDecorator = $objectCollectionDecorator;
         $this->router = $router;
     }
 
@@ -75,6 +86,16 @@ class BaseHelper
     public function getObjectDecorator()
     {
         return $this->objectDecorator;
+    }
+
+    /**
+     * Gets the domain object collection decorator
+     *
+     * @return DomainObjectCollectionDecoratorInterface
+     */
+    public function getObjectCollectionDecorator()
+    {
+        return $this->objectCollectionDecorator;
     }
 
     /**
