@@ -18,7 +18,8 @@ interface DomainObjectDecoratorInterface
      *
      * @param object $object           The domain object to decorate
      * @param array  $propertyNames    The property names used in the decoration
-     * @param array  $staticProperties Any additional static properties that should be appended to each result (indexed by property name)
+     * @param array  $staticProperties Any additional static properties that should be appended to each result
+     *                                 (indexed by property name)
      *
      * @return string
      */
