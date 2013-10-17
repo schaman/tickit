@@ -121,18 +121,17 @@ class ApiController
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
         $users = $this->userRepository->findByFilters($filters);
 
-        $data = array();
-        $decorator = $this->baseHelper->getObjectDecorator();
-        $staticProperties = array(
+        $staticProperties = [
             'csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)
-        );
-        foreach ($users as $user) {
-            $data[] = $decorator->decorate(
-                $user,
-                array('id', 'forename', 'surname', 'email', 'username', 'lastActivity'),
-                $staticProperties
-            );
-        }
+        ];
+
+        $data = $this->baseHelper
+                     ->getObjectCollectionDecorator()
+                     ->decorate(
+                         $users,
+                         ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
+                         $staticProperties
+                     );
 
         return new JsonResponse($data);
     }
