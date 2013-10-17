@@ -14,14 +14,14 @@ namespace Tickit\CoreBundle\Decorator;
 interface DomainObjectDecoratorInterface
 {
     /**
-     * Decorates an object as a JSON string using the specified property names
+     * Decorates an object using the specified property names
      *
      * @param object $object           The domain object to decorate
      * @param array  $propertyNames    The property names used in the decoration
      * @param array  $staticProperties Any additional static properties that should be appended to each result
      *                                 (indexed by property name)
      *
-     * @return string
+     * @return mixed
      */
     public function decorate($object, array $propertyNames, array $staticProperties = array());
 }
