@@ -63,11 +63,8 @@ class ApiController
         $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
         $preferences = $this->preferenceRepository->findByFilters($filters);
 
-        $data = array();
-        $decorator = $this->baseHelper->getObjectDecorator();
-        foreach ($preferences as $preference) {
-            $data[] = $decorator->decorate($preference, array('id', 'name', 'systemName', 'type'));
-        }
+        $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $data = $decorator->decorate($preferences, ['id', 'name', 'systemName', 'type']);
 
         return new JsonResponse($data);
     }
