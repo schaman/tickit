@@ -38,7 +38,11 @@ class ClientManagerTest extends AbstractUnitTest
                                  ->getMock();
 
         $this->em = $this->getMockEntityManager();
-        $this->eventDispatcher = $this->getMockEventDispatcher();
+        $this->eventDispatcher = $this->getMockBuilder(
+            '\Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher'
+        )
+        ->disableOriginalConstructor()
+        ->getMock();
     }
     
     /**
