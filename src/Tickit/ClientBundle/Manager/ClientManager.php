@@ -2,7 +2,6 @@
 
 namespace Tickit\ClientBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Tickit\ClientBundle\Entity\Repository\ClientRepository;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
