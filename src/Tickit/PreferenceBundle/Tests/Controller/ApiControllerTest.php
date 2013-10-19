@@ -76,27 +76,11 @@ class ApiControllerTest extends AbstractUnitTest
                              ->with($filters)
                              ->will($this->returnValue($preferences));
 
+        $expectedData = [['preference data'], ['preference data']];
         $decorator = $this->getMockObjectDecorator();
-        $decorator->expects($this->exactly(2))
-                  ->method('decorate')
-                  ->will($this->returnValue(array('preference data')));
+        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
+        $this->trainObjectCollectionDecoratorToExpectPreferenceCollection($decorator, $preferences, $expectedData);
 
-        $decorator->expects($this->at(0))
-                  ->method('decorate')
-                  ->with($preference1, array('id', 'name', 'systemName', 'type'));
-
-        $decorator->expects($this->at(1))
-                  ->method('decorate')
-                  ->with($preference2, array('id', 'name', 'systemName', 'type'));
-
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectDecorator')
-                         ->will($this->returnValue($decorator));
-
-        $expectedData = array(
-            array('preference data'),
-            array('preference data')
-        );
         $response = $this->getController()->listAction();
 
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
@@ -110,5 +94,23 @@ class ApiControllerTest extends AbstractUnitTest
     private function getController()
     {
         return new ApiController($this->filterCollectionBuilder, $this->preferenceRepo, $this->baseHelper);
+    }
+
+    private function trainBaseHelperToReturnObjectCollectionDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getObjectCollectionDecorator')
+                         ->will($this->returnValue($decorator));
+    }
+
+    private function trainObjectCollectionDecoratorToExpectPreferenceCollection(
+        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
+        array $preferences,
+        array $returnData
+    ) {
+        $objectDecorator->expects($this->once())
+                        ->method('decorate')
+                        ->with($preferences, ['id', 'name', 'systemName', 'type'])
+                        ->will($this->returnValue($returnData));
     }
 }
