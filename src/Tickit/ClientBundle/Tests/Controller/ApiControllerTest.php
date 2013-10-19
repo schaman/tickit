@@ -92,7 +92,7 @@ class ApiControllerTest extends AbstractUnitTest
      */
     private function getController()
     {
-        return new ApiController($this->filterBuilder, $this->baseHelper,$this->csrfHelper, $this->clientRepo);
+        return new ApiController($this->filterBuilder, $this->baseHelper, $this->csrfHelper, $this->clientRepo);
     }
 
     private function trainBaseHelperToReturnRequest(Request $request)
