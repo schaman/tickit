@@ -55,8 +55,7 @@ class ApiControllerTest extends AbstractUnitTest
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
-        $this->avatarAdapter = $this->getMockBuilder('Tickit\UserBundle\Avatar\Adapater\AvatarAdapterInterface')
-                                    ->getMock();
+        $this->avatarAdapter = $this->getMock('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
     }
     
     /**
@@ -69,12 +68,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->never())
                          ->method('getUser');
 
-        $adapter = $this->avatarAdapter;
-        $this->trainAvatarAdapterToReturnUrl($adapter, $user);
-
-        $this->avatarAdapter->expects($this->once())
-                     ->method('getAdapter')
-                     ->will($this->returnValue($adapter));
+        $this->trainAvatarAdapterToReturnUrl($this->avatarAdapter, $user);
 
         $expectedData = [
             'id' => $user->getId(),
@@ -104,12 +98,7 @@ class ApiControllerTest extends AbstractUnitTest
                          ->method('getUser')
                          ->will($this->returnValue($user));
 
-        $adapter = $this->avatarAdapter;
-        $this->trainAvatarAdapterToReturnUrl($adapter, $user);
-
-        $this->avatarAdapter->expects($this->once())
-                     ->method('getAdapter')
-                     ->will($this->returnValue($adapter));
+        $this->trainAvatarAdapterToReturnUrl($this->avatarAdapter, $user);
 
         $expectedData = [
             'id' => $user->getId(),
