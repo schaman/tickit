@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
@@ -51,11 +52,11 @@ class ApiController
     protected $userRepository;
 
     /**
-     * The avatar service
+     * The avatar adapter
      *
-     * @var AvatarService
+     * @var AvatarAdapterInterface
      */
-    protected $avatar;
+    protected $avatarAdapter;
 
     /**
      * Constructor
@@ -64,20 +65,20 @@ class ApiController
      * @param CsrfHelper              $csrfHelper     The csrf controller helper
      * @param FilterCollectionBuilder $filterBuilder  The filter collection builder
      * @param UserRepository          $userRepository The user manager
-     * @param AvatarService           $avatar         The avatar service
+     * @param AvatarAdapterInterface  $avatarAdapter  The avatar adapter
      */
     public function __construct(
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper,
         FilterCollectionBuilder $filterBuilder,
         UserRepository $userRepository,
-        AvatarService $avatar
+        AvatarAdapterInterface $avatarAdapter
     ) {
-        $this->baseHelper = $baseHelper;
-        $this->csrfHelper = $csrfHelper;
-        $this->filterBuilder = $filterBuilder;
+        $this->baseHelper     = $baseHelper;
+        $this->csrfHelper     = $csrfHelper;
+        $this->filterBuilder  = $filterBuilder;
         $this->userRepository = $userRepository;
-        $this->avatar = $avatar;
+        $this->avatarAdapter  = $avatarAdapter;
 
     }
 
@@ -96,8 +97,7 @@ class ApiController
             $user = $this->baseHelper->getUser();
         }
 
-        $avatarAdapter = $this->avatar->getAdapter();
-        $avatarUrl     = $avatarAdapter->getImageUrl($user, 35);
+        $avatarUrl = $this->avatarAdapter->getImageUrl($user, 35);
         $decorator = $this->baseHelper->getObjectDecorator();
 
         $data = $decorator->decorate(

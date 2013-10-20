@@ -2,9 +2,9 @@
 
 namespace Tickit\UserBundle\Avatar\Twig;
 
+use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -16,22 +16,22 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class AvatarExtension extends Twig_Extension
 {
     /**
-     * The container
+     * The avatar adapter
      *
-     * @var ContainerInterface
+     * @var AvatarAdapterInterface
      */
-    private $container;
+    private $avatarAdapter;
 
     /**
      * Constructor.
      *
-     * @param ContainerInterface       $container       Service container
+     * @param AvatarAdapterInterface   $avatarAdapter   Avatar adapter
      * @param SecurityContextInterface $securityContext Security context to access user object
      */
-    public function __construct(ContainerInterface $container, SecurityContextInterface $securityContext)
+    public function __construct(AvatarAdapterInterface $avatarAdapter, SecurityContextInterface $securityContext)
     {
-        $this->container = $container;
-        $this->context   = $securityContext;
+        $this->avatarAdapter = $avatarAdapter;
+        $this->context       = $securityContext;
     }
 
     /**
@@ -55,7 +55,7 @@ class AvatarExtension extends Twig_Extension
      */
     public function getCurrentUserAvatarImageUrl($size)
     {
-        $avatarAdapter = $this->container->get('tickit_user.avatar')->getAdapter();
+        $avatarAdapter = $this->avatarAdapter;
         $user          = $this->context->getToken()->getUser();
 
         return $avatarAdapter->getImageUrl($user, $size);

@@ -3,6 +3,8 @@
 namespace Tickit\UserBundle\Tests\Avatar\Twig;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Avatar\Twig\AvatarExtension;
 
 /**
@@ -10,23 +12,24 @@ use Tickit\UserBundle\Avatar\Twig\AvatarExtension;
  *
  * @author Mark Wilson <mark@89allport.co.uk>
  */
-class AvatarExtensionTest extends WebTestCase
+class AvatarExtensionTest extends AbstractUnitTest
 {
     /**
      * Test the twig extension contains the relevant functions
      */
     public function testTwigExtension()
     {
-        $container = $this->createClient()->getContainer();
-        $securityContext = $container->get('security.context');
+        $avatarAdapter = $this->getMockForAbstractClass('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
 
-        $twigExtension = new AvatarExtension($container, $securityContext);
+        $securityContext = $this->getMockSecurityContext();
+
+        $twigExtension      = new AvatarExtension($avatarAdapter, $securityContext);
         $availableFunctions = $twigExtension->getFunctions();
 
         $this->assertInternalType('array', $availableFunctions);
         $this->assertEquals(1, count($availableFunctions));
 
-        /** @var $myAvatarFunction \Twig_SimpleFunction */
+        /** @var \Twig_SimpleFunction $myAvatarFunction */
         $myAvatarFunction = $availableFunctions[0];
         $this->assertInstanceOf('Twig_SimpleFunction', $myAvatarFunction);
 

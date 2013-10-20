@@ -6,13 +6,10 @@
 
     <services>
 
-        <service id="tickit_user.avatar" class="Tickit\UserBundle\Avatar\AvatarService" scope="request">
-            <argument type="service" id="request" />
-            <argument>%tickit_user.avatar.adapter_class%</argument>
-        </service>
+        <service id="tickit_user.avatar_adapter" class="Tickit\UserBundle\Avatar\Adapter\GravatarAdapter" />
 
-        <service id="tickit_user.avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension" scope="container">
-            <argument type="service" id="service_container" />
+        <service id="tickit_user.avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension">
+            <argument type="service" id="tickit_user.avatar_adapter" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
         </service>

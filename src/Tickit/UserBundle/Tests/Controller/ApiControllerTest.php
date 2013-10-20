@@ -40,24 +40,23 @@ class ApiControllerTest extends AbstractUnitTest
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $avatar;
+    private $avatarAdapter;
 
     /**
      * Setup
      */
     protected function setUp()
     {
-        $this->baseHelper = $this->getMockBaseHelper();
-        $this->csrfHelper = $this->getMockCsrfHelper();
+        $this->baseHelper    = $this->getMockBaseHelper();
+        $this->csrfHelper    = $this->getMockCsrfHelper();
         $this->filterBuilder = $this->getMockFilterCollectionBuilder();
 
         $this->userRepository = $this->getMockBuilder('\Tickit\UserBundle\Entity\Repository\UserRepository')
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
-        $this->avatar = $this->getMockBuilder('Tickit\UserBundle\Avatar\AvatarService')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+        $this->avatarAdapter = $this->getMockBuilder('Tickit\UserBundle\Avatar\Adapater\AvatarAdapterInterface')
+                                    ->getMock();
     }
     
     /**
@@ -70,10 +69,10 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->never())
                          ->method('getUser');
 
-        $adapter = $this->getMockForAbstractClass('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
+        $adapter = $this->avatarAdapter;
         $this->trainAvatarAdapterToReturnUrl($adapter, $user);
 
-        $this->avatar->expects($this->once())
+        $this->avatarAdapter->expects($this->once())
                      ->method('getAdapter')
                      ->will($this->returnValue($adapter));
 
@@ -105,10 +104,10 @@ class ApiControllerTest extends AbstractUnitTest
                          ->method('getUser')
                          ->will($this->returnValue($user));
 
-        $adapter = $this->getMockForAbstractClass('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
+        $adapter = $this->avatarAdapter;
         $this->trainAvatarAdapterToReturnUrl($adapter, $user);
 
-        $this->avatar->expects($this->once())
+        $this->avatarAdapter->expects($this->once())
                      ->method('getAdapter')
                      ->will($this->returnValue($adapter));
 
@@ -190,7 +189,7 @@ class ApiControllerTest extends AbstractUnitTest
             $this->csrfHelper,
             $this->filterBuilder,
             $this->userRepository,
-            $this->avatar
+            $this->avatarAdapter
         );
     }
 
