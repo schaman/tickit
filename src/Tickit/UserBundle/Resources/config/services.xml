@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_user.avatar_adapter" class="Tickit\UserBundle\Avatar\Adapter\GravatarAdapter" />
+        <service id="tickit_user.avatar_adapter" class="%tickit_user.avatar.adapter_class%" />
 
         <service id="tickit_user.avatar_twig_extension" class="Tickit\UserBundle\Avatar\Twig\AvatarExtension">
             <argument type="service" id="tickit_user.avatar_adapter" />
