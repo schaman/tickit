@@ -81,6 +81,16 @@ class AvatarExtensionTest extends AbstractUnitTest
     }
 
     /**
+     * Tests getName()
+     */
+    public function testExtensionName()
+    {
+        $twigExtension = $this->getAvatarExtension();
+
+        $this->assertEquals('tickit_user.avatar', $twigExtension->getName());
+    }
+
+    /**
      * Get avatar twig extension
      *
      * @return AvatarExtension
