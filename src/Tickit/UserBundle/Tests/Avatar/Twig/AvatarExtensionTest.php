@@ -4,8 +4,10 @@ namespace Tickit\UserBundle\Tests\Avatar\Twig;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Avatar\Twig\AvatarExtension;
+use Tickit\UserBundle\Entity\User;
 
 /**
  * Avatar service twig extension tests
@@ -15,15 +17,34 @@ use Tickit\UserBundle\Avatar\Twig\AvatarExtension;
 class AvatarExtensionTest extends AbstractUnitTest
 {
     /**
-     * Test the twig extension contains the relevant functions
+     * Avatar adapter
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    public function testTwigExtension()
+    private $avatarAdapter;
+
+    /**
+     * Security context
+     *
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $securityContext;
+
+    /**
+     * Set up mock classes
+     */
+    public function setUp()
     {
-        $avatarAdapter = $this->getMockForAbstractClass('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
+        $this->avatarAdapter   = $this->getMockAvatarAdapter();
+        $this->securityContext = $this->getMockSecurityContext();
+    }
 
-        $securityContext = $this->getMockSecurityContext();
-
-        $twigExtension      = new AvatarExtension($avatarAdapter, $securityContext);
+    /**
+     * Tests getFunctions()
+     */
+    public function testTwigExtensionFunctions()
+    {
+        $twigExtension      = $this->getAvatarExtension();
         $availableFunctions = $twigExtension->getFunctions();
 
         $this->assertInternalType('array', $availableFunctions);
@@ -34,5 +55,53 @@ class AvatarExtensionTest extends AbstractUnitTest
         $this->assertInstanceOf('Twig_SimpleFunction', $myAvatarFunction);
 
         $this->assertEquals('my_avatar_url', $myAvatarFunction->getName());
+    }
+
+    /**
+     * Tests getCurrentUserAvatarImageUrl()
+     */
+    public function testCurrentUserAvatarImageUrl()
+    {
+        $user = new User();
+        $user->setUsername('username');
+
+        $token = $this->getMockUsernamePasswordToken();
+        $token->expects($this->once())
+              ->method('getUser')
+              ->will($this->returnValue($user));
+
+        $this->securityContext->expects($this->once())
+             ->method('getToken')
+             ->will($this->returnValue($token));
+
+        $twigExtension = $this->getAvatarExtension();
+        $imageUrl      = $twigExtension->getCurrentUserAvatarImageUrl(123);
+
+        $this->assertEquals('', $imageUrl);
+    }
+
+    /**
+     * Get avatar twig extension
+     *
+     * @return AvatarExtension
+     */
+    private function getAvatarExtension()
+    {
+        $avatarAdapter   = $this->avatarAdapter;
+        $securityContext = $this->securityContext;
+
+        $twigExtension = new AvatarExtension($avatarAdapter, $securityContext);
+
+        return $twigExtension;
+    }
+
+    /**
+     * Get a mock avatar adapter
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function getMockAvatarAdapter()
+    {
+        return $this->getMockForAbstractClass('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
     }
 }
