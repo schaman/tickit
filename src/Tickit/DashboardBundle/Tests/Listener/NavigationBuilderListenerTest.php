@@ -1,18 +1,18 @@
 <?php
 
-namespace Tickit\UserBundle\Tests\Listener;
+namespace Tickit\DashboardBundle\Tests\Listener;
 
+use Tickit\DashboardBundle\Listener\NavigationBuilderListener;
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
-use Tickit\UserBundle\Listener\NavigationBuilder;
 
 /**
- * NavigationBuilder tests
+ * NavigationBuilderListener tests
  *
- * @package Tickit\UserBundle\Tests\Listener
+ * @package Tickit\DashboardBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
+class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests the onBuild() method
@@ -22,7 +22,7 @@ class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
     public function testOnBuildAddsCorrectNavigationItemsForMainNavigation()
     {
         $event = new NavigationBuildEvent('main');
-        $builder = new NavigationBuilder();
+        $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
 
@@ -30,7 +30,7 @@ class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
         $first = $event->getItems()->top();
         $this->assertInstanceOf('\Tickit\NavigationBundle\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
-        $this->assertEquals('Users', $first->getText());
+        $this->assertEquals('Dashboard', $first->getText());
     }
 
     /**
@@ -41,7 +41,7 @@ class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
     public function testOnBuildDoesNotAddNavigationItemsForInvalidNavigationName()
     {
         $event = new NavigationBuildEvent('fake');
-        $builder = new NavigationBuilder();
+        $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
 

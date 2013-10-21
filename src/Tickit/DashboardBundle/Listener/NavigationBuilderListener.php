@@ -11,7 +11,7 @@ use Tickit\NavigationBundle\Model\NavigationItem;
  * @package Tickit\DashboardBundle\Listener
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class NavigationBuilder
+class NavigationBuilderListener
 {
     /**
      * Build event for dashboard navigation

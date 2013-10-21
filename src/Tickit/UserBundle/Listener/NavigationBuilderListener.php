@@ -1,20 +1,20 @@
 <?php
 
-namespace Tickit\ProjectBundle\Listener;
+namespace Tickit\UserBundle\Listener;
 
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
 
 /**
- * Project navigation builder
+ * User navigation builder listener
  *
- * @package Tickit\ProjectBundle\Listener
- * @author  Mark Wilson <mark@89allport.co.uk>
+ * @package Tickit\UserBundle\Listener
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class NavigationBuilder
+class NavigationBuilderListener
 {
     /**
-     * Build event for project navigation
+     * Build event for user navigation
      *
      * @param NavigationBuildEvent $event Navigation build event
      *
@@ -24,7 +24,7 @@ class NavigationBuilder
     {
         switch ($event->getNavigationName()) {
             case 'main':
-                $event->addItem(new NavigationItem('Projects', 'project_index', 8));
+                $event->addItem(new NavigationItem('Users', 'user_index', 0));
                 break;
         }
     }
