@@ -1,0 +1,13 @@
+client_create_form:
+    pattern: /create
+    defaults: { _controller: tickit_client.controller.template:createClientFormAction }
+    options:
+        expose: true
+
+client_edit_form:
+    pattern: /edit/{id}
+    defaults: { _controller: tickit_client.controller.template:editClientFormAction }
+    requirements:
+        id: \d+
+    options:
+        expose: true

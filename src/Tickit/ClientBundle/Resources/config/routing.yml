@@ -4,7 +4,7 @@ cosmetic:
 api:
     resource: "@TickitClientBundle/Resources/config/routing/api.yml"
     prefix: /api/clients
-#
-#templates:
-#    resource: "@TickitClientBundle/Resources/config/routing/templates.yml"
-#    prefix: /templates/clients
+
+templates:
+    resource: "@TickitClientBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/clients
