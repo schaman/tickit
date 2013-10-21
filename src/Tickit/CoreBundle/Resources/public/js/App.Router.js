@@ -77,19 +77,19 @@ define(function() {
 
         "clientCreate" : function() {
             require(['modules/client'], function(Client) {
-                // todo
+                Client.loadClientCreate();
             });
         },
 
         "clientEdit" : function(id) {
             require(['modules/client'], function(Client) {
-                // todo
+                Client.loadClientEdit(id);
             });
         },
 
         "clients" : function() {
             require(['modules/client'], function(Client) {
-                // todo
+                Client.loadClientList();
             });
         },
 
