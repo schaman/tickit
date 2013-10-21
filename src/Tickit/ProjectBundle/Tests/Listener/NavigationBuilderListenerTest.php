@@ -4,15 +4,15 @@ namespace Tickit\ProjectBundle\Tests\Listener;
 
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
-use Tickit\ProjectBundle\Listener\NavigationBuilder;
+use Tickit\ProjectBundle\Listener\NavigationBuilderListener;
 
 /**
- * NavigationBuilder tests
+ * NavigationBuilderListener tests
  *
  * @package Tickit\ProjectBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
+class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests the onBuild() method
@@ -22,7 +22,7 @@ class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
     public function testOnBuildAddsCorrectNavigationItemsForMainNavigation()
     {
         $event = new NavigationBuildEvent('main');
-        $builder = new NavigationBuilder();
+        $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
 
@@ -41,7 +41,7 @@ class NavigationBuilderTest extends \PHPUnit_Framework_TestCase
     public function testOnBuildDoesNotAddNavigationItemsForInvalidNavigationName()
     {
         $event = new NavigationBuildEvent('fake');
-        $builder = new NavigationBuilder();
+        $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
 
