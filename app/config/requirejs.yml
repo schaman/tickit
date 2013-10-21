@@ -30,6 +30,7 @@ hearsay_require_js:
         navigation: "@TickitNavigationBundle/Resources/public"
         project: "@TickitProjectBundle/Resources/public"
         user: "@TickitUserBundle/Resources/public"
+        client: "@TickitClientBundle/Resources/public"
         dashboard: "@TickitDashboardBundle/Resources/public"
         notification: "@TickitNotificationBundle/Resources/public"
     shim:
