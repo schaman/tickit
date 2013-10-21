@@ -25,7 +25,7 @@
                 <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
             </service>
 
-            <service id="tickit_user.user_navigation" class="Tickit\UserBundle\Listener\NavigationBuilder">
+            <service id="tickit_user.user_navigation" class="Tickit\UserBundle\Listener\NavigationBuilderListener">
                 <argument type="service" id="router" />
                 <tag name="kernel.event_listener" event="tickit.event.main_navigation_build" method="onBuild"/>
             </service>
