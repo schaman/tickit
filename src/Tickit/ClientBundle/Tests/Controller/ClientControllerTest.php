@@ -103,6 +103,63 @@ class ClientControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Tests the editAction() method
+     */
+    public function testEditActionUpdatesClientForValidForm()
+    {
+        $client = new Client();
+        $client->setId(1);
+
+        $form = $this->getMockForm();
+        $this->trainFormHelperToCreateForm('tickit_client', $client, $form);
+
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeValid($form);
+        $this->trainFormToReturnClient($form, $client);
+
+        $this->clientManager->expects($this->once())
+                            ->method('update')
+                            ->with($client);
+
+        $expectedData = ['success' => true];
+        $response = $this->getController()->editAction($client);
+
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
+
+    /**
+     * Tests the editAction() method
+     */
+    public function testEditActionHandlesInvalidForm()
+    {
+        $client = new Client();
+        $client->setId(1);
+
+        $form = $this->getMockForm();
+        $this->trainFormHelperToCreateForm('tickit_client', $client, $form);
+
+        $request = new Request();
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormToHandleRequest($form, $request);
+        $this->trainFormToBeInvalid($form);
+
+        $this->clientManager->expects($this->never())
+                            ->method('update');
+
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with('TickitClientBundle:Client:edit.html.twig', $form)
+                         ->will($this->returnValue(new Response('form-content')));
+
+        $expectedData = ['success' => false, 'form' => 'form-content'];
+        $response = $this->getController()->editAction($client);
+
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
+
+    /**
      * Gets a new controller instance
      *
      * @return ClientController

@@ -97,4 +97,32 @@ class ClientController
 
         return new JsonResponse($responseData);
     }
+
+    /**
+     * Edit action.
+     *
+     * Handles a form submission and updates an existing Client entity with the form data
+     *
+     * @param Client $client The client to edit
+     *
+     * @ParamConverter("client", class="TickitClientBundle:Client")
+     *
+     * @return JsonResponse
+     */
+    public function editAction(Client $client)
+    {
+        $responseData = ['success' => false];
+        $form = $this->formHelper->createForm('tickit_client', $client);
+        $form->handleRequest($this->baseHelper->getRequest());
+
+        if ($form->isValid()) {
+            $this->clientManager->update($form->getData());
+            $responseData['success'] = true;
+        } else {
+            $formResponse = $this->formHelper->renderForm('TickitClientBundle:Client:edit.html.twig', $form);
+            $responseData['form'] = $formResponse->getContent();
+        }
+
+        return new JsonResponse($responseData);
+    }
 }
