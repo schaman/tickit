@@ -16,6 +16,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Client
 {
+    const STATUS_ACTIVE = 'active';
+    const STATUS_ARCHIVED = 'archived';
+
     /**
      * The unique identifier for the client
      *
@@ -57,6 +60,15 @@ class Client
     private $notes;
 
     /**
+     * The status of the client
+     *
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=10)
+     */
+    private $status;
+
+    /**
      * The date and time the client was created
      *
      * @var \DateTime
@@ -73,6 +85,14 @@ class Client
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->setStatus(static::STATUS_ACTIVE);
+    }
 
     /**
      * Get the unique identifier
@@ -216,5 +236,33 @@ class Client
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Sets the status for the client
+     *
+     * @param string $status The new client status
+     *
+     * @throws \InvalidArgumentException If an invalid status is provided
+     */
+    public function setStatus($status)
+    {
+        if (!in_array($status, [static::STATUS_ACTIVE, static::STATUS_ARCHIVED])) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid status was provided (%s)', $status)
+            );
+        }
+
+        $this->status = $status;
+    }
+
+    /**
+     * Gets the status of the client
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
