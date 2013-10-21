@@ -13,23 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 class GravatarAdapter implements AvatarAdapterInterface
 {
     /**
-     * The request object
-     *
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * Initialise the Gravatar avatar adapter
-     *
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    /**
      * Get the user's gravatar image URL
      *
      * @param AvatarAwareInterface $entity Identifying entity
@@ -39,22 +22,11 @@ class GravatarAdapter implements AvatarAdapterInterface
      */
     public function getImageUrl(AvatarAwareInterface $entity, $size)
     {
-        $secure = $this->request->isSecure();
-
-        // detect if the image needs to use a secure connection
-        if ($secure) {
-            $protocol = 'https';
-            $subDomain = 'secure';
-        } else {
-            $protocol = 'http';
-            $subDomain = 'www';
-        }
-
         // get the email address associated with the local profile
         $email = $entity->getAvatarIdentifier();
 
         // build a gravatar url
-        $gravatarUrl = $protocol . '://' . $subDomain . '.gravatar.com/avatar/';
+        $gravatarUrl = 'https://secure.gravatar.com/avatar/';
         $hash = md5(strtolower(trim($email)));
         $queryParams = array(
             // the size of the image

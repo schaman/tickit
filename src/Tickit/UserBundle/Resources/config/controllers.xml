@@ -15,7 +15,7 @@
                 <argument type="service" id="tickit.controller.csrf_helper" />
                 <argument type="service" id="tickit.filter_collection_builder" />
                 <argument type="service" id="tickit_user.user_repository" />
-                <argument type="service" id="tickit_user.avatar" />
+                <argument type="service" id="tickit_user.avatar_adapter" />
             </service>
 
             <service id="tickit_user.controller.user" class="Tickit\UserBundle\Controller\UserController" scope="request">
