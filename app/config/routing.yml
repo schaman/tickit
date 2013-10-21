@@ -1,6 +1,3 @@
-client:
-    resource: "@TickitClientBundle/Resources/config/routing.yml"
-
 users:
     resource: "@TickitUserBundle/Resources/config/routing.yml"
 
