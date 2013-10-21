@@ -160,6 +160,30 @@ class ClientControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Tests the deleteAction() method
+     */
+    public function testDeleteActionDeletesClient()
+    {
+        $client = new Client();
+        $client->setId(1);
+
+        $request = new Request(['token' => 'csrf-token-value']);
+        $this->trainBaseHelperToReturnRequest($request);
+
+        $this->csrfHelper->expects($this->once())
+                         ->method('checkCsrfToken')
+                         ->with('csrf-token-value', ClientController::CSRF_DELETE_INTENTION);
+
+        $this->clientManager->expects($this->once())
+                            ->method('delete')
+                            ->with($client);
+
+        $expectedData = ['success' => true];
+        $response = $this->getController()->deleteAction($client);
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
+
+    /**
      * Gets a new controller instance
      *
      * @return ClientController

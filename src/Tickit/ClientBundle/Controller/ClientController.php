@@ -125,4 +125,24 @@ class ClientController
 
         return new JsonResponse($responseData);
     }
+
+    /**
+     * Delete action.
+     *
+     * Handles a delete request from the client.
+     *
+     * @param Client $client The client to delete
+     *
+     * @ParamConverter("client", "TickitClientBundle:Client")
+     *
+     * @return JsonResponse
+     */
+    public function deleteAction(Client $client)
+    {
+        $token = $this->baseHelper->getRequest()->query->get('token');
+        $this->csrfHelper->checkCsrfToken($token, static::CSRF_DELETE_INTENTION);
+        $this->clientManager->delete($client);
+
+        return new JsonResponse(['success' => true]);
+    }
 }
