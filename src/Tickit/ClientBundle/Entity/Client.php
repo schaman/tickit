@@ -85,6 +85,20 @@ class Client
     }
 
     /**
+     * Sets the unique identifier
+     *
+     * @param integer $id The unique identifier
+     *
+     * @return Client
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the client name
      *
      * @param string $name The new client name
