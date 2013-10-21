@@ -10,7 +10,8 @@ define(['backbone'], function(Backbone) {
             id: null,
             name: '',
             url: '',
-            notes: ''
+            notes: '',
+            status: 'active'
         },
 
         /**
