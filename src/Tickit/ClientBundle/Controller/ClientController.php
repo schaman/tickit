@@ -2,6 +2,7 @@
 
 namespace Tickit\ClientBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\ClientBundle\Entity\Client;
 use Tickit\ClientBundle\Manager\ClientManager;
