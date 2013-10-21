@@ -8,3 +8,24 @@ api:
 templates:
     resource: "@TickitClientBundle/Resources/config/routing/templates.yml"
     prefix: /templates/clients
+
+client_create:
+    pattern: /clients/create
+    defaults: { _controller: tickit_client.controller.client:createAction }
+    requirements:
+        _method: post
+
+client_edit:
+    pattern: /clients/edit/{id}
+    defaults: { _controller: tickit_client.controller.client:editAction }
+    requirements:
+        id: \d+
+        _method: post
+
+client_delete:
+    pattern: /clients/delete/{id}
+    defaults: { _controller: tickit_client.controller.client:deleteAction }
+    requirements:
+        id: \d+
+    options:
+        expose: true
