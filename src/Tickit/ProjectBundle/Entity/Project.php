@@ -243,4 +243,18 @@ class Project
 
         return $this;
     }
+
+    /**
+     * Sets the project's Client
+     *
+     * @param Client $client The client
+     *
+     * @return Project
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
 }
