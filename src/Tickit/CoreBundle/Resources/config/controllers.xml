@@ -14,6 +14,7 @@
             <argument type="service" id="request" />
             <argument type="service" id="security.context" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
+            <argument type="service" id="tickit.domain_object_collection_decorator" />
             <argument type="service" id="router" />
         </service>
 

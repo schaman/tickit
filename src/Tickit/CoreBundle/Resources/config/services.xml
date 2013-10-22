@@ -18,6 +18,10 @@
 
         <service id="tickit.domain_object_array_decorator" class="Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator" />
 
+        <service id="tickit.domain_object_collection_decorator" class="Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator">
+            <argument type="service" id="tickit.domain_object_array_decorator" />
+        </service>
+
         <service id="tickit.filter_collection_builder" class="Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder" />
 
     </services>

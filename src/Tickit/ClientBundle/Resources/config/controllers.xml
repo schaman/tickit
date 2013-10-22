@@ -13,14 +13,14 @@
             <argument type="service" id="tickit_client.client_repository" />
         </service>
 
-        <service id="tickit_client.controller.client" class="Tickit\ClientBundle\Controller\ClientController">
+        <service id="tickit_client.controller.client" class="Tickit\ClientBundle\Controller\ClientController" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_client.manager" />
         </service>
 
-        <service id="tickit_client.controller.template" class="Tickit\ClientBundle\Controller\TemplateController">
+        <service id="tickit_client.controller.template" class="Tickit\ClientBundle\Controller\TemplateController" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
         </service>
 
