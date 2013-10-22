@@ -20,6 +20,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
 
         $this->assertEquals(Client::STATUS_ACTIVE, $client->getStatus());
+        $this->assertEquals(0, $client->getTotalProjects());
     }
 
     /**
@@ -42,5 +43,43 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->setStatus(Client::STATUS_ARCHIVED);
 
         $this->assertEquals(Client::STATUS_ARCHIVED, $client->getStatus());
+    }
+
+    /**
+     * Tests the incrementTotalProjects() method
+     */
+    public function testIncrementTotalProjectsCorrectlyIncrementsValue()
+    {
+        $client = new Client();
+
+        $this->assertEquals(0, $client->getTotalProjects());
+        $this->assertEquals(1, $client->incrementTotalProjects());
+        $this->assertEquals(1, $client->getTotalProjects());
+    }
+
+    /**
+     * Tests the decrementTotalProjects() method
+     */
+    public function testDecrementTotalProjectsCorrectlyDecrementsValue()
+    {
+        $client = new Client();
+
+        $this->assertEquals(0, $client->getTotalProjects());
+        $client->incrementTotalProjects();
+        $this->assertEquals(1, $client->getTotalProjects());
+        $client->decrementTotalProjects();
+        $this->assertEquals(0, $client->getTotalProjects());
+    }
+
+    /**
+     * Tests the decrementTotalProjects() method
+     */
+    public function testDecrementTotalProjectsDoesNotGoBelowZero()
+    {
+        $client = new Client();
+
+        $this->assertEquals(0, $client->getTotalProjects());
+        $this->assertEquals(0, $client->decrementTotalProjects());
+        $this->assertEquals(0, $client->getTotalProjects());
     }
 }

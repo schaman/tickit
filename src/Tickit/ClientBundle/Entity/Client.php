@@ -70,6 +70,17 @@ class Client
     private $status;
 
     /**
+     * The total number of projects that this client owns.
+     *
+     * This is stored as an object property for performance reasons so a full
+     * join with the Project entity is not required.
+     *
+     * @var integer
+     * @ORM\Column(name="total_projects", type="integer")
+     */
+    private $totalProjects;
+
+    /**
      * The date and time the client was created
      *
      * @var \DateTime
@@ -101,6 +112,7 @@ class Client
     public function __construct()
     {
         $this->setStatus(static::STATUS_ACTIVE);
+        $this->totalProjects = 0;
     }
 
     /**
@@ -273,5 +285,40 @@ class Client
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Increments the total project count and returns it
+     *
+     * @return integer
+     */
+    public function incrementTotalProjects()
+    {
+        return ++$this->totalProjects;
+    }
+
+    /**
+     * Decrements the total project count and returns it
+     *
+     * @return integer
+     */
+    public function decrementTotalProjects()
+    {
+        // the total project count cannot be less than 0
+        if (0 === $this->totalProjects) {
+            return 0;
+        }
+
+        return --$this->totalProjects;
+    }
+
+    /**
+     * Gets the total project count
+     *
+     * @return integer
+     */
+    public function getTotalProjects()
+    {
+        return $this->totalProjects;
     }
 }
