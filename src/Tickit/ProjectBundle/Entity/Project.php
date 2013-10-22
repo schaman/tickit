@@ -257,4 +257,14 @@ class Project
 
         return $this;
     }
+
+    /**
+     * Gets the client for this project
+     *
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
 }
