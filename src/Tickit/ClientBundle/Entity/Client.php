@@ -2,6 +2,7 @@
 
 namespace Tickit\ClientBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -85,6 +86,14 @@ class Client
      * @Gedmo\Timestampable(on="update")
      */
     private $updated;
+
+    /**
+     * Projects that belong to this client
+     *
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Tickit\ProjectBundle\Entity\Project", mappedBy="client")
+     */
+    private $projects;
 
     /**
      * Constructor.
