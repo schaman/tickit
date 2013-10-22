@@ -19,7 +19,7 @@
         </div>
     {% endif %}
 
-    <form method='post' action='{{ path('client_edit') }}' {{ form_enctype(form) }}>
+    <form method='post' action='{{ path('client_edit', { "id": form.vars.value.id }) }}' {{ form_enctype(form) }}>
         {{ form_errors(form) }}
 
         {{ form_row(form.name) }}

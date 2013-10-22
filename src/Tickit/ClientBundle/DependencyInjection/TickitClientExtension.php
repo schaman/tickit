@@ -28,5 +28,6 @@ class TickitClientExtension extends Extension
         $loader->load('managers.xml');
         $loader->load('controllers.xml');
         $loader->load('listeners.xml');
+        $loader->load('forms.xml');
     }
 }
