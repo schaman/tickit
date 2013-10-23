@@ -15,28 +15,20 @@ use Tickit\UserBundle\Form\Type\UserPickerType;
 class UserPickerTypeTest extends AbstractFormTypeTestCase
 {
     /**
-     * Mocked user manager
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $userManager;
+    protected $converter;
 
     /**
-     * Set up the mock user manager and form type
-     *
-     * @return void
+     * Setup
      */
     protected function setUp()
     {
         parent::setUp();
 
-        $mockUserManager = $this->getMockBuilder('Tickit\\UserBundle\\Manager\\UserManager')
-                                ->disableOriginalConstructor()
-                                ->getMock();
+        $this->converter = $this->getMock('\Tickit\CoreBundle\Form\Type\Picker\EntityConverterInterface');
 
-        $this->userManager = $mockUserManager;
-
-        $this->formType = new UserPickerType($this->userManager);
+        $this->formType = new UserPickerType($this->converter);
     }
 
     /**
@@ -52,10 +44,10 @@ class UserPickerTypeTest extends AbstractFormTypeTestCase
             ->setEmail('mark@89allport.co.uk')
             ->setPlainPassword('password');
 
-        $this->userManager->expects($this->once())
-            ->method('find')
+        $this->converter->expects($this->once())
+            ->method('convert')
             ->with(123)
-            ->will($this->returnValue($user));
+            ->will($this->returnValue('Mark Wilson'));
 
         $formData = array(
             'user_ids' => array(
@@ -70,8 +62,8 @@ class UserPickerTypeTest extends AbstractFormTypeTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('display_names', $formView);
-        $this->assertEquals($user->getFullName(), $formView->display_names);
+        $this->assertArrayHasKey('displayValues', $formView);
+        $this->assertEquals($user->getFullName(), $formView->displayValues);
     }
 
     /**
@@ -93,9 +85,17 @@ class UserPickerTypeTest extends AbstractFormTypeTestCase
             ->setEmail('joe.bloggs@example.com')
             ->setPlainPassword('password');
 
-        $this->userManager->expects($this->exactly(2))
-            ->method('find')
-            ->will($this->onConsecutiveCalls($user1, $user2));
+        $this->converter->expects($this->exactly(2))
+             ->method('convert')
+             ->will($this->onConsecutiveCalls($user1->getFullName(), $user2->getFullName()));
+
+        $this->converter->expects($this->at(0))
+                        ->method('convert')
+                        ->with(123);
+
+        $this->converter->expects($this->at(1))
+                        ->method('convert')
+                        ->with(456);
 
         $formData = array(
             'user_ids' => array(
@@ -111,8 +111,8 @@ class UserPickerTypeTest extends AbstractFormTypeTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('display_names', $formView);
-        $this->assertEquals($user1->getFullName() . ',' . $user2->getFullName(), $formView->display_names);
+        $this->assertArrayHasKey('displayValues', $formView);
+        $this->assertEquals($user1->getFullName() . ',' . $user2->getFullName(), $formView->displayValues);
     }
 
     /**
@@ -128,10 +128,10 @@ class UserPickerTypeTest extends AbstractFormTypeTestCase
             ->setEmail('mark@89allport.co.uk')
             ->setPlainPassword('password');
 
-        $this->userManager->expects($this->once())
-            ->method('find')
-            ->with(123)
-            ->will($this->returnValue(null));
+        $this->converter->expects($this->once())
+             ->method('convert')
+             ->with(123)
+             ->will($this->returnValue(null));
 
         $formData = array(
             'user_ids' => array(
@@ -146,8 +146,8 @@ class UserPickerTypeTest extends AbstractFormTypeTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('display_names', $formView);
-        $this->assertEquals('', $formView->display_names);
+        $this->assertArrayHasKey('displayValues', $formView);
+        $this->assertEquals('', $formView->displayValues);
     }
 
     /**
