@@ -17,6 +17,7 @@ define(['modules/template', 'text!client/views/ClientRowView.html', 'backbone'],
             this.$el.html(_.template($(tpl).html(), {
                 name: d.name,
                 status: d.status,
+                totalProjects: d.totalProjects,
                 editUrl: this.model.getEditUrl(),
                 deleteUrl: this.model.getDeleteUrl()
             }));

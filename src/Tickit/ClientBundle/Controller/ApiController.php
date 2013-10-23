@@ -83,7 +83,11 @@ class ApiController
             'csrf_token' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)
         ];
 
-        $data = $decorator->decorate($clients, ['id', 'name', 'url', 'created'], $staticProperties);
+        $data = $decorator->decorate(
+            $clients,
+            ['id', 'name', 'url', 'status', 'totalProjects', 'created'],
+            $staticProperties)
+        ;
 
         return new JsonResponse($data);
     }
