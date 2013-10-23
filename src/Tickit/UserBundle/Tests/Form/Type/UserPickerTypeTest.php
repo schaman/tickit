@@ -14,9 +14,6 @@ use Tickit\UserBundle\Form\Type\UserPickerType;
  */
 class UserPickerTypeTest extends AbstractFormTypeTestCase
 {
-    // TODO: remove this when moving to extend AbstractFormTypeTestCase
-    protected $formType;
-
     /**
      * Mocked user manager
      *
