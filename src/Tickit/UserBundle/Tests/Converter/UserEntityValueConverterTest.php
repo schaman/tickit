@@ -14,30 +14,78 @@ use Tickit\UserBundle\Entity\User;
 class UserEntityValueConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Tests convertUserIdToDisplayName()
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $userManager;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $decorator;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->userManager = $this->getMockBuilder('\Tickit\UserBundle\Manager\UserManager')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+        $this->decorator = $this->getMockBuilder('\Tickit\UserBundle\Decorator\UserEntityDisplayNameDecorator')
+                                ->disableArgumentCloning()
+                                ->getMock();
+    }
+
+    /**
+     * Tests convert() method
      *
      * Checks the display name output from user Id input
      *
      * @return void
      */
-    public function testConverterDisplayNameOutput()
+    public function testConvertDisplayNameOutput()
     {
-        $userManager = $this->getMockBuilder('Tickit\UserBundle\Manager\UserManager')
-                            ->disableOriginalConstructor()
-                            ->getMock();
-
         $user = new User();
         $user->setForename('Joe')->setSurname('Bloggs');
 
-        $userManager->expects($this->once())
-                    ->method('find')
-                    ->with(123)
-                    ->will($this->returnValue($user));
+        $this->userManager->expects($this->once())
+                          ->method('find')
+                          ->with(123)
+                          ->will($this->returnValue($user));
 
-        $converter = new UserEntityValueConverter($userManager);
+        $this->decorator->expects($this->once())
+                        ->method('decorate')
+                        ->with($user)
+                        ->will($this->returnValue($user->getFullName()));
 
-        $displayName = $converter->convertUserIdToDisplayName(123);
+        $displayName = $this->getConverter()->convert(123);
 
         $this->assertEquals($user->getFullName(), $displayName);
+    }
+
+    /**
+     * Tests the convert() method
+     *
+     * @expectedException \Doctrine\ORM\EntityNotFoundException
+     */
+    public function testConvertThrowsExceptionWhenUserNotFound()
+    {
+        $this->userManager->expects($this->once())
+                          ->method('find')
+                          ->with(1)
+                          ->will($this->returnValue(null));
+
+        $this->getConverter()->convert(1);
+    }
+
+    /**
+     * Gets a converter instance
+     *
+     * @return UserEntityValueConverter
+     */
+    private function getConverter()
+    {
+        return new UserEntityValueConverter($this->userManager, $this->decorator);
     }
 }
