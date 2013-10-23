@@ -17,7 +17,12 @@ interface EntityConverterInterface
      * Converts an entity or entity representation into a descriptive scalar representation
      * for form use.
      *
+     * The method should throw an EntityNotFoundException in the event that an entity is invalid
+     * or cannot be found.
+     *
      * @param mixed $entity The entity to convert
+     *
+     * @throws \Doctrine\ORM\EntityNotFoundException
      *
      * @return mixed
      */
