@@ -9,7 +9,7 @@
         "bin-dir": "bin"
     },
     "description": "Tickit Application",
-    "license": "Apache-2.0",
+    "license": "GPLv3",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
