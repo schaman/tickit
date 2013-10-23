@@ -23,13 +23,22 @@ class UserEntityValueConverter implements EntityConverterInterface
     private $manager;
 
     /**
+     * The user decorator
+     *
+     * @var UserEntityDisplayNameDecorator
+     */
+    private $decorator;
+
+    /**
      * Constructor.
      *
-     * @param UserManager $manager
+     * @param UserManager                    $manager       The user manager
+     * @param UserEntityDisplayNameDecorator $userDecorator The user decorator
      */
-    public function __construct(UserManager $manager)
+    public function __construct(UserManager $manager, UserEntityDisplayNameDecorator $userDecorator)
     {
         $this->manager = $manager;
+        $this->decorator = $userDecorator;
     }
 
     /**
@@ -47,8 +56,6 @@ class UserEntityValueConverter implements EntityConverterInterface
             throw new EntityNotFoundException(sprintf('User not found (%d)', $userId));
         }
 
-        $decorator = new UserEntityDisplayNameDecorator();
-
-        return $decorator->decorate($user);
+        return $this->decorator->decorate($user);
     }
 }
