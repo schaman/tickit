@@ -35,7 +35,7 @@
         "symfony/console": "2.4.x-dev",
         "twig/extensions": "1.0.x-dev",
         "psr/log": "1.0.0",
-        "friendsofsymfony/jsrouting-bundle": "1.1.x-dev",
+        "friendsofsymfony/jsrouting-bundle": "1.4.x-dev",
         "hearsay/require-js-bundle": "dev-master",
         "ircmaxell/password-compat": "1.0.x-dev",
         "incenteev/composer-parameter-handler": "~2.0"
