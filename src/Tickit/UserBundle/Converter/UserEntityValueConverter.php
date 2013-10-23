@@ -3,6 +3,7 @@
 namespace Tickit\UserBundle\Converter;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Tickit\CoreBundle\Form\Type\Picker\EntityConverterInterface;
 use Tickit\UserBundle\Decorator\UserEntityDisplayNameDecorator;
 use Tickit\UserBundle\Manager\UserManager;
 
@@ -12,7 +13,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * @package Tickit\UserBundle\Decorator
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class UserEntityValueConverter
+class UserEntityValueConverter implements EntityConverterInterface
 {
     /**
      * User manager
@@ -39,7 +40,7 @@ class UserEntityValueConverter
      * @return string
      * @throws \Doctrine\ORM\EntityNotFoundException
      */
-    public function convertUserIdToDisplayName($userId)
+    public function convert($userId)
     {
         $user = $this->manager->find($userId);
         if (!$user) {
