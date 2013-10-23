@@ -10,10 +10,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\UserBundle\Converter\UserEntityValueConverter;
-use Tickit\UserBundle\Decorator\UserEntityDisplayNameDecorator;
-use Tickit\UserBundle\Form\EventListener\UserPickerTypeSubscriber;
 use Tickit\UserBundle\Manager\UserManager;
-use Tickit\UserBundle\Tests\Converter\UserEntityValueConverterTest;
 
 /**
  * User picker custom form field type
