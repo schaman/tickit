@@ -2,10 +2,7 @@
 
 namespace Tickit\ProjectBundle\Tests\Controller;
 
-use Guzzle\Tests\Http\Message\RequestTest;
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator;
-use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
 use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\ApiController;
