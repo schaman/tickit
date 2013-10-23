@@ -34,7 +34,7 @@ abstract class AbstractPickerType extends AbstractType
     /**
      * Constructor.
      *
-     * @param EntityConverterInterface $entityConverter The user converter
+     * @param EntityConverterInterface $entityConverter An entity converter
      */
     public function __construct(EntityConverterInterface $entityConverter)
     {
