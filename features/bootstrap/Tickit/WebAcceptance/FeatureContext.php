@@ -1,7 +1,6 @@
 <?php
 
 /*
- * 
  * Tickit, an source web based bug management tool.
  * 
  * Copyright (C) 2013  Tickit Project <http://tickit.io>
@@ -18,7 +17,6 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
  */
 
 namespace Tickit\WebAcceptance;
