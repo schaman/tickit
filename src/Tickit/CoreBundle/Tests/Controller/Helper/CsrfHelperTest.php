@@ -2,6 +2,7 @@
 
 namespace Tickit\CoreBundle\Tests\Controller\Helper;
 
+use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 
 /**
@@ -15,16 +16,16 @@ class CsrfHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $tokenGenerator;
+    private $tokenManager;
 
     /**
      * Setup
      */
     protected function setUp()
     {
-        $this->tokenGenerator = $this->getMockBuilder('\Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface')
-                                     ->disableOriginalConstructor()
-                                     ->getMock();
+        $this->tokenManager = $this->getMockForAbstractClass(
+            '\Symfony\Component\Security\Csrf\CsrfTokenManagerInterface'
+        );
     }
     
     /**
@@ -34,10 +35,12 @@ class CsrfHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testCheckCsrfTokenThrowsExceptionForInvalidToken()
     {
-        $this->tokenGenerator->expects($this->once())
-                             ->method('isCsrfTokenValid')
-                             ->with('intent', 'token')
-                             ->will($this->returnValue(false));
+        $expectedToken = new CsrfToken('intent', 'token');
+
+        $this->tokenManager->expects($this->once())
+                           ->method('isTokenValid')
+                           ->with($expectedToken)
+                           ->will($this->returnValue(false));
 
         $this->getHelper()->checkCsrfToken('token', 'intent');
     }
@@ -47,9 +50,11 @@ class CsrfHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testCheckCsrfTokenDoesNotThrowExceptionForValidToken()
     {
-        $this->tokenGenerator->expects($this->once())
-                             ->method('isCsrfTokenValid')
-                             ->with('intent', 'token')
+        $expectedToken = new CsrfToken('intent', 'token');
+
+        $this->tokenManager->expects($this->once())
+                             ->method('isTokenValid')
+                             ->with($expectedToken)
                              ->will($this->returnValue(true));
 
         $this->getHelper()->checkCsrfToken('token', 'intent');
@@ -60,13 +65,13 @@ class CsrfHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateCsrfTokenReturnsToken()
     {
-        $this->tokenGenerator->expects($this->once())
-                             ->method('generateCsrfToken')
-                             ->with('intent')
-                             ->will($this->returnValue('token'));
+        $token = new CsrfToken('intent', 'token');
+        $this->tokenManager->expects($this->once())
+                           ->method('getToken')
+                           ->with('intent')
+                           ->will($this->returnValue($token));
 
-        $token = $this->getHelper()->generateCsrfToken('intent');
-        $this->assertEquals('token', $token);
+        $this->assertEquals($token, $this->getHelper()->generateCsrfToken('intent'));
     }
 
     /**
@@ -76,6 +81,6 @@ class CsrfHelperTest extends \PHPUnit_Framework_TestCase
      */
     private function getHelper()
     {
-        return new CsrfHelper($this->tokenGenerator);
+        return new CsrfHelper($this->tokenManager);
     }
 }

@@ -3,7 +3,8 @@
 namespace Tickit\CoreBundle\Controller\Helper;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
  * CSRF controller helper.
@@ -16,50 +17,51 @@ use Symfony\Component\Security\Csrf\CsrfTokenGeneratorInterface;
 class CsrfHelper
 {
     /**
-     * A CSRF token generator
+     * A CSRF token manager
      *
-     * @var CsrfTokenGeneratorInterface
+     * @var CsrfTokenManagerInterface
      */
-    protected $tokenGenerator;
+    protected $tokenManager;
 
     /**
      * Constructor.
      *
-     * @param CsrfTokenGeneratorInterface    $tokenGenerator  A token generator
+     * @param CsrfTokenManagerInterface $tokenManager A token manager
      */
-    public function __construct(CsrfTokenGeneratorInterface $tokenGenerator)
+    public function __construct(CsrfTokenManagerInterface $tokenManager)
     {
-        $this->tokenGenerator = $tokenGenerator;
+        $this->tokenManager = $tokenManager;
     }
 
     /**
      * Checks a CSRF token for validity.
      *
-     * @param string $token  The CSRF token to check
-     * @param string $intent The intent of the token
+     * @param string $tokenValue The CSRF token to check
+     * @param string $id         The ID of the token
      *
      * @throws NotFoundHttpException If the token is not valid
      *
      * @return void
      */
-    public function checkCsrfToken($token, $intent)
+    public function checkCsrfToken($tokenValue, $id)
     {
-        $tokenProvider = $this->tokenGenerator;
+        $tokenProvider = $this->tokenManager;
+        $token = new CsrfToken($id, $tokenValue);
 
-        if (!$tokenProvider->isCsrfTokenValid($intent, $token)) {
+        if (false === $tokenProvider->isTokenValid($token)) {
             throw new NotFoundHttpException('Invalid CSRF token');
         }
     }
 
     /**
-     * Generates a new CSRF token for the given intent
+     * Generates a new CSRF token for the given ID
      *
-     * @param string $intent The intent of the CSRF token
+     * @param string $id The ID of the CSRF token
      *
-     * @return string
+     * @return CsrfToken
      */
-    public function generateCsrfToken($intent)
+    public function generateCsrfToken($id)
     {
-        return $this->tokenGenerator->generateCsrfToken($intent);
+        return $this->tokenManager->getToken($id);
     }
 }
