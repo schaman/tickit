@@ -22,7 +22,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 abstract class AbstractPickerType extends AbstractType
 {
-    const NO_RESTRICTION = 'none';
+    /**
+     * No restrictions.
+     *
+     * This indicates that multiple selections can be made.
+     */
+    const RESTRICTION_NONE = 'none';
+
+    /**
+     * Single selection restriction.
+     *
+     * This indicates that only one selection can be made.
+     */
+    const RESTRICTION_SINGLE = 'single';
 
     /**
      * An entity converter
@@ -50,25 +62,19 @@ abstract class AbstractPickerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // TODO: move attribute generation to a separate attribute builder class
-        //       use values available in $builder to get the current content value to translate into display values
 
         // initialise text field's attributes
         $attributes = array(
             'data-restriction' => $options['picker_restriction']
         );
 
-        // if there is a restriction, set the foreign ID in on the input field
-        if ($options['picker_restriction'] !== self::NO_RESTRICTION) {
-            $attributes['data-foreign-id'] = $options['foreign_id'];
+        // we set the restriction as a data-* attribute, this lets the JS do the
+        // client side restriction and our field validator do the server-side work
+        if ($options['picker_restriction'] !== self::RESTRICTION_NONE) {
+            $attributes['data-restriction'] = $options['picker_restriction'];
         }
 
-        $builder->add(
-            $this->getFieldName(),
-            'text',
-            array(
-                'attr' => $attributes
-            )
-        );
+        $builder->add($this->getFieldName(), 'text', ['attr' => $attributes]);
     }
 
     /**
@@ -109,17 +115,48 @@ abstract class AbstractPickerType extends AbstractType
      * Set default field options
      *
      * @param OptionsResolverInterface $resolver An options resolver
+     *
+     * @throws \InvalidArgumentException If an invalid restriction type is specified
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        // foreign Id is only relevant when there is a restriction set
+        $restriction = $this->getRestriction();
+
+        if (!in_array($restriction, [static::RESTRICTION_SINGLE, static::RESTRICTION_NONE])) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid restriction type was specified (%s)', $restriction)
+            );
+        }
+
         $resolver->setDefaults(
             array(
-                'picker_restriction' => $this->getRestriction(),
-                'foreign_id'         => null,
+                'picker_restriction' => $restriction,
                 'compound'           => true
             )
         );
+    }
+
+    /**
+     * Get extended field type
+     *
+     * @return string
+     */
+    public function getParent()
+    {
+        return 'text';
+    }
+
+    /**
+     * Gets the restriction type.
+     *
+     * By default pickers have no restriction, meaning multiple selections
+     * can be made.
+     *
+     * @return string
+     */
+    public function getRestriction()
+    {
+        return static::RESTRICTION_NONE;
     }
 
     /**
@@ -128,12 +165,5 @@ abstract class AbstractPickerType extends AbstractType
      * @return mixed
      */
     abstract public function getFieldName();
-
-    /**
-     * Gets the restriction type (if any)
-     *
-     * @return string|null
-     */
-    abstract public function getRestriction();
 }
  

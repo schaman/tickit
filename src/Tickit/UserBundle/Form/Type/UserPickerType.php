@@ -12,21 +12,6 @@ use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
  */
 class UserPickerType extends AbstractPickerType
 {
-    // TODO: add role restriction
-
-    const PROJECT_RESTRICTION = 'project';
-    const CLIENT_RESTRICTION = 'client';
-
-    /**
-     * Get extended field type
-     *
-     * @return string
-     */
-    public function getParent()
-    {
-        return 'text';
-    }
-
     /**
      * Returns the name of this type.
      *
@@ -45,15 +30,5 @@ class UserPickerType extends AbstractPickerType
     public function getFieldName()
     {
         return 'user_ids';
-    }
-
-    /**
-     * Gets the restriction type (if any)
-     *
-     * @return string|null
-     */
-    public function getRestriction()
-    {
-        return static::NO_RESTRICTION;
     }
 }
