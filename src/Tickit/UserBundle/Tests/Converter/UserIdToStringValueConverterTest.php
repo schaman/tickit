@@ -2,7 +2,7 @@
 
 namespace Tickit\UserBundle\Tests\Converter;
 
-use Tickit\UserBundle\Converter\UserEntityValueConverter;
+use Tickit\UserBundle\Converter\UserIdToStringValueConverter;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -11,7 +11,7 @@ use Tickit\UserBundle\Entity\User;
  * @package Tickit\UserBundle\Tests\Converter
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class UserEntityValueConverterTest extends \PHPUnit_Framework_TestCase
+class UserIdToStringValueConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -82,10 +82,10 @@ class UserEntityValueConverterTest extends \PHPUnit_Framework_TestCase
     /**
      * Gets a converter instance
      *
-     * @return UserEntityValueConverter
+     * @return UserIdToStringValueConverter
      */
     private function getConverter()
     {
-        return new UserEntityValueConverter($this->userManager, $this->decorator);
+        return new UserIdToStringValueConverter($this->userManager, $this->decorator);
     }
 }
