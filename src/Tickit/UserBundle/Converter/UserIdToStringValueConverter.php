@@ -13,7 +13,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * @package Tickit\UserBundle\Decorator
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class UserEntityValueConverter implements EntityConverterInterface
+class UserIdToStringValueConverter implements EntityConverterInterface
 {
     /**
      * User manager
