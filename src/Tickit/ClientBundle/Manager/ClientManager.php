@@ -3,6 +3,8 @@
 namespace Tickit\ClientBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NoResultException;
+use Tickit\ClientBundle\Entity\Client;
 use Tickit\ClientBundle\Entity\Repository\ClientRepository;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Manager\AbstractManager;
@@ -51,6 +53,22 @@ class ClientManager extends AbstractManager
     public function getRepository()
     {
         return $this->clientRepository;
+    }
+
+    /**
+     * Finds a client by ID
+     *
+     * @param integer $id The ID to find the client by
+     *
+     * @return Client
+     */
+    public function find($id)
+    {
+        try {
+            return $this->getRepository()->find($id);
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     /**

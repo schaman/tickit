@@ -2,6 +2,8 @@
 
 namespace Tickit\ClientBundle\Tests\Manager;
 
+use Doctrine\ORM\NoResultException;
+use Tickit\ClientBundle\Entity\Client;
 use Tickit\ClientBundle\Manager\ClientManager;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 
@@ -51,6 +53,34 @@ class ClientManagerTest extends AbstractUnitTest
     public function testGetRepositoryReturnsCorrectInstance()
     {
         $this->assertSame($this->clientRepo, $this->getManager()->getRepository());
+    }
+
+    /**
+     * Tests the find() method
+     */
+    public function testFindReturnsNullForInvalidClientId()
+    {
+        $this->clientRepo->expects($this->once())
+                         ->method('find')
+                         ->with(1)
+                         ->will($this->throwException(new NoResultException()));
+
+        $this->assertNull($this->getManager()->find(1));
+    }
+
+    /**
+     * Tests the find() method
+     */
+    public function testFindReturnsClient()
+    {
+        $client = new Client();
+
+        $this->clientRepo->expects($this->once())
+                         ->method('find')
+                         ->with(1)
+                         ->will($this->returnValue($client));
+
+        $this->assertEquals($client, $this->getManager()->find(1));
     }
 
     /**
