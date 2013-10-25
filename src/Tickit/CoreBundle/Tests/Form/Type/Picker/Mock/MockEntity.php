@@ -1,11 +1,11 @@
 <?php
 
-namespace Tickit\CoreBundle\Tests\Form\Type\Picker\DataTransformer\Mock;
+namespace Tickit\CoreBundle\Tests\Form\Type\Picker\Mock;
 
 /**
  * Mock entity.
  *
- * @package Tickit\CoreBundle\Tests\Form\Type\Picker\DataTransformer\Mock
+ * @package Tickit\CoreBundle\Tests\Form\Type\Picker\Mock
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class MockEntity

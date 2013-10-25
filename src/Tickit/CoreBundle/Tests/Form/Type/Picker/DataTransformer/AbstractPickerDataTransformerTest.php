@@ -4,7 +4,7 @@ namespace Tickit\CoreBundle\Tests\Form\Type\Picker\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
-use Tickit\CoreBundle\Tests\Form\Type\Picker\DataTransformer\Mock\MockEntity;
+use Tickit\CoreBundle\Tests\Form\Type\Picker\Mock\MockEntity;
 
 /**
  * AbstractPickerDataTransformer tests
