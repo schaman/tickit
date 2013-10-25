@@ -1,8 +1,7 @@
 /**
  * Notification module
  *
- * @author  James Halsall <james.t.halsall@googlemail.coM>
- * @license MIT <http://opensource.org/licenses/MIT>
+ * @author James Halsall <james.t.halsall@googlemail.com>
  */
 define([
     'modules/user',
