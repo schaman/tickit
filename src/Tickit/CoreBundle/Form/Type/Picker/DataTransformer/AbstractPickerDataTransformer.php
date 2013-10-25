@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Abstract implementation of picker data transformer.
@@ -19,6 +20,31 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 abstract class AbstractPickerDataTransformer implements DataTransformerInterface
 {
+    /**
+     * The restriction type on the picker that this transformer is attached to
+     *
+     * @var string
+     */
+    private $restriction = AbstractPickerType::RESTRICTION_NONE;
+
+    /**
+     * Sets the restriction on the transformer
+     *
+     * @param string $restriction The restriction type
+     *
+     * @throws \InvalidArgumentException If the restriction type is invalid
+     */
+    public function setRestriction($restriction)
+    {
+        if (!in_array($restriction, [AbstractPickerType::RESTRICTION_NONE, AbstractPickerType::RESTRICTION_SINGLE])) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid restriction type (%s) was provided', $restriction)
+            );
+        }
+
+        $this->restriction = $restriction;
+    }
+
     /**
      * Transforms a value from the original representation to a transformed representation.
      *

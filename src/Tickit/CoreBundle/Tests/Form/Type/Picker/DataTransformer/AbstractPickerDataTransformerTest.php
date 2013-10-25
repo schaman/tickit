@@ -28,6 +28,16 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
             '\Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer'
         );
     }
+
+    /**
+     * Tests the setRestriction() method
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSetRestrictionThrowsExceptionForInvalidRestriction()
+    {
+        $this->sut->setRestriction('invalid');
+    }
     
     /**
      * Tests the transform() method
