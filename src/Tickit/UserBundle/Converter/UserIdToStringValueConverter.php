@@ -10,6 +10,8 @@ use Tickit\UserBundle\Manager\UserManager;
 /**
  * Convert user entity values
  *
+ * @deprecated
+ *
  * @package Tickit\UserBundle\Decorator
  * @author  Mark Wilson <mark@89allport.co.uk>
  */

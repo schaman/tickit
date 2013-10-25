@@ -11,6 +11,8 @@ use Tickit\CoreBundle\Form\Type\Picker\EntityConverterInterface;
 /**
  * ClientIdToStringValueConverter
  *
+ * @deprecated
+ *
  * @package Tickit\ClientBundle\Converter
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
