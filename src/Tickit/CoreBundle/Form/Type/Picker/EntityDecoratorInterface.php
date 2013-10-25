@@ -17,6 +17,8 @@ interface EntityDecoratorInterface
      *
      * @param mixed $entity The entity to decorate
      *
+     * @throws \InvalidArgumentException If the $entity argument isn't the correct instance
+     *
      * @return mixed The decorated value
      */
     public function decorate($entity);
