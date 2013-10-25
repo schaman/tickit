@@ -3,7 +3,6 @@
 namespace Tickit\ClientBundle\Decorator;
 
 use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Manager\ClientManager;
 
 /**
  * Client entity name decorator.
