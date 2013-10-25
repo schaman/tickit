@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\ClientBundle\Form\Type;
+namespace Tickit\ClientBundle\Form\Type\Picker;
 
 use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
@@ -9,7 +9,7 @@ use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
  *
  * Provides a field for picking a single client.
  *
- * @package Tickit\ClientBundle\Form\Type
+ * @package Tickit\ClientBundle\Form\Type\Picker
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientPickerType extends AbstractPickerType

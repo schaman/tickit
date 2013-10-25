@@ -10,7 +10,7 @@
             <tag name="form.type" alias="tickit_client" />
         </service>
 
-        <service id="tickit_client.form.type.client_picker" class="Tickit\ClientBundle\Form\Type\ClientPickerType">
+        <service id="tickit_client.form.type.client_picker" class="Tickit\ClientBundle\Form\Type\Picker\ClientPickerType">
             <tag name="form.type" alias="tickit_client_picker" />
             <argument type="service" id="tickit_client.client_converter" />
         </service>
