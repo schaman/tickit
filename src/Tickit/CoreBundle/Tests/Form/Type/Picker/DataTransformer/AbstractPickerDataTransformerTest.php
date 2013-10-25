@@ -52,7 +52,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      *
      * @expectedException \RuntimeException
      */
-    public function testTransformThrowsExceptionForNonExistingIdentifierGetter()
+    public function testTransformThrowsExceptionForNonExistentIdentifierGetter()
     {
         $this->sut->expects($this->once())
                   ->method('getEntityIdentifier')
