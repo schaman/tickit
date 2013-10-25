@@ -4,7 +4,7 @@ namespace Tickit\UserBundle\Tests\Form\Type;
 
 use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Form\Type\UserPickerType;
+use Tickit\UserBundle\Form\Type\Picker\UserPickerType;
 
 /**
  * User picker form field test

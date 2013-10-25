@@ -1,13 +1,13 @@
 <?php
 
-namespace Tickit\UserBundle\Form\Type;
+namespace Tickit\UserBundle\Form\Type\Picker;
 
 use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * User picker custom form field type.
  *
- * @package Tickit\UserBundle\Form\Type
+ * @package Tickit\UserBundle\Form\Type\Picker
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class UserPickerType extends AbstractPickerType
