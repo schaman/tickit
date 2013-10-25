@@ -25,6 +25,16 @@ class ClientEntityNameDecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the decorate() method
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDecorateThrowsExceptionForInvalidInstanceType()
+    {
+        $this->getDecorator()->decorate('invalid type');
+    }
+
+    /**
      * Gets a new decorator instance
      *
      * @return ClientEntityNameDecorator
