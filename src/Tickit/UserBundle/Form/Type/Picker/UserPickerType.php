@@ -21,14 +21,4 @@ class UserPickerType extends AbstractPickerType
     {
         return 'tickit_user_picker';
     }
-
-    /**
-     * Gets the name of the field that stores the picker IDs
-     *
-     * @return mixed
-     */
-    public function getFieldName()
-    {
-        return 'user_ids';
-    }
 }
