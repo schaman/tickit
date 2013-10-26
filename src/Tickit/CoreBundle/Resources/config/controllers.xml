@@ -14,6 +14,7 @@
             <argument type="service" id="request" />
             <argument type="service" id="security.context" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
+            <argument type="service" id="tickit.domain_object_collection_array_decorator" />
             <argument type="service" id="router" />
         </service>
 
@@ -23,7 +24,7 @@
         </service>
 
         <service id="tickit.controller.csrf_helper" class="Tickit\CoreBundle\Controller\Helper\CsrfHelper" public="false" lazy="true" scope="request">
-            <argument type="service" id="form.csrf_provider" />
+            <argument type="service" id="security.csrf.token_manager" />
         </service>
 
     </services>
