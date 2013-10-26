@@ -71,9 +71,9 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     }
 
     /**
-     * Tests form data of 2 user Ids resolves to correct display names
+     * Tests form data of 2 entity IDs resolves to correct display names
      */
-    public function testDoubleUserSubmission()
+    public function testDoubleEntitySubmission()
     {
         $form = $this->factory->create($this->formType);
 
