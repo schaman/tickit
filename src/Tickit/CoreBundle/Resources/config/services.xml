@@ -18,7 +18,7 @@
 
         <service id="tickit.domain_object_array_decorator" class="Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator" />
 
-        <service id="tickit.domain_object_collection_decorator" class="Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator">
+        <service id="tickit.domain_object_collection_array_decorator" class="Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator">
             <argument type="service" id="tickit.domain_object_array_decorator" />
         </service>
 
