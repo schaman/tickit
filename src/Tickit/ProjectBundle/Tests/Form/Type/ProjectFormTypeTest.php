@@ -5,7 +5,7 @@ namespace Tickit\ProjectBundle\Tests\Form\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Form\Type\ClientPickerType;
+use Tickit\ClientBundle\Form\Type\Picker\ClientPickerType;
 use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
@@ -37,7 +37,7 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
      *
      * @return void
      */
-    public function testSubmitValidData()
+    public function testValidFormData()
     {
         $form = $this->factory->create($this->formType);
 
@@ -65,17 +65,31 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
     {
         $extensions = parent::getExtensions();
 
-        $converter = $this->getMockBuilder('Tickit\ClientBundle\Converter\ClientIdToStringValueConverter')
+        $decorator = $this->getMockBuilder('Tickit\ClientBundle\Decorator\ClientEntityNameDecorator')
                           ->disableOriginalConstructor()
                           ->getMock();
 
-        $converter->expects($this->any())
+        $transformer = $this->getMockBuilder(
+            'Tickit\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer'
+        )
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $transformer->expects($this->any())
+                    ->method('transform')
+                    ->will($this->returnValue(1));
+
+        $transformer->expects($this->any())
+                    ->method('reverseTransform')
+                    ->will($this->returnValue(new Client()));
+
+        $decorator->expects($this->any())
                   ->method('convert')
                   ->will($this->returnValue('decorated client'));
 
-        $clientPicker = new ClientPickerType($converter);
+        $clientPicker = new ClientPickerType($decorator, $transformer);
 
-        $extensions[]  =new PreloadedExtension([$clientPicker->getName() => $clientPicker], []);
+        $extensions[] = new PreloadedExtension([$clientPicker->getName() => $clientPicker], []);
 
         return $extensions;
     }
