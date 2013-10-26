@@ -15,26 +15,6 @@ use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 class ClientPickerType extends AbstractPickerType
 {
     /**
-     * Gets the name of the field that stores the picker IDs
-     *
-     * @return mixed
-     */
-    public function getFieldName()
-    {
-        return 'client';
-    }
-
-    /**
-     * Gets the restriction type (if any)
-     *
-     * @return string|null
-     */
-    public function getRestriction()
-    {
-        return static::RESTRICTION_SINGLE;
-    }
-
-    /**
      * Returns the name of this type.
      *
      * @return string The name of this type
