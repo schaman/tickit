@@ -85,4 +85,3 @@ class ClientIdToStringValueConverter implements EntityConverterInterface
         return $this->decorator->decorate($client);
     }
 }
- 

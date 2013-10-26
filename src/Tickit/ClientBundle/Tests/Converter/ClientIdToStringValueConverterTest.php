@@ -102,4 +102,3 @@ class ClientIdToStringValueConverterTest extends \PHPUnit_Framework_TestCase
         return new ClientIdToStringValueConverter($this->manager, $this->decorator);
     }
 }
- 

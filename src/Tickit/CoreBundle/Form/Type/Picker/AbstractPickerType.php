@@ -185,4 +185,3 @@ abstract class AbstractPickerType extends AbstractType
      */
     abstract public function getFieldName();
 }
- 

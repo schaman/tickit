@@ -105,8 +105,8 @@ class ApiController
         $data = $decorator->decorate(
             $clients,
             ['id', 'name', 'url', 'status', 'totalProjects', 'created'],
-            $staticProperties)
-        ;
+            $staticProperties
+        );
 
         return new JsonResponse($data);
     }

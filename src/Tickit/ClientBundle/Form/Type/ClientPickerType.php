@@ -63,4 +63,3 @@ class ClientPickerType extends AbstractPickerType
         return 'tickit_client_picker';
     }
 }
- 

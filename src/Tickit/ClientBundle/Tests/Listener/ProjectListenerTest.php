@@ -98,4 +98,3 @@ class ProjectListenerTest extends AbstractUnitTest
         return new ProjectListener($this->em);
     }
 }
- 
