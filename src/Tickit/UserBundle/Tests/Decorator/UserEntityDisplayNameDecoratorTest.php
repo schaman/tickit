@@ -25,4 +25,15 @@ class UserEntityDisplayNameDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Joe Bloggs', $decorator->decorate($user));
     }
+
+    /**
+     * Tests the decorate() method
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testDecorateThrowsExceptionForInvalidType()
+    {
+        $decorator = new UserEntityDisplayNameDecorator();
+        $decorator->decorate('invalid type');
+    }
 }
