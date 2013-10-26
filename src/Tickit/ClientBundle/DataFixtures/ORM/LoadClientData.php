@@ -32,6 +32,8 @@ class LoadClientData extends AbstractFixture implements OrderedFixtureInterface
                    ->setUrl($faker->url)
                    ->setNotes($faker->text(300));
 
+            $this->setReference('client-' . $i, $client);
+
             $manager->persist($client);
         }
 
