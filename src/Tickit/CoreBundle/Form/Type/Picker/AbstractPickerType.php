@@ -84,6 +84,8 @@ abstract class AbstractPickerType extends AbstractType
             $attributes['data-restriction'] = $options['picker_restriction'];
         }
 
+        $this->transformer->setRestriction($options['picker_restriction']);
+
         $builder->addModelTransformer($this->transformer)
                 ->setAttributes($attributes);
     }
@@ -99,15 +101,17 @@ abstract class AbstractPickerType extends AbstractType
     {
         $value = $form->getData();
 
-        if (!$value instanceof Collection) {
-            $value = new ArrayCollection($value);
+        if ($value instanceof ArrayCollection) {
+            $value = $value->toArray();
+        } else {
+            $value = [$value];
         }
 
         $value = array_map(
             function ($entity) {
                 return $this->decorator->decorate($entity);
             },
-            $value->toArray()
+            $value
         );
 
         $value = array_filter($value);

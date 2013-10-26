@@ -3,6 +3,7 @@
 namespace Tickit\CoreBundle\Tests\Form\Type\Picker;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\CoreBundle\Tests\Form\Type\Picker\Mock\MockEntity;
 
@@ -51,7 +52,11 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
      */
     public function testSingleEntityIdSubmission()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create(
+            $this->formType,
+            null,
+            ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
+        );
         $entity = new MockEntity(1);
 
         $this->transformer->expects($this->once())
@@ -59,13 +64,10 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
                           ->with(1)
                           ->will($this->returnValue($entity));
 
-        $formData = '1';
-        $expectedData = new ArrayCollection([$entity]);
-
-        $form->submit($formData);
+        $form->submit('1');
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($expectedData, $form->getData());
+        $this->assertEquals($entity, $form->getData());
 
 
     }
@@ -126,11 +128,14 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
      */
     public function testDisplaySingleEntityInstance()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create(
+            $this->formType,
+            null,
+            ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
+        );
 
         $entity = new MockEntity(1);
-        $formData = new ArrayCollection([$entity]);
-        $form->setData($formData);
+        $form->setData($entity);
 
         $this->decorator->expects($this->once())
                         ->method('decorate')
@@ -138,7 +143,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
                         ->will($this->returnValue('display name'));
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($formData, $form->getData());
+        $this->assertEquals($entity, $form->getData());
 
         $formView = $form->createView();
 
