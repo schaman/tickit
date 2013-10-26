@@ -130,7 +130,9 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
     private function transformCollection($collection)
     {
         if (!$collection instanceof Collection) {
-            throw new TransformationFailedException();
+            throw new TransformationFailedException(
+                'A Collection instance was not provided when trying to transform multiple entities'
+            );
         }
 
         $flattened = array_map(
