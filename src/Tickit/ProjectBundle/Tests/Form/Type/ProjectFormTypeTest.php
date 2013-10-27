@@ -22,6 +22,9 @@
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\PreloadedExtension;
+use Tickit\ClientBundle\Entity\Client;
+use Tickit\ClientBundle\Form\Type\Picker\ClientPickerType;
 use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
@@ -53,7 +56,7 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
      *
      * @return void
      */
-    public function testSubmitValidData()
+    public function testValidFormData()
     {
         $form = $this->factory->create($this->formType);
 
@@ -62,6 +65,7 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
                 ->setAttributes(new ArrayCollection())
                 ->setTickets(new ArrayCollection())
                 ->setCreated(new \DateTime())
+                ->setClient(new Client())
                 ->setUpdated(new \DateTime());
 
         $form->setData($project);
@@ -69,7 +73,43 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($project, $form->getData());
 
-        $expectedViewComponents = array('name', 'attributes');
+        $expectedViewComponents = array('name', 'attributes', 'client');
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
+    }
+
+    /**
+     * @return array
+     */
+    protected function getExtensions()
+    {
+        $extensions = parent::getExtensions();
+
+        $decorator = $this->getMockBuilder('Tickit\ClientBundle\Decorator\ClientEntityNameDecorator')
+                          ->disableOriginalConstructor()
+                          ->getMock();
+
+        $transformer = $this->getMockBuilder(
+            'Tickit\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer'
+        )
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $transformer->expects($this->any())
+                    ->method('transform')
+                    ->will($this->returnValue(1));
+
+        $transformer->expects($this->any())
+                    ->method('reverseTransform')
+                    ->will($this->returnValue(new Client()));
+
+        $decorator->expects($this->any())
+                  ->method('convert')
+                  ->will($this->returnValue('decorated client'));
+
+        $clientPicker = new ClientPickerType($decorator, $transformer);
+
+        $extensions[] = new PreloadedExtension([$clientPicker->getName() => $clientPicker], []);
+
+        return $extensions;
     }
 }

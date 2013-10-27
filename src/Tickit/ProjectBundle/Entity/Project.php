@@ -26,6 +26,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DateTime;
+use Tickit\ClientBundle\Entity\Client;
 
 /**
  * Project entity
@@ -54,6 +55,15 @@ class Project
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
+
+    /**
+     * The client that this project relates to
+     *
+     * @var Client
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Tickit\ClientBundle\Entity\Client", inversedBy="projects")
+     */
+    protected $client;
 
     /**
      * Tickets related to this project
@@ -251,5 +261,29 @@ class Project
         $this->created = $created;
 
         return $this;
+    }
+
+    /**
+     * Sets the project's Client
+     *
+     * @param Client $client The client
+     *
+     * @return Project
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * Gets the client for this project
+     *
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }

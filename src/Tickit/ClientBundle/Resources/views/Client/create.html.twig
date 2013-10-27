@@ -1,0 +1,29 @@
+{% extends '::no-content.html.twig' %}
+
+{% block content %}
+    <h2>Create Client</h2>
+
+    {% if app.session.flashbag.has('error') %}
+        <div class="flash-error">
+            {% for message in app.session.flashbag.get('error') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method='post' action='{{ path('client_create') }}' {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.url) }}
+        {{ form_row(form.notes) }}
+
+        <div class='roles'>
+            <p>Client roles here</p>
+        </div>
+
+        {{ form_rest(form) }}
+
+        <input type='submit' value='Save Client' />
+    </form>
+{% endblock %}

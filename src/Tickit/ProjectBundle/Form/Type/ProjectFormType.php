@@ -24,6 +24,7 @@ namespace Tickit\ProjectBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Add/edit project form.
@@ -68,6 +69,11 @@ class ProjectFormType extends AbstractType
                         'type' => $this->attributeValueForm,
                         'label' => ''
                     )
+                )
+                ->add(
+                    'client',
+                    'tickit_client_picker',
+                    ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
                 );
     }
 

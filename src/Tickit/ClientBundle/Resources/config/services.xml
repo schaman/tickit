@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_client.client_event_dispatcher" class="Tickit\ClientBundle\Event\Dispatcher\ClientEventDispatcher">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="tickit_client.display_name_decorator" class="Tickit\ClientBundle\Decorator\ClientEntityNameDecorator" />
+
+    </services>
+</container>

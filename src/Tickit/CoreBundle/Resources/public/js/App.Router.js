@@ -47,6 +47,11 @@ define(function() {
             "dashboard"            : "dashboard",
             "login"                : "login",
 
+            /* ClientBundle routes */
+            "clients/create"       : "clientCreate",
+            "clients/edit/:id"     : "clientEdit",
+            "clients"              : "clients",
+
             /* ProjectBundle routes */
             "projects/create"      : "projectCreate",
             "projects/edit/:id"    : "projectEdit",
@@ -67,6 +72,24 @@ define(function() {
         "dashboard" : function() {
             require(['modules/dashboard'], function(Dashboard) {
                 Dashboard.loadDashboard();
+            });
+        },
+
+        "clientCreate" : function() {
+            require(['modules/client'], function(Client) {
+                Client.loadClientCreate();
+            });
+        },
+
+        "clientEdit" : function(id) {
+            require(['modules/client'], function(Client) {
+                Client.loadClientEdit(id);
+            });
+        },
+
+        "clients" : function() {
+            require(['modules/client'], function(Client) {
+                Client.loadClientList();
             });
         },
 
