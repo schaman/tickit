@@ -19,9 +19,14 @@
                 <argument>%fos_user.model.user.class%</argument>
             </service>
 
-            <service id="tickit_user.form.type.user_picker" class="Tickit\UserBundle\Form\Type\UserPickerType">
+            <service id="tickit_user.form.type.user_picker" class="Tickit\UserBundle\Form\Type\Picker\UserPickerType">
                 <tag name="form.type" alias="tickit_user_picker" />
-                <argument type="service" id="tickit_user.user_converter" />
+                <argument type="service" id="tickit_user.display_name_decorator" />
+                <argument type="service" id="tickit_user.form.user_picker_data_transformer" />
+            </service>
+
+            <service id="tickit_user.form.user_picker_data_transformer" class="Tickit\UserBundle\Form\Type\Picker\DataTransformer\UserPickerDataTransformer">
+                <argument type="service" id="tickit_user.manager" />
             </service>
 
             <service id="tickit_user.form.password_updater" class="Tickit\UserBundle\Form\Password\UserPasswordUpdater" />

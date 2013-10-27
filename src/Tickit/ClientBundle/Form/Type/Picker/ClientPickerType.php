@@ -19,17 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\Type;
+namespace Tickit\ClientBundle\Form\Type;
 
 use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
- * User picker custom form field type.
+ * Client picker field type.
  *
- * @package Tickit\UserBundle\Form\Type
- * @author  Mark Wilson <mark@89allport.co.uk>
+ * Provides a field for picking a single client.
+ *
+ * @package Tickit\ClientBundle\Form\Type\Picker
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserPickerType extends AbstractPickerType
+class ClientPickerType extends AbstractPickerType
 {
     /**
      * Returns the name of this type.
@@ -38,16 +40,6 @@ class UserPickerType extends AbstractPickerType
      */
     public function getName()
     {
-        return 'tickit_user_picker';
-    }
-
-    /**
-     * Gets the name of the field that stores the picker IDs
-     *
-     * @return mixed
-     */
-    public function getFieldName()
-    {
-        return 'user_ids';
+        return 'tickit_client_picker';
     }
 }

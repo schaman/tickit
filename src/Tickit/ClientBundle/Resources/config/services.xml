@@ -10,11 +10,6 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="tickit_client.client_converter" class="Tickit\ClientBundle\Converter\ClientIdToStringValueConverter">
-            <argument type="service" id="tickit_user.manager" />
-            <argument type="service" id="tickit_client.display_name_decorator" />
-        </service>
-
         <service id="tickit_client.display_name_decorator" class="Tickit\ClientBundle\Decorator\ClientEntityNameDecorator" />
 
     </services>

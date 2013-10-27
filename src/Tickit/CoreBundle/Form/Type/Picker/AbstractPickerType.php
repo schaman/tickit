@@ -21,13 +21,13 @@
 
 namespace Tickit\CoreBundle\Form\Type\Picker;
 
-use Doctrine\ORM\EntityNotFoundException;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 
 /**
  * Abstract Picker field type.
@@ -35,7 +35,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * This field type is used to create a picker component for entities in
  * the application.
  *
- * @package Tickit\CoreBundle\Form\Type
+ * @package Tickit\CoreBundle\Form\Type\Picker
  * @author  Mark Wilson <mark@89allport.co.uk>
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
@@ -56,20 +56,29 @@ abstract class AbstractPickerType extends AbstractType
     const RESTRICTION_SINGLE = 'single';
 
     /**
-     * An entity converter
+     * An entity decorator
      *
-     * @var EntityConverterInterface
+     * @var EntityDecoratorInterface
      */
-    protected $converter;
+    protected $decorator;
+
+    /**
+     * A data transformer for the picker
+     *
+     * @var AbstractPickerDataTransformer
+     */
+    protected $transformer;
 
     /**
      * Constructor.
      *
-     * @param EntityConverterInterface $entityConverter An entity converter
+     * @param EntityDecoratorInterface      $entityDecorator An entity decorator
+     * @param AbstractPickerDataTransformer $transformer     A data transformer for the picker
      */
-    public function __construct(EntityConverterInterface $entityConverter)
+    public function __construct(EntityDecoratorInterface $entityDecorator, AbstractPickerDataTransformer $transformer)
     {
-        $this->converter = $entityConverter;
+        $this->decorator = $entityDecorator;
+        $this->transformer = $transformer;
     }
 
     /**
@@ -80,7 +89,7 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // TODO: move attribute generation to a separate attribute builder class
+        // TODO: move attribute generation to a separate attribute builder class for custom attributes
 
         // initialise text field's attributes
         $attributes = array(
@@ -93,7 +102,10 @@ abstract class AbstractPickerType extends AbstractType
             $attributes['data-restriction'] = $options['picker_restriction'];
         }
 
-        $builder->add($this->getFieldName(), 'text', ['attr' => $attributes]);
+        $this->transformer->setRestriction($options['picker_restriction']);
+
+        $builder->addModelTransformer($this->transformer)
+                ->setAttributes($attributes);
     }
 
     /**
@@ -105,21 +117,17 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        /** @var Form $element */
-        $element = $form->get($this->getFieldName());
-        $value   = $element->getData();
+        $value = $form->getData();
 
-        if (!is_array($value)) {
-            $value = explode(',', $value);
+        if ($value instanceof ArrayCollection) {
+            $value = $value->toArray();
+        } else {
+            $value = [$value];
         }
 
         $value = array_map(
-            function ($id) {
-                try {
-                    return $this->converter->convert($id);
-                } catch (EntityNotFoundException $e) {
-                    return false;
-                }
+            function ($entity) {
+                return $this->decorator->decorate($entity);
             },
             $value
         );
@@ -139,20 +147,11 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $restriction = $this->getRestriction();
-
-        if (!in_array($restriction, [static::RESTRICTION_SINGLE, static::RESTRICTION_NONE])) {
-            throw new \InvalidArgumentException(
-                sprintf('An invalid restriction type was specified (%s)', $restriction)
-            );
-        }
-
-        $resolver->setDefaults(
-            array(
-                'picker_restriction' => $restriction,
-                'compound'           => true
-            )
-        );
+        $resolver->setOptional(['picker_restriction'])
+                 ->setDefaults(['picker_restriction' => static::RESTRICTION_NONE])
+                 ->setAllowedValues(
+                     ['picker_restriction' => [static::RESTRICTION_NONE, static::RESTRICTION_SINGLE]]
+                 );
     }
 
     /**
@@ -164,24 +163,4 @@ abstract class AbstractPickerType extends AbstractType
     {
         return 'text';
     }
-
-    /**
-     * Gets the restriction type.
-     *
-     * By default pickers have no restriction, meaning multiple selections
-     * can be made.
-     *
-     * @return string
-     */
-    public function getRestriction()
-    {
-        return static::RESTRICTION_NONE;
-    }
-
-    /**
-     * Gets the name of the field that stores the picker IDs
-     *
-     * @return mixed
-     */
-    abstract public function getFieldName();
 }

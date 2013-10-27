@@ -217,4 +217,21 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock();
     }
+
+    /**
+     * Returns an instance of a non-accessible method.
+     *
+     * @param string $className  The class name
+     * @param string $methodName The method name in the class
+     *
+     * @return \ReflectionMethod
+     */
+    protected static function getNonAccessibleMethod($className, $methodName)
+    {
+        $class = new \ReflectionClass($className);
+        $method = $class->getMethod($methodName);
+        $method->setAccessible(true);
+
+        return $method;
+    }
 }
