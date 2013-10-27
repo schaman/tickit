@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Decorator\Collection;
+namespace Tickit\Bundle\CoreBundle\Tests\Decorator\Collection;
 
-use Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator;
-use Tickit\CoreBundle\Tests\Decorator\Mock\MockDomainObject;
+use Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator;
+use Tickit\Bundle\CoreBundle\Tests\Decorator\Mock\MockDomainObject;
 
 /**
  * DomainObjectCollectionDecorator tests
  *
- * @package Tickit\CoreBundle\Tests\Decorator\Collection
+ * @package Tickit\Bundle\CoreBundle\Tests\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +43,7 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->decorator = $this->getMockForAbstractClass(
-            '\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface'
+            '\Tickit\Bundle\CoreBundle\Decorator\DomainObjectDecoratorInterface'
         );
     }
 

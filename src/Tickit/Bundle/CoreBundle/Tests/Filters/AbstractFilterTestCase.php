@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Filters;
+namespace Tickit\Bundle\CoreBundle\Tests\Filters;
 
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * Abstract Filter test case.
  *
  * Provides some helpers for tests on filters
  *
- * @package Tickit\CoreBundle\Tests\Filters
+ * @package Tickit\Bundle\CoreBundle\Tests\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractFilterTestCase extends AbstractUnitTest

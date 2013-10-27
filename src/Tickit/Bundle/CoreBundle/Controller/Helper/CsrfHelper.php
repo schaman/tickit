@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Controller\Helper;
+namespace Tickit\Bundle\CoreBundle\Controller\Helper;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfToken;
@@ -30,7 +30,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  *
  * Provides helper methods for handling CSRF tokens in controllers
  *
- * @package Tickit\CoreBundle\Controller\Helper
+ * @package Tickit\Bundle\CoreBundle\Controller\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CsrfHelper

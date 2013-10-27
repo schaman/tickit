@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Filters;
+namespace Tickit\Bundle\CoreBundle\Filters;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * OrderBy filter.
  *
  * An order by filter is used to add directional sorting on a query.
  *
- * @package Tickit\CoreBundle\Filters
+ * @package Tickit\Bundle\CoreBundle\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class OrderByFilter extends AbstractFilter

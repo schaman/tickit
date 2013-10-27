@@ -1,6 +1,6 @@
 <?php
 
-namespace Tickit\CoreBundle\Form\Type\Picker;
+namespace Tickit\Bundle\CoreBundle\Form\Type\Picker;
 
 /**
  * Entity decorator interfaces.
@@ -8,7 +8,7 @@ namespace Tickit\CoreBundle\Form\Type\Picker;
  * Entity decorators are responsible for decorating an entity
  * instance into a scalar representation for form picker views.
  *
- * @package Tickit\CoreBundle\Form\Type\Picker
+ * @package Tickit\Bundle\CoreBundle\Form\Type\Picker
  */
 interface EntityDecoratorInterface
 {

@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Filters;
+namespace Tickit\Bundle\CoreBundle\Tests\Filters;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * FilterCollection tests
  *
- * @package Tickit\CoreBundle\Tests\Filter
+ * @package Tickit\Bundle\CoreBundle\Tests\Filter
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FilterCollectionTest extends AbstractUnitTest
@@ -42,11 +42,11 @@ class FilterCollectionTest extends AbstractUnitTest
     {
         $query = $this->getMockQueryBuilder();
 
-        $searchFilter = $this->getMockBuilder('\Tickit\CoreBundle\Filters\SearchFilter')
+        $searchFilter = $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Filters\SearchFilter')
                              ->disableOriginalConstructor()
                              ->getMock();
 
-        $exactMatchFilter = $this->getMockBuilder('\Tickit\CoreBundle\Filters\ExactMatchFilter')
+        $exactMatchFilter = $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Filters\ExactMatchFilter')
                                  ->disableOriginalConstructor()
                                  ->getMock();
 

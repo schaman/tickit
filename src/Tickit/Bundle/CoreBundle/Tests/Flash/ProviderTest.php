@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Flash;
+namespace Tickit\Bundle\CoreBundle\Tests\Flash;
 
 use Symfony\Component\HttpFoundation\Session\Session;
-use Tickit\CoreBundle\Flash\Provider;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Flash\Provider;
+use Tickit\Bundle\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * Tests for the flash message provider
  *
- * @package Tickit\CoreBundle\Tests\Flash
+ * @package Tickit\Bundle\CoreBundle\Tests\Flash
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProviderTest extends AbstractUnitTest

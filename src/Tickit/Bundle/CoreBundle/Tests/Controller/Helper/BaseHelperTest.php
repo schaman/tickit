@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Controller\Helper;
+namespace Tickit\Bundle\CoreBundle\Tests\Controller\Helper;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * BaseHelper tests
  *
- * @package Tickit\CoreBundle\Tests\Controller\Helper
+ * @package Tickit\Bundle\CoreBundle\Tests\Controller\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class BaseHelperTest extends AbstractUnitTest
@@ -74,11 +74,11 @@ class BaseHelperTest extends AbstractUnitTest
         );
 
         $this->objectDecorator = $this->getMockForAbstractClass(
-            '\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface'
+            '\Tickit\Bundle\CoreBundle\Decorator\DomainObjectDecoratorInterface'
         );
 
         $this->objectCollectionDecorator = $this->getMockForAbstractClass(
-            '\Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
+            '\Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
         );
 
         $this->router = $this->getMockRouter();

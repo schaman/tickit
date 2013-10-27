@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Listener;
+namespace Tickit\Bundle\CoreBundle\Listener;
 
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
  *
  * Modifies the response before it gets served to the client.
  *
- * @package Tickit\CoreBundle\Listener
+ * @package Tickit\Bundle\CoreBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ResponseListener

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Event\Interfaces;
+namespace Tickit\Bundle\CoreBundle\Event\Interfaces;
 
 /**
  * Interface for entity aware events.
@@ -29,9 +29,9 @@ namespace Tickit\CoreBundle\Event\Interfaces;
  * for the management of events when it does not have insightful details about
  * the entities on those events.
  *
- * @package Tickit\CoreBundle\Event\Interfaces
+ * @package Tickit\Bundle\CoreBundle\Event\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\CoreBundle\Manager\AbstractManager
+ * @see     Tickit\Bundle\CoreBundle\Manager\AbstractManager
  */
 interface EntityAwareEventInterface
 {

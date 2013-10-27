@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Command;
+namespace Tickit\Bundle\CoreBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
@@ -37,7 +37,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * - Re-create the test database from the latest schema files
  * - Load fixtures into the test database
  *
- * @package Tickit\CoreBundle\Command
+ * @package Tickit\Bundle\CoreBundle\Command
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TestEnvironmentSetupCommand extends ContainerAwareCommand

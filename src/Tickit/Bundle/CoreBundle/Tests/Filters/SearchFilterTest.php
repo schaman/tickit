@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Filters;
+namespace Tickit\Bundle\CoreBundle\Tests\Filters;
 
 use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\CoreBundle\Filters\SearchFilter;
+use Tickit\Bundle\CoreBundle\Filters\SearchFilter;
 
 /**
  * SearchFilter tests
  *
- * @package Tickit\CoreBundle\Tests\Filters
+ * @package Tickit\Bundle\CoreBundle\Tests\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class SearchFilterTest extends AbstractFilterTestCase

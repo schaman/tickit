@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Controller;
+namespace Tickit\Bundle\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Provides a default entry-point for requests, usually used to
  * serve the base page template in the application.
  *
- * @package Tickit\CoreBundle\Controller
+ * @package Tickit\Bundle\CoreBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class DefaultController

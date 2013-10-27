@@ -1,12 +1,12 @@
 <?php
 
-namespace Tickit\CoreBundle\Form\Type\Picker\DataTransformer;
+namespace Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Abstract implementation of picker data transformer.
@@ -15,7 +15,7 @@ use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
  * entity data (collections, entities etc) into a scalar format
  * and vice versa.
  *
- * @package Tickit\CoreBundle\Form\Type\Picker\DataTransformer
+ * @package Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractPickerDataTransformer implements DataTransformerInterface

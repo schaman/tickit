@@ -6,11 +6,11 @@
 
     <services>
 
-        <service id='tickit.controller.default' class='Tickit\CoreBundle\Controller\DefaultController'>
+        <service id='tickit.controller.default' class='Tickit\Bundle\CoreBundle\Controller\DefaultController'>
             <argument type="service" id="templating" />
         </service>
 
-        <service id="tickit.controller.base_helper" class="Tickit\CoreBundle\Controller\Helper\BaseHelper" public="false" lazy="true" scope="request">
+        <service id="tickit.controller.base_helper" class="Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper" public="false" lazy="true" scope="request">
             <argument type="service" id="request" />
             <argument type="service" id="security.context" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
@@ -18,12 +18,12 @@
             <argument type="service" id="router" />
         </service>
 
-        <service id="tickit.controller.form_helper" class="Tickit\CoreBundle\Controller\Helper\FormHelper" public="false" lazy="true" scope="request">
+        <service id="tickit.controller.form_helper" class="Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper" public="false" lazy="true" scope="request">
             <argument type="service" id="templating" />
             <argument type="service" id="form.factory" />
         </service>
 
-        <service id="tickit.controller.csrf_helper" class="Tickit\CoreBundle\Controller\Helper\CsrfHelper" public="false" lazy="true" scope="request">
+        <service id="tickit.controller.csrf_helper" class="Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper" public="false" lazy="true" scope="request">
             <argument type="service" id="security.csrf.token_manager" />
         </service>
 

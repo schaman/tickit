@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Form\Type\Picker;
+namespace Tickit\Bundle\CoreBundle\Form\Type\Picker;
 
 /**
  * Entity converter interface.
@@ -27,7 +27,7 @@ namespace Tickit\CoreBundle\Form\Type\Picker;
  * Entity converters are responsible for converting an entity instance or an
  * entity identifier into a description scalar value that is used in a form's view.
  *
- * @package Tickit\CoreBundle\Form\Type
+ * @package Tickit\Bundle\CoreBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface EntityConverterInterface

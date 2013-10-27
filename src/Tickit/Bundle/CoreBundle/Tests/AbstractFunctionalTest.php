@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests;
+namespace Tickit\Bundle\CoreBundle\Tests;
 
 use Faker\Factory;
 use Faker\Generator;
@@ -34,7 +34,7 @@ use Tickit\UserBundle\Entity\User;
  *
  * Provides common functionality for functional tests inside the application
  *
- * @package Tickit\CoreBundle\Tests
+ * @package Tickit\Bundle\CoreBundle\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractFunctionalTest extends WebTestCase

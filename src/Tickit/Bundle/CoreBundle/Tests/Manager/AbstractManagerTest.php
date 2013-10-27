@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Manager;
+namespace Tickit\Bundle\CoreBundle\Tests\Manager;
 
-use Tickit\CoreBundle\Manager\AbstractManager;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Manager\AbstractManager;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * AbstractManager tests
  *
- * @package Tickit\CoreBundle\Tests\Manager
+ * @package Tickit\Bundle\CoreBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractManagerTest extends AbstractUnitTest
@@ -52,7 +52,7 @@ class AbstractManagerTest extends AbstractUnitTest
     protected function setUp()
     {
         $this->em = $this->getMockEntityManager();
-        $this->dispatcher = $this->getMockBuilder('Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher')
+        $this->dispatcher = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }
@@ -63,7 +63,7 @@ class AbstractManagerTest extends AbstractUnitTest
     public function testCreatePersistsEntityWithAutoFlush()
     {
         $entity = new \stdClass();
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
 
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeCreateEvent')
@@ -90,7 +90,7 @@ class AbstractManagerTest extends AbstractUnitTest
     public function testCreatePersistsEntityWithoutAutoFlush()
     {
         $entity = new \stdClass();
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
 
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeCreateEvent')
@@ -117,7 +117,7 @@ class AbstractManagerTest extends AbstractUnitTest
     public function testCreateDoesNotPersistEntityForVetoedEvent()
     {
         $entity = new \stdClass();
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
         $event->veto();
 
         $this->dispatcher->expects($this->once())
@@ -151,7 +151,7 @@ class AbstractManagerTest extends AbstractUnitTest
         $originalEntity = new \stdClass();
         $originalEntity->property = 3;
 
-        $beforeUpdateEvent = $this->getMockBuilder('Tickit\CoreBundle\Event\EntityEvent')
+        $beforeUpdateEvent = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Event\EntityEvent')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
@@ -199,7 +199,7 @@ class AbstractManagerTest extends AbstractUnitTest
         $originalEntity = new \stdClass();
         $originalEntity->property = 3;
 
-        $beforeUpdateEvent = $this->getMockBuilder('Tickit\CoreBundle\Event\EntityEvent')
+        $beforeUpdateEvent = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Event\EntityEvent')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
@@ -241,7 +241,7 @@ class AbstractManagerTest extends AbstractUnitTest
         $entity = new \stdClass();
         $originalEntity = new \stdClass();
 
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
         $event->veto();
 
         $manager = $this->getManager();
@@ -271,7 +271,7 @@ class AbstractManagerTest extends AbstractUnitTest
     {
         $entity = new \stdClass();
 
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
 
         $this->dispatcher->expects($this->once())
                          ->method('dispatchBeforeDeleteEvent')
@@ -299,7 +299,7 @@ class AbstractManagerTest extends AbstractUnitTest
     {
         $entity = new \stdClass();
 
-        $event = $this->getMockForAbstractClass('Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
         $event->veto();
 
         $this->dispatcher->expects($this->once())
@@ -327,7 +327,7 @@ class AbstractManagerTest extends AbstractUnitTest
     private function getManager()
     {
         return $this->getMockForAbstractClass(
-            'Tickit\CoreBundle\Manager\AbstractManager',
+            'Tickit\Bundle\CoreBundle\Manager\AbstractManager',
             array($this->em, $this->dispatcher)
         );
     }

@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Entity\Repository;
+namespace Tickit\Bundle\CoreBundle\Entity\Repository;
 
-use Tickit\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
 
 /**
  * Filterable repository interface.
@@ -29,9 +29,9 @@ use Tickit\CoreBundle\Filters\Collection\FilterCollection;
  * A filterable repository has the ability to return results based on
  * a set of filters.
  *
- * @package Tickit\CoreBundle\Entity\Repository
+ * @package Tickit\Bundle\CoreBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\CoreBundle\Filters\FilterCollection
+ * @see     Tickit\Bundle\CoreBundle\Filters\FilterCollection
  */
 interface FilterableRepositoryInterface
 {

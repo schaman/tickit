@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests;
+namespace Tickit\Bundle\CoreBundle\Tests;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\EntityManager;
@@ -29,7 +29,7 @@ use Doctrine\Tests\OrmTestCase;
 /**
  * Abstract Orm Test
  *
- * @package Tickit\CoreBundle\Tests
+ * @package Tickit\Bundle\CoreBundle\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractOrmTest extends OrmTestCase

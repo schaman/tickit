@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Event;
+namespace Tickit\Bundle\CoreBundle\Tests\Event;
 
-use Tickit\CoreBundle\Event\EntityModifiedEvent;
+use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
 
 /**
  * EntityModifiedEvent tests
  *
- * @package Tickit\CoreBundle\Tests\Event
+ * @package Tickit\Bundle\CoreBundle\Tests\Event
  * @author  James Halsall <james.t.halsal@googlemail.com>
  */
 class EntityModifiedEventTest extends \PHPUnit_Framework_TestCase

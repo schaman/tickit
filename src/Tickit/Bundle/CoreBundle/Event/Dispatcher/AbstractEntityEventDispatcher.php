@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Event\Dispatcher;
+namespace Tickit\Bundle\CoreBundle\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Tickit\CoreBundle\Event\AbstractVetoableEvent;
+use Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent;
 
 /**
  * Abstract implementation of an entity event dispatcher
  *
- * @package Tickit\CoreBundle\Event\Dispatcher
+ * @package Tickit\Bundle\CoreBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractEntityEventDispatcher

@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Decorator\Collection;
+namespace Tickit\Bundle\CoreBundle\Decorator\Collection;
 
 /**
  * File description
  *
- * @package Tickit\CoreBundle\Decorator\Collection
+ * @package Tickit\Bundle\CoreBundle\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface DomainObjectCollectionDecoratorInterface

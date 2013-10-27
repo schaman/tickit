@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Filters;
+namespace Tickit\Bundle\CoreBundle\Filters;
 
 use Doctrine\ORM\QueryBuilder;
 
@@ -28,7 +28,7 @@ use Doctrine\ORM\QueryBuilder;
  *
  * A query builder applicable object is something that can be applied to a query builder.
  *
- * @package Tickit\CoreBundle\Filters
+ * @package Tickit\Bundle\CoreBundle\Filters
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface QueryBuilderApplicableInterface

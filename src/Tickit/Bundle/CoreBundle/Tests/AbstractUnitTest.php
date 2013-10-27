@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests;
+namespace Tickit\Bundle\CoreBundle\Tests;
 
 /**
  * Class AbstractUnitTest
  *
- * @package Tickit\CoreBundle\Tests
+ * @package Tickit\Bundle\CoreBundle\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
@@ -96,7 +96,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockBaseHelper()
     {
-        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\BaseHelper')
+        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -108,7 +108,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockCsrfHelper()
     {
-        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\CsrfHelper')
+        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -121,7 +121,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockObjectDecorator()
     {
-        return $this->getMockForAbstractClass('\Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface');
+        return $this->getMockForAbstractClass('\Tickit\Bundle\CoreBundle\Decorator\DomainObjectDecoratorInterface');
     }
 
     /**
@@ -132,7 +132,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     protected function getMockObjectCollectionDecorator()
     {
         return $this->getMockForAbstractClass(
-            '\Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
+            '\Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
         );
     }
 
@@ -143,7 +143,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockFilterCollectionBuilder()
     {
-        return $this->getMockBuilder('\Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder')
+        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -155,7 +155,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockFormHelper()
     {
-        return $this->getMockBuilder('\Tickit\CoreBundle\Controller\Helper\FormHelper')
+        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper')
                     ->disableOriginalConstructor()
                     ->getMock();
     }

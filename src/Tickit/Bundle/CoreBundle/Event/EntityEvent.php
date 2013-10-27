@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Event;
+namespace Tickit\Bundle\CoreBundle\Event;
 
 /**
  * Entity related event.
  *
- * @package Tickit\CoreBundle\Event
+ * @package Tickit\Bundle\CoreBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityEvent extends AbstractVetoableEvent

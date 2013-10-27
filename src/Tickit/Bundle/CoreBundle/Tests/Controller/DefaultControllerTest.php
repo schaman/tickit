@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Controller;
+namespace Tickit\Bundle\CoreBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\CoreBundle\Controller\DefaultController;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Controller\DefaultController;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * DefaultController tests
  *
- * @package Tickit\CoreBundle\Tests\Controller
+ * @package Tickit\Bundle\CoreBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class DefaultControllerTest extends AbstractUnitTest

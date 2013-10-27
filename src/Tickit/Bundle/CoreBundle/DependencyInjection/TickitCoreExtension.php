@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\DependencyInjection;
+namespace Tickit\Bundle\CoreBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -31,7 +31,7 @@ use Symfony\Component\Config\FileLocator;
  *
  * Loads services configuration.
  *
- * @package Tickit\CoreBundle\DependencyInjection
+ * @package Tickit\Bundle\CoreBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitCoreExtension extends Extension

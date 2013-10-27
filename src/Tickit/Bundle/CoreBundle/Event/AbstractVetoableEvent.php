@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Event;
+namespace Tickit\Bundle\CoreBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
@@ -29,7 +29,7 @@ use Symfony\Component\EventDispatcher\Event;
  * Events that extend this base class will gain the ability to be vetoed. This allows
  * logic to be implemented around subscribers flagging the event as being vetoed.
  *
- * @package Tickit\CoreBundle\Event
+ * @package Tickit\Bundle\CoreBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractVetoableEvent extends Event

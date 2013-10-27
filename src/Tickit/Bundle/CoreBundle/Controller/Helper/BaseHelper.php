@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Controller\Helper;
+namespace Tickit\Bundle\CoreBundle\Controller\Helper;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
-use Tickit\CoreBundle\Decorator\DomainObjectDecoratorInterface;
+use Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
+use Tickit\Bundle\CoreBundle\Decorator\DomainObjectDecoratorInterface;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -34,7 +34,7 @@ use Tickit\UserBundle\Entity\User;
  *
  * Provides helper methods for base controller functionality.
  *
- * @package Tickit\CoreBundle\Controller\Helper
+ * @package Tickit\Bundle\CoreBundle\Controller\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class BaseHelper

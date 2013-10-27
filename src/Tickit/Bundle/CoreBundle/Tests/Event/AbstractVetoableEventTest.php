@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Event;
+namespace Tickit\Bundle\CoreBundle\Tests\Event;
 
-use Tickit\CoreBundle\Event\AbstractVetoableEvent;
+use Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent;
 
 /**
  * Tests for the AbstractVetoableEvent object
  *
- * @package Tickit\CoreBundle\Tests\Event
+ * @package Tickit\Bundle\CoreBundle\Tests\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractVetoableEventTest extends \PHPUnit_Framework_TestCase
@@ -38,7 +38,7 @@ class AbstractVetoableEventTest extends \PHPUnit_Framework_TestCase
      */
     public function testAbstractIsAnEvent()
     {
-        $event = $this->getMockForAbstractClass('\Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('\Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
         $this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);
     }
 
@@ -52,7 +52,7 @@ class AbstractVetoableEventTest extends \PHPUnit_Framework_TestCase
     public function testIsVetoedReturnsCorrectly()
     {
         /** @var AbstractVetoableEvent $event  */
-        $event = $this->getMockForAbstractClass('\Tickit\CoreBundle\Event\AbstractVetoableEvent');
+        $event = $this->getMockForAbstractClass('\Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent');
 
         $this->assertFalse($event->isVetoed(), 'isVeoted() correctly returns false initially');
         $event->veto();

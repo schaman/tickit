@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Listener;
+namespace Tickit\Bundle\CoreBundle\Tests\Listener;
 
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,12 +28,12 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\HttpKernel\HttpKernel;
-use Tickit\CoreBundle\Listener\ResponseListener;
+use Tickit\Bundle\CoreBundle\Listener\ResponseListener;
 
 /**
  * ResponseListener tests
  *
- * @package Tickit\CoreBundle\Tests\Listener
+ * @package Tickit\Bundle\CoreBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ResponseListenerTest extends \PHPUnit_Framework_TestCase

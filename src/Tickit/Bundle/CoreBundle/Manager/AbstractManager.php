@@ -19,11 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Manager;
+namespace Tickit\Bundle\CoreBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
  * Abstract entity manager
@@ -31,7 +31,7 @@ use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
  * Responsible for providing base functionality for all entity managers in
  * the application
  *
- * @package Tickit\CoreBundle\Manager
+ * @package Tickit\Bundle\CoreBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractManager

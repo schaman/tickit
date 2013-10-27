@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Tests\Form\Type;
+namespace Tickit\Bundle\CoreBundle\Tests\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
@@ -34,7 +34,7 @@ use Symfony\Component\Validator\Validation;
 /**
  * Abstract test case for FormType classes.
  *
- * @package Tickit\CoreBundle\Tests\Form\Type
+ * @package Tickit\Bundle\CoreBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractFormTypeTestCase extends TypeTestCase

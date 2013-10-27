@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Filters;
+namespace Tickit\Bundle\CoreBundle\Filters;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * Search filter.
  *
  * A search filter represents a text based search with wildcard support
  *
- * @package Tickit\CoreBundle\Filters\Model
+ * @package Tickit\Bundle\CoreBundle\Filters\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class SearchFilter extends AbstractFilter

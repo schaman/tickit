@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Filters\Collection;
+namespace Tickit\Bundle\CoreBundle\Filters\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\CoreBundle\Filters\QueryBuilderApplicableInterface;
+use Tickit\Bundle\CoreBundle\Filters\QueryBuilderApplicableInterface;
 
 /**
  * Filter collection.
  *
  * Provides a collection wrapper for filter objects.
  *
- * @package Tickit\CoreBundle\Filters\Collection
+ * @package Tickit\Bundle\CoreBundle\Filters\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FilterCollection extends ArrayCollection

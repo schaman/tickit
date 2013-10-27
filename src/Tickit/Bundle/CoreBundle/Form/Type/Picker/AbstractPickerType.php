@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Form\Type\Picker;
+namespace Tickit\Bundle\CoreBundle\Form\Type\Picker;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +27,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 
 /**
  * Abstract Picker field type.
@@ -35,7 +35,7 @@ use Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransfo
  * This field type is used to create a picker component for entities in
  * the application.
  *
- * @package Tickit\CoreBundle\Form\Type\Picker
+ * @package Tickit\Bundle\CoreBundle\Form\Type\Picker
  * @author  Mark Wilson <mark@89allport.co.uk>
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */

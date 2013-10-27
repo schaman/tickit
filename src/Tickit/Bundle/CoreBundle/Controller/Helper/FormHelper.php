@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\CoreBundle\Controller\Helper;
+namespace Tickit\Bundle\CoreBundle\Controller\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\Form;
@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * Provides helper methods for handling forms in controllers.
  *
- * @package Tickit\CoreBundle\Controller|Helper
+ * @package Tickit\Bundle\CoreBundle\Controller|Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FormHelper

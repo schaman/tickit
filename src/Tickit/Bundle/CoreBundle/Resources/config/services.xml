@@ -6,23 +6,23 @@
 
     <services>
 
-        <service id='tickit.flash_messages' class='Tickit\CoreBundle\Flash\Provider'>
+        <service id='tickit.flash_messages' class='Tickit\Bundle\CoreBundle\Flash\Provider'>
             <argument type="service" id="session" />
             <argument>%kernel.root_dir%/config/extra</argument>
             <argument>%kernel.environment%</argument>
         </service>
 
-        <service id="session" class="Tickit\CoreBundle\Entity\CoreSession">
+        <service id="session" class="Tickit\Bundle\CoreBundle\Entity\CoreSession">
             <argument type="service" id="session.storage" />
         </service>
 
-        <service id="tickit.domain_object_array_decorator" class="Tickit\CoreBundle\Decorator\DomainObjectArrayDecorator" />
+        <service id="tickit.domain_object_array_decorator" class="Tickit\Bundle\CoreBundle\Decorator\DomainObjectArrayDecorator" />
 
-        <service id="tickit.domain_object_collection_array_decorator" class="Tickit\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator">
+        <service id="tickit.domain_object_collection_array_decorator" class="Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator">
             <argument type="service" id="tickit.domain_object_array_decorator" />
         </service>
 
-        <service id="tickit.filter_collection_builder" class="Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder" />
+        <service id="tickit.filter_collection_builder" class="Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder" />
 
     </services>
 
