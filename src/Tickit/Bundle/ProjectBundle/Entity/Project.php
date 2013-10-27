@@ -26,7 +26,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use DateTime;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 
 /**
  * Project entity
@@ -61,7 +61,7 @@ class Project
      *
      * @var Client
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     * @ORM\ManyToOne(targetEntity="Tickit\ClientBundle\Entity\Client", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\ClientBundle\Entity\Client", inversedBy="projects")
      */
     protected $client;
 

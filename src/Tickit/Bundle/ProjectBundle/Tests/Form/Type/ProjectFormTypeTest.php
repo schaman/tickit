@@ -23,8 +23,8 @@ namespace Tickit\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\PreloadedExtension;
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Form\Type\Picker\ClientPickerType;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType;
 use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
@@ -84,12 +84,12 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
     {
         $extensions = parent::getExtensions();
 
-        $decorator = $this->getMockBuilder('Tickit\ClientBundle\Decorator\ClientEntityNameDecorator')
+        $decorator = $this->getMockBuilder('Tickit\Bundle\ClientBundle\Decorator\ClientEntityNameDecorator')
                           ->disableOriginalConstructor()
                           ->getMock();
 
         $transformer = $this->getMockBuilder(
-            'Tickit\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer'
+            'Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer'
         )
         ->disableOriginalConstructor()
         ->getMock();
