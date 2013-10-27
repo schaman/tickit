@@ -6,11 +6,11 @@
 
     <services>
 
-        <service id="tickit_client.client_event_dispatcher" class="Tickit\ClientBundle\Event\Dispatcher\ClientEventDispatcher">
+        <service id="tickit_client.client_event_dispatcher" class="Tickit\Bundle\ClientBundle\Event\Dispatcher\ClientEventDispatcher">
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="tickit_client.display_name_decorator" class="Tickit\ClientBundle\Decorator\ClientEntityNameDecorator" />
+        <service id="tickit_client.display_name_decorator" class="Tickit\Bundle\ClientBundle\Decorator\ClientEntityNameDecorator" />
 
     </services>
 </container>

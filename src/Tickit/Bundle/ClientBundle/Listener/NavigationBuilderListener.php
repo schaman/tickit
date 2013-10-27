@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Listener;
+namespace Tickit\Bundle\ClientBundle\Listener;
 
 use Symfony\Component\Routing\RouterInterface;
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
@@ -31,7 +31,7 @@ use Tickit\NavigationBundle\Model\NavigationItem;
  * Listens for the "tickit.event.main_navigation_build" event and attaches the bundle's
  * relevant navigation items.
  *
- * @package Tickit\ClientBundle\Listener
+ * @package Tickit\Bundle\ClientBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderListener

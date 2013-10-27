@@ -6,21 +6,21 @@
 
     <services>
 
-        <service id="tickit_client.controller.api" class="Tickit\ClientBundle\Controller\ApiController" scope="request">
+        <service id="tickit_client.controller.api" class="Tickit\Bundle\ClientBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_client.client_repository" />
         </service>
 
-        <service id="tickit_client.controller.client" class="Tickit\ClientBundle\Controller\ClientController" scope="request">
+        <service id="tickit_client.controller.client" class="Tickit\Bundle\ClientBundle\Controller\ClientController" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_client.manager" />
         </service>
 
-        <service id="tickit_client.controller.template" class="Tickit\ClientBundle\Controller\TemplateController" scope="request">
+        <service id="tickit_client.controller.template" class="Tickit\Bundle\ClientBundle\Controller\TemplateController" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
         </service>
 

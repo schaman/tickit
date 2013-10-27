@@ -19,10 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Listener;
+namespace Tickit\Bundle\ClientBundle\Tests\Listener;
 
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Listener\ProjectListener;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Listener\ProjectListener;
 use Tickit\CoreBundle\Event\EntityEvent;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\Project;
@@ -30,7 +30,7 @@ use Tickit\ProjectBundle\Entity\Project;
 /**
  * ProjectListener tests
  *
- * @package Tickit\ClientBundle\Tests\Listener
+ * @package Tickit\Bundle\ClientBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectListenerTest extends AbstractUnitTest

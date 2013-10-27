@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Controller;
+namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Manager\ClientManager;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Manager\ClientManager;
 use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Controller\Helper\FormHelper;
@@ -34,7 +34,7 @@ use Tickit\CoreBundle\Controller\Helper\FormHelper;
  *
  * Responsible for handling requests related to clients
  *
- * @package Tickit\ClientBundle\Controller
+ * @package Tickit\Bundle\ClientBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientController

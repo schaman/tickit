@@ -19,11 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Event\Dispatcher;
+namespace Tickit\Bundle\ClientBundle\Tests\Event\Dispatcher;
 
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Event\Dispatcher\ClientEventDispatcher;
-use Tickit\ClientBundle\TickitClientEvents;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Event\Dispatcher\ClientEventDispatcher;
+use Tickit\Bundle\ClientBundle\TickitClientEvents;
 use Tickit\CoreBundle\Event\EntityEvent;
 use Tickit\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
@@ -31,7 +31,7 @@ use Tickit\CoreBundle\Tests\AbstractUnitTest;
 /**
  * ClientEventDispatcher tests
  *
- * @package Tickit\ClientBundle\Tests\Event\Dispatcher
+ * @package Tickit\Bundle\ClientBundle\Tests\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientEventDispatcherTest extends AbstractUnitTest

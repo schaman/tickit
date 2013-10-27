@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Entity\Repository;
+namespace Tickit\Bundle\ClientBundle\Tests\Entity\Repository;
 
-use Tickit\ClientBundle\Entity\Repository\ClientRepository;
+use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
 use Tickit\CoreBundle\Tests\AbstractOrmTest;
 
 /**
  * ClientRepository tests
  *
- * @package Tickit\ClientBundle\Tests\Entity\Repository
+ * @package Tickit\Bundle\ClientBundle\Tests\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientRepositoryTest extends AbstractOrmTest

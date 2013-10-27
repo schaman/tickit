@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Listener;
+namespace Tickit\Bundle\ClientBundle\Tests\Listener;
 
-use Tickit\ClientBundle\Listener\NavigationBuilderListener;
+use Tickit\Bundle\ClientBundle\Listener\NavigationBuilderListener;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
@@ -29,7 +29,7 @@ use Tickit\NavigationBundle\Model\NavigationItem;
 /**
  * NavigationBuilderListener tests
  *
- * @package Tickit\ClientBundle\Tests\Listener
+ * @package Tickit\Bundle\ClientBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderListenerTest extends AbstractUnitTest

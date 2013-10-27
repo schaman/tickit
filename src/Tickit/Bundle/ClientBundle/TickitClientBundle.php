@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle;
+namespace Tickit\Bundle\ClientBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Client bundle
  *
- * @package Tickit\ClientBundle
+ * @package Tickit\Bundle\ClientBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitClientBundle extends Bundle

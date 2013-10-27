@@ -19,11 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Controller;
+namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\CoreBundle\Controller\Helper\FormHelper;
 
 /**
@@ -31,7 +31,7 @@ use Tickit\CoreBundle\Controller\Helper\FormHelper;
  *
  * Servers client related templates.
  *
- * @package Tickit\ClientBundle\Controller
+ * @package Tickit\Bundle\ClientBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TemplateController

@@ -19,10 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Controller;
+namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\ClientBundle\Entity\Repository\ClientRepository;
+use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
 use Tickit\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
@@ -32,7 +32,7 @@ use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
  *
  * Provides API actions for serving client data to the application.
  *
- * @package Tickit\ClientBundle\Controller
+ * @package Tickit\Bundle\ClientBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiController

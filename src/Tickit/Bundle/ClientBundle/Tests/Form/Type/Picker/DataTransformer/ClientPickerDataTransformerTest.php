@@ -1,15 +1,15 @@
 <?php
 
-namespace Tickit\ClientBundle\Tests\Form\Type\Picker\DataTransformer;
+namespace Tickit\Bundle\ClientBundle\Tests\Form\Type\Picker\DataTransformer;
 
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * ClientPickerDataTransformer tests
  *
- * @package Tickit\ClientBundle\Tests\Form\Type\Picker\DataTransformer
+ * @package Tickit\Bundle\ClientBundle\Tests\Form\Type\Picker\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientPickerDataTransformerTest extends AbstractUnitTest
@@ -29,7 +29,7 @@ class ClientPickerDataTransformerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->manager = $this->getMockBuilder('\Tickit\ClientBundle\Manager\ClientManager')
+        $this->manager = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Manager\ClientManager')
                               ->disableOriginalConstructor()
                               ->getMock();
 

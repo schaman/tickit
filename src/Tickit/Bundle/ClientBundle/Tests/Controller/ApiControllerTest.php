@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Controller;
+namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\ClientBundle\Controller\ApiController;
-use Tickit\ClientBundle\Controller\ClientController;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Controller\ApiController;
+use Tickit\Bundle\ClientBundle\Controller\ClientController;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\CoreBundle\Filters\Collection\FilterCollection;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * ApiController tests
  *
- * @package Tickit\ClientBundle\Tests\Controller
+ * @package Tickit\Bundle\ClientBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractUnitTest
@@ -65,7 +65,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $this->clientRepo = $this->getMockBuilder('\Tickit\ClientBundle\Entity\Repository\ClientRepository')
+        $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }

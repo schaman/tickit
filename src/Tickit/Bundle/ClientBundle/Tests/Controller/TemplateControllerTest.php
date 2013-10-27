@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Controller;
+namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\ClientBundle\Controller\TemplateController;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Controller\TemplateController;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * TemplateController tests
  *
- * @package Tickit\ClientBundle\Tests\Controller
+ * @package Tickit\Bundle\ClientBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TemplateControllerTest extends AbstractUnitTest

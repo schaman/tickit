@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_client.client_repository" class="Tickit\ClientBundle\Entity\Repository\ClientRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_client.client_repository" class="Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitClientBundle:Client</argument>
         </service>
 

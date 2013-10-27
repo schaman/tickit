@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Form\Type\Picker;
+namespace Tickit\Bundle\ClientBundle\Form\Type\Picker;
 
 use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
@@ -28,7 +28,7 @@ use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
  *
  * Provides a field for picking a single client.
  *
- * @package Tickit\ClientBundle\Form\Type\Picker
+ * @package Tickit\Bundle\ClientBundle\Form\Type\Picker
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientPickerType extends AbstractPickerType

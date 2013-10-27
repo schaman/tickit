@@ -19,10 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Listener;
+namespace Tickit\Bundle\ClientBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\CoreBundle\Event\EntityEvent;
 
 /**
@@ -30,7 +30,7 @@ use Tickit\CoreBundle\Event\EntityEvent;
  *
  * Responsible for integrating the clients with the projects that they own.
  *
- * @package Tickit\ClientBundle\Listener
+ * @package Tickit\Bundle\ClientBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectListener

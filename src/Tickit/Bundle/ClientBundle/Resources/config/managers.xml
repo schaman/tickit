@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_client.manager" class="Tickit\ClientBundle\Manager\ClientManager">
+        <service id="tickit_client.manager" class="Tickit\Bundle\ClientBundle\Manager\ClientManager">
             <argument type="service" id="tickit_client.client_repository" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="tickit_client.client_event_dispatcher" />

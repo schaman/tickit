@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Event\Dispatcher;
+namespace Tickit\Bundle\ClientBundle\Event\Dispatcher;
 
-use Tickit\ClientBundle\TickitClientEvents;
+use Tickit\Bundle\ClientBundle\TickitClientEvents;
 use Tickit\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\CoreBundle\Event\EntityEvent;
@@ -30,7 +30,7 @@ use Tickit\CoreBundle\Event\EntityModifiedEvent;
 /**
  * Client event dispatcher.
  *
- * @package Tickit\ClientBundle\Event\Dispatcher
+ * @package Tickit\Bundle\ClientBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientEventDispatcher extends AbstractEntityEventDispatcher

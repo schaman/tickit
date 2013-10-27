@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Decorator;
+namespace Tickit\Bundle\ClientBundle\Tests\Decorator;
 
-use Tickit\ClientBundle\Decorator\ClientEntityNameDecorator;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Decorator\ClientEntityNameDecorator;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 
 /**
  * ClientEntityNameDecorator tests
  *
- * @package Tickit\ClientBundle\Tests\Decorator
+ * @package Tickit\Bundle\ClientBundle\Tests\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientEntityNameDecoratorTest extends \PHPUnit_Framework_TestCase

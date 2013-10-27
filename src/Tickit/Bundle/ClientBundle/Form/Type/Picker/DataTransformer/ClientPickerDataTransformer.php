@@ -1,14 +1,14 @@
 <?php
 
-namespace Tickit\ClientBundle\Form\Type\Picker\DataTransformer;
+namespace Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer;
 
-use Tickit\ClientBundle\Manager\ClientManager;
+use Tickit\Bundle\ClientBundle\Manager\ClientManager;
 use Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 
 /**
  * Client Picker data transformer.
  *
- * @package Tickit\ClientBundle\Form\Type\Picker\DataTransformer
+ * @package Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientPickerDataTransformer extends AbstractPickerDataTransformer

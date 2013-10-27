@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Form\Type;
+namespace Tickit\Bundle\ClientBundle\Tests\Form\Type;
 
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Form\Type\ClientFormType;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Form\Type\ClientFormType;
 use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 
 /**
  * ClientFormType tests
  *
- * @package Tickit\ClientBundle\Tests\Form\Type
+ * @package Tickit\Bundle\ClientBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientFormTypeTest extends AbstractFormTypeTestCase

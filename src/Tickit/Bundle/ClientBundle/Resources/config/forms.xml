@@ -6,17 +6,17 @@
 
     <services>
 
-        <service id="tickit_client.form.client" class="Tickit\ClientBundle\Form\Type\ClientFormType">
+        <service id="tickit_client.form.client" class="Tickit\Bundle\ClientBundle\Form\Type\ClientFormType">
             <tag name="form.type" alias="tickit_client" />
         </service>
 
-        <service id="tickit_client.form.type.client_picker" class="Tickit\ClientBundle\Form\Type\Picker\ClientPickerType">
+        <service id="tickit_client.form.type.client_picker" class="Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType">
             <tag name="form.type" alias="tickit_client_picker" />
             <argument type="service" id="tickit_client.display_name_decorator" />
             <argument type="service" id="tickit_client.form.client_picker_data_transformer" />
         </service>
 
-        <service id="tickit_client.form.client_picker_data_transformer" class="Tickit\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer">
+        <service id="tickit_client.form.client_picker_data_transformer" class="Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer">
             <argument type="service" id="tickit_client.manager" />
         </service>
 

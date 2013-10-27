@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\ClientBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use Tickit\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 
 /**
  * Loads client data fixtures.
  *
- * @package Tickit\ClientBundle\DataFixtures\ORM
+ * @package Tickit\Bundle\ClientBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadClientData extends AbstractFixture implements OrderedFixtureInterface

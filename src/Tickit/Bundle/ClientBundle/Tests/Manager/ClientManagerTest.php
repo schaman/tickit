@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Tests\Manager;
+namespace Tickit\Bundle\ClientBundle\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
-use Tickit\ClientBundle\Entity\Client;
-use Tickit\ClientBundle\Manager\ClientManager;
+use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Bundle\ClientBundle\Manager\ClientManager;
 use Tickit\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * ClientManager tests
  *
- * @package Tickit\ClientBundle\Tests\Manager
+ * @package Tickit\Bundle\ClientBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientManagerTest extends AbstractUnitTest
@@ -54,7 +54,7 @@ class ClientManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->clientRepo = $this->getMockBuilder('\Tickit\ClientBundle\Entity\Repository\ClientRepository')
+        $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository')
                                  ->disableOriginalConstructor()
                                  ->getMock();
 

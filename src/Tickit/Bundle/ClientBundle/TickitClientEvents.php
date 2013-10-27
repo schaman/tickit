@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle;
+namespace Tickit\Bundle\ClientBundle;
 
 /**
  * Tickit client bundle events.
  *
  * Contains static event names.
  *
- * @package Tickit\ClientBundle
+ * @package Tickit\Bundle\ClientBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 final class TickitClientEvents

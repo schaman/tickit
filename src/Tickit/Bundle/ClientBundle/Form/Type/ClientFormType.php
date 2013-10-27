@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Form\Type;
+namespace Tickit\Bundle\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,7 +30,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * Provides functionality for adding/editing clients.
  *
- * @package Tickit\ClientBundle\Form\Type
+ * @package Tickit\Bundle\ClientBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientFormType extends AbstractType
@@ -55,7 +55,7 @@ class ClientFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'Tickit\ClientBundle\Entity\Client']);
+        $resolver->setDefaults(['data_class' => 'Tickit\Bundle\ClientBundle\Entity\Client']);
     }
 
     /**
