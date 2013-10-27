@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PermissionBundle;
+namespace Tickit\Bundle\PermissionBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Bundle build file for the TickitPermissionBundle
  *
- * @package Tickit\PermissionBundle
+ * @package Tickit\Bundle\PermissionBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitPermissionBundle extends Bundle

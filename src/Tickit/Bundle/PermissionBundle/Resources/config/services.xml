@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_permission.evaluator" class="Tickit\PermissionBundle\Evaluator\PermissionEvaluator">
+        <service id="tickit_permission.evaluator" class="Tickit\Bundle\PermissionBundle\Evaluator\PermissionEvaluator">
             <argument type="service" id="session" />
         </service>
 

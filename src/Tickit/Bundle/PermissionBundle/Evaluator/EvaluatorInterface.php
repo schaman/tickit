@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PermissionBundle\Evaluator;
+namespace Tickit\Bundle\PermissionBundle\Evaluator;
 
 /**
  * Evaluator interface.
  *
  * Permission evaluators determine permission levels within the application.
  *
- * @package Tickit\PermissionBundle\Evaluator
+ * @package Tickit\Bundle\PermissionBundle\Evaluator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface EvaluatorInterface

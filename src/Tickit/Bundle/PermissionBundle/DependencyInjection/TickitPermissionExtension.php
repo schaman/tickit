@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PermissionBundle\DependencyInjection;
+namespace Tickit\Bundle\PermissionBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,7 +29,7 @@ use Symfony\Component\Config\FileLocator;
 /**
  * PermissionBundle DI extension class.
  *
- * @package Tickit\PermissionBundle\DependencyInjection
+ * @package Tickit\Bundle\PermissionBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitPermissionExtension extends Extension
