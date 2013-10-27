@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Model}
  */
-define(['../../../../../../../.', 'cookie'], function(Backbone) {
+define(['backbone', 'cookie'], function(Backbone) {
     return Backbone.Model.extend({
         defaults: {
             sessionId: $.cookie('sessionId'),

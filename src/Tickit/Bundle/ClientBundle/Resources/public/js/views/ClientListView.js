@@ -7,7 +7,7 @@ define([
     'modules/template',
     'client/js/views/ClientRowView',
     'text!client/views/ClientListView.html',
-    '../../../../../../../.'
+    'backbone'
 ], function(Template, rowView, tpl, Backbone) {
 
     Template.load(tpl);

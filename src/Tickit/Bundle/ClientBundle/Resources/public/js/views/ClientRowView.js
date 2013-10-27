@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Marionette.ItemView}
  */
-define(['modules/template', 'text!client/views/ClientRowView.html', '../../../../../../../.'], function(Template, tpl, Backbone) {
+define(['modules/template', 'text!client/views/ClientRowView.html', 'backbone'], function(Template, tpl, Backbone) {
 
     return Backbone.Marionette.ItemView.extend({
         template: '#client_row-template',

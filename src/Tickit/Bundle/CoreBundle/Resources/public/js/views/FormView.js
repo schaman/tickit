@@ -3,7 +3,7 @@
  *
  * @type {Backbone.View}
  */
-define(['../../../../../../../.', 'modules/request', 'modules/template'], function(Backbone, Request, Template) {
+define(['backbone', 'modules/request', 'modules/template'], function(Backbone, Request, Template) {
     return Backbone.View.extend({
         /**
          * Event bindings

@@ -5,7 +5,7 @@
  *
  * @type {Backbone.Collection}
  */
-define(['../../../../../../../.', 'navigation/js/models/NavigationItem'], function(Backbone, NavigationItem) {
+define(['backbone', 'navigation/js/models/NavigationItem'], function(Backbone, NavigationItem) {
     return Backbone.Collection.extend({
         model: NavigationItem,
         url: function() {

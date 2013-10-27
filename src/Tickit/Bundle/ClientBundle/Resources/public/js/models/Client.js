@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Model}
  */
-define(['../../../../../../../.'], function(Backbone) {
+define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
 
         defaults: {

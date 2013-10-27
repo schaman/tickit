@@ -5,7 +5,7 @@
  *
  * @type {Backbone.Collection}
  */
-define(['../../../../../../../.', 'notification/js/models/Notification'], function(Backbone, Notification) {
+define(['backbone', 'notification/js/models/Notification'], function(Backbone, Notification) {
     return Backbone.Collection.extend({
         model: Notification,
         url: function() {
