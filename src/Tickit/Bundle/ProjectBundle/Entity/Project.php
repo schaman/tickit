@@ -69,7 +69,7 @@ class Project
      * Tickets related to this project
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Tickit\TicketBundle\Entity\Ticket", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="Tickit\Bundle\TicketBundle\Entity\Ticket", mappedBy="project")
      */
     protected $tickets;
 

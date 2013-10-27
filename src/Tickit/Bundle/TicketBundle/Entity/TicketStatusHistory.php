@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\TicketBundle\Entity;
+namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -27,7 +27,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * The TicketStatusHistory entity represents a snapshot of a ticket's status at a given point in time
  *
- * @package Tickit\TicketBundle\Entity
+ * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity

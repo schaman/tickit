@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\TicketBundle\Entity;
+namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\UserBundle\Entity\User;
@@ -27,7 +27,7 @@ use Tickit\UserBundle\Entity\User;
 /**
  * The Comment entity represents a comment that is placed on a Ticket by a given user
  *
- * @package Tickit\TicketBundle\Entity
+ * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity

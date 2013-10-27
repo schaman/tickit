@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\TicketBundle\Entity;
+namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -28,7 +28,7 @@ use Tickit\UserBundle\Entity\User;
 /**
  * The User entity represents an individual user within the application
  *
- * @package Tickit\TicketBundle\Entity
+ * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
@@ -71,7 +71,7 @@ class Ticket
     protected $project;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\TicketBundle\Entity\TicketStatus")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\TicketBundle\Entity\TicketStatus")
      * @ORM\JoinColumn(name="ticket_status_id", referencedColumnName="id")
      */
     protected $status;

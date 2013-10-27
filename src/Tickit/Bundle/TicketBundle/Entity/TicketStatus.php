@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\TicketBundle\Entity;
+namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * The TicketStatus entity represents a possible status type for a ticket
  *
- * @package Tickit\TicketBundle\Entity
+ * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
