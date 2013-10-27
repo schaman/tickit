@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Tests\Loader;
+namespace Tickit\Bundle\PreferenceBundle\Tests\Loader;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\PreferenceBundle\Entity\Preference;
-use Tickit\PreferenceBundle\Entity\UserPreferenceValue;
-use Tickit\PreferenceBundle\Loader\PreferenceLoader;
+use Tickit\Bundle\PreferenceBundle\Entity\Preference;
+use Tickit\Bundle\PreferenceBundle\Entity\UserPreferenceValue;
+use Tickit\Bundle\PreferenceBundle\Loader\PreferenceLoader;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * PreferenceLoader tests
  *
- * @package Tickit\PreferenceBundle\Tests\Loader
+ * @package Tickit\Bundle\PreferenceBundle\Tests\Loader
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceLoaderTest extends AbstractUnitTest
@@ -57,11 +57,11 @@ class PreferenceLoaderTest extends AbstractUnitTest
     {
         $this->session = $this->getMockSession();
 
-        $this->userPreferenceValueRepo = $this->getMockBuilder('\Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository')
+        $this->userPreferenceValueRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository')
                                               ->disableOriginalConstructor()
                                               ->getMock();
 
-        $this->preferenceRepo = $this->getMockBuilder('\Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository')
+        $this->preferenceRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository')
                                      ->disableOriginalConstructor()
                                      ->getMock();
     }

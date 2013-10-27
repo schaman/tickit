@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Loader;
+namespace Tickit\Bundle\PreferenceBundle\Loader;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
-use Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository;
-use Tickit\PreferenceBundle\Entity\UserPreferenceValue;
+use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository;
+use Tickit\Bundle\PreferenceBundle\Entity\UserPreferenceValue;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -32,7 +32,7 @@ use Tickit\UserBundle\Entity\User;
  *
  * Loads preferences into the current session.
  *
- * @package Tickit\PreferenceBundle\Loader
+ * @package Tickit\Bundle\PreferenceBundle\Loader
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceLoader implements LoaderInterface

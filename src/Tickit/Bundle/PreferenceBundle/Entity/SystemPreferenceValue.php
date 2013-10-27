@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Entity;
+namespace Tickit\Bundle\PreferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -29,7 +29,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * Represents a value for a system preference in the application.
  *
- * @package Tickit\PreferenceBundle\Entity
+ * @package Tickit\Bundle\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity

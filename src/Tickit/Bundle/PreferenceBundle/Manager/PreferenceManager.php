@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Manager;
+namespace Tickit\Bundle\PreferenceBundle\Manager;
 
-use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**
  * Preference Manager.
  *
  * Provides functionality for managing preference data in the application.
  *
- * @package Tickit\PreferenceBundle\Manager
+ * @package Tickit\Bundle\PreferenceBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceManager

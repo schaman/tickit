@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Tests\Controller;
+namespace Tickit\Bundle\PreferenceBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\PreferenceBundle\Controller\ApiController;
-use Tickit\PreferenceBundle\Entity\Preference;
+use Tickit\Bundle\PreferenceBundle\Controller\ApiController;
+use Tickit\Bundle\PreferenceBundle\Entity\Preference;
 
 /**
  * ApiController tests
  *
- * @package Tickit\PreferenceBundle\Tests\Controller
+ * @package Tickit\Bundle\PreferenceBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractUnitTest
@@ -56,7 +56,7 @@ class ApiControllerTest extends AbstractUnitTest
     {
         $this->filterCollectionBuilder = $this->getMockFilterCollectionBuilder();
 
-        $this->preferenceRepo = $this->getMockBuilder('\Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository')
+        $this->preferenceRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository')
                                      ->disableOriginalConstructor()
                                      ->getMock();
 

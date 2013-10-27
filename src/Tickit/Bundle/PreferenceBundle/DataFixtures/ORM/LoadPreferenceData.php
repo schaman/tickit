@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\PreferenceBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\PreferenceBundle\Entity\Preference;
+use Tickit\Bundle\PreferenceBundle\Entity\Preference;
 
 /**
  * Loads default preferences into the application
  *
- * @package Tickit\PreferenceBundle\DataFixtures\ORM
+ * @package Tickit\Bundle\PreferenceBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterface

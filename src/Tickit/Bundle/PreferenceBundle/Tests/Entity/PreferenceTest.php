@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Tests\Entity;
+namespace Tickit\Bundle\PreferenceBundle\Tests\Entity;
 
-use Tickit\PreferenceBundle\Entity\Preference;
+use Tickit\Bundle\PreferenceBundle\Entity\Preference;
 
 /**
  * Tests for Preference entity
  *
- * @package Tickit\PreferenceBundle\Tests\Entity
+ * @package Tickit\Bundle\PreferenceBundle\Tests\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceTest extends \PHPUnit_Framework_TestCase

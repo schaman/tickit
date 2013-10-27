@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle;
+namespace Tickit\Bundle\PreferenceBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Bundle build file for the TickitPreferenceBundle
  *
- * @package Tickit\PreferenceBundle
+ * @package Tickit\Bundle\PreferenceBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitPreferenceBundle extends Bundle

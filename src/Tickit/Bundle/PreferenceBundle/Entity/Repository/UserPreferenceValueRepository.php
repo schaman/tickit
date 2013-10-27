@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Entity\Repository;
+namespace Tickit\Bundle\PreferenceBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -28,7 +28,7 @@ use Tickit\UserBundle\Entity\User;
 /**
  * Provides a bunch of methods for returning Preference related data from the DBAL
  *
- * @package Tickit\PreferenceBundle\Entity\Repository
+ * @package Tickit\Bundle\PreferenceBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserPreferenceValueRepository extends EntityRepository

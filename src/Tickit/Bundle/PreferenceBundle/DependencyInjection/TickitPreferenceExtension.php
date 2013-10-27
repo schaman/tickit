@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\DependencyInjection;
+namespace Tickit\Bundle\PreferenceBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 /**
  * PreferenceBundle extension.
  *
- * @package Tickit\PreferenceBundle\DependencyInjection
+ * @package Tickit\Bundle\PreferenceBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitPreferenceExtension extends Extension

@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Controller;
+namespace Tickit\Bundle\PreferenceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
-use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**
  * Preferences controller.
  *
  * Provides actions for managing system and user preferences
  *
- * @package Tickit\PreferenceBundle\Controller
+ * @package Tickit\Bundle\PreferenceBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiController

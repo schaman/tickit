@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Entity;
+namespace Tickit\Bundle\PreferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -31,10 +31,10 @@ use Tickit\UserBundle\Interfaces\UserAwareInterface;
  *
  * Represents a user's desired value for a preference in the application.
  *
- * @package Tickit\PreferenceBundle\Entity
+ * @package Tickit\Bundle\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity(repositoryClass="Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository")
+ * @ORM\Entity(repositoryClass="Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository")
  * @ORM\Table(name="user_preference_values")
  */
 class UserPreferenceValue implements UserAwareInterface

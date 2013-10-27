@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Tests\Entity\Repository;
+namespace Tickit\Bundle\PreferenceBundle\Tests\Entity\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
-use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**
  * PreferenceRepository tests
  *
- * @package Tickit\PreferenceBundle\Tests\Entity\Repository
+ * @package Tickit\Bundle\PreferenceBundle\Tests\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceRepositoryTest extends AbstractOrmTest

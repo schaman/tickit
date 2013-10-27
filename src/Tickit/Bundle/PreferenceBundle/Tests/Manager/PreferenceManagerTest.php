@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\PreferenceBundle\Tests\Manager;
+namespace Tickit\Bundle\PreferenceBundle\Tests\Manager;
 
-use Tickit\PreferenceBundle\Manager\PreferenceManager;
+use Tickit\Bundle\PreferenceBundle\Manager\PreferenceManager;
 
 /**
  * PreferenceManagerTest tests
  *
- * @package Tickit\PreferenceBundle\Tests\Manager
+ * @package Tickit\Bundle\PreferenceBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +43,7 @@ class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $repository = $this->getMockBuilder('Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository')
+        $repository = $this->getMockBuilder('Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository')
                            ->disableOriginalConstructor()
                            ->getMock();
 
@@ -57,6 +57,6 @@ class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $repository = $this->manager->getRepository();
 
-        $this->assertInstanceOf('Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository', $repository);
+        $this->assertInstanceOf('Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository', $repository);
     }
 }

@@ -6,11 +6,11 @@
 
     <services>
 
-        <service id="tickit_preference.preference_repository" class="Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_preference.preference_repository" class="Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitPreferenceBundle:Preference</argument>
         </service>
 
-        <service id="tickit_preference.user_preference_value_repository" class="Tickit\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_preference.user_preference_value_repository" class="Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitPreferenceBundle:UserPreferenceValue</argument>
         </service>
 

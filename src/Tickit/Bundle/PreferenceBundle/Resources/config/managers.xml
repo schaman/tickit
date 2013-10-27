@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_preference.manager" class="Tickit\PreferenceBundle\Manager\PreferenceManager">
+        <service id="tickit_preference.manager" class="Tickit\Bundle\PreferenceBundle\Manager\PreferenceManager">
             <argument type="service" id="tickit_preference.preference_repository" />
         </service>
 
