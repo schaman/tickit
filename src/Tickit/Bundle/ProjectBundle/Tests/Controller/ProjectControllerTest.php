@@ -19,22 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Controller;
+namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Controller\ProjectController;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
-use Tickit\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Controller\ProjectController;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
 
 /**
  * ProjectController tests
  *
- * @package Tickit\ProjectBundle\Tests\Controller
+ * @package Tickit\Bundle\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectControllerTest extends AbstractUnitTest
@@ -78,15 +78,15 @@ class ProjectControllerTest extends AbstractUnitTest
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $this->attributeManager = $this->getMockBuilder('\Tickit\ProjectBundle\Manager\AttributeManager')
+        $this->attributeManager = $this->getMockBuilder('\Tickit\Bundle\ProjectBundle\Manager\AttributeManager')
                                        ->disableOriginalConstructor()
                                        ->getMock();
 
-        $this->projectFormType = $this->getMockBuilder('\Tickit\ProjectBundle\Form\Type\ProjectFormType')
+        $this->projectFormType = $this->getMockBuilder('\Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType')
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
-        $this->projectManager = $this->getMockBuilder('\Tickit\ProjectBundle\Manager\ProjectManager')
+        $this->projectManager = $this->getMockBuilder('\Tickit\Bundle\ProjectBundle\Manager\ProjectManager')
                                      ->disableOriginalConstructor()
                                      ->getMock();
     }

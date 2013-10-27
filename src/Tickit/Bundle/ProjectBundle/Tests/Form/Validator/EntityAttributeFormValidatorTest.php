@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\Validator;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Validator;
 
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Form\Validator\EntityAttributeFormValidator;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Form\Validator\EntityAttributeFormValidator;
 
 /**
  * EntityAttributeFormValidator tests
  *
- * @package Tickit\ProjectBundle\Tests\Form\Validator
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Validator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityAttributeFormValidatorTest extends \PHPUnit_Framework_TestCase
@@ -70,7 +70,7 @@ class EntityAttributeFormValidatorTest extends \PHPUnit_Framework_TestCase
     public function testIsEntityAttributeValidDoesNotAddViolationForValidEntity()
     {
         $attribute = new EntityAttribute();
-        $attribute->setEntity('Tickit\ProjectBundle\Entity\EntityAttribute');
+        $attribute->setEntity('Tickit\Bundle\ProjectBundle\Entity\EntityAttribute');
 
         $context = $this->getMockExecutionContext();
         $context->expects($this->exactly(0))

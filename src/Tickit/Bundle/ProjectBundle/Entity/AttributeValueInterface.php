@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Entity;
+namespace Tickit\Bundle\ProjectBundle\Entity;
 
 /**
  * Interface for entities that must contain an attribute and a value

@@ -19,22 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Controller;
+namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Controller\TemplateController;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
+use Tickit\Bundle\ProjectBundle\Controller\TemplateController;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
  * TemplateController tests
  *
- * @package Tickit\ProjectBundle\Tests\Controller
+ * @package Tickit\Bundle\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TemplateControllerTest extends AbstractUnitTest
@@ -64,17 +64,17 @@ class TemplateControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->attributeManager = $this->getMockBuilder('Tickit\ProjectBundle\Manager\AttributeManager')
+        $this->attributeManager = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Manager\AttributeManager')
                                        ->disableOriginalConstructor()
                                        ->getMock();
 
         $this->formHelper = $this->getMockFormHelper();
 
-        $this->projectFormType = $this->getMockBuilder('Tickit\ProjectBundle\Form\Type\ProjectFormType')
+        $this->projectFormType = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType')
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
-        $this->attributeFormTypeGuesser = $this->getMockBuilder('Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
+        $this->attributeFormTypeGuesser = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
                                                ->disableOriginalConstructor()
                                                ->getMock();
     }

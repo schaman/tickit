@@ -19,21 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Controller;
+namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Controller\ApiController;
-use Tickit\ProjectBundle\Controller\ProjectController;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Controller\ApiController;
+use Tickit\Bundle\ProjectBundle\Controller\ProjectController;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
 
 /**
  * ApiControllerTest tests
  *
- * @package Tickit\ProjectBundle\Tests\Controller
+ * @package Tickit\Bundle\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractUnitTest
@@ -70,11 +70,11 @@ class ApiControllerTest extends AbstractUnitTest
     {
         $this->filterBuilder = $this->getMockFilterCollectionBuilder();
 
-        $this->projectRepo = $this->getMockBuilder('Tickit\ProjectBundle\Entity\Repository\ProjectRepository')
+        $this->projectRepo = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
-        $this->attributeRepo = $this->getMockBuilder('Tickit\ProjectBundle\Entity\Repository\AttributeRepository')
+        $this->attributeRepo = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository')
                                     ->disableOriginalConstructor()
                                     ->getMock();
 

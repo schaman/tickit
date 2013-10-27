@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Event;
+namespace Tickit\Bundle\ProjectBundle\Form\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
@@ -31,7 +31,7 @@ use Symfony\Component\EventDispatcher\Event;
  * The purpose of this event is to provide other bundles with the ability to make their
  * entities available for selection in the EntityAttributeFormType.
  *
- * @package Tickit\ProjectBundle\Form\Event
+ * @package Tickit\Bundle\ProjectBundle\Form\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityAttributeFormBuildEvent extends Event

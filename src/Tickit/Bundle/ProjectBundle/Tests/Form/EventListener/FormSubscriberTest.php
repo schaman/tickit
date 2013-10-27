@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\EventListener;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\EventListener;
 
-use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
-use Tickit\ProjectBundle\Form\EventListener\FormSubscriber;
+use Tickit\Bundle\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
+use Tickit\Bundle\ProjectBundle\Form\EventListener\FormSubscriber;
 
 /**
  * FormSubscriber tests
  *
- * @package Tickit\ProjectBundle\Tests\Form\EventListener
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\EventListener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FormSubscriberTest extends \PHPUnit_Framework_TestCase
@@ -58,7 +58,7 @@ class FormSubscriberTest extends \PHPUnit_Framework_TestCase
 
         $choices = $event->getEntityChoices();
         $this->assertNotEmpty($choices);
-        $this->assertArrayHasKey('Tickit\ProjectBundle\Entity\Project', $choices);
+        $this->assertArrayHasKey('Tickit\Bundle\ProjectBundle\Entity\Project', $choices);
         $this->assertContains('Project', $choices);
     }
 }

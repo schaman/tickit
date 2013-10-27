@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Entity;
+namespace Tickit\Bundle\ProjectBundle\Tests\Entity;
 
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue;
 
 /**
  * AbstractAttributeValueTest tests
  *
- * @package Tickit\ProjectBundle\Tests\Entity
+ * @package Tickit\Bundle\ProjectBundle\Tests\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractAttributeValueTest extends \PHPUnit_Framework_TestCase
@@ -65,9 +65,9 @@ class AbstractAttributeValueTest extends \PHPUnit_Framework_TestCase
     public function getTypes()
     {
         return array(
-            array(AbstractAttribute::TYPE_CHOICE, 'Tickit\ProjectBundle\Entity\ChoiceAttributeValue'),
-            array(AbstractAttribute::TYPE_ENTITY, 'Tickit\ProjectBundle\Entity\EntityAttributeValue'),
-            array(AbstractAttribute::TYPE_LITERAL, 'Tickit\ProjectBundle\Entity\LiteralAttributeValue')
+            array(AbstractAttribute::TYPE_CHOICE, 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue'),
+            array(AbstractAttribute::TYPE_ENTITY, 'Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue'),
+            array(AbstractAttribute::TYPE_LITERAL, 'Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue')
         );
     }
 }

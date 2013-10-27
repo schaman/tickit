@@ -19,13 +19,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Event\Dispatcher;
+namespace Tickit\Bundle\ProjectBundle\Event\Dispatcher;
 
 use Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
-use Tickit\ProjectBundle\TickitProjectEvents;
+use Tickit\Bundle\ProjectBundle\TickitProjectEvents;
 
 /**
  * Event dispatcher for the Project entity
@@ -33,9 +33,9 @@ use Tickit\ProjectBundle\TickitProjectEvents;
  * This class is responsible for firing events related to the management of the
  * Project entity
  *
- * @package Tickit\ProjectBundle\Event\Dispatcher
+ * @package Tickit\Bundle\ProjectBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\ProjectBundle\Entity\Project
+ * @see     Tickit\Bundle\ProjectBundle\Entity\Project
  */
 class ProjectEventDispatcher extends AbstractEntityEventDispatcher
 {

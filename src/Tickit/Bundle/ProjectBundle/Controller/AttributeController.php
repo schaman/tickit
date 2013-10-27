@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Controller;
+namespace Tickit\Bundle\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,16 +27,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
-use Tickit\ProjectBundle\Manager\AttributeManager;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
+use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
 
 /**
  * Project attribute controller.
  *
  * Responsible for handling requests related to project attributes
  *
- * @package Tickit\ProjectBundle\Controller
+ * @package Tickit\Bundle\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeController

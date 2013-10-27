@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Entity\Repository;
+namespace Tickit\Bundle\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -31,7 +31,7 @@ use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
  *
  * Provides methods for fetching project attributes from the data layer
  *
- * @package Tickit\ProjectBundle\Entity\Repository
+ * @package Tickit\Bundle\ProjectBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeRepository extends EntityRepository implements FilterableRepositoryInterface

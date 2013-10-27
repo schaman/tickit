@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +29,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * Provides common fields for all attribute forms.
  *
- * @package Tickit\ProjectBundle\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractAttributeFormType extends AbstractType

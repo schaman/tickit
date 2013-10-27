@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\ProjectBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\ProjectBundle\Entity\ProjectSetting;
+use Tickit\Bundle\ProjectBundle\Entity\ProjectSetting;
 
 /**
  * Loads project setting data into the application

@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Controller;
+namespace Tickit\Bundle\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
-use Tickit\ProjectBundle\Form\Type\ProjectFormType;
-use Tickit\ProjectBundle\Manager\AttributeManager;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
+use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
+use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
 use Tickit\UserBundle\Manager\UserManager;
 
 /**
@@ -37,7 +37,7 @@ use Tickit\UserBundle\Manager\UserManager;
  *
  * Serves template content for the bundle.
  *
- * @package Tickit\ProjectBundle\Controller
+ * @package Tickit\Bundle\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TemplateController

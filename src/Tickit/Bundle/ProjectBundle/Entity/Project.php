@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Entity;
+namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,7 +33,7 @@ use Tickit\Bundle\ClientBundle\Entity\Client;
  *
  * Represents an application/website/product within the application
  *
- * @ORM\Entity(repositoryClass="Tickit\ProjectBundle\Entity\Repository\ProjectRepository")
+ * @ORM\Entity(repositoryClass="Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository")
  * @ORM\Table(name="projects")
  */
 class Project

@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
 
 /**
  * Choice attribute form.
  *
  * Provides functionality for editing choice attribute entities.
  *
- * @package Tickit\ProjectBundle\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ChoiceAttributeFormType extends AbstractAttributeFormType
@@ -91,7 +91,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\ChoiceAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute'));
     }
 
     /**

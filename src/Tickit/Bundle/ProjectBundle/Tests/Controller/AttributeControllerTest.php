@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Controller;
+namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Controller\AttributeController;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
+use Tickit\Bundle\ProjectBundle\Controller\AttributeController;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
  * AttributeController tests
  *
- * @package Tickit\ProjectBundle\Tests\Controller
+ * @package Tickit\Bundle\ProjectBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeControllerTest extends AbstractUnitTest
@@ -71,11 +71,11 @@ class AttributeControllerTest extends AbstractUnitTest
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $this->formTypeGuesser = $this->getMockBuilder('Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
+        $this->formTypeGuesser = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
-        $this->attributeManager = $this->getMockBuilder('Tickit\ProjectBundle\Manager\AttributeManager')
+        $this->attributeManager = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Manager\AttributeManager')
                                        ->disableOriginalConstructor()
                                        ->getMock();
     }

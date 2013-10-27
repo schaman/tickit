@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Interfaces;
+namespace Tickit\Bundle\ProjectBundle\Interfaces;
 
-use Tickit\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
 
 /**
  * Interface for classes that are Project aware
  *
- * @package Tickit\ProjectBundle\Interfaces
+ * @package Tickit\Bundle\ProjectBundle\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\ProjectBundle\Entity\Project
+ * @see     Tickit\Bundle\ProjectBundle\Entity\Project
  */
 interface ProjectAwareInterface
 {

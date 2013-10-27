@@ -6,15 +6,15 @@
 
     <services>
 
-        <service id="tickit_project.choice_attribute_choice_repository" class="Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_project.choice_attribute_choice_repository" class="Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitProjectBundle:ChoiceAttributeChoice</argument>
         </service>
 
-        <service id="tickit_project.attribute_repository" class="Tickit\ProjectBundle\Entity\Repository\AttributeRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_project.attribute_repository" class="Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitProjectBundle:AbstractAttribute</argument>
         </service>
 
-        <service id="tickit_project.project_repository" class="Tickit\ProjectBundle\Entity\Repository\ProjectRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_project.project_repository" class="Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitProjectBundle:Project</argument>
         </service>
 

@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Manager;
+namespace Tickit\Bundle\ProjectBundle\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Manager\ProjectManager;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Manager\ProjectManager;
 
 /**
  * Tests for the project manager
  *
- * @package Tickit\ProjectBundle\Tests\Manager
+ * @package Tickit\Bundle\ProjectBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManagerTest extends AbstractUnitTest
@@ -63,13 +63,13 @@ class ProjectManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->projectRepository = $this->getMockBuilder('Tickit\ProjectBundle\Entity\Repository\ProjectRepository')
+        $this->projectRepository = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository')
                                         ->disableOriginalConstructor()
                                         ->getMock();
 
         $this->em = $this->getMockEntityManager();
 
-        $this->dispatcher = $this->getMockBuilder('Tickit\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher')
+        $this->dispatcher = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }

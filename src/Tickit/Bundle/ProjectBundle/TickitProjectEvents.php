@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle;
+namespace Tickit\Bundle\ProjectBundle;
 
 /**
  * ProjectBundle events collection.
  *
  * This class contains a collection of constants representing event names for the project bundle
  *
- * @package Tickit\ProjectBundle
+ * @package Tickit\Bundle\ProjectBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitProjectEvents

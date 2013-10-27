@@ -65,7 +65,7 @@ class Ticket
     protected $ticketSubscriptions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\ProjectBundle\Entity\Project", inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\ProjectBundle\Entity\Project", inversedBy="tickets")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
     protected $project;

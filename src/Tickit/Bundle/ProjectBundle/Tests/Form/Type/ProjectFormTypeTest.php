@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Form\Type\ProjectFormType;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
 
 /**
  * ProjectFormType test
  *
- * @package Tickit\ProjectBundle\Tests\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectFormTypeTest extends AbstractFormTypeTestCase
@@ -44,7 +44,7 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
     {
         parent::setUp();
 
-        $mockAttributeForm = $this->getMockBuilder('Tickit\ProjectBundle\Form\Type\AttributeValueFormType')
+        $mockAttributeForm = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Form\Type\AttributeValueFormType')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 

@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Manager;
+namespace Tickit\Bundle\ProjectBundle\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Bundle\CoreBundle\Manager\AbstractManager;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository;
 
 /**
  * Project Manager
@@ -35,7 +35,7 @@ use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
  * Responsible for the management of project entities and their interaction
  * with the rest of the application
  *
- * @package Tickit\ProjectBundle\Manager
+ * @package Tickit\Bundle\ProjectBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManager extends AbstractManager

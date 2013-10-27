@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Entity;
+namespace Tickit\Bundle\ProjectBundle\Tests\Entity;
 
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
 
 /**
  * AbstractAttribute tests
  *
- * @package Tickit\ProjectBundle\Tests\Entity
+ * @package Tickit\Bundle\ProjectBundle\Tests\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractAttributeTest extends \PHPUnit_Framework_TestCase
@@ -38,7 +38,7 @@ class AbstractAttributeTest extends \PHPUnit_Framework_TestCase
     {
         $attribute = AbstractAttribute::factory(AbstractAttribute::TYPE_CHOICE);
 
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\ChoiceAttribute', $attribute);
+        $this->assertInstanceOf('\Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute', $attribute);
     }
 
     /**
@@ -48,7 +48,7 @@ class AbstractAttributeTest extends \PHPUnit_Framework_TestCase
     {
         $attribute = AbstractAttribute::factory(AbstractAttribute::TYPE_ENTITY);
 
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\EntityAttribute', $attribute);
+        $this->assertInstanceOf('\Tickit\Bundle\ProjectBundle\Entity\EntityAttribute', $attribute);
     }
 
     /**
@@ -58,7 +58,7 @@ class AbstractAttributeTest extends \PHPUnit_Framework_TestCase
     {
         $attribute = AbstractAttribute::factory(AbstractAttribute::TYPE_LITERAL);
 
-        $this->assertInstanceOf('\Tickit\ProjectBundle\Entity\LiteralAttribute', $attribute);
+        $this->assertInstanceOf('\Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute', $attribute);
     }
 
     /**

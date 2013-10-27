@@ -20,15 +20,15 @@
  */
 
 
-namespace Tickit\ProjectBundle\Tests\Form\Event;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Event;
 
-use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
-use Tickit\ProjectBundle\Tests\Form\Event;
+use Tickit\Bundle\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
+use Tickit\Bundle\ProjectBundle\Tests\Form\Event;
 
 /**
  * EntityAttributeFormBuildEvent tests
  *
- * @package Tickit\ProjectBundle\Tests\Form\Event
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityAttributeFormBuildEventTest extends \PHPUnit_Framework_TestCase

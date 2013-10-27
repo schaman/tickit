@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form;
+namespace Tickit\Bundle\ProjectBundle\Form;
 
 /**
  * ProjectBundle form events collection.
@@ -27,7 +27,7 @@ namespace Tickit\ProjectBundle\Form;
  * This class contains a collection of constants representing event names for the project bundle
  * that are specific to forms.
  *
- * @package Tickit\ProjectBundle\Form
+ * @package Tickit\Bundle\ProjectBundle\Form
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitProjectFormEvents

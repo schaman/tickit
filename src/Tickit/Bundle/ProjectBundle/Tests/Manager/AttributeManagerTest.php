@@ -19,22 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Manager;
+namespace Tickit\Bundle\ProjectBundle\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Manager\AttributeManager;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
 
 /**
  * AttributeManager tests
  *
- * @package Tickit\ProjectBundle\Tests\Manager
+ * @package Tickit\Bundle\ProjectBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeManagerTest extends AbstractUnitTest
@@ -62,7 +62,7 @@ class AttributeManagerTest extends AbstractUnitTest
         $attributeRepo = $this->getMockAttributeRepository();
         $choiceRepo = $this->getMockChoiceAttributeChoiceRepository();
 
-        $attribute = $this->getMockForAbstractClass('Tickit\ProjectBundle\Entity\AbstractAttribute');
+        $attribute = $this->getMockForAbstractClass('Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute');
 
         $entityManager->expects($this->once())
                       ->method('remove')
@@ -172,7 +172,7 @@ class AttributeManagerTest extends AbstractUnitTest
 
         $this->assertInstanceOf('\Doctrine\Common\Collections\Collection', $collection);
         $items = $collection->toArray();
-        $this->assertContainsOnlyInstancesOf('Tickit\ProjectBundle\Entity\AbstractAttributeValue', $items);
+        $this->assertContainsOnlyInstancesOf('Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue', $items);
     }
 
     /**
@@ -222,7 +222,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockChoiceAttributeChoiceRepository()
     {
-        return $this->getMockBuilder('Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository')
+        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -234,7 +234,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockAttributeRepository()
     {
-        return $this->getMockBuilder('Tickit\ProjectBundle\Entity\Repository\AttributeRepository')
+        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository')
                     ->disableOriginalConstructor()
                     ->getMock();
     }

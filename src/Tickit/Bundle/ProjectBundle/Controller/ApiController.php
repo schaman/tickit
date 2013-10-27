@@ -19,21 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Controller;
+namespace Tickit\Bundle\ProjectBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
-use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
-use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository;
 
 /**
  * Api project controller.
  *
  * Provides api related actions for projects.
  *
- * @package Tickit\ProjectBundle\Controller
+ * @package Tickit\Bundle\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiController

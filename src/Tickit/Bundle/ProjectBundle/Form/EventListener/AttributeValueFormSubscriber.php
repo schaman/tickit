@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\EventListener;
+namespace Tickit\Bundle\ProjectBundle\Form\EventListener;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\FormEvent;
@@ -27,11 +27,11 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * AttributeValueForm event subscriber.
@@ -39,9 +39,9 @@ use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
  * Responsible for hooking into the PRE_SET_DATA event and building the
  * attribute value form based on the type of attribute that the value is for.
  *
- * @package Tickit\ProjectBundle\Form\EventListener
+ * @package Tickit\Bundle\ProjectBundle\Form\EventListener
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\ProjectBundle\Form\Type\AttributeValueFormType
+ * @see     Tickit\Bundle\ProjectBundle\Form\Type\AttributeValueFormType
  */
 class AttributeValueFormSubscriber implements EventSubscriberInterface
 {
@@ -71,13 +71,13 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         switch (get_class($data)) {
-            case 'Tickit\ProjectBundle\Entity\ChoiceAttributeValue':
+            case 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue':
                 $this->buildChoiceValueFields($form, $data->getAttribute());
                 break;
-            case 'Tickit\ProjectBundle\Entity\EntityAttributeValue':
+            case 'Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue':
                 $this->buildEntityValueFields($form, $data->getAttribute());
                 break;
-            case 'Tickit\ProjectBundle\Entity\LiteralAttributeValue':
+            case 'Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue':
                 $this->buildLiteralValueFields($form, $data->getAttribute());
                 break;
         }
@@ -159,7 +159,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
             'value',
             'entity',
             array(
-                'class' => 'Tickit\ProjectBundle\Entity\ChoiceAttributeChoice',
+                'class' => 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice',
                 'query_builder' => function (ChoiceAttributeChoiceRepository $repo) use ($attribute) {
                     return $repo->getFindAllForAttributeQueryBuilder($attribute);
                 },

@@ -19,26 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Entity\EntityAttributeValue;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Form\Type\AttributeValueFormType;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Form\Type\AttributeValueFormType;
 
 /**
  * AttributeValueFormType tests
  *
- * @package Tickit\ProjectBundle\Tests\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeValueFormTypeTest extends AbstractFormTypeTestCase
@@ -113,7 +113,7 @@ class AttributeValueFormTypeTest extends AbstractFormTypeTestCase
     public function testFormBuildsEntityAttributesCorrectly()
     {
         $attribute = new EntityAttribute();
-        $attribute->setEntity('Tickit\ProjectBundle\Entity\Project');
+        $attribute->setEntity('Tickit\Bundle\ProjectBundle\Entity\Project');
 
         $attributeValue = new EntityAttributeValue();
         $attributeValue->setAttribute($attribute)

@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Type;
 
 use Symfony\Component\EventDispatcher\Tests\EventDispatcherTest;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
-use Tickit\ProjectBundle\Form\Type\EntityAttributeFormType;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
+use Tickit\Bundle\ProjectBundle\Form\Type\EntityAttributeFormType;
 
 /**
  * EntityAttributeFormType tests.
  *
- * @package Tickit\ProjectBundle\Tests\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityAttributeFormTypeTest extends AbstractFormTypeTestCase
@@ -41,7 +41,7 @@ class EntityAttributeFormTypeTest extends AbstractFormTypeTestCase
     protected function setUp()
     {
         $event = new EntityAttributeFormBuildEvent();
-        $event->addEntityChoice('\Tickit\ProjectBundle\Entity\Project', 'Project');
+        $event->addEntityChoice('\Tickit\Bundle\ProjectBundle\Entity\Project', 'Project');
 
         $dispatcher = $this->getMock('\Symfony\Component\HttpKernel\Tests\Fixtures\TestEventDispatcher');
 
@@ -62,7 +62,7 @@ class EntityAttributeFormTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create($this->formType);
 
         $entity = new EntityAttribute();
-        $entity->setEntity('\Tickit\ProjectBundle\Entity\Project')
+        $entity->setEntity('\Tickit\Bundle\ProjectBundle\Entity\Project')
                ->setName('name')
                ->setDefaultValue('default')
                ->setAllowBlank(true);

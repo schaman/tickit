@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\ProjectBundle\Form\EventListener\AttributeValueFormSubscriber;
+use Tickit\Bundle\ProjectBundle\Form\EventListener\AttributeValueFormSubscriber;
 
 /**
  * Attribute value form type.
  *
  * Provides functionality for adding/editing values for attributes
  *
- * @package Tickit\ProjectBundle\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeValueFormType extends AbstractType
@@ -55,7 +55,7 @@ class AttributeValueFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\AbstractAttributeValue'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue'));
     }
 
     /**

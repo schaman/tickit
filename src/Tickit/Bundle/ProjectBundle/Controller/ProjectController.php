@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Controller;
+namespace Tickit\Bundle\ProjectBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,17 +27,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Form\Type\ProjectFormType;
-use Tickit\ProjectBundle\Manager\AttributeManager;
-use Tickit\ProjectBundle\Manager\ProjectManager;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
+use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
+use Tickit\Bundle\ProjectBundle\Manager\ProjectManager;
 
 /**
  * Project controller.
  *
  * Responsible for handling requests related to projects
  *
- * @package Tickit\ProjectBundle\Controller
+ * @package Tickit\Bundle\ProjectBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectController

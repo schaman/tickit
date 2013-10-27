@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\ProjectBundle\Form\Type\ChoiceAttributeChoiceFormType;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Bundle\ProjectBundle\Form\Type\ChoiceAttributeChoiceFormType;
 
 /**
  * ChoiceAttributeChoiceFormType tests.
  *
- * @package Tickit\ProjectBundle\Tests\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ChoiceAttributeChoiceFormTypeTest extends AbstractFormTypeTestCase

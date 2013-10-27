@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Entity\Repository;
+namespace Tickit\Bundle\ProjectBundle\Tests\Entity\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
-use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository;
 
 /**
  * ProjectRepository tests
  *
- * @package Tickit\ProjectBundle\Tests\Entity\Repository
+ * @package Tickit\Bundle\ProjectBundle\Tests\Entity\Repository
  * @author  James Halsall <jhalsall@rippleffect.com>
  */
 class ProjectRepositoryTest extends AbstractOrmTest

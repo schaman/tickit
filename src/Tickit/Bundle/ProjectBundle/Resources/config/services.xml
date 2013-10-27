@@ -6,11 +6,11 @@
 
     <services>
 
-        <service id="tickit_project.project_event_dispatcher" class="Tickit\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher">
+        <service id="tickit_project.project_event_dispatcher" class="Tickit\Bundle\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher">
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="tickit_project.attribute_form_type_guesser" class="Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser">
+        <service id="tickit_project.attribute_form_type_guesser" class="Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser">
             <argument type="service" id="tickit_project.form.entity_attribute" />
         </service>
 

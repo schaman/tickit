@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Entity;
+namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,10 +27,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Entity representing a choice available for a ChoiceAttribute
  *
- * @package Tickit\ProjectBundle\Entity
+ * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity(repositoryClass="Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository")
+ * @ORM\Entity(repositoryClass="Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository")
  * @ORM\Table(name="project_attribute_choices")
  */
 class ChoiceAttributeChoice

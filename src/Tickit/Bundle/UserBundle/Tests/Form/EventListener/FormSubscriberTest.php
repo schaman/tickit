@@ -21,7 +21,7 @@
 
 namespace Tickit\UserBundle\Tests\Form\EventListener;
 
-use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
+use Tickit\Bundle\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
 use Tickit\UserBundle\Form\EventListener\FormSubscriber;
 
 /**

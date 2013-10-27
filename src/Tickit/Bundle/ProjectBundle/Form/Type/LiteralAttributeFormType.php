@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
 
 /**
  * Literal attribute form type.
  *
  * Provides functionality for adding/editing a literal attribute.
  *
- * @package Tickit\ProjectBundle\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LiteralAttributeFormType extends AbstractAttributeFormType
@@ -60,7 +60,7 @@ class LiteralAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\LiteralAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute'));
     }
 
     /**

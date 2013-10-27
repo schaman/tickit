@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\ProjectBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use Tickit\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
 
 /**
  * Loads project data into the application
  *
- * @package Tickit\ProjectBundle\DataFixtures\ORM
+ * @package Tickit\Bundle\ProjectBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface

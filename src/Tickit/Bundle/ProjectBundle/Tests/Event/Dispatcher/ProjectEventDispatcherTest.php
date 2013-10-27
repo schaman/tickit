@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Event\Dispatcher;
+namespace Tickit\Bundle\ProjectBundle\Tests\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher;
-use Tickit\ProjectBundle\TickitProjectEvents;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher;
+use Tickit\Bundle\ProjectBundle\TickitProjectEvents;
 
 /**
  * ProjectEventDispatcher tests
  *
- * @package Tickit\ProjectBundle\Tests\Event\Dispatcher
+ * @package Tickit\Bundle\ProjectBundle\Tests\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectEventDispatcherTest extends AbstractUnitTest

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Type;
+namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +31,7 @@ use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
  *
  * Provides functionality for adding/editing project entities.
  *
- * @package Tickit\ProjectBundle\Form\Type
+ * @package Tickit\Bundle\ProjectBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectFormType extends AbstractType
@@ -86,7 +86,7 @@ class ProjectFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\ProjectBundle\Entity\Project'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\Project'));
     }
 
     /**

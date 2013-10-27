@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Validator;
+namespace Tickit\Bundle\ProjectBundle\Form\Validator;
 
 use Symfony\Component\Validator\ExecutionContextInterface;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
 
 /**
  * Validator helper for EntityAttributeFormType
  *
- * @package Tickit\ProjectBundle\Form\Validator
+ * @package Tickit\Bundle\ProjectBundle\Form\Validator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityAttributeFormValidator

@@ -6,14 +6,14 @@
 
     <services>
 
-        <service id="tickit_project.controller.template" class="Tickit\ProjectBundle\Controller\TemplateController" scope="request">
+        <service id="tickit_project.controller.template" class="Tickit\Bundle\ProjectBundle\Controller\TemplateController" scope="request">
             <argument type="service" id="tickit_project.attribute_manager" />
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit_project.form.project" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
         </service>
 
-        <service id="tickit_project.controller.api" class="Tickit\ProjectBundle\Controller\ApiController" scope="request">
+        <service id="tickit_project.controller.api" class="Tickit\Bundle\ProjectBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
             <argument type="service" id="tickit_project.project_repository" />
             <argument type="service" id="tickit_project.attribute_repository" />
@@ -21,7 +21,7 @@
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
-        <service id="tickit_project.controller.project" class="Tickit\ProjectBundle\Controller\ProjectController" scope="request">
+        <service id="tickit_project.controller.project" class="Tickit\Bundle\ProjectBundle\Controller\ProjectController" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit_project.attribute_manager" />
@@ -30,7 +30,7 @@
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
-        <service id="tickit_project.controller.attribute" class="Tickit\ProjectBundle\Controller\ProjectController" scope="request">
+        <service id="tickit_project.controller.attribute" class="Tickit\Bundle\ProjectBundle\Controller\ProjectController" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />

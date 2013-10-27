@@ -19,24 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\ProjectBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\ProjectBundle\Entity\EntityAttribute;
-use Tickit\ProjectBundle\Entity\EntityAttributeValue;
-use Tickit\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
 
 /**
  * Loads project attribute data
  *
- * @package Tickit\ProjectBundle\DataFixtures\ORM
+ * @package Tickit\Bundle\ProjectBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadProjectAttributesData extends AbstractFixture implements OrderedFixtureInterface

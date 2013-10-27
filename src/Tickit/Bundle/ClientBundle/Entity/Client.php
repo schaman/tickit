@@ -121,7 +121,7 @@ class Client
      * Projects that belong to this client
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Tickit\ProjectBundle\Entity\Project", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="Tickit\Bundle\ProjectBundle\Entity\Project", mappedBy="client")
      */
     private $projects;
 

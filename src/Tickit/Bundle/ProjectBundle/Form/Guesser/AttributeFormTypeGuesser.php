@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Form\Guesser;
+namespace Tickit\Bundle\ProjectBundle\Form\Guesser;
 
 use Symfony\Component\Form\AbstractType;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Form\Type\ChoiceAttributeFormType;
-use Tickit\ProjectBundle\Form\Type\EntityAttributeFormType;
-use Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Form\Type\ChoiceAttributeFormType;
+use Tickit\Bundle\ProjectBundle\Form\Type\EntityAttributeFormType;
+use Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**
  * Attribute form type guesser.
  *
- * @package Tickit\ProjectBundle\Form\Guesser
+ * @package Tickit\Bundle\ProjectBundle\Form\Guesser
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeFormTypeGuesser

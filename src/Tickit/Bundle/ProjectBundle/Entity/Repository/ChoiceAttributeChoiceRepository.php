@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Entity\Repository;
+namespace Tickit\Bundle\ProjectBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
 
 /**
  * ChoiceAttributeChoice repository.
  *
  * Provides functionality for fetching data for ChoiceAttributeChoice entities
  *
- * @package Tickit\ProjectBundle\Entity\Repository
+ * @package Tickit\Bundle\ProjectBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ChoiceAttributeChoiceRepository extends EntityRepository

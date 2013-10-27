@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Form\Guesser;
+namespace Tickit\Bundle\ProjectBundle\Tests\Form\Guesser;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
 
 /**
  * AttributeFormTypeGuesser tests
  *
- * @package Tickit\ProjectBundle\Tests\Form\Guesser
+ * @package Tickit\Bundle\ProjectBundle\Tests\Form\Guesser
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeFormTypeGuesserTest extends AbstractUnitTest
@@ -43,7 +43,7 @@ class AttributeFormTypeGuesserTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->entityAttributeFormType = $this->getMockBuilder('\Tickit\ProjectBundle\Form\Type\EntityAttributeFormType')
+        $this->entityAttributeFormType = $this->getMockBuilder('\Tickit\Bundle\ProjectBundle\Form\Type\EntityAttributeFormType')
                                               ->disableOriginalConstructor()
                                               ->getMock();
     }
@@ -69,7 +69,7 @@ class AttributeFormTypeGuesserTest extends AbstractUnitTest
     {
         $formType = $this->getGuesser()->guessByAttributeType(AbstractAttribute::TYPE_LITERAL);
 
-        $this->assertInstanceOf('Tickit\ProjectBundle\Form\Type\LiteralAttributeFormType', $formType);
+        $this->assertInstanceOf('Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType', $formType);
     }
 
     /**
@@ -94,7 +94,7 @@ class AttributeFormTypeGuesserTest extends AbstractUnitTest
         $guesser = $this->getGuesser();
         $formType = $guesser->guessByAttributeType(AbstractAttribute::TYPE_CHOICE);
 
-        $this->assertInstanceOf('Tickit\ProjectBundle\Form\Type\ChoiceAttributeFormType', $formType);
+        $this->assertInstanceOf('Tickit\Bundle\ProjectBundle\Form\Type\ChoiceAttributeFormType', $formType);
     }
 
     /**

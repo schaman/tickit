@@ -19,24 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Manager;
+namespace Tickit\Bundle\ProjectBundle\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\ProjectBundle\Entity\Project;
-use Tickit\ProjectBundle\Entity\Repository\AttributeRepository;
-use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository;
+use Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * Attribute manager.
  *
  * Responsible for project attribute entities in the application.
  *
- * @package Tickit\ProjectBundle\Manager
+ * @package Tickit\Bundle\ProjectBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeManager

@@ -25,7 +25,7 @@ use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Listener\ProjectListener;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\ProjectBundle\Entity\Project;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
 
 /**
  * ProjectListener tests

@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Tests\Entity;
+namespace Tickit\Bundle\ProjectBundle\Tests\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
+use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
 
 /**
  * ChoiceAttribute tests
  *
- * @package Tickit\ProjectBundle\Tests\Entity
+ * @package Tickit\Bundle\ProjectBundle\Tests\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ChoiceAttributeTest extends \PHPUnit_Framework_TestCase

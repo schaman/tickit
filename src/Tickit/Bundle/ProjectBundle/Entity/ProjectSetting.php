@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ProjectBundle\Entity;
+namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * The ProjectSetting entity represents a specific setting that is customisable per project
  *
- * @package Tickit\ProjectBundle\Entity
+ * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  * @ORM\Entity
