@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Builder;
+namespace Tickit\Bundle\NavigationBundle\Builder;
 
 /**
  * Navigation builder interface.
  *
  * Builders provide functionality for building navigation elements in the application.
  *
- * @package Tickit\NavigationBundle\Builder
+ * @package Tickit\Bundle\NavigationBundle\Builder
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 interface BuilderInterface

@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Event;
+namespace Tickit\Bundle\NavigationBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * Before navigation build event.
  *
  * Event that is fired when a navigation component is being built.
  *
- * @package Tickit\NavigationBundle\Event
+ * @package Tickit\Bundle\NavigationBundle\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */

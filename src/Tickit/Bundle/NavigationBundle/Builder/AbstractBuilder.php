@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Builder;
+namespace Tickit\Bundle\NavigationBundle\Builder;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Abstract implementation of a navigation builder.
  *
- * @package Tickit\NavigationBundle\Builder
+ * @package Tickit\Bundle\NavigationBundle\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractBuilder

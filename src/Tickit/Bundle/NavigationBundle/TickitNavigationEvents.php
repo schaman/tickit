@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle;
+namespace Tickit\Bundle\NavigationBundle;
 
 /**
  * NavigationBundle events collection.
  *
  * This class contains a collection of constants representing event names for the navigation bundle
  *
- * @package Tickit\NavigationBundle
+ * @package Tickit\Bundle\NavigationBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 final class TickitNavigationEvents

@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Tests\Builder;
+namespace Tickit\Bundle\NavigationBundle\Tests\Builder;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\NavigationBundle\Builder\NavigationBuilder;
-use Tickit\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\NavigationBundle\TickitNavigationEvents;
+use Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder;
+use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
 
 /**
  * NavigationBuilderTest tests
  *
- * @package Tickit\NavigationBundle\Tests\Builder
+ * @package Tickit\Bundle\NavigationBundle\Tests\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderTest extends AbstractUnitTest

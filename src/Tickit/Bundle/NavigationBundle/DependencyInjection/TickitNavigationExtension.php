@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\DependencyInjection;
+namespace Tickit\Bundle\NavigationBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,7 +29,7 @@ use Symfony\Component\Config\FileLocator;
 /**
  * Extension class for the navigation bundle
  *
- * @package Tickit\NavigationBundle\DependencyInjection
+ * @package Tickit\Bundle\NavigationBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitNavigationExtension extends Extension

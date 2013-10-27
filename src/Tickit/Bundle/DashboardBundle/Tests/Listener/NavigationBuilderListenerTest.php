@@ -22,8 +22,8 @@
 namespace Tickit\Bundle\DashboardBundle\Tests\Listener;
 
 use Tickit\Bundle\DashboardBundle\Listener\NavigationBuilderListener;
-use Tickit\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * NavigationBuilderListener tests
@@ -47,7 +47,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $event->getItems()->count());
         $first = $event->getItems()->top();
-        $this->assertInstanceOf('\Tickit\NavigationBundle\Model\NavigationItem', $first);
+        $this->assertInstanceOf('\Tickit\Bundle\NavigationBundle\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
         $this->assertEquals('Dashboard', $first->getText());
     }

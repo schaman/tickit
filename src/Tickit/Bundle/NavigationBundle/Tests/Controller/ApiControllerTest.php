@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Tests\Controller;
+namespace Tickit\Bundle\NavigationBundle\Tests\Controller;
 
-use Tickit\NavigationBundle\Controller\ApiController;
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Controller\ApiController;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * ApiController tests
  *
- * @package Tickit\NavigationBundle\Tests\Controller
+ * @package Tickit\Bundle\NavigationBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends \PHPUnit_Framework_TestCase
@@ -42,7 +42,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->navigationBuilder = $this->getMockBuilder('Tickit\NavigationBundle\Builder\NavigationBuilder')
+        $this->navigationBuilder = $this->getMockBuilder('Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder')
                                         ->disableOriginalConstructor()
                                         ->getMock();
     }

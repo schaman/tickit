@@ -22,8 +22,8 @@
 namespace Tickit\Bundle\ClientBundle\Listener;
 
 use Symfony\Component\Routing\RouterInterface;
-use Tickit\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * Navigation builder listener.

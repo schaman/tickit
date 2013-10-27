@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Controller;
+namespace Tickit\Bundle\NavigationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\NavigationBundle\Builder\NavigationBuilder;
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * Provides actions related to the application navigation
  *
- * @package Tickit\NavigationBundle\Controller
+ * @package Tickit\Bundle\NavigationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiController

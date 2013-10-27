@@ -21,8 +21,8 @@
 
 namespace Tickit\UserBundle\Listener;
 
-use Tickit\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * User navigation builder listener

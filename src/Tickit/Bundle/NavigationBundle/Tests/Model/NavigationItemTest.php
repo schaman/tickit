@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Tests\Model;
+namespace Tickit\Bundle\NavigationBundle\Tests\Model;
 
-use Tickit\NavigationBundle\Model\NavigationItem;
+use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**
  * NavigationItem tests
  *
- * @package Tickit\NavigationBundle\Tests\Model
+ * @package Tickit\Bundle\NavigationBundle\Tests\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationItemTest extends \PHPUnit_Framework_TestCase

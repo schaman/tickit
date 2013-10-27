@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NavigationBundle\Builder;
+namespace Tickit\Bundle\NavigationBundle\Builder;
 
-use Tickit\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\NavigationBundle\TickitNavigationEvents;
+use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
 
 /**
  * Main navigation builder.
  *
  * Responsible for building the main navigation structure.
  *
- * @package Tickit\NavigationBundle\Builder
+ * @package Tickit\Bundle\NavigationBundle\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
