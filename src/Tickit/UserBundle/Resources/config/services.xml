@@ -26,11 +26,6 @@
             <argument type="service" id="router" />
         </service>
 
-        <service id="tickit_user.user_converter" class="Tickit\UserBundle\Converter\UserIdToStringValueConverter">
-            <argument type="service" id="tickit_user.manager" />
-            <argument type="service" id="tickit_user.display_name_decorator" />
-        </service>
-
         <service id="tickit_user.display_name_decorator" class="Tickit\UserBundle\Decorator\UserEntityDisplayNameDecorator" />
 
     </services>
