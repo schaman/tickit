@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 use DateTime;
 
 /**

@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Security;
+namespace Tickit\Bundle\UserBundle\Tests\Security;
 
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Security\UserProvider;
-use Tickit\UserBundle\Tests\Security\Mock\MockInvalidTypeUser;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Security\UserProvider;
+use Tickit\Bundle\UserBundle\Tests\Security\Mock\MockInvalidTypeUser;
 
 /**
  * UserProvider tests
  *
- * @package Tickit\UserBundle\Tests\Security
+ * @package Tickit\Bundle\UserBundle\Tests\Security
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserProviderTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +43,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->userManager = $this->getMockBuilder('\Tickit\UserBundle\Manager\UserManager')
+        $this->userManager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
                                   ->disableOriginalConstructor()
                                   ->getMock();
     }
@@ -57,9 +57,9 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
                           ->method('getClass')
-                          ->will($this->returnValue('Tickit\UserBundle\Entity\User'));
+                          ->will($this->returnValue('Tickit\Bundle\UserBundle\Entity\User'));
 
-        $this->assertTrue($this->getProvider()->supportsClass('Tickit\UserBundle\Entity\User'));
+        $this->assertTrue($this->getProvider()->supportsClass('Tickit\Bundle\UserBundle\Entity\User'));
     }
 
     /**
@@ -71,7 +71,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
                           ->method('getClass')
-                          ->will($this->returnValue('Tickit\UserBundle\Entity\User'));
+                          ->will($this->returnValue('Tickit\Bundle\UserBundle\Entity\User'));
 
         $this->assertFalse($this->getProvider()->supportsClass('\stdClass'));
     }

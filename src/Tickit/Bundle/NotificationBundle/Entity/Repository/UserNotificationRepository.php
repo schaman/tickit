@@ -23,7 +23,7 @@ namespace Tickit\Bundle\NotificationBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * User notification repository.

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Avatar\Entity;
+namespace Tickit\Bundle\UserBundle\Avatar\Entity;
 
 /**
  * Abstract Avatar aware entity interface

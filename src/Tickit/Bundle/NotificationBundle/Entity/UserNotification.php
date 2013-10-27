@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\NotificationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * User notification.
@@ -40,7 +40,7 @@ class UserNotification extends AbstractNotification
      * The recipient user
      *
      * @var User
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User", inversedBy="notifications")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User", inversedBy="notifications")
      * @ORM\JoinColumn(name="recipient_id", referencedColumnName="id")
      */
     protected $recipient;

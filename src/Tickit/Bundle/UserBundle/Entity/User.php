@@ -19,22 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Entity;
+namespace Tickit\Bundle\UserBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
+use Tickit\Bundle\UserBundle\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * The User entity represents a logged in user in the application
  *
- * @package Tickit\UserBundle\Entity
+ * @package Tickit\Bundle\UserBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity(repositoryClass="Tickit\UserBundle\Entity\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Tickit\Bundle\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
 class User extends BaseUser implements AvatarAwareInterface

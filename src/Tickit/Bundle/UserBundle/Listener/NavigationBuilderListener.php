@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Listener;
+namespace Tickit\Bundle\UserBundle\Listener;
 
 use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
@@ -27,7 +27,7 @@ use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 /**
  * User navigation builder listener
  *
- * @package Tickit\UserBundle\Listener
+ * @package Tickit\Bundle\UserBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderListener

@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle;
+namespace Tickit\Bundle\UserBundle;
 
 /**
  * UserBundle events collection.
  *
  * This class contains a collection of constants representing event names for the user bundle
  *
- * @package Tickit\UserBundle
+ * @package Tickit\Bundle\UserBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitUserEvents

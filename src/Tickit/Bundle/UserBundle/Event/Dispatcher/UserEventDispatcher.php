@@ -19,13 +19,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Event\Dispatcher;
+namespace Tickit\Bundle\UserBundle\Event\Dispatcher;
 
 use Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent;
 use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
-use Tickit\UserBundle\TickitUserEvents;
+use Tickit\Bundle\UserBundle\TickitUserEvents;
 
 /**
  * Event dispatcher for the User entity
@@ -33,9 +33,9 @@ use Tickit\UserBundle\TickitUserEvents;
  * This class is responsible for firing events related to the management of the
  * User entity
  *
- * @package Tickit\UserBundle\Event\Dispatcher
+ * @package Tickit\Bundle\UserBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\UserBundle\Entity\User
+ * @see     Tickit\Bundle\UserBundle\Entity\User
  */
 class UserEventDispatcher extends AbstractEntityEventDispatcher
 {

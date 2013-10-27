@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Controller;
+namespace Tickit\Bundle\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  *
  * Responsible for handling requests related to user profiles
  *
- * @package Tickit\UserBundle\Controller
+ * @package Tickit\Bundle\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProfileController extends BaseController

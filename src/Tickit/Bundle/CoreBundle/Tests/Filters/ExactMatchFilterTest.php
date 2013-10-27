@@ -71,7 +71,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
         $this->trainQueryToReturnEntityManager($query, $em);
 
         $classMeta = new \stdClass();
-        $classMeta->name = 'Tickit\UserBundle\Entity\User';
+        $classMeta->name = 'Tickit\Bundle\UserBundle\Entity\User';
 
         $this->trainEntityManagerToReturnClassMetaData($em, $classMeta);
 

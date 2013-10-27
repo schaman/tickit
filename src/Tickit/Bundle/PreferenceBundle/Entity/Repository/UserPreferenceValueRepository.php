@@ -23,7 +23,7 @@ namespace Tickit\Bundle\PreferenceBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Provides a bunch of methods for returning Preference related data from the DBAL

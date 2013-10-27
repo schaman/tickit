@@ -23,7 +23,7 @@ namespace Tickit\Bundle\NotificationBundle\Tests\Entity\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * UserNotificationRepository tests

@@ -5,12 +5,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
         <services>
 
-            <service id="tickit_user.controller.template" class="Tickit\UserBundle\Controller\TemplateController" scope="request">
+            <service id="tickit_user.controller.template" class="Tickit\Bundle\UserBundle\Controller\TemplateController" scope="request">
                 <argument type="service" id="tickit_user.manager" />
                 <argument type="service" id="tickit.controller.form_helper" />
             </service>
 
-            <service id="tickit_user.controller.api" class="Tickit\UserBundle\Controller\ApiController" scope="request">
+            <service id="tickit_user.controller.api" class="Tickit\Bundle\UserBundle\Controller\ApiController" scope="request">
                 <argument type="service" id="tickit.controller.base_helper" />
                 <argument type="service" id="tickit.controller.csrf_helper" />
                 <argument type="service" id="tickit.filter_collection_builder" />
@@ -18,7 +18,7 @@
                 <argument type="service" id="tickit_user.avatar_adapter" />
             </service>
 
-            <service id="tickit_user.controller.user" class="Tickit\UserBundle\Controller\UserController" scope="request">
+            <service id="tickit_user.controller.user" class="Tickit\Bundle\UserBundle\Controller\UserController" scope="request">
                 <argument type="service" id="tickit.controller.csrf_helper" />
                 <argument type="service" id="tickit.controller.form_helper" />
                 <argument type="service" id="tickit.controller.base_helper" />

@@ -23,8 +23,8 @@ namespace Tickit\Bundle\PreferenceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Interfaces\UserAwareInterface;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
 
 /**
  * UserPreferenceValue entity.
@@ -44,7 +44,7 @@ class UserPreferenceValue implements UserAwareInterface
      *
      * @var User
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;

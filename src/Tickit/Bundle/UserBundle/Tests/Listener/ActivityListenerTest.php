@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Listener;
+namespace Tickit\Bundle\UserBundle\Tests\Listener;
 
 use Symfony\Component\HttpKernel\HttpKernel;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Listener\ActivityListener;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Listener\ActivityListener;
 
 /**
  * ActivityListener tests
  *
- * @package Tickit\UserBundle\Tests\Listener
+ * @package Tickit\Bundle\UserBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ActivityListenerTest extends AbstractUnitTest
@@ -56,7 +56,7 @@ class ActivityListenerTest extends AbstractUnitTest
 
         $manager->expects($this->once())
                 ->method('persist')
-                ->with($this->isInstanceOf('Tickit\UserBundle\Entity\User'));
+                ->with($this->isInstanceOf('Tickit\Bundle\UserBundle\Entity\User'));
 
         $manager->expects($this->once())
                 ->method('flush')

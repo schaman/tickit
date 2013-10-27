@@ -23,7 +23,7 @@ namespace Tickit\Bundle\NotificationBundle\Factory;
 
 use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
 use Tickit\Bundle\NotificationBundle\Model\NotificationDataInterface;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Notification factory.

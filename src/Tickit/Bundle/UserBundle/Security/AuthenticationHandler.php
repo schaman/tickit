@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Security;
+namespace Tickit\Bundle\UserBundle\Security;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
  *
  * Responsible for dealing with post-authentication attempts.
  *
- * @package Tickit\UserBundle\Security
+ * @package Tickit\Bundle\UserBundle\Security
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface

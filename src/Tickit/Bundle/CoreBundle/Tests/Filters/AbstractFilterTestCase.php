@@ -37,7 +37,7 @@ class AbstractFilterTestCase extends AbstractUnitTest
     {
         $query->expects($this->once())
               ->method('getRootEntities')
-              ->will($this->returnValue(array('Tickit\UserBundle\Entity\User')));
+              ->will($this->returnValue(array('Tickit\Bundle\UserBundle\Entity\User')));
     }
 
     protected function trainQueryToReturnEntityManager(\PHPUnit_Framework_MockObject_MockObject $query, \PHPUnit_Framework_MockObject_MockObject $em)
@@ -50,11 +50,11 @@ class AbstractFilterTestCase extends AbstractUnitTest
     protected function trainEntityManagerToReturnClassMetaData(\PHPUnit_Framework_MockObject_MockObject $em)
     {
         $classMeta = new \stdClass();
-        $classMeta->name = 'Tickit\UserBundle\Entity\User';
+        $classMeta->name = 'Tickit\Bundle\UserBundle\Entity\User';
 
         $em->expects($this->once())
            ->method('getClassMetaData')
-           ->with('Tickit\UserBundle\Entity\User')
+           ->with('Tickit\Bundle\UserBundle\Entity\User')
            ->will($this->returnValue($classMeta));
     }
 }

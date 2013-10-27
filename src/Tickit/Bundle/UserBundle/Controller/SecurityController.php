@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Controller;
+namespace Tickit\Bundle\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * Overrides functionality provided by FOSUserBundle so that we can add custom logic to login related actions
  *
- * @package Tickit\UserBundle\Controller
+ * @package Tickit\Bundle\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class SecurityController extends BaseController

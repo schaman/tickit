@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Controller;
+namespace Tickit\Bundle\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Controller\TemplateController;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Controller\TemplateController;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * TemplateController tests
  *
- * @package Tickit\UserBundle\Tests\Controller
+ * @package Tickit\Bundle\UserBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TemplateControllerTest extends AbstractUnitTest
@@ -49,7 +49,7 @@ class TemplateControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->userManager = $this->getMockBuilder('\Tickit\UserBundle\Manager\UserManager')
+        $this->userManager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 

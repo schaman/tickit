@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Manager;
+namespace Tickit\Bundle\UserBundle\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Entity\Repository\UserRepository;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Manager\UserManager;
+use Tickit\Bundle\UserBundle\Entity\Repository\UserRepository;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Manager\UserManager;
 
 /**
  * UserManager tests
  *
- * @package Tickit\UserBundle\Tests\Manager
+ * @package Tickit\Bundle\UserBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserManagerTest extends AbstractUnitTest
@@ -73,13 +73,13 @@ class UserManagerTest extends AbstractUnitTest
                                  ->disableOriginalConstructor()
                                  ->getMock();
 
-        $this->userRepo = $this->getMockBuilder('\Tickit\UserBundle\Entity\Repository\UserRepository')
+        $this->userRepo = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Entity\Repository\UserRepository')
                                ->disableOriginalConstructor()
                                ->getMock();
 
         $this->em = $this->getMockEntityManager();
 
-        $this->dispatcher = $this->getMockBuilder('\Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher')
+        $this->dispatcher = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Event\Dispatcher\UserEventDispatcher')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }
@@ -97,7 +97,7 @@ class UserManagerTest extends AbstractUnitTest
      */
     public function testGetClassReturnsCorrectValue()
     {
-        $this->assertEquals('Tickit\UserBundle\Entity\User', $this->getUserManager()->getClass());
+        $this->assertEquals('Tickit\Bundle\UserBundle\Entity\User', $this->getUserManager()->getClass());
     }
 
     /**
@@ -409,7 +409,7 @@ class UserManagerTest extends AbstractUnitTest
      */
     public function testCreateUserReturnsCorrectInstance()
     {
-        $this->assertInstanceOf('\Tickit\UserBundle\Entity\User', $this->getUserManager()->createUser());
+        $this->assertInstanceOf('\Tickit\Bundle\UserBundle\Entity\User', $this->getUserManager()->createUser());
     }
 
     /**

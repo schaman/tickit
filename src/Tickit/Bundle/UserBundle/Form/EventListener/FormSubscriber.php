@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\EventListener;
+namespace Tickit\Bundle\UserBundle\Form\EventListener;
 
 use Tickit\Bundle\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
 
@@ -28,7 +28,7 @@ use Tickit\Bundle\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
  *
  * Responsible for hooking into form related events.
  *
- * @package Tickit\UserBundle\Form\EventListener
+ * @package Tickit\Bundle\UserBundle\Form\EventListener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FormSubscriber
@@ -45,6 +45,6 @@ class FormSubscriber
      */
     public function onEntityAttributeFormBuild(EntityAttributeFormBuildEvent $event)
     {
-        $event->addEntityChoice('Tickit\UserBundle\Entity\User', 'User');
+        $event->addEntityChoice('Tickit\Bundle\UserBundle\Entity\User', 'User');
     }
 }

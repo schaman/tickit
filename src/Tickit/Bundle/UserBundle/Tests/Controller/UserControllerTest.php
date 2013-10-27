@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Controller;
+namespace Tickit\Bundle\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Controller\UserController;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Controller\UserController;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * UserController tests
  *
- * @package Tickit\UserBundle\Tests\Controller
+ * @package Tickit\Bundle\UserBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserControllerTest extends AbstractUnitTest
@@ -69,11 +69,11 @@ class UserControllerTest extends AbstractUnitTest
         $this->formHelper = $this->getMockFormHelper();
         $this->baseHelper = $this->getMockBaseHelper();
 
-        $this->userManager = $this->getMockBuilder('\Tickit\UserBundle\Manager\UserManager')
+        $this->userManager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
-        $this->passwordUpdater = $this->getMockBuilder('\Tickit\UserBundle\Form\Password\UserPasswordUpdater')
+        $this->passwordUpdater = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater')
                                       ->getMock();
     }
     

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Security;
+namespace Tickit\Bundle\UserBundle\Tests\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -28,13 +28,13 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Tickit\Bundle\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Security\AuthenticationHandler;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Security\AuthenticationHandler;
 
 /**
  * AuthenticationHandler tests
  *
- * @package Tickit\UserBundle\Tests\Security
+ * @package Tickit\Bundle\UserBundle\Tests\Security
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AuthenticationHandlerTest extends AbstractUnitTest

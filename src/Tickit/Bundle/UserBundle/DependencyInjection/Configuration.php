@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\DependencyInjection;
+namespace Tickit\Bundle\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -27,7 +27,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 /**
  * User bundle configuration
  *
- * @package Tickit\UserBundle\DependencyInjection
+ * @package Tickit\Bundle\UserBundle\DependencyInjection
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class Configuration implements ConfigurationInterface

@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Controller;
+namespace Tickit\Bundle\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Controller\SecurityController;
+use Tickit\Bundle\UserBundle\Controller\SecurityController;
 
 /**
  * SecurityController tests
  *
- * @package Tickit\UserBundle\Tests\Controller
+ * @package Tickit\Bundle\UserBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class SecurityControllerTest extends AbstractUnitTest

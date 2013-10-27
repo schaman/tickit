@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\DependencyInjection;
+namespace Tickit\Bundle\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -30,7 +30,7 @@ use Symfony\Component\Config\FileLocator;
 /**
  * User bundle DI extension
  *
- * @package Tickit\UserBundle\DependencyInjection
+ * @package Tickit\Bundle\UserBundle\DependencyInjection
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class TickitUserExtension extends Extension

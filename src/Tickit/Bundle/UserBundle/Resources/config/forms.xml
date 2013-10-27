@@ -5,31 +5,31 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
         <services>
 
-            <service id="tickit_user.user_form_type" class="Tickit\UserBundle\Form\Type\UserFormType">
+            <service id="tickit_user.user_form_type" class="Tickit\Bundle\UserBundle\Form\Type\UserFormType">
                 <tag name="form.type" alias="tickit_user" />
             </service>
 
-            <service id="tickit_user.profile.form.type" class="Tickit\UserBundle\Form\Type\ProfileFormType">
+            <service id="tickit_user.profile.form.type" class="Tickit\Bundle\UserBundle\Form\Type\ProfileFormType">
                 <tag name="form.type" alias="tickit_user_profile" />
                 <argument>%fos_user.model.user.class%</argument>
             </service>
 
-            <service id="tickit_user.registration.form.type" class="Tickit\UserBundle\Form\Type\RegistrationFormType">
+            <service id="tickit_user.registration.form.type" class="Tickit\Bundle\UserBundle\Form\Type\RegistrationFormType">
                 <tag name="form.type" alias="tickit_user_registration" />
                 <argument>%fos_user.model.user.class%</argument>
             </service>
 
-            <service id="tickit_user.form.type.user_picker" class="Tickit\UserBundle\Form\Type\Picker\UserPickerType">
+            <service id="tickit_user.form.type.user_picker" class="Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType">
                 <tag name="form.type" alias="tickit_user_picker" />
                 <argument type="service" id="tickit_user.display_name_decorator" />
                 <argument type="service" id="tickit_user.form.user_picker_data_transformer" />
             </service>
 
-            <service id="tickit_user.form.user_picker_data_transformer" class="Tickit\UserBundle\Form\Type\Picker\DataTransformer\UserPickerDataTransformer">
+            <service id="tickit_user.form.user_picker_data_transformer" class="Tickit\Bundle\UserBundle\Form\Type\Picker\DataTransformer\UserPickerDataTransformer">
                 <argument type="service" id="tickit_user.manager" />
             </service>
 
-            <service id="tickit_user.form.password_updater" class="Tickit\UserBundle\Form\Password\UserPasswordUpdater" />
+            <service id="tickit_user.form.password_updater" class="Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater" />
 
         </services>
 </container>

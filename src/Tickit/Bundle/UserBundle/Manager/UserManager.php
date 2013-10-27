@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Manager;
+namespace Tickit\Bundle\UserBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
@@ -27,8 +27,8 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Bundle\CoreBundle\Manager\AbstractManager;
-use Tickit\UserBundle\Entity\Repository\UserRepository;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\Repository\UserRepository;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * User entity manager.
@@ -38,7 +38,7 @@ use Tickit\UserBundle\Entity\User;
  * Because the user bundle relies on the use of FOSUserBundle we need to use the
  * FOS user manager where possible to ensure correct functionality.
  *
- * @package Tickit\UserBundle\Manager
+ * @package Tickit\Bundle\UserBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserManager extends AbstractManager implements UserManagerInterface
@@ -233,7 +233,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function getClass()
     {
-        return 'Tickit\UserBundle\Entity\User';
+        return 'Tickit\Bundle\UserBundle\Entity\User';
     }
 
     /**

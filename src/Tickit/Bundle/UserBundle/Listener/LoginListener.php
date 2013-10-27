@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Listener;
+namespace Tickit\Bundle\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\Bundle\CoreBundle\Entity\CoreSession;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Entity\UserSession;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\UserSession;
 
 /**
  * Handles the security context's login event
  *
- * @package Tickit\UserBundle\Listener
+ * @package Tickit\Bundle\UserBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoginListener

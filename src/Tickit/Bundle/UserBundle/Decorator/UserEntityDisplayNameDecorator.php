@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Decorator;
+namespace Tickit\Bundle\UserBundle\Decorator;
 
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Decorate a user entity into display name
  *
- * @package Tickit\UserBundle\Decorator
+ * @package Tickit\Bundle\UserBundle\Decorator
  * @author  Mark Wilson <mark@89allport.co.uk>
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
@@ -47,7 +47,7 @@ class UserEntityDisplayNameDecorator implements EntityDecoratorInterface
         if (!$user instanceof User) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'The user must be an instance of Tickit\UserBundle\Entity\User, %s given',
+                    'The user must be an instance of Tickit\Bundle\UserBundle\Entity\User, %s given',
                     gettype($user)
                 )
             );

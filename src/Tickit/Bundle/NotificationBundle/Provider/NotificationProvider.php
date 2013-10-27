@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\NotificationBundle\Provider;
 
 use Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Notification provider.

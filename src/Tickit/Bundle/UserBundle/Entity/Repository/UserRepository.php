@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Entity\Repository;
+namespace Tickit\Bundle\UserBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use DateTime;
@@ -27,12 +27,12 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Tickit\Bundle\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
 use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Provides methods for retrieving User related data from the DBAL
  *
- * @package Tickit\UserBundle\Entity\Repository
+ * @package Tickit\Bundle\UserBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserRepository extends EntityRepository implements FilterableRepositoryInterface

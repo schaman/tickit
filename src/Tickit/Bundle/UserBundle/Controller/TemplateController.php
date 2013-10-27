@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Controller;
+namespace Tickit\Bundle\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Manager\UserManager;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Manager\UserManager;
 
 /**
  * Template controller.
  *
  * Serves dynamic templates for the user bundle.
  *
- * @package Tickit\UserBundle\Controller
+ * @package Tickit\Bundle\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TemplateController

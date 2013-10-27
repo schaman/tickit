@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Listener;
+namespace Tickit\Bundle\UserBundle\Tests\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Entity\UserSession;
-use Tickit\UserBundle\Listener\LoginListener;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\UserSession;
+use Tickit\Bundle\UserBundle\Listener\LoginListener;
 
 /**
  * Login listener tests.
  *
- * @package Tickit\UserBundle\Tests\Listener
+ * @package Tickit\Bundle\UserBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoginListenerTest extends AbstractUnitTest

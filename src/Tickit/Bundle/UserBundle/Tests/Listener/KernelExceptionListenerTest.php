@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Listener;
+namespace Tickit\Bundle\UserBundle\Tests\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +28,12 @@ use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Tickit\Bundle\CoreBundle\Tests\AbstractFunctionalTest;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Listener\KernelExceptionListener;
+use Tickit\Bundle\UserBundle\Listener\KernelExceptionListener;
 
 /**
  * KernelExceptionListener tests
  *
- * @package Tickit\UserBundle\Tests\Listener
+ * @package Tickit\Bundle\UserBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class KernelExceptionListenerTest extends AbstractUnitTest

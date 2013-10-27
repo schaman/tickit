@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Form\Password;
+namespace Tickit\Bundle\UserBundle\Tests\Form\Password;
 
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Form\Password\UserPasswordUpdater;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater;
 
 /**
  * UserPasswordUpdater tests
  *
- * @package Tickit\UserBundle\Tests\Form\Password
+ * @package Tickit\Bundle\UserBundle\Tests\Form\Password
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserPasswordUpdaterTest extends \PHPUnit_Framework_TestCase

@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Interfaces;
+namespace Tickit\Bundle\UserBundle\Interfaces;
 
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Interface for classes that are User aware
  *
- * @package Tickit\UserBundle\Interfaces
+ * @package Tickit\Bundle\UserBundle\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\UserBundle\Entity\User
+ * @see     Tickit\Bundle\UserBundle\Entity\User
  */
 interface UserAwareInterface
 {

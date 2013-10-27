@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Entity;
+namespace Tickit\Bundle\UserBundle\Tests\Entity;
 
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Entity\UserSession;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\UserSession;
 
 /**
  * User entity tests.
  *
- * @package Tickit\UserBundle\Tests\Entity
+ * @package Tickit\Bundle\UserBundle\Tests\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserTest extends \PHPUnit_Framework_TestCase

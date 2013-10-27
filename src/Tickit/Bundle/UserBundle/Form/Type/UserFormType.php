@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\Type;
+namespace Tickit\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -85,7 +85,7 @@ class UserFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $options = array('data_class' => 'Tickit\UserBundle\Entity\User');
+        $options = array('data_class' => 'Tickit\Bundle\UserBundle\Entity\User');
         $resolver->setDefaults($options);
     }
 

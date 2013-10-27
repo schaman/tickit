@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Form\Type;
+namespace Tickit\Bundle\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Validator\Validation;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Form\Type\RegistrationFormType;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Form\Type\RegistrationFormType;
 
 /**
  * RegistrationFormType tests,
  *
- * @package Tickit\UserBundle\Tests\Form\Type
+ * @package Tickit\Bundle\UserBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class RegistrationFormTypeTest extends AbstractFormTypeTestCase
@@ -42,7 +42,7 @@ class RegistrationFormTypeTest extends AbstractFormTypeTestCase
     {
         parent::setUp();
 
-        $this->formType = new RegistrationFormType('Tickit\UserBundle\Entity\User');
+        $this->formType = new RegistrationFormType('Tickit\Bundle\UserBundle\Entity\User');
     }
 
     /**

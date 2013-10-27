@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\Type;
+namespace Tickit\Bundle\UserBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * Registration form.
  *
- * @package Tickit\UserBundle\Form\Type
+ * @package Tickit\Bundle\UserBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class RegistrationFormType extends BaseType

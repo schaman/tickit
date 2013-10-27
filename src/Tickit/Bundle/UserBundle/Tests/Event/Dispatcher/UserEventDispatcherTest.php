@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Event\Dispatcher;
+namespace Tickit\Bundle\UserBundle\Tests\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
 use Tickit\Bundle\CoreBundle\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Event\Dispatcher\UserEventDispatcher;
-use Tickit\UserBundle\TickitUserEvents;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Event\Dispatcher\UserEventDispatcher;
+use Tickit\Bundle\UserBundle\TickitUserEvents;
 
 /**
  * UserEventDispatcher tests
  *
- * @package Tickit\UserBundle\Tests\Event\Dispatcher
+ * @package Tickit\Bundle\UserBundle\Tests\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserEventDispatcherTest extends AbstractUnitTest

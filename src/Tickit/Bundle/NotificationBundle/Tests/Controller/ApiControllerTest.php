@@ -24,7 +24,7 @@ namespace Tickit\Bundle\NotificationBundle\Tests\Controller;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\NotificationBundle\Controller\ApiController;
 use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * ApiController tests

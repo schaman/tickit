@@ -36,7 +36,7 @@ class TicketUserSubscription
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;

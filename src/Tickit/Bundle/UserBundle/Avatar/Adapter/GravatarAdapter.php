@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Avatar\Adapter;
+namespace Tickit\Bundle\UserBundle\Avatar\Adapter;
 
-use Tickit\UserBundle\Avatar\Entity\AvatarAwareInterface;
+use Tickit\Bundle\UserBundle\Avatar\Entity\AvatarAwareInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

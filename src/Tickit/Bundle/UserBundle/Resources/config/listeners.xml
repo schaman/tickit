@@ -5,27 +5,27 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
         <services>
 
-            <service id="tickit_user.form.event_listener" class="Tickit\UserBundle\Form\EventListener\FormSubscriber">
+            <service id="tickit_user.form.event_listener" class="Tickit\Bundle\UserBundle\Form\EventListener\FormSubscriber">
                 <tag name="kernel.event_listener" event="tickit_project.form.event.entity_attribute_build" method="onEntityAttributeFormBuild" />
             </service>
 
-            <service id="tickit_user.listener.login" class="Tickit\UserBundle\Listener\LoginListener">
+            <service id="tickit_user.listener.login" class="Tickit\Bundle\UserBundle\Listener\LoginListener">
                 <argument type="service" id="session" />
                 <argument type="service" id="doctrine.orm.entity_manager" />
                 <tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin" />
             </service>
 
-            <service id="tickit_user.listener.kernel_exception" class="Tickit\UserBundle\Listener\KernelExceptionListener">
+            <service id="tickit_user.listener.kernel_exception" class="Tickit\Bundle\UserBundle\Listener\KernelExceptionListener">
                 <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="1000" />
             </service>
 
-            <service id="tickit_user.listener.activity" class="Tickit\UserBundle\Listener\ActivityListener">
+            <service id="tickit_user.listener.activity" class="Tickit\Bundle\UserBundle\Listener\ActivityListener">
                 <argument type="service" id="security.context" />
                 <argument type="service" id="doctrine.orm.entity_manager" />
                 <tag name="kernel.event_listener" event="kernel.controller" method="onCoreController" />
             </service>
 
-            <service id="tickit_user.user_navigation" class="Tickit\UserBundle\Listener\NavigationBuilderListener">
+            <service id="tickit_user.user_navigation" class="Tickit\Bundle\UserBundle\Listener\NavigationBuilderListener">
                 <argument type="service" id="router" />
                 <tag name="kernel.event_listener" event="tickit.event.main_navigation_build" method="onBuild"/>
             </service>

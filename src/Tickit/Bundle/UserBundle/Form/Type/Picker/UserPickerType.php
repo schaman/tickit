@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\Type;
+namespace Tickit\Bundle\UserBundle\Form\Type;
 
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * User picker custom form field type.
  *
- * @package Tickit\UserBundle\Form\Type\Picker
+ * @package Tickit\Bundle\UserBundle\Form\Type\Picker
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class UserPickerType extends AbstractPickerType

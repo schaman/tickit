@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Security;
+namespace Tickit\Bundle\UserBundle\Security;
 
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Tickit\UserBundle\Entity\User;
-use Tickit\UserBundle\Manager\UserManager;
+use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Manager\UserManager;
 
 /**
  * User provider implementation.
@@ -34,7 +34,7 @@ use Tickit\UserBundle\Manager\UserManager;
  * Provides functionality for providing user information to Symfony's
  * security component
  *
- * @package Tickit\UserBundle\Security
+ * @package Tickit\Bundle\UserBundle\Security
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserProvider implements UserProviderInterface
@@ -91,7 +91,7 @@ class UserProvider implements UserProviderInterface
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(
-                sprintf('Expected an instance of Tickit\UserBundle\Entity\User, but got "%s".', get_class($user))
+                sprintf('Expected an instance of Tickit\Bundle\UserBundle\Entity\User, but got "%s".', get_class($user))
             );
         }
 

@@ -19,24 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Controller;
+namespace Tickit\Bundle\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
-use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
-use Tickit\UserBundle\Avatar\AvatarService;
-use Tickit\UserBundle\Entity\Repository\UserRepository;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
+use Tickit\Bundle\UserBundle\Avatar\AvatarService;
+use Tickit\Bundle\UserBundle\Entity\Repository\UserRepository;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * API controller for users.
  *
  * Serves user content and handles user related operations via API actions.
  *
- * @package Tickit\UserBundle\Controller
+ * @package Tickit\Bundle\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */

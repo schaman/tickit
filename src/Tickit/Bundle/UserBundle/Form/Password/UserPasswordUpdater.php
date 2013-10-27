@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\Password;
+namespace Tickit\Bundle\UserBundle\Form\Password;
 
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * User password updater.
  *
  * Responsible for handling a user's password between states (original user and new user)
  *
- * @package Tickit\UserBundle\Password
+ * @package Tickit\Bundle\UserBundle\Password
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserPasswordUpdater

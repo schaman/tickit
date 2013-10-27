@@ -23,7 +23,7 @@ namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * The User entity represents an individual user within the application
@@ -97,13 +97,13 @@ class Ticket
     protected $actualHours;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="reported_by_id", referencedColumnName="id")
      */
     protected $reportedBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="assigned_to_id", referencedColumnName="id")
      */
     protected $assignedTo;

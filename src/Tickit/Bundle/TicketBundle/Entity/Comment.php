@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * The Comment entity represents a comment that is placed on a Ticket by a given user
@@ -58,7 +58,7 @@ class Comment
      * The user that created the comment
      *
      * @var User
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;

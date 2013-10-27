@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Avatar\Twig;
+namespace Tickit\Bundle\UserBundle\Avatar\Twig;
 
-use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
+use Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 /**
  * Avatar twig extension - provides helper functions for templates
  *
- * @package Tickit\UserBundle\Service\Avatar\Twig
+ * @package Tickit\Bundle\UserBundle\Service\Avatar\Twig
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class AvatarExtension extends Twig_Extension

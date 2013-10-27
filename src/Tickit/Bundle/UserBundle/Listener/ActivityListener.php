@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Listener;
+namespace Tickit\Bundle\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -27,14 +27,14 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use DateTime;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Activity Listener.
  *
  * Listens for controller requests and updates the current user's activity (if a user is logged in)
  *
- * @package Tickit\UserBundle\Listener
+ * @package Tickit\Bundle\UserBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ActivityListener

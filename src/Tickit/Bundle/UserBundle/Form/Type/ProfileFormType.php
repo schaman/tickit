@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Form\Type;
+namespace Tickit\Bundle\UserBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +29,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * Used by authenticated users to edit their profile information in the application.
  *
- * @package Tickit\UserBundle\Form\Type
+ * @package Tickit\Bundle\UserBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProfileFormType extends BaseType

@@ -19,19 +19,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\UserBundle\Tests\Controller;
+namespace Tickit\Bundle\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\UserBundle\Controller\ApiController;
-use Tickit\UserBundle\Controller\UserController;
-use Tickit\UserBundle\Entity\User;
+use Tickit\Bundle\UserBundle\Controller\ApiController;
+use Tickit\Bundle\UserBundle\Controller\UserController;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * ApiController tests
  *
- * @package Tickit\UserBundle\Tests\Controller
+ * @package Tickit\Bundle\UserBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractUnitTest
@@ -70,11 +70,11 @@ class ApiControllerTest extends AbstractUnitTest
         $this->csrfHelper    = $this->getMockCsrfHelper();
         $this->filterBuilder = $this->getMockFilterCollectionBuilder();
 
-        $this->userRepository = $this->getMockBuilder('\Tickit\UserBundle\Entity\Repository\UserRepository')
+        $this->userRepository = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Entity\Repository\UserRepository')
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
-        $this->avatarAdapter = $this->getMock('Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
+        $this->avatarAdapter = $this->getMock('Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
     }
     
     /**

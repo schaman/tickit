@@ -55,7 +55,7 @@ class TicketStatusHistory
     protected $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="changed_by_id", referencedColumnName="id")
      */
     protected $changedBy;
@@ -79,9 +79,9 @@ class TicketStatusHistory
     /**
      * Sets the user who updated the ticket history
      *
-     * @param \Tickit\UserBundle\Entity\User $changedBy
+     * @param \Tickit\Bundle\UserBundle\Entity\User $changedBy
      */
-    public function setChangedBy(\Tickit\UserBundle\Entity\User $changedBy)
+    public function setChangedBy(\Tickit\Bundle\UserBundle\Entity\User $changedBy)
     {
         $this->changedBy = $changedBy;
     }
@@ -89,7 +89,7 @@ class TicketStatusHistory
     /**
      * Gets an instance of the User who changed the status of the ticket
      *
-     * @return \Tickit\UserBundle\Entity\User
+     * @return \Tickit\Bundle\UserBundle\Entity\User
      */
     public function getChangedBy()
     {
