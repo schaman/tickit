@@ -24,7 +24,7 @@ namespace Tickit\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Tickit\CoreBundle\Controller\Helper\FormHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;

@@ -22,8 +22,8 @@
 namespace Tickit\PreferenceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**

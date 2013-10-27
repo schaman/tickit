@@ -21,7 +21,7 @@
 
 namespace Tickit\NotificationBundle\Tests\Manager;
 
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\NotificationBundle\Entity\UserNotification;
 use Tickit\NotificationBundle\Factory\NotificationFactory;
 use Tickit\NotificationBundle\Manager\NotificationManager;

@@ -21,7 +21,7 @@
 
 namespace Tickit\ProjectBundle\Tests\Form\Guesser;
 
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
 

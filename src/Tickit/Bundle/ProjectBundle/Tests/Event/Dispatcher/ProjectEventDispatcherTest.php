@@ -22,9 +22,9 @@
 namespace Tickit\ProjectBundle\Tests\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
-use Tickit\CoreBundle\Event\EntityEvent;
-use Tickit\CoreBundle\Event\EntityModifiedEvent;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Event\EntityEvent;
+use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher;
 use Tickit\ProjectBundle\TickitProjectEvents;

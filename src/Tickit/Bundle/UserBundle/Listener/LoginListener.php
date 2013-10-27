@@ -23,7 +23,7 @@ namespace Tickit\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Tickit\CoreBundle\Entity\CoreSession;
+use Tickit\Bundle\CoreBundle\Entity\CoreSession;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 

@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Form\Type;
 
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\ClientFormType;
-use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 
 /**
  * ClientFormType tests

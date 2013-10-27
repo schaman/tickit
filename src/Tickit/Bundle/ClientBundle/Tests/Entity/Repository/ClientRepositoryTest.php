@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ClientBundle\Tests\Entity\Repository;
 
 use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
-use Tickit\CoreBundle\Tests\AbstractOrmTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 
 /**
  * ClientRepository tests
@@ -57,7 +57,7 @@ class ClientRepositoryTest extends AbstractOrmTest
      */
     public function testGetFindByFiltersQueryBuilderBuildsQuery()
     {
-        $filters = $this->getMockBuilder('Tickit\CoreBundle\Filters\Collection\FilterCollection')
+        $filters = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection')
                         ->disableOriginalConstructor()
                         ->getMock();
 

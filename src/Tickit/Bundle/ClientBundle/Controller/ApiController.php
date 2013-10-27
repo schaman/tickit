@@ -23,9 +23,9 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
-use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * API controller.

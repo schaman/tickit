@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ClientBundle\Decorator;
 
 use Tickit\Bundle\ClientBundle\Entity\Client;
-use Tickit\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
 
 /**
  * Client entity name decorator.

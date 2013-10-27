@@ -22,8 +22,8 @@
 namespace Tickit\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\ApiController;
 use Tickit\ProjectBundle\Controller\ProjectController;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;

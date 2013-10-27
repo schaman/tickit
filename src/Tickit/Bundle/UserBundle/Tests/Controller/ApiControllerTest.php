@@ -22,8 +22,8 @@
 namespace Tickit\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Controller\ApiController;
 use Tickit\UserBundle\Controller\UserController;
 use Tickit\UserBundle\Entity\User;

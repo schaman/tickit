@@ -22,10 +22,10 @@
 namespace Tickit\Bundle\ClientBundle\Event\Dispatcher;
 
 use Tickit\Bundle\ClientBundle\TickitClientEvents;
-use Tickit\CoreBundle\Event\AbstractVetoableEvent;
-use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\CoreBundle\Event\EntityEvent;
-use Tickit\CoreBundle\Event\EntityModifiedEvent;
+use Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent;
+use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Bundle\CoreBundle\Event\EntityEvent;
+use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
 
 /**
  * Client event dispatcher.

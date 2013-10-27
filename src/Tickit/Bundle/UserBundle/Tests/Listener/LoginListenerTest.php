@@ -24,7 +24,7 @@ namespace Tickit\UserBundle\Tests\Listener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Entity\UserSession;
 use Tickit\UserBundle\Listener\LoginListener;
@@ -53,7 +53,7 @@ class LoginListenerTest extends AbstractUnitTest
     protected function setUp()
     {
         $this->em = $this->getMockEntityManager();
-        $this->session = $this->getMockBuilder('Tickit\CoreBundle\Entity\CoreSession')
+        $this->session = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Entity\CoreSession')
                               ->disableOriginalConstructor()
                               ->getMock();
     }

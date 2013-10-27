@@ -21,7 +21,7 @@
 
 namespace Tickit\UserBundle\Decorator;
 
-use Tickit\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
 use Tickit\UserBundle\Entity\User;
 
 /**

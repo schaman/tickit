@@ -22,8 +22,8 @@
 namespace Tickit\ProjectBundle\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\CoreBundle\Event\EntityEvent;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Event\EntityEvent;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
 use Tickit\ProjectBundle\Entity\LiteralAttributeValue;
 use Tickit\ProjectBundle\Entity\Project;

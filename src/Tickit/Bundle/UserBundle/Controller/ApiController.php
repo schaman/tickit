@@ -23,9 +23,9 @@ namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
-use Tickit\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
 use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Entity\Repository\UserRepository;

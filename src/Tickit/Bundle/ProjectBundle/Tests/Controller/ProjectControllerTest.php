@@ -25,7 +25,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Controller\ProjectController;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;
 use Tickit\ProjectBundle\Entity\LiteralAttributeValue;

@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ClientBundle\Tests\Listener;
 
 use Tickit\Bundle\ClientBundle\Listener\NavigationBuilderListener;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
 

@@ -22,7 +22,7 @@
 namespace Tickit\UserBundle\Tests\Avatar\Twig;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\UserBundle\Avatar\AvatarService;
 use Tickit\UserBundle\Avatar\Twig\AvatarExtension;

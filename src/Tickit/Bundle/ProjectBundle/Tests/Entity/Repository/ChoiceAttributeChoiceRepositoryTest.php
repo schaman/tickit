@@ -24,7 +24,7 @@ namespace Tickit\ProjectBundle\Tests\Entity\Repository;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Tests\OrmTestCase;
-use Tickit\CoreBundle\Tests\AbstractOrmTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;

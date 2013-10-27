@@ -23,8 +23,8 @@ namespace Tickit\Bundle\ClientBundle\Tests\Listener;
 
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Listener\ProjectListener;
-use Tickit\CoreBundle\Event\EntityEvent;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Event\EntityEvent;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\Project;
 
 /**

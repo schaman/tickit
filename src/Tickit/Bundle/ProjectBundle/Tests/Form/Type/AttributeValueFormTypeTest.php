@@ -24,7 +24,7 @@ namespace Tickit\ProjectBundle\Tests\Form\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
-use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeValue;

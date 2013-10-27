@@ -23,7 +23,7 @@ namespace Tickit\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Controller\UserController;
 use Tickit\UserBundle\Entity\User;
 

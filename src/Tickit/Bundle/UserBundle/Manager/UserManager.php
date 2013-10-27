@@ -25,8 +25,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Bundle\CoreBundle\Manager\AbstractManager;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
 

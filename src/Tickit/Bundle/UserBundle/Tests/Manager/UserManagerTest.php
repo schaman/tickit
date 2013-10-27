@@ -22,8 +22,8 @@
 namespace Tickit\UserBundle\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
-use Tickit\CoreBundle\Event\EntityEvent;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Event\EntityEvent;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Entity\Repository\UserRepository;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Manager\UserManager;

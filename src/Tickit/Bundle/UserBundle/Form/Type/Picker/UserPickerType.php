@@ -21,7 +21,7 @@
 
 namespace Tickit\UserBundle\Form\Type;
 
-use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * User picker custom form field type.

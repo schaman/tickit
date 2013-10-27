@@ -2,7 +2,7 @@
 
 namespace Tickit\UserBundle\Form\Type\Picker\DataTransformer;
 
-use Tickit\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 use Tickit\UserBundle\Manager\UserManager;
 
 /**

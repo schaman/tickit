@@ -21,7 +21,7 @@
 
 namespace Tickit\PreferenceBundle\Tests\Entity\Repository;
 
-use Tickit\CoreBundle\Tests\AbstractOrmTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**
@@ -103,7 +103,7 @@ class PreferenceRepositoryTest extends AbstractOrmTest
      */
     public function testGetFindByFiltersQueryBuilderBuildsQuery()
     {
-        $filters = $this->getMockBuilder('Tickit\CoreBundle\Filters\Collection\FilterCollection')
+        $filters = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection')
                         ->disableOriginalConstructor()
                         ->getMock();
 

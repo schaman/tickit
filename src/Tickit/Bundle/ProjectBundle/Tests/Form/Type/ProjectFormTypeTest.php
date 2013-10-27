@@ -25,7 +25,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType;
-use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Form\Type\ProjectFormType;
 

@@ -22,7 +22,7 @@
 namespace Tickit\PreferenceBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\PreferenceBundle\Controller\ApiController;
 use Tickit\PreferenceBundle\Entity\Preference;
 
@@ -76,7 +76,7 @@ class ApiControllerTest extends AbstractUnitTest
 
         $preferences = [$preference1, $preference2];
 
-        $filters = $this->getMockBuilder('\Tickit\CoreBundle\Filters\Collection\FilterCollection')
+        $filters = $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection')
                         ->disableOriginalConstructor()
                         ->getMock();
 

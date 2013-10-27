@@ -22,7 +22,7 @@
 namespace Tickit\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\NotificationBundle\Provider\NotificationProvider;
 
 /**

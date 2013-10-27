@@ -24,8 +24,8 @@ namespace Tickit\ProjectBundle\Manager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\CoreBundle\Manager\AbstractManager;
+use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Bundle\CoreBundle\Manager\AbstractManager;
 use Tickit\ProjectBundle\Entity\Project;
 use Tickit\ProjectBundle\Entity\Repository\ProjectRepository;
 

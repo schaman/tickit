@@ -23,9 +23,9 @@ namespace Tickit\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
-use Tickit\CoreBundle\Controller\Helper\FormHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Password\UserPasswordUpdater;
 use Tickit\UserBundle\Manager\UserManager;

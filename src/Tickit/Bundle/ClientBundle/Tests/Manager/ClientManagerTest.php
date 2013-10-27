@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Manager;
 use Doctrine\ORM\NoResultException;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Manager\ClientManager;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * ClientManager tests
@@ -60,7 +60,7 @@ class ClientManagerTest extends AbstractUnitTest
 
         $this->em = $this->getMockEntityManager();
         $this->eventDispatcher = $this->getMockBuilder(
-            '\Tickit\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher'
+            '\Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher'
         )
         ->disableOriginalConstructor()
         ->getMock();

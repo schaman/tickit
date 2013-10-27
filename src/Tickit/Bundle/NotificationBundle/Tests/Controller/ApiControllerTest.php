@@ -21,7 +21,7 @@
 
 namespace Tickit\NotificationBundle\Tests\Controller;
 
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\NotificationBundle\Controller\ApiController;
 use Tickit\NotificationBundle\Entity\UserNotification;
 use Tickit\UserBundle\Entity\User;

@@ -23,7 +23,7 @@ namespace Tickit\ProjectBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\PreloadedExtension;
-use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\ProjectBundle\Form\Type\ChoiceAttributeChoiceFormType;
 

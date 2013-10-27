@@ -22,7 +22,7 @@
 namespace Tickit\ProjectBundle\Tests\Form\Type;
 
 use Symfony\Component\EventDispatcher\Tests\EventDispatcherTest;
-use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\ProjectBundle\Entity\EntityAttribute;
 use Tickit\ProjectBundle\Form\Event\EntityAttributeFormBuildEvent;
 use Tickit\ProjectBundle\Form\Type\EntityAttributeFormType;

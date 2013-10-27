@@ -25,9 +25,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Manager\ClientManager;
-use Tickit\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\CoreBundle\Controller\Helper\CsrfHelper;
-use Tickit\CoreBundle\Controller\Helper\FormHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 
 /**
  * Client controller.

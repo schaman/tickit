@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\ClientBundle\Controller\TemplateController;
 use Tickit\Bundle\ClientBundle\Entity\Client;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * TemplateController tests

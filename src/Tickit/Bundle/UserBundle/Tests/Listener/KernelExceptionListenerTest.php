@@ -26,8 +26,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Tickit\CoreBundle\Tests\AbstractFunctionalTest;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\UserBundle\Listener\KernelExceptionListener;
 
 /**

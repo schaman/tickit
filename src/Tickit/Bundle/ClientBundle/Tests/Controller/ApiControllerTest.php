@@ -25,8 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Tickit\Bundle\ClientBundle\Controller\ApiController;
 use Tickit\Bundle\ClientBundle\Controller\ClientController;
 use Tickit\Bundle\ClientBundle\Entity\Client;
-use Tickit\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * ApiController tests

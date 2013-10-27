@@ -23,7 +23,7 @@ namespace Tickit\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Validator\Validation;
-use Tickit\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\UserBundle\Entity\User;
 use Tickit\UserBundle\Form\Type\UserFormType;
 

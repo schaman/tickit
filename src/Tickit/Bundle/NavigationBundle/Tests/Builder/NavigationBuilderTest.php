@@ -21,7 +21,7 @@
 
 namespace Tickit\NavigationBundle\Tests\Builder;
 
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\NavigationBundle\Builder\NavigationBuilder;
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\TickitNavigationEvents;

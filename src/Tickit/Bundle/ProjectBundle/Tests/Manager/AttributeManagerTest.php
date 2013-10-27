@@ -22,7 +22,7 @@
 namespace Tickit\ProjectBundle\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\ProjectBundle\Entity\AbstractAttributeValue;
 use Tickit\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\ProjectBundle\Entity\ChoiceAttributeChoice;
