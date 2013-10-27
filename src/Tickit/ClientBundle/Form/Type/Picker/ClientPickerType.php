@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\ClientBundle\Form\Type;
+namespace Tickit\ClientBundle\Form\Type\Picker;
 
 use Tickit\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
