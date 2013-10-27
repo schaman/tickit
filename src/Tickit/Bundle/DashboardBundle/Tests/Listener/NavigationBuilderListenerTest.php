@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\DashboardBundle\Tests\Listener;
+namespace Tickit\Bundle\DashboardBundle\Tests\Listener;
 
-use Tickit\DashboardBundle\Listener\NavigationBuilderListener;
+use Tickit\Bundle\DashboardBundle\Listener\NavigationBuilderListener;
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
 
 /**
  * NavigationBuilderListener tests
  *
- * @package Tickit\DashboardBundle\Tests\Listener
+ * @package Tickit\Bundle\DashboardBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase

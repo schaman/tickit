@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\DashboardBundle\DependencyInjection;
+namespace Tickit\Bundle\DashboardBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 /**
  * DashboardBundle DI extension
  *
- * @package Tickit\DashboardBundle\DependencyInjection
+ * @package Tickit\Bundle\DashboardBundle\DependencyInjection
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class TickitDashboardExtension extends Extension

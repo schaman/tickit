@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\DashboardBundle;
+namespace Tickit\Bundle\DashboardBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Bundle build file for the TickitDashboardBundle
  *
- * @package Tickit\DashboardBundle
+ * @package Tickit\Bundle\DashboardBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitDashboardBundle extends Bundle

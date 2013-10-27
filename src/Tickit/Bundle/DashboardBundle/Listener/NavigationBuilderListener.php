@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\DashboardBundle\Listener;
+namespace Tickit\Bundle\DashboardBundle\Listener;
 
 use Tickit\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\NavigationBundle\Model\NavigationItem;
@@ -27,7 +27,7 @@ use Tickit\NavigationBundle\Model\NavigationItem;
 /**
  * Dashboard navigation builder
  *
- * @package Tickit\DashboardBundle\Listener
+ * @package Tickit\Bundle\DashboardBundle\Listener
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class NavigationBuilderListener
