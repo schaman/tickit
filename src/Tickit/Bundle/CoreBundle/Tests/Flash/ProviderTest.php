@@ -64,7 +64,7 @@ class ProviderTest extends AbstractUnitTest
      */
     public function testProviderFallsBackToDefaultMessagesForInvalidEnvironment()
     {
-        new Provider($this->session, __DIR__ . '/../../../../../app/config/extra/', 'made_up');
+        new Provider($this->session, __DIR__ . '/../../../../../../app/config/extra/', 'made_up');
     }
 
     /**
@@ -132,6 +132,6 @@ class ProviderTest extends AbstractUnitTest
      */
     private function getProvider()
     {
-        return new Provider($this->session, __DIR__ . '/../../../../../app/config/extra/', 'test');
+        return new Provider($this->session, __DIR__ . '/../../../../../../app/config/extra/', 'test');
     }
 }
