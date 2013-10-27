@@ -22,4 +22,3 @@ class MockEntity
         return $this->id;
     }
 }
- 

@@ -52,4 +52,3 @@ class UserPickerDataTransformer extends AbstractPickerDataTransformer
         return $this->manager->find($identifier);
     }
 }
- 

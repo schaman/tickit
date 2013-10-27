@@ -64,4 +64,3 @@ class ClientPickerDataTransformerTest extends AbstractUnitTest
         $this->assertEquals($client, $method->invokeArgs($this->sut, [1]));
     }
 }
- 

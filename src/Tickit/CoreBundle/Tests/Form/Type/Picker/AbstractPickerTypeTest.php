@@ -190,4 +190,3 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $this->assertEquals('display name 1,display name 2,display name 3', $formView->displayValues);
     }
 }
- 

@@ -234,4 +234,3 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
      */
     abstract protected function findEntityByIdentifier($identifier);
 }
- 

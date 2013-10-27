@@ -220,4 +220,3 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
                   ->will($this->returnValue('id'));
     }
 }
- 

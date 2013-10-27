@@ -64,4 +64,3 @@ class UserPickerDataTransformerTest extends AbstractUnitTest
         $this->assertEquals($user, $method->invokeArgs($this->sut, [1]));
     }
 }
- 

@@ -50,4 +50,3 @@ class ClientPickerDataTransformer extends AbstractPickerDataTransformer
         return $this->manager->find($identifier);
     }
 }
- 
