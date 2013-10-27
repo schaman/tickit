@@ -48,8 +48,8 @@ class UserNotificationRepositoryTest extends AbstractOrmTest
         parent::setUp();
 
         $em = $this->getEntityManager(
-            'Tickit\\NotificationBundle\\Entity',
-            array('TickitNotificationBundle' => 'Tickit\\NotificationBundle\\Entity')
+            'Tickit\\Bundle\\NotificationBundle\\Entity',
+            array('TickitNotificationBundle' => 'Tickit\\Bundle\\NotificationBundle\\Entity')
         );
 
         $this->repo = $em->getRepository('TickitNotificationBundle:UserNotification');

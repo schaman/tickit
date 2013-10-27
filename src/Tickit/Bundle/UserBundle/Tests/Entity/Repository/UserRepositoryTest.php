@@ -45,8 +45,8 @@ class UserRepositoryTest extends AbstractOrmTest
     protected function setUp()
     {
         $em = $this->getEntityManager(
-            'Tickit\\UserBundle\\Entity',
-            array('TickitUserBundle' => 'Tickit\\UserBundle\\Entity')
+            'Tickit\\Bundle\\UserBundle\\Entity',
+            array('TickitUserBundle' => 'Tickit\\Bundle\\UserBundle\\Entity')
         );
 
         $this->repo = $em->getRepository('TickitUserBundle:User');
