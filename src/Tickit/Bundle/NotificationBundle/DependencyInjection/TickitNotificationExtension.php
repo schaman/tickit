@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\DependencyInjection;
+namespace Tickit\Bundle\NotificationBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 /**
  * Tickit notification bundle DI extension.
  *
- * @package Tickit\NotificationBundle\DependencyInjection
+ * @package Tickit\Bundle\NotificationBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitNotificationExtension extends Extension

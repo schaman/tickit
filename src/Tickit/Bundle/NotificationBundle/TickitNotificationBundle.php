@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle;
+namespace Tickit\Bundle\NotificationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

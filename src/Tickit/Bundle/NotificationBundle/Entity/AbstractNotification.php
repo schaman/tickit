@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Entity;
+namespace Tickit\Bundle\NotificationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -29,7 +29,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * Provides base data for notifications.
  *
- * @package Tickit\NotificationBundle\Entity
+ * @package Tickit\Bundle\NotificationBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractNotification

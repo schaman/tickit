@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_notificaton.user_notification_repository" class="Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_notificaton.user_notification_repository" class="Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitNotificationBundle:UserNotification</argument>
         </service>
 

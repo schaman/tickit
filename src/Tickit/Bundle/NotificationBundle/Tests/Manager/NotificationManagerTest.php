@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Manager;
+namespace Tickit\Bundle\NotificationBundle\Tests\Manager;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\NotificationBundle\Entity\UserNotification;
-use Tickit\NotificationBundle\Factory\NotificationFactory;
-use Tickit\NotificationBundle\Manager\NotificationManager;
+use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
+use Tickit\Bundle\NotificationBundle\Factory\NotificationFactory;
+use Tickit\Bundle\NotificationBundle\Manager\NotificationManager;
 
 /**
  * NotificationManager tests
  *
- * @package Tickit\NotificationBundle\Tests\Manager
+ * @package Tickit\Bundle\NotificationBundle\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationManagerTest extends AbstractUnitTest

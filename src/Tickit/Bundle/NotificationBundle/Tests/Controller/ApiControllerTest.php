@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Controller;
+namespace Tickit\Bundle\NotificationBundle\Tests\Controller;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\NotificationBundle\Controller\ApiController;
-use Tickit\NotificationBundle\Entity\UserNotification;
+use Tickit\Bundle\NotificationBundle\Controller\ApiController;
+use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * ApiController tests
  *
- * @package Tickit\NotificationBundle\Tests\Controller
+ * @package Tickit\Bundle\NotificationBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiControllerTest extends AbstractUnitTest
@@ -49,7 +49,7 @@ class ApiControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->provider = $this->getMockBuilder('\Tickit\NotificationBundle\Provider\NotificationProvider')
+        $this->provider = $this->getMockBuilder('\Tickit\Bundle\NotificationBundle\Provider\NotificationProvider')
                                ->disableOriginalConstructor()
                                ->getMock();
 

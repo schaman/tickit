@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="tickit_notification.manager" class="Tickit\NotificationBundle\Manager\NotificationManager">
+        <service id="tickit_notification.manager" class="Tickit\Bundle\NotificationBundle\Manager\NotificationManager">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 

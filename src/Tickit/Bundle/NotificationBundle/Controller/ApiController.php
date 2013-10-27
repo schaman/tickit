@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Controller;
+namespace Tickit\Bundle\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\NotificationBundle\Provider\NotificationProvider;
+use Tickit\Bundle\NotificationBundle\Provider\NotificationProvider;
 
 /**
  * Notification API controller.
  *
  * Serves JSON data containing notification data.
  *
- * @package Tickit\NotificationBundle\Controller
+ * @package Tickit\Bundle\NotificationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ApiController

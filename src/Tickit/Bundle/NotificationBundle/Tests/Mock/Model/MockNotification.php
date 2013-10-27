@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Mock\Model;
+namespace Tickit\Bundle\NotificationBundle\Tests\Mock\Model;
 
-use Tickit\NotificationBundle\Model\NotificationDataInterface;
+use Tickit\Bundle\NotificationBundle\Model\NotificationDataInterface;
 
 /**
  * Mock notification message object.
  *
- * @package Tickit\NotificationBundle\Tests\Mock\Model
+ * @package Tickit\Bundle\NotificationBundle\Tests\Mock\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class MockNotification implements NotificationDataInterface

@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Controller;
+namespace Tickit\Bundle\NotificationBundle\Tests\Controller;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\NotificationBundle\Controller\NotificationController;
+use Tickit\Bundle\NotificationBundle\Controller\NotificationController;
 
 /**
  * NotificationController tests
  *
- * @package Tickit\NotificationBundle\Tests\Controller
+ * @package Tickit\Bundle\NotificationBundle\Tests\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationControllerTest extends AbstractUnitTest

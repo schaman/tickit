@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Provider;
+namespace Tickit\Bundle\NotificationBundle\Provider;
 
-use Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository;
+use Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository;
 use Tickit\UserBundle\Entity\User;
 
 /**
@@ -29,7 +29,7 @@ use Tickit\UserBundle\Entity\User;
  *
  * Responsible for providing notification data in the application.
  *
- * @package Tickit\NotificationBundle\Provider
+ * @package Tickit\Bundle\NotificationBundle\Provider
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationProvider

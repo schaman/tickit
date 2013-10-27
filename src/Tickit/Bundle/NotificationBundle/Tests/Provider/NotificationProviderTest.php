@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Provider;
+namespace Tickit\Bundle\NotificationBundle\Tests\Provider;
 
-use Tickit\NotificationBundle\Entity\UserNotification;
-use Tickit\NotificationBundle\Provider\NotificationProvider;
+use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
+use Tickit\Bundle\NotificationBundle\Provider\NotificationProvider;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * NotificationProviderTest tests
  *
- * @package Tickit\NotificationBundle\Tests\Provider
+ * @package Tickit\Bundle\NotificationBundle\Tests\Provider
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationProviderTest extends \PHPUnit_Framework_TestCase
@@ -45,7 +45,7 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $repo = $this->getMockBuilder('Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository')
+        $repo = $this->getMockBuilder('Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository')
                      ->disableOriginalConstructor()
                      ->getMock();
 
@@ -63,7 +63,7 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
     {
         $repo = $this->provider->getUserNotificationRepository();
 
-        $this->assertInstanceOf('Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository', $repo);
+        $this->assertInstanceOf('Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository', $repo);
     }
 
     /**
@@ -78,6 +78,6 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $notifications);
         $this->assertCount(2, $notifications);
-        $this->assertContainsOnlyInstancesOf('Tickit\NotificationBundle\Entity\UserNotification', $notifications);
+        $this->assertContainsOnlyInstancesOf('Tickit\Bundle\NotificationBundle\Entity\UserNotification', $notifications);
     }
 }

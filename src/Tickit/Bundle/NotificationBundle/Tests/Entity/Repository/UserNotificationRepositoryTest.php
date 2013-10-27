@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Entity\Repository;
+namespace Tickit\Bundle\NotificationBundle\Tests\Entity\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
-use Tickit\NotificationBundle\Entity\Repository\UserNotificationRepository;
+use Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * UserNotificationRepository tests
  *
- * @package Tickit\NotificationBundle\Tests\Entity\Repository
+ * @package Tickit\Bundle\NotificationBundle\Tests\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserNotificationRepositoryTest extends AbstractOrmTest

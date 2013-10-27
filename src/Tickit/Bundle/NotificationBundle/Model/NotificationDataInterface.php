@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Model;
+namespace Tickit\Bundle\NotificationBundle\Model;
 
 /**
  * Notification data interface.
  *
  * Used to inject data into a notification object, these will change between notification types.
  *
- * @package Tickit\NotificationBundle\Model
+ * @package Tickit\Bundle\NotificationBundle\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface NotificationDataInterface

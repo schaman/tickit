@@ -6,12 +6,12 @@
 
     <services>
 
-        <service id="tickit_notification.controller.api" class="Tickit\NotificationBundle\Controller\ApiController" scope="request">
+        <service id="tickit_notification.controller.api" class="Tickit\Bundle\NotificationBundle\Controller\ApiController" scope="request">
             <argument type="service" id="tickit_notification.provider" />
             <argument type="service" id="tickit.controller.base_helper" />
         </service>
 
-        <service id="tickit_notification.controller.notification" class="Tickit\NotificationBundle\Controller\NotificationController" />
+        <service id="tickit_notification.controller.notification" class="Tickit\Bundle\NotificationBundle\Controller\NotificationController" />
 
     </services>
 

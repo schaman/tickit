@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\DataFixtures\ORM;
+namespace Tickit\Bundle\NotificationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\NotificationBundle\Entity\UserNotification;
+use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
 
 /**
  * Loads user notification data.
  *
- * @package Tickit\NotificationBundle\DataFixtures\ORM
+ * @package Tickit\Bundle\NotificationBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadUserNotificationData extends AbstractFixture implements OrderedFixtureInterface

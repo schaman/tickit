@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\DependencyInjection;
+namespace Tickit\Bundle\NotificationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -28,7 +28,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * Configuration class for notification bundle
  *
  *
- * @package Tickit\NotificationBundle\DependencyInjection
+ * @package Tickit\Bundle\NotificationBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Configuration implements ConfigurationInterface

@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Manager;
+namespace Tickit\Bundle\NotificationBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\NotificationBundle\Entity\AbstractNotification;
-use Tickit\NotificationBundle\Factory\NotificationFactory;
+use Tickit\Bundle\NotificationBundle\Entity\AbstractNotification;
+use Tickit\Bundle\NotificationBundle\Factory\NotificationFactory;
 
 /**
  * Notification manager.
  *
  * Manages the creation and updating of notifications.
  *
- * @package Tickit\NotificationBundle\Manager
+ * @package Tickit\Bundle\NotificationBundle\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationManager

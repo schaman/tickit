@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Controller;
+namespace Tickit\Bundle\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *
  * Provides notification related actions for modify/updating data
  *
- * @package Tickit\NotificationBundle\Controller
+ * @package Tickit\Bundle\NotificationBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationController

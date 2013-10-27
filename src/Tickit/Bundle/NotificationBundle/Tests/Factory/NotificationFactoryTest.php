@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\NotificationBundle\Tests\Factory;
+namespace Tickit\Bundle\NotificationBundle\Tests\Factory;
 
-use Tickit\NotificationBundle\Factory\NotificationFactory;
-use Tickit\NotificationBundle\Tests\Mock\Model\MockNotification;
+use Tickit\Bundle\NotificationBundle\Factory\NotificationFactory;
+use Tickit\Bundle\NotificationBundle\Tests\Mock\Model\MockNotification;
 use Tickit\UserBundle\Entity\User;
 
 /**
  * NotificationFactory tests
  *
- * @package Tickit\NotificationBundle\Tests\Factory
+ * @package Tickit\Bundle\NotificationBundle\Tests\Factory
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
@@ -42,7 +42,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotifyUserThrowsExceptionForEmptyMessageObject()
     {
-        $mockMessage = $this->getMock('Tickit\NotificationBundle\Model\NotificationDataInterface');
+        $mockMessage = $this->getMock('Tickit\Bundle\NotificationBundle\Model\NotificationDataInterface');
 
         $factory = new NotificationFactory();
         $factory->notifyUser($mockMessage, new User());
@@ -64,7 +64,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new NotificationFactory();
         $notification = $factory->notifyUser($message, $user);
 
-        $this->assertInstanceOf('Tickit\NotificationBundle\Entity\UserNotification', $notification);
+        $this->assertInstanceOf('Tickit\Bundle\NotificationBundle\Entity\UserNotification', $notification);
         $this->assertEquals($message->getMessage(), $notification->getMessage());
         $this->assertEquals($user->getForename(), $notification->getRecipient()->getForename());
         $this->assertEquals($user->getSurname(), $notification->getRecipient()->getSurname());
