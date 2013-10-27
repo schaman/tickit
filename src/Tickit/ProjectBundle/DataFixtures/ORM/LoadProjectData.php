@@ -1,10 +1,30 @@
 <?php
 
+/*
+ * Tickit, an open source web based bug management tool.
+ * 
+ * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 namespace Tickit\ProjectBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Tickit\ProjectBundle\Entity\Project;
 
 /**
@@ -22,19 +42,26 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $project = new Project();
-        $project->setName('Test Project 1');
+        $faker = Factory::create();
 
-        $project2 = clone $project;
-        $project2->setName('Test Project 2');
+        $i = 50;
+        while ($i--) {
+            $project = new Project();
+            $project->setName($faker->sentence(3))
+                    ->setClient($this->getReference('client-' . $i));
 
-        $manager->persist($project);
-        $manager->persist($project2);
+            $project2 = new Project();
+            $project2->setName($faker->sentence(3))
+                    ->setClient($this->getReference('client-' . $i));
+
+            $manager->persist($project);
+            $manager->persist($project2);
+
+            $this->setReference('project-' . (($i * 2) + 1), $project);
+            $this->setReference('project-' . ($i * 2), $project2);
+        }
 
         $manager->flush();
-
-        $this->setReference('project-1', $project);
-        $this->setReference('project-2', $project2);
     }
 
     /**
