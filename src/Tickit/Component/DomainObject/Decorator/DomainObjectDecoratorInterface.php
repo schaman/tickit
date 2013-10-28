@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Decorator;
+namespace Tickit\Component\DomainObject\Decorator;
 
 /**
  * Domain object decorator interface.
@@ -27,7 +27,7 @@ namespace Tickit\Bundle\CoreBundle\Decorator;
  * Domain object decorators are responsible for taking a domain object and
  * decorating it using a specific format.
  *
- * @package Tickit\Bundle\CoreBundle\Decorator
+ * @package Tickit\Component\DomainObject\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface DomainObjectDecoratorInterface

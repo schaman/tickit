@@ -20,9 +20,9 @@
             <argument type="service" id="session.storage" />
         </service>
 
-        <service id="tickit.domain_object_array_decorator" class="Tickit\Bundle\CoreBundle\Decorator\DomainObjectArrayDecorator" />
+        <service id="tickit.domain_object_array_decorator" class="Tickit\Component\DomainObject\Decorator\DomainObjectArrayDecorator" />
 
-        <service id="tickit.domain_object_collection_array_decorator" class="Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecorator">
+        <service id="tickit.domain_object_collection_array_decorator" class="Tickit\Component\DomainObject\Decorator\Collection\DomainObjectCollectionDecorator">
             <argument type="service" id="tickit.domain_object_array_decorator" />
         </service>
 
