@@ -1353,10 +1353,10 @@ public function sendHeaders()
 if (headers_sent()) {
 return $this;
 }
-header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText));
+header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
 foreach ($this->headers->allPreserveCase() as $name => $values) {
 foreach ($values as $value) {
-header($name.': '.$value, false);
+header($name.': '.$value, false, $this->statusCode);
 }
 }
 foreach ($this->headers->getCookies() as $cookie) {
