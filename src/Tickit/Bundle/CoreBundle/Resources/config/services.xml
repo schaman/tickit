@@ -4,6 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="filter_collection_builder.class">Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder</parameter>
+    </parameters>
+
     <services>
 
         <service id='tickit.flash_messages' class='Tickit\Bundle\CoreBundle\Flash\Provider'>
@@ -22,7 +26,7 @@
             <argument type="service" id="tickit.domain_object_array_decorator" />
         </service>
 
-        <service id="tickit.filter_collection_builder" class="Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder" />
+        <service id="tickit.filter_collection_builder" class="%filter_collection_builder.class%" />
 
     </services>
 
