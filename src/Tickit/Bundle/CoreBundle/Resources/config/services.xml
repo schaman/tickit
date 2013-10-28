@@ -22,7 +22,7 @@
             <argument type="service" id="tickit.domain_object_array_decorator" />
         </service>
 
-        <service id="tickit.filter_collection_builder" class="Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder" />
+        <service id="tickit.filter_collection_builder" class="Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder" />
 
     </services>
 

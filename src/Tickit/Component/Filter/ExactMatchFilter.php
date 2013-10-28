@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Filters;
+namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
- * Search filter.
+ * Exact match filter.
  *
- * A search filter represents a text based search with wildcard support
+ * An exact match filter represents an exact match filter.
  *
- * @package Tickit\Bundle\CoreBundle\Filters\Model
+ * @package Tickit\Component\Filter\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class SearchFilter extends AbstractFilter
+class ExactMatchFilter extends AbstractFilter
 {
     /**
      * Applies the itself to a query builder.
@@ -49,9 +49,8 @@ class SearchFilter extends AbstractFilter
 
         $aliases = $query->getRootAliases();
 
-        $column = sprintf('%s.%s', $aliases[0], $this->getKey());
-        $query->andWhere($query->expr()->like($column, sprintf(':%s', $this->getKey())))
-              ->setParameter($this->getKey(), '%' . $this->getValue() . '%');
+        $query->andWhere(sprintf('%s.%s = :%s', $aliases[0], $this->getKey(), $this->getKey()))
+              ->setParameter($this->getKey(), $this->getValue());
     }
 
     /**
@@ -61,6 +60,6 @@ class SearchFilter extends AbstractFilter
      */
     public function getType()
     {
-        return FilterCollectionBuilder::FILTER_SEARCH;
+        return FilterCollectionBuilder::FILTER_EXACT_MATCH;
     }
 }

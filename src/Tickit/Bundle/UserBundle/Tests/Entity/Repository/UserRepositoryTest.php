@@ -101,7 +101,7 @@ class UserRepositoryTest extends AbstractOrmTest
      */
     public function testGetFindByFiltersQueryBuilderBuildsQuery()
     {
-        $filters = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection')
+        $filters = $this->getMockBuilder('Tickit\Component\Filter\Collection\FilterCollection')
                         ->disableOriginalConstructor()
                         ->getMock();
 

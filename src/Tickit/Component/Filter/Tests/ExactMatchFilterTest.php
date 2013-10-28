@@ -19,19 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Filters;
+namespace Tickit\Component\Filter\Tests;
 
-use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\SearchFilter;
+use Tickit\Component\Filter\ExactMatchFilter;
 
 /**
- * SearchFilter tests
+ * ExactMatchFilter tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Filters
+ * @package Tickit\Component\Filter\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class SearchFilterTest extends AbstractFilterTestCase
+class ExactMatchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
@@ -40,7 +39,7 @@ class SearchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
-        $filter = new SearchFilter('invalid name', 'search value');
+        $filter = new ExactMatchFilter('invalid name', 'exact value');
         $em = $this->getMockEntityManager();
         $query = $this->getMockQueryBuilder();
 
@@ -54,9 +53,6 @@ class SearchFilterTest extends AbstractFilterTestCase
         $query->expects($this->never())
               ->method('andWhere');
 
-        $query->expects($this->never())
-              ->method('setParameter');
-
         $filter->applyToQuery($query);
     }
 
@@ -67,42 +63,30 @@ class SearchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
-        $filter = new SearchFilter('username', 'search value');
-
+        $filter = new ExactMatchFilter('username', 'exact value');
         $em = $this->getMockEntityManager();
         $query = $this->getMockQueryBuilder();
 
         $this->trainQueryToReturnRootEntities($query);
         $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $classMeta = new \stdClass();
+        $classMeta->name = 'Tickit\Bundle\UserBundle\Entity\User';
+
+        $this->trainEntityManagerToReturnClassMetaData($em, $classMeta);
 
         $query->expects($this->once())
               ->method('getRootAliases')
-              ->will($this->returnValue(['u']));
-
-        $expression = new Comparison('u.username', 'LIKE', ':username');
-
-        $expressionBuilder = $this->getMockBuilder('\Doctrine\ORM\Query\Expr')
-                                  ->disableOriginalConstructor()
-                                  ->getMock();
-
-        $expressionBuilder->expects($this->once())
-                          ->method('like')
-                          ->with('u.username', ':username')
-                          ->will($this->returnValue($expression));
-
-        $query->expects($this->once())
-              ->method('expr')
-              ->will($this->returnValue($expressionBuilder));
+              ->will($this->returnValue(array('u')));
 
         $query->expects($this->once())
               ->method('andWhere')
-              ->with($expression)
+              ->with('u.username = :username')
               ->will($this->returnSelf());
 
         $query->expects($this->once())
               ->method('setParameter')
-              ->with('username', '%search value%');
+              ->with('username', 'exact value');
 
         $filter->applyToQuery($query);
     }

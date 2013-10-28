@@ -23,7 +23,7 @@ namespace Tickit\Bundle\PreferenceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
 
 /**

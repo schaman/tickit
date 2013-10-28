@@ -26,7 +26,7 @@ use DateTime;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 use Tickit\Bundle\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
-use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**

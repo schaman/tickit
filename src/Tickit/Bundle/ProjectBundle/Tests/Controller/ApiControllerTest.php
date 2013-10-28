@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\ApiController;
 use Tickit\Bundle\ProjectBundle\Controller\ProjectController;

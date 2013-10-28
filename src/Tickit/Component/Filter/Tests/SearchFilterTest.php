@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Filters;
+namespace Tickit\Component\Filter\Tests;
 
-use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\OrderByFilter;
+use Doctrine\ORM\Query\Expr\Comparison;
+use Tickit\Component\Filter\SearchFilter;
 
 /**
- * OrderByFilter tests
+ * SearchFilter tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Filters
+ * @package Tickit\Component\Filter\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class OrderByFilterTest extends AbstractFilterTestCase
+class SearchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
@@ -39,9 +39,9 @@ class OrderByFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
-        $filter = new OrderByFilter('invalid name', OrderByFilter::DIR_DESC);
-        $query = $this->getMockQueryBuilder();
+        $filter = new SearchFilter('invalid name', 'search value');
         $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
 
         $this->trainQueryToReturnRootEntities($query);
         $this->trainQueryToReturnEntityManager($query, $em);
@@ -51,7 +51,10 @@ class OrderByFilterTest extends AbstractFilterTestCase
               ->method('getRootAliases');
 
         $query->expects($this->never())
-              ->method('addOrderBy');
+              ->method('andWhere');
+
+        $query->expects($this->never())
+              ->method('setParameter');
 
         $filter->applyToQuery($query);
     }
@@ -63,7 +66,7 @@ class OrderByFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
-        $filter = new OrderByFilter('username', OrderByFilter::DIR_ASC);
+        $filter = new SearchFilter('username', 'search value');
 
         $em = $this->getMockEntityManager();
         $query = $this->getMockQueryBuilder();
@@ -74,38 +77,31 @@ class OrderByFilterTest extends AbstractFilterTestCase
 
         $query->expects($this->once())
               ->method('getRootAliases')
-              ->will($this->returnValue(array('u')));
+              ->will($this->returnValue(['u']));
+
+        $expression = new Comparison('u.username', 'LIKE', ':username');
+
+        $expressionBuilder = $this->getMockBuilder('\Doctrine\ORM\Query\Expr')
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
+        $expressionBuilder->expects($this->once())
+                          ->method('like')
+                          ->with('u.username', ':username')
+                          ->will($this->returnValue($expression));
 
         $query->expects($this->once())
-              ->method('addOrderBy')
-              ->with('u.username', OrderByFilter::DIR_ASC);
-
-        $filter->applyToQuery($query);
-    }
-
-    /**
-     * Tests the applyToQuery() method
-     *
-     * @return void
-     */
-    public function testApplyToQueryFallsBackToDefaultOrderForInvalidOrderType()
-    {
-        $filter = new OrderByFilter('username', 'crazy direction');
-
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
-
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+              ->method('expr')
+              ->will($this->returnValue($expressionBuilder));
 
         $query->expects($this->once())
-              ->method('getRootAliases')
-              ->will($this->returnValue(array('u')));
+              ->method('andWhere')
+              ->with($expression)
+              ->will($this->returnSelf());
 
         $query->expects($this->once())
-              ->method('addOrderBy')
-              ->with('u.username', OrderByFilter::DIR_DESC);
+              ->method('setParameter')
+              ->with('username', '%search value%');
 
         $filter->applyToQuery($query);
     }

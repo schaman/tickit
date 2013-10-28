@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Filters;
+namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
 
 /**
  * Abstract filter implementation.
  *
- * @package Tickit\Bundle\CoreBundle\Filters
+ * @package Tickit\Component\Filter
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractFilter implements QueryBuilderApplicableInterface

@@ -19,24 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Filters;
+namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
- * OrderBy filter.
+ * Search filter.
  *
- * An order by filter is used to add directional sorting on a query.
+ * A search filter represents a text based search with wildcard support
  *
- * @package Tickit\Bundle\CoreBundle\Filters
+ * @package Tickit\Component\Filter\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class OrderByFilter extends AbstractFilter
+class SearchFilter extends AbstractFilter
 {
-    const DIR_ASC = 'ASC';
-    const DIR_DESC = 'DESC';
-
     /**
      * Applies the itself to a query builder.
      *
@@ -52,10 +49,9 @@ class OrderByFilter extends AbstractFilter
 
         $aliases = $query->getRootAliases();
 
-        $validDirections = array(static::DIR_ASC, static::DIR_DESC);
-        $direction = in_array($this->getValue(), $validDirections) ? $this->getValue() : static::DIR_DESC;
-
-        $query->addOrderBy(sprintf('%s.%s', $aliases[0], $this->getKey()), $direction);
+        $column = sprintf('%s.%s', $aliases[0], $this->getKey());
+        $query->andWhere($query->expr()->like($column, sprintf(':%s', $this->getKey())))
+              ->setParameter($this->getKey(), '%' . $this->getValue() . '%');
     }
 
     /**
@@ -65,6 +61,6 @@ class OrderByFilter extends AbstractFilter
      */
     public function getType()
     {
-        return FilterCollectionBuilder::FILTER_ORDER_BY;
+        return FilterCollectionBuilder::FILTER_SEARCH;
     }
 }

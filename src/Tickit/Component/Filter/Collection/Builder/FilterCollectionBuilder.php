@@ -19,21 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Filters\Collection\Builder;
+namespace Tickit\Component\Filter\Collection\Builder;
 
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
-use Tickit\Bundle\CoreBundle\Filters\ExactMatchFilter;
-use Tickit\Bundle\CoreBundle\Filters\OrderByFilter;
-use Tickit\Bundle\CoreBundle\Filters\SearchFilter;
+use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\ExactMatchFilter;
+use Tickit\Component\Filter\OrderByFilter;
+use Tickit\Component\Filter\SearchFilter;
 
 /**
  * Filter collection builder.
  *
  * Responsible for building a collection of filters.
  *
- * @package Tickit\Bundle\CoreBundle\Filters\Collection\Builder
+ * @package Tickit\Component\Filter\Collection\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FilterCollectionBuilder
