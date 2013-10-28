@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id='tickit.controller.default' class='Tickit\Bundle\CoreBundle\Controller\DefaultController'>
+            <argument type="service" id="templating" />
+        </service>
+
+        <service id="tickit.controller.base_helper" class="Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper" public="false" lazy="true" scope="request">
+            <argument type="service" id="request" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="tickit.domain_object_array_decorator" />
+            <argument type="service" id="tickit.domain_object_collection_array_decorator" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="tickit.controller.form_helper" class="Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper" public="false" lazy="true" scope="request">
+            <argument type="service" id="templating" />
+            <argument type="service" id="form.factory" />
+        </service>
+
+        <service id="tickit.controller.csrf_helper" class="Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper" public="false" lazy="true" scope="request">
+            <argument type="service" id="security.csrf.token_manager" />
+        </service>
+
+    </services>
+
+</container>

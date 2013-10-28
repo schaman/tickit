@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_client.controller.api" class="Tickit\Bundle\ClientBundle\Controller\ApiController" scope="request">
+            <argument type="service" id="tickit.filter_collection_builder" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit.controller.csrf_helper" />
+            <argument type="service" id="tickit_client.client_repository" />
+        </service>
+
+        <service id="tickit_client.controller.client" class="Tickit\Bundle\ClientBundle\Controller\ClientController" scope="request">
+            <argument type="service" id="tickit.controller.form_helper" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit.controller.csrf_helper" />
+            <argument type="service" id="tickit_client.manager" />
+        </service>
+
+        <service id="tickit_client.controller.template" class="Tickit\Bundle\ClientBundle\Controller\TemplateController" scope="request">
+            <argument type="service" id="tickit.controller.form_helper" />
+        </service>
+
+    </services>
+</container>

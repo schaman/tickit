@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_user.avatar_adapter" class="%tickit_user.avatar.adapter_class%" />
+
+        <service id="tickit_user.avatar_twig_extension" class="Tickit\Bundle\UserBundle\Avatar\Twig\AvatarExtension">
+            <argument type="service" id="tickit_user.avatar_adapter" />
+            <argument type="service" id="security.context" />
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="tickit_user.user_event_dispatcher" class="Tickit\Bundle\UserBundle\Event\Dispatcher\UserEventDispatcher">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="tickit_user.user_provider" class="Tickit\Bundle\UserBundle\Security\UserProvider">
+            <argument type="service" id="tickit_user.manager" />
+        </service>
+
+        <service id="tickit_user.security.authentication_handler" class="Tickit\Bundle\UserBundle\Security\AuthenticationHandler">
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="tickit_user.display_name_decorator" class="Tickit\Bundle\UserBundle\Decorator\UserEntityDisplayNameDecorator" />
+
+    </services>
+
+</container>

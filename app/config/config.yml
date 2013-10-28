@@ -64,7 +64,7 @@ swiftmailer:
 fos_user:
     db_driver:     orm
     firewall_name: main
-    user_class:   Tickit\UserBundle\Entity\User
+    user_class:   Tickit\Bundle\UserBundle\Entity\User
     registration:
         form:
             type: tickit_user_registration
@@ -83,7 +83,7 @@ stof_doctrine_extensions:
 
 tickit_user:
     avatar:
-        adapter_class: Tickit\UserBundle\Avatar\Adapter\GravatarAdapter
+        adapter_class: Tickit\Bundle\UserBundle\Avatar\Adapter\GravatarAdapter
 
 tickit_notification:
     api_message_limit: 25
