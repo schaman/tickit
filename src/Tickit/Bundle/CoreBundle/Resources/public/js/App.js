@@ -11,7 +11,7 @@ require([
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/NavigationRegion',
     'navigation/js/regions/ToolbarRegion',
-    '../../../../../../.',
+    'jquery',
     'text'
 ], function(Marionette, Session, MainRegion, AnimatedRegion, NavigationRegion, ToolbarRegion) {
     var App = new Marionette.Application();

@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['../../../../../../.'], function($) {
+define(['jquery'], function($) {
     return App.module('Request', function(module) {
 
         /**
