@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Filters\Collection\Builder;
+namespace Tickit\Component\Filter\Tests\Collection\Builder;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tickit\Bundle\CoreBundle\Filters\AbstractFilter;
-use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\AbstractFilter;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * FilterCollectionBuilder tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Filters\Collection\Builder
+ * @package Tickit\Component\Filter\Tests\Collection\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase

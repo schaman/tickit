@@ -25,7 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
-use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Bundle\UserBundle\Avatar\AvatarService;
 use Tickit\Bundle\UserBundle\Entity\Repository\UserRepository;

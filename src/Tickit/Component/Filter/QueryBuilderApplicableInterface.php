@@ -19,34 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Filters\Collection;
+namespace Tickit\Component\Filter;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\QueryBuilderApplicableInterface;
 
 /**
- * Filter collection.
+ * Query builder applicable interface.
  *
- * Provides a collection wrapper for filter objects.
+ * A query builder applicable object is something that can be applied to a query builder.
  *
- * @package Tickit\Bundle\CoreBundle\Filters\Collection
+ * @package Tickit\Component\Filter
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class FilterCollection extends ArrayCollection
+interface QueryBuilderApplicableInterface
 {
     /**
-     * Applies the collection of filters to a query
+     * Applies the itself to a query builder.
      *
-     * @param QueryBuilder $query The query to apply the filter collection to
+     * @param QueryBuilder $query A reference to the query builder
      *
      * @return void
      */
-    public function applyToQuery(QueryBuilder &$query)
-    {
-        /** @var QueryBuilderApplicableInterface $filter */
-        foreach ($this->toArray() as $filter) {
-            $filter->applyToQuery($query);
-        }
-    }
+    public function applyToQuery(QueryBuilder &$query);
 }

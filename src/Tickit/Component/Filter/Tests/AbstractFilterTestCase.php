@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Filters;
+namespace Tickit\Component\Filter\Tests;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
@@ -28,7 +28,7 @@ use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
  *
  * Provides some helpers for tests on filters
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Filters
+ * @package Tickit\Component\Filter\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractFilterTestCase extends AbstractUnitTest

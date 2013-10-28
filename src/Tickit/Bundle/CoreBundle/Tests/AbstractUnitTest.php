@@ -143,7 +143,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockFilterCollectionBuilder()
     {
-        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder')
+        return $this->getMockBuilder('\Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder')
                     ->disableOriginalConstructor()
                     ->getMock();
     }

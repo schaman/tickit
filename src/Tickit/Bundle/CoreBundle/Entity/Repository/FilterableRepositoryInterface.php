@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\CoreBundle\Entity\Repository;
 
-use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * Filterable repository interface.
@@ -31,7 +31,7 @@ use Tickit\Bundle\CoreBundle\Filters\Collection\FilterCollection;
  *
  * @package Tickit\Bundle\CoreBundle\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\Bundle\CoreBundle\Filters\FilterCollection
+ * @see     Tickit\Component\Filter\FilterCollection
  */
 interface FilterableRepositoryInterface
 {

@@ -19,18 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Filters;
+namespace Tickit\Component\Filter\Tests;
 
-use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\ExactMatchFilter;
+use Tickit\Component\Filter\OrderByFilter;
 
 /**
- * ExactMatchFilter tests
+ * OrderByFilter tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Filters
+ * @package Tickit\Component\Filter\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ExactMatchFilterTest extends AbstractFilterTestCase
+class OrderByFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
@@ -39,9 +38,9 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
-        $filter = new ExactMatchFilter('invalid name', 'exact value');
-        $em = $this->getMockEntityManager();
+        $filter = new OrderByFilter('invalid name', OrderByFilter::DIR_DESC);
         $query = $this->getMockQueryBuilder();
+        $em = $this->getMockEntityManager();
 
         $this->trainQueryToReturnRootEntities($query);
         $this->trainQueryToReturnEntityManager($query, $em);
@@ -51,7 +50,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
               ->method('getRootAliases');
 
         $query->expects($this->never())
-              ->method('andWhere');
+              ->method('addOrderBy');
 
         $filter->applyToQuery($query);
     }
@@ -63,30 +62,49 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
-        $filter = new ExactMatchFilter('username', 'exact value');
+        $filter = new OrderByFilter('username', OrderByFilter::DIR_ASC);
+
         $em = $this->getMockEntityManager();
         $query = $this->getMockQueryBuilder();
 
         $this->trainQueryToReturnRootEntities($query);
         $this->trainQueryToReturnEntityManager($query, $em);
-
-        $classMeta = new \stdClass();
-        $classMeta->name = 'Tickit\Bundle\UserBundle\Entity\User';
-
-        $this->trainEntityManagerToReturnClassMetaData($em, $classMeta);
+        $this->trainEntityManagerToReturnClassMetaData($em);
 
         $query->expects($this->once())
               ->method('getRootAliases')
               ->will($this->returnValue(array('u')));
 
         $query->expects($this->once())
-              ->method('andWhere')
-              ->with('u.username = :username')
-              ->will($this->returnSelf());
+              ->method('addOrderBy')
+              ->with('u.username', OrderByFilter::DIR_ASC);
+
+        $filter->applyToQuery($query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
+     *
+     * @return void
+     */
+    public function testApplyToQueryFallsBackToDefaultOrderForInvalidOrderType()
+    {
+        $filter = new OrderByFilter('username', 'crazy direction');
+
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
 
         $query->expects($this->once())
-              ->method('setParameter')
-              ->with('username', 'exact value');
+              ->method('getRootAliases')
+              ->will($this->returnValue(array('u')));
+
+        $query->expects($this->once())
+              ->method('addOrderBy')
+              ->with('u.username', OrderByFilter::DIR_DESC);
 
         $filter->applyToQuery($query);
     }

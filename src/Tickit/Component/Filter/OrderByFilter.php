@@ -19,21 +19,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Filters;
+namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Filters\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
- * Exact match filter.
+ * OrderBy filter.
  *
- * An exact match filter represents an exact match filter.
+ * An order by filter is used to add directional sorting on a query.
  *
- * @package Tickit\Bundle\CoreBundle\Filters\Model
+ * @package Tickit\Component\Filter
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ExactMatchFilter extends AbstractFilter
+class OrderByFilter extends AbstractFilter
 {
+    const DIR_ASC = 'ASC';
+    const DIR_DESC = 'DESC';
+
     /**
      * Applies the itself to a query builder.
      *
@@ -49,8 +52,10 @@ class ExactMatchFilter extends AbstractFilter
 
         $aliases = $query->getRootAliases();
 
-        $query->andWhere(sprintf('%s.%s = :%s', $aliases[0], $this->getKey(), $this->getKey()))
-              ->setParameter($this->getKey(), $this->getValue());
+        $validDirections = array(static::DIR_ASC, static::DIR_DESC);
+        $direction = in_array($this->getValue(), $validDirections) ? $this->getValue() : static::DIR_DESC;
+
+        $query->addOrderBy(sprintf('%s.%s', $aliases[0], $this->getKey()), $direction);
     }
 
     /**
@@ -60,6 +65,6 @@ class ExactMatchFilter extends AbstractFilter
      */
     public function getType()
     {
-        return FilterCollectionBuilder::FILTER_EXACT_MATCH;
+        return FilterCollectionBuilder::FILTER_ORDER_BY;
     }
 }
