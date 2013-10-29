@@ -19,37 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Decorator\Collection;
-
-use Tickit\Bundle\CoreBundle\Decorator\DomainObjectDecoratorInterface;
+namespace Tickit\Component\DomainObject\Decorator\Collection;
 
 /**
- * Domain object collection array decorator.
+ * File description
  *
- * Responsible for decorating a collection of domain objects as arrays
- *
- * @package Tickit\Bundle\CoreBundle\Decorator\Collection
+ * @package Tickit\Component\DomainObject\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class DomainObjectCollectionDecorator implements DomainObjectCollectionDecoratorInterface
+interface DomainObjectCollectionDecoratorInterface
 {
-    /**
-     * A domain object decorator
-     *
-     * @var DomainObjectDecoratorInterface
-     */
-    private $decorator;
-
-    /**
-     * Constructor.
-     *
-     * @param DomainObjectDecoratorInterface $decorator A domain object decorator
-     */
-    public function __construct(DomainObjectDecoratorInterface $decorator)
-    {
-        $this->decorator = $decorator;
-    }
-
     /**
      * Decorates a collection of domain objects and returns the result.
      *
@@ -59,14 +38,5 @@ class DomainObjectCollectionDecorator implements DomainObjectCollectionDecorator
      *
      * @return array
      */
-    public function decorate(array $data, array $propertyNames, array $staticProperties = array())
-    {
-        $decorated = [];
-
-        foreach ($data as $object) {
-            $decorated[] = $this->decorator->decorate($object, $propertyNames, $staticProperties);
-        }
-
-        return $decorated;
-    }
+    public function decorate(array $data, array $propertyNames, array $staticProperties = array());
 }

@@ -25,8 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Tickit\Bundle\CoreBundle\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
-use Tickit\Bundle\CoreBundle\Decorator\DomainObjectDecoratorInterface;
+use Tickit\Component\DomainObject\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
+use Tickit\Component\DomainObject\Decorator\DomainObjectDecoratorInterface;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
