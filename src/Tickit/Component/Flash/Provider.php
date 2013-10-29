@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Flash;
+namespace Tickit\Component\Flash;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Yaml\Yaml;
@@ -32,7 +32,7 @@ use Symfony\Component\Yaml\Yaml;
  *
  * Messages templates are read from app/extra/messages.yml
  *
- * @package Tickit\Bundle\CoreBundle\Flash
+ * @package Tickit\Component\Flash
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Provider implements ProviderInterface

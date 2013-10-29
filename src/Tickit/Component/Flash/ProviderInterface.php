@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Flash;
+namespace Tickit\Component\Flash;
 
 /**
  * Interface for flash message generators.
@@ -27,7 +27,7 @@ namespace Tickit\Bundle\CoreBundle\Flash;
  * Provides a way of encapsulating all flash message notifications across the
  * application.
  *
- * @package Tickit\Bundle\CoreBundle\Flash
+ * @package Tickit\Component\Flash
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface ProviderInterface
