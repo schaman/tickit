@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Tests\Security\Mock;
+namespace Tickit\Component\Security\Tests\Mock;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Mock invalid user type that implements UserInterface
  *
- * @package Tickit\Bundle\UserBundle\Tests\Security\Mock
+ * @package Tickit\Component\Security\Tests\Mock
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class MockInvalidTypeUser implements UserInterface

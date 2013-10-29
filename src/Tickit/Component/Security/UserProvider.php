@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Security;
+namespace Tickit\Component\Security;
 
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -34,7 +34,7 @@ use Tickit\Bundle\UserBundle\Manager\UserManager;
  * Provides functionality for providing user information to Symfony's
  * security component
  *
- * @package Tickit\Bundle\UserBundle\Security
+ * @package Tickit\Component\Security
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserProvider implements UserProviderInterface

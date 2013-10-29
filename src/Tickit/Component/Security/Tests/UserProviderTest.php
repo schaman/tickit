@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Tests\Security;
+namespace Tickit\Component\Security\Tests;
 
 use Tickit\Bundle\UserBundle\Entity\User;
-use Tickit\Bundle\UserBundle\Security\UserProvider;
-use Tickit\Bundle\UserBundle\Tests\Security\Mock\MockInvalidTypeUser;
+use Tickit\Component\Security\UserProvider;
+use Tickit\Component\Security\Tests\Mock\MockInvalidTypeUser;
 
 /**
  * UserProvider tests
  *
- * @package Tickit\Bundle\UserBundle\Tests\Security
+ * @package Tickit\Component\Security\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserProviderTest extends \PHPUnit_Framework_TestCase
