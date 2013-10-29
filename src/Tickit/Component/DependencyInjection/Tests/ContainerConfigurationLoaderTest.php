@@ -44,7 +44,7 @@ class ContainerConfigurationLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainXmlLoaderToLoadConfig('forms.xml');
 
-        $this->getLoader()->loadServices();
+        $this->getLoader()->loadForms();
     }
 
     /**
@@ -54,7 +54,7 @@ class ContainerConfigurationLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainXmlLoaderToLoadConfig('listeners.xml');
 
-        $this->getLoader()->loadServices();
+        $this->getLoader()->loadListeners();
     }
 
     /**
@@ -64,7 +64,7 @@ class ContainerConfigurationLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainXmlLoaderToLoadConfig('managers.xml');
 
-        $this->getLoader()->loadServices();
+        $this->getLoader()->loadManagers();
     }
 
     /**
@@ -74,7 +74,7 @@ class ContainerConfigurationLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainXmlLoaderToLoadConfig('repositories.xml');
 
-        $this->getLoader()->loadServices();
+        $this->getLoader()->loadRepositories();
     }
 
     /**
@@ -84,7 +84,7 @@ class ContainerConfigurationLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->trainXmlLoaderToLoadConfig('controllers.xml');
 
-        $this->getLoader()->loadServices();
+        $this->getLoader()->loadControllers();
     }
 
     /**
