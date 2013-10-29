@@ -25,6 +25,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
+use Tickit\Component\DependencyInjection\ContainerConfigurationLoader;
 
 /**
  * Extension class for the project bundle
@@ -47,11 +48,13 @@ class TickitProjectExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $xmlLoader->load('services.xml');
-        $xmlLoader->load('forms.xml');
-        $xmlLoader->load('listeners.xml');
-        $xmlLoader->load('managers.xml');
-        $xmlLoader->load('repositories.xml');
-        $xmlLoader->load('controllers.xml');
+        $loader = new ContainerConfigurationLoader($xmlLoader);
+
+        $loader->loadServices();
+        $loader->loadForms();
+        $loader->loadListeners();
+        $loader->loadManagers();
+        $loader->loadRepositories();
+        $loader->loadControllers();
     }
 }
