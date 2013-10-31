@@ -4,6 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="user_provider.class">Tickit\Component\Security\UserProvider</parameter>
+        <parameter key="authentication_handler.class">Tickit\Component\Security\AuthenticationHandler</parameter>
+    </parameters>
+
     <services>
 
         <service id="tickit_user.avatar_adapter" class="%tickit_user.avatar.adapter_class%" />
@@ -18,11 +23,11 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="tickit_user.user_provider" class="Tickit\Bundle\UserBundle\Security\UserProvider">
+        <service id="tickit_user.user_provider" class="%user_provider.class%">
             <argument type="service" id="tickit_user.manager" />
         </service>
 
-        <service id="tickit_user.security.authentication_handler" class="Tickit\Bundle\UserBundle\Security\AuthenticationHandler">
+        <service id="tickit_user.security.authentication_handler" class="%authentication_handler.class%">
             <argument type="service" id="router" />
         </service>
 
