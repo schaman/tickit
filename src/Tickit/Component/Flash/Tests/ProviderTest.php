@@ -19,17 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Flash;
+namespace Tickit\Component\Flash\Tests;
 
-use Symfony\Component\HttpFoundation\Session\Session;
-use Tickit\Bundle\CoreBundle\Flash\Provider;
-use Tickit\Bundle\CoreBundle\Tests\AbstractFunctionalTest;
+use Tickit\Component\Flash\Provider;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**
  * Tests for the flash message provider
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Flash
+ * @package Tickit\Component\Flash\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProviderTest extends AbstractUnitTest
@@ -64,7 +62,7 @@ class ProviderTest extends AbstractUnitTest
      */
     public function testProviderFallsBackToDefaultMessagesForInvalidEnvironment()
     {
-        new Provider($this->session, __DIR__ . '/../../../../../../app/config/extra/', 'made_up');
+        new Provider($this->session, __DIR__ . '/../../../../../app/config/extra/', 'made_up');
     }
 
     /**
@@ -132,6 +130,6 @@ class ProviderTest extends AbstractUnitTest
      */
     private function getProvider()
     {
-        return new Provider($this->session, __DIR__ . '/../../../../../../app/config/extra/', 'test');
+        return new Provider($this->session, __DIR__ . '/../../../../../app/config/extra/', 'test');
     }
 }
