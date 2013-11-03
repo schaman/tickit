@@ -19,13 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Tests\Avatar\Twig;
+namespace Tickit\Component\Avatar\Tests\Twig;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
-use Tickit\Bundle\UserBundle\Avatar\AvatarService;
-use Tickit\Bundle\UserBundle\Avatar\Twig\AvatarExtension;
+use Tickit\Component\Avatar\Twig\AvatarExtension;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
@@ -131,6 +128,6 @@ class AvatarExtensionTest extends AbstractUnitTest
      */
     private function getMockAvatarAdapter()
     {
-        return $this->getMockForAbstractClass('Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
+        return $this->getMockForAbstractClass('Tickit\Component\Avatar\Adapter\AvatarAdapterInterface');
     }
 }

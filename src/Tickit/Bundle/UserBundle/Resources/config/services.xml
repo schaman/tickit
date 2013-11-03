@@ -13,7 +13,7 @@
 
         <service id="tickit_user.avatar_adapter" class="%tickit_user.avatar.adapter_class%" />
 
-        <service id="tickit_user.avatar_twig_extension" class="Tickit\Bundle\UserBundle\Avatar\Twig\AvatarExtension">
+        <service id="tickit_user.avatar_twig_extension" class="Tickit\Component\Avatar\Twig\AvatarExtension">
             <argument type="service" id="tickit_user.avatar_adapter" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />

@@ -26,7 +26,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Tickit\Bundle\UserBundle\Avatar\Entity\AvatarAwareInterface;
+use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * The User entity represents a logged in user in the application

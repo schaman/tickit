@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Avatar\Adapter;
+namespace Tickit\Component\Avatar\Adapter;
 
-use Tickit\Bundle\UserBundle\Avatar\Entity\AvatarAwareInterface;
+use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
 
 /**
  * Avatar adapter interface for implementing standard image accessor functions
  *
- * @package Tickit\Bundle\UserBundle\Service\Avatar\Adapter
+ * @package Tickit\Component\Avatar\Adapter
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 interface AvatarAdapterInterface

@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Avatar\Twig;
+namespace Tickit\Component\Avatar\Twig;
 
-use Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface;
+use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Symfony\Component\Security\Core\SecurityContextInterface;

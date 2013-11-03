@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Tests\Avatar\Adapter;
+namespace Tickit\Component\Avatar\Tests\Adapter;
 
-use Tickit\Bundle\UserBundle\Avatar\Adapter\GravatarAdapter;
+use Tickit\Component\Avatar\Adapter\GravatarAdapter;
 
 /**
  * Test the Gravatar avatar adapter
@@ -36,7 +36,7 @@ class GravatarAdapterTest extends \PHPUnit_Framework_TestCase
      */
     public function testImageUrlGeneration()
     {
-        $user = $this->getMockForAbstractClass('Tickit\Bundle\UserBundle\Avatar\Entity\AvatarAwareInterface');
+        $user = $this->getMockForAbstractClass('Tickit\Component\Avatar\Entity\AvatarAwareInterface');
         $user->expects($this->once())
              ->method('getAvatarIdentifier')
              ->will($this->returnValue('avatar identifier'));
