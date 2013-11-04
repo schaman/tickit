@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\DomainObject\Decorator;
+namespace Tickit\Component\Decorator;
 
 /**
  * Array decorator for domain objects.
  *
- * @package Tickit\Component\DomainObject\Decorator
+ * @package Tickit\Component\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */

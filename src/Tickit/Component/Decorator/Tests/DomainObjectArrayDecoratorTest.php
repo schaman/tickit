@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\DomainObject\Tests\Decorator;
+namespace Tickit\Component\Decorator\Tests;
 
-use Tickit\Component\DomainObject\Decorator\DomainObjectArrayDecorator;
-use Tickit\Component\DomainObject\Tests\Decorator\Mock\MockDomainObject;
+use Tickit\Component\Decorator\DomainObjectArrayDecorator;
+use Tickit\Component\Decorator\Tests\Mock\MockDomainObject;
 
 /**
  * DomainObjectArrayDecorator tests
  *
- * @package Tickit\Component\DomainObject\Tests\Decorator
+ * @package Tickit\Component\Decorator\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>
  */

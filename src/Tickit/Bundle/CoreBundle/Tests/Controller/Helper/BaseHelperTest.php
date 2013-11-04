@@ -74,11 +74,11 @@ class BaseHelperTest extends AbstractUnitTest
         );
 
         $this->objectDecorator = $this->getMockForAbstractClass(
-            '\Tickit\Component\DomainObject\Decorator\DomainObjectDecoratorInterface'
+            '\Tickit\Component\Decorator\DomainObjectDecoratorInterface'
         );
 
         $this->objectCollectionDecorator = $this->getMockForAbstractClass(
-            '\Tickit\Component\DomainObject\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
+            '\Tickit\Component\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
         );
 
         $this->router = $this->getMockRouter();

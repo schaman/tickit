@@ -121,7 +121,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockObjectDecorator()
     {
-        return $this->getMockForAbstractClass('\Tickit\Component\DomainObject\Decorator\DomainObjectDecoratorInterface');
+        return $this->getMockForAbstractClass('\Tickit\Component\Decorator\DomainObjectDecoratorInterface');
     }
 
     /**
@@ -132,7 +132,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     protected function getMockObjectCollectionDecorator()
     {
         return $this->getMockForAbstractClass(
-            '\Tickit\Component\DomainObject\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
+            '\Tickit\Component\Decorator\Collection\DomainObjectCollectionDecoratorInterface'
         );
     }
 

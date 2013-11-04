@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\DomainObject\Tests\Decorator\Mock;
+namespace Tickit\Component\Decorator\Tests\Mock;
 
 /**
  * Mock domain object
  *
- * @package Tickit\Component\DomainObject\Tests\Decorator\Mock
+ * @package Tickit\Component\Decorator\Tests\Mock
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class MockDomainObject
