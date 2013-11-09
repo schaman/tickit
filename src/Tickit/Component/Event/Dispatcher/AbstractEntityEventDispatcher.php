@@ -19,15 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Event\Dispatcher;
+namespace Tickit\Component\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Tickit\Bundle\CoreBundle\Event\AbstractVetoableEvent;
+use Tickit\Component\Entity\Event\EntityEvent;
+use Tickit\Component\Entity\Event\EntityModifiedEvent;
 
 /**
  * Abstract implementation of an entity event dispatcher
  *
- * @package Tickit\Bundle\CoreBundle\Event\Dispatcher
+ * @package Tickit\Component\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractEntityEventDispatcher
@@ -40,6 +41,13 @@ abstract class AbstractEntityEventDispatcher
     protected $dispatcher;
 
     /**
+     * Event names
+     *
+     * @var array
+     */
+    private $eventNames;
+
+    /**
      * Constructor.
      *
      * @param EventDispatcherInterface $dispatcher An event dispatcher
@@ -47,6 +55,7 @@ abstract class AbstractEntityEventDispatcher
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
+        $this->eventNames = $this->getEventNames();
     }
 
     /**
@@ -57,18 +66,26 @@ abstract class AbstractEntityEventDispatcher
      *
      * @param object $entity The project entity that is about to be created
      *
-     * @return AbstractVetoableEvent
+     * @return EntityEvent
      */
-    abstract public function dispatchBeforeCreateEvent($entity);
+    public function dispatchBeforeCreateEvent($entity)
+    {
+        $beforeEvent = new EntityEvent($entity);
+        $beforeEvent = $this->dispatcher->dispatch($this->eventNames['before_create'], $beforeEvent);
+
+        return $beforeEvent;
+    }
 
     /**
      * Dispatches events for the "create" event on the entity
      *
      * @param object $entity The project entity that has just been created
-     *
-     * @return void
      */
-    abstract public function dispatchCreateEvent($entity);
+    public function dispatchCreateEvent($entity)
+    {
+        $event = new EntityEvent($entity);
+        $this->dispatcher->dispatch($this->eventNames['create'], $event);
+    }
 
     /**
      * Dispatches events for the "before update" event on the entity
@@ -78,19 +95,27 @@ abstract class AbstractEntityEventDispatcher
      *
      * @param object $entity The entity that is about to be updated
      *
-     * @return AbstractVetoableEvent
+     * @return EntityEvent
      */
-    abstract public function dispatchBeforeUpdateEvent($entity);
+    public function dispatchBeforeUpdateEvent($entity)
+    {
+        $beforeEvent = new EntityEvent($entity);
+        $beforeEvent = $this->dispatcher->dispatch($this->eventNames['before_update'], $beforeEvent);
+
+        return $beforeEvent;
+    }
 
     /**
      * Dispatches events for the "update" event on the entity
      *
      * @param object $entity         The entity that has just been updated
      * @param object $originalEntity The entity before any changes were applied
-     *
-     * @return void
      */
-    abstract public function dispatchUpdateEvent($entity, $originalEntity);
+    public function dispatchUpdateEvent($entity, $originalEntity)
+    {
+        $event = new EntityModifiedEvent($entity, $originalEntity);
+        $this->dispatcher->dispatch($this->eventNames['update'], $event);
+    }
 
     /**
      * Dispatches events for the "before delete" event on the entity
@@ -100,16 +125,31 @@ abstract class AbstractEntityEventDispatcher
      *
      * @param object $entity The entity that is about to be deleted
      *
-     * @return AbstractVetoableEvent
+     * @return EntityEvent
      */
-    abstract public function dispatchBeforeDeleteEvent($entity);
+    public function dispatchBeforeDeleteEvent($entity)
+    {
+        $beforeEvent = new EntityEvent($entity);
+        $beforeEvent = $this->dispatcher->dispatch($this->eventNames['before_delete'], $beforeEvent);
+
+        return $beforeEvent;
+    }
 
     /**
      * Dispatches events for the "delete" event on the entity
      *
      * @param object $entity The entity that has just been deleted in the entity manager
-     *
-     * @return void
      */
-    abstract public function dispatchDeleteEvent($entity);
+    public function dispatchDeleteEvent($entity)
+    {
+        $event = new EntityEvent($entity);
+        $this->dispatcher->dispatch($this->eventNames['delete'], $event);
+    }
+
+    /**
+     * Gets an array of event names
+     *
+     * @return array
+     */
+    abstract protected function getEventNames();
 }

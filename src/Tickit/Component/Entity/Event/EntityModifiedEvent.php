@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Event;
+namespace Tickit\Component\Entity\Event;
 
 /**
  * Entity modification event.
@@ -27,10 +27,10 @@ namespace Tickit\Bundle\CoreBundle\Event;
  * This event is used to represent a change to an entity's state in the
  * entity manager.
  *
- * @package Tickit\Bundle\CoreBundle\Event
+ * @package Tickit\Component\Entity\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EntityModifiedEvent extends EntityEvent
+class EntityModifiedEvent extends EntityEvent implements EntityUpdateEventInterface
 {
     /**
      * The original entity state before it was modified

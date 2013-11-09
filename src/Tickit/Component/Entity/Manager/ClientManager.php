@@ -19,21 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Manager;
+namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
 use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
-use Tickit\Bundle\CoreBundle\Manager\AbstractManager;
 
 /**
  * Client Manager.
  *
  * Responsible for managing Client entities in the application.
  *
- * @package Tickit\Bundle\ClientBundle\Manager
+ * @package Tickit\Component\Entity\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientManager extends AbstractManager

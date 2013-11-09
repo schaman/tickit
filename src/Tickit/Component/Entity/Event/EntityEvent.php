@@ -19,15 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Event;
+namespace Tickit\Component\Entity\Event;
+
+use Tickit\Component\Event\AbstractVetoableEvent;
 
 /**
  * Entity related event.
  *
- * @package Tickit\Bundle\CoreBundle\Event
+ * @package Tickit\Component\Entity\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EntityEvent extends AbstractVetoableEvent
+class EntityEvent extends AbstractVetoableEvent implements EntityAwareEventInterface
 {
     /**
      * The entity that is to be deleted

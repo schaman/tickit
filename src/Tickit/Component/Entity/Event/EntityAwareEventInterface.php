@@ -19,45 +19,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Event;
-
-use Symfony\Component\EventDispatcher\Event;
+namespace Tickit\Component\Entity\Event;
 
 /**
- * Abstract implementation of an event that can be vetoed
+ * Interface for entity aware events.
  *
- * Events that extend this base class will gain the ability to be vetoed. This allows
- * logic to be implemented around subscribers flagging the event as being vetoed.
+ * Any events implementing this interface are guaranteeing that they are
+ * responsible for an entity. This proves useful when an object is responsible
+ * for the management of events when it does not have insightful details about
+ * the entities on those events.
  *
- * @package Tickit\Bundle\CoreBundle\Event
+ * @package Tickit\Component\Entity\Event\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @see     Tickit\Bundle\CoreBundle\Manager\AbstractManager
  */
-abstract class AbstractVetoableEvent extends Event
+interface EntityAwareEventInterface
 {
     /**
-     * Boolean value indicating if this event has been vetoed
+     * Gets the entity associated with this event
      *
-     * @var boolean
+     * @return object
      */
-    protected $vetoed = false;
+    public function getEntity();
 
     /**
-     * Flags this delete event as being vetoed
+     * Sets the entity associated with this event
      *
-     * @return void
+     * @param object $entity The entity to attach to the event
      */
-    public function veto()
-    {
-        $this->vetoed = true;
-    }
-
-    /**
-     * Returns true if the delete event has been vetoed
-     *
-     * @return boolean
-     */
-    public function isVetoed()
-    {
-        return $this->vetoed;
-    }
+    public function setEntity($entity);
 }

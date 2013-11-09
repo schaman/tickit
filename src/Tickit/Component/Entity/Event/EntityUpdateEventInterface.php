@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Event\Interfaces;
+namespace Tickit\Component\Entity\Event;
 
 /**
  * Interface for entity update events.
@@ -27,10 +27,10 @@ namespace Tickit\Bundle\CoreBundle\Event\Interfaces;
  * Guarantees a way of retrieving the original entity state from the
  * event object.
  *
- * @package Tickit\Bundle\CoreBundle\Event\Interfaces
+ * @package Tickit\Component\Entity\Event\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface UpdateEventInterface
+interface EntityUpdateEventInterface
 {
     /**
      * Returns the entity in its original state.

@@ -19,44 +19,44 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PreferenceBundle\Manager;
+namespace Tickit\Component\Entity\Tests\Manager;
 
-use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Component\Entity\Manager\PreferenceManager;
 
 /**
- * Preference Manager.
+ * PreferenceManagerTest tests
  *
- * Provides functionality for managing preference data in the application.
- *
- * @package Tickit\Bundle\PreferenceBundle\Manager
+ * @package Tickit\Component\Entity\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceManager
+class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * The preference repository
+     * The manager under test
      *
-     * @var PreferenceRepository
+     * @var PreferenceManager
      */
-    protected $preferenceRepository;
+    private $manager;
 
     /**
-     * Constructor
-     *
-     * @param PreferenceRepository $preferenceRepository The preference repository
+     * Setup
      */
-    public function __construct(PreferenceRepository $preferenceRepository)
+    protected function setUp()
     {
-        $this->preferenceRepository = $preferenceRepository;
+        $repository = $this->getMockBuilder('Tickit\Component\Entity\Repository\PreferenceRepository')
+                           ->disableOriginalConstructor()
+                           ->getMock();
+
+        $this->manager = new PreferenceManager($repository);
     }
 
     /**
-     * Gets the preferences repository
-     *
-     * @return PreferenceRepository
+     * Tests the getRepository() method
      */
-    public function getRepository()
+    public function testGetRepositoryReturnsCorrectInstance()
     {
-        return $this->preferenceRepository;
+        $repository = $this->manager->getRepository();
+
+        $this->assertInstanceOf('Tickit\Component\Entity\Repository\PreferenceRepository', $repository);
     }
 }

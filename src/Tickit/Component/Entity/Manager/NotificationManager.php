@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NotificationBundle\Manager;
+namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Tickit\Bundle\NotificationBundle\Entity\AbstractNotification;
