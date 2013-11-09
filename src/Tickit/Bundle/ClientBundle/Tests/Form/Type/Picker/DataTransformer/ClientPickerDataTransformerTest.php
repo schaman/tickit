@@ -29,7 +29,7 @@ class ClientPickerDataTransformerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->manager = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Manager\ClientManager')
+        $this->manager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\ClientManager')
                               ->disableOriginalConstructor()
                               ->getMock();
 

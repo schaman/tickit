@@ -24,9 +24,9 @@ namespace Tickit\Bundle\ClientBundle\Tests\Event\Dispatcher;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Event\Dispatcher\ClientEventDispatcher;
 use Tickit\Bundle\ClientBundle\TickitClientEvents;
-use Tickit\Bundle\CoreBundle\Event\EntityEvent;
-use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Entity\Event\EntityEvent;
+use Tickit\Component\Entity\Event\EntityModifiedEvent;
 
 /**
  * ClientEventDispatcher tests

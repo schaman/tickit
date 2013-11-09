@@ -23,7 +23,7 @@ namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
  * Abstract entity manager

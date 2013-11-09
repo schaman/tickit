@@ -22,12 +22,12 @@
 namespace Tickit\Bundle\UserBundle\Tests\Event\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
-use Tickit\Bundle\CoreBundle\Event\EntityEvent;
-use Tickit\Bundle\CoreBundle\Event\EntityModifiedEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Entity\User;
 use Tickit\Bundle\UserBundle\Event\Dispatcher\UserEventDispatcher;
 use Tickit\Bundle\UserBundle\TickitUserEvents;
+use Tickit\Component\Entity\Event\EntityEvent;
+use Tickit\Component\Entity\Event\EntityModifiedEvent;
 
 /**
  * UserEventDispatcher tests

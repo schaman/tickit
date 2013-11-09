@@ -78,7 +78,7 @@ class ProjectControllerTest extends AbstractUnitTest
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $this->attributeManager = $this->getMockBuilder('\Tickit\Bundle\ProjectBundle\Manager\AttributeManager')
+        $this->attributeManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\AttributeManager')
                                        ->disableOriginalConstructor()
                                        ->getMock();
 
@@ -86,7 +86,7 @@ class ProjectControllerTest extends AbstractUnitTest
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
-        $this->projectManager = $this->getMockBuilder('\Tickit\Bundle\ProjectBundle\Manager\ProjectManager')
+        $this->projectManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\ProjectManager')
                                      ->disableOriginalConstructor()
                                      ->getMock();
     }

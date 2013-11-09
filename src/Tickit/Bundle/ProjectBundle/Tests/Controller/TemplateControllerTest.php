@@ -64,7 +64,7 @@ class TemplateControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->attributeManager = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Manager\AttributeManager')
+        $this->attributeManager = $this->getMockBuilder('Tickit\Component\Entity\Manager\AttributeManager')
                                        ->disableOriginalConstructor()
                                        ->getMock();
 

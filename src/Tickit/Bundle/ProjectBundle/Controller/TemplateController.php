@@ -29,8 +29,8 @@ use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\Project;
 use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
 use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
-use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
-use Tickit\Bundle\UserBundle\Manager\UserManager;
+use Tickit\Component\Entity\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\UserManager;
 
 /**
  * Template controller.

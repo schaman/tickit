@@ -49,7 +49,7 @@ class TemplateControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->userManager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
+        $this->userManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\UserManager')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 

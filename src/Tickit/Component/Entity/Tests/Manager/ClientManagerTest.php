@@ -22,7 +22,7 @@
 namespace Tickit\Component\Entity\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
-use Tickit\Component\Entity\Client;
+use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Component\Entity\Manager\ClientManager;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
@@ -54,7 +54,7 @@ class ClientManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->clientRepo = $this->getMockBuilder('\Tickit\Component\Entity\Repository\ClientRepository')
+        $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository')
                                  ->disableOriginalConstructor()
                                  ->getMock();
 

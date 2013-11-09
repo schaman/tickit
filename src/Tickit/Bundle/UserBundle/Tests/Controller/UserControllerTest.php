@@ -69,7 +69,7 @@ class UserControllerTest extends AbstractUnitTest
         $this->formHelper = $this->getMockFormHelper();
         $this->baseHelper = $this->getMockBaseHelper();
 
-        $this->userManager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
+        $this->userManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\UserManager')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 

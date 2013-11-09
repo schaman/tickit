@@ -43,7 +43,7 @@ class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $repository = $this->getMockBuilder('Tickit\Component\Entity\Repository\PreferenceRepository')
+        $repository = $this->getMockBuilder('Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository')
                            ->disableOriginalConstructor()
                            ->getMock();
 
@@ -57,6 +57,6 @@ class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $repository = $this->manager->getRepository();
 
-        $this->assertInstanceOf('Tickit\Component\Entity\Repository\PreferenceRepository', $repository);
+        $this->assertInstanceOf('Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository', $repository);
     }
 }

@@ -43,7 +43,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->userManager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
+        $this->userManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\UserManager')
                                   ->disableOriginalConstructor()
                                   ->getMock();
     }

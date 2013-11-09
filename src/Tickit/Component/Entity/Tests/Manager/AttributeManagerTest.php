@@ -28,6 +28,7 @@ use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Entity\Manager\AttributeManager;
 
 /**
  * AttributeManager tests
@@ -46,7 +47,7 @@ class AttributeManagerTest extends AbstractUnitTest
         $attributeRepository = $this->getMockAttributeRepository();
         $choiceRepository = $this->getMockChoiceAttributeChoiceRepository();
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepository, $choiceRepository, $entityManager);
+        $manager = new AttributeManager($attributeRepository, $choiceRepository, $entityManager);
 
         $this->assertSame($attributeRepository, $manager->getRepository());
     }
@@ -220,7 +221,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockChoiceAttributeChoiceRepository()
     {
-        return $this->getMockBuilder('Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepository')
+        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -232,7 +233,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockAttributeRepository()
     {
-        return $this->getMockBuilder('Tickit\Component\Entity\Repository\AttributeRepository')
+        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository')
                     ->disableOriginalConstructor()
                     ->getMock();
     }

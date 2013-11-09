@@ -29,7 +29,7 @@ use Faker\Factory as FakerFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Tickit\Bundle\UserBundle\Entity\User;
-use Tickit\Bundle\UserBundle\Manager\UserManager;
+use Tickit\Component\Entity\Manager\UserManager;
 use Tickit\WebAcceptance\Mixins\ContainerMixin;
 
 /**

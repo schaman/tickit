@@ -2,8 +2,8 @@
 
 namespace Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer;
 
-use Tickit\Bundle\ClientBundle\Manager\ClientManager;
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
+use Tickit\Component\Entity\Manager\ClientManager;
 
 /**
  * Client Picker data transformer.

@@ -25,7 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
-use Tickit\Bundle\CoreBundle\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
  * Client Manager.
