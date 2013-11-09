@@ -74,7 +74,7 @@ class ApiControllerTest extends AbstractUnitTest
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
-        $this->avatarAdapter = $this->getMock('Tickit\Bundle\UserBundle\Avatar\Adapter\AvatarAdapterInterface');
+        $this->avatarAdapter = $this->getMock('Tickit\Component\Avatar\Adapter\AvatarAdapterInterface');
     }
     
     /**

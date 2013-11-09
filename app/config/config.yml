@@ -83,7 +83,7 @@ stof_doctrine_extensions:
 
 tickit_user:
     avatar:
-        adapter_class: Tickit\Bundle\UserBundle\Avatar\Adapter\GravatarAdapter
+        adapter_class: Tickit\Component\Avatar\Adapter\GravatarAdapter
 
 tickit_notification:
     api_message_limit: 25
