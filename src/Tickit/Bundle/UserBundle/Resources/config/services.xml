@@ -7,14 +7,14 @@
     <parameters>
         <parameter key="user_provider.class">Tickit\Component\Security\UserProvider</parameter>
         <parameter key="authentication_handler.class">Tickit\Component\Security\AuthenticationHandler</parameter>
-        <parameter key="tickit_user.avatar.twig_extension">Tickit\Component\Avatar\Twig\AvatarExtension</parameter>
+        <parameter key="tickit_user.avatar.twig_extension.class">Tickit\Component\Avatar\Twig\AvatarExtension</parameter>
     </parameters>
 
     <services>
 
         <service id="tickit_user.avatar_adapter" class="%tickit_user.avatar.adapter_class%" />
 
-        <service id="tickit_user.avatar_twig_extension" class="%tickit_user.avatar.twig_extension%">
+        <service id="tickit_user.avatar_twig_extension" class="%tickit_user.avatar.twig_extension.class%">
             <argument type="service" id="tickit_user.avatar_adapter" />
             <argument type="service" id="security.context" />
             <tag name="twig.extension" />
