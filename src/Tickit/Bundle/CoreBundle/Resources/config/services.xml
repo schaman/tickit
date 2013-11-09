@@ -6,8 +6,8 @@
 
     <parameters>
         <parameter key="filter_collection_builder.class">Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder</parameter>
-        <parameter key="domain_object_array_decorator.class">Tickit\Component\DomainObject\Decorator\DomainObjectArrayDecorator</parameter>
-        <parameter key="domain_object_collection_array_decorator.class">Tickit\Component\DomainObject\Decorator\Collection\DomainObjectCollectionDecorator</parameter>
+        <parameter key="domain_object_array_decorator.class">Tickit\Component\Decorator\DomainObjectArrayDecorator</parameter>
+        <parameter key="domain_object_collection_array_decorator.class">Tickit\Component\Decorator\Collection\DomainObjectCollectionDecorator</parameter>
         <parameter key="flash_provider.class">Tickit\Component\Flash\Provider</parameter>
     </parameters>
 

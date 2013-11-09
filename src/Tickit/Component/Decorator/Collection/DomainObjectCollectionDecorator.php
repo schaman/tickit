@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\DomainObject\Decorator\Collection;
+namespace Tickit\Component\Decorator\Collection;
 
-use Tickit\Component\DomainObject\Decorator\DomainObjectDecoratorInterface;
+use Tickit\Component\Decorator\DomainObjectDecoratorInterface;
 
 /**
  * Domain object collection array decorator.
  *
  * Responsible for decorating a collection of domain objects as arrays
  *
- * @package Tickit\Component\DomainObject\Decorator\Collection
+ * @package Tickit\Component\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class DomainObjectCollectionDecorator implements DomainObjectCollectionDecoratorInterface
