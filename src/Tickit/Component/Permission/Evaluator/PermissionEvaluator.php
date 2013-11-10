@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PermissionBundle\Evaluator;
+namespace Tickit\Component\Permission\Evaluator;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
  *
  * Evaluates permissions for the currently logged in user.
  *
- * @package Tickit\Bundle\PermissionBundle\Evaluator
+ * @package Tickit\Component\Permission\Evaluator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PermissionEvaluator implements EvaluatorInterface
