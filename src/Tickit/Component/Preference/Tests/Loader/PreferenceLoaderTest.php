@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PreferenceBundle\Tests\Loader;
+namespace Tickit\Component\Preference\Tests\Loader;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\PreferenceBundle\Entity\Preference;
 use Tickit\Bundle\PreferenceBundle\Entity\UserPreferenceValue;
-use Tickit\Bundle\PreferenceBundle\Loader\PreferenceLoader;
+use Tickit\Component\Preference\Loader\PreferenceLoader;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * PreferenceLoader tests
  *
- * @package Tickit\Bundle\PreferenceBundle\Tests\Loader
+ * @package Tickit\Component\Preference\Tests\Loader
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceLoaderTest extends AbstractUnitTest

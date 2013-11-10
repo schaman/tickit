@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PreferenceBundle\Loader;
+namespace Tickit\Component\Preference\Loader;
 
 use Tickit\Bundle\UserBundle\Entity\User;
 
@@ -28,7 +28,7 @@ use Tickit\Bundle\UserBundle\Entity\User;
  *
  * Loaders are responsible for loading preference data into a context.
  *
- * @package Tickit\Bundle\PreferenceBundle\Loader
+ * @package Tickit\Component\Preference\Loader
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface LoaderInterface
