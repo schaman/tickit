@@ -27,7 +27,7 @@ use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 /**
  * FilterCollection tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Filter
+ * @package Tickit\Component\Filter\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FilterCollectionTest extends AbstractUnitTest

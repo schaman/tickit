@@ -26,7 +26,7 @@ use Tickit\Component\Avatar\Adapter\GravatarAdapter;
 /**
  * Test the Gravatar avatar adapter
  *
- * @package Tickit\Bundle\UserBundle\Tests\Avatar\Adapter
+ * @package Tickit\Component\Avatar\Tests\Adapter
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class GravatarAdapterTest extends \PHPUnit_Framework_TestCase
