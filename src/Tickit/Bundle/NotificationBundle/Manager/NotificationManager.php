@@ -23,7 +23,7 @@ namespace Tickit\Bundle\NotificationBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Tickit\Bundle\NotificationBundle\Entity\AbstractNotification;
-use Tickit\Bundle\NotificationBundle\Factory\NotificationFactory;
+use Tickit\Component\Notification\Factory\NotificationFactory;
 
 /**
  * Notification manager.

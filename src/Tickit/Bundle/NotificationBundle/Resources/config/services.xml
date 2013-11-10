@@ -16,7 +16,7 @@
             <argument type="service" id="tickit_notification.factory" />
         </service>
 
-        <service id="tickit_notification.factory" class="Tickit\Bundle\NotificationBundle\Factory\NotificationFactory">
+        <service id="tickit_notification.factory" class="Tickit\Component\Notification\Factory\NotificationFactory">
             <argument type="service" id="doctrine" />
         </service>
 

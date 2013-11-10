@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NotificationBundle\Factory;
+namespace Tickit\Component\Notification\Factory;
 
 use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
 use Tickit\Bundle\NotificationBundle\Model\NotificationDataInterface;
@@ -31,7 +31,7 @@ use Tickit\Bundle\UserBundle\Entity\User;
  * Responsible for creating new notifications in the data layer, and triggering
  * a push to the client.
  *
- * @package Tickit\Bundle\NotificationBundle\Factory
+ * @package Tickit\Component\Notification\Factory
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationFactory
