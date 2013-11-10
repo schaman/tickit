@@ -6,11 +6,12 @@
 
     <parameters>
         <parameter key="tickit_notification.factory.class">Tickit\Component\Notification\Factory\NotificationFactory</parameter>
+        <parameter key="tickit_notification.provider.class">Tickit\Component\Notification\Provider\NotificationProvider</parameter>
     </parameters>
 
     <services>
 
-        <service id="tickit_notification.provider" class="Tickit\Bundle\NotificationBundle\Provider\NotificationProvider">
+        <service id="tickit_notification.provider" class="%tickit_notification.provider.class%">
             <argument type="service" id="tickit_notificaton.user_notification_repository" />
             <argument>%tickit_notification.api_message_limit%</argument>
         </service>

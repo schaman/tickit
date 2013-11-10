@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NotificationBundle\Tests\Provider;
+namespace Tickit\Component\Notification\Tests\Provider;
 
 use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
-use Tickit\Bundle\NotificationBundle\Provider\NotificationProvider;
+use Tickit\Component\Notification\Provider\NotificationProvider;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * NotificationProviderTest tests
  *
- * @package Tickit\Bundle\NotificationBundle\Tests\Provider
+ * @package Tickit\Component\Notification\Tests\Provider
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationProviderTest extends \PHPUnit_Framework_TestCase
