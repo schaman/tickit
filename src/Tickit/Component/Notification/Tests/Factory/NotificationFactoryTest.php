@@ -42,7 +42,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotifyUserThrowsExceptionForEmptyMessageObject()
     {
-        $mockMessage = $this->getMock('Tickit\Bundle\NotificationBundle\Model\NotificationDataInterface');
+        $mockMessage = $this->getMock('Tickit\Component\Notification\Model\NotificationDataInterface');
 
         $factory = new NotificationFactory();
         $factory->notifyUser($mockMessage, new User());

@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\NotificationBundle\Tests\Mock\Model;
 
-use Tickit\Bundle\NotificationBundle\Model\NotificationDataInterface;
+use Tickit\Component\Notification\Model\NotificationDataInterface;
 
 /**
  * Mock notification message object.
