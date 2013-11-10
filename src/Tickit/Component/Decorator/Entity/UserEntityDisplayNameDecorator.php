@@ -19,40 +19,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Tests\Decorator;
+namespace Tickit\Component\Decorator\Entity;
 
-use Tickit\Bundle\UserBundle\Decorator\UserEntityDisplayNameDecorator;
+use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
- * User entity display name decorator tests
+ * Decorate a user entity into display name
  *
- * @package Tickit\Bundle\UserBundle\Tests\Decorator
+ * @package Tickit\Component\Decorator\Entity
  * @author  Mark Wilson <mark@89allport.co.uk>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserEntityDisplayNameDecoratorTest extends \PHPUnit_Framework_TestCase
+class UserEntityDisplayNameDecorator implements EntityDecoratorInterface
 {
     /**
-     * Tests decorate() method on UserEntityDisplayNameDecorator
-     */
-    public function testDecoratorUserOutput()
-    {
-        $user = new User();
-        $user->setForename('Joe')->setSurname('Bloggs');
-
-        $decorator = new UserEntityDisplayNameDecorator();
-
-        $this->assertEquals('Joe Bloggs', $decorator->decorate($user));
-    }
-
-    /**
-     * Tests the decorate() method
+     * Decorate a user entity into display name
      *
-     * @expectedException \InvalidArgumentException
+     * @param User $user The user to decorate
+     *
+     * @throws \InvalidArgumentException If the $user is not a valid User instance
+     *
+     * @return string
      */
-    public function testDecorateThrowsExceptionForInvalidType()
+    public function decorate($user)
     {
-        $decorator = new UserEntityDisplayNameDecorator();
-        $decorator->decorate('invalid type');
+        if (!$user instanceof User) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The user must be an instance of Tickit\Bundle\UserBundle\Entity\User, %s given',
+                    gettype($user)
+                )
+            );
+        }
+
+        return $user->getFullName();
     }
 }

@@ -84,7 +84,7 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
     {
         $extensions = parent::getExtensions();
 
-        $decorator = $this->getMockBuilder('Tickit\Bundle\ClientBundle\Decorator\ClientEntityNameDecorator')
+        $decorator = $this->getMockBuilder('Tickit\Component\Decorator\Entity\ClientEntityNameDecorator')
                           ->disableOriginalConstructor()
                           ->getMock();
 
