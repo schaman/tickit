@@ -29,8 +29,8 @@ use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\Bundle\ProjectBundle\Entity\Project;
 use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
-use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
-use Tickit\Bundle\ProjectBundle\Manager\ProjectManager;
+use Tickit\Component\Entity\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\ProjectManager;
 
 /**
  * Project controller.

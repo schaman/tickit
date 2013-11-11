@@ -29,7 +29,7 @@ use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
-use Tickit\Bundle\ProjectBundle\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\AttributeManager;
 
 /**
  * Project attribute controller.

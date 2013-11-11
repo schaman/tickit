@@ -3,7 +3,7 @@
 namespace Tickit\Bundle\UserBundle\Form\Type\Picker\DataTransformer;
 
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
-use Tickit\Bundle\UserBundle\Manager\UserManager;
+use Tickit\Component\Entity\Manager\UserManager;
 
 /**
  * User Picker data transformer.

@@ -6,13 +6,13 @@
 
     <services>
 
-        <service id="tickit_project.manager" class="Tickit\Bundle\ProjectBundle\Manager\ProjectManager">
+        <service id="tickit_project.manager" class="Tickit\Component\Entity\Manager\ProjectManager">
             <argument type="service" id="tickit_project.project_repository" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="tickit_project.project_event_dispatcher" />
         </service>
 
-        <service id="tickit_project.attribute_manager" class="Tickit\Bundle\ProjectBundle\Manager\AttributeManager">
+        <service id="tickit_project.attribute_manager" class="Tickit\Component\Entity\Manager\AttributeManager">
             <argument type="service" id="tickit_project.attribute_repository" />
             <argument type="service" id="tickit_project.choice_attribute_choice_repository" />
             <argument type="service" id="doctrine.orm.entity_manager" />

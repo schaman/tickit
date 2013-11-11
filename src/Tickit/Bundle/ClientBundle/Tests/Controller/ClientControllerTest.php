@@ -64,7 +64,7 @@ class ClientControllerTest extends AbstractUnitTest
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $this->clientManager = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Manager\ClientManager')
+        $this->clientManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\ClientManager')
                                     ->disableOriginalConstructor()
                                     ->getMock();
     }

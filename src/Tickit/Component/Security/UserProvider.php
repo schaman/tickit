@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Tickit\Bundle\UserBundle\Entity\User;
-use Tickit\Bundle\UserBundle\Manager\UserManager;
+use Tickit\Component\Entity\Manager\UserManager;
 
 /**
  * User provider implementation.

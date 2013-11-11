@@ -4,9 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_client.client_repository.class">Tickit\Component\Entity\Repository\ClientRepository</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_client.client_repository" class="Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_client.client_repository" class="%tickit_client.client_repository.class%" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitClientBundle:Client</argument>
         </service>
 

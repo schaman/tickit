@@ -24,10 +24,10 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\ClientBundle\Entity\Client;
-use Tickit\Bundle\ClientBundle\Manager\ClientManager;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
+use Tickit\Component\Entity\Manager\ClientManager;
 
 /**
  * Client controller.

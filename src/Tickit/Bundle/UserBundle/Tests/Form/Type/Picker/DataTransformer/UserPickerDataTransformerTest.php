@@ -29,7 +29,7 @@ class UserPickerDataTransformerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->manager = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Manager\UserManager')
+        $this->manager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\UserManager')
                               ->disableOriginalConstructor()
                               ->getMock();
 

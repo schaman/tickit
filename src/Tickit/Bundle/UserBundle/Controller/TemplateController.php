@@ -25,7 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\Bundle\UserBundle\Entity\User;
-use Tickit\Bundle\UserBundle\Manager\UserManager;
+use Tickit\Component\Entity\Manager\UserManager;
 
 /**
  * Template controller.

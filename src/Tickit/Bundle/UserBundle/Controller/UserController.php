@@ -28,7 +28,7 @@ use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 use Tickit\Bundle\UserBundle\Entity\User;
 use Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater;
-use Tickit\Bundle\UserBundle\Manager\UserManager;
+use Tickit\Component\Entity\Manager\UserManager;
 
 /**
  * Controller that provides actions to manipulate user entities
