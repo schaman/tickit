@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
-    <entity name="Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue">
+    <entity name="Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue" inheritance-type="SINGLE_TABLE">
 
         <field name="value" type="string" length="500" />
 
