@@ -22,7 +22,6 @@
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Literal Attribute implementation
@@ -32,8 +31,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
  */
 class LiteralAttribute extends AbstractAttribute
 {
@@ -50,7 +47,6 @@ class LiteralAttribute extends AbstractAttribute
      * The validation type on this attribute
      *
      * @var string
-     * @ORM\Column(name="validation_type", type="string", length=15)
      */
     protected $validationType;
 
@@ -58,7 +54,6 @@ class LiteralAttribute extends AbstractAttribute
      * Attribute values that use this attribute.
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="LiteralAttributeValue", mappedBy="attribute")
      */
     protected $values;
 
