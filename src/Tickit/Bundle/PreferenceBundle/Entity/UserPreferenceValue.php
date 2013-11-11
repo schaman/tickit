@@ -21,8 +21,6 @@
 
 namespace Tickit\Bundle\PreferenceBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\Bundle\UserBundle\Entity\User;
 use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
 
@@ -33,19 +31,20 @@ use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
  *
  * @package Tickit\Bundle\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository")
- * @ORM\Table(name="user_preference_values")
  */
 class UserPreferenceValue implements UserAwareInterface
 {
     /**
+     * The unique identifier
+     *
+     * @var integer
+     */
+    protected $id;
+
+    /**
      * The user that this preference value relates to
      *
      * @var User
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
 
@@ -53,9 +52,6 @@ class UserPreferenceValue implements UserAwareInterface
      * The preference that this value is for
      *
      * @var Preference
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Preference")
-     * @ORM\JoinColumn(name="preference_id", referencedColumnName="id")
      */
     protected $preference;
 
@@ -74,7 +70,7 @@ class UserPreferenceValue implements UserAwareInterface
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      */
-    protected $created;
+    protected $createdAt;
 
     /**
      * The date and time that this preference value was updated
@@ -83,19 +79,19 @@ class UserPreferenceValue implements UserAwareInterface
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      */
-    protected $updated;
+    protected $updatedAt;
 
 
     /**
      * Sets the created time as an instance of DateTime
      *
-     * @param \DateTime $created The DateTime that this preference value was updated
+     * @param \DateTime $createdAt The DateTime that this preference value was updated
      *
      * @return UserPreferenceValue
      */
-    public function setCreated(\DateTime $created)
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -105,9 +101,9 @@ class UserPreferenceValue implements UserAwareInterface
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
@@ -137,13 +133,13 @@ class UserPreferenceValue implements UserAwareInterface
     /**
      * Sets the updated time as an instance of DateTime
      *
-     * @param \DateTime $updated The updated time for this preference value
+     * @param \DateTime $updatedAt The updated time for this preference value
      *
      * @return UserPreferenceValue
      */
-    public function setUpdated($updated)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated = $updated;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -151,9 +147,9 @@ class UserPreferenceValue implements UserAwareInterface
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**
