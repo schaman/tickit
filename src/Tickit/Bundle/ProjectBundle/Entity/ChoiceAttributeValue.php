@@ -22,7 +22,6 @@
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -32,16 +31,13 @@ use Doctrine\Common\Collections\Collection;
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
  */
 class ChoiceAttributeValue extends AbstractAttributeValue
 {
     /**
      * The attribute this value is for
      *
-     * @ORM\ManyToOne(targetEntity="ChoiceAttribute", inversedBy="values")
-     * @ORM\JoinColumn(name="choice_attribute_id", referencedColumnName="id", onDelete="CASCADE")
+     * @var ChoiceAttribute
      */
     protected $attribute;
 
@@ -49,16 +45,6 @@ class ChoiceAttributeValue extends AbstractAttributeValue
      * The attribute value.
      *
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="ChoiceAttributeChoice", inversedBy="values")
-     * @ORM\JoinTable(
-     *      name="project_attribute_values_choices",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="choice_attribute_value_id", referencedColumnName="id", onDelete="CASCADE")
-     *      },
-     *      inverseJoinColumns={
-     *          @ORM\JoinColumn(name="choice_id", referencedColumnName="id", onDelete="CASCADE")
-     *      }
-     * )
      */
     protected $value;
 
