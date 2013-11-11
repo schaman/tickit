@@ -21,23 +21,11 @@
 
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * The AbstractAttribute entity represents a specific attribute that is customisable per project
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository")
- * @ORM\Table(name="project_attributes")
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="type", type="string", length=7)
- * @ORM\DiscriminatorMap({
- *     "literal" = "LiteralAttribute",
- *     "choice" = "ChoiceAttribute",
- *     "entity" = "EntityAttribute"
- * })
  */
 abstract class AbstractAttribute implements AttributeInterface
 {
@@ -48,23 +36,19 @@ abstract class AbstractAttribute implements AttributeInterface
     /**
      * The unique identifier for this attribute
      *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     protected $id;
 
     /**
      * The name of this attribute
-     *
-     * @ORM\Column(type="string", length=120)
      */
     protected $name;
 
     /**
      * The default value for this attribute
      *
-     * @ORM\Column(name="default_value", type="string", length=500)
+     * @var string
      */
     protected $defaultValue;
 
@@ -72,7 +56,6 @@ abstract class AbstractAttribute implements AttributeInterface
      * Boolean indicating whether this attribute can be left empty
      *
      * @var boolean
-     * @ORM\Column(name="allow_blank", type="boolean")
      */
     protected $allowBlank;
 
