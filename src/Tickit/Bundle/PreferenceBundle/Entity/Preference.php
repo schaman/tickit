@@ -20,16 +20,11 @@
  */
 namespace Tickit\Bundle\PreferenceBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * The Preference entity represents either a User preference of a System preference in the application
  *
  * @package Tickit\Bundle\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository")
- * @ORM\Table(name="preferences")
  */
 class Preference
 {
@@ -40,9 +35,6 @@ class Preference
      * The unique identifier for this preference
      *
      * @var integer
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -50,7 +42,6 @@ class Preference
      * The name of the preference
      *
      * @var string
-     * @ORM\Column(type="string", length=100)
      */
     protected $name;
 
@@ -58,7 +49,6 @@ class Preference
      * The system friendly name of the preference
      *
      * @var string
-     * @ORM\Column(name="system_name", type="string", length=100)
      */
     protected $systemName;
 
@@ -66,7 +56,6 @@ class Preference
      * The default value of the preference
      *
      * @var string
-     * @ORM\Column(name="default_value", type="string", length=250)
      */
     protected $defaultValue;
 
@@ -74,7 +63,6 @@ class Preference
      * The preference type
      *
      * @var string
-     * @ORM\Column(type="string", length=8)
      */
     protected $type;
 
