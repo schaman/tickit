@@ -23,7 +23,6 @@ namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Choice attribute implementation.
@@ -32,8 +31,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
  */
 class ChoiceAttribute extends AbstractAttribute
 {
@@ -41,7 +38,6 @@ class ChoiceAttribute extends AbstractAttribute
      * Attribute values that use this choice attribute
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="ChoiceAttributeValue", mappedBy="attribute")
      */
     protected $values;
 
@@ -49,7 +45,6 @@ class ChoiceAttribute extends AbstractAttribute
      * Choices that are associated with this choice attribute
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="ChoiceAttributeChoice", mappedBy="attribute", cascade={"persist"})
      */
     protected $choices;
 
@@ -57,7 +52,6 @@ class ChoiceAttribute extends AbstractAttribute
      * Boolean indicating whether this choice attribute should be expanded when displayed
      *
      * @var boolean
-     * @ORM\Column(type="boolean")
      */
     protected $expanded;
 
@@ -65,7 +59,6 @@ class ChoiceAttribute extends AbstractAttribute
      * Boolean indicating whether multiple selections are allowed on this attribute
      *
      * @var boolean
-     * @ORM\Column(name="allow_multiple", type="boolean")
      */
     protected $allowMultiple;
 
