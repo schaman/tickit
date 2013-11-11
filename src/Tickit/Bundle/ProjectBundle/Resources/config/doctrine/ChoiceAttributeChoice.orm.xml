@@ -13,6 +13,5 @@
         <many-to-many target-entity="Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice" field="values" mapped-by="value" />
 
         <field name="name" type="string" length="120" />
-        <field name="allowMultiple" column="allow_multiple" type="boolean" />
     </entity>
 </doctrine-mapping>
