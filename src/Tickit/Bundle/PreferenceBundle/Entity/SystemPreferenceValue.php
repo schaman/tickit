@@ -65,7 +65,7 @@ class SystemPreferenceValue
      *
      * @var \DateTime
      */
-    protected $updated;
+    protected $updatedAt;
 
 
     /**
@@ -119,13 +119,13 @@ class SystemPreferenceValue
     /**
      * Sets the updated time as an instance of DateTime
      *
-     * @param \DateTime $updated The updated time for this preference value
+     * @param \DateTime $updatedAt The updated time for this preference value
      *
      * @return SystemPreferenceValue
      */
-    public function setUpdated($updated)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated = $updated;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -133,9 +133,9 @@ class SystemPreferenceValue
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**
