@@ -21,41 +21,39 @@
 
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * The ProjectSettingValue entity represents a project's value against a specific ProjectSetting
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="project_setting_values")
  */
 class ProjectSettingValue
 {
     /**
+     * The unique identifier for this setting value
+     *
+     * @var integer
+     */
+    protected $id;
+
+    /**
      * The project that this setting value is associated with
      *
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Project")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * @var Project
      */
     protected $project;
 
     /**
      * The setting that this value is for
      *
-     * @ORM\Id
-     * @ORM\OneToOne(targetEntity="ProjectSetting")
-     * @ORM\JoinColumn(name="project_setting_id", referencedColumnName="id")
+     * @var ProjectSetting
      */
     protected $setting;
 
     /**
      * The setting value
      *
-     * @ORM\Column(type="string", length=120)
+     * @var string
      */
     protected $value;
 
