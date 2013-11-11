@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <mapped-superclass name="Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue" table="project_attribute_values" inheritance-type="SINGLE_TABLE">
+
+        <discriminator-column name="type" type="string" length="7" />
+        <discriminator-map>
+            <discriminator-mapping value="literal" class="Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute"/>
+            <discriminator-mapping value="entity" class="Tickit\Bundle\ProjectBundle\Entity\EntityAttribute"/>
+            <discriminator-mapping value="choice" class="Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute"/>
+        </discriminator-map>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <many-to-one target-entity="Tickit\Bundle\ProjectBundle\Entity\Project" field="project" inversed-by="attributes">
+            <join-column name="project_id" referenced-column-name="id" on-delete="CASCADE" />
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>
