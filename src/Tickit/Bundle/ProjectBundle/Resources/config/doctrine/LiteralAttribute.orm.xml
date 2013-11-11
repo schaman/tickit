@@ -5,7 +5,7 @@
 
         <field name="validationType" column="validation_type" type="string" length="15" />
 
-        <one-to-many target-entity="Tickit\Bundle\ProjectBundle\LiteralAttributeValue" mapped-by="attribute" field="values" />
+        <one-to-many target-entity="Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue" mapped-by="attribute" field="values" />
 
     </entity>
 </doctrine-mapping>
