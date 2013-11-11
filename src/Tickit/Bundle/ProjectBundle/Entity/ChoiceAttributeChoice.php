@@ -22,16 +22,12 @@
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Entity representing a choice available for a ChoiceAttribute
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository")
- * @ORM\Table(name="project_attribute_choices")
  */
 class ChoiceAttributeChoice
 {
@@ -39,9 +35,6 @@ class ChoiceAttributeChoice
      * The unique identifier for this choice
      *
      * @var integer
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -49,8 +42,6 @@ class ChoiceAttributeChoice
      * The attribute that this choice belongs to
      *
      * @var ChoiceAttribute
-     * @ORM\ManyToOne(targetEntity="ChoiceAttribute", inversedBy="choices")
-     * @ORM\JoinColumn(name="attribute_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $attribute;
 
@@ -58,7 +49,6 @@ class ChoiceAttributeChoice
      * Any values that have this choice selected
      *
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="ChoiceAttributeValue", mappedBy="value")
      */
     protected $values;
 
@@ -66,7 +56,6 @@ class ChoiceAttributeChoice
      * The name of this choice
      *
      * @var string
-     * @ORM\Column(type="string", length=120)
      */
     protected $name;
 
