@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <mapped-superclass name="Tickit\Bundle\NotificationBundle\Entity\AbstractNotification">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="message" type="string" length="220" />
+        <field name="actionUri" column="action_uri" type="string" />
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable field="createdAt" on="create" />
+        </field>
+    </mapped-superclass>
+</doctrine-mapping>

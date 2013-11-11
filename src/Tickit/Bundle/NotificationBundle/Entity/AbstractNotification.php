@@ -38,9 +38,6 @@ class AbstractNotification
      * Unique identifier
      *
      * @var integer
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="bigint")
      */
     protected $id;
 
@@ -48,7 +45,6 @@ class AbstractNotification
      * The message body of the notification
      *
      * @var string
-     * @ORM\Column(type="string", length=220)
      */
     protected $message;
 
@@ -56,8 +52,6 @@ class AbstractNotification
      * The time that this notification was created
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime", name="created_at")
-     * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;
 
@@ -65,7 +59,6 @@ class AbstractNotification
      * The action URI for the notification (if any)
      *
      * @var string
-     * @ORM\Column(type="string", name="action_uri")
      */
     protected $actionUri;
 
