@@ -21,40 +21,41 @@
 
 namespace Tickit\Bundle\TicketBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * The TicketUserSubscription entity represents a user's subscription settings for a ticket
  *
  * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="ticket_user_subscriptions")
  */
 class TicketUserSubscription
 {
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * The user that this subscription is for
+     *
+     * @var User
      */
     protected $user;
 
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Ticket", inversedBy="ticketSubscriptions")
-     * @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
+     * The ticket that this subscription is against
+     *
+     * @var Ticket
      */
     protected $ticket;
 
     /**
-     * @ORM\Column(name="new_comments", type="boolean")
+     * Whether the user wishes to subscribe for new comment notifications
+     *
+     * @var boolean
      */
     protected $newComments;
 
     /**
-     * @ORM\Column(name="status_changes", type="boolean")
+     * Whether the user wishes to subscribe for ticket status changes
+     *
+     * @var boolean
      */
     protected $statusChanges;
 }

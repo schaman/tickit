@@ -21,8 +21,8 @@
 
 namespace Tickit\Bundle\TicketBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Tickit\Bundle\ProjectBundle\Entity\Project;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
@@ -30,101 +30,111 @@ use Tickit\Bundle\UserBundle\Entity\User;
  *
  * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="tickets")
  */
 class Ticket
 {
-
     /**
-     * @ORM\Id
-     * @ORM\Column(type="bigint")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * The unique identifier
+     *
+     * @var integer
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * The title of the ticket
+     *
+     * @var string
      */
     protected $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="ticket")
+     * Comments on the ticket
+     *
+     * @var Collection
      */
     protected $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="TicketAttachment", mappedBy="ticket")
+     * File attachments
+     *
+     * @var Collection
      */
     protected $attachments;
 
     /**
-     * @ORM\OneToMany(targetEntity="TicketUserSubscription", mappedBy="ticket")
+     * User subscriptions on this ticket
+     *
+     * @var Collection
      */
     protected $ticketSubscriptions;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\ProjectBundle\Entity\Project", inversedBy="tickets")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
+     * The project that this ticket is a part of
+     *
+     * @var Project
      */
     protected $project;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\TicketBundle\Entity\TicketStatus")
-     * @ORM\JoinColumn(name="ticket_status_id", referencedColumnName="id")
+     * The status of the ticket
+     *
+     * @var TicketStatus
      */
     protected $status;
 
     /**
-     * @ORM\Column(type="string", length=4000)
+     * The full description
+     *
+     * @var string
      */
     protected $description;
 
     /**
-     * @ORM\Column(name="replication_steps", type="string", length=4000)
-     */
-    protected $replicationSteps;
-
-    /**
-     * @ORM\Column(name="estimated_hours", type="float")
+     * Estimated hours to completion
+     *
+     * @var float
      */
     protected $estimatedHours;
 
     /**
-     * @ORM\Column(name="actual_hours", type="float")
+     * Actual hours taken so far
+     *
+     * @var float
      */
     protected $actualHours;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="reported_by_id", referencedColumnName="id")
+     * The reporting user
+     *
+     * @var User
      */
     protected $reportedBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="assigned_to_id", referencedColumnName="id")
+     * The user that the ticket is assigned to
+     *
+     * @var User
      */
     protected $assignedTo;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * The date and time the ticket was created
+     *
+     * @var \DateTime
      */
     protected $created;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * The date and time that the ticket was last updated
+     *
+     * @var \DateTime
      */
     protected $updated;
-
 
     /**
      * Gets the id of this ticket
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -211,26 +221,6 @@ class Ticket
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Sets the replication steps for this ticket
-     *
-     * @param string $replicationSteps
-     */
-    public function setReplicationSteps($replicationSteps)
-    {
-        $this->replicationSteps = $replicationSteps;
-    }
-
-    /**
-     * Gets the replication steps for this ticket
-     *
-     * @return string
-     */
-    public function getReplicationSteps()
-    {
-        return $this->replicationSteps;
     }
 
     /**

@@ -21,46 +21,46 @@
 
 namespace Tickit\Bundle\TicketBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * The TicketAttachment entity represents a file attachment on a ticket
  *
  * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="ticket_attachments")
  */
 class TicketAttachment
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="bigint")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * The unique identifier
+     *
+     * @var integer
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ticket", inversedBy="attachments")
-     * @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
+     * The ticket that this attachment belongs to
+     *
+     * @var Ticket
      */
     protected $ticket;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * The filename of the attachment
+     *
+     * @var string
      */
     protected $filename;
 
     /**
-     * @ORM\Column(name="mime_type", type="string", length=30)
+     * The mime type of the attachment
+     *
+     * @var string
      */
     protected $mimeType;
 
     /**
      * Gets the ID of this comment
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {

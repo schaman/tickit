@@ -21,55 +21,55 @@
 
 namespace Tickit\Bundle\TicketBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * The TicketStatusHistory entity represents a snapshot of a ticket's status at a given point in time
  *
  * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="ticket_status_history")
  */
 class TicketStatusHistory
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="bigint")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * The unique identifier
+     *
+     * @var integer
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Ticket")
-     * @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
+     * The ticket that this status history entry represents
+     *
+     * @var Ticket
      */
     protected $ticket;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TicketStatus")
-     * @ORM\JoinColumn(name="status_id", referencedColumnName="id")
+     * The status at this point in time
+     *
+     * @var TicketStatus
      */
     protected $status;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="changed_by_id", referencedColumnName="id")
+     * The user who changed the status
+     *
+     * @var User
      */
     protected $changedBy;
 
     /**
-     * @ORM\Column(name="changed_at", type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * The date and time that the status was changed
+     *
+     * @var \DateTime
      */
     protected $changedAt;
 
     /**
      * Gets the ID for this history entry
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -79,9 +79,9 @@ class TicketStatusHistory
     /**
      * Sets the user who updated the ticket history
      *
-     * @param \Tickit\Bundle\UserBundle\Entity\User $changedBy
+     * @param User $changedBy
      */
-    public function setChangedBy(\Tickit\Bundle\UserBundle\Entity\User $changedBy)
+    public function setChangedBy(User $changedBy)
     {
         $this->changedBy = $changedBy;
     }
@@ -89,7 +89,7 @@ class TicketStatusHistory
     /**
      * Gets an instance of the User who changed the status of the ticket
      *
-     * @return \Tickit\Bundle\UserBundle\Entity\User
+     * @return User
      */
     public function getChangedBy()
     {
