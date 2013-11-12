@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Decorator;
+namespace Tickit\Component\Decorator\Entity;
 
 use Tickit\Bundle\ClientBundle\Entity\Client;
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
@@ -29,7 +29,7 @@ use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
  *
  * Decorates a client entity with a name.
  *
- * @package Tickit\Bundle\ClientBundle\Decorator
+ * @package Tickit\Component\Decorator\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientEntityNameDecorator implements EntityDecoratorInterface
