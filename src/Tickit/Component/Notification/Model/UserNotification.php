@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NotificationBundle\Entity;
+namespace Tickit\Component\Notification\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Tickit\Bundle\UserBundle\Entity\User;
@@ -29,7 +29,7 @@ use Tickit\Bundle\UserBundle\Entity\User;
  *
  * A user notification is specific to an individual user.
  *
- * @package Tickit\Bundle\NotificationBundle\Entity
+ * @package Tickit\Component\Notification\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserNotification extends AbstractNotification

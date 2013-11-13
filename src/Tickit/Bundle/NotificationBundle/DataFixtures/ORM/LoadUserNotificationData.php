@@ -24,7 +24,7 @@ namespace Tickit\Bundle\NotificationBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
+use Tickit\Component\Notification\Model\UserNotification;
 
 /**
  * Loads user notification data.

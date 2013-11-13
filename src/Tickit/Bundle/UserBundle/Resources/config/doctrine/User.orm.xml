@@ -18,7 +18,7 @@
         </field>
         <field name="lastActivity" type="datetime" column="last_activity" nullable="true" />
 
-        <one-to-many field="notifications" target-entity="Tickit\Bundle\NotificationBundle\Entity\UserNotification" mapped-by="recipient" />
+        <one-to-many field="notifications" target-entity="Tickit\Component\Notification\Model\UserNotification" mapped-by="recipient" />
 
         <many-to-many target-entity="Tickit\Bundle\UserBundle\Entity\UserSession" field="sessions">
             <join-table name="users_user_sessions">

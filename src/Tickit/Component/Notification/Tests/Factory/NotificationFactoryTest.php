@@ -64,7 +64,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new NotificationFactory();
         $notification = $factory->notifyUser($message, $user);
 
-        $this->assertInstanceOf('Tickit\Bundle\NotificationBundle\Entity\UserNotification', $notification);
+        $this->assertInstanceOf('Tickit\Component\Notification\Model\UserNotification', $notification);
         $this->assertEquals($message->getMessage(), $notification->getMessage());
         $this->assertEquals($user->getForename(), $notification->getRecipient()->getForename());
         $this->assertEquals($user->getSurname(), $notification->getRecipient()->getSurname());
