@@ -46,7 +46,6 @@ class AttributeRepositoryTest extends AbstractOrmTest
     protected function setUp()
     {
         $em = $this->getEntityManager(
-            'Tickit\\Bundle\\ProjectBundle\\Entity',
             array('TickitProjectBundle' => 'Tickit\\Bundle\\ProjectBundle\\Entity')
         );
 

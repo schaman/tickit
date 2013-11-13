@@ -22,8 +22,11 @@
 namespace Tickit\Bundle\CoreBundle\Tests;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Persistence\Mapping\Driver\DefaultFileLocator;
+use Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Doctrine\Tests\OrmTestCase;
 
 /**
@@ -37,15 +40,27 @@ abstract class AbstractOrmTest extends OrmTestCase
     /**
      * Gets an entity manager for testing
      *
-     * @param string|array $paths      Namespace of entities for the annotation driver
-     * @param array        $namespaces The namespaces to register on the entity manager
+     * @param array $namespaces The namespaces to register on the entity manager
      *
      * @return EntityManager
      */
-    protected function getEntityManager($paths, array $namespaces)
+    protected function getEntityManager(array $namespaces)
     {
-        $reader = new AnnotationReader();
-        $driver = new AnnotationDriver($reader, $paths);
+        $bundles = [
+            'ClientBundle',
+            'PreferenceBundle',
+            'ProjectBundle',
+            'NotificationBundle',
+            'UserBundle'
+        ];
+
+        $paths = [];
+        foreach ($bundles as $b) {
+            $paths[__DIR__ . '/../../' . $b . '/Resources/config/doctrine'] = 'Tickit\\Bundle\\' . $b . '\\Entity';
+        }
+
+        $locator = new SymfonyFileLocator($paths, '.orm.xml');
+        $driver = new XmlDriver($locator, '.orm.xml');
 
         $em = $this->_getTestEntityManager();
         $em->getConfiguration()->setMetadataDriverImpl($driver);
