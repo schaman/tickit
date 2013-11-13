@@ -22,7 +22,7 @@
 namespace Tickit\Component\Entity\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
-use Tickit\Bundle\UserBundle\Entity\Repository\UserRepository;
+use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Entity\User;
@@ -73,7 +73,7 @@ class UserManagerTest extends AbstractUnitTest
                                  ->disableOriginalConstructor()
                                  ->getMock();
 
-        $this->userRepo = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Entity\Repository\UserRepository')
+        $this->userRepo = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository')
                                ->disableOriginalConstructor()
                                ->getMock();
 

@@ -27,8 +27,7 @@ use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
-use Tickit\Component\Avatar\AvatarService;
-use Tickit\Bundle\UserBundle\Entity\Repository\UserRepository;
+use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**

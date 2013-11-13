@@ -6,11 +6,11 @@
 
     <services>
 
-        <service id="tickit_user.user_repository" class="Tickit\Bundle\UserBundle\Entity\Repository\UserRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_user.user_repository" class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitUserBundle:User</argument>
         </service>
 
-        <service id="tickit_user.user_session_repository" class="Tickit\Bundle\UserBundle\Entity\Repository\UserSessionRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_user.user_session_repository" class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserSessionRepository" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitUserBundle:UserSession</argument>
         </service>
 

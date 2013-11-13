@@ -2,7 +2,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity repository-class="Tickit\Bundle\UserBundle\Entity\Repository\UserRepository" name="Tickit\Bundle\UserBundle\Entity\User" table="users">
+    <entity repository-class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository" name="Tickit\Bundle\UserBundle\Entity\User" table="users">
 
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
