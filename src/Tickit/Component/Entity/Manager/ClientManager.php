@@ -24,7 +24,7 @@ namespace Tickit\Component\Entity\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use Tickit\Bundle\ClientBundle\Entity\Client;
-use Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository;
+use Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**

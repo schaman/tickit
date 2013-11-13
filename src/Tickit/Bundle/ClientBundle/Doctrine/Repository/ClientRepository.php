@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Entity\Repository;
+namespace Tickit\Bundle\ClientBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -30,7 +30,7 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  *
  * Provides methods for fetching client data.
  *
- * @package Tickit\Bundle\ClientBundle\Entity\Repository
+ * @package Tickit\Bundle\ClientBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientRepository extends EntityRepository
