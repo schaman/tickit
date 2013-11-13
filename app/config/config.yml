@@ -50,6 +50,19 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            TickitClientBundle:
+                prefix: Tickit\Component\Model\Client
+            TickitPreferenceBundle:
+                prefix: Tickit\Component\Preference\Model
+            TickitProjectBundle:
+                prefix: Tickit\Component\Model\Project
+            TickitNotificationBundle:
+                prefix: Tickit\Component\Notification\Model
+            TickitUserBundle:
+                prefix: Tickit\Component\Model\User
+            TickitTicketBundle:
+                prefix: Tickit\Component\Model\Ticket
 
 # Swiftmailer Configuration
 swiftmailer:
