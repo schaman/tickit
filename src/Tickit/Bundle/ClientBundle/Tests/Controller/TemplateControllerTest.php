@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\ClientBundle\Controller\TemplateController;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
 /**

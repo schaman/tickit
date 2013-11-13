@@ -2,7 +2,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Tests\Form\Type\Picker\DataTransformer;
 
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 

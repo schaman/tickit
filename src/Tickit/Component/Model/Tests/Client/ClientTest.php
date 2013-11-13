@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Tests\Entity\Client;
+namespace Tickit\Component\Model\Tests\Client;
 
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 
 /**
  * Client tests
  *
- * @package Tickit\Bundle\ClientBundle\Tests\Entity\Client
+ * @package Tickit\Component\Model\Tests\Client
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientTest extends \PHPUnit_Framework_TestCase

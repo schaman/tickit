@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Tests\Listener;
 
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Listener\ProjectListener;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Entity\Project;

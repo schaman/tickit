@@ -1,4 +1,4 @@
-Tickit\Bundle\ClientBundle\Entity\Client:
+Tickit\Component\Model\Client\Client:
     properties:
         name:
             - Length: { max: 120, maxMessage: "Name is too long, try something a little shorter (120 characters max)" }

@@ -19,16 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Entity;
+namespace Tickit\Component\Model\Client;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Client entity.
  *
- * @package Tickit\Bundle\ClientBundle\Entity
+ * @package Tickit\Bundle\ClientBundle\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Client

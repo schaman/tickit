@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Bundle\ClientBundle\Controller\ApiController;
 use Tickit\Bundle\ClientBundle\Controller\ClientController;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 
