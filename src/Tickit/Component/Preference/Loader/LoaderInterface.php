@@ -19,40 +19,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Decorator;
+namespace Tickit\Component\Preference\Loader;
 
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
- * Decorate a user entity into display name
+ * Loader interface.
  *
- * @package Tickit\Bundle\UserBundle\Decorator
- * @author  Mark Wilson <mark@89allport.co.uk>
+ * Loaders are responsible for loading preference data into a context.
+ *
+ * @package Tickit\Component\Preference\Loader
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserEntityDisplayNameDecorator implements EntityDecoratorInterface
+interface LoaderInterface
 {
     /**
-     * Decorate a user entity into display name
+     * Loads preference into the current context for the given user.
      *
-     * @param User $user The user to decorate
+     * @param User $user The user to load preferences for
      *
-     * @throws \InvalidArgumentException If the $user is not a valid User instance
-     *
-     * @return string
+     * @return mixed
      */
-    public function decorate($user)
-    {
-        if (!$user instanceof User) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'The user must be an instance of Tickit\Bundle\UserBundle\Entity\User, %s given',
-                    gettype($user)
-                )
-            );
-        }
-
-        return $user->getFullName();
-    }
+    public function loadForUser(User $user);
 }

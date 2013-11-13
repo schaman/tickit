@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Tests\Decorator;
+namespace Tickit\Component\Decorator\Tests\Entity;
 
-use Tickit\Bundle\UserBundle\Decorator\UserEntityDisplayNameDecorator;
+use Tickit\Component\Decorator\Entity\UserEntityDisplayNameDecorator;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * User entity display name decorator tests
  *
- * @package Tickit\Bundle\UserBundle\Tests\Decorator
+ * @package Tickit\Component\Decorator\Tests\Entity
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class UserEntityDisplayNameDecoratorTest extends \PHPUnit_Framework_TestCase

@@ -19,32 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Interfaces;
-
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+namespace Tickit\Component\Notification\Model;
 
 /**
- * Interface for classes that are Project aware
+ * Notification data interface.
  *
- * @package Tickit\Bundle\ProjectBundle\Interfaces
+ * Used to inject data into a notification object, these will change between notification types.
+ *
+ * @package Tickit\Component\Notification\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\Bundle\ProjectBundle\Entity\Project
  */
-interface ProjectAwareInterface
+interface NotificationDataInterface
 {
     /**
-     * Gets the project on this object
+     * Gets the notification message body.
      *
-     * @return Project
+     * @return string
      */
-    public function getProject();
-
-    /**
-     * Sets the project on this object
-     *
-     * @param Project $project The project to set
-     *
-     * @return mixed
-     */
-    public function setProject(Project $project);
+    public function getMessage();
 }

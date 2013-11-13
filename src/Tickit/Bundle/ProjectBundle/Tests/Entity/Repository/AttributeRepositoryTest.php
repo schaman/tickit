@@ -29,7 +29,7 @@ use Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository;
  * AttributeRepository tests
  *
  * @package Tickit\Bundle\ProjectBundle\Tests\Entity\Repository
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeRepositoryTest extends AbstractOrmTest
 {

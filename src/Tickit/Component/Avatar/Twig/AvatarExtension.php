@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 /**
  * Avatar twig extension - provides helper functions for templates
  *
- * @package Tickit\Bundle\UserBundle\Service\Avatar\Twig
+ * @package Tickit\Component\Avatar\Twig
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class AvatarExtension extends Twig_Extension

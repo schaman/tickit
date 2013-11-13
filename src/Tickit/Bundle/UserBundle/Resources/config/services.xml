@@ -5,9 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="user_provider.class">Tickit\Component\Security\UserProvider</parameter>
-        <parameter key="authentication_handler.class">Tickit\Component\Security\AuthenticationHandler</parameter>
+        <parameter key="tickit_user.user_provider.class">Tickit\Component\Security\UserProvider</parameter>
+        <parameter key="tickit_user.security.authentication_handler.class">Tickit\Component\Security\AuthenticationHandler</parameter>
         <parameter key="tickit_user.avatar.twig_extension.class">Tickit\Component\Avatar\Twig\AvatarExtension</parameter>
+        <parameter key="tickit_user.display_name_decorator.class">Tickit\Component\Decorator\Entity\UserEntityDisplayNameDecorator</parameter>
     </parameters>
 
     <services>
@@ -24,15 +25,15 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="tickit_user.user_provider" class="%user_provider.class%">
+        <service id="tickit_user.user_provider" class="%tickit_user.user_provider.class%">
             <argument type="service" id="tickit_user.manager" />
         </service>
 
-        <service id="tickit_user.security.authentication_handler" class="%authentication_handler.class%">
+        <service id="tickit_user.security.authentication_handler" class="%tickit_user.security.authentication_handler.class%">
             <argument type="service" id="router" />
         </service>
 
-        <service id="tickit_user.display_name_decorator" class="Tickit\Bundle\UserBundle\Decorator\UserEntityDisplayNameDecorator" />
+        <service id="tickit_user.display_name_decorator" class="%tickit_user.display_name_decorator.class%" />
 
     </services>
 

@@ -49,7 +49,7 @@ class ApiControllerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->provider = $this->getMockBuilder('\Tickit\Bundle\NotificationBundle\Provider\NotificationProvider')
+        $this->provider = $this->getMockBuilder('\Tickit\Component\Notification\Provider\NotificationProvider')
                                ->disableOriginalConstructor()
                                ->getMock();
 

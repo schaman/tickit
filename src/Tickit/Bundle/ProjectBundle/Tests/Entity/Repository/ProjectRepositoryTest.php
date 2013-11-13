@@ -28,7 +28,7 @@ use Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository;
  * ProjectRepository tests
  *
  * @package Tickit\Bundle\ProjectBundle\Tests\Entity\Repository
- * @author  James Halsall <jhalsall@rippleffect.com>
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectRepositoryTest extends AbstractOrmTest
 {
