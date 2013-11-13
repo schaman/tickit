@@ -19,7 +19,17 @@
         <field name="lastActivity" type="datetime" column="last_activity" nullable="true" />
 
         <one-to-many field="notifications" target-entity="Tickit\Bundle\NotificationBundle\Entity\UserNotification" mapped-by="recipient" />
-        <one-to-many field="sessions" target-entity="Tickit\Bundle\UserBundle\Entity\UserSession" mapped-by="user" />
+
+        <many-to-many target-entity="Tickit\Bundle\UserBundle\Entity\UserSession" field="sessions">
+            <join-table name="users_user_sessions">
+                <join-columns>
+                    <join-column name="user_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="user_session_id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
 
     </entity>
 </doctrine-mapping>
