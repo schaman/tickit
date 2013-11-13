@@ -22,8 +22,8 @@
 namespace Tickit\Component\Preference\Loader;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
-use Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository;
+use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository;
 use Tickit\Bundle\PreferenceBundle\Entity\UserPreferenceValue;
 use Tickit\Bundle\UserBundle\Entity\User;
 

@@ -70,7 +70,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->csrfHelper    = $this->getMockCsrfHelper();
         $this->filterBuilder = $this->getMockFilterCollectionBuilder();
 
-        $this->userRepository = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Entity\Repository\UserRepository')
+        $this->userRepository = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository')
                                      ->disableOriginalConstructor()
                                      ->getMock();
 

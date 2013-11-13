@@ -65,7 +65,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
 
-        $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository')
+        $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }

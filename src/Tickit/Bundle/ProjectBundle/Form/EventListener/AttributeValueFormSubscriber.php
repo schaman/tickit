@@ -31,7 +31,7 @@ use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
+use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * AttributeValueForm event subscriber.

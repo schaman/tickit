@@ -70,11 +70,11 @@ class ApiControllerTest extends AbstractUnitTest
     {
         $this->filterBuilder = $this->getMockFilterCollectionBuilder();
 
-        $this->projectRepo = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository')
+        $this->projectRepo = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository')
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
-        $this->attributeRepo = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository')
+        $this->attributeRepo = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository')
                                     ->disableOriginalConstructor()
                                     ->getMock();
 

@@ -56,7 +56,7 @@ class ApiControllerTest extends AbstractUnitTest
     {
         $this->filterCollectionBuilder = $this->getMockFilterCollectionBuilder();
 
-        $this->preferenceRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository')
+        $this->preferenceRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository')
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
