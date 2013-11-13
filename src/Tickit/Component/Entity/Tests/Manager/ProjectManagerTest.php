@@ -63,7 +63,7 @@ class ProjectManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->projectRepository = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository')
+        $this->projectRepository = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository')
                                         ->disableOriginalConstructor()
                                         ->getMock();
 

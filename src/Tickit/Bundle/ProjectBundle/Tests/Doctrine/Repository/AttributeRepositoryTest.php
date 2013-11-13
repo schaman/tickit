@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Tests\Entity\Repository;
+namespace Tickit\Bundle\ProjectBundle\Tests\Doctrine\Repository;
 
 use Doctrine\ORM\Query\Expr\Join;
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
-use Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository;
+use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 
 /**
  * AttributeRepository tests
  *
- * @package Tickit\Bundle\ProjectBundle\Tests\Entity\Repository
+ * @package Tickit\Bundle\ProjectBundle\Tests\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeRepositoryTest extends AbstractOrmTest

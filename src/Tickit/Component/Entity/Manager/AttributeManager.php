@@ -28,8 +28,8 @@ use Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue;
 use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
 use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
 use Tickit\Bundle\ProjectBundle\Entity\Project;
-use Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository;
-use Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository;
+use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
+use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository;
 
 /**
  * Attribute manager.

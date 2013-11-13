@@ -221,7 +221,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockChoiceAttributeChoiceRepository()
     {
-        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\ChoiceAttributeChoiceRepository')
+        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -233,7 +233,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockAttributeRepository()
     {
-        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository')
+        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
