@@ -25,7 +25,7 @@ use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Validator\Validation;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Form\Type\ProfileFormType;
 
 /**
@@ -43,7 +43,7 @@ class ProfileFormTypeTest extends AbstractFormTypeTestCase
     {
         parent::setUp();
 
-        $this->formType = new ProfileFormType('Tickit\Bundle\UserBundle\Entity\User');
+        $this->formType = new ProfileFormType('Tickit\Component\Model\User\User');
     }
 
     /**

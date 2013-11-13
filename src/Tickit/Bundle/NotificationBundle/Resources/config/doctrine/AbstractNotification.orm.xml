@@ -2,7 +2,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <mapped-superclass name="Tickit\Bundle\NotificationBundle\Entity\AbstractNotification">
+    <mapped-superclass name="Tickit\Component\Notification\Model\AbstractNotification">
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>

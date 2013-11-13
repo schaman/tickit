@@ -23,9 +23,9 @@ namespace Tickit\Bundle\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Tickit\Bundle\CoreBundle\Entity\CoreSession;
-use Tickit\Bundle\UserBundle\Entity\User;
-use Tickit\Bundle\UserBundle\Entity\UserSession;
+use Tickit\Component\Model\Core\CoreSession;
+use Tickit\Component\Model\User\User;
+use Tickit\Component\Model\User\UserSession;
 
 /**
  * Handles the security context's login event

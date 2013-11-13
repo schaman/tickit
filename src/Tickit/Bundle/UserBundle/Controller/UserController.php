@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater;
 use Tickit\Component\Entity\Manager\UserManager;
 

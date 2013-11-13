@@ -85,7 +85,7 @@ class UserFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $options = array('data_class' => 'Tickit\Bundle\UserBundle\Entity\User');
+        $options = array('data_class' => 'Tickit\Component\Model\User\User');
         $resolver->setDefaults($options);
     }
 

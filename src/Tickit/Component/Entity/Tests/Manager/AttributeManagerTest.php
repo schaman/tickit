@@ -23,11 +23,11 @@ namespace Tickit\Component\Entity\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\EntityAttribute;
+use Tickit\Component\Model\Project\LiteralAttribute;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Entity\Manager\AttributeManager;
 
 /**
@@ -61,7 +61,7 @@ class AttributeManagerTest extends AbstractUnitTest
         $attributeRepo = $this->getMockAttributeRepository();
         $choiceRepo = $this->getMockChoiceAttributeChoiceRepository();
 
-        $attribute = $this->getMockForAbstractClass('Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute');
+        $attribute = $this->getMockForAbstractClass('Tickit\Component\Model\Project\AbstractAttribute');
 
         $entityManager->expects($this->once())
                       ->method('remove')
@@ -171,7 +171,7 @@ class AttributeManagerTest extends AbstractUnitTest
 
         $this->assertInstanceOf('\Doctrine\Common\Collections\Collection', $collection);
         $items = $collection->toArray();
-        $this->assertContainsOnlyInstancesOf('Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue', $items);
+        $this->assertContainsOnlyInstancesOf('Tickit\Component\Model\Project\AbstractAttributeValue', $items);
     }
 
     /**

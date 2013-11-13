@@ -25,14 +25,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\ChoiceAttributeValue;
+use Tickit\Component\Model\Project\EntityAttribute;
+use Tickit\Component\Model\Project\EntityAttributeValue;
+use Tickit\Component\Model\Project\LiteralAttribute;
+use Tickit\Component\Model\Project\LiteralAttributeValue;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Form\Type\AttributeValueFormType;
 
 /**
@@ -113,7 +113,7 @@ class AttributeValueFormTypeTest extends AbstractFormTypeTestCase
     public function testFormBuildsEntityAttributesCorrectly()
     {
         $attribute = new EntityAttribute();
-        $attribute->setEntity('Tickit\Bundle\ProjectBundle\Entity\Project');
+        $attribute->setEntity('Tickit\Component\Model\Project\Project');
 
         $attributeValue = new EntityAttributeValue();
         $attributeValue->setAttribute($attribute)

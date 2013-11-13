@@ -25,7 +25,7 @@ use Doctrine\ORM\NoResultException;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
 
 /**
@@ -97,7 +97,7 @@ class UserManagerTest extends AbstractUnitTest
      */
     public function testGetClassReturnsCorrectValue()
     {
-        $this->assertEquals('Tickit\Bundle\UserBundle\Entity\User', $this->getUserManager()->getClass());
+        $this->assertEquals('Tickit\Component\Model\User\User', $this->getUserManager()->getClass());
     }
 
     /**
@@ -395,7 +395,7 @@ class UserManagerTest extends AbstractUnitTest
      */
     public function testCreateUserReturnsCorrectInstance()
     {
-        $this->assertInstanceOf('\Tickit\Bundle\UserBundle\Entity\User', $this->getUserManager()->createUser());
+        $this->assertInstanceOf('\Tickit\Component\Model\User\User', $this->getUserManager()->createUser());
     }
 
     /**

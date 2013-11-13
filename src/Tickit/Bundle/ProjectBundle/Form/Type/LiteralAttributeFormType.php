@@ -23,8 +23,8 @@ namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
+use Tickit\Component\Model\Project\LiteralAttribute;
 
 /**
  * Literal attribute form type.
@@ -60,7 +60,7 @@ class LiteralAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Component\Model\Project\LiteralAttribute'));
     }
 
     /**

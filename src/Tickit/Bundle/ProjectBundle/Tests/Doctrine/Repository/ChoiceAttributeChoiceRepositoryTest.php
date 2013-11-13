@@ -25,8 +25,8 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Tests\OrmTestCase;
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository;
 
 /**
@@ -50,7 +50,7 @@ class ChoiceAttributeChoiceRepositoryTest extends AbstractOrmTest
     protected function setUp()
     {
         $em = $this->getEntityManager(
-            array('TickitProjectBundle' => 'Tickit\\Bundle\\ProjectBundle\\Entity')
+            array('TickitProjectBundle' => 'Tickit\\Component\\Model\\Project')
         );
 
         $this->repo = $em->getRepository('TickitProjectBundle:ChoiceAttributeChoice');

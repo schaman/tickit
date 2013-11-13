@@ -25,7 +25,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 
 /**
  * Loads client data fixtures.

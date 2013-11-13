@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
 
 /**

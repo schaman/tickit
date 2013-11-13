@@ -22,7 +22,7 @@
 namespace Tickit\Component\Decorator\Tests\Entity;
 
 use Tickit\Component\Decorator\Entity\ClientEntityNameDecorator;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 
 /**
  * ClientEntityNameDecorator tests

@@ -26,7 +26,7 @@ use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Controller\ApiController;
 use Tickit\Bundle\UserBundle\Controller\UserController;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * ApiController tests

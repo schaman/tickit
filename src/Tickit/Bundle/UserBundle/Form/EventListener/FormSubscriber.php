@@ -45,6 +45,6 @@ class FormSubscriber
      */
     public function onEntityAttributeFormBuild(EntityAttributeFormBuildEvent $event)
     {
-        $event->addEntityChoice('Tickit\Bundle\UserBundle\Entity\User', 'User');
+        $event->addEntityChoice('Tickit\Component\Model\User\User', 'User');
     }
 }

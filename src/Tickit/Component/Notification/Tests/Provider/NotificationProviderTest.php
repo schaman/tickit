@@ -21,9 +21,9 @@
 
 namespace Tickit\Component\Notification\Tests\Provider;
 
-use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
+use Tickit\Component\Notification\Model\UserNotification;
 use Tickit\Component\Notification\Provider\NotificationProvider;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * NotificationProviderTest tests
@@ -78,6 +78,6 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $notifications);
         $this->assertCount(2, $notifications);
-        $this->assertContainsOnlyInstancesOf('Tickit\Bundle\NotificationBundle\Entity\UserNotification', $notifications);
+        $this->assertContainsOnlyInstancesOf('Tickit\Component\Notification\Model\UserNotification', $notifications);
     }
 }

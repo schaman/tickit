@@ -23,10 +23,10 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\PreloadedExtension;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
 
 /**

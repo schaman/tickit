@@ -47,7 +47,7 @@ class PreferenceRepositoryTest extends AbstractOrmTest
         parent::setUp();
 
         $em = $this->getEntityManager(
-            array('TickitPreferenceBundle' => 'Tickit\\Bundle\\PreferenceBundle\\Entity')
+            array('TickitPreferenceBundle' => 'Tickit\\Component\\Preference\\Model')
         );
 
         $this->repo = $em->getRepository('TickitPreferenceBundle:Preference');

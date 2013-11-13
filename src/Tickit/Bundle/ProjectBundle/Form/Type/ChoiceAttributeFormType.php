@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
 
 /**
  * Choice attribute form.
@@ -91,7 +91,7 @@ class ChoiceAttributeFormType extends AbstractAttributeFormType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Component\Model\Project\ChoiceAttribute'));
     }
 
     /**

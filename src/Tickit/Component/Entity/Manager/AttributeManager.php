@@ -23,11 +23,11 @@ namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\AbstractAttribute;
+use Tickit\Component\Model\Project\AbstractAttributeValue;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository;
 

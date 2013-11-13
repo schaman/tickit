@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
 
 /**
@@ -91,7 +91,7 @@ class UserProvider implements UserProviderInterface
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(
-                sprintf('Expected an instance of Tickit\Bundle\UserBundle\Entity\User, but got "%s".', get_class($user))
+                sprintf('Expected an instance of Tickit\Component\Model\User\User, but got "%s".', get_class($user))
             );
         }
 

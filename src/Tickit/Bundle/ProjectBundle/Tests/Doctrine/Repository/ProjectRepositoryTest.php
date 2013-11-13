@@ -45,7 +45,7 @@ class ProjectRepositoryTest extends AbstractOrmTest
     protected function setUp()
     {
         $em = $this->getEntityManager(
-            array('TickitProjectBundle' => 'Tickit\\Bundle\\ProjectBundle\\Entity')
+            array('TickitProjectBundle' => 'Tickit\\Component\\Model\\Project')
         );
 
         $this->repo = $em->getRepository('TickitProjectBundle:Project');

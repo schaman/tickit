@@ -28,7 +28,7 @@ use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * API controller for users.

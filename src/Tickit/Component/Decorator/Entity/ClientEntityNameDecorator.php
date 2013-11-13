@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Decorator\Entity;
 
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
 
 /**
@@ -48,7 +48,7 @@ class ClientEntityNameDecorator implements EntityDecoratorInterface
         if (!$client instanceof Client) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'The $client must be an instance of Tickit\Bundle\ClientBundle\Entity\Client, %s given',
+                    'The $client must be an instance of Tickit\Component\Model\Client\Client, %s given',
                     gettype($client)
                 )
             );

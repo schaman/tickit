@@ -25,13 +25,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\ChoiceAttributeValue;
+use Tickit\Component\Model\Project\EntityAttribute;
+use Tickit\Component\Model\Project\EntityAttributeValue;
+use Tickit\Component\Model\Project\LiteralAttribute;
+use Tickit\Component\Model\Project\LiteralAttributeValue;
 
 /**
  * Loads project attribute data
@@ -59,7 +59,7 @@ class LoadProjectAttributesData extends AbstractFixture implements OrderedFixtur
                 ->setDefaultValue('N/A');
 
         $entity = new EntityAttribute();
-        $entity->setEntity('Tickit\Bundle\UserBundle\Entity\User')
+        $entity->setEntity('Tickit\Component\Model\User\User')
                ->setDefaultValue('')
                ->setName('Project Manager')
                ->setAllowBlank(false);

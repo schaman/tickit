@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ClientBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Entity\Event\EntityEvent;
 
 /**

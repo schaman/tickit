@@ -54,7 +54,7 @@ class ChoiceAttributeChoiceFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice'));
+        $resolver->setDefaults(array('data_class' => 'Tickit\Component\Model\Project\ChoiceAttributeChoice'));
     }
 
     /**

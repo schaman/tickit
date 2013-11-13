@@ -21,9 +21,9 @@
 
 namespace Tickit\Component\Notification\Factory;
 
-use Tickit\Bundle\NotificationBundle\Entity\UserNotification;
+use Tickit\Component\Notification\Model\UserNotification;
 use Tickit\Component\Notification\Model\NotificationDataInterface;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Notification factory.

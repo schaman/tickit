@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ProjectBundle\Form\Guesser;
 
 use Symfony\Component\Form\AbstractType;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Type\ChoiceAttributeFormType;
 use Tickit\Bundle\ProjectBundle\Form\Type\EntityAttributeFormType;
 use Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType;

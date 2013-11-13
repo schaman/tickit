@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Tests\Event\Dispatcher;
 
-use Tickit\Bundle\ClientBundle\Entity\Client;
+use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Event\Dispatcher\ClientEventDispatcher;
 use Tickit\Bundle\ClientBundle\TickitClientEvents;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;

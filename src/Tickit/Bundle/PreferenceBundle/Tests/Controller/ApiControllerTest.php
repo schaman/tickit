@@ -24,7 +24,7 @@ namespace Tickit\Bundle\PreferenceBundle\Tests\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\PreferenceBundle\Controller\ApiController;
-use Tickit\Bundle\PreferenceBundle\Entity\Preference;
+use Tickit\Component\Preference\Model\Preference;
 
 /**
  * ApiController tests

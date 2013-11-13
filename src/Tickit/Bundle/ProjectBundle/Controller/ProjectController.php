@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
 use Tickit\Component\Entity\Manager\AttributeManager;
 use Tickit\Component\Entity\Manager\ProjectManager;

@@ -23,7 +23,7 @@ namespace Tickit\Component\Avatar\Tests\Twig;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Component\Avatar\Twig\AvatarExtension;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Avatar service twig extension tests

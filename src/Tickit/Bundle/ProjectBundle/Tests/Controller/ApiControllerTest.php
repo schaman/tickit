@@ -26,9 +26,9 @@ use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\ApiController;
 use Tickit\Bundle\ProjectBundle\Controller\ProjectController;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\LiteralAttribute;
+use Tickit\Component\Model\Project\Project;
 
 /**
  * ApiControllerTest tests

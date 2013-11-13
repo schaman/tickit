@@ -25,8 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\AttributeController;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
+use Tickit\Component\Model\Project\LiteralAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType;
 
 /**

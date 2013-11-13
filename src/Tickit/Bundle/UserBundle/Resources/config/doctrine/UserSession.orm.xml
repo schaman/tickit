@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity name="Tickit\Bundle\UserBundle\Entity\UserSession" table="user_sessions">
+    <entity name="Tickit\Component\Model\User\UserSession" table="user_sessions">
 
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY"/>

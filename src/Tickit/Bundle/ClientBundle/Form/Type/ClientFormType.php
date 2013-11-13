@@ -55,7 +55,7 @@ class ClientFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'Tickit\Bundle\ClientBundle\Entity\Client']);
+        $resolver->setDefaults(['data_class' => 'Tickit\Component\Model\Client\Client']);
     }
 
     /**

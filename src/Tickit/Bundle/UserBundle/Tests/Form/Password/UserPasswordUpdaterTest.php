@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\UserBundle\Tests\Form\Password;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater;
 
 /**

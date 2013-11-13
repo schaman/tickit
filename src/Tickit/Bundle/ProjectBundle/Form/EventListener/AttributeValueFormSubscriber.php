@@ -27,10 +27,10 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\EntityAttribute;
+use Tickit\Component\Model\Project\LiteralAttribute;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository;
 
 /**
@@ -71,13 +71,13 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         switch (get_class($data)) {
-            case 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue':
+            case 'Tickit\Component\Model\Project\ChoiceAttributeValue':
                 $this->buildChoiceValueFields($form, $data->getAttribute());
                 break;
-            case 'Tickit\Bundle\ProjectBundle\Entity\EntityAttributeValue':
+            case 'Tickit\Component\Model\Project\EntityAttributeValue':
                 $this->buildEntityValueFields($form, $data->getAttribute());
                 break;
-            case 'Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue':
+            case 'Tickit\Component\Model\Project\LiteralAttributeValue':
                 $this->buildLiteralValueFields($form, $data->getAttribute());
                 break;
         }
@@ -159,7 +159,7 @@ class AttributeValueFormSubscriber implements EventSubscriberInterface
             'value',
             'entity',
             array(
-                'class' => 'Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice',
+                'class' => 'Tickit\Component\Model\Project\ChoiceAttributeChoice',
                 'query_builder' => function (ChoiceAttributeChoiceRepository $repo) use ($attribute) {
                     return $repo->getFindAllForAttributeQueryBuilder($attribute);
                 },

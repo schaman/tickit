@@ -22,7 +22,7 @@
 namespace Tickit\Component\Decorator\Entity;
 
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Decorate a user entity into display name
@@ -47,7 +47,7 @@ class UserEntityDisplayNameDecorator implements EntityDecoratorInterface
         if (!$user instanceof User) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'The user must be an instance of Tickit\Bundle\UserBundle\Entity\User, %s given',
+                    'The user must be an instance of Tickit\Component\Model\User\User, %s given',
                     gettype($user)
                 )
             );

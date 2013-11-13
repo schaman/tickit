@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Preference\Loader;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Loader interface.

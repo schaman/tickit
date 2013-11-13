@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ProjectBundle\Tests\Form\Validator;
 
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Component\Model\Project\EntityAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Validator\EntityAttributeFormValidator;
 
 /**
@@ -70,7 +70,7 @@ class EntityAttributeFormValidatorTest extends \PHPUnit_Framework_TestCase
     public function testIsEntityAttributeValidDoesNotAddViolationForValidEntity()
     {
         $attribute = new EntityAttribute();
-        $attribute->setEntity('Tickit\Bundle\ProjectBundle\Entity\EntityAttribute');
+        $attribute->setEntity('Tickit\Component\Model\Project\EntityAttribute');
 
         $context = $this->getMockExecutionContext();
         $context->expects($this->exactly(0))
