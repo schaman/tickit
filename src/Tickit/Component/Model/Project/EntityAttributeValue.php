@@ -19,22 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
+namespace Tickit\Component\Model\Project;
 
 /**
- * Literal attribute value implementation.
+ * Entity attribute value implementation.
  *
- * Represents a value associated with a LiteralAttribute entity
+ * Represents a value associated with a EntityAttribute entity
  *
- * @package Tickit\Bundle\ProjectBundle\Entity
+ * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class LiteralAttributeValue extends AbstractAttributeValue
+class EntityAttributeValue extends AbstractAttributeValue
 {
     /**
      * The attribute this value is for
      *
-     * @var LiteralAttribute
+     * @var EntityAttribute
      */
     protected $attribute;
 
@@ -48,7 +48,7 @@ class LiteralAttributeValue extends AbstractAttributeValue
     /**
      * Gets the associated attribute object
      *
-     * @return LiteralAttribute
+     * @return EntityAttribute
      */
     public function getAttribute()
     {
@@ -56,25 +56,14 @@ class LiteralAttributeValue extends AbstractAttributeValue
     }
 
     /**
-     * Sets the value of this attribute value
+     * Sets the value on this attribute value
      *
      * @param mixed $value The new value
      *
-     * @return LiteralAttributeValue
+     * @return EntityAttributeValue
      */
     public function setValue($value)
     {
-        if ($value instanceof \DateTime) {
-            switch ($this->attribute->getValidationType()) {
-                case LiteralAttribute::VALIDATION_DATE:
-                    $value = $value->format('Y-m-d');
-                    break;
-                case LiteralAttribute::VALIDATION_DATETIME:
-                    $value = $value->format('Y-m-d H:i:s');
-                    break;
-            }
-        }
-
         $this->value = $value;
 
         return $this;
@@ -87,11 +76,6 @@ class LiteralAttributeValue extends AbstractAttributeValue
      */
     public function getValue()
     {
-        $type = $this->attribute->getValidationType();
-        if (in_array($type, array(LiteralAttribute::VALIDATION_DATE, LiteralAttribute::VALIDATION_DATETIME))) {
-            return new \DateTime($this->value);
-        }
-
         return $this->value;
     }
 
@@ -102,7 +86,7 @@ class LiteralAttributeValue extends AbstractAttributeValue
      */
     public function getType()
     {
-        return AbstractAttribute::TYPE_LITERAL;
+        return AbstractAttribute::TYPE_ENTITY;
     }
 
     /**
@@ -110,7 +94,7 @@ class LiteralAttributeValue extends AbstractAttributeValue
      *
      * @param AbstractAttribute $attribute The new attribute
      *
-     * @return LiteralAttributeValue
+     * @return EntityAttributeValue
      */
     public function setAttribute(AbstractAttribute $attribute)
     {

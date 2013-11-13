@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
-    <entity name="Tickit\Bundle\ProjectBundle\Entity\ProjectSettingValue" table="project_setting_values">
+    <entity name="Tickit\Component\Model\Project\ProjectSettingValue" table="project_setting_values">
 
         <id name="id" type="integer">
             <generator strategy="AUTO" />
@@ -9,11 +9,11 @@
 
         <field name="value" type="string" length="120" />
 
-        <one-to-one field="setting" target-entity="Tickit\Bundle\ProjectBundle\Entity\ProjectSetting">
+        <one-to-one field="setting" target-entity="Tickit\Component\Model\Project\ProjectSetting">
             <join-column name="project_setting_id" referenced-column-name="id" />
         </one-to-one>
 
-        <many-to-one target-entity="Tickit\Bundle\ProjectBundle\Entity\Project" field="project">
+        <many-to-one target-entity="Tickit\Component\Model\Project\Project" field="project">
             <join-column name="project_id" referenced-column-name="id" />
         </many-to-one>
     </entity>

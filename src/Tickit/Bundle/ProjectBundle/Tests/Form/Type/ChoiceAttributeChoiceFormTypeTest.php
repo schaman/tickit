@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Form\Type;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Bundle\ProjectBundle\Form\Type\ChoiceAttributeChoiceFormType;
 
 /**

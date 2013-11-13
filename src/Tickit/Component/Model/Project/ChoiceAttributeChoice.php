@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
+namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\Collection;
 
 /**
  * Entity representing a choice available for a ChoiceAttribute
  *
- * @package Tickit\Bundle\ProjectBundle\Entity
+ * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ChoiceAttributeChoice

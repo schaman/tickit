@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
+namespace Tickit\Component\Model\Project;
 
 /**
  * Interface for entities that represent attribute in the application

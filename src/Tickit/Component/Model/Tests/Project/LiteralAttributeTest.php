@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Tests\Entity;
+namespace Tickit\Component\Model\Tests\Project;
 
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
+use Tickit\Component\Model\Project\LiteralAttribute;
 
 /**
  * LiteralAttribute tests
  *
- * @package Tickit\Bundle\ProjectBundle\Tests\Entity
+ * @package Tickit\Component\Model\Tests\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LiteralAttributeTest extends \PHPUnit_Framework_TestCase

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
+namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\Collection;
 
@@ -29,7 +29,7 @@ use Doctrine\Common\Collections\Collection;
  * Represents a project attribute that has a predefined list of entities which
  * are used as choices.
  *
- * @package Tickit\Bundle\ProjectBundle\Entity
+ * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class EntityAttribute extends AbstractAttribute

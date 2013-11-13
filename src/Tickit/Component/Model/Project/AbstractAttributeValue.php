@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
+namespace Tickit\Component\Model\Project;
 
 /**
  * The AbstractAttributeValue entity represents a value associated with an attribute for a specific project
  *
- * @package Tickit\Bundle\ProjectBundle\Entity
+ * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractAttributeValue implements AttributeValueInterface

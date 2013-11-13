@@ -19,7 +19,7 @@
             <gedmo:timestampable on="update" />
         </field>
 
-        <one-to-many field="projects" target-entity="Tickit\Bundle\ProjectBundle\Entity\Project" mapped-by="client">
+        <one-to-many field="projects" target-entity="Tickit\Component\Model\Project\Project" mapped-by="client">
             <cascade>
                 <cascade-all />
             </cascade>

@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\Bundle\ProjectBundle\Entity\ProjectSetting;
+use Tickit\Component\Model\Project\ProjectSetting;
 
 /**
  * Loads project setting data into the application

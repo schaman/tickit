@@ -19,47 +19,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+namespace Tickit\Component\Model\Project;
 
 /**
- * Choice attribute value implementation.
+ * Literal attribute value implementation.
  *
- * Represents a value associated with a ChoiceAttribute entity
+ * Represents a value associated with a LiteralAttribute entity
  *
- * @package Tickit\Bundle\ProjectBundle\Entity
+ * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ChoiceAttributeValue extends AbstractAttributeValue
+class LiteralAttributeValue extends AbstractAttributeValue
 {
     /**
      * The attribute this value is for
      *
-     * @var ChoiceAttribute
+     * @var LiteralAttribute
      */
     protected $attribute;
 
     /**
-     * The attribute value.
+     * The attribute value
      *
-     * @var Collection
+     * @var string
      */
     protected $value;
 
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->value = new ArrayCollection();
-    }
-
-    /**
      * Gets the associated attribute object
      *
-     * @return ChoiceAttribute
+     * @return LiteralAttribute
      */
     public function getAttribute()
     {
@@ -67,14 +56,25 @@ class ChoiceAttributeValue extends AbstractAttributeValue
     }
 
     /**
-     * Sets the selected value(s)
+     * Sets the value of this attribute value
      *
-     * @param Collection $value The selected value(s) collection
+     * @param mixed $value The new value
      *
-     * @return ChoiceAttributeValue
+     * @return LiteralAttributeValue
      */
-    public function setValue(Collection $value = null)
+    public function setValue($value)
     {
+        if ($value instanceof \DateTime) {
+            switch ($this->attribute->getValidationType()) {
+                case LiteralAttribute::VALIDATION_DATE:
+                    $value = $value->format('Y-m-d');
+                    break;
+                case LiteralAttribute::VALIDATION_DATETIME:
+                    $value = $value->format('Y-m-d H:i:s');
+                    break;
+            }
+        }
+
         $this->value = $value;
 
         return $this;
@@ -87,6 +87,11 @@ class ChoiceAttributeValue extends AbstractAttributeValue
      */
     public function getValue()
     {
+        $type = $this->attribute->getValidationType();
+        if (in_array($type, array(LiteralAttribute::VALIDATION_DATE, LiteralAttribute::VALIDATION_DATETIME))) {
+            return new \DateTime($this->value);
+        }
+
         return $this->value;
     }
 
@@ -97,7 +102,7 @@ class ChoiceAttributeValue extends AbstractAttributeValue
      */
     public function getType()
     {
-        return AbstractAttribute::TYPE_CHOICE;
+        return AbstractAttribute::TYPE_LITERAL;
     }
 
     /**
@@ -105,7 +110,7 @@ class ChoiceAttributeValue extends AbstractAttributeValue
      *
      * @param AbstractAttribute $attribute The new attribute
      *
-     * @return ChoiceAttributeValue
+     * @return LiteralAttributeValue
      */
     public function setAttribute(AbstractAttribute $attribute)
     {

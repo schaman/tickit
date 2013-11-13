@@ -32,7 +32,7 @@
                 <join-column name="reported_by_id" referenced-column-name="id" />
             </join-columns>
         </many-to-one>
-        <many-to-one field="project" target-entity="Tickit\Bundle\ProjectBundle\Entity\Project" inversed-by="tickets">
+        <many-to-one field="project" target-entity="Tickit\Component\Model\Project\Project" inversed-by="tickets">
             <join-columns>
                 <join-column name="project_id" referenced-column-name="id" />
             </join-columns>

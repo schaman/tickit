@@ -19,36 +19,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Entity;
+namespace Tickit\Component\Model\Project;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity attribute value implementation.
+ * Choice attribute value implementation.
  *
- * Represents a value associated with a EntityAttribute entity
+ * Represents a value associated with a ChoiceAttribute entity
  *
- * @package Tickit\Bundle\ProjectBundle\Entity
+ * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EntityAttributeValue extends AbstractAttributeValue
+class ChoiceAttributeValue extends AbstractAttributeValue
 {
     /**
      * The attribute this value is for
      *
-     * @var EntityAttribute
+     * @var ChoiceAttribute
      */
     protected $attribute;
 
     /**
-     * The attribute value
+     * The attribute value.
      *
-     * @var string
+     * @var Collection
      */
     protected $value;
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->value = new ArrayCollection();
+    }
+
+    /**
      * Gets the associated attribute object
      *
-     * @return EntityAttribute
+     * @return ChoiceAttribute
      */
     public function getAttribute()
     {
@@ -56,13 +67,13 @@ class EntityAttributeValue extends AbstractAttributeValue
     }
 
     /**
-     * Sets the value on this attribute value
+     * Sets the selected value(s)
      *
-     * @param mixed $value The new value
+     * @param Collection $value The selected value(s) collection
      *
-     * @return EntityAttributeValue
+     * @return ChoiceAttributeValue
      */
-    public function setValue($value)
+    public function setValue(Collection $value = null)
     {
         $this->value = $value;
 
@@ -86,7 +97,7 @@ class EntityAttributeValue extends AbstractAttributeValue
      */
     public function getType()
     {
-        return AbstractAttribute::TYPE_ENTITY;
+        return AbstractAttribute::TYPE_CHOICE;
     }
 
     /**
@@ -94,7 +105,7 @@ class EntityAttributeValue extends AbstractAttributeValue
      *
      * @param AbstractAttribute $attribute The new attribute
      *
-     * @return EntityAttributeValue
+     * @return ChoiceAttributeValue
      */
     public function setAttribute(AbstractAttribute $attribute)
     {

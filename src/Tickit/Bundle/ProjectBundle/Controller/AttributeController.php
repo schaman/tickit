@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
 use Tickit\Component\Entity\Manager\AttributeManager;
 

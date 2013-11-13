@@ -27,9 +27,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\ProjectController;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\ChoiceAttributeValue;
+use Tickit\Component\Model\Project\LiteralAttributeValue;
+use Tickit\Component\Model\Project\Project;
 
 /**
  * ProjectController tests

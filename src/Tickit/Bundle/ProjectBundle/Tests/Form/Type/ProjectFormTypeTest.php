@@ -26,7 +26,7 @@ use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
 
 /**

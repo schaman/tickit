@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ProjectBundle\Form\Validator;
 
 use Symfony\Component\Validator\ExecutionContextInterface;
-use Tickit\Bundle\ProjectBundle\Entity\EntityAttribute;
+use Tickit\Component\Model\Project\EntityAttribute;
 
 /**
  * Validator helper for EntityAttributeFormType

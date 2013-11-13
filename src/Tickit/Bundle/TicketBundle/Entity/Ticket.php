@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\TicketBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Tickit\Bundle\ProjectBundle\Entity\Project;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**

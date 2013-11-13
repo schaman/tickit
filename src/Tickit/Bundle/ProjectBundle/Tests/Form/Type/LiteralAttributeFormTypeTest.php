@@ -25,10 +25,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttribute;
-use Tickit\Bundle\ProjectBundle\Entity\ChoiceAttributeChoice;
-use Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute;
+use Tickit\Component\Model\Project\AbstractAttribute;
+use Tickit\Component\Model\Project\ChoiceAttribute;
+use Tickit\Component\Model\Project\ChoiceAttributeChoice;
+use Tickit\Component\Model\Project\LiteralAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Type\ChoiceAttributeChoiceFormType;
 use Tickit\Bundle\ProjectBundle\Form\Type\LiteralAttributeFormType;
 

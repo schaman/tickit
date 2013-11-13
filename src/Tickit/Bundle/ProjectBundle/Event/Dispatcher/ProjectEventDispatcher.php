@@ -32,7 +32,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
  *
  * @package Tickit\Bundle\ProjectBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\Bundle\ProjectBundle\Entity\Project
+ * @see     Tickit\Component\Model\Project\Project
  */
 class ProjectEventDispatcher extends AbstractEntityEventDispatcher
 {
