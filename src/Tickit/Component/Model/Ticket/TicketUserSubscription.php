@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * The TicketUserSubscription entity represents a user's subscription settings for a ticket

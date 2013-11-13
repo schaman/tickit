@@ -22,12 +22,12 @@
         <one-to-many field="ticketSubscriptions" target-entity="Tickit\Component\Model\Ticket\TicketUserSubscription" mapped-by="ticket"/>
         <one-to-many field="attachments" target-entity="Tickit\Component\Model\Ticket\TicketAttachment" mapped-by="ticket"/>
 
-        <many-to-one field="assignedTo" target-entity="Tickit\Bundle\UserBundle\Entity\User">
+        <many-to-one field="assignedTo" target-entity="Tickit\Component\Model\User\User">
             <join-columns>
                 <join-column name="assigned_to_id" referenced-column-name="id" nullable="true" />
             </join-columns>
         </many-to-one>
-        <many-to-one field="reportedBy" target-entity="Tickit\Bundle\UserBundle\Entity\User">
+        <many-to-one field="reportedBy" target-entity="Tickit\Component\Model\User\User">
             <join-columns>
                 <join-column name="reported_by_id" referenced-column-name="id" />
             </join-columns>

@@ -22,7 +22,7 @@
 namespace Tickit\Component\Decorator\Tests\Entity;
 
 use Tickit\Component\Decorator\Entity\UserEntityDisplayNameDecorator;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * User entity display name decorator tests

@@ -25,8 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\Bundle\UserBundle\Entity\User;
-use Tickit\Bundle\UserBundle\Entity\UserSession;
+use Tickit\Component\Model\User\User;
+use Tickit\Component\Model\User\UserSession;
 use Tickit\Bundle\UserBundle\Listener\LoginListener;
 
 /**

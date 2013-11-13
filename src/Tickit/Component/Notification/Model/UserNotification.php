@@ -22,7 +22,7 @@
 namespace Tickit\Component\Notification\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * User notification.

@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tickit\Component\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
 use Tickit\Component\Decorator\DomainObjectDecoratorInterface;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Base controller helper.

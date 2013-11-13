@@ -32,7 +32,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
  *
  * @package Tickit\Bundle\UserBundle\Event\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\Bundle\UserBundle\Entity\User
+ * @see     Tickit\Component\Model\User\User
  */
 class UserEventDispatcher extends AbstractEntityEventDispatcher
 {

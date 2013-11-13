@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
 use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository;
 use Tickit\Component\Preference\Model\UserPreferenceValue;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Preference loader.

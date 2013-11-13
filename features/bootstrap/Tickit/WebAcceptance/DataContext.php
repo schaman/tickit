@@ -28,7 +28,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Faker\Factory as FakerFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
 use Tickit\WebAcceptance\Mixins\ContainerMixin;
 

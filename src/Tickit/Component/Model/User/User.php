@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Entity;
+namespace Tickit\Component\Model\User;
 
 use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -29,7 +29,7 @@ use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
 /**
  * The User entity represents a logged in user in the application
  *
- * @package Tickit\Bundle\UserBundle\Entity
+ * @package Tickit\Component\Model\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class User extends BaseUser implements AvatarAwareInterface

@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Preference\Model;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
 
 /**

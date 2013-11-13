@@ -21,14 +21,14 @@
 
 namespace Tickit\Bundle\UserBundle\Interfaces;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * Interface for classes that are User aware
  *
  * @package Tickit\Bundle\UserBundle\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\Bundle\UserBundle\Entity\User
+ * @see     Tickit\Component\Model\User\User
  */
 interface UserAwareInterface
 {

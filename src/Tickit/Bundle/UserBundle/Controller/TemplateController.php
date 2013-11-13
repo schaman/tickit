@@ -24,7 +24,7 @@ namespace Tickit\Bundle\UserBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
 
 /**

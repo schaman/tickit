@@ -23,7 +23,7 @@ namespace Tickit\Bundle\UserBundle\Tests\Listener;
 
 use Symfony\Component\HttpKernel\HttpKernel;
 use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Listener\ActivityListener;
 
 /**
@@ -56,7 +56,7 @@ class ActivityListenerTest extends AbstractUnitTest
 
         $manager->expects($this->once())
                 ->method('persist')
-                ->with($this->isInstanceOf('Tickit\Bundle\UserBundle\Entity\User'));
+                ->with($this->isInstanceOf('Tickit\Component\Model\User\User'));
 
         $manager->expects($this->once())
                 ->method('flush')

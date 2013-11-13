@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * The TicketStatusHistory entity represents a snapshot of a ticket's status at a given point in time

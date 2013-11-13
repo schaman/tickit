@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Security\Tests;
 
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Security\UserProvider;
 use Tickit\Component\Security\Tests\Mock\MockInvalidTypeUser;
 
@@ -57,9 +57,9 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
                           ->method('getClass')
-                          ->will($this->returnValue('Tickit\Bundle\UserBundle\Entity\User'));
+                          ->will($this->returnValue('Tickit\Component\Model\User\User'));
 
-        $this->assertTrue($this->getProvider()->supportsClass('Tickit\Bundle\UserBundle\Entity\User'));
+        $this->assertTrue($this->getProvider()->supportsClass('Tickit\Component\Model\User\User'));
     }
 
     /**
@@ -71,7 +71,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
                           ->method('getClass')
-                          ->will($this->returnValue('Tickit\Bundle\UserBundle\Entity\User'));
+                          ->will($this->returnValue('Tickit\Component\Model\User\User'));
 
         $this->assertFalse($this->getProvider()->supportsClass('\stdClass'));
     }

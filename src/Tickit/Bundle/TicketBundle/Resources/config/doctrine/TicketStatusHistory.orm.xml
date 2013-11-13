@@ -11,7 +11,7 @@
             <gedmo:timestampable on="create" />
         </field>
 
-        <many-to-one field="changedBy" target-entity="Tickit\Bundle\UserBundle\Entity\User">
+        <many-to-one field="changedBy" target-entity="Tickit\Component\Model\User\User">
             <join-columns>
                 <join-column name="changed_by_id" referenced-column-name="id" />
             </join-columns>

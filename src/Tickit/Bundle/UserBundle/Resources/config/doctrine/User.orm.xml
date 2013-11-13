@@ -2,7 +2,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity repository-class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository" name="Tickit\Bundle\UserBundle\Entity\User" table="users">
+    <entity repository-class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository" name="Tickit\Component\Model\User\User" table="users">
 
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
@@ -20,7 +20,7 @@
 
         <one-to-many field="notifications" target-entity="Tickit\Component\Notification\Model\UserNotification" mapped-by="recipient" />
 
-        <many-to-many target-entity="Tickit\Bundle\UserBundle\Entity\UserSession" field="sessions">
+        <many-to-many target-entity="Tickit\Component\Model\User\UserSession" field="sessions">
             <join-table name="users_user_sessions">
                 <join-columns>
                     <join-column name="user_id" />

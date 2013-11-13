@@ -59,7 +59,7 @@ class LoadProjectAttributesData extends AbstractFixture implements OrderedFixtur
                 ->setDefaultValue('N/A');
 
         $entity = new EntityAttribute();
-        $entity->setEntity('Tickit\Bundle\UserBundle\Entity\User')
+        $entity->setEntity('Tickit\Component\Model\User\User')
                ->setDefaultValue('')
                ->setName('Project Manager')
                ->setAllowBlank(false);

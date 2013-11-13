@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Entity;
+namespace Tickit\Component\Model\User;
 
 /**
  * User session object.
@@ -27,7 +27,7 @@ namespace Tickit\Bundle\UserBundle\Entity;
  * Represents a user's PHP session in the system but does not store any session data.
  * It is used for determining concurrent session activity
  *
- * @package Tickit\Bundle\UserBundle\Entity
+ * @package Tickit\Component\Model\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserSession

@@ -23,7 +23,7 @@ namespace Tickit\Component\Model\Ticket;
 
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * The User entity represents an individual user within the application

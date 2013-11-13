@@ -58,7 +58,7 @@ class FormSubscriberTest extends \PHPUnit_Framework_TestCase
 
         $choices = $event->getEntityChoices();
         $this->assertNotEmpty($choices);
-        $this->assertArrayHasKey('Tickit\Bundle\UserBundle\Entity\User', $choices);
+        $this->assertArrayHasKey('Tickit\Component\Model\User\User', $choices);
         $this->assertContains('User', $choices);
     }
 }

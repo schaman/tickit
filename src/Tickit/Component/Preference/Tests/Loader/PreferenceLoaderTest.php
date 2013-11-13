@@ -25,7 +25,7 @@ use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
 use Tickit\Component\Preference\Model\Preference;
 use Tickit\Component\Preference\Model\UserPreferenceValue;
 use Tickit\Component\Preference\Loader\PreferenceLoader;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * PreferenceLoader tests

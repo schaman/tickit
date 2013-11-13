@@ -26,7 +26,7 @@ use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -221,7 +221,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function getClass()
     {
-        return 'Tickit\Bundle\UserBundle\Entity\User';
+        return 'Tickit\Component\Model\User\User';
     }
 
     /**

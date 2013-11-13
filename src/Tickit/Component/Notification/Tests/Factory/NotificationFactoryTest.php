@@ -23,7 +23,7 @@ namespace Tickit\Component\Notification\Tests\Factory;
 
 use Tickit\Component\Notification\Factory\NotificationFactory;
 use Tickit\Bundle\NotificationBundle\Tests\Mock\Model\MockNotification;
-use Tickit\Bundle\UserBundle\Entity\User;
+use Tickit\Component\Model\User\User;
 
 /**
  * NotificationFactory tests
