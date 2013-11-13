@@ -16,11 +16,6 @@
             <argument>%tickit_notification.api_message_limit%</argument>
         </service>
 
-        <service id="tickit_notification.manager" class="Tickit\Bundle\NotificationBundle\Manager\NotificationManager">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="tickit_notification.factory" />
-        </service>
-
         <service id="tickit_notification.factory" class="%tickit_notification.factory.class%" />
 
     </services>
