@@ -30,9 +30,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @package Tickit\Bundle\ClientBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\ClientBundle\Entity\Repository\ClientRepository")
- * @ORM\Table(name="clients")
  */
 class Client
 {
@@ -43,10 +40,6 @@ class Client
      * The unique identifier for the client
      *
      * @var integer
-     *
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -54,8 +47,6 @@ class Client
      * The name of the client
      *
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=120)
      */
     private $name;
 
@@ -65,8 +56,6 @@ class Client
      * This is usually the homepage for the client.
      *
      * @var string
-     *
-     * @ORM\Column(name="url", type="text")
      */
     private $url;
 
@@ -74,8 +63,6 @@ class Client
      * Additional notes for the client
      *
      * @var string
-     *
-     * @ORM\Column(name="notes", type="text")
      */
     private $notes;
 
@@ -83,8 +70,6 @@ class Client
      * The status of the client
      *
      * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=10)
      */
     private $status;
 
@@ -95,7 +80,6 @@ class Client
      * join with the Project entity is not required.
      *
      * @var integer
-     * @ORM\Column(name="total_projects", type="integer")
      */
     private $totalProjects;
 
@@ -103,8 +87,6 @@ class Client
      * The date and time the client was created
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
@@ -112,8 +94,6 @@ class Client
      * The date and time the client was last updated
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
      */
     private $updated;
 
@@ -121,7 +101,6 @@ class Client
      * Projects that belong to this client
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Tickit\Bundle\ProjectBundle\Entity\Project", mappedBy="client")
      */
     private $projects;
 

@@ -21,37 +21,34 @@
 
 namespace Tickit\Bundle\TicketBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * The TicketStatus entity represents a possible status type for a ticket
  *
  * @package Tickit\Bundle\TicketBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
- * @ORM\Table(name="ticket_statuses")
  */
 class TicketStatus
 {
-
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * The unique idenfitier
+     *
+     * @var integer
      */
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * The name of the status
+     *
+     * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="CHAR(6) NOT NULL")
+     * The color representing this status
+     *
+     * @var string
      */
     protected $colour;
-
 
     /**
      * Gets the ID
@@ -62,7 +59,6 @@ class TicketStatus
     {
         return $this->id;
     }
-
 
     /**
      * Sets the name of this status
@@ -76,7 +72,6 @@ class TicketStatus
         $this->name = $name;
     }
 
-
     /**
      * Gets the name of this status
      *
@@ -86,7 +81,6 @@ class TicketStatus
     {
         return $this->name;
     }
-
 
     /**
      * Sets the colour of this status

@@ -23,8 +23,6 @@ namespace Tickit\Bundle\ProjectBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use DateTime;
 use Tickit\Bundle\ClientBundle\Entity\Client;
 
@@ -32,9 +30,6 @@ use Tickit\Bundle\ClientBundle\Entity\Client;
  * Project entity
  *
  * Represents an application/website/product within the application
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository")
- * @ORM\Table(name="projects")
  */
 class Project
 {
@@ -42,9 +37,6 @@ class Project
      * The unique identifier for this project
      *
      * @var integer
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -60,8 +52,6 @@ class Project
      * The client that this project relates to
      *
      * @var Client
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\ClientBundle\Entity\Client", inversedBy="projects")
      */
     protected $client;
 
@@ -69,7 +59,6 @@ class Project
      * Tickets related to this project
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Tickit\Bundle\TicketBundle\Entity\Ticket", mappedBy="project")
      */
     protected $tickets;
 
@@ -77,27 +66,27 @@ class Project
      * Attribute values for this project
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="AbstractAttributeValue", mappedBy="project", cascade="persist")
      */
     protected $attributes;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * The date/time that this project was created
+     *
+     * @var \DateTime
      */
-    protected $created;
+    protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * The date/time that this project was last updated
+     *
+     * @var \DateTime
      */
-    protected $updated;
+    protected $updatedAt;
 
     /**
      * The time that this project was deleted (if any)
      *
      * @var string
-     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     protected $deletedAt;
 
@@ -148,9 +137,9 @@ class Project
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
@@ -158,9 +147,9 @@ class Project
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**
@@ -238,13 +227,13 @@ class Project
     /**
      * Sets the updated time
      *
-     * @param \DateTime $updated The updated time
+     * @param \DateTime $updatedAt The updated time
      *
      * @return Project
      */
-    public function setUpdated(\DateTime $updated)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updated = $updated;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -252,13 +241,13 @@ class Project
     /**
      * Sets the created time
      *
-     * @param \DateTime $created The created time
+     * @param \DateTime $createdAt The created time
      *
      * @return Project
      */
-    public function setCreated(\DateTime $created)
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -21,9 +21,6 @@
 
 namespace Tickit\Bundle\PreferenceBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-
 /**
  * SystemPreferenceValue entity.
  *
@@ -32,18 +29,20 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @package Tickit\Bundle\PreferenceBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
- * @ORM\Entity
- * @ORM\Table(name="system_preferences")
  */
 class SystemPreferenceValue
 {
     /**
+     * The unique identifier
+     *
+     * @var integer
+     */
+    protected $id;
+
+    /**
      * The preference that this value relates to
      *
      * @var Preference
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Preference")
-     * @ORM\JoinColumn(name="preference_id", referencedColumnName="id")
      */
     protected $preference;
 
@@ -51,7 +50,6 @@ class SystemPreferenceValue
      * The value for the associated preference
      *
      * @var string
-     * @ORM\Column(type="text")
      */
     protected $value;
 
@@ -59,31 +57,27 @@ class SystemPreferenceValue
      * The date and time that this preference value was created
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
      */
-    protected $created;
+    protected $createdAt;
 
     /**
      * The date and time that this preference value was updated
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
      */
-    protected $updated;
+    protected $updatedAt;
 
 
     /**
      * Sets the created time as an instance of DateTime
      *
-     * @param \DateTime $created The DateTime that this preference value was updated
+     * @param \DateTime $createdAt The DateTime that this preference value was updated
      *
      * @return SystemPreferenceValue
      */
-    public function setCreated(\DateTime $created)
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -93,9 +87,9 @@ class SystemPreferenceValue
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
@@ -125,13 +119,13 @@ class SystemPreferenceValue
     /**
      * Sets the updated time as an instance of DateTime
      *
-     * @param \DateTime $updated The updated time for this preference value
+     * @param \DateTime $updatedAt The updated time for this preference value
      *
      * @return SystemPreferenceValue
      */
-    public function setUpdated($updated)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated = $updated;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -139,9 +133,9 @@ class SystemPreferenceValue
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**

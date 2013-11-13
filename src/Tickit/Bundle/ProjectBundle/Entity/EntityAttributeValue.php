@@ -21,8 +21,6 @@
 
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Entity attribute value implementation.
  *
@@ -30,23 +28,20 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
  */
 class EntityAttributeValue extends AbstractAttributeValue
 {
     /**
      * The attribute this value is for
      *
-     * @ORM\ManyToOne(targetEntity="EntityAttribute", inversedBy="values")
-     * @ORM\JoinColumn(name="entity_attribute_id", referencedColumnName="id", onDelete="CASCADE")
+     * @var EntityAttribute
      */
     protected $attribute;
 
     /**
      * The attribute value
      *
-     * @ORM\Column(type="string", length=500)
+     * @var string
      */
     protected $value;
 

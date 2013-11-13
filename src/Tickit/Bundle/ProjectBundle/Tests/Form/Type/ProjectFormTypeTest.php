@@ -64,9 +64,9 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
         $project->setName(__FUNCTION__)
                 ->setAttributes(new ArrayCollection())
                 ->setTickets(new ArrayCollection())
-                ->setCreated(new \DateTime())
+                ->setCreatedAt(new \DateTime())
                 ->setClient(new Client())
-                ->setUpdated(new \DateTime());
+                ->setUpdatedAt(new \DateTime());
 
         $form->setData($project);
 

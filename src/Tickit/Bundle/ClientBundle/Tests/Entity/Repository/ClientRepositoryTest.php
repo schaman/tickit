@@ -45,7 +45,6 @@ class ClientRepositoryTest extends AbstractOrmTest
     protected function setUp()
     {
         $em = $this->getEntityManager(
-            'Tickit\\Bundle\\ClientBundle\\Entity',
             ['TickitClientBundle' => 'Tickit\\Bundle\\ClientBundle\\Entity']
         );
 

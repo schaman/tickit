@@ -23,9 +23,7 @@ namespace Tickit\Bundle\UserBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
 
 /**
@@ -33,9 +31,6 @@ use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
  *
  * @package Tickit\Bundle\UserBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity(repositoryClass="Tickit\Bundle\UserBundle\Entity\Repository\UserRepository")
- * @ORM\Table(name="users")
  */
 class User extends BaseUser implements AvatarAwareInterface
 {
@@ -44,53 +39,49 @@ class User extends BaseUser implements AvatarAwareInterface
     /**
      * The unique identifier for this user
      *
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     protected $id;
 
     /**
      * The user's forename
      *
-     * @ORM\Column(type="string", length=120)
+     * @var string
      */
     protected $forename;
 
     /**
      * The user's surname
      *
-     * @ORM\Column(type="string", length=120)
+     * @var string
      */
     protected $surname;
 
     /**
      * The date and time this user was created
      *
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * @var \DateTime
      */
     protected $created;
 
     /**
      * The date and time that this user was last updated
      *
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * @var \DateTime
      */
     protected $updated;
 
     /**
-     * @todo make this Many-to-Many
+     * Sessions associated with this user
      *
-     * @ORM\OneToMany(targetEntity="UserSession", mappedBy="user")
+     * @var Collection
      */
     protected $sessions;
 
     /**
      * The date and time of this user's last activity
      *
-     * @ORM\Column(name="last_activity", type="datetime", nullable=true)
+     * @var \DateTime
      */
     protected $lastActivity;
 
@@ -98,7 +89,6 @@ class User extends BaseUser implements AvatarAwareInterface
      * Notifications for this user
      *
      * @var Collection
-     * @ORM\OneToMany(targetEntity="Tickit\Bundle\NotificationBundle\Entity\UserNotification", mappedBy="recipient")
      */
     protected $notifications;
 

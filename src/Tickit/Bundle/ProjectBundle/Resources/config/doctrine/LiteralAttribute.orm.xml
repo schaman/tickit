@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Tickit\Bundle\ProjectBundle\Entity\LiteralAttribute" inheritance-type="SINGLE_TABLE">
+
+        <field name="validationType" column="validation_type" type="string" length="15" />
+
+        <one-to-many target-entity="Tickit\Bundle\ProjectBundle\Entity\LiteralAttributeValue" mapped-by="attribute" field="values" />
+
+    </entity>
+</doctrine-mapping>

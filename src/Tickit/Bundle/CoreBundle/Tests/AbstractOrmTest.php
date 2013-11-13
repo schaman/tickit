@@ -21,9 +21,11 @@
 
 namespace Tickit\Bundle\CoreBundle\Tests;
 
-use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Doctrine\Tests\OrmTestCase;
 
 /**
@@ -35,22 +37,72 @@ use Doctrine\Tests\OrmTestCase;
 abstract class AbstractOrmTest extends OrmTestCase
 {
     /**
-     * Gets an entity manager for testing
+     * A replacement of Symfony\Bridge\Doctrine\Test\DoctrineTestHelper::createTestEntityManager();
      *
-     * @param string|array $paths      Namespace of entities for the annotation driver
-     * @param array        $namespaces The namespaces to register on the entity manager
+     * Creates and returns a dummy entity manager instance
+     *
+     * @param array $namespaces The namespaces for the entities managed by the entity manager
+     *
+     * @see \Symfony\Bridge\Doctrine\Test\DoctrineTestHelper
      *
      * @return EntityManager
      */
-    protected function getEntityManager($paths, array $namespaces)
+    public static function createTestEntityManager(array $namespaces = array())
     {
-        $reader = new AnnotationReader();
-        $driver = new AnnotationDriver($reader, $paths);
+        $locator = new SymfonyFileLocator(static::getBundleEntityPaths(), '.orm.xml');
 
-        $em = $this->_getTestEntityManager();
-        $em->getConfiguration()->setMetadataDriverImpl($driver);
-        $em->getConfiguration()->setEntityNamespaces($namespaces);
+        $config = new Configuration();
+        $config->setEntityNamespaces($namespaces);
+        $config->setAutoGenerateProxyClasses(true);
+        $config->setProxyDir(\sys_get_temp_dir());
+        $config->setProxyNamespace('SymfonyTests\Doctrine');
+        $config->setMetadataDriverImpl(new XmlDriver($locator));
+        $config->setQueryCacheImpl(new ArrayCache());
+        $config->setMetadataCacheImpl(new ArrayCache());
 
-        return $em;
+        $params = array(
+            'driver' => 'pdo_sqlite',
+            'memory' => true,
+        );
+
+        return EntityManager::create($params, $config);
+    }
+
+    /**
+     * Gets bundle entity paths to XML mapping
+     *
+     * @return array
+     */
+    protected static function getBundleEntityPaths()
+    {
+        $bundles = [
+            'ClientBundle',
+            'PreferenceBundle',
+            'ProjectBundle',
+            'NotificationBundle',
+            'UserBundle'
+        ];
+
+        $paths = [];
+        foreach ($bundles as $bundleName) {
+            $path = __DIR__ . '/../../' . $bundleName . '/Resources/config/doctrine';
+            $paths[$path] = 'Tickit\\Bundle\\' . $bundleName . '\\Entity';
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Gets an entity manager for testing
+     *
+     * @param array $namespaces The namespaces to register on the entity manager
+     *
+     * @deprecated Use createTestEntityManager() instead
+     *
+     * @return EntityManager
+     */
+    protected function getEntityManager(array $namespaces)
+    {
+        return static::createTestEntityManager($namespaces);
     }
 }

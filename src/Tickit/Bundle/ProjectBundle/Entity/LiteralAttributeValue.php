@@ -21,8 +21,6 @@
 
 namespace Tickit\Bundle\ProjectBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Literal attribute value implementation.
  *
@@ -30,8 +28,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Tickit\Bundle\ProjectBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- *
- * @ORM\Entity
  */
 class LiteralAttributeValue extends AbstractAttributeValue
 {
@@ -39,15 +35,13 @@ class LiteralAttributeValue extends AbstractAttributeValue
      * The attribute this value is for
      *
      * @var LiteralAttribute
-     * @ORM\ManyToOne(targetEntity="LiteralAttribute", inversedBy="values")
-     * @ORM\JoinColumn(name="literal_attribute_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $attribute;
 
     /**
      * The attribute value
      *
-     * @ORM\Column(type="string", length=500)
+     * @var string
      */
     protected $value;
 

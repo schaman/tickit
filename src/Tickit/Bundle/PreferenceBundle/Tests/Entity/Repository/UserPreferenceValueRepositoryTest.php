@@ -48,7 +48,6 @@ class UserPreferenceValueRepositoryTest extends AbstractOrmTest
         parent::setUp();
 
         $em = $this->getEntityManager(
-            'Tickit\\Bundle\\PreferenceBundle\\Entity',
             array('TickitPreferenceBundle' => 'Tickit\\Bundle\\PreferenceBundle\\Entity')
         );
 

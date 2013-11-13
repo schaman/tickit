@@ -31,8 +31,6 @@ use Tickit\Bundle\UserBundle\Entity\User;
  *
  * @package Tickit\Bundle\NotificationBundle\Entity
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @ORM\Entity(repositoryClass="Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository")
- * @ORM\Table(name="user_notifications")
  */
 class UserNotification extends AbstractNotification
 {
@@ -40,8 +38,6 @@ class UserNotification extends AbstractNotification
      * The recipient user
      *
      * @var User
-     * @ORM\ManyToOne(targetEntity="Tickit\Bundle\UserBundle\Entity\User", inversedBy="notifications")
-     * @ORM\JoinColumn(name="recipient_id", referencedColumnName="id")
      */
     protected $recipient;
 
@@ -49,7 +45,6 @@ class UserNotification extends AbstractNotification
      * The date and time that this notification was read
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime", name="read_at", nullable=true)
      */
     protected $readAt;
 
