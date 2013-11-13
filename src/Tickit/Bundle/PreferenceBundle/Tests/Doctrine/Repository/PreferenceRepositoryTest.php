@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\PreferenceBundle\Tests\Entity\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
-use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
 
 /**
  * PreferenceRepository tests
