@@ -1,0 +1,37 @@
+{% extends '::no-content.html.twig' %}
+
+{% block content %}
+    <h2>Edit Client</h2>
+
+    {% if app.session.flashbag.has('notice') %}
+        <div class="flash-notice">
+            {% for message in app.session.flashbag.get('notice') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if app.session.flashbag.has('error') %}
+        <div class="flash-error">
+            {% for message in app.session.flashbag.get('error') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method='post' action='{{ path('client_edit', { "id": form.vars.value.id }) }}' {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.url) }}
+        {{ form_row(form.notes) }}
+
+        <div class='roles'>
+            <p>Client roles here</p>
+        </div>
+
+        {{ form_rest(form) }}
+
+        <input type='submit' value='Save Changes' />
+    </form>
+{% endblock %}

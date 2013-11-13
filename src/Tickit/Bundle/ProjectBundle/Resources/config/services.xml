@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_project.project_event_dispatcher" class="Tickit\Bundle\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher">
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="tickit_project.attribute_form_type_guesser" class="Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser">
+            <argument type="service" id="tickit_project.form.entity_attribute" />
+        </service>
+
+    </services>
+
+</container>

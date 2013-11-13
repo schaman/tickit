@@ -1,0 +1,15 @@
+api_project_list:
+    pattern: /list/{page}
+    defaults: { _controller: tickit_project.controller.api:listAction, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true
+
+api_project_attribute_list:
+    pattern: /attributes/list/{page}
+    defaults: { _controller: tickit_project.controller.api:attributesListAction, page: 1 }
+    requirements:
+        page: \d+
+    options:
+        expose: true

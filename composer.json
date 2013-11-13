@@ -9,7 +9,7 @@
         "bin-dir": "bin"
     },
     "description": "Tickit Application",
-    "license": "Apache-2.0",
+    "license": "GPLv3",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
@@ -17,18 +17,12 @@
             "file": "app/config/parameters.yml"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/jameshalsall/HearsayRequireJSBundle.git"
-        }
-    ],
     "minimum-stability": "dev",
     "name": "tickit-project/tickit",
     "require": {
         "doctrine/doctrine-bundle": "1.2.x-dev",
         "doctrine/doctrine-fixtures-bundle": "2.2.x-dev",
-        "doctrine/orm": "2.4.x-dev",
+        "doctrine/orm": "2.5.x-dev",
         "friendsofsymfony/user-bundle": "2.0.x-dev",
         "php": ">=5.4.0",
         "sensio/distribution-bundle": "2.3.x-dev",
@@ -41,8 +35,8 @@
         "symfony/console": "2.4.x-dev",
         "twig/extensions": "1.0.x-dev",
         "psr/log": "1.0.0",
-        "friendsofsymfony/jsrouting-bundle": "1.1.x-dev",
-        "hearsay/require-js-bundle": "dev-filename-resource-fix",
+        "friendsofsymfony/jsrouting-bundle": "1.4.x-dev",
+        "hearsay/require-js-bundle": "dev-master",
         "ircmaxell/password-compat": "1.0.x-dev",
         "incenteev/composer-parameter-handler": "~2.0"
     },
@@ -56,7 +50,8 @@
         "satooshi/php-coveralls": "dev-master",
         "behat/mink-browserkit-driver": "dev-master",
         "vipsoft/doctrine-data-fixtures-extension": "dev-master",
-        "phpunit/phpunit": "3.8.x-dev"
+        "phpunit/phpunit": "3.8.x-dev",
+        "jameshalsall/licenser": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

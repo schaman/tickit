@@ -1,0 +1,54 @@
+cosmetic:
+    resource: "@TickitProjectBundle/Resources/config/routing/cosmetic.yml"
+
+api:
+    resource: "@TickitProjectBundle/Resources/config/routing/api.yml"
+    prefix: /api/projects
+
+templates:
+    resource: "@TickitProjectBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/projects
+
+###################################
+
+project_create:
+    pattern: /projects/create
+    defaults: { _controller: tickit_project.controller.project:createAction }
+    requirements:
+        _method: post
+
+project_edit:
+    pattern: /projects/edit/{id}
+    defaults: { _controller: tickit_project.controller.project:editAction }
+    requirements:
+        id: \d+
+        _method: post
+
+project_delete:
+    pattern: /projects/delete/{id}
+    defaults: { _controller: tickit_project.controller.project:deleteAction }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+project_attribute_create:
+    pattern: /projects/attributes/{type}/create
+    defaults: { _controller: tickit_project.controller.attribute:createAction }
+    requirements:
+        type: \w{6,7}
+        _method: post
+
+project_attribute_edit:
+    pattern: /projects/attributes/edit/{id}
+    defaults: { _controller: tickit_project.controller.attribute:editAction }
+    requirements:
+        id: \d+
+        _method: post
+
+project_attribute_delete:
+    pattern: /projects/attributes/delete/{id}
+    defaults: { _controller: tickit_project.controller.attribute:deleteAction }
+    requirements:
+        id: \d+
+        _method: post

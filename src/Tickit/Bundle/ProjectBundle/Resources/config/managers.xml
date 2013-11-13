@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_project.manager" class="Tickit\Component\Entity\Manager\ProjectManager">
+            <argument type="service" id="tickit_project.project_repository" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="tickit_project.project_event_dispatcher" />
+        </service>
+
+        <service id="tickit_project.attribute_manager" class="Tickit\Component\Entity\Manager\AttributeManager">
+            <argument type="service" id="tickit_project.attribute_repository" />
+            <argument type="service" id="tickit_project.choice_attribute_choice_repository" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+    </services>
+
+</container>

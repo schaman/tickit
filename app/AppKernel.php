@@ -22,15 +22,16 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
             // ---- Tickit Bundles Below Here ----
-            new Tickit\CoreBundle\TickitCoreBundle(),
-            new Tickit\NavigationBundle\TickitNavigationBundle(),
-            new Tickit\PermissionBundle\TickitPermissionBundle(),
-            new Tickit\UserBundle\TickitUserBundle(),
-            new Tickit\PreferenceBundle\TickitPreferenceBundle(),
-            new Tickit\TicketBundle\TickitTicketBundle(),
-            new Tickit\ProjectBundle\TickitProjectBundle(),
-            new Tickit\DashboardBundle\TickitDashboardBundle(),
-            new Tickit\NotificationBundle\TickitNotificationBundle(),
+            new Tickit\Bundle\CoreBundle\TickitCoreBundle(),
+            new Tickit\Bundle\NavigationBundle\TickitNavigationBundle(),
+            new Tickit\Bundle\PermissionBundle\TickitPermissionBundle(),
+            new Tickit\Bundle\UserBundle\TickitUserBundle(),
+            new Tickit\Bundle\PreferenceBundle\TickitPreferenceBundle(),
+            new Tickit\Bundle\TicketBundle\TickitTicketBundle(),
+            new Tickit\Bundle\ProjectBundle\TickitProjectBundle(),
+            new Tickit\Bundle\DashboardBundle\TickitDashboardBundle(),
+            new Tickit\Bundle\NotificationBundle\TickitNotificationBundle(),
+            new Tickit\Bundle\ClientBundle\TickitClientBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

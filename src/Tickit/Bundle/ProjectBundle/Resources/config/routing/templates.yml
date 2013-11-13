@@ -1,0 +1,29 @@
+project_create_form:
+    pattern: /create
+    defaults: { _controller: tickit_project.controller.template:createProjectFormAction }
+    options:
+        expose: true
+
+project_edit_form:
+    pattern: /edit/{id}
+    defaults: { _controller: tickit_project.controller.template:editProjectFormAction }
+    requirements:
+        id: \d+
+    options:
+        expose: true
+
+project_attribute_create_form:
+    pattern: /attributes/create/{type}
+    defaults: { _controller: tickit_project.controller.template:createProjectAttributeFormAction }
+    options:
+        expose: true
+    requirements:
+        type: \w{6,7}
+
+project_attribute_edit_form:
+    pattern: /attributes/edit/{id}
+    defaults: { _controller: tickit_project.controller.temmplate:editProjectAttributeFormAction }
+    requirements:
+        id: \d+
+    options:
+        expose: true

@@ -15,7 +15,9 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>../src/*/*Bundle/Tests</directory>
+            <directory>../src/Tickit/Bundle/*Bundle/Tests</directory>
+            <directory>../src/Tickit/Component/*/Tests</directory>
+            <directory>../src/Tickit/Component/*/*/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -29,11 +31,12 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
-                <directory>../src/*/*Bundle/Resources</directory>
-                <directory>../src/*/*Bundle/Tests</directory>
-                <directory>../src/*/*Bundle/DataFixtures</directory>
-                <directory>../src/*/*Bundle/Controller</directory>
-                <directory>../src/*/*Bundle/DependencyInjection</directory>
+                <directory>../src/Tickit/Bundle/*Bundle/Resources</directory>
+                <directory>../src/Tickit/Bundle/*Bundle/Tests</directory>
+                <directory>../src/Tickit/Bundle/*Bundle/DataFixtures</directory>
+                <directory>../src/Tickit/Bundle/*Bundle/DependencyInjection</directory>
+                <directory>../src/Tickit/Component/*/Tests</directory>
+                <directory>../src/Tickit/Component/*/*/Tests</directory>
             </exclude>
         </whitelist>
     </filter>

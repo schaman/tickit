@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tickit_client.client_navigation" class="Tickit\Bundle\ClientBundle\Listener\NavigationBuilderListener">
+            <tag name="kernel.event_listener" event="tickit.event.main_navigation_build" method="onBuild"/>
+        </service>
+
+        <service id="tickit_client.project_listener" class="Tickit\Bundle\ClientBundle\Listener\ProjectListener">
+            <tag name="kernel.event_listener" event="tickit_project.event.create" method="onProjectCreate" />
+            <tag name="kernel.event_listener" event="tickit_project.event.delete" method="onProjectDelete" />
+        </service>
+
+    </services>
+
+</container>

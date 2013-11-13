@@ -430,6 +430,7 @@ protected $session;
 protected $locale;
 protected $defaultLocale ='en';
 protected static $formats;
+protected static $requestFactory;
 public function __construct(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
 {
 $this->initialize($query, $request, $attributes, $cookies, $files, $server, $content);
@@ -457,7 +458,7 @@ $this->format = null;
 }
 public static function createFromGlobals()
 {
-$request = new static($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
+$request = self::createRequestFromFactory($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
 if (0 === strpos($request->headers->get('CONTENT_TYPE'),'application/x-www-form-urlencoded')
 && in_array(strtoupper($request->server->get('REQUEST_METHOD','GET')), array('PUT','DELETE','PATCH'))
 ) {
@@ -530,7 +531,11 @@ $queryString = http_build_query($query,'','&');
 }
 $server['REQUEST_URI'] = $components['path'].(''!== $queryString ?'?'.$queryString :'');
 $server['QUERY_STRING'] = $queryString;
-return new static($query, $request, array(), $cookies, $files, $server, $content);
+return self::createRequestFromFactory($query, $request, array(), $cookies, $files, $server, $content);
+}
+public static function setFactory($callable)
+{
+self::$requestFactory = $callable;
 }
 public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null)
 {
@@ -708,7 +713,6 @@ $ip = $clientIps[0];
 foreach ($clientIps as $key => $clientIp) {
 if (IpUtils::checkIp($clientIp, $trustedProxies)) {
 unset($clientIps[$key]);
-continue;
 }
 }
 return $clientIps ? array_reverse($clientIps) : array($ip);
@@ -821,7 +825,7 @@ return''=== $qs ? null : $qs;
 public function isSecure()
 {
 if (self::$trustedProxies && self::$trustedHeaders[self::HEADER_CLIENT_PROTO] && $proto = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_PROTO])) {
-return in_array(strtolower($proto), array('https','on','1'));
+return in_array(strtolower(current(explode(',', $proto))), array('https','on','ssl','1'));
 }
 return'on'== strtolower($this->server->get('HTTPS')) || 1 == $this->server->get('HTTPS');
 }
@@ -1173,6 +1177,17 @@ return $match[0];
 }
 return false;
 }
+private static function createRequestFromFactory(array $query = array(), array $request = array(), array $attributes = array(), array $cookies = array(), array $files = array(), array $server = array(), $content = null)
+{
+if (self::$requestFactory) {
+$request = call_user_func(self::$requestFactory, $query, $request, $attributes, $cookies, $files, $server, $content);
+if (!$request instanceof Request) {
+throw new \LogicException('The Request factory must return an instance of Symfony\Component\HttpFoundation\Request.');
+}
+return $request;
+}
+return new static($query, $request, $attributes, $cookies, $files, $server, $content);
+}
 }
 }
 namespace Symfony\Component\HttpFoundation
@@ -1338,10 +1353,10 @@ public function sendHeaders()
 if (headers_sent()) {
 return $this;
 }
-header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText));
+header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText), true, $this->statusCode);
 foreach ($this->headers->allPreserveCase() as $name => $values) {
 foreach ($values as $value) {
-header($name.': '.$value, false);
+header($name.': '.$value, false, $this->statusCode);
 }
 }
 foreach ($this->headers->getCookies() as $cookie) {
@@ -2779,7 +2794,14 @@ $ns = $prefix;
 if ($relativePath = $file->getRelativePath()) {
 $ns .='\\'.strtr($relativePath,'/','\\');
 }
-$r = new \ReflectionClass($ns.'\\'.$file->getBasename('.php'));
+$class = $ns.'\\'.$file->getBasename('.php');
+if ($this->container) {
+$alias ='console.command.'.strtolower(str_replace('\\','_', $class));
+if ($this->container->has($alias)) {
+continue;
+}
+}
+$r = new \ReflectionClass($class);
 if ($r->isSubclassOf('Symfony\\Component\\Console\\Command\\Command') && !$r->isAbstract() && !$r->getConstructor()->getNumberOfRequiredParameters()) {
 $application->add($r->newInstance());
 }

@@ -1,0 +1,60 @@
+{% extends "::no-content.html.twig" %}
+
+{% block content %}
+
+    <div class="login-container">
+        <div class="logo-wrap">
+            <h1 class="logo"><a href="">Tickit</a></h1>
+        </div>
+        <form action="{{ path('api_user_login_check') }}" method="post">
+            <div class="login-panel">
+                {% if error %}
+                    <div class="form-errors">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}
+
+                <div class="login-panel-inner">
+                    <div class="login-form">
+
+                        <div class="twitter-login">
+                            <a href="javascript:void(0);" class="btn twitter-btn">Login with Twitter</a>
+                        </div>
+                        <div class="google-login">
+                            <a href="javascript:void(0);" class="btn google-btn">Login with Google</a>
+                        </div>
+
+                        <div class="break"><span>or</span></div>
+
+                        <div class="control-group">
+                            <input type="text" class="login-field" name="_username" value="{{ last_username }}" placeholder="Email or username" id="email-name">
+                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        </div>
+
+                        <div class="control-group">
+                            <input type="password" class="login-field" name="_password" value="" placeholder="Password" id="login-pass">
+                            <label class="login-field-icon fui-lock" for="login-pass"></label>
+                        </div>
+
+                        <div class="remember-login">
+                            <div class="remember-label">
+                                <label>Stay signed in?</label>
+
+                                <div class="right">
+                                    <input type="checkbox" id="login-remember" name="_remember_me" value='on' checked="checked" data-toggle="switch" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <input type="submit" id="login-submit" name="_submit" class="btn" name="Login" value="Login">
+                    </div>
+
+                </div>
+
+                <a class="login-link" href="#">Lost your password?</a>
+
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

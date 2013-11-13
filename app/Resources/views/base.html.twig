@@ -9,32 +9,58 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets '../app/Resources/public/bootstrap/css/bootstrap.css'
-                       '../app/Resources/public/css/flat-ui.css'
-                       '../app/Resources/public/bootstrap/css/bootstrap-responsive.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
-
-        {% stylesheets  '../app/Resources/public/less/master/styles.less' filter='less' %}
+        {% stylesheets  '../app/Resources/public/less/styles.less' filter='less' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
         <link href='http://fonts.googleapis.com/css?family=Rambla:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
 
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
         <!--[if lte IE 7]><link rel="shortcut icon" href="{{ asset('favicon.ico') }}" /><![endif]-->
     </head>
     <body style="zoom: 1">
 
-        <header class='main-header' role='banner'></header>
-        <nav id="main" class='main' style='display:none;'></nav>
-
-        <div id="container">
-            <div id="spin-wrap">
-                <div id="spin"></div>
-            </div>
+        <div class="wrapper" style="display:none;">
+            {# Sticky header navigation #}
+            <header id="toolbar" class='main-header' role='banner'></header>
         </div>
 
+        {# Login container #}
+        <div id="login-container"></div>
+
+        {# Outer application container #}
+        <div id="outer-container" class="container-fluid" style="display:none;">
+
+            {# Left hand navigation container #}
+            <div class="row-fluid">
+                <div id="main" class="main-nav span1"></div>
+            </div>
+
+            {# Inner application container #}
+            <div id="container" class="span11">
+
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a class="home-icon" href=""></a></li>
+                        <li><a href="">Projects</a></li>
+                        <li><a href="">Project Name</a></li>
+                        <li><a href="">#PROJ-1234</a></li>
+                    </ul>
+                </div>
+
+                {# Contextual content area for forms, listing etc. #}
+                <div class="main" id="content-container"></div>
+
+                {# Loading spinner (TODO) #}
+                <div id="spin-wrap">
+                    <div id="spin"></div>
+                </div>
+            </div>
+
+        </div>
+
+        {# Notifications container #}
         <div id="notification-side"></div>
 
         {% block javascripts %}
@@ -43,12 +69,6 @@
             {% endjavascripts %}
             <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-            <script>
-                var appRoot = '';
-                {% if(path(app.request.attributes.get('_route'))[:13] == '/app_test.php') %}
-                    appRoot = '/app_test.php/';
-                {% endif %}
-            </script>
         {% endblock %}
 
         <footer id='footer'>
