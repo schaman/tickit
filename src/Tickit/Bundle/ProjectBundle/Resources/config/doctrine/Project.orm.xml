@@ -2,7 +2,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity name="Tickit\Bundle\ProjectBundle\Entity\Project" table="projects" repository-class="%tickit_project.project_repository.class%">
+    <entity name="Tickit\Bundle\ProjectBundle\Entity\Project" table="projects" repository-class="Tickit\Bundle\ProjectBundle\Entity\Repository\ProjectRepository">
         <id name="id" type="integer">
             <generator strategy="AUTO" />
         </id>

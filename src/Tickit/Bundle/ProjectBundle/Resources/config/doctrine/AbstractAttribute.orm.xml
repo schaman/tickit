@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
-    <mapped-superclass name="Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute" table="project_attributes" repository-class="%tickit_project.attribute_repository.class%">
+    <mapped-superclass name="Tickit\Bundle\ProjectBundle\Entity\AbstractAttribute" table="project_attributes" repository-class="Tickit\Bundle\ProjectBundle\Entity\Repository\AttributeRepository">
 
         <discriminator-column name="type" type="string" length="7" />
         <discriminator-map>
