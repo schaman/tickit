@@ -21,52 +21,56 @@
 
 namespace Tickit\Bundle\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-
 /**
  * User session object.
  *
  * Represents a user's PHP session in the system but does not store any session data.
  * It is used for determining concurrent session activity
  *
- * @ORM\Entity
- * @ORM\Table(name="user_sessions")
+ * @package Tickit\Bundle\UserBundle\Entity
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserSession
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="bigint")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * The unique identifier
+     *
+     * @var integer
      */
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="sessions")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * The user that this session entry belongs to
+     *
+     * @var User
      */
     protected $user;
 
     /**
-     * @ORM\Column(name="ip_address", type="string", length=39)
+     * The IP address where this session was created
+     *
+     * @var string
      */
     protected $ip;
 
     /**
-     * @ORM\Column(name="session_token", type="string", length=64)
+     * The PHP session ID token
+     *
+     * @var string
      */
     protected $sessionToken;
 
     /**
-     * @ORM\Column(name="created", type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * The date and time that this session was created
+     *
+     * @var \DateTime
      */
     protected $created;
 
     /**
-     * @ORM\Column(name="updated", type="datetime")
-     * @Gedmo\Timestampable(on="update")
+     * The date and time that this session was last updated
+     *
+     * @var \DateTime
      */
     protected $updated;
 
