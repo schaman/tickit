@@ -53,7 +53,7 @@ class LoginListenerTest extends AbstractUnitTest
     protected function setUp()
     {
         $this->em = $this->getMockEntityManager();
-        $this->session = $this->getMockBuilder('Tickit\Bundle\CoreBundle\Entity\CoreSession')
+        $this->session = $this->getMockBuilder('Tickit\Component\Model\Core\CoreSession')
                               ->disableOriginalConstructor()
                               ->getMock();
     }

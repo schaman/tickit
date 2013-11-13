@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Entity;
+namespace Tickit\Component\Model\Core;
 
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
  * Overrides the default session class and provides convenience methods for writing
  * and reading data to the session.
  *
- * @package Tickit\Bundle\CoreBundle\Entity
+ * @package Tickit\Component\Model\Core
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CoreSession extends Session

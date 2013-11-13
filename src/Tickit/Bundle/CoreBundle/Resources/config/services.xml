@@ -19,7 +19,7 @@
             <argument>%kernel.environment%</argument>
         </service>
 
-        <service id="session" class="Tickit\Bundle\CoreBundle\Entity\CoreSession">
+        <service id="session" class="Tickit\Component\Model\Core\CoreSession">
             <argument type="service" id="session.storage" />
         </service>
 
