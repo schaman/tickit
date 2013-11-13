@@ -30,6 +30,7 @@ use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
+use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 
 /**
  * Abstract test case for FormType classes.
@@ -86,7 +87,7 @@ class AbstractFormTypeTestCase extends TypeTestCase
      */
     protected function enableDoctrineExtension()
     {
-        $em = DoctrineTestHelper::createTestEntityManager();
+        $em = AbstractOrmTest::createTestEntityManager();
 
         $manager = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
 
