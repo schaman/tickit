@@ -45,7 +45,7 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $repo = $this->getMockBuilder('Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository')
+        $repo = $this->getMockBuilder('Tickit\Bundle\NotificationBundle\Doctrine\Repository\UserNotificationRepository')
                      ->disableOriginalConstructor()
                      ->getMock();
 
@@ -63,7 +63,7 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
     {
         $repo = $this->provider->getUserNotificationRepository();
 
-        $this->assertInstanceOf('Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository', $repo);
+        $this->assertInstanceOf('Tickit\Bundle\NotificationBundle\Doctrine\Repository\UserNotificationRepository', $repo);
     }
 
     /**

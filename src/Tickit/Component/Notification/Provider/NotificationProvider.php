@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Notification\Provider;
 
-use Tickit\Bundle\NotificationBundle\Entity\Repository\UserNotificationRepository;
+use Tickit\Bundle\NotificationBundle\Doctrine\Repository\UserNotificationRepository;
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**

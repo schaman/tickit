@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NotificationBundle\Entity\Repository;
+namespace Tickit\Bundle\NotificationBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -28,7 +28,7 @@ use Tickit\Bundle\UserBundle\Entity\User;
 /**
  * User notification repository.
  *
- * @package Tickit\Bundle\NotificationBundle\Entity\Repository
+ * @package Tickit\Bundle\NotificationBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserNotificationRepository extends EntityRepository
