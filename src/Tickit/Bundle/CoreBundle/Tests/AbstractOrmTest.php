@@ -76,17 +76,20 @@ abstract class AbstractOrmTest extends OrmTestCase
     protected static function getBundleEntityPaths()
     {
         $bundles = [
-            'ClientBundle',
-            'PreferenceBundle',
-            'ProjectBundle',
-            'NotificationBundle',
-            'UserBundle'
+            'ClientBundle' => 'Tickit\Component\Model\Client',
+            'PreferenceBundle' => 'Tickit\Component\Preference\Model',
+            'ProjectBundle' => 'Tickit\Component\Model\Project',
+            'NotificationBundle' => 'Tickit\Component\Notification\Model',
+            'UserBundle' => 'Tickit\Component\Model\User',
+            'TicketBundle' => 'Tickit\Component\Model\Ticket'
         ];
 
+        $pathTemplate = __DIR__ . '/../../%s/Resources/config/doctrine';
+
         $paths = [];
-        foreach ($bundles as $bundleName) {
-            $path = __DIR__ . '/../../' . $bundleName . '/Resources/config/doctrine';
-            $paths[$path] = 'Tickit\\Bundle\\' . $bundleName . '\\Entity';
+        foreach ($bundles as $bundleName => $namespace) {
+            $path = sprintf($pathTemplate, $bundleName);
+            $paths[$path] = $namespace;
         }
 
         return $paths;
