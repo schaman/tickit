@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Entity\Repository;
+namespace Tickit\Component\Filter\Repository;
 
 use Tickit\Component\Filter\Collection\FilterCollection;
 
@@ -29,7 +29,7 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  * A filterable repository has the ability to return results based on
  * a set of filters.
  *
- * @package Tickit\Bundle\CoreBundle\Entity\Repository
+ * @package Tickit\Component\Filter\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\Component\Filter\FilterCollection
  */

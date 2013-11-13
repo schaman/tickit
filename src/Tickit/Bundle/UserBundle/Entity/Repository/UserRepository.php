@@ -25,9 +25,8 @@ use Doctrine\ORM\EntityRepository;
 use DateTime;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
-use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * Provides methods for retrieving User related data from the DBAL

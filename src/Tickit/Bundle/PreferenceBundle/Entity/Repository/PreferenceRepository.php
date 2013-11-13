@@ -23,7 +23,7 @@ namespace Tickit\Bundle\PreferenceBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Bundle\CoreBundle\Entity\Repository\FilterableRepositoryInterface;
+use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
