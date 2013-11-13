@@ -5,8 +5,8 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="tickit_preference.preference_repository.class">Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository</parameter>
-        <parameter key="tickit_preference.user_preference_value_repository.class">Tickit\Bundle\PreferenceBundle\Entity\Repository\UserPreferenceValueRepository</parameter>
+        <parameter key="tickit_preference.preference_repository.class">Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository</parameter>
+        <parameter key="tickit_preference.user_preference_value_repository.class">Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository</parameter>
     </parameters>
 
     <services>

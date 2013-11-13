@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PreferenceBundle\Entity\Repository;
+namespace Tickit\Bundle\PreferenceBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -31,7 +31,7 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  *
  * Provides methods for fetching preference related data from the data layer.
  *
- * @package Tickit\Bundle\PreferenceBundle\Entity\Repository
+ * @package Tickit\Bundle\PreferenceBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PreferenceRepository extends EntityRepository implements FilterableRepositoryInterface

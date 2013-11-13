@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Entity\Manager;
 
-use Tickit\Bundle\PreferenceBundle\Entity\Repository\PreferenceRepository;
+use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
 
 /**
  * Preference Manager.

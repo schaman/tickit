@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PreferenceBundle\Tests\Entity\Repository;
+namespace Tickit\Bundle\PreferenceBundle\Tests\Doctrine\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository;
@@ -28,7 +28,7 @@ use Tickit\Bundle\UserBundle\Entity\User;
 /**
  * UserPreferenceValueRepository tests
  *
- * @package Tickit\Bundle\PreferenceBundle\Tests\Entity\Repository
+ * @package Tickit\Bundle\PreferenceBundle\Tests\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserPreferenceValueRepositoryTest extends AbstractOrmTest
