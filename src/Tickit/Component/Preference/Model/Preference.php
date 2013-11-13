@@ -18,12 +18,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-namespace Tickit\Bundle\PreferenceBundle\Entity;
+
+namespace Tickit\Component\Preference\Model;
 
 /**
  * The Preference entity represents either a User preference of a System preference in the application
  *
- * @package Tickit\Bundle\PreferenceBundle\Entity
+ * @package Tickit\Component\Preference\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Preference

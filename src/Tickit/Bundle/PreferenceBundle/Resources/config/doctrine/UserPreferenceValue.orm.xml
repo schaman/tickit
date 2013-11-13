@@ -2,7 +2,7 @@
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity name="Tickit\Bundle\PreferenceBundle\Entity\UserPreferenceValue" table="user_preference_values" repository-class="Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository">
+    <entity name="Tickit\Component\Preference\Model\UserPreferenceValue" table="user_preference_values" repository-class="Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository">
         <id name="id" type="integer">
             <generator strategy="AUTO" />
         </id>
@@ -11,7 +11,7 @@
             <join-column name="user_id" referenced-column-name="id" />
         </many-to-one>
 
-        <many-to-one target-entity="Tickit\Bundle\PreferenceBundle\Entity\Preference" field="preference">
+        <many-to-one target-entity="Tickit\Component\Preference\Model\Preference" field="preference">
             <join-column name="preference_id" referenced-column-name="id" />
         </many-to-one>
 

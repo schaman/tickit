@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\PreferenceBundle\Entity;
+namespace Tickit\Component\Preference\Model;
 
 /**
  * SystemPreferenceValue entity.
  *
  * Represents a value for a system preference in the application.
  *
- * @package Tickit\Bundle\PreferenceBundle\Entity
+ * @package Tickit\Component\Preference\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  *
  */

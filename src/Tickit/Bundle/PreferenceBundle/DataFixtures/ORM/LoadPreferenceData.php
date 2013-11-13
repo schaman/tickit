@@ -24,7 +24,7 @@ namespace Tickit\Bundle\PreferenceBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\Bundle\PreferenceBundle\Entity\Preference;
+use Tickit\Component\Preference\Model\Preference;
 
 /**
  * Loads default preferences into the application
