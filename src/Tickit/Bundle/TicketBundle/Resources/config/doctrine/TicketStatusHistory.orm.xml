@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity name="Tickit\Bundle\TicketBundle\Entity\TicketStatusHistory" table="ticket_status_history">
+    <entity name="Tickit\Component\Model\Ticket\TicketStatusHistory" table="ticket_status_history">
 
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY"/>
@@ -17,13 +17,13 @@
             </join-columns>
         </many-to-one>
 
-        <many-to-one field="status" target-entity="Tickit\Bundle\TicketBundle\Entity\TicketStatus">
+        <many-to-one field="status" target-entity="Tickit\Component\Model\Ticket\TicketStatus">
             <join-columns>
                 <join-column name="status_id" referenced-column-name="id" />
             </join-columns>
         </many-to-one>
 
-        <many-to-one field="ticket" target-entity="Tickit\Bundle\TicketBundle\Entity\Ticket">
+        <many-to-one field="ticket" target-entity="Tickit\Component\Model\Ticket\Ticket">
             <join-columns>
                 <join-column name="ticket_id" referenced-column-name="id" />
             </join-columns>

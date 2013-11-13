@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\TicketBundle\Entity;
+namespace Tickit\Component\Model\Ticket;
 
 use Tickit\Bundle\UserBundle\Entity\User;
 
 /**
  * The TicketUserSubscription entity represents a user's subscription settings for a ticket
  *
- * @package Tickit\Bundle\TicketBundle\Entity
+ * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TicketUserSubscription

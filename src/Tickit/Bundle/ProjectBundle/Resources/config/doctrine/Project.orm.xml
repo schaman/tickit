@@ -18,7 +18,7 @@
         <field name="deletedAt" column="deleted_at" type="datetime" nullable="true" />
         <gedmo:soft-deleteable field-name="deletedAt" />
 
-        <one-to-many target-entity="Tickit\Bundle\TicketBundle\Entity\Ticket" mapped-by="project" field="tickets" />
+        <one-to-many target-entity="Tickit\Component\Model\Ticket\Ticket" mapped-by="project" field="tickets" />
         <one-to-many target-entity="Tickit\Component\Model\Project\AbstractAttributeValue" mapped-by="project" field="attributes">
             <cascade>
                 <cascade-persist/>

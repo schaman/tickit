@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\TicketBundle\Entity;
+namespace Tickit\Component\Model\Ticket;
 
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Project\Project;
@@ -28,7 +28,7 @@ use Tickit\Bundle\UserBundle\Entity\User;
 /**
  * The User entity represents an individual user within the application
  *
- * @package Tickit\Bundle\TicketBundle\Entity
+ * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Ticket

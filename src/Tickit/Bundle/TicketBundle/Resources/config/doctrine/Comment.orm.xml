@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
-    <entity name="Tickit\Bundle\TicketBundle\Entity\Comment" table="comments">
+    <entity name="Tickit\Component\Model\Ticket\Comment" table="comments">
 
         <id name="id" type="integer" column="id">
             <generator strategy="IDENTITY"/>
@@ -14,7 +14,7 @@
             </join-columns>
         </many-to-one>
 
-        <many-to-one field="ticket" target-entity="Tickit\Bundle\TicketBundle\Entity\Ticket" inversed-by="comments">
+        <many-to-one field="ticket" target-entity="Tickit\Component\Model\Ticket\Ticket" inversed-by="comments">
             <join-columns>
                 <join-column name="ticket_id" referenced-column-name="id" />
             </join-columns>
