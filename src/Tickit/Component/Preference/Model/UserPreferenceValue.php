@@ -22,7 +22,6 @@
 namespace Tickit\Component\Preference\Model;
 
 use Tickit\Component\Model\User\User;
-use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
 
 /**
  * UserPreferenceValue entity.
@@ -32,7 +31,7 @@ use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
  * @package Tickit\Component\Preference\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserPreferenceValue implements UserAwareInterface
+class UserPreferenceValue
 {
     /**
      * The unique identifier
