@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Controller\Helper;
+namespace Tickit\Component\Controller\Tests\Helper;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
+use Tickit\Component\Controller\Helper\FormHelper;
 
 /**
  * FormHelper tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Controller\Helper
+ * @package Tickit\Component\Controller\Tests\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FormHelperTest extends \PHPUnit_Framework_TestCase

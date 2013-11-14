@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Controller\Helper;
+namespace Tickit\Component\Controller\Tests\Helper;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
+use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\User\User;
 
 /**
  * BaseHelper tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Controller\Helper
+ * @package Tickit\Component\Controller\Tests\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class BaseHelperTest extends AbstractUnitTest

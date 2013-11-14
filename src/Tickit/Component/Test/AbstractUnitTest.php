@@ -96,7 +96,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockBaseHelper()
     {
-        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper')
+        return $this->getMockBuilder('\Tickit\Component\Controller\Helper\BaseHelper')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -108,7 +108,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockCsrfHelper()
     {
-        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper')
+        return $this->getMockBuilder('\Tickit\Component\Controller\Helper\CsrfHelper')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
@@ -155,7 +155,7 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function getMockFormHelper()
     {
-        return $this->getMockBuilder('\Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper')
+        return $this->getMockBuilder('\Tickit\Component\Controller\Helper\FormHelper')
                     ->disableOriginalConstructor()
                     ->getMock();
     }
