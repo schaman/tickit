@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * Provides helper methods for handling forms in controllers.
  *
- * @package Tickit\Bundle\CoreBundle\Controller|Helper
+ * @package Tickit\Component\Controller\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FormHelper
