@@ -31,7 +31,7 @@ namespace Tickit\Component\Entity\Event;
  *
  * @package Tickit\Component\Entity\Event\Interfaces
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @see     Tickit\Bundle\CoreBundle\Manager\AbstractManager
+ * @see     Tickit\Component\Entity\Manager\AbstractManager
  */
 interface EntityAwareEventInterface
 {
