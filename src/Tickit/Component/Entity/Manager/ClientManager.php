@@ -22,9 +22,9 @@
 namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Tickit\Component\Model\Client\Client;
-use Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -40,19 +40,19 @@ class ClientManager extends AbstractManager
     /**
      * The client repository
      *
-     * @var ClientRepository
+     * @var EntityRepository
      */
     private $clientRepository;
 
     /**
      * Constructor.
      *
-     * @param ClientRepository              $clientRepository The client repository
+     * @param EntityRepository              $clientRepository The client repository
      * @param EntityManagerInterface        $em               An entity manager
      * @param AbstractEntityEventDispatcher $eventDispatcher  An event dispatcher
      */
     public function __construct(
-        ClientRepository $clientRepository,
+        EntityRepository $clientRepository,
         EntityManagerInterface $em,
         AbstractEntityEventDispatcher $eventDispatcher
     ) {
@@ -66,7 +66,7 @@ class ClientManager extends AbstractManager
      *
      * This method returns the entity repository that is associated with this manager's entity.
      *
-     * @return ClientRepository
+     * @return EntityRepository
      */
     public function getRepository()
     {
