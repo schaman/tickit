@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Entity\Manager;
 
-use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
+use Tickit\Component\Entity\Repository\PreferenceRepositoryInterface;
 
 /**
  * Preference Manager.
@@ -36,16 +36,16 @@ class PreferenceManager
     /**
      * The preference repository
      *
-     * @var PreferenceRepository
+     * @var PreferenceRepositoryInterface
      */
     protected $preferenceRepository;
 
     /**
      * Constructor
      *
-     * @param PreferenceRepository $preferenceRepository The preference repository
+     * @param PreferenceRepositoryInterface $preferenceRepository The preference repository
      */
-    public function __construct(PreferenceRepository $preferenceRepository)
+    public function __construct(PreferenceRepositoryInterface $preferenceRepository)
     {
         $this->preferenceRepository = $preferenceRepository;
     }
@@ -53,7 +53,7 @@ class PreferenceManager
     /**
      * Gets the preferences repository
      *
-     * @return PreferenceRepository
+     * @return PreferenceRepositoryInterface
      */
     public function getRepository()
     {

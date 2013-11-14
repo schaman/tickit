@@ -22,8 +22,8 @@
 namespace Tickit\Component\Preference\Loader;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
 use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository;
+use Tickit\Component\Entity\Repository\PreferenceRepositoryInterface;
 use Tickit\Component\Preference\Model\UserPreferenceValue;
 use Tickit\Component\Model\User\User;
 
@@ -54,9 +54,9 @@ class PreferenceLoader implements LoaderInterface
     protected $userPreferenceValueRepository;
 
     /**
-     * The preference repository
+     * A preference repository
      *
-     * @var PreferenceRepository
+     * @var PreferenceRepositoryInterface
      */
     protected $preferenceRepository;
 
@@ -65,12 +65,12 @@ class PreferenceLoader implements LoaderInterface
      *
      * @param SessionInterface              $session                       The current Session instance
      * @param UserPreferenceValueRepository $userPreferenceValueRepository The user preference value repository
-     * @param PreferenceRepository          $preferenceRepository          The preference repository
+     * @param PreferenceRepositoryInterface $preferenceRepository          A preference repository
      */
     public function __construct(
         SessionInterface $session,
         UserPreferenceValueRepository $userPreferenceValueRepository,
-        PreferenceRepository $preferenceRepository
+        PreferenceRepositoryInterface $preferenceRepository
     ) {
         $this->session = $session;
         $this->userPreferenceValueRepository = $userPreferenceValueRepository;

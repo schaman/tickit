@@ -61,7 +61,7 @@ class PreferenceLoaderTest extends AbstractUnitTest
                                               ->disableOriginalConstructor()
                                               ->getMock();
 
-        $this->preferenceRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository')
+        $this->preferenceRepo = $this->getMockBuilder('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface')
                                      ->disableOriginalConstructor()
                                      ->getMock();
     }
