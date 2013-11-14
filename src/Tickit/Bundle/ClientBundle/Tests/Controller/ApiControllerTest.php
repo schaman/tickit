@@ -26,7 +26,7 @@ use Tickit\Bundle\ClientBundle\Controller\ApiController;
 use Tickit\Bundle\ClientBundle\Controller\ClientController;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Filter\Collection\FilterCollection;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * ApiController tests

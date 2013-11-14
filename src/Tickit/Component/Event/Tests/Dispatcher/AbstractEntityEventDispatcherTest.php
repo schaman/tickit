@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Event\Tests\Dispatcher;
 
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Component\Entity\Event\EntityModifiedEvent;
 use Tickit\Component\Event\Tests\Dispatcher\Mock\MockEntityEventDispatcher;

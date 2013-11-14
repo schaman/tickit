@@ -22,7 +22,7 @@
 namespace Tickit\Component\Entity\Tests\Manager;
 
 use Tickit\Component\Entity\Manager\AbstractManager;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * AbstractManager tests

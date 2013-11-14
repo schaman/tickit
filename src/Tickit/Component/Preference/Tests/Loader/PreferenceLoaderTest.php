@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Preference\Tests\Loader;
 
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Preference\Model\Preference;
 use Tickit\Component\Preference\Model\UserPreferenceValue;
 use Tickit\Component\Preference\Loader\PreferenceLoader;

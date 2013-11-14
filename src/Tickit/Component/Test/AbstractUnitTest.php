@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests;
+namespace Tickit\Component\Test;
 
 /**
  * Class AbstractUnitTest
  *
- * @package Tickit\Bundle\CoreBundle\Tests
+ * @package Tickit\Component\Test
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase

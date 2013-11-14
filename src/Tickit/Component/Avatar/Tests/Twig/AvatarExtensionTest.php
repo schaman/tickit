@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Avatar\Tests\Twig;
 
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Avatar\Twig\AvatarExtension;
 use Tickit\Component\Model\User\User;
 

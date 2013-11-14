@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\AttributeController;
 use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Component\Model\Project\LiteralAttribute;
