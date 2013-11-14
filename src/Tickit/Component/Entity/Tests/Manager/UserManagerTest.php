@@ -31,7 +31,7 @@ use Tickit\Component\Entity\Manager\UserManager;
 /**
  * UserManager tests
  *
- * @package Tickit\Bundle\UserBundle\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserManagerTest extends AbstractUnitTest
