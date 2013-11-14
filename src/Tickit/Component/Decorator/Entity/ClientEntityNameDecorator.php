@@ -22,7 +22,6 @@
 namespace Tickit\Component\Decorator\Entity;
 
 use Tickit\Component\Model\Client\Client;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface;
 
 /**
  * Client entity name decorator.
