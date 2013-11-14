@@ -24,9 +24,9 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Component\Model\Client\Client;
-use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
-use Tickit\Bundle\CoreBundle\Controller\Helper\FormHelper;
+use Tickit\Component\Controller\Helper\BaseHelper;
+use Tickit\Component\Controller\Helper\CsrfHelper;
+use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Entity\Manager\ClientManager;
 
 /**

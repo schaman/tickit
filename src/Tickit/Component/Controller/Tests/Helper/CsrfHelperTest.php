@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Controller\Helper;
+namespace Tickit\Component\Controller\Tests\Helper;
 
 use Symfony\Component\Security\Csrf\CsrfToken;
-use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\Component\Controller\Helper\CsrfHelper;
 
 /**
  * CsrfHelper tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Controller\Helper
+ * @package Tickit\Component\Controller\Tests\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class CsrfHelperTest extends \PHPUnit_Framework_TestCase

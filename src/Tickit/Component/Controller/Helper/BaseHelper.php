@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Controller\Helper;
+namespace Tickit\Component\Controller\Helper;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -34,7 +34,7 @@ use Tickit\Component\Model\User\User;
  *
  * Provides helper methods for base controller functionality.
  *
- * @package Tickit\Bundle\CoreBundle\Controller\Helper
+ * @package Tickit\Component\Controller\Helper
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class BaseHelper
