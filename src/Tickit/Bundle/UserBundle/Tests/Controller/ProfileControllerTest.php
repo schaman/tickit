@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\UserBundle\Tests\Controller;
 
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Controller\ProfileController;
 
 /**

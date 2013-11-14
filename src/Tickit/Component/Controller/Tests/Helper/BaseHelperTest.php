@@ -24,7 +24,7 @@ namespace Tickit\Component\Controller\Tests\Helper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Component\Controller\Helper\BaseHelper;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\User\User;
 
 /**

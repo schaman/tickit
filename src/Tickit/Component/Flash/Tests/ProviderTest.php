@@ -22,7 +22,7 @@
 namespace Tickit\Component\Flash\Tests;
 
 use Tickit\Component\Flash\Provider;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * Tests for the flash message provider

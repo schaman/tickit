@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\TemplateController;
 use Tickit\Component\Model\Project\LiteralAttribute;
 use Tickit\Component\Model\Project\LiteralAttributeValue;

@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Filter\Tests;
 
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * Abstract Filter test case.

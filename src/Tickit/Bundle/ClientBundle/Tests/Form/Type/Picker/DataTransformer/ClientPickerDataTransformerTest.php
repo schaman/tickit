@@ -4,7 +4,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Form\Type\Picker\DataTransformer;
 
 use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * ClientPickerDataTransformer tests

@@ -23,7 +23,7 @@ namespace Tickit\Bundle\CoreBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\CoreBundle\Controller\DefaultController;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * DefaultController tests
