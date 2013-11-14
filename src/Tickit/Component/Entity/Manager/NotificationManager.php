@@ -30,7 +30,7 @@ use Tickit\Component\Notification\Factory\NotificationFactory;
  *
  * Manages the creation and updating of notifications.
  *
- * @package Tickit\Bundle\NotificationBundle\Manager
+ * @package Tickit\Component\Entity\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationManager
