@@ -22,7 +22,7 @@
 namespace Tickit\Component\Filter\Tests;
 
 use Tickit\Component\Filter\Collection\FilterCollection;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * FilterCollection tests

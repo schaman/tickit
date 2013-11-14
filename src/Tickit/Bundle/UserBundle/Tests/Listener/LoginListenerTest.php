@@ -24,7 +24,7 @@ namespace Tickit\Bundle\UserBundle\Tests\Listener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Model\User\UserSession;
 use Tickit\Bundle\UserBundle\Listener\LoginListener;

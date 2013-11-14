@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests;
+namespace Tickit\Component\Test;
 
 /**
  * Class AbstractUnitTest

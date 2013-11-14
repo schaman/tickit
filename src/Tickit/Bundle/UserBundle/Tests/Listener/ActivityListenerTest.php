@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\UserBundle\Tests\Listener;
 
 use Symfony\Component\HttpKernel\HttpKernel;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Listener\ActivityListener;
 

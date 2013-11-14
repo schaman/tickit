@@ -24,7 +24,7 @@ namespace Tickit\Component\Entity\Tests\Manager;
 use Doctrine\ORM\NoResultException;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Entity\Manager\ClientManager;
-use Tickit\Bundle\CoreBundle\Tests\AbstractUnitTest;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * ClientManager tests
