@@ -60,6 +60,8 @@ class ChoiceAttributeChoiceRepository extends EntityRepository implements Choice
      *
      * @param ChoiceAttribute $attribute The attribute to find choices for
      *
+     * @codeCoverageIgnore
+     *
      * @return array
      */
     public function findByAttribute(ChoiceAttribute $attribute)
