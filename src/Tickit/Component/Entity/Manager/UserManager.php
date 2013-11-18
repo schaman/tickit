@@ -25,7 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
+use Tickit\Component\Entity\Repository\UserRepositoryInterface;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
@@ -52,20 +52,20 @@ class UserManager extends AbstractManager implements UserManagerInterface
     /**
      * The user repository
      *
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     protected $userRepository;
 
     /**
      * Constructor.
      *
-     * @param UserRepository                $userRepository The user repository
+     * @param UserRepositoryInterface       $userRepository A user repository
      * @param EntityManagerInterface        $em             An entity manager
      * @param AbstractEntityEventDispatcher $dispatcher     The event dispatcher
      * @param UserManagerInterface          $fosManager     The FOS user manager
      */
     public function __construct(
-        UserRepository $userRepository,
+        UserRepositoryInterface $userRepository,
         EntityManagerInterface $em,
         AbstractEntityEventDispatcher $dispatcher,
         UserManagerInterface $fosManager
@@ -79,7 +79,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
     /**
      * {@inheritDoc}
      *
-     * @return UserRepository
+     * @return UserRepositoryInterface
      */
     public function getRepository()
     {
@@ -161,7 +161,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function findUserByUsername($username)
     {
-        return $this->getRepository()->findByUsernameOrEmail($username, UserRepository::COLUMN_USERNAME);
+        return $this->getRepository()->findByUsernameOrEmail($username, UserRepositoryInterface::COLUMN_USERNAME);
     }
 
     /**
@@ -173,7 +173,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function findUserByEmail($email)
     {
-        return $this->getRepository()->findByUsernameOrEmail($email, UserRepository::COLUMN_EMAIL);
+        return $this->getRepository()->findByUsernameOrEmail($email, UserRepositoryInterface::COLUMN_EMAIL);
     }
 
     /**
@@ -205,13 +205,16 @@ class UserManager extends AbstractManager implements UserManagerInterface
     }
 
     /**
-     * Returns a collection with all user instances.
+     * @deprecated Not supported by Tickit
      *
-     * @return \Traversable
+     * @throws \BadMethodCallException This method should not be used
      */
     public function findUsers()
     {
-        return $this->getRepository()->findAll();
+        $message = sprintf('%s::%s is not supported for performance reasons.', __CLASS__, __METHOD__);
+        trigger_error($message, E_USER_DEPRECATED);
+
+        throw new \BadMethodCallException($message);
     }
 
     /**

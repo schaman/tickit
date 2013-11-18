@@ -24,8 +24,10 @@ namespace Tickit\Bundle\UserBundle\Doctrine\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Entity\Repository\UserRepositoryInterface;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Model\User\User;
 
 /**
  * Provides methods for retrieving User related data from the DBAL
@@ -33,11 +35,8 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  * @package Tickit\Bundle\UserBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserRepository extends EntityRepository implements FilterableRepositoryInterface
+class UserRepository extends EntityRepository implements UserRepositoryInterface, FilterableRepositoryInterface
 {
-    const COLUMN_EMAIL = 'email';
-    const COLUMN_USERNAME = 'username';
-
     /**
      * Finds a user by username or email
      *
@@ -46,7 +45,7 @@ class UserRepository extends EntityRepository implements FilterableRepositoryInt
      *
      * @codeCoverageIgnore
      *
-     * @return mixed
+     * @return User
      */
     public function findByUsernameOrEmail($search, $column)
     {

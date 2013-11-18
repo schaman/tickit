@@ -335,17 +335,12 @@ class UserManagerTest extends AbstractUnitTest
 
     /**
      * Tests the findUsers() method
+     *
+     * @expectedException \PHPUnit_Framework_Error_Deprecated
      */
-    public function testFindUsersFindsAllUsers()
+    public function testFindUsersThrowsException()
     {
-        $users = array(new User(), new User(), new User());
-
-        $this->userRepo->expects($this->once())
-             ->method('findAll')
-             ->will($this->returnValue($users));
-
-        $foundUsers = $this->getUserManager()->findUsers();
-        $this->assertEquals($users, $foundUsers);
+        $this->getUserManager()->findUsers();
     }
 
     /**
