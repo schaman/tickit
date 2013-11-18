@@ -23,6 +23,7 @@ namespace Tickit\Bundle\PreferenceBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Entity\Repository\UserPreferenceValueRepositoryInterface;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -31,16 +32,16 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Bundle\PreferenceBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserPreferenceValueRepository extends EntityRepository
+class UserPreferenceValueRepository extends EntityRepository implements UserPreferenceValueRepositoryInterface
 {
     /**
-     * Finds preferences for the provided user
+     * {@inheritDoc}
      *
      * @param User $user The user to find preferences for
      *
      * @codeCoverageIgnore
      *
-     * @return mixed
+     * @return array
      */
     public function findAllForUser(User $user)
     {

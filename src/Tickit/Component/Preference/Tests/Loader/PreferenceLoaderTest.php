@@ -56,11 +56,7 @@ class PreferenceLoaderTest extends AbstractUnitTest
     protected function setUp()
     {
         $this->session = $this->getMockSession();
-
-        $this->userPreferenceValueRepo = $this->getMockBuilder('\Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository')
-                                              ->disableOriginalConstructor()
-                                              ->getMock();
-
+        $this->userPreferenceValueRepo = $this->getMock('\Tickit\Component\Entity\Repository\UserPreferenceValueRepositoryInterface');
         $this->preferenceRepo = $this->getMock('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface');
     }
 
