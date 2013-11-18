@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Notification\Provider;
 
-use Tickit\Bundle\NotificationBundle\Doctrine\Repository\UserNotificationRepository;
+use Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -37,7 +37,7 @@ class NotificationProvider
     /**
      * The user notification repository
      *
-     * @var UserNotificationRepository
+     * @var UserNotificationRepositoryInterface
      */
     protected $userNotificationRepo;
 
@@ -51,10 +51,11 @@ class NotificationProvider
     /**
      * Constructor.
      *
-     * @param UserNotificationRepository $userNotificationRepo The user notification repository
-     * @param integer                    $messageLimit         The maximum number of notification messages to return
+     * @param UserNotificationRepositoryInterface $userNotificationRepo The user notification repository
+     * @param integer                             $messageLimit         The maximum number of notification messages
+     *                                                                  to return
      */
-    public function __construct(UserNotificationRepository $userNotificationRepo, $messageLimit)
+    public function __construct(UserNotificationRepositoryInterface $userNotificationRepo, $messageLimit)
     {
         $this->userNotificationRepo = $userNotificationRepo;
         $this->messageLimit = $messageLimit;
@@ -69,16 +70,13 @@ class NotificationProvider
      */
     public function findUnreadForUser(User $user)
     {
-        $userNotifications = $this->getUserNotificationRepository()
-                                  ->findUnreadForUser($user);
-
-        return $userNotifications;
+        return $this->userNotificationRepo->findUnreadForUser($user);
     }
 
     /**
      * Gets the user notification repository
      *
-     * @return UserNotificationRepository
+     * @return UserNotificationRepositoryInterface
      */
     public function getUserNotificationRepository()
     {
