@@ -23,6 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface;
 use Tickit\Component\Model\Project\ChoiceAttribute;
 
 /**
@@ -33,10 +34,10 @@ use Tickit\Component\Model\Project\ChoiceAttribute;
  * @package Tickit\Bundle\ProjectBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ChoiceAttributeChoiceRepository extends EntityRepository
+class ChoiceAttributeChoiceRepository extends EntityRepository implements ChoiceAttributeChoiceRepositoryInterface
 {
     /**
-     * Gets a QueryBuilder object that finds all choices for the given attribute.
+     * {@inheritDoc}
      *
      * @param ChoiceAttribute $attribute The choice attribute to find choices for
      *
@@ -52,5 +53,17 @@ class ChoiceAttributeChoiceRepository extends EntityRepository
                       ->setParameter('attribute', $attribute->getId());
 
         return $query;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param ChoiceAttribute $attribute The attribute to find choices for
+     *
+     * @return array
+     */
+    public function findByAttribute(ChoiceAttribute $attribute)
+    {
+        return $this->findBy(['attribute' => $attribute]);
     }
 }
