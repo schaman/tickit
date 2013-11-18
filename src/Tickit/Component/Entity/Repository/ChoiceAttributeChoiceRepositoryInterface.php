@@ -35,4 +35,3 @@ interface ChoiceAttributeChoiceRepositoryInterface
      */
     public function getFindAllForAttributeQueryBuilder(ChoiceAttribute $attribute);
 }
- 
