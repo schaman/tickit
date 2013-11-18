@@ -22,8 +22,8 @@
 namespace Tickit\Component\Entity\Tests\Manager;
 
 use Doctrine\ORM\NoResultException;
-use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Component\Entity\Event\EntityEvent;
+use Tickit\Component\Entity\Repository\UserRepositoryInterface;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
@@ -31,7 +31,7 @@ use Tickit\Component\Entity\Manager\UserManager;
 /**
  * UserManager tests
  *
- * @package Tickit\Bundle\UserBundle\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class UserManagerTest extends AbstractUnitTest
@@ -69,13 +69,8 @@ class UserManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->fosManager = $this->getMockBuilder('\FOS\UserBundle\Model\UserManagerInterface')
-                                 ->disableOriginalConstructor()
-                                 ->getMock();
-
-        $this->userRepo = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository')
-                               ->disableOriginalConstructor()
-                               ->getMock();
+        $this->fosManager = $this->getMock('\FOS\UserBundle\Model\UserManagerInterface');
+        $this->userRepo = $this->getMock('\Tickit\Component\Entity\Repository\UserRepositoryInterface');
 
         $this->em = $this->getMockEntityManager();
 
@@ -258,7 +253,7 @@ class UserManagerTest extends AbstractUnitTest
 
         $this->userRepo->expects($this->once())
                        ->method('findByUsernameOrEmail')
-                       ->with($username, UserRepository::COLUMN_USERNAME)
+                       ->with($username, UserRepositoryInterface::COLUMN_USERNAME)
                        ->will($this->returnValue($user));
 
         $foundUser = $this->getUserManager()->findUserByUsername($username);
@@ -275,7 +270,7 @@ class UserManagerTest extends AbstractUnitTest
 
         $this->userRepo->expects($this->once())
                        ->method('findByUsernameOrEmail')
-                       ->with($email, UserRepository::COLUMN_EMAIL)
+                       ->with($email, UserRepositoryInterface::COLUMN_EMAIL)
                        ->will($this->returnValue($user));
 
         $foundUser = $this->getUserManager()->findUserByEmail($email);
@@ -292,7 +287,7 @@ class UserManagerTest extends AbstractUnitTest
 
         $this->userRepo->expects($this->once())
                        ->method('findByUsernameOrEmail')
-                       ->with($email, UserRepository::COLUMN_EMAIL)
+                       ->with($email, UserRepositoryInterface::COLUMN_EMAIL)
                        ->will($this->returnValue($user));
 
         $foundUser = $this->getUserManager()->findUserByUsernameOrEmail($email);
@@ -309,7 +304,7 @@ class UserManagerTest extends AbstractUnitTest
 
         $this->userRepo->expects($this->once())
                        ->method('findByUsernameOrEmail')
-                       ->with($username, UserRepository::COLUMN_USERNAME)
+                       ->with($username, UserRepositoryInterface::COLUMN_USERNAME)
                        ->will($this->returnValue($user));
 
         $foundUser = $this->getUserManager()->findUserByUsernameOrEmail($username);

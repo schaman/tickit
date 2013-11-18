@@ -32,7 +32,7 @@ use Tickit\Component\Model\Project\Project;
 /**
  * Tests for the project manager
  *
- * @package Tickit\Bundle\ProjectBundle\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManagerTest extends AbstractUnitTest
