@@ -23,11 +23,11 @@ namespace Tickit\Component\Entity\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Component\Entity\Event\EntityEvent;
+use Tickit\Component\Entity\Manager\ProjectManager;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\Project\ChoiceAttributeValue;
 use Tickit\Component\Model\Project\LiteralAttributeValue;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Manager\ProjectManager;
 
 /**
  * Tests for the project manager
@@ -63,9 +63,7 @@ class ProjectManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->projectRepository = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository')
-                                        ->disableOriginalConstructor()
-                                        ->getMock();
+        $this->projectRepository = $this->getMock('\Tickit\Component\Entity\Repository\ProjectRepositoryInterface');
 
         $this->em = $this->getMockEntityManager();
 
@@ -137,11 +135,11 @@ class ProjectManagerTest extends AbstractUnitTest
     /**
      * Gets an instance of the project manager
      *
-     * @return \Tickit\Component\Entity\Manager\ProjectManager
+     * @return ProjectManager
      */
     private function getManager()
     {
-        return new \Tickit\Component\Entity\Manager\ProjectManager($this->projectRepository, $this->em, $this->dispatcher);
+        return new ProjectManager($this->projectRepository, $this->em, $this->dispatcher);
     }
 
     private function trainDispatcherBeforeCreateToReturnEvent(Project $project, EntityEvent $event)
