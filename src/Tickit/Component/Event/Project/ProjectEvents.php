@@ -30,7 +30,7 @@ namespace Tickit\Component\Event\Project;
  * @package Tickit\Component\Event\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectEvents
+final class ProjectEvents
 {
     /**
      * Constant representing the name of the "before create" event
