@@ -58,7 +58,6 @@ class UserPreferenceValue
      * The value for the associated preference
      *
      * @var string
-     * @ORM\Column(type="text")
      */
     protected $value;
 
@@ -66,8 +65,6 @@ class UserPreferenceValue
      * The date and time that this preference value was created
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;
 
@@ -75,8 +72,6 @@ class UserPreferenceValue
      * The date and time that this preference value was updated
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
 
