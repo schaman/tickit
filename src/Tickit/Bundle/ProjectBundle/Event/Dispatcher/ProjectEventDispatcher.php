@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ProjectBundle\Event\Dispatcher;
 
-use Tickit\Bundle\ProjectBundle\TickitProjectEvents;
+use Tickit\Component\Event\Project\ProjectEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -44,12 +44,12 @@ class ProjectEventDispatcher extends AbstractEntityEventDispatcher
     protected function getEventNames()
     {
         return [
-            'before_create' => TickitProjectEvents::PROJECT_BEFORE_CREATE,
-            'create' => TickitProjectEvents::PROJECT_CREATE,
-            'before_update' => TickitProjectEvents::PROJECT_BEFORE_UPDATE,
-            'update' => TickitProjectEvents::PROJECT_UPDATE,
-            'before_delete' => TickitProjectEvents::PROJECT_BEFORE_DELETE,
-            'delete' => TickitProjectEvents::PROJECT_DELETE
+            'before_create' => ProjectEvents::PROJECT_BEFORE_CREATE,
+            'create' => ProjectEvents::PROJECT_CREATE,
+            'before_update' => ProjectEvents::PROJECT_BEFORE_UPDATE,
+            'update' => ProjectEvents::PROJECT_UPDATE,
+            'before_delete' => ProjectEvents::PROJECT_BEFORE_DELETE,
+            'delete' => ProjectEvents::PROJECT_DELETE
         ];
     }
 }
