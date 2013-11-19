@@ -25,7 +25,7 @@ use Symfony\Component\EventDispatcher\Event;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Event\Dispatcher\UserEventDispatcher;
-use Tickit\Bundle\UserBundle\TickitUserEvents;
+use Tickit\Component\Event\User\UserEvents;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Component\Entity\Event\EntityModifiedEvent;
 
@@ -45,7 +45,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
         $user = new User();
         $event = new EntityEvent($user);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_BEFORE_CREATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(UserEvents::USER_BEFORE_CREATE, $event);
 
         $dispatcher = new UserEventDispatcher($eventDispatcher);
         $returnedEvent = $dispatcher->dispatchBeforeCreateEvent($user);
@@ -61,7 +61,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
         $user = new User();
         $event = new EntityEvent($user);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_CREATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(UserEvents::USER_CREATE, $event);
 
         $dispatcher = new UserEventDispatcher($eventDispatcher);
         $dispatcher->dispatchCreateEvent($user);
@@ -75,7 +75,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
         $user = new User();
         $event = new EntityEvent($user);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_BEFORE_UPDATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(UserEvents::USER_BEFORE_UPDATE, $event);
 
         $dispatcher = new UserEventDispatcher($eventDispatcher);
         $returnedEvent = $dispatcher->dispatchBeforeUpdateEvent($user);
@@ -92,7 +92,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
         $originalUser = new User();
         $event = new EntityModifiedEvent($user, $originalUser);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_UPDATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(UserEvents::USER_UPDATE, $event);
 
         $dispatcher = new UserEventDispatcher($eventDispatcher);
         $dispatcher->dispatchUpdateEvent($user, $originalUser);
@@ -106,7 +106,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
         $user = new User();
         $event = new EntityEvent($user);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_BEFORE_DELETE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(UserEvents::USER_BEFORE_DELETE, $event);
 
         $dispatcher = new UserEventDispatcher($eventDispatcher);
         $returnedEvent = $dispatcher->dispatchBeforeDeleteEvent($user);
@@ -122,7 +122,7 @@ class UserEventDispatcherTest extends AbstractUnitTest
         $user = new User();
         $event = new EntityEvent($user);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitUserEvents::USER_DELETE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(UserEvents::USER_DELETE, $event);
 
         $dispatcher = new UserEventDispatcher($eventDispatcher);
         $dispatcher->dispatchDeleteEvent($user);

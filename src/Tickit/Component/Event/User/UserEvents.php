@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle;
+namespace Tickit\Component\Event\User;
 
 /**
  * UserBundle events collection.
  *
  * This class contains a collection of constants representing event names for the user bundle
  *
- * @package Tickit\Bundle\UserBundle
+ * @package Tickit\Component\Event\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TickitUserEvents
+final class UserEvents
 {
     /**
      * Constant representing the name of the "before create" event
