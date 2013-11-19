@@ -22,9 +22,10 @@
 namespace Tickit\Component\Event\User;
 
 /**
- * UserBundle events collection.
+ * User events collection.
  *
- * This class contains a collection of constants representing event names for the user bundle
+ * This class contains a collection of constants representing event names for
+ * user related models
  *
  * @package Tickit\Component\Event\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
