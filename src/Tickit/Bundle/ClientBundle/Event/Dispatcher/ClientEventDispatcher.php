@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Event\Dispatcher;
 
-use Tickit\Bundle\ClientBundle\TickitClientEvents;
+use Tickit\Component\Event\Client\ClientEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -40,12 +40,12 @@ class ClientEventDispatcher extends AbstractEntityEventDispatcher
     protected function getEventNames()
     {
         return [
-            'before_create' => TickitClientEvents::CLIENT_BEFORE_CREATE,
-            'create' => TickitClientEvents::CLIENT_CREATE,
-            'before_update' => TickitClientEvents::CLIENT_BEFORE_UPDATE,
-            'update' => TickitClientEvents::CLIENT_UPDATE,
-            'before_delete' => TickitClientEvents::CLIENT_BEFORE_DELETE,
-            'delete' => TickitClientEvents::CLIENT_DELETE
+            'before_create' => ClientEvents::CLIENT_BEFORE_CREATE,
+            'create' => ClientEvents::CLIENT_CREATE,
+            'before_update' => ClientEvents::CLIENT_BEFORE_UPDATE,
+            'update' => ClientEvents::CLIENT_UPDATE,
+            'before_delete' => ClientEvents::CLIENT_BEFORE_DELETE,
+            'delete' => ClientEvents::CLIENT_DELETE
         ];
     }
 }

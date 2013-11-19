@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle;
+namespace Tickit\Component\Event\Client;
 
 /**
- * Tickit client bundle events.
+ * Client model events.
  *
- * Contains static event names.
+ * Contains static event names for Client related model events.
  *
- * @package Tickit\Bundle\ClientBundle
+ * @package Tickit\Component\Event\Client
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-final class TickitClientEvents
+final class ClientEvents
 {
     /**
      * Constant representing the name of the "before create" event

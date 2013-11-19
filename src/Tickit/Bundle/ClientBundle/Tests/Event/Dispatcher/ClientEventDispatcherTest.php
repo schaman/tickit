@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Event\Dispatcher;
 
 use Tickit\Component\Model\Client\Client;
 use Tickit\Bundle\ClientBundle\Event\Dispatcher\ClientEventDispatcher;
-use Tickit\Bundle\ClientBundle\TickitClientEvents;
+use Tickit\Component\Event\Client\ClientEvents;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Component\Entity\Event\EntityModifiedEvent;
@@ -58,7 +58,7 @@ class ClientEventDispatcherTest extends AbstractUnitTest
         $entity = new Client();
         $event = new EntityEvent($entity);
 
-        $this->trainDispatcherToDispatchEvent(TickitClientEvents::CLIENT_BEFORE_CREATE, $event);
+        $this->trainDispatcherToDispatchEvent(ClientEvents::CLIENT_BEFORE_CREATE, $event);
 
         $this->assertEquals($event, $this->getDispatcher()->dispatchBeforeCreateEvent($entity));
     }
@@ -71,7 +71,7 @@ class ClientEventDispatcherTest extends AbstractUnitTest
         $entity = new Client();
         $event = new EntityEvent($entity);
 
-        $this->trainDispatcherToDispatchEvent(TickitClientEvents::CLIENT_CREATE, $event);
+        $this->trainDispatcherToDispatchEvent(ClientEvents::CLIENT_CREATE, $event);
 
         $this->getDispatcher()->dispatchCreateEvent($entity);
     }
@@ -84,7 +84,7 @@ class ClientEventDispatcherTest extends AbstractUnitTest
         $entity = new Client();
         $event = new EntityEvent($entity);
 
-        $this->trainDispatcherToDispatchEvent(TickitClientEvents::CLIENT_BEFORE_UPDATE, $event);
+        $this->trainDispatcherToDispatchEvent(ClientEvents::CLIENT_BEFORE_UPDATE, $event);
 
         $this->assertEquals($event, $this->getDispatcher()->dispatchBeforeUpdateEvent($entity));
     }
@@ -98,7 +98,7 @@ class ClientEventDispatcherTest extends AbstractUnitTest
         $originalEntity = new Client();
         $event = new EntityModifiedEvent($entity, $originalEntity);
 
-        $this->trainDispatcherToDispatchEvent(TickitClientEvents::CLIENT_UPDATE, $event);
+        $this->trainDispatcherToDispatchEvent(ClientEvents::CLIENT_UPDATE, $event);
 
         $this->getDispatcher()->dispatchUpdateEvent($entity, $originalEntity);
     }
@@ -111,7 +111,7 @@ class ClientEventDispatcherTest extends AbstractUnitTest
         $entity = new Client();
         $event = new EntityEvent($entity);
 
-        $this->trainDispatcherToDispatchEvent(TickitClientEvents::CLIENT_BEFORE_DELETE, $event);
+        $this->trainDispatcherToDispatchEvent(ClientEvents::CLIENT_BEFORE_DELETE, $event);
 
         $this->assertEquals($event, $this->getDispatcher()->dispatchBeforeDeleteEvent($entity));
     }
@@ -124,7 +124,7 @@ class ClientEventDispatcherTest extends AbstractUnitTest
         $entity = new Client();
         $event = new EntityEvent($entity);
 
-        $this->trainDispatcherToDispatchEvent(TickitClientEvents::CLIENT_DELETE, $event);
+        $this->trainDispatcherToDispatchEvent(ClientEvents::CLIENT_DELETE, $event);
 
         $this->getDispatcher()->dispatchDeleteEvent($entity);
     }
