@@ -57,11 +57,11 @@ interface UserRepositoryInterface
     public function findByUsernameOrEmail($search, $column);
 
     /**
-     * Finds a user that matches the given criteria
+     * Finds a user by confirmation token.
      *
-     * @param array $criteria The criteria to find the user by (column => value pairs)
+     * @param string $token The confirmation token to find the user by
      *
      * @return User
      */
-    public function findOneBy(array $criteria);
+    public function findByConfirmationToken($token);
 }
