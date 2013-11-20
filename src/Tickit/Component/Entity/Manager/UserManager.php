@@ -145,11 +145,19 @@ class UserManager extends AbstractManager implements UserManagerInterface
      *
      * @param array $criteria
      *
+     * @throws \BadMethodCallException This method is not supported by the UserManager and only
+     *                                 exists to satisfy the UserManagerInterface from FOS
+     *
+     * @deprecated Not supported
+     *
      * @return UserInterface
      */
     public function findUserBy(array $criteria)
     {
-        return $this->getRepository()->findOneBy($criteria);
+        $message = sprintf('%s::%s is not supported.', __CLASS__, __METHOD__);
+        trigger_error($message, E_USER_DEPRECATED);
+
+        throw new \BadMethodCallException($message);
     }
 
     /**
@@ -201,7 +209,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      */
     public function findUserByConfirmationToken($token)
     {
-        return $this->findUserBy(array('confirmationToken' => $token));
+        return $this->getRepository()->findByConfirmationToken($token);
     }
 
     /**

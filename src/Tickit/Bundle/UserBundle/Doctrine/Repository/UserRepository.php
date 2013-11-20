@@ -116,4 +116,18 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
 
         return $queryBuilder;
     }
+
+    /**
+     * Finds a user by confirmation token.
+     *
+     * @param string $token The confirmation token to find the user by
+     *
+     * @codeCoverageIgnore
+     *
+     * @return User
+     */
+    public function findByConfirmationToken($token)
+    {
+        return $this->findBy(['confirmationToken' => $token]);
+    }
 }

@@ -227,20 +227,14 @@ class UserManagerTest extends AbstractUnitTest
 
     /**
      * Tests the findUserBy() method
+     *
+     * @expectedException \PHPUnit_Framework_Error_Deprecated
      */
-    public function testFindUserByFindsUserWithCriteria()
+    public function testFindUserByThrowsDeprecatedException()
     {
         $criteria = array('column' => 'value', 'column2' => 'value2');
 
-        $users = array(new User(), new User());
-
-        $this->userRepo->expects($this->once())
-                       ->method('findOneBy')
-                       ->with($criteria)
-                       ->will($this->returnValue($users));
-
-        $foundUsers = $this->getUserManager()->findUserBy($criteria);
-        $this->assertEquals($users, $foundUsers);
+        $this->getUserManager()->findUserBy($criteria);
     }
 
     /**
@@ -320,8 +314,8 @@ class UserManagerTest extends AbstractUnitTest
         $user = new User();
 
         $this->userRepo->expects($this->once())
-                       ->method('findOneBy')
-                       ->with(['confirmationToken' => $token])
+                       ->method('findByConfirmationToken')
+                       ->with($token)
                        ->will($this->returnValue($user));
 
         $foundUser = $this->getUserManager()->findUserByConfirmationToken($token);
