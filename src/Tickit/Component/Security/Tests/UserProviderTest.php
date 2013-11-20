@@ -143,8 +143,8 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
         $reloadedUser = new User();
 
         $this->userManager->expects($this->once())
-                          ->method('findUserBy')
-                          ->with(['id' => $user->getId()])
+                          ->method('find')
+                          ->with($user->getId())
                           ->will($this->returnValue($reloadedUser));
 
         $this->assertSame($reloadedUser, $this->getProvider()->refreshUser($user));
