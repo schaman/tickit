@@ -19,42 +19,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Tests\Manager;
-
-use Tickit\Component\Entity\Manager\PreferenceManager;
+namespace Tickit\Component\Entity\Repository;
 
 /**
- * PreferenceManagerTest tests
+ * Preference repository interface.
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * Preference repositories are responsible for providing preference objects
+ * from the data layer.
+ *
+ * @package Tickit\Component\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
+interface PreferenceRepositoryInterface
 {
     /**
-     * The manager under test
+     * Finds all preferences and returns them indexed by their system name
      *
-     * @var PreferenceManager
+     * @param integer[] $exclusions An array of IDs to exclude
+     *
+     * @return array
      */
-    private $manager;
-
-    /**
-     * Setup
-     */
-    protected function setUp()
-    {
-        $repository = $this->getMock('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface');
-
-        $this->manager = new PreferenceManager($repository);
-    }
-
-    /**
-     * Tests the getRepository() method
-     */
-    public function testGetRepositoryReturnsCorrectInstance()
-    {
-        $repository = $this->manager->getRepository();
-
-        $this->assertInstanceOf('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface', $repository);
-    }
+    public function findAllWithExclusionsIndexedBySystemName(array $exclusions = array());
 }

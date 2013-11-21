@@ -22,8 +22,8 @@
 namespace Tickit\Component\Preference\Loader;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
-use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\UserPreferenceValueRepository;
+use Tickit\Component\Entity\Repository\UserPreferenceValueRepositoryInterface;
+use Tickit\Component\Entity\Repository\PreferenceRepositoryInterface;
 use Tickit\Component\Preference\Model\UserPreferenceValue;
 use Tickit\Component\Model\User\User;
 
@@ -47,30 +47,30 @@ class PreferenceLoader implements LoaderInterface
     protected $session;
 
     /**
-     * The user preference value repository
+     * A user preference value repository
      *
-     * @var UserPreferenceValueRepository
+     * @var UserPreferenceValueRepositoryInterface
      */
     protected $userPreferenceValueRepository;
 
     /**
-     * The preference repository
+     * A preference repository
      *
-     * @var PreferenceRepository
+     * @var PreferenceRepositoryInterface
      */
     protected $preferenceRepository;
 
     /**
      * Constructor.
      *
-     * @param SessionInterface              $session                       The current Session instance
-     * @param UserPreferenceValueRepository $userPreferenceValueRepository The user preference value repository
-     * @param PreferenceRepository          $preferenceRepository          The preference repository
+     * @param SessionInterface                       $session                       The current Session instance
+     * @param UserPreferenceValueRepositoryInterface $userPreferenceValueRepository The user preference value repository
+     * @param PreferenceRepositoryInterface          $preferenceRepository          A preference repository
      */
     public function __construct(
         SessionInterface $session,
-        UserPreferenceValueRepository $userPreferenceValueRepository,
-        PreferenceRepository $preferenceRepository
+        UserPreferenceValueRepositoryInterface $userPreferenceValueRepository,
+        PreferenceRepositoryInterface $preferenceRepository
     ) {
         $this->session = $session;
         $this->userPreferenceValueRepository = $userPreferenceValueRepository;

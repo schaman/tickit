@@ -23,6 +23,7 @@ namespace Tickit\Bundle\PreferenceBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Entity\Repository\PreferenceRepositoryInterface;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
 
@@ -34,10 +35,10 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  * @package Tickit\Bundle\PreferenceBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceRepository extends EntityRepository implements FilterableRepositoryInterface
+class PreferenceRepository extends EntityRepository implements PreferenceRepositoryInterface, FilterableRepositoryInterface
 {
     /**
-     * Finds all preferences and returns them indexed by their system name
+     * {@inheritDoc}
      *
      * @param integer[] $exclusions An array of Preference ids to ignore
      *

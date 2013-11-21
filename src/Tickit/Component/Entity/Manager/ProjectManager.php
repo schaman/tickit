@@ -25,7 +25,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
+use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -42,18 +42,18 @@ class ProjectManager extends AbstractManager
     /**
      * The project repo
      *
-     * @var ProjectRepository
+     * @var ProjectRepositoryInterface
      */
     protected $projectRepository;
 
     /**
      * Constructor.
      *
-     * @param ProjectRepository             $projectRepository The project repo
+     * @param ProjectRepositoryInterface    $projectRepository A project repo
      * @param EntityManagerInterface        $em                An entity manager
      * @param AbstractEntityEventDispatcher $dispatcher        An event dispatcher
      */
-    public function __construct(ProjectRepository $projectRepository, EntityManagerInterface $em, AbstractEntityEventDispatcher $dispatcher)
+    public function __construct(ProjectRepositoryInterface $projectRepository, EntityManagerInterface $em, AbstractEntityEventDispatcher $dispatcher)
     {
         $this->projectRepository = $projectRepository;
 
@@ -83,7 +83,7 @@ class ProjectManager extends AbstractManager
      *
      * This method returns the entity repository that is associated with this manager's entity.
      *
-     * @return ObjectRepository
+     * @return ProjectRepositoryInterface
      */
     public function getRepository()
     {

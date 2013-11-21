@@ -19,42 +19,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Tests\Manager;
+namespace Tickit\Component\Entity\Repository;
 
-use Tickit\Component\Entity\Manager\PreferenceManager;
+use Tickit\Component\Model\User\User;
 
 /**
- * PreferenceManagerTest tests
+ * User Preference Value repository interface.
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * User Preference Value repositories are responsible for fetching preference
+ * value objects from the data layer.
+ *
+ * @package Tickit\Component\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
+interface UserPreferenceValueRepositoryInterface
 {
     /**
-     * The manager under test
+     * Finds preferences for the provided user
      *
-     * @var PreferenceManager
+     * @param User $user The user to find preferences for
+     *
+     * @return array
      */
-    private $manager;
-
-    /**
-     * Setup
-     */
-    protected function setUp()
-    {
-        $repository = $this->getMock('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface');
-
-        $this->manager = new PreferenceManager($repository);
-    }
-
-    /**
-     * Tests the getRepository() method
-     */
-    public function testGetRepositoryReturnsCorrectInstance()
-    {
-        $repository = $this->manager->getRepository();
-
-        $this->assertInstanceOf('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface', $repository);
-    }
+    public function findAllForUser(User $user);
 }

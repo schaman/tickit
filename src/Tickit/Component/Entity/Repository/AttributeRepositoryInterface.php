@@ -19,42 +19,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Tests\Manager;
-
-use Tickit\Component\Entity\Manager\PreferenceManager;
+namespace Tickit\Component\Entity\Repository;
 
 /**
- * PreferenceManagerTest tests
+ * Attribute repository interface.
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * Attribute repositories are responsible for fetching AbstractAttribute objects
+ * from the data layer.
+ *
+ * @package Tickit\Component\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PreferenceManagerTest extends \PHPUnit_Framework_TestCase
+interface AttributeRepositoryInterface
 {
     /**
-     * The manager under test
+     * Returns a deep collection of all attributes
      *
-     * @var PreferenceManager
+     * This method includes all associated meta objects related to the attributes.
+     *
+     * @return mixed
      */
-    private $manager;
-
-    /**
-     * Setup
-     */
-    protected function setUp()
-    {
-        $repository = $this->getMock('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface');
-
-        $this->manager = new PreferenceManager($repository);
-    }
-
-    /**
-     * Tests the getRepository() method
-     */
-    public function testGetRepositoryReturnsCorrectInstance()
-    {
-        $repository = $this->manager->getRepository();
-
-        $this->assertInstanceOf('\Tickit\Component\Entity\Repository\PreferenceRepositoryInterface', $repository);
-    }
+    public function findAllAttributes();
 }

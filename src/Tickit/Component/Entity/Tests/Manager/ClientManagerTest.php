@@ -54,7 +54,7 @@ class ClientManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository')
+        $this->clientRepo = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
                                  ->disableOriginalConstructor()
                                  ->getMock();
 

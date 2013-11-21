@@ -45,9 +45,7 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $repo = $this->getMockBuilder('Tickit\Bundle\NotificationBundle\Doctrine\Repository\UserNotificationRepository')
-                     ->disableOriginalConstructor()
-                     ->getMock();
+        $repo = $this->getMock('\Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface');
 
         $repo->expects($this->any())
              ->method('findUnreadForUser')
@@ -63,7 +61,7 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
     {
         $repo = $this->provider->getUserNotificationRepository();
 
-        $this->assertInstanceOf('Tickit\Bundle\NotificationBundle\Doctrine\Repository\UserNotificationRepository', $repo);
+        $this->assertInstanceOf('\Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface', $repo);
     }
 
     /**
