@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Navigation\Builder;
 
-use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
 
 /**

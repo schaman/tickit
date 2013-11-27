@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ProjectBundle\Tests\Listener;
 
-use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 use Tickit\Bundle\ProjectBundle\Listener\NavigationBuilderListener;
 

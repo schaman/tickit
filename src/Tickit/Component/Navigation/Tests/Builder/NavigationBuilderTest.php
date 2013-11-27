@@ -23,7 +23,7 @@ namespace Tickit\Component\Navigation\Tests\Builder;
 
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Navigation\Builder\NavigationBuilder;
-use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
+use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
 
 /**
