@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Event\Dispatcher;
+namespace Tickit\Component\Event\Client\Dispatcher;
 
 use Tickit\Component\Event\Client\ClientEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -27,7 +27,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 /**
  * Client event dispatcher.
  *
- * @package Tickit\Bundle\ClientBundle\Event\Dispatcher
+ * @package Tickit\Component\Event\Client\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ClientEventDispatcher extends AbstractEntityEventDispatcher
