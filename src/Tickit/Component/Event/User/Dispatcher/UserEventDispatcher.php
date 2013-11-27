@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Event\Dispatcher;
+namespace Tickit\Component\Event\User\Dispatcher;
 
 use Tickit\Component\Event\User\UserEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -30,7 +30,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
  * This class is responsible for firing events related to the management of the
  * User entity
  *
- * @package Tickit\Bundle\UserBundle\Event\Dispatcher
+ * @package Tickit\Component\Event\User\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\Component\Model\User\User
  */
