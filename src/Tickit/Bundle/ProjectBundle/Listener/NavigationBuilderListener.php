@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ProjectBundle\Listener;
 
 use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
+use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
  * Project navigation builder listener

@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\NavigationBundle\Tests\Controller;
 
 use Tickit\Bundle\NavigationBundle\Controller\ApiController;
-use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
+use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
  * ApiController tests

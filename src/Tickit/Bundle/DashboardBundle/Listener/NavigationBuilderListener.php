@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\DashboardBundle\Listener;
 
 use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
+use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
  * Dashboard navigation builder

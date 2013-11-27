@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\NavigationBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
+use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
  * Before navigation build event.
