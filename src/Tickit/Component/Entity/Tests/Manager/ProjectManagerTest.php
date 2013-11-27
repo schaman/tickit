@@ -67,7 +67,7 @@ class ProjectManagerTest extends AbstractUnitTest
 
         $this->em = $this->getMockEntityManager();
 
-        $this->dispatcher = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher')
+        $this->dispatcher = $this->getMockBuilder('Tickit\Component\Event\Project\Dispatcher\ProjectEventDispatcher')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }

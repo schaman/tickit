@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Event\Dispatcher;
+namespace Tickit\Component\Event\Project\Dispatcher;
 
 use Tickit\Component\Event\Project\ProjectEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -30,7 +30,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
  * This class is responsible for firing events related to the management of the
  * Project entity
  *
- * @package Tickit\Bundle\ProjectBundle\Event\Dispatcher
+ * @package Tickit\Component\Event\Project\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\Component\Model\Project\Project
  */
