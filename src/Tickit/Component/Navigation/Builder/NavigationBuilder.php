@@ -22,7 +22,7 @@
 namespace Tickit\Component\Navigation\Builder;
 
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
+use Tickit\Component\Navigation\Event\NavigationEvents;
 
 /**
  * Main navigation builder.
@@ -45,7 +45,7 @@ class NavigationBuilder extends AbstractBuilder implements BuilderInterface
     public function build($name = 'main')
     {
         $event = new NavigationBuildEvent($name);
-        $this->dispatcher->dispatch(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $event);
+        $this->dispatcher->dispatch(NavigationEvents::MAIN_NAVIGATION_BUILD, $event);
 
         return $event->getItems();
     }

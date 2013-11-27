@@ -24,7 +24,7 @@ namespace Tickit\Component\Navigation\Tests\Builder;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
+use Tickit\Component\Navigation\Event\NavigationEvents;
 
 /**
  * NavigationBuilderTest tests
@@ -44,7 +44,7 @@ class NavigationBuilderTest extends AbstractUnitTest
         $dispatcher = $this->getMockEventDispatcher();
         $dispatcher->expects($this->once())
                    ->method('dispatch')
-                   ->with(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $expectedEvent)
+                   ->with(NavigationEvents::MAIN_NAVIGATION_BUILD, $expectedEvent)
                    ->will($this->returnValue(new \SplPriorityQueue()));
 
         $builder = new NavigationBuilder($dispatcher);
