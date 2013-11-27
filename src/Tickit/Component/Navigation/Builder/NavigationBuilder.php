@@ -19,37 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Tests\Builder;
+namespace Tickit\Component\Navigation\Builder;
 
-use Tickit\Component\Test\AbstractUnitTest;
-use Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder;
 use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
 use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
 
 /**
- * NavigationBuilderTest tests
+ * Main navigation builder.
  *
- * @package Tickit\Bundle\NavigationBundle\Tests\Builder
+ * Responsible for building the main navigation structure.
+ *
+ * @package Tickit\Component\Navigation\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class NavigationBuilderTest extends AbstractUnitTest
+class NavigationBuilder extends AbstractBuilder implements BuilderInterface
 {
     /**
-     * Tests the build() method
+     * Builds the navigation component.
+     *
+     * @param string $name Navigation name
+     *
+     * @return \SplPriorityQueue
      */
-    public function testBuildDispatchesEvent()
+    public function build($name = 'main')
     {
-        $expectedEvent = new NavigationBuildEvent('name of navigation');
+        $event = new NavigationBuildEvent($name);
+        $this->dispatcher->dispatch(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $event);
 
-        $dispatcher = $this->getMockEventDispatcher();
-        $dispatcher->expects($this->once())
-                   ->method('dispatch')
-                   ->with(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $expectedEvent)
-                   ->will($this->returnValue(new \SplPriorityQueue()));
-
-        $builder = new NavigationBuilder($dispatcher);
-        $return = $builder->build('name of navigation');
-
-        $this->assertInstanceOf('\SplPriorityQueue', $return);
+        return $event->getItems();
     }
 }

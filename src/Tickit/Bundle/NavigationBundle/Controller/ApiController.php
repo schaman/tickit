@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\NavigationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder;
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
 
 /**

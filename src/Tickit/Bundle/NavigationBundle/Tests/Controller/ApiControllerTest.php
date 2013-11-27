@@ -42,7 +42,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->navigationBuilder = $this->getMockBuilder('Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder')
+        $this->navigationBuilder = $this->getMockBuilder('Tickit\Component\Navigation\Builder\NavigationBuilder')
                                         ->disableOriginalConstructor()
                                         ->getMock();
     }

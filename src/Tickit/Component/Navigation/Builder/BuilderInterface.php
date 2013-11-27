@@ -19,34 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Builder;
-
-use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
+namespace Tickit\Component\Navigation\Builder;
 
 /**
- * Main navigation builder.
+ * Navigation builder interface.
  *
- * Responsible for building the main navigation structure.
+ * Builders provide functionality for building navigation elements in the application.
  *
- * @package Tickit\Bundle\NavigationBundle\Builder
- * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\Component\Navigation\Builder
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class NavigationBuilder extends AbstractBuilder implements BuilderInterface
+interface BuilderInterface
 {
     /**
      * Builds the navigation component.
      *
-     * @param string $name Navigation name
-     *
-     * @return \SplPriorityQueue
+     * @return mixed
      */
-    public function build($name = 'main')
-    {
-        $event = new NavigationBuildEvent($name);
-        $this->dispatcher->dispatch(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $event);
-
-        return $event->getItems();
-    }
+    public function build();
 }
