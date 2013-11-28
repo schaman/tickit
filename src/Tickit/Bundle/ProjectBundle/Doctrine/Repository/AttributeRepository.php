@@ -23,6 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Entity\Repository\AttributeRepositoryInterface;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
 
@@ -34,7 +35,7 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  * @package Tickit\Bundle\ProjectBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttributeRepository extends EntityRepository implements FilterableRepositoryInterface
+class AttributeRepository extends EntityRepository implements AttributeRepositoryInterface, FilterableRepositoryInterface
 {
     /**
      * Finds results based off a set of filters.

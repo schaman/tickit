@@ -23,6 +23,7 @@ namespace Tickit\Bundle\NotificationBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -31,10 +32,10 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Bundle\NotificationBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserNotificationRepository extends EntityRepository
+class UserNotificationRepository extends EntityRepository implements UserNotificationRepositoryInterface
 {
     /**
-     * Finds unread user notifications
+     * {@inheritDoc}
      *
      * @param User $user The user to find unread notifications for
      *

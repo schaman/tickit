@@ -22,8 +22,8 @@
 namespace Tickit\Bundle\ProjectBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tickit\Bundle\CoreBundle\Controller\Helper\BaseHelper;
-use Tickit\Bundle\CoreBundle\Controller\Helper\CsrfHelper;
+use Tickit\Component\Controller\Helper\BaseHelper;
+use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;

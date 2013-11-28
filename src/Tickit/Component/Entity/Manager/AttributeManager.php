@@ -28,8 +28,8 @@ use Tickit\Component\Model\Project\AbstractAttributeValue;
 use Tickit\Component\Model\Project\ChoiceAttribute;
 use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
-use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository;
+use Tickit\Component\Entity\Repository\AttributeRepositoryInterface;
+use Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface;
 
 /**
  * Attribute manager.
@@ -44,14 +44,14 @@ class AttributeManager
     /**
      * Attribute repo
      *
-     * @var AttributeRepository
+     * @var AttributeRepositoryInterface
      */
     protected $attributeRepository;
 
     /**
      * The choice attribute choice repo
      *
-     * @var ChoiceAttributeChoiceRepository
+     * @var ChoiceAttributeChoiceRepositoryInterface
      */
     protected $choiceAttributeChoiceRepository;
 
@@ -65,12 +65,15 @@ class AttributeManager
     /**
      * Constructor.
      *
-     * @param AttributeRepository             $attributeRepository The attribute repo
-     * @param ChoiceAttributeChoiceRepository $choiceRepository    The choice attribute choice repo
-     * @param EntityManagerInterface          $em                  An entity manager
+     * @param AttributeRepositoryInterface             $attributeRepository An attribute repo
+     * @param ChoiceAttributeChoiceRepositoryInterface $choiceRepository    The choice attribute choice repo
+     * @param EntityManagerInterface                   $em                  An entity manager
      */
-    public function __construct(AttributeRepository $attributeRepository, ChoiceAttributeChoiceRepository $choiceRepository, EntityManagerInterface $em)
-    {
+    public function __construct(
+        AttributeRepositoryInterface $attributeRepository,
+        ChoiceAttributeChoiceRepositoryInterface $choiceRepository,
+        EntityManagerInterface $em
+    ) {
         $this->attributeRepository = $attributeRepository;
         $this->choiceAttributeChoiceRepository = $choiceRepository;
         $this->em = $em;
@@ -79,7 +82,7 @@ class AttributeManager
     /**
      * Gets the repository for attributes
      *
-     * @return AttributeRepository
+     * @return AttributeRepositoryInterface
      */
     public function getRepository()
     {
@@ -195,7 +198,7 @@ class AttributeManager
             $this->em->flush();
         }
 
-        $existingChoices  = $this->choiceAttributeChoiceRepository->findBy(array('attribute' => $attribute));
+        $existingChoices  = $this->choiceAttributeChoiceRepository->findByAttribute($attribute);
 
         foreach ($existingChoices as $existingChoice) {
             $this->em->remove($existingChoice);

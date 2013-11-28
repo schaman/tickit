@@ -22,7 +22,6 @@
 namespace Tickit\Component\Preference\Model;
 
 use Tickit\Component\Model\User\User;
-use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
 
 /**
  * UserPreferenceValue entity.
@@ -32,7 +31,7 @@ use Tickit\Bundle\UserBundle\Interfaces\UserAwareInterface;
  * @package Tickit\Component\Preference\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserPreferenceValue implements UserAwareInterface
+class UserPreferenceValue
 {
     /**
      * The unique identifier
@@ -59,7 +58,6 @@ class UserPreferenceValue implements UserAwareInterface
      * The value for the associated preference
      *
      * @var string
-     * @ORM\Column(type="text")
      */
     protected $value;
 
@@ -67,8 +65,6 @@ class UserPreferenceValue implements UserAwareInterface
      * The date and time that this preference value was created
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
      */
     protected $createdAt;
 
@@ -76,8 +72,6 @@ class UserPreferenceValue implements UserAwareInterface
      * The date and time that this preference value was updated
      *
      * @var \DateTime
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
      */
     protected $updatedAt;
 

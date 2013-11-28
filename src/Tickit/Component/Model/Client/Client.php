@@ -26,7 +26,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * Client entity.
  *
- * @package Tickit\Bundle\ClientBundle\Model
+ * @package Tickit\Component\Model\Client
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Client

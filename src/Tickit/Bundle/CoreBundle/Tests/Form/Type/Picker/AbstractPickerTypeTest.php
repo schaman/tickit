@@ -32,7 +32,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     {
         parent::setUp();
 
-        $this->decorator = $this->getMock('\Tickit\Bundle\CoreBundle\Form\Type\Picker\EntityDecoratorInterface');
+        $this->decorator = $this->getMock('\Tickit\Component\Decorator\Entity\EntityDecoratorInterface');
         $this->transformer = $this->getMockForAbstractClass(
             '\Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer'
         );

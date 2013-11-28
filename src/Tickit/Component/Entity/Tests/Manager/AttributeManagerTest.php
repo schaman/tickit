@@ -70,7 +70,7 @@ class AttributeManagerTest extends AbstractUnitTest
         $entityManager->expects($this->once())
                       ->method('flush');
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $manager->delete($attribute);
     }
 
@@ -92,7 +92,7 @@ class AttributeManagerTest extends AbstractUnitTest
         $entityManager->expects($this->once())
                       ->method('flush');
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $manager->create($attribute);
     }
 
@@ -120,11 +120,11 @@ class AttributeManagerTest extends AbstractUnitTest
                       ->method('flush');
 
         $choiceRepo->expects($this->once())
-                   ->method('findBy')
-                   ->with(array('attribute' => $attribute))
+                   ->method('findByAttribute')
+                   ->with($attribute)
                    ->will($this->returnValue(array()));
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $manager->create($attribute);
     }
 
@@ -146,7 +146,7 @@ class AttributeManagerTest extends AbstractUnitTest
         $entityManager->expects($this->once())
                       ->method('flush');
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $manager->create($attribute);
     }
 
@@ -166,7 +166,7 @@ class AttributeManagerTest extends AbstractUnitTest
                       ->method('findAllAttributes')
                       ->will($this->returnValue($attributes));
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $collection = $manager->getAttributeValuesForProject($project);
 
         $this->assertInstanceOf('\Doctrine\Common\Collections\Collection', $collection);
@@ -206,11 +206,11 @@ class AttributeManagerTest extends AbstractUnitTest
                       ->method('flush');
 
         $choiceRepo->expects($this->once())
-                   ->method('findBy')
-                   ->with(array('attribute' => $existingAttribute))
+                   ->method('findByAttribute')
+                   ->with($existingAttribute)
                    ->will($this->returnValue($existingChoices));
 
-        $manager = new \Tickit\Component\Entity\Manager\AttributeManager($attributeRepo, $choiceRepo, $entityManager);
+        $manager = new AttributeManager($attributeRepo, $choiceRepo, $entityManager);
         $manager->update($existingAttribute);
     }
 
@@ -221,9 +221,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockChoiceAttributeChoiceRepository()
     {
-        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\ChoiceAttributeChoiceRepository')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+        return $this->getMock('\Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface');
     }
 
     /**
@@ -233,8 +231,6 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockAttributeRepository()
     {
-        return $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+        return $this->getMock('\Tickit\Component\Entity\Repository\AttributeRepositoryInterface');
     }
 }

@@ -23,13 +23,15 @@ namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use DateTime;
 use Tickit\Component\Model\Client\Client;
 
 /**
  * Project entity
  *
  * Represents an application/website/product within the application
+ *
+ * @package Tickit\Component\Model\Project
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Project
 {
@@ -44,7 +46,6 @@ class Project
      * The name of this project
      *
      * @var string
-     * @ORM\Column(type="string", length=100)
      */
     protected $name;
 
@@ -155,7 +156,7 @@ class Project
     /**
      * Gets the time at which this project was deleted
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDeletedAt()
     {
@@ -189,11 +190,11 @@ class Project
     /**
      * Sets the time this project was deleted
      *
-     * @param DateTime $deletedAt The date time that this project was deleted
+     * @param \DateTime $deletedAt The date time that this project was deleted
      *
      * @return Project
      */
-    public function setDeletedAt(DateTime $deletedAt)
+    public function setDeletedAt(\DateTime $deletedAt)
     {
         $this->deletedAt = $deletedAt;
 

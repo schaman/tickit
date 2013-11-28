@@ -29,7 +29,7 @@ use Tickit\Component\Entity\Manager\NotificationManager;
 /**
  * NotificationManager tests
  *
- * @package Tickit\Bundle\NotificationBundle\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationManagerTest extends AbstractUnitTest
