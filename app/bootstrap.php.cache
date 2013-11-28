@@ -120,12 +120,10 @@ namespace Symfony\Component\HttpFoundation
 {
 class HeaderBag implements \IteratorAggregate, \Countable
 {
-protected $headers;
-protected $cacheControl;
+protected $headers = array();
+protected $cacheControl = array();
 public function __construct(array $headers = array())
 {
-$this->cacheControl = array();
-$this->headers = array();
 foreach ($headers as $key => $values) {
 $this->set($key, $values);
 }
@@ -609,7 +607,7 @@ $_SERVER['HTTP_'.$key] = implode(', ', $value);
 }
 }
 $request = array('g'=> $_GET,'p'=> $_POST,'c'=> $_COOKIE);
-$requestOrder = ini_get('request_order') ?: ini_get('variable_order');
+$requestOrder = ini_get('request_order') ?: ini_get('variables_order');
 $requestOrder = preg_replace('#[^cgp]#','', strtolower($requestOrder)) ?:'gp';
 $_REQUEST = array();
 foreach (str_split($requestOrder) as $order) {
@@ -708,10 +706,9 @@ return array($ip);
 }
 $clientIps = array_map('trim', explode(',', $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_IP])));
 $clientIps[] = $ip;
-$trustedProxies = !self::$trustedProxies ? array($ip) : self::$trustedProxies;
 $ip = $clientIps[0];
 foreach ($clientIps as $key => $clientIp) {
-if (IpUtils::checkIp($clientIp, $trustedProxies)) {
+if (IpUtils::checkIp($clientIp, self::$trustedProxies)) {
 unset($clientIps[$key]);
 }
 }
@@ -1325,7 +1322,7 @@ $headers->set('Content-Type', $mimeType);
 $charset = $this->charset ?:'UTF-8';
 if (!$headers->has('Content-Type')) {
 $headers->set('Content-Type','text/html; charset='.$charset);
-} elseif (0 === strpos($headers->get('Content-Type'),'text/') && false === strpos($headers->get('Content-Type'),'charset')) {
+} elseif (0 === stripos($headers->get('Content-Type'),'text/') && false === stripos($headers->get('Content-Type'),'charset')) {
 $headers->set('Content-Type', $headers->get('Content-Type').'; charset='.$charset);
 }
 if ($headers->has('Transfer-Encoding')) {
@@ -1926,23 +1923,17 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 class Container implements IntrospectableContainerInterface
 {
 protected $parameterBag;
-protected $services;
-protected $methodMap;
-protected $aliases;
-protected $scopes;
-protected $scopeChildren;
-protected $scopedServices;
-protected $scopeStacks;
+protected $services = array();
+protected $methodMap = array();
+protected $aliases = array();
+protected $scopes = array();
+protected $scopeChildren = array();
+protected $scopedServices = array();
+protected $scopeStacks = array();
 protected $loading = array();
 public function __construct(ParameterBagInterface $parameterBag = null)
 {
-$this->parameterBag = null === $parameterBag ? new ParameterBag() : $parameterBag;
-$this->services = array();
-$this->aliases = array();
-$this->scopes = array();
-$this->scopeChildren = array();
-$this->scopedServices = array();
-$this->scopeStacks = array();
+$this->parameterBag = $parameterBag ?: new ParameterBag();
 $this->set('service_container', $this);
 }
 public function compile()
@@ -2150,7 +2141,7 @@ return isset($this->scopedServices[$name]);
 }
 public static function camelize($id)
 {
-return strtr(ucwords(strtr($id, array('_'=>' ','.'=>'_ '))), array(' '=>''));
+return strtr(ucwords(strtr($id, array('_'=>' ','.'=>'_ ','\\'=>'_ '))), array(' '=>''));
 }
 public static function underscore($id)
 {
@@ -2231,13 +2222,13 @@ use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
 abstract class Kernel implements KernelInterface, TerminableInterface
 {
-protected $bundles;
+protected $bundles = array();
 protected $bundleMap;
 protected $container;
 protected $rootDir;
 protected $environment;
 protected $debug;
-protected $booted;
+protected $booted = false;
 protected $name;
 protected $startTime;
 protected $loadClassCache;
@@ -2251,10 +2242,8 @@ public function __construct($environment, $debug)
 {
 $this->environment = $environment;
 $this->debug = (Boolean) $debug;
-$this->booted = false;
 $this->rootDir = $this->getRootDir();
 $this->name = $this->getName();
-$this->bundles = array();
 if ($this->debug) {
 $this->startTime = microtime(true);
 }
