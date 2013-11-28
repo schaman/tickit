@@ -55,7 +55,7 @@ class NotificationFactory
 
         $notification = new UserNotification();
         $notification->setRecipient($user)
-                     ->setMessage($message->getMessage());
+                     ->setMessage($messageBody);
 
         return $notification;
     }
