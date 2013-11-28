@@ -22,7 +22,6 @@
 namespace Tickit\Component\Notification\Tests\Factory;
 
 use Tickit\Component\Notification\Factory\NotificationFactory;
-use Tickit\Bundle\NotificationBundle\Tests\Mock\Model\MockNotification;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -55,7 +54,10 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotifyUserReturnsCorrectMessageObject()
     {
-        $message = new MockNotification();
+        $message = $this->getMock('Tickit\Component\Notification\Model\NotificationDataInterface');
+        $message->expects($this->once())
+                ->method('getMessage')
+                ->will($this->returnValue(__FUNCTION__));
 
         $user = new User();
         $user->setForename('forename')
@@ -65,7 +67,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
         $notification = $factory->notifyUser($message, $user);
 
         $this->assertInstanceOf('Tickit\Component\Notification\Model\UserNotification', $notification);
-        $this->assertEquals($message->getMessage(), $notification->getMessage());
+        $this->assertEquals(__FUNCTION__, $notification->getMessage());
         $this->assertEquals($user->getForename(), $notification->getRecipient()->getForename());
         $this->assertEquals($user->getSurname(), $notification->getRecipient()->getSurname());
     }
