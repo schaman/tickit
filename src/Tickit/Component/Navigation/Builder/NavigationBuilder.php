@@ -19,32 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Builder;
+namespace Tickit\Component\Navigation\Builder;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Tickit\Component\Navigation\Event\NavigationBuildEvent;
+use Tickit\Component\Navigation\Event\NavigationEvents;
 
 /**
- * Abstract implementation of a navigation builder.
+ * Main navigation builder.
  *
- * @package Tickit\Bundle\NavigationBundle\Builder
+ * Responsible for building the main navigation structure.
+ *
+ * @package Tickit\Component\Navigation\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
-abstract class AbstractBuilder
+class NavigationBuilder extends AbstractBuilder implements BuilderInterface
 {
     /**
-     * An event dispatcher
+     * Builds the navigation component.
      *
-     * @var EventDispatcherInterface
-     */
-    protected $dispatcher;
-
-    /**
-     * Constructor.
+     * @param string $name Navigation name
      *
-     * @param EventDispatcherInterface $dispatcher An event dispatcher
+     * @return \SplPriorityQueue
      */
-    public function __construct(EventDispatcherInterface $dispatcher)
+    public function build($name = 'main')
     {
-        $this->dispatcher = $dispatcher;
+        $event = new NavigationBuildEvent($name);
+        $this->dispatcher->dispatch(NavigationEvents::MAIN_NAVIGATION_BUILD, $event);
+
+        return $event->getItems();
     }
 }

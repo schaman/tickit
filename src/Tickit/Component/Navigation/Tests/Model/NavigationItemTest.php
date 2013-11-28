@@ -19,34 +19,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Builder;
+namespace Tickit\Component\Navigation\Tests\Model;
 
-use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
+use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
- * Main navigation builder.
+ * NavigationItem tests
  *
- * Responsible for building the main navigation structure.
- *
- * @package Tickit\Bundle\NavigationBundle\Builder
+ * @package Tickit\Component\Navigation\Tests\Model
  * @author  James Halsall <james.t.halsall@googlemail.com>
- * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class NavigationBuilder extends AbstractBuilder implements BuilderInterface
+class NavigationItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Builds the navigation component.
+     * Tests the __construct() method
      *
-     * @param string $name Navigation name
-     *
-     * @return \SplPriorityQueue
+     * @return void
      */
-    public function build($name = 'main')
+    public function testNavigationItemSetsCorrectValuesFromConstructor()
     {
-        $event = new NavigationBuildEvent($name);
-        $this->dispatcher->dispatch(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $event);
+        $params = array(
+            'key' => 1,
+            'key2' => 'value',
+            'key3' => array(
+                'subkey' => 'value'
+            )
+        );
 
-        return $event->getItems();
+        $item = new NavigationItem('navigation text', 'route_name', -99, $params);
+
+        $this->assertEquals('navigation text', $item->getText());
+        $this->assertEquals('route_name', $item->getRouteName());
+        $this->assertEquals(-99, $item->getPriority());
+        $this->assertEquals($params, $item->getParams());
     }
 }

@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Model;
+namespace Tickit\Component\Navigation\Model;
 
 /**
  * Navigation item
  *
- * @package Tickit\Bundle\NavigationBundle\Model
+ * @package Tickit\Component\Navigation\Model
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class NavigationItem

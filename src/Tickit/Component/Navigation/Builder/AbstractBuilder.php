@@ -19,38 +19,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Tests\Model;
+namespace Tickit\Component\Navigation\Builder;
 
-use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * NavigationItem tests
+ * Abstract implementation of a navigation builder.
  *
- * @package Tickit\Bundle\NavigationBundle\Tests\Model
+ * @package Tickit\Component\Navigation\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class NavigationItemTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractBuilder
 {
     /**
-     * Tests the __construct() method
+     * An event dispatcher
      *
-     * @return void
+     * @var EventDispatcherInterface
      */
-    public function testNavigationItemSetsCorrectValuesFromConstructor()
+    protected $dispatcher;
+
+    /**
+     * Constructor.
+     *
+     * @param EventDispatcherInterface $dispatcher An event dispatcher
+     */
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
-        $params = array(
-            'key' => 1,
-            'key2' => 'value',
-            'key3' => array(
-                'subkey' => 'value'
-            )
-        );
-
-        $item = new NavigationItem('navigation text', 'route_name', -99, $params);
-
-        $this->assertEquals('navigation text', $item->getText());
-        $this->assertEquals('route_name', $item->getRouteName());
-        $this->assertEquals(-99, $item->getPriority());
-        $this->assertEquals($params, $item->getParams());
+        $this->dispatcher = $dispatcher;
     }
 }

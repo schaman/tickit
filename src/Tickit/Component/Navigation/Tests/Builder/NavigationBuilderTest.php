@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle\Tests\Builder;
+namespace Tickit\Component\Navigation\Tests\Builder;
 
 use Tickit\Component\Test\AbstractUnitTest;
-use Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder;
-use Tickit\Bundle\NavigationBundle\Event\NavigationBuildEvent;
-use Tickit\Bundle\NavigationBundle\TickitNavigationEvents;
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
+use Tickit\Component\Navigation\Event\NavigationBuildEvent;
+use Tickit\Component\Navigation\Event\NavigationEvents;
 
 /**
  * NavigationBuilderTest tests
  *
- * @package Tickit\Bundle\NavigationBundle\Tests\Builder
+ * @package Tickit\Component\Navigation\Tests\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderTest extends AbstractUnitTest
@@ -44,7 +44,7 @@ class NavigationBuilderTest extends AbstractUnitTest
         $dispatcher = $this->getMockEventDispatcher();
         $dispatcher->expects($this->once())
                    ->method('dispatch')
-                   ->with(TickitNavigationEvents::MAIN_NAVIGATION_BUILD, $expectedEvent)
+                   ->with(NavigationEvents::MAIN_NAVIGATION_BUILD, $expectedEvent)
                    ->will($this->returnValue(new \SplPriorityQueue()));
 
         $builder = new NavigationBuilder($dispatcher);

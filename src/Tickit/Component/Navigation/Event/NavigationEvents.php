@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\NavigationBundle;
+namespace Tickit\Component\Navigation\Event;
 
 /**
- * NavigationBundle events collection.
+ * Navigation component events collection.
  *
- * This class contains a collection of constants representing event names for the navigation bundle
+ * This class contains a collection of constants representing event names for the navigation component
  *
- * @package Tickit\Bundle\NavigationBundle
+ * @package Tickit\Component\Navigation\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-final class TickitNavigationEvents
+final class NavigationEvents
 {
     /**
      * Constant representing the name of the "main navigation build" event

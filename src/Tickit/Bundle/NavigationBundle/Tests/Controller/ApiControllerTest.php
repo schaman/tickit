@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\NavigationBundle\Tests\Controller;
 
 use Tickit\Bundle\NavigationBundle\Controller\ApiController;
-use Tickit\Bundle\NavigationBundle\Model\NavigationItem;
+use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
  * ApiController tests
@@ -42,7 +42,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->navigationBuilder = $this->getMockBuilder('Tickit\Bundle\NavigationBundle\Builder\NavigationBuilder')
+        $this->navigationBuilder = $this->getMockBuilder('Tickit\Component\Navigation\Builder\NavigationBuilder')
                                         ->disableOriginalConstructor()
                                         ->getMock();
     }
