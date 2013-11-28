@@ -74,7 +74,7 @@ class UserManagerTest extends AbstractUnitTest
 
         $this->em = $this->getMockEntityManager();
 
-        $this->dispatcher = $this->getMockBuilder('\Tickit\Bundle\UserBundle\Event\Dispatcher\UserEventDispatcher')
+        $this->dispatcher = $this->getMockBuilder('\Tickit\Component\Event\User\Dispatcher\UserEventDispatcher')
                                  ->disableOriginalConstructor()
                                  ->getMock();
     }

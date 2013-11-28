@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Event\Dispatcher;
+namespace Tickit\Component\Event\User\Dispatcher;
 
-use Tickit\Bundle\UserBundle\TickitUserEvents;
+use Tickit\Component\Event\User\UserEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -30,7 +30,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
  * This class is responsible for firing events related to the management of the
  * User entity
  *
- * @package Tickit\Bundle\UserBundle\Event\Dispatcher
+ * @package Tickit\Component\Event\User\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\Component\Model\User\User
  */
@@ -44,12 +44,12 @@ class UserEventDispatcher extends AbstractEntityEventDispatcher
     protected function getEventNames()
     {
         return [
-            'before_create' => TickitUserEvents::USER_BEFORE_CREATE,
-            'create' => TickitUserEvents::USER_CREATE,
-            'before_update' => TickitUserEvents::USER_BEFORE_UPDATE,
-            'update' => TickitUserEvents::USER_UPDATE,
-            'before_delete' => TickitUserEvents::USER_BEFORE_DELETE,
-            'delete' => TickitUserEvents::USER_DELETE
+            'before_create' => UserEvents::USER_BEFORE_CREATE,
+            'create' => UserEvents::USER_CREATE,
+            'before_update' => UserEvents::USER_BEFORE_UPDATE,
+            'update' => UserEvents::USER_UPDATE,
+            'before_delete' => UserEvents::USER_BEFORE_DELETE,
+            'delete' => UserEvents::USER_DELETE
         ];
     }
 }

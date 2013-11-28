@@ -19,57 +19,58 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle;
+namespace Tickit\Component\Event\User;
 
 /**
- * ProjectBundle events collection.
+ * User events collection.
  *
- * This class contains a collection of constants representing event names for the project bundle
+ * This class contains a collection of constants representing event names for
+ * user related models
  *
- * @package Tickit\Bundle\ProjectBundle
+ * @package Tickit\Component\Event\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TickitProjectEvents
+final class UserEvents
 {
     /**
      * Constant representing the name of the "before create" event
      *
      * @const string
      */
-    const PROJECT_BEFORE_CREATE = 'tickit_project.event.before_create';
+    const USER_BEFORE_CREATE = 'tickit_user.event.before_create';
 
     /**
      * Constant representing the name of the "create" event
      *
      * @const string
      */
-    const PROJECT_CREATE = 'tickit_project.event.create';
+    const USER_CREATE = 'tickit_user.event.create';
 
     /**
      * Constant representing the name of the "before update" event
      *
      * @const string
      */
-    const PROJECT_BEFORE_UPDATE = 'tickit_project.event.before_update';
+    const USER_BEFORE_UPDATE = 'tickit_user.event.before_update';
 
     /**
      * Constant representing the name of the "update" event
      *
      * @const string
      */
-    const PROJECT_UPDATE = 'tickit_project.event.update';
+    const USER_UPDATE = 'tickit_user.event.update';
 
     /**
      * Constant representing the name of the "before delete" event
      *
      * @const string
      */
-    const PROJECT_BEFORE_DELETE = 'tickit_project.event.before_delete';
+    const USER_BEFORE_DELETE = 'tickit_user.event.before_delete';
 
     /**
      * Constant representing the name of the "delete" event
      *
      * @const string
      */
-    const PROJECT_DELETE = 'tickit_project.event.delete';
+    const USER_DELETE = 'tickit_user.event.delete';
 }

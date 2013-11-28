@@ -19,57 +19,57 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle;
+namespace Tickit\Component\Event\Client;
 
 /**
- * UserBundle events collection.
+ * Client model events.
  *
- * This class contains a collection of constants representing event names for the user bundle
+ * Contains static event names for Client related model events.
  *
- * @package Tickit\Bundle\UserBundle
+ * @package Tickit\Component\Event\Client
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TickitUserEvents
+final class ClientEvents
 {
     /**
      * Constant representing the name of the "before create" event
      *
      * @const string
      */
-    const USER_BEFORE_CREATE = 'tickit_user.event.before_create';
+    const CLIENT_BEFORE_CREATE = 'tickit_client.event.before_create';
 
     /**
      * Constant representing the name of the "create" event
      *
      * @const string
      */
-    const USER_CREATE = 'tickit_user.event.create';
+    const CLIENT_CREATE = 'tickit_client.event.create';
 
     /**
      * Constant representing the name of the "before update" event
      *
      * @const string
      */
-    const USER_BEFORE_UPDATE = 'tickit_user.event.before_update';
+    const CLIENT_BEFORE_UPDATE = 'tickit_client.event.before_update';
 
     /**
      * Constant representing the name of the "update" event
      *
      * @const string
      */
-    const USER_UPDATE = 'tickit_user.event.update';
+    const CLIENT_UPDATE = 'tickit_client.event.update';
 
     /**
      * Constant representing the name of the "before delete" event
      *
      * @const string
      */
-    const USER_BEFORE_DELETE = 'tickit_user.event.before_delete';
+    const CLIENT_BEFORE_DELETE = 'tickit_client.event.before_delete';
 
     /**
      * Constant representing the name of the "delete" event
      *
      * @const string
      */
-    const USER_DELETE = 'tickit_user.event.delete';
+    const CLIENT_DELETE = 'tickit_client.event.delete';
 }

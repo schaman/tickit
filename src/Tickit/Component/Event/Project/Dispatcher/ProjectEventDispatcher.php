@@ -19,18 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle\Event\Dispatcher;
+namespace Tickit\Component\Event\Project\Dispatcher;
 
-use Tickit\Bundle\ClientBundle\TickitClientEvents;
+use Tickit\Component\Event\Project\ProjectEvents;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
- * Client event dispatcher.
+ * Event dispatcher for the Project entity
  *
- * @package Tickit\Bundle\ClientBundle\Event\Dispatcher
+ * This class is responsible for firing events related to the management of the
+ * Project entity
+ *
+ * @package Tickit\Component\Event\Project\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @see     Tickit\Component\Model\Project\Project
  */
-class ClientEventDispatcher extends AbstractEntityEventDispatcher
+class ProjectEventDispatcher extends AbstractEntityEventDispatcher
 {
     /**
      * Gets an array of event names
@@ -40,12 +44,12 @@ class ClientEventDispatcher extends AbstractEntityEventDispatcher
     protected function getEventNames()
     {
         return [
-            'before_create' => TickitClientEvents::CLIENT_BEFORE_CREATE,
-            'create' => TickitClientEvents::CLIENT_CREATE,
-            'before_update' => TickitClientEvents::CLIENT_BEFORE_UPDATE,
-            'update' => TickitClientEvents::CLIENT_UPDATE,
-            'before_delete' => TickitClientEvents::CLIENT_BEFORE_DELETE,
-            'delete' => TickitClientEvents::CLIENT_DELETE
+            'before_create' => ProjectEvents::PROJECT_BEFORE_CREATE,
+            'create' => ProjectEvents::PROJECT_CREATE,
+            'before_update' => ProjectEvents::PROJECT_BEFORE_UPDATE,
+            'update' => ProjectEvents::PROJECT_UPDATE,
+            'before_delete' => ProjectEvents::PROJECT_BEFORE_DELETE,
+            'delete' => ProjectEvents::PROJECT_DELETE
         ];
     }
 }

@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ProjectBundle\Tests\Event\Dispatcher;
+namespace Tickit\Component\Event\Tests\Project\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Bundle\ProjectBundle\Event\Dispatcher\ProjectEventDispatcher;
-use Tickit\Bundle\ProjectBundle\TickitProjectEvents;
+use Tickit\Component\Event\Project\Dispatcher\ProjectEventDispatcher;
+use Tickit\Component\Event\Project\ProjectEvents;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Component\Entity\Event\EntityModifiedEvent;
 
 /**
  * ProjectEventDispatcher tests
  *
- * @package Tickit\Bundle\ProjectBundle\Tests\Event\Dispatcher
+ * @package Tickit\Component\Event\Tests\Project\Dispatcher
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectEventDispatcherTest extends AbstractUnitTest
@@ -45,7 +45,7 @@ class ProjectEventDispatcherTest extends AbstractUnitTest
         $project = new Project();
         $event = new EntityEvent($project);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitProjectEvents::PROJECT_BEFORE_CREATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(ProjectEvents::PROJECT_BEFORE_CREATE, $event);
 
         $dispatcher = new ProjectEventDispatcher($eventDispatcher);
         $returnedEvent = $dispatcher->dispatchBeforeCreateEvent($project);
@@ -61,7 +61,7 @@ class ProjectEventDispatcherTest extends AbstractUnitTest
         $project = new Project();
         $event = new EntityEvent($project);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitProjectEvents::PROJECT_CREATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(ProjectEvents::PROJECT_CREATE, $event);
 
         $dispatcher = new ProjectEventDispatcher($eventDispatcher);
         $dispatcher->dispatchCreateEvent($project);
@@ -75,7 +75,7 @@ class ProjectEventDispatcherTest extends AbstractUnitTest
         $project = new Project();
         $event = new EntityEvent($project);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitProjectEvents::PROJECT_BEFORE_UPDATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(ProjectEvents::PROJECT_BEFORE_UPDATE, $event);
 
         $dispatcher = new ProjectEventDispatcher($eventDispatcher);
         $returnedEvent = $dispatcher->dispatchBeforeUpdateEvent($project);
@@ -92,7 +92,7 @@ class ProjectEventDispatcherTest extends AbstractUnitTest
         $originalProject = new Project();
         $event = new EntityModifiedEvent($project, $originalProject);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitProjectEvents::PROJECT_UPDATE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(ProjectEvents::PROJECT_UPDATE, $event);
 
         $dispatcher = new ProjectEventDispatcher($eventDispatcher);
         $dispatcher->dispatchUpdateEvent($project, $originalProject);
@@ -106,7 +106,7 @@ class ProjectEventDispatcherTest extends AbstractUnitTest
         $project = new Project();
         $event = new EntityEvent($project);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitProjectEvents::PROJECT_BEFORE_DELETE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(ProjectEvents::PROJECT_BEFORE_DELETE, $event);
 
         $dispatcher = new ProjectEventDispatcher($eventDispatcher);
         $returnedEvent = $dispatcher->dispatchBeforeDeleteEvent($project);
@@ -122,7 +122,7 @@ class ProjectEventDispatcherTest extends AbstractUnitTest
         $project = new Project();
         $event = new EntityEvent($project);
 
-        $eventDispatcher = $this->getLocalMockEventDispatcher(TickitProjectEvents::PROJECT_DELETE, $event);
+        $eventDispatcher = $this->getLocalMockEventDispatcher(ProjectEvents::PROJECT_DELETE, $event);
 
         $dispatcher = new ProjectEventDispatcher($eventDispatcher);
         $dispatcher->dispatchDeleteEvent($project);

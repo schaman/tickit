@@ -19,57 +19,58 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\ClientBundle;
+namespace Tickit\Component\Event\Project;
 
 /**
- * Tickit client bundle events.
+ * Project events collection.
  *
- * Contains static event names.
+ * This class contains a collection of constants representing event names related to
+ * Project models
  *
- * @package Tickit\Bundle\ClientBundle
+ * @package Tickit\Component\Event\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-final class TickitClientEvents
+final class ProjectEvents
 {
     /**
      * Constant representing the name of the "before create" event
      *
      * @const string
      */
-    const CLIENT_BEFORE_CREATE = 'tickit_client.event.before_create';
+    const PROJECT_BEFORE_CREATE = 'tickit_project.event.before_create';
 
     /**
      * Constant representing the name of the "create" event
      *
      * @const string
      */
-    const CLIENT_CREATE = 'tickit_client.event.create';
+    const PROJECT_CREATE = 'tickit_project.event.create';
 
     /**
      * Constant representing the name of the "before update" event
      *
      * @const string
      */
-    const CLIENT_BEFORE_UPDATE = 'tickit_client.event.before_update';
+    const PROJECT_BEFORE_UPDATE = 'tickit_project.event.before_update';
 
     /**
      * Constant representing the name of the "update" event
      *
      * @const string
      */
-    const CLIENT_UPDATE = 'tickit_client.event.update';
+    const PROJECT_UPDATE = 'tickit_project.event.update';
 
     /**
      * Constant representing the name of the "before delete" event
      *
      * @const string
      */
-    const CLIENT_BEFORE_DELETE = 'tickit_client.event.before_delete';
+    const PROJECT_BEFORE_DELETE = 'tickit_project.event.before_delete';
 
     /**
      * Constant representing the name of the "delete" event
      *
      * @const string
      */
-    const CLIENT_DELETE = 'tickit_client.event.delete';
+    const PROJECT_DELETE = 'tickit_project.event.delete';
 }
