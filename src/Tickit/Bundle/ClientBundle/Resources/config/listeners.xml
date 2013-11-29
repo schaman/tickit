@@ -11,6 +11,7 @@
         </service>
 
         <service id="tickit_client.project_listener" class="Tickit\Bundle\ClientBundle\Listener\ProjectListener">
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="kernel.event_listener" event="tickit_project.event.create" method="onProjectCreate" />
             <tag name="kernel.event_listener" event="tickit_project.event.delete" method="onProjectDelete" />
         </service>
