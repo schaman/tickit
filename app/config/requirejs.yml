@@ -33,6 +33,7 @@ hearsay_require_js:
         client: "@TickitClientBundle/Resources/public"
         dashboard: "@TickitDashboardBundle/Resources/public"
         notification: "@TickitNotificationBundle/Resources/public"
+        filter: "@TickitFilterBundle/Resources/public"
     shim:
         -
             name: jquery
