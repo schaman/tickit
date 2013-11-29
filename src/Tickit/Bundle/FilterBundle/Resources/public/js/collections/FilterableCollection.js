@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Collection}
  */
-define(['modules/app'], function(App) {
+define(function() {
     return Backbone.Collection.extend({
 
         /**
