@@ -52,11 +52,9 @@ define(function() {
          * @param {object} values The filter values to update from
          */
         updateFromValues : function(values) {
-            // TODO: update this collection with the filter values
-
             this.fetch({
                 reset: true,
-                data: {}
+                data: values
             });
         }
     });
