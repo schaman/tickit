@@ -62,7 +62,7 @@ define(['modules/template'], function(Template) {
         },
 
         /**
-         * Dispatches the "filters:change" event via App.vent
+         * Dispatches the "change" event on this instance
          */
         dispatchFilterChange : function() {
             this.trigger('change', this.getFilterValues());
