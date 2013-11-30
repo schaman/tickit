@@ -37,7 +37,7 @@ define(['modules/template'], function(Template) {
          * Dispatches the "filters:change" event via App.vent
          */
         dispatchFilterChange : function() {
-            this.trigger('filters:change', this.getFilterValues());
+            this.trigger('change', this.getFilterValues());
         }
     });
 });

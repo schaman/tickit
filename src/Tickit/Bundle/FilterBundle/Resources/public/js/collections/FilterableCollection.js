@@ -41,7 +41,7 @@ define(function() {
             }
 
             this.filterView = options.filterView;
-            this.filterView.on('filters:change', this.updateFromValues);
+            this.filterView.on('change', this.updateFromValues);
         },
 
         /**
