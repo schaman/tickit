@@ -56,15 +56,15 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildFromRequestReturnsValidCollection()
     {
         $filters = array(
-            FilterCollectionBuilder::FILTER_ORDER_BY => array(
+            'filters[' . FilterCollectionBuilder::FILTER_ORDER_BY . ']' => array(
                 'column' => 'ASC',
                 'column2' => 'DESC'
             ),
-            FilterCollectionBuilder::FILTER_EXACT_MATCH => array(
+            'filters[' . FilterCollectionBuilder::FILTER_EXACT_MATCH . ']' => array(
                 'field1' => 'value',
                 'field2' => 500
             ),
-            FilterCollectionBuilder::FILTER_SEARCH => array(
+            'filters[' . FilterCollectionBuilder::FILTER_SEARCH . ']' => array(
                 'field3' => 'search term',
                 'field4' => 'another search term'
             )
@@ -78,7 +78,8 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
 
         /** @var AbstractFilter $filter */
         foreach ($collection as $filter) {
-            $expectedValue = $filters[$filter->getType()][$filter->getKey()];
+            $filterFieldName = sprintf('filters[%s]',$filter->getType());
+            $expectedValue = $filters[$filterFieldName][$filter->getKey()];
             $this->assertEquals($expectedValue, $filter->getValue());
         }
     }
