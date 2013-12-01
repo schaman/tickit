@@ -36,6 +36,9 @@ use Tickit\Component\Model\User\User;
  */
 class Project
 {
+    const STATUS_ACTIVE = 'active';
+    const STATUS_ARCHIVED = 'archived';
+
     /**
      * The unique identifier for this project
      *
@@ -65,18 +68,11 @@ class Project
     protected $ticketPrefix;
 
     /**
-     * Tickets related to this project
+     * The status of this project
      *
-     * @var Collection
+     * @var string
      */
-    protected $tickets;
-
-    /**
-     * Attribute values for this project
-     *
-     * @var Collection
-     */
-    protected $attributes;
+    protected $status;
 
     /**
      * The date/time that this project was created
@@ -107,11 +103,27 @@ class Project
     protected $owner;
 
     /**
+     * Tickets related to this project
+     *
+     * @var Collection
+     */
+    protected $tickets;
+
+    /**
+     * Attribute values for this project
+     *
+     * @var Collection
+     */
+    protected $attributes;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
+        $this->status = static::STATUS_ACTIVE;
     }
 
     /**
@@ -316,10 +328,14 @@ class Project
      * Sets the ticket prefix
      *
      * @param string $ticketPrefix The new ticket prefix
+     *
+     * @return Project
      */
     public function setTicketPrefix($ticketPrefix)
     {
         $this->ticketPrefix = $ticketPrefix;
+
+        return $this;
     }
 
     /**
@@ -330,5 +346,37 @@ class Project
     public function getTicketPrefix()
     {
         return $this->ticketPrefix;
+    }
+
+    /**
+     * Sets the project status
+     *
+     * @param string $status The new project status
+     *
+     * @throws \InvalidArgumentException If the $status parameter is not a valid value
+     *
+     * @return Project
+     */
+    public function setStatus($status)
+    {
+        if (!in_array($status, [static::STATUS_ARCHIVED, static::STATUS_ACTIVE])) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid status (%s) has been provided', $status)
+            );
+        }
+
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets the current project status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
