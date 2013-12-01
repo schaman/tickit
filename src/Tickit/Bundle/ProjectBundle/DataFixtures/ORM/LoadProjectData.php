@@ -48,11 +48,13 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         while ($i--) {
             $project = new Project();
             $project->setName($faker->sentence(3))
-                    ->setClient($this->getReference('client-' . $i));
+                    ->setClient($this->getReference('client-' . $i))
+                    ->setTicketPrefix($faker->text(5));
 
             $project2 = new Project();
             $project2->setName($faker->sentence(3))
-                    ->setClient($this->getReference('client-' . $i));
+                    ->setClient($this->getReference('client-' . $i))
+                    ->setTicketPrefix($faker->text(5));
 
             $manager->persist($project);
             $manager->persist($project2);
