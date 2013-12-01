@@ -53,9 +53,10 @@ class FilterCollectionBuilder
     {
         $collection = new FilterCollection();
 
+        $requestFilters = $request->query->get('filters');
         foreach ($this->getFilterTypes() as $type) {
-            $filters = $request->query->get(sprintf('filters[%s]', $type), array());
-            $this->addFilters($filters, $type, $collection);
+            $filterValues = isset($requestFilters[$type]) ? $requestFilters[$type] : array();
+            $this->addFilters($filterValues, $type, $collection);
         }
 
         return $collection;
