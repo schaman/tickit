@@ -380,8 +380,22 @@ class Project
         return $this->status;
     }
 
-    public static function getStatusTypes()
+    /**
+     * Gets valid status types for projects
+     *
+     * @param boolean $withFriendlyNames If true, will return friendly status names indexed by their value name
+     *
+     * @return array
+     */
+    public static function getStatusTypes($withFriendlyNames = false)
     {
+        if (true === $withFriendlyNames) {
+            return [
+                static::STATUS_ACTIVE => ucwords(static::STATUS_ACTIVE),
+                static::STATUS_ARCHIVED => ucwords(static::STATUS_ARCHIVED)
+            ];
+        }
+
         return [
             static::STATUS_ACTIVE,
             static::STATUS_ARCHIVED
