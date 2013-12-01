@@ -20,6 +20,8 @@
 
         <one-to-many field="notifications" target-entity="Tickit\Component\Notification\Model\UserNotification" mapped-by="recipient" />
 
+        <one-to-many target-entity="Tickit\Component\Model\Project\Project" mapped-by="owner" field="projects" />
+
         <many-to-many target-entity="Tickit\Component\Model\User\UserSession" field="sessions">
             <join-table name="users_user_sessions">
                 <join-columns>

@@ -93,6 +93,13 @@ class User extends BaseUser implements AvatarAwareInterface
     protected $notifications;
 
     /**
+     * Projects that are owned by this user
+     *
+     * @var Collection
+     */
+    protected $projects;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -264,6 +271,16 @@ class User extends BaseUser implements AvatarAwareInterface
     public function getNotifications()
     {
         return $this->notifications;
+    }
+
+    /**
+     * Gets projects that are owned by this user
+     *
+     * @return Collection
+     */
+    public function getProjects()
+    {
+        return $this->projects;
     }
 
     /**
