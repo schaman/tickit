@@ -24,6 +24,7 @@ namespace Tickit\Component\Model\Project;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Client\Client;
+use Tickit\Component\Model\User\User;
 
 /**
  * Project entity
@@ -90,6 +91,13 @@ class Project
      * @var string
      */
     protected $deletedAt;
+
+    /**
+     * The user who owns this project
+     *
+     * @var User
+     */
+    protected $owner;
 
     /**
      * Constructor.
@@ -275,5 +283,25 @@ class Project
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Sets the project owner
+     *
+     * @param User $owner The project owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * Gets the owner of this project
+     *
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }
