@@ -58,6 +58,13 @@ class Project
     protected $client;
 
     /**
+     * The prefix for tickets on this project
+     *
+     * @var string
+     */
+    protected $ticketPrefix;
+
+    /**
      * Tickets related to this project
      *
      * @var Collection
@@ -303,5 +310,25 @@ class Project
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * Sets the ticket prefix
+     *
+     * @param string $ticketPrefix The new ticket prefix
+     */
+    public function setTicketPrefix($ticketPrefix)
+    {
+        $this->ticketPrefix = $ticketPrefix;
+    }
+
+    /**
+     * Gets the ticket prefix
+     *
+     * @return string
+     */
+    public function getTicketPrefix()
+    {
+        return $this->ticketPrefix;
     }
 }
