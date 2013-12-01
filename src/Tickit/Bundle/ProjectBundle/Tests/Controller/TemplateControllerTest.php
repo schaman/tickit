@@ -22,8 +22,8 @@
 namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
+use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\TemplateController;
 use Tickit\Component\Model\Project\LiteralAttribute;
@@ -207,6 +207,32 @@ class TemplateControllerTest extends AbstractUnitTest
                          ->will($this->returnValue($response));
 
         $return = $this->getController()->editProjectAttributeFormAction($attribute);
+        $this->assertSame($response, $return);
+    }
+
+    /**
+     * Tests the filterFormAction() method
+     */
+    public function testFilterFormActionBuildsCorrectResponse()
+    {
+        $formType = new FilterFormType();
+
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with($formType)
+                         ->will($this->returnValue($form));
+
+        $response = new Response();
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with(
+                             'TickitProjectBundle:Filters:filter-form.html.twig',
+                             $form
+                         )
+                         ->will($this->returnValue($response));
+
+        $return = $this->getController()->filterFormAction();
         $this->assertSame($response, $return);
     }
 

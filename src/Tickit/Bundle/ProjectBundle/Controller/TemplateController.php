@@ -24,6 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Component\Model\Project\Project;
@@ -175,6 +176,23 @@ class TemplateController
             'TickitProjectBundle:Attribute:edit.html.twig',
             $form,
             array('type' => $attribute->getType())
+        );
+    }
+
+    /**
+     * Filter form action.
+     *
+     * Serves a template containing a filter form for projects.
+     *
+     * @return Response
+     */
+    public function filterFormAction()
+    {
+        $form = $this->formHelper->createForm(new FilterFormType(), []);
+
+        return $this->formHelper->renderForm(
+            'TickitProjectBundle:Filters:filter-form.html.twig',
+            $form
         );
     }
 }

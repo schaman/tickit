@@ -27,3 +27,11 @@ project_attribute_edit_form:
         id: \d+
     options:
         expose: true
+
+project_filter_form:
+    pattern: /filter-form
+    defaults: { _controller: tickit_project.controller.template:filterFormAction }
+    requirements:
+        method: GET
+    options:
+        expose: true
