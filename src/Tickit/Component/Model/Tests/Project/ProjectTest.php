@@ -53,5 +53,16 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(Project::STATUS_ARCHIVED, $this->sut->getStatus());
     }
+
+    /**
+     * Tests the getStatusTypes() method
+     */
+    public function testGetStatusTypesReturnsValidArray()
+    {
+        $statuses = Project::getStatusTypes();
+
+        $this->assertContains(Project::STATUS_ARCHIVED, $statuses);
+        $this->assertContains(Project::STATUS_ACTIVE, $statuses);
+    }
 }
  

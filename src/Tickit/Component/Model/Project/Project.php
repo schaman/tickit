@@ -379,4 +379,12 @@ class Project
     {
         return $this->status;
     }
+
+    public static function getStatusTypes()
+    {
+        return [
+            static::STATUS_ACTIVE,
+            static::STATUS_ARCHIVED
+        ];
+    }
 }
