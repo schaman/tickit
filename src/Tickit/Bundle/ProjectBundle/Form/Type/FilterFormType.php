@@ -36,6 +36,11 @@ use Tickit\Component\Model\Project\Project;
 class FilterFormType extends AbstractType
 {
     /**
+     * The form name
+     */
+    const NAME = 'tickit_project_filters';
+
+    /**
      * Builds the form.
      *
      * @param FormBuilderInterface $builder A form builder
@@ -60,6 +65,6 @@ class FilterFormType extends AbstractType
      */
     public function getName()
     {
-        return 'tickit_project_filters';
+        return static::NAME;
     }
 }
