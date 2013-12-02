@@ -17,7 +17,7 @@ define(['modules/template', 'text!project/views/ProjectRowView.html'], function(
             this.$el.html(_.template($(tpl).html(), {
                 id: d.id,
                 name: d.name,
-                created: this.model.getCreated(),
+                created: this.model.getCreatedAt(),
                 editUrl: this.model.getEditUrl(),
                 deleteUrl: this.model.getDeleteUrl()
             }));

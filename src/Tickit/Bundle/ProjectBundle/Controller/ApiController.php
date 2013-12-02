@@ -111,7 +111,7 @@ class ApiController
             'csrf_token' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)
         ];
 
-        $data = $decorator->decorate($projects, ['id', 'name', 'created'], $staticProperties);
+        $data = $decorator->decorate($projects, ['id', 'name', 'createdAt'], $staticProperties);
 
         return new JsonResponse($data);
     }
