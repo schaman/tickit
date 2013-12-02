@@ -51,11 +51,11 @@ define(function() {
         /**
          * Fired after the view has been rendered
          */
-        onRender : function() {
+        onShow : function() {
             // we instantiate a new instance of the prototype provided
             var filterView = new this.filterViewPrototype({
                 formUrl: this.filterFormUrl,
-                el : $('#filter')
+                el : '#filter'
             });
 
             this.collection.setFilterView(filterView);
