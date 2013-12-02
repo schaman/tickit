@@ -11,17 +11,24 @@ define(function() {
     return Backbone.Marionette.CompositeView.extend({
 
         /**
+         * The collection that is being filtered by this view
          *
+         * @type {Backbone.Collection}
          */
         collection: null,
 
         /**
+         * The FilterView prototype that will be instantiated to manage
+         * the filters.
          *
+         * @type {Backbone.View}
          */
         filterViewPrototype: null,
 
         /**
+         * The URL used to fetch the contents of the filter form
          *
+         * @type {string}
          */
         filterFormUrl : '',
 
