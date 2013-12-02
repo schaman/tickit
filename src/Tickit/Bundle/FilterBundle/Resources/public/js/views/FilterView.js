@@ -52,7 +52,7 @@ define(['modules/template'], function(Template) {
          * @return {object}
          */
         getFilterValues : function() {
-            var values = this.$el.serializeArray();
+            var values = this.$el.find('form').serializeArray();
             var flat = {};
             _.each(values, function(field) {
                 flat[field.name] = field.value;

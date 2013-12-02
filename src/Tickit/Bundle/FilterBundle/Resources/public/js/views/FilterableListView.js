@@ -62,7 +62,7 @@ define(function() {
             // we instantiate a new instance of the prototype provided
             var filterView = new this.filterViewPrototype({
                 formUrl: this.filterFormUrl,
-                el : '#filter'
+                el : '#filter' // TODO: this should be configurable per instance
             });
 
             this.collection.setFilterView(filterView);

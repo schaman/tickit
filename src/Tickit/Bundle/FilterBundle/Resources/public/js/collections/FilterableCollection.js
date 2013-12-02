@@ -54,8 +54,11 @@ define(function() {
          * @param {Backbone.View} filterView The filter view
          */
         setFilterView : function(filterView) {
-            this.filterView = filterView;
-            this.filterView.on('change', this.updateFromValues);
+            var t = this;
+            t.filterView = filterView;
+            t.filterView.on('change', function(values) {
+                t.updateFromValues(values, t);
+            });
         },
 
         /**
@@ -65,7 +68,7 @@ define(function() {
          */
         setPaginationView : function(paginationView) {
             // TODO: bind to the change event on the pagination view (needs to be created)
-            this.paginationView = options.paginationView;
+            this.paginationView = paginationView;
         },
 
         /**
@@ -74,9 +77,10 @@ define(function() {
          * The filter values should be key => value pairs
          *
          * @param {object} values The filter values to update from
+         * @param {object} scope  The scope object to call fetch on (should be this instance)
          */
-        updateFromValues : function(values) {
-            this.fetch({
+        updateFromValues : function(values, scope) {
+            scope.fetch({
                 reset: true,
                 data: values
             });
