@@ -20,16 +20,13 @@ define(function() {
                 'filter/js/views/FilterView',
                 'project/js/views/ProjectRowView'
             ], function(Collection, ListView, FilterView) {
-                var projects = new Collection({
-                    filterView: filters
-                });
+                var projects = new Collection;
                 projects.fetch();
 
-                // TODO: create a FilterableListView that allows the injection of a FilterView prototype
                 var view = new ListView({
                     collection: projects,
-                    formUrl: Routing.generate('project_filter_form'), // should we just make the ProjectCollection responsible for this??
-                    filterView: FilterView
+                    filterFormUrl: Routing.generate('project_filter_form'),
+                    filterViewPrototype: FilterView
                 });
 
                 App.mainRegion.show(view);

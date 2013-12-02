@@ -32,16 +32,40 @@ define(function() {
          * @param {object} options The initialization options for the collection
          */
         initialize : function(options) {
-            if (!options.filterView) {
-                throw new Error('You must provide a valid filterView option to the FilterableCollection');
+            if (!options) {
+                return;
+            }
+
+            if (options.filterView) {
+                this.setFilterView(options.filterView);
             }
 
             if (options.paginationView) {
-                this.paginationView = options.paginationView;
+                this.setPaginationView(options.paginationView);
             }
+        },
 
-            this.filterView = options.filterView;
+        /**
+         * Sets the filter view on this collection.
+         *
+         * Internally, it also binds to the "change" event on the filter
+         * view so that changes to the filters reflect in the collection.
+         *
+         * @param {Backbone.View} filterView The filter view
+         */
+        setFilterView : function(filterView) {
+            this.filterView = filterView;
             this.filterView.on('change', this.updateFromValues);
+        },
+
+        /**
+         * Sets the pagination view on this collection
+         *
+         * @param {Backbone.View} paginationView The pagination view
+         */
+        setPaginationView : function(paginationView) {
+            // TODO: bind to the change event on the pagination view (needs to be created)
+            this.paginationView = options.paginationView;
         },
 
         /**
