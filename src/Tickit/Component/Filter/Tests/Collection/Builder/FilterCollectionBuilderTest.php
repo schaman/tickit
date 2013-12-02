@@ -43,7 +43,27 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/', 'get', array());
 
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request);
+        $collection = $builder->buildFromRequest($request, 'filters');
+
+        $this->assertTrue($collection->isEmpty());
+    }
+
+    /**
+     * Tests the buildFromRequest() method
+     */
+    public function testBuildFromRequestReturnsEmptyCollectionForInvalidNamespace()
+    {
+        $filters = [
+            'filters' => [
+                FilterCollectionBuilder::FILTER_EXACT_MATCH => [
+                    'column' => 'value'
+                ]
+            ]
+        ];
+
+        $builder = new FilterCollectionBuilder();
+        $request = Request::create('/', 'get', $filters);
+        $collection = $builder->buildFromRequest($request, 'invalid-namespace');
 
         $this->assertTrue($collection->isEmpty());
     }
@@ -74,7 +94,7 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = Request::create('/', 'get', $filters);
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request);
+        $collection = $builder->buildFromRequest($request, 'filters');
 
         $this->assertEquals(6, $collection->count());
 

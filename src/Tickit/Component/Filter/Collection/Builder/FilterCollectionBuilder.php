@@ -45,15 +45,16 @@ class FilterCollectionBuilder
     /**
      * Builds a collection of filters from a request object
      *
-     * @param Request $request The request object
+     * @param Request $request         The request object
+     * @param string  $filterNamespace The namespace key of the filters in the request object
      *
      * @return FilterCollection
      */
-    public function buildFromRequest(Request $request)
+    public function buildFromRequest(Request $request, $filterNamespace)
     {
         $collection = new FilterCollection();
 
-        $requestFilters = $request->query->get('filters');
+        $requestFilters = $request->query->get($filterNamespace);
         foreach ($this->getFilterTypes() as $type) {
             $filterValues = isset($requestFilters[$type]) ? $requestFilters[$type] : array();
             $this->addFilters($filterValues, $type, $collection);
