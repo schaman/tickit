@@ -21,7 +21,8 @@ interface FilterMapperInterface
      *
      * This is usually in the form of an array, where the keys are
      * the field names and the values are the filter types
+     *
+     * @return array
      */
     public function getFieldMap();
 }
- 
