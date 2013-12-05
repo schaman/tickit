@@ -59,7 +59,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
     {
-        $filter = new ExactMatchFilter('name', '');
+        $filter = new ExactMatchFilter('username', '');
         $em = $this->getMockEntityManager();
         $query = $this->getMockQueryBuilder();
 
