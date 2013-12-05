@@ -31,6 +31,9 @@ use Doctrine\ORM\QueryBuilder;
  */
 abstract class AbstractFilter implements QueryBuilderApplicableInterface
 {
+    const FILTER_SEARCH = 'search';
+    const FILTER_EXACT_MATCH = 'exactMatch';
+    const FILTER_ORDER_BY = 'orderBy';
     /**
      * The value of this filter
      *
@@ -77,6 +80,38 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Factory method for creating a new filter object
+     *
+     * @param string $type  The type of filter to create
+     * @param string $key   The filter key
+     * @param mixed  $value The filter value
+     *
+     * @throws \InvalidArgumentException If an invalid $type value is provided
+     *
+     * @return AbstractFilter
+     */
+    public static function factory($type, $key, $value)
+    {
+        switch ($type) {
+            case static::FILTER_EXACT_MATCH:
+                $filter = new ExactMatchFilter($key, $value);
+                break;
+            case static::FILTER_ORDER_BY:
+                $filter = new OrderByFilter($key, $value);
+                break;
+            case static::FILTER_SEARCH:
+                $filter = new SearchFilter($key, $value);
+                break;
+            default:
+                throw new \InvalidArgumentException(
+                    sprintf('An invalid filter type (%s) was provided', $type)
+                );
+        }
+
+        return $filter;
     }
 
     /**

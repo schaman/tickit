@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Filter\Mapper\Project;
 
-use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Mapper\FilterMapperInterface;
 
 /**
@@ -44,10 +44,10 @@ class ProjectFilterMapper implements FilterMapperInterface
     public function getFieldMap()
     {
         return [
-            'name' => FilterCollectionBuilder::FILTER_SEARCH,
-            'owner' => FilterCollectionBuilder::FILTER_EXACT_MATCH,
-            'status' => FilterCollectionBuilder::FILTER_EXACT_MATCH,
-            'client' => FilterCollectionBuilder::FILTER_EXACT_MATCH
+            'name' => AbstractFilter::FILTER_SEARCH,
+            'owner' => AbstractFilter::FILTER_EXACT_MATCH,
+            'status' => AbstractFilter::FILTER_EXACT_MATCH,
+            'client' => AbstractFilter::FILTER_EXACT_MATCH
         ];
     }
 }

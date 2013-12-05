@@ -22,7 +22,6 @@
 namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * Exact match filter.
@@ -60,6 +59,6 @@ class ExactMatchFilter extends AbstractFilter
      */
     public function getType()
     {
-        return FilterCollectionBuilder::FILTER_EXACT_MATCH;
+        return AbstractFilter::FILTER_EXACT_MATCH;
     }
 }

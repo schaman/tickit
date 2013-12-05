@@ -22,7 +22,6 @@
 namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * OrderBy filter.
@@ -65,6 +64,6 @@ class OrderByFilter extends AbstractFilter
      */
     public function getType()
     {
-        return FilterCollectionBuilder::FILTER_ORDER_BY;
+        return AbstractFilter::FILTER_ORDER_BY;
     }
 }

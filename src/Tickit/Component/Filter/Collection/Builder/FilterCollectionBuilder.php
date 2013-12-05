@@ -21,12 +21,10 @@
 
 namespace Tickit\Component\Filter\Collection\Builder;
 
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
+use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\FilterCollection;
-use Tickit\Component\Filter\ExactMatchFilter;
-use Tickit\Component\Filter\OrderByFilter;
-use Tickit\Component\Filter\SearchFilter;
+use Tickit\Component\Filter\Mapper\FilterMapperInterface;
 
 /**
  * Filter collection builder.
@@ -38,69 +36,34 @@ use Tickit\Component\Filter\SearchFilter;
  */
 class FilterCollectionBuilder
 {
-    const FILTER_SEARCH = 'search';
-    const FILTER_EXACT_MATCH = 'exactMatch';
-    const FILTER_ORDER_BY = 'orderBy';
-
     /**
      * Builds a collection of filters from a request object
      *
      * @param Request $request         The request object
      * @param string  $filterNamespace The namespace key of the filters in the request object
+     * @param FilterMapperInterface $filterMapper
      *
      * @return FilterCollection
      */
-    public function buildFromRequest(Request $request, $filterNamespace)
+    public function buildFromRequest(Request $request, $filterNamespace, FilterMapperInterface $filterMapper)
     {
         $collection = new FilterCollection();
+        $fieldMap = $filterMapper->getFieldMap();
 
-        $requestFilters = $request->query->get($filterNamespace);
-        foreach ($this->getFilterTypes() as $type) {
-            $filterValues = isset($requestFilters[$type]) ? $requestFilters[$type] : array();
-            $this->addFilters($filterValues, $type, $collection);
+        $requestFilters = $request->query->get($filterNamespace, []);
+        foreach ($requestFilters as $fieldName => $filterValue) {
+            $type = (isset($fieldMap[$fieldName])) ? $fieldMap[$fieldName] : null;
+            if (null === $type) {
+                // we can't filter on a field when we don't know it's filter type, so skip it
+                // An alternative here might be to treat it like an ExactMatchFilter, but we
+                // need to expect that non-valid fields could be passed in the request
+                continue;
+            }
+
+            $filter = AbstractFilter::factory($type, $fieldName, $filterValue);
+            $collection->add($filter);
         }
 
         return $collection;
-    }
-
-    /**
-     * Adds filters of a given type to a collection
-     *
-     * @param array      $filters    An array of filter values
-     * @param string     $type       The type of the filters being added
-     * @param Collection $collection The collection to add the filters to
-     *
-     * @return void
-     */
-    protected function addFilters(array $filters, $type, Collection &$collection)
-    {
-        foreach ($filters as $key => $value) {
-            switch ($type) {
-                case static::FILTER_EXACT_MATCH:
-                    $filter = new ExactMatchFilter($key, $value);
-                    break;
-                case static::FILTER_ORDER_BY:
-                    $filter = new OrderByFilter($key, $value);
-                    break;
-                default:
-                    $filter = new SearchFilter($key, $value);
-            }
-
-            $collection->add($filter);
-        }
-    }
-
-    /**
-     * Gets an array of valid filter types
-     *
-     * @return array
-     */
-    private function getFilterTypes()
-    {
-        return array(
-            static::FILTER_SEARCH,
-            static::FILTER_EXACT_MATCH,
-            static::FILTER_ORDER_BY
-        );
     }
 }
