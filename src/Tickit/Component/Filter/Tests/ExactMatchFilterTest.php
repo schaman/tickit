@@ -34,8 +34,6 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
@@ -58,8 +56,28 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
+     */
+    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
+    {
+        $filter = new ExactMatchFilter('name', '');
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->never())
+              ->method('getRootAliases');
+
+        $query->expects($this->never())
+              ->method('andWhere');
+
+        $filter->applyToQuery($query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {

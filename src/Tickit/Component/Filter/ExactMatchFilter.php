@@ -46,6 +46,11 @@ class ExactMatchFilter extends AbstractFilter
             return;
         }
 
+        $value = $this->getValue();
+        if (empty($value)) {
+            return;
+        }
+
         $aliases = $query->getRootAliases();
 
         $query->andWhere(sprintf('%s.%s = :%s', $aliases[0], $this->getKey(), $this->getKey()))
