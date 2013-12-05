@@ -9,6 +9,7 @@
 
         <field name="name" type="string" length="100" />
         <field name="ticketPrefix" column="ticket_prefix" type="string" length="5" />
+        <field name="status" column="status" type="string" length="10" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
