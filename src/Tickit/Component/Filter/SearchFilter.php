@@ -46,6 +46,11 @@ class SearchFilter extends AbstractFilter
             return;
         }
 
+        $value = $this->getValue();
+        if (empty($value)) {
+            return;
+        }
+
         $aliases = $query->getRootAliases();
 
         $column = sprintf('%s.%s', $aliases[0], $this->getKey());

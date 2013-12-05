@@ -34,8 +34,6 @@ class SearchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
@@ -61,8 +59,31 @@ class SearchFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
+     */
+    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
+    {
+        $filter = new SearchFilter('username', '');
+        $em = $this->getMockEntityManager();
+        $query = $this->getMockQueryBuilder();
+
+        $this->trainQueryToReturnRootEntities($query);
+        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainEntityManagerToReturnClassMetaData($em);
+
+        $query->expects($this->never())
+              ->method('getRootAliases');
+
+        $query->expects($this->never())
+              ->method('andWhere');
+
+        $query->expects($this->never())
+              ->method('setParameter');
+
+        $filter->applyToQuery($query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
