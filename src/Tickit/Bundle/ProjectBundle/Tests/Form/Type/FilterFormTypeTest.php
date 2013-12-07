@@ -66,16 +66,8 @@ class FilterFormTypeTest extends AbstractFormTypeTestCase
     {
         $extensions = parent::getExtensions();
 
-        $decorator = $this->getMock('\Tickit\Component\Decorator\Entity\EntityDecoratorInterface');
-        $transformer = $this->getMockForAbstractClass(
-                                'Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer',
-                                [],
-                                '',
-                                false,
-                                false,
-                                true,
-                                ['transform', 'reverseTransform']
-                            );
+        $decorator = $this->getMockEntityDecorator();
+        $transformer = $this->getMockPickerDataTransformer();
 
         $transformer->expects($this->any())
                     ->method('transform')
