@@ -34,6 +34,8 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     const FILTER_SEARCH = 'search';
     const FILTER_EXACT_MATCH = 'exactMatch';
     const FILTER_ORDER_BY = 'orderBy';
+    const FILTER_DATETIME = 'datetime';
+
     /**
      * The value of this filter
      *
@@ -51,15 +53,24 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     protected $key;
 
     /**
+     * An array of filter options
+     *
+     * @var array
+     */
+    protected $options;
+
+    /**
      * Constructor
      *
-     * @param string $key   The filter key
-     * @param mixed  $value The filter value
+     * @param string $key     The filter key
+     * @param mixed  $value   The filter value
+     * @param array  $options An array of filters options (optional)
      */
-    public function __construct($key, $value)
+    public function __construct($key, $value, array $options = array())
     {
         $this->key   = $key;
         $this->value = $value;
+        $this->options = $options;
     }
 
     /**
@@ -80,6 +91,26 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Gets an option by it's name
+     *
+     * @param string $name The option name to fetch
+     *
+     * @throws \OutOfBoundsException If the option name provided does not exist
+     *
+     * @return mixed
+     */
+    public function getOption($name)
+    {
+        if (!isset($this->options[$name])) {
+            throw new \OutOfBoundsException(
+                sprintf('A non-existent option (%s) was requested', $name)
+            );
+        }
+
+        return $this->options[$name];
     }
 
     /**

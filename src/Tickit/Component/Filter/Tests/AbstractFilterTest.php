@@ -56,6 +56,36 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the getOption() method
+     *
+     * @expectedException \OutOfBoundsException
+     */
+    public function testGetOptionThrowsExceptionForMissingOption()
+    {
+        $filter = $this->getMockForAbstractClass(
+            '\Tickit\Component\Filter\AbstractFilter',
+            ['field-name', 'value', ['option' => 'value']]
+        );
+
+        $filter->getOption('invalid option');
+    }
+
+    /**
+     * Tests the getOption() method
+     */
+    public function testGetOptionReturnsValidOptionValue()
+    {
+        $filter = $this->getMockForAbstractClass(
+            '\Tickit\Component\Filter\AbstractFilter',
+            ['field-name', 'value', ['option' => 'value']]
+        );
+
+        $value = $filter->getOption('option');
+
+        $this->assertEquals('value', $value);
+    }
+
+    /**
      * Provides filter type test data
      *
      * @return array
