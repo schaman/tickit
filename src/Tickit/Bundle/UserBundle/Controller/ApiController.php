@@ -149,7 +149,7 @@ class ApiController
         $data = $decorator->decorate(
             $users,
             ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
-            ['csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)]
+            ['csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)->getValue()]
         );
 
         return new JsonResponse($data);
