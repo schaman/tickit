@@ -23,6 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\ClientBundle\Controller\TemplateController;
+use Tickit\Bundle\ClientBundle\Form\Type\FilterFormType;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Test\AbstractUnitTest;
 
@@ -74,6 +75,22 @@ class TemplateControllerTest extends AbstractUnitTest
         $this->trainFormHelperToRenderForm($form, 'TickitClientBundle:Client:edit.html.twig', 'edit-form-template');
 
         $this->assertEquals('edit-form-template', $this->getController()->editClientFormAction($client)->getContent());
+    }
+
+    /**
+     * Tests the filterFormAction() method
+     */
+    public function testFilterFormActionBuildsCorrectResponse()
+    {
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with(new FilterFormType(), [])
+                         ->will($this->returnValue($form));
+
+        $this->trainFormHelperToRenderForm($form, 'TickitClientBundle:Filters:filter-form.html.twig', 'content');
+
+        $this->assertEquals('content', $this->getController()->filterFormAction()->getContent());
     }
 
     /**

@@ -5,18 +5,18 @@
  */
 define([
     'modules/template',
+    'filter/js/views/FilterableListView',
     'client/js/views/ClientRowView',
     'text!client/views/ClientListView.html',
     'backbone'
-], function(Template, rowView, tpl, Backbone) {
+], function(Template, FilterableListView, RowView, Tpl, Backbone) {
 
-    Template.load(tpl);
+    Template.load(Tpl);
 
-    return Backbone.Marionette.CompositeView.extend({
-        tagName: 'table',
-        id: 'client-list',
+    return FilterableListView.extend({
+        tagName: 'div',
         template: '#client_list-template',
-        itemView: rowView,
+        itemView: RowView,
 
         events: {
             "click a": "linkClick"
@@ -31,8 +31,14 @@ define([
             App.Router.goTo($(e.target).attr('href'));
         },
 
+        /**
+         * Appends HTML to the view element
+         *
+         * @param {Backbone.View} collectionView The collection view
+         * @param {Backbone.View} itemView       The item view
+         */
         appendHtml: function(collectionView, itemView) {
-            collectionView.$('tbody').append(itemView.el);
+            collectionView.$('#client-list').find('tbody').append(itemView.el);
         }
     });
 });

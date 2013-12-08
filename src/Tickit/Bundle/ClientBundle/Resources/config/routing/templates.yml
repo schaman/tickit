@@ -11,3 +11,11 @@ client_edit_form:
         id: \d+
     options:
         expose: true
+
+client_filter_form:
+    pattern: /filter-form
+    defaults: { _controller: tickit_client.controller.template:filterFormAction }
+    requirements:
+        _method: GET
+    options:
+        expose: true
