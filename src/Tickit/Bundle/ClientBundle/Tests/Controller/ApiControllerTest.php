@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\Bundle\ClientBundle\Controller\ApiController;
 use Tickit\Bundle\ClientBundle\Controller\ClientController;
+use Tickit\Bundle\ClientBundle\Form\Type\FilterFormType;
+use Tickit\Component\Filter\Map\Client\ClientFilterMapper;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Test\AbstractUnitTest;
@@ -82,7 +84,7 @@ class ApiControllerTest extends AbstractUnitTest
 
         $this->filterBuilder->expects($this->once())
                             ->method('buildFromRequest')
-                            ->with($request)
+                            ->with($request, FilterFormType::NAME, new ClientFilterMapper())
                             ->will($this->returnValue($filters));
 
         $clients = [new Client(), new Client()];

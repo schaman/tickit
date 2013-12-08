@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository;
-use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
+use Tickit\Bundle\ClientBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
