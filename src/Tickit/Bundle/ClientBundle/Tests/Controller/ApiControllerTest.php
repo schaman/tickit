@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\ClientBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\Bundle\ClientBundle\Controller\ApiController;
 use Tickit\Bundle\ClientBundle\Controller\ClientController;
 use Tickit\Component\Model\Client\Client;
@@ -93,7 +94,7 @@ class ApiControllerTest extends AbstractUnitTest
 
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken', ClientController::CSRF_DELETE_INTENTION)
-                         ->will($this->returnValue('csrf-token-value'));
+                         ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
 
         $expectedData = [['client'], ['client']];
         $decorator = $this->getMockObjectCollectionDecorator();
