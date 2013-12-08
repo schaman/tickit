@@ -28,6 +28,7 @@ use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
+use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Project\ProjectFilterMapper;
 
 /**
@@ -126,9 +127,7 @@ class ApiController
      */
     public function attributesListAction()
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest(), '');
-
-        $attributes = $this->attributeRepository->findByFilters($filters);
+        $attributes = $this->attributeRepository->findByFilters(new FilterCollection());
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $data = $decorator->decorate($attributes, ['id', 'type', 'name']);

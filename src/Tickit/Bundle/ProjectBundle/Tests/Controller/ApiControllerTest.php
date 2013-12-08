@@ -125,11 +125,7 @@ class ApiControllerTest extends AbstractUnitTest
      */
     public function testAttributesListActionBuildsCorrectResponse()
     {
-        $request = new Request();
         $filters = new FilterCollection();
-
-        $this->trainBaseHelperToReturnRequest($request);
-        $this->trainFilterBuilderToReturnFilters($filters, $request);
 
         $attribute1 = new LiteralAttribute();
         $attribute1->setName('attribute 1');
