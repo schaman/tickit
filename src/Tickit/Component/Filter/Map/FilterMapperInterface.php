@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Filter\Map;
 
+use Tickit\Component\Filter\Map\Definition\FilterDefinition;
+
 /**
  * Filter Mapper interface.
  *
@@ -42,7 +44,7 @@ interface FilterMapperInterface
      * This is usually in the form of an array, where the keys are
      * the field names and the values instances of FilterDefinition
      *
-     * @return array
+     * @return FilterDefinition[]
      */
     public function getFieldMap();
 }
