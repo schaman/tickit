@@ -79,4 +79,3 @@ class UserFilterMapper implements FilterMapperInterface
         }
     }
 }
- 

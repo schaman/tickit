@@ -127,4 +127,3 @@ class CallbackFilterTest extends AbstractFilterTestCase
         return new CallbackFilter($field, $value, ['callback' => $callable]);
     }
 }
- 
