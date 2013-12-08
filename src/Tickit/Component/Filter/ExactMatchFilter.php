@@ -53,7 +53,7 @@ class ExactMatchFilter extends AbstractFilter
 
         $aliases = $query->getRootAliases();
 
-        $query->andWhere(sprintf('%s.%s = :%s', $aliases[0], $this->getKey(), $this->getKey()))
+        $query->andWhere(sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey()))
               ->setParameter($this->getKey(), $this->getValue());
     }
 
