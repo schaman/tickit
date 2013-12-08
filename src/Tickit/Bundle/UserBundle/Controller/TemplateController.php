@@ -23,6 +23,7 @@ namespace Tickit\Bundle\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
@@ -94,5 +95,22 @@ class TemplateController
         $form = $this->formHelper->createForm('tickit_user', $user);
 
         return $this->formHelper->renderForm('TickitUserBundle:User:edit.html.twig', $form);
+    }
+
+    /**
+     * Filter form template action.
+     *
+     * Serves the markup for a user listing filter form.
+     *
+     * @return Response
+     */
+    public function filterFormAction()
+    {
+        $form = $this->formHelper->createForm(new FilterFormType(), []);
+
+        return $this->formHelper->renderForm(
+            'TickitUserBundle:Filters:filter-form.html.twig',
+            $form
+        );
     }
 }
