@@ -58,14 +58,14 @@ class AbstractFilterTest extends AbstractUnitTest
 
     /**
      * Tests the getOption() method
-     *
-     * @expectedException \OutOfBoundsException
      */
-    public function testGetOptionThrowsExceptionForMissingOption()
+    public function testGetOptionReturnsFallbackValueForMissingOption()
     {
         $filter = $this->getMockAbstractFilter(['option' => 'value']);
 
-        $filter->getOption('invalid option');
+        $value = $filter->getOption('invalid option', 'fallback');
+
+        $this->assertEquals('fallback', $value);
     }
 
     /**

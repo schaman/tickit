@@ -34,6 +34,7 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     const FILTER_SEARCH = 'search';
     const FILTER_EXACT_MATCH = 'exactMatch';
     const FILTER_ORDER_BY = 'orderBy';
+    const FILTER_CALLBACK = 'callback';
 
     const COMPARATOR_EQUAL = '=';
     const COMPARATOR_GREATER_THAN = '>';
@@ -101,18 +102,16 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     /**
      * Gets an option by it's name
      *
-     * @param string $name The option name to fetch
-     *
-     * @throws \OutOfBoundsException If the option name provided does not exist
+     * @param string $name     The option name to fetch
+     * @param mixed  $fallback The value that will be returned if the option requested does not exist
+     *                         (defaults to null)
      *
      * @return mixed
      */
-    public function getOption($name)
+    public function getOption($name, $fallback = null)
     {
         if (!isset($this->options[$name])) {
-            throw new \OutOfBoundsException(
-                sprintf('A non-existent option (%s) was requested', $name)
-            );
+            return $fallback;
         }
 
         return $this->options[$name];
@@ -197,11 +196,7 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
      */
     protected function getComparator()
     {
-        try {
-            $comparator = $this->getOption('comparator');
-        } catch (\OutOfBoundsException $e) {
-            $comparator = '';
-        }
+        $comparator = $this->getOption('comparator', static::FILTER_EXACT_MATCH);
 
         $validComparators = [
             static::COMPARATOR_EQUAL,
