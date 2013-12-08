@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\PreferenceBundle\Doctrine\Repository\PreferenceRepository;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * Preferences controller.
@@ -79,8 +80,7 @@ class ApiController
      */
     public function listAction()
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
-        $preferences = $this->preferenceRepository->findByFilters($filters);
+        $preferences = $this->preferenceRepository->findByFilters(new FilterCollection());
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $data = $decorator->decorate($preferences, ['id', 'name', 'systemName', 'type']);
