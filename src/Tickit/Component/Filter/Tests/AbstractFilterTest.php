@@ -150,4 +150,3 @@ class AbstractFilterTest extends AbstractUnitTest
         );
     }
 }
- 

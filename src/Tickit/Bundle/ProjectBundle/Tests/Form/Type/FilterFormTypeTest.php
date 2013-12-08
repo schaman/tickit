@@ -88,4 +88,3 @@ class FilterFormTypeTest extends AbstractFormTypeTestCase
         return $extensions;
     }
 }
- 
