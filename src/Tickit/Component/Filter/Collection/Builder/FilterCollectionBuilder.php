@@ -24,7 +24,8 @@ namespace Tickit\Component\Filter\Collection\Builder;
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\FilterCollection;
-use Tickit\Component\Filter\Mapper\FilterMapperInterface;
+use Tickit\Component\Filter\Map\Definition\FilterDefinition;
+use Tickit\Component\Filter\Map\FilterMapperInterface;
 
 /**
  * Filter collection builder.
@@ -39,9 +40,9 @@ class FilterCollectionBuilder
     /**
      * Builds a collection of filters from a request object
      *
-     * @param Request $request         The request object
-     * @param string  $filterNamespace The namespace key of the filters in the request object
-     * @param FilterMapperInterface $filterMapper
+     * @param Request               $request         The request object
+     * @param string                $filterNamespace The namespace key of the filters in the request object
+     * @param FilterMapperInterface $filterMapper    A filter mapper
      *
      * @return FilterCollection
      */
@@ -52,15 +53,21 @@ class FilterCollectionBuilder
 
         $requestFilters = $request->query->get($filterNamespace, []);
         foreach ($requestFilters as $fieldName => $filterValue) {
-            $type = (isset($fieldMap[$fieldName])) ? $fieldMap[$fieldName] : null;
-            if (null === $type) {
+            $definition = (isset($fieldMap[$fieldName])) ? $fieldMap[$fieldName] : null;
+
+            if (!$definition instanceof FilterDefinition) {
                 // we can't filter on a field when we don't know it's filter type, so skip it
                 // An alternative here might be to treat it like an ExactMatchFilter, but we
                 // need to expect that non-valid fields could be passed in the request
                 continue;
             }
 
-            $filter = AbstractFilter::factory($type, $fieldName, $filterValue);
+            $filter = AbstractFilter::factory(
+                $definition->getType(),
+                $fieldName,
+                $filterValue,
+                $definition->getOptions()
+            );
             $collection->add($filter);
         }
 

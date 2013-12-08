@@ -24,6 +24,7 @@ namespace Tickit\Component\Filter\Tests\Collection\Builder;
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Map\Definition\FilterDefinition;
 
 /**
  * FilterCollectionBuilder tests
@@ -43,7 +44,7 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->filterMapper = $this->getMock('\Tickit\Component\Filter\Mapper\FilterMapperInterface', ['getFieldMap']);
+        $this->filterMapper = $this->getMock('\Tickit\Component\Filter\Map\FilterMapperInterface', ['getFieldMap']);
     }
 
     /**
@@ -99,7 +100,7 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $fieldMap = ['mapped_field' => AbstractFilter::FILTER_SEARCH];
+        $fieldMap = ['mapped_field' => new FilterDefinition(AbstractFilter::FILTER_SEARCH)];
 
         $this->trainFilterMapperToReturnFieldMap($fieldMap);
 
@@ -131,12 +132,12 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
         ];
 
         $fieldMap = [
-            'column' => AbstractFilter::FILTER_ORDER_BY,
-            'column2' => AbstractFilter::FILTER_ORDER_BY,
-            'field1' => AbstractFilter::FILTER_EXACT_MATCH,
-            'field2' => AbstractFilter::FILTER_EXACT_MATCH,
-            'field3' => AbstractFilter::FILTER_SEARCH,
-            'field4' => AbstractFilter::FILTER_SEARCH
+            'column' => new FilterDefinition(AbstractFilter::FILTER_ORDER_BY),
+            'column2' => new FilterDefinition(AbstractFilter::FILTER_ORDER_BY),
+            'field1' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH),
+            'field2' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH),
+            'field3' => new FilterDefinition(AbstractFilter::FILTER_SEARCH),
+            'field4' => new FilterDefinition(AbstractFilter::FILTER_SEARCH)
         ];
 
         $this->trainFilterMapperToReturnFieldMap($fieldMap);
@@ -149,7 +150,7 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
 
         /** @var AbstractFilter $filter */
         foreach ($collection->toArray() as $filter) {
-            $expectedType = $fieldMap[$filter->getKey()];
+            $expectedType = $fieldMap[$filter->getKey()]->getType();
             $this->assertEquals($expectedType, $filter->getType());
             $this->assertEquals($filters['filters'][$filter->getKey()], $filter->getValue());
         }
