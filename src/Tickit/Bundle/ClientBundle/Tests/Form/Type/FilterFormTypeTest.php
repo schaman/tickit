@@ -64,4 +64,3 @@ class FilterFormTypeTest extends AbstractFormTypeTestCase
         $this->assertViewHasComponents($expectedFields, $form->createView());
     }
 }
- 

@@ -62,4 +62,3 @@ class FilterFormType extends AbstractType
         return static::NAME;
     }
 }
- 
