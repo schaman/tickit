@@ -28,7 +28,7 @@ use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
-use Tickit\Component\Filter\Mapper\Project\ProjectFilterMapper;
+use Tickit\Component\Filter\Map\Project\ProjectFilterMapper;
 
 /**
  * Api project controller.
