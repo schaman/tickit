@@ -81,11 +81,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
-
-        $classMeta = new \stdClass();
-        $classMeta->name = 'Tickit\Component\Model\User\User';
-
-        $this->trainEntityManagerToReturnClassMetaData($this->em, $classMeta);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
         $this->query->expects($this->once())
                     ->method('getRootAliases')
