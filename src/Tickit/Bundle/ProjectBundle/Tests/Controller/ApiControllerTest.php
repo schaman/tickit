@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\ApiController;
@@ -107,7 +108,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken')
                          ->with(ProjectController::CSRF_DELETE_INTENTION)
-                         ->will($this->returnValue('csrf-token-value'));
+                         ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
 
         $expectedData = [['project'], ['project']];
 
@@ -197,7 +198,7 @@ class ApiControllerTest extends AbstractUnitTest
                         ->method('decorate')
                         ->with(
                             $projects,
-                            ['id', 'name', 'created'],
+                            ['id', 'name', 'createdAt'],
                             ['csrf_token' => 'csrf-token-value']
                         )
                         ->will($this->returnValue($returnData));

@@ -23,11 +23,13 @@ namespace Tickit\Bundle\UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
+use Tickit\Component\Filter\Map\User\UserFilterMapper;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -136,18 +138,18 @@ class ApiController
      */
     public function listAction($page = 1)
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
+        $filters = $this->filterBuilder->buildFromRequest(
+            $this->baseHelper->getRequest(),
+            FilterFormType::NAME,
+            new UserFilterMapper()
+        );
         $users = $this->userRepository->findByFilters($filters);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
-
-        $staticProperties = [
-            'csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)
-        ];
 
         $data = $decorator->decorate(
             $users,
             ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
-            $staticProperties
+            ['csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)]
         );
 
         return new JsonResponse($data);

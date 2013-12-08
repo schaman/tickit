@@ -22,7 +22,10 @@
 namespace Tickit\Bundle\UserBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\Map\User\UserFilterMapper;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Controller\ApiController;
 use Tickit\Bundle\UserBundle\Controller\UserController;
@@ -147,7 +150,7 @@ class ApiControllerTest extends AbstractUnitTest
 
         $this->filterBuilder->expects($this->once())
                             ->method('buildFromRequest')
-                            ->with($request)
+                            ->with($request, FilterFormType::NAME, new UserFilterMapper())
                             ->will($this->returnValue($filters));
 
         $user1 = new User();
@@ -169,7 +172,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken')
                          ->with(UserController::CSRF_DELETE_INTENTION)
-                         ->will($this->returnValue('token-value'));
+                         ->will($this->returnValue(new CsrfToken('id', 'token-value')));
 
         $decorator->expects($this->once())
                   ->method('decorate')
