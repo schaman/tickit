@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter\Tests;
 
 use Tickit\Component\Filter\AbstractFilter;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * AbstractFilter tests
@@ -29,7 +30,7 @@ use Tickit\Component\Filter\AbstractFilter;
  * @package Tickit\Component\Filter\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AbstractFilterTest extends \PHPUnit_Framework_TestCase
+class AbstractFilterTest extends AbstractUnitTest
 {
     /**
      * Tests the factory() method
@@ -62,10 +63,7 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOptionThrowsExceptionForMissingOption()
     {
-        $filter = $this->getMockForAbstractClass(
-            '\Tickit\Component\Filter\AbstractFilter',
-            ['field-name', 'value', ['option' => 'value']]
-        );
+        $filter = $this->getMockAbstractFilter(['option' => 'value']);
 
         $filter->getOption('invalid option');
     }
@@ -75,14 +73,50 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetOptionReturnsValidOptionValue()
     {
-        $filter = $this->getMockForAbstractClass(
-            '\Tickit\Component\Filter\AbstractFilter',
-            ['field-name', 'value', ['option' => 'value']]
-        );
+        $filter = $this->getMockAbstractFilter(['option' => 'value']);
 
         $value = $filter->getOption('option');
 
         $this->assertEquals('value', $value);
+    }
+
+    /**
+     * Tests the getComparator() method
+     */
+    public function testGetComparatorReturnsDefault()
+    {
+        $filter = $this->getMockAbstractFilter();
+        $method = $this->getNonAccessibleMethod(get_class($filter), 'getComparator');
+
+        $comparator = $method->invoke($filter);
+
+        $this->assertEquals(AbstractFilter::COMPARATOR_EQUAL, $comparator);
+    }
+
+    /**
+     * Tests the getComparator() method
+     */
+    public function testGetComparatorReturnsSpecificValue()
+    {
+        $filter = $this->getMockAbstractFilter(['comparator' => AbstractFilter::COMPARATOR_GREATER_THAN_OR_EQUAL_TO]);
+        $method = $this->getNonAccessibleMethod(get_class($filter), 'getComparator');
+
+        $comparator = $method->invoke($filter);
+
+        $this->assertEquals(AbstractFilter::COMPARATOR_GREATER_THAN_OR_EQUAL_TO, $comparator);
+    }
+
+    /**
+     * Tests the getComparator() method
+     */
+    public function testGetComparatorReturnsDefaultForInvalidValue()
+    {
+        $filter = $this->getMockAbstractFilter(['comparator' => 'invalid comparator type']);
+        $method = $this->getNonAccessibleMethod(get_class($filter), 'getComparator');
+
+        $comparator = $method->invoke($filter);
+
+        $this->assertEquals(AbstractFilter::COMPARATOR_EQUAL, $comparator);
     }
 
     /**
@@ -105,6 +139,14 @@ class AbstractFilterTest extends \PHPUnit_Framework_TestCase
                 AbstractFilter::FILTER_SEARCH,
                 '\Tickit\Component\Filter\SearchFilter'
             )
+        );
+    }
+
+    private function getMockAbstractFilter(array $options = [])
+    {
+        return $this->getMockForAbstractClass(
+            '\Tickit\Component\Filter\AbstractFilter',
+            ['field-name', 'value', $options]
         );
     }
 }

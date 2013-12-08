@@ -36,6 +36,12 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     const FILTER_ORDER_BY = 'orderBy';
     const FILTER_DATETIME = 'datetime';
 
+    const COMPARATOR_EQUAL = '=';
+    const COMPARATOR_GREATER_THAN = '>';
+    const COMPARATOR_LESS_THAN = '<';
+    const COMPARATOR_LESS_THAN_OR_EQUAL_TO = '<=';
+    const COMPARATOR_GREATER_THAN_OR_EQUAL_TO = '>=';
+
     /**
      * The value of this filter
      *
@@ -182,5 +188,33 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
         } catch (\ReflectionException $e) {
             return false;
         }
+    }
+
+    /**
+     * Gets the comparator option on the filter
+     *
+     * @return string
+     */
+    protected function getComparator()
+    {
+        try {
+            $comparator = $this->getOption('comparator');
+        } catch (\OutOfBoundsException $e) {
+            $comparator = '';
+        }
+
+        $validComparators = [
+            static::COMPARATOR_EQUAL,
+            static::COMPARATOR_GREATER_THAN,
+            static::COMPARATOR_GREATER_THAN_OR_EQUAL_TO,
+            static::COMPARATOR_LESS_THAN,
+            static::COMPARATOR_LESS_THAN_OR_EQUAL_TO
+        ];
+
+        if (false === in_array($comparator, $validComparators)) {
+            return static::COMPARATOR_EQUAL;
+        }
+
+        return $comparator;
     }
 }
