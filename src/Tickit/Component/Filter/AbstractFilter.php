@@ -34,7 +34,6 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     const FILTER_SEARCH = 'search';
     const FILTER_EXACT_MATCH = 'exactMatch';
     const FILTER_ORDER_BY = 'orderBy';
-    const FILTER_DATETIME = 'datetime';
 
     const COMPARATOR_EQUAL = '=';
     const COMPARATOR_GREATER_THAN = '>';
@@ -122,25 +121,26 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     /**
      * Factory method for creating a new filter object
      *
-     * @param string $type  The type of filter to create
-     * @param string $key   The filter key
-     * @param mixed  $value The filter value
+     * @param string $type    The type of filter to create
+     * @param string $key     The filter key
+     * @param mixed  $value   The filter value
+     * @param array  $options An array of filter options (optional)
      *
      * @throws \InvalidArgumentException If an invalid $type value is provided
      *
      * @return AbstractFilter
      */
-    public static function factory($type, $key, $value)
+    public static function factory($type, $key, $value, array $options = [])
     {
         switch ($type) {
             case static::FILTER_EXACT_MATCH:
-                $filter = new ExactMatchFilter($key, $value);
+                $filter = new ExactMatchFilter($key, $value, $options);
                 break;
             case static::FILTER_ORDER_BY:
-                $filter = new OrderByFilter($key, $value);
+                $filter = new OrderByFilter($key, $value, $options);
                 break;
             case static::FILTER_SEARCH:
-                $filter = new SearchFilter($key, $value);
+                $filter = new SearchFilter($key, $value, $options);
                 break;
             default:
                 throw new \InvalidArgumentException(
