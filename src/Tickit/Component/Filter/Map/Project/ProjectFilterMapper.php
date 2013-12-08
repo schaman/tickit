@@ -19,17 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Filter\Mapper\Project;
+namespace Tickit\Component\Filter\Map\Project;
 
 use Tickit\Component\Filter\AbstractFilter;
-use Tickit\Component\Filter\Mapper\FilterMapperInterface;
+use Tickit\Component\Filter\Map\Definition\FilterDefinition;
+use Tickit\Component\Filter\Map\FilterMapperInterface;
 
 /**
  * Project Filter Mapper
  *
  * Returns filter mapping information for projects.
  *
- * @package Tickit\Component\Filter\Mapper\Project
+ * @package Tickit\Component\Filter\Map\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectFilterMapper implements FilterMapperInterface
@@ -44,10 +45,10 @@ class ProjectFilterMapper implements FilterMapperInterface
     public function getFieldMap()
     {
         return [
-            'name' => AbstractFilter::FILTER_SEARCH,
-            'owner' => AbstractFilter::FILTER_EXACT_MATCH,
-            'status' => AbstractFilter::FILTER_EXACT_MATCH,
-            'client' => AbstractFilter::FILTER_EXACT_MATCH
+            'name' => new FilterDefinition(AbstractFilter::FILTER_SEARCH),
+            'owner' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH),
+            'status' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH),
+            'client' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH)
         ];
     }
 }

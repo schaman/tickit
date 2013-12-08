@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Filter\Mapper;
+namespace Tickit\Component\Filter\Map;
 
 /**
  * Filter Mapper interface.
@@ -27,9 +27,10 @@ namespace Tickit\Component\Filter\Mapper;
  * Filter mappers are responsible for returning a map of field names
  * to the filter types that they should implement.
  *
- * @package Tickit\Component\Filter\Mapper
+ * @package Tickit\Component\Filter\Map
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder
+ * @see     Tickit\Component\Filter\Map\Definition\FilterDefinitionInterface
  */
 interface FilterMapperInterface
 {
@@ -39,7 +40,7 @@ interface FilterMapperInterface
      * Returns the mapping of field names to filter types.
      *
      * This is usually in the form of an array, where the keys are
-     * the field names and the values are the filter types
+     * the field names and the values instances of FilterDefinition
      *
      * @return array
      */
