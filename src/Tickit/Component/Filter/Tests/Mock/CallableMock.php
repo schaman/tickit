@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Filter\Tests\Mock;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-
 /**
  * CallableMock
  *
+ * This is used so that a spy can make sure that the CallbackFilter
+ * makes a call to CallableMock::method().
+ *
  * @package Tickit\Component\Filter\Tests\Mock
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @see     Tickit\Component\Filter\Tests\CallbackFilterTest
  */
 class CallableMock
 {
