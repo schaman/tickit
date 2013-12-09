@@ -132,6 +132,18 @@ class Client
     }
 
     /**
+     * Returns false if the given status is not valid
+     *
+     * @param string $status The status to check
+     *
+     * @return boolean
+     */
+    public static function checkStatusIsValid($status)
+    {
+        return in_array($status, static::getValidStatuses());
+    }
+
+    /**
      * Get the unique identifier
      *
      * @return integer 
@@ -284,7 +296,7 @@ class Client
      */
     public function setStatus($status)
     {
-        if (!in_array($status, static::getValidStatuses())) {
+        if (false === static::checkStatusIsValid($status)) {
             throw new \InvalidArgumentException(
                 sprintf('An invalid status was provided (%s)', $status)
             );
