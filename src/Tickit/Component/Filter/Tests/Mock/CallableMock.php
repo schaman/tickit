@@ -33,7 +33,7 @@ namespace Tickit\Component\Filter\Tests\Mock;
  */
 class CallableMock
 {
-    public function method(&$qb, $value)
+    public function test(&$qb, $value)
     {
         $qb->andWhere('u.username = :username')
            ->setParameter('username', $value);

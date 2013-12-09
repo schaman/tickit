@@ -49,7 +49,7 @@ class CallbackFilterTest extends AbstractFilterTestCase
         parent::setUp();
 
         $this->mock = $this->getMock('\Tickit\Component\Filter\Tests\Mock\CallableMock');
-        $this->callable = [$this->mock, 'method'];
+        $this->callable = [$this->mock, 'test'];
     }
 
     /**
@@ -65,7 +65,7 @@ class CallbackFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->mock->expects($this->never())
-                   ->method('method');
+                   ->method('test');
 
         $filter = $this->getFilter('invalid field', 'value', $this->callable);
         $filter->applyToQuery($this->query);
@@ -84,7 +84,7 @@ class CallbackFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->mock->expects($this->never())
-                   ->method('method');
+                   ->method('test');
 
         $filter = $this->getFilter('username', '', $this->callable);
         $filter->applyToQuery($this->query);
@@ -115,7 +115,7 @@ class CallbackFilterTest extends AbstractFilterTestCase
         $this->trainEntityManagerToReturnClassMetaData($this->em);
 
         $this->mock->expects($this->once())
-                   ->method('method')
+                   ->method('test')
                    ->with($this->query, 'value');
 
         $filter = $this->getFilter('username', 'value', $this->callable);
