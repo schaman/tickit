@@ -113,7 +113,7 @@ class TemplateControllerTest extends AbstractUnitTest
         $form = $this->getMockForm();
         $this->formHelper->expects($this->once())
                          ->method('createForm')
-                         ->with(new FilterFormType(), [])
+                         ->with('tickit_user_filters', [])
                          ->will($this->returnValue($form));
 
         $this->formHelper->expects($this->once())

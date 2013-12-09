@@ -93,7 +93,7 @@ class TemplateController
      */
     public function filterFormAction()
     {
-        $form = $this->formHelper->createForm(new FilterFormType(), []);
+        $form = $this->formHelper->createForm('tickit_client_filters', []);
 
         return $this->formHelper->renderForm(
             'TickitClientBundle:Filters:filter-form.html.twig',

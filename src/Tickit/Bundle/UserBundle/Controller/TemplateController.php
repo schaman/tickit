@@ -106,7 +106,7 @@ class TemplateController
      */
     public function filterFormAction()
     {
-        $form = $this->formHelper->createForm(new FilterFormType(), []);
+        $form = $this->formHelper->createForm('tickit_user_filters', []);
 
         return $this->formHelper->renderForm(
             'TickitUserBundle:Filters:filter-form.html.twig',

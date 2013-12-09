@@ -85,7 +85,7 @@ class TemplateControllerTest extends AbstractUnitTest
         $form = $this->getMockForm();
         $this->formHelper->expects($this->once())
                          ->method('createForm')
-                         ->with(new FilterFormType(), [])
+                         ->with('tickit_client_filters', [])
                          ->will($this->returnValue($form));
 
         $this->trainFormHelperToRenderForm($form, 'TickitClientBundle:Filters:filter-form.html.twig', 'content');
