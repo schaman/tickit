@@ -27,8 +27,8 @@ define(function() {
          *
          * @returns {string}
          */
-        getCreated : function() {
-            var date = new Date(this.get('created'));
+        getCreatedAt : function() {
+            var date = new Date(this.get('createdAt'));
             return date.toLocaleString();
         }
     });

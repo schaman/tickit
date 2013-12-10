@@ -39,20 +39,18 @@ class OrderByFilterTest extends AbstractFilterTestCase
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
         $filter = new OrderByFilter('invalid name', OrderByFilter::DIR_DESC);
-        $query = $this->getMockQueryBuilder();
-        $em = $this->getMockEntityManager();
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $query->expects($this->never())
-              ->method('getRootAliases');
+        $this->query->expects($this->never())
+                    ->method('getRootAliases');
 
-        $query->expects($this->never())
-              ->method('addOrderBy');
+        $this->query->expects($this->never())
+                    ->method('addOrderBy');
 
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 
     /**
@@ -64,22 +62,19 @@ class OrderByFilterTest extends AbstractFilterTestCase
     {
         $filter = new OrderByFilter('username', OrderByFilter::DIR_ASC);
 
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+        $this->query->expects($this->once())
+                    ->method('getRootAliases')
+                    ->will($this->returnValue(array('u')));
 
-        $query->expects($this->once())
-              ->method('getRootAliases')
-              ->will($this->returnValue(array('u')));
+        $this->query->expects($this->once())
+                    ->method('addOrderBy')
+                    ->with('u.username', OrderByFilter::DIR_ASC);
 
-        $query->expects($this->once())
-              ->method('addOrderBy')
-              ->with('u.username', OrderByFilter::DIR_ASC);
-
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 
     /**
@@ -91,21 +86,18 @@ class OrderByFilterTest extends AbstractFilterTestCase
     {
         $filter = new OrderByFilter('username', 'crazy direction');
 
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+        $this->query->expects($this->once())
+                    ->method('getRootAliases')
+                    ->will($this->returnValue(array('u')));
 
-        $query->expects($this->once())
-              ->method('getRootAliases')
-              ->will($this->returnValue(array('u')));
+        $this->query->expects($this->once())
+                    ->method('addOrderBy')
+                    ->with('u.username', OrderByFilter::DIR_DESC);
 
-        $query->expects($this->once())
-              ->method('addOrderBy')
-              ->with('u.username', OrderByFilter::DIR_DESC);
-
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 }

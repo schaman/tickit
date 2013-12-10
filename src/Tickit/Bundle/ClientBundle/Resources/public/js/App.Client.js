@@ -16,13 +16,16 @@ define(function() {
         module.loadClientList = function() {
             require([
                 'client/js/collections/ClientCollection',
+                'filter/js/views/FilterView',
                 'client/js/views/ClientListView',
                 'client/js/views/ClientRowView'
-            ], function(collection, listView) {
-                var clients = new collection;
+            ], function(Collection, FilterView, ListView) {
+                var clients = new Collection;
                 clients.fetch();
-                var view = new listView({
-                    collection: clients
+                var view = new ListView({
+                    collection: clients,
+                    filterViewPrototype: FilterView,
+                    filterFormUrl: Routing.generate('client_filter_form')
                 });
 
                 App.mainRegion.show(view);

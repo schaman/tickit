@@ -22,11 +22,14 @@
 namespace Tickit\Bundle\ProjectBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
+use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\Map\Project\ProjectFilterMapper;
 
 /**
  * Api project controller.
@@ -103,15 +106,16 @@ class ApiController
      */
     public function listAction()
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
+        $request = $this->baseHelper->getRequest();
+        $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new ProjectFilterMapper());
         $projects = $this->projectRepository->findByFilters($filters);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
         $staticProperties = [
-            'csrf_token' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)
+            'csrf_token' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)->getValue()
         ];
 
-        $data = $decorator->decorate($projects, ['id', 'name', 'created'], $staticProperties);
+        $data = $decorator->decorate($projects, ['id', 'name', 'createdAt'], $staticProperties);
 
         return new JsonResponse($data);
     }
@@ -123,9 +127,7 @@ class ApiController
      */
     public function attributesListAction()
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
-
-        $attributes = $this->attributeRepository->findByFilters($filters);
+        $attributes = $this->attributeRepository->findByFilters(new FilterCollection());
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $data = $decorator->decorate($attributes, ['id', 'type', 'name']);

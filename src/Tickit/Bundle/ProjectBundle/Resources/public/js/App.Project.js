@@ -17,12 +17,16 @@ define(function() {
             require([
                 'project/js/collections/ProjectCollection',
                 'project/js/views/ProjectListView',
+                'filter/js/views/FilterView',
                 'project/js/views/ProjectRowView'
-            ], function(collection, listView) {
-                var projects = new collection;
+            ], function(Collection, ListView, FilterView) {
+                var projects = new Collection;
                 projects.fetch();
-                var view = new listView({
-                    collection: projects
+
+                var view = new ListView({
+                    collection: projects,
+                    filterFormUrl: Routing.generate('project_filter_form'),
+                    filterViewPrototype: FilterView
                 });
 
                 App.mainRegion.show(view);

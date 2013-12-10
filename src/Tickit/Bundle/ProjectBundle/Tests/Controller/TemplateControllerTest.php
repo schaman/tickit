@@ -22,8 +22,8 @@
 namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
+use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\TemplateController;
 use Tickit\Component\Model\Project\LiteralAttribute;
@@ -52,11 +52,6 @@ class TemplateControllerTest extends AbstractUnitTest
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $projectFormType;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     private $attributeFormTypeGuesser;
 
     /**
@@ -69,10 +64,6 @@ class TemplateControllerTest extends AbstractUnitTest
                                        ->getMock();
 
         $this->formHelper = $this->getMockFormHelper();
-
-        $this->projectFormType = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType')
-                                      ->disableOriginalConstructor()
-                                      ->getMock();
 
         $this->attributeFormTypeGuesser = $this->getMockBuilder('Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser')
                                                ->disableOriginalConstructor()
@@ -97,7 +88,7 @@ class TemplateControllerTest extends AbstractUnitTest
 
         $this->formHelper->expects($this->once())
                          ->method('createForm')
-                         ->with($this->projectFormType, $projectWithAttributes)
+                         ->with('tickit_project', $projectWithAttributes)
                          ->will($this->returnValue($projectForm));
 
         $this->formHelper->expects($this->once())
@@ -119,7 +110,7 @@ class TemplateControllerTest extends AbstractUnitTest
 
         $this->formHelper->expects($this->once())
                          ->method('createForm')
-                         ->with($this->projectFormType, $project)
+                         ->with('tickit_project', $project)
                          ->will($this->returnValue($form));
 
         $response = new Response();
@@ -211,6 +202,30 @@ class TemplateControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Tests the filterFormAction() method
+     */
+    public function testFilterFormActionBuildsCorrectResponse()
+    {
+        $form = $this->getMockForm();
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with('tickit_project_filters')
+                         ->will($this->returnValue($form));
+
+        $response = new Response();
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with(
+                             'TickitProjectBundle:Filters:filter-form.html.twig',
+                             $form
+                         )
+                         ->will($this->returnValue($response));
+
+        $return = $this->getController()->filterFormAction();
+        $this->assertSame($response, $return);
+    }
+
+    /**
      * Gets a controller instance
      *
      * @return TemplateController
@@ -220,7 +235,6 @@ class TemplateControllerTest extends AbstractUnitTest
         return new TemplateController(
             $this->attributeManager,
             $this->formHelper,
-            $this->projectFormType,
             $this->attributeFormTypeGuesser
         );
     }

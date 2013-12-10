@@ -112,6 +112,38 @@ class Client
     }
 
     /**
+     * Returns an array of valid status types
+     *
+     * @param boolean $withFriendlyNames If true, will return an array of user-friendly status values
+     *                                   indexed by their value
+     *
+     * @return array
+     */
+    public static function getValidStatuses($withFriendlyNames = false)
+    {
+        if (true === $withFriendlyNames) {
+            return [
+                static::STATUS_ACTIVE => 'Active',
+                static::STATUS_ARCHIVED => 'Archived'
+            ];
+        }
+
+        return [static::STATUS_ACTIVE, static::STATUS_ARCHIVED];
+    }
+
+    /**
+     * Returns false if the given status is not valid
+     *
+     * @param string $status The status to check
+     *
+     * @return boolean
+     */
+    public static function checkStatusIsValid($status)
+    {
+        return in_array($status, static::getValidStatuses());
+    }
+
+    /**
      * Get the unique identifier
      *
      * @return integer 
@@ -264,7 +296,7 @@ class Client
      */
     public function setStatus($status)
     {
-        if (!in_array($status, [static::STATUS_ACTIVE, static::STATUS_ARCHIVED])) {
+        if (false === static::checkStatusIsValid($status)) {
             throw new \InvalidArgumentException(
                 sprintf('An invalid status was provided (%s)', $status)
             );

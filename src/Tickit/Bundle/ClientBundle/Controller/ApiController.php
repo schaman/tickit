@@ -23,9 +23,11 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository;
+use Tickit\Bundle\ClientBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Map\Client\ClientFilterMapper;
 
 /**
  * API controller.
@@ -94,18 +96,16 @@ class ApiController
      */
     public function listAction($page = 1)
     {
-        $filters = $this->filterBuilder->buildFromRequest($this->baseHelper->getRequest());
+        $request = $this->baseHelper->getRequest();
+        $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new ClientFilterMapper());
         $clients = $this->clientRepository->findByFilters($filters);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
-        $staticProperties = [
-            'csrf_token' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)
-        ];
 
         $data = $decorator->decorate(
             $clients,
             ['id', 'name', 'url', 'status', 'totalProjects', 'created'],
-            $staticProperties
+            ['csrf_token' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)->getValue()]
         );
 
         return new JsonResponse($data);

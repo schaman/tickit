@@ -23,6 +23,7 @@ namespace Tickit\Bundle\ClientBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Tickit\Bundle\ClientBundle\Form\Type\FilterFormType;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Controller\Helper\FormHelper;
 
@@ -81,5 +82,22 @@ class TemplateController
         $form = $this->formHelper->createForm('tickit_client', $client);
 
         return $this->formHelper->renderForm('TickitClientBundle:Client:edit.html.twig', $form);
+    }
+
+    /**
+     * Filter form action.
+     *
+     * Serves a template containing a filter form for projects.
+     *
+     * @return Response
+     */
+    public function filterFormAction()
+    {
+        $form = $this->formHelper->createForm('tickit_client_filters', []);
+
+        return $this->formHelper->renderForm(
+            'TickitClientBundle:Filters:filter-form.html.twig',
+            $form
+        );
     }
 }

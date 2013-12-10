@@ -132,4 +132,32 @@ class AbstractFormTypeTestCase extends TypeTestCase
             $this->assertArrayHasKey($name, $view->children);
         }
     }
+
+    /**
+     * Gets a mock entity decorator instance
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockEntityDecorator()
+    {
+        return $this->getMock('\Tickit\Component\Decorator\Entity\EntityDecoratorInterface');
+    }
+
+    /**
+     * Gets a mock instance of a data transformer for pickers
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockPickerDataTransformer()
+    {
+        return $this->getMockForAbstractClass(
+            'Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer',
+            [],
+            '',
+            false,
+            false,
+            true,
+            ['transform', 'reverseTransform']
+        );
+    }
 }

@@ -24,6 +24,7 @@ namespace Tickit\Component\Filter\Tests\Collection\Builder;
 use Symfony\Component\HttpFoundation\Request;
 use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Map\Definition\FilterDefinition;
 
 /**
  * FilterCollectionBuilder tests
@@ -34,6 +35,19 @@ use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $filterMapper;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->filterMapper = $this->getMock('\Tickit\Component\Filter\Map\FilterMapperInterface', ['getFieldMap']);
+    }
+
+    /**
      * Tests the buildFromRequest() method
      *
      * @return void
@@ -42,44 +56,110 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $request = Request::create('/', 'get', array());
 
+        $this->filterMapper->expects($this->once())
+                           ->method('getFieldMap')
+                           ->will($this->returnValue(null));
+
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request);
+        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
 
         $this->assertTrue($collection->isEmpty());
     }
 
     /**
      * Tests the buildFromRequest() method
-     *
-     * @return void
      */
-    public function testBuildFromRequestReturnsValidCollection()
+    public function testBuildFromRequestReturnsEmptyCollectionForInvalidNamespace()
     {
-        $filters = array(
-            FilterCollectionBuilder::FILTER_ORDER_BY => array(
-                'column' => 'ASC',
-                'column2' => 'DESC'
-            ),
-            FilterCollectionBuilder::FILTER_EXACT_MATCH => array(
-                'field1' => 'value',
-                'field2' => 500
-            ),
-            FilterCollectionBuilder::FILTER_SEARCH => array(
-                'field3' => 'search term',
-                'field4' => 'another search term'
-            )
-        );
+        $filters = [
+            'filters' => [
+                'column' => 'value'
+            ]
+        ];
+
+        $this->filterMapper->expects($this->once())
+                           ->method('getFieldMap')
+                           ->will($this->returnValue(null));
+
+        $builder = new FilterCollectionBuilder();
+        $request = Request::create('/', 'get', $filters);
+        $collection = $builder->buildFromRequest($request, 'invalid-namespace', $this->filterMapper);
+
+        $this->assertTrue($collection->isEmpty());
+    }
+
+    /**
+     * Tests the buildFromRequest() method
+     */
+    public function testBuildFromRequestIgnoresNonMappedFields()
+    {
+        $filters = [
+            'filters' => [
+                'mapped_field' => 'search term',
+                'unmapped_field' => 'search term'
+            ]
+        ];
+
+        $fieldMap = ['mapped_field' => new FilterDefinition(AbstractFilter::FILTER_SEARCH)];
+
+        $this->trainFilterMapperToReturnFieldMap($fieldMap);
 
         $request = Request::create('/', 'get', $filters);
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request);
+        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
+
+        $this->assertEquals(1, $collection->count());
+        $mappedFilter = $collection->first();
+
+        $this->assertEquals('mapped_field', $mappedFilter->getKey());
+        $this->assertEquals(AbstractFilter::FILTER_SEARCH, $mappedFilter->getType());
+    }
+
+    /**
+     * Tests the buildFromRequest() method
+     */
+    public function testBuildFromRequestReturnsValidCollection()
+    {
+        $filters = [
+            'filters' => [
+                'column' => 'ASC',
+                'column2' => 'DESC',
+                'field1' => 'value',
+                'field2' => 500,
+                'field3' => 'search term',
+                'field4' => 'another search term'
+            ]
+        ];
+
+        $fieldMap = [
+            'column' => new FilterDefinition(AbstractFilter::FILTER_ORDER_BY),
+            'column2' => new FilterDefinition(AbstractFilter::FILTER_ORDER_BY),
+            'field1' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH),
+            'field2' => new FilterDefinition(AbstractFilter::FILTER_EXACT_MATCH),
+            'field3' => new FilterDefinition(AbstractFilter::FILTER_SEARCH),
+            'field4' => new FilterDefinition(AbstractFilter::FILTER_SEARCH)
+        ];
+
+        $this->trainFilterMapperToReturnFieldMap($fieldMap);
+
+        $request = Request::create('/', 'get', $filters);
+        $builder = new FilterCollectionBuilder();
+        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
 
         $this->assertEquals(6, $collection->count());
 
         /** @var AbstractFilter $filter */
-        foreach ($collection as $filter) {
-            $expectedValue = $filters[$filter->getType()][$filter->getKey()];
-            $this->assertEquals($expectedValue, $filter->getValue());
+        foreach ($collection->toArray() as $filter) {
+            $expectedType = $fieldMap[$filter->getKey()]->getType();
+            $this->assertEquals($expectedType, $filter->getType());
+            $this->assertEquals($filters['filters'][$filter->getKey()], $filter->getValue());
         }
+    }
+
+    private function trainFilterMapperToReturnFieldMap($fieldMap)
+    {
+        $this->filterMapper->expects($this->once())
+                           ->method('getFieldMap')
+                           ->will($this->returnValue($fieldMap));
     }
 }

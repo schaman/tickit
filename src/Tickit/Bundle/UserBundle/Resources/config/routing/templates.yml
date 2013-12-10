@@ -20,3 +20,11 @@ user_edit_form:
         _method: GET
     options:
         expose: true
+
+user_filter_form:
+    pattern: /filter-form
+    defaults: { _controller: tickit_user.controller.template:filterFormAction }
+    requirements:
+        method: GET
+    options:
+        expose: true

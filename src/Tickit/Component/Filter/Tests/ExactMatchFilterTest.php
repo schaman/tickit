@@ -34,60 +34,68 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
         $filter = new ExactMatchFilter('invalid name', 'exact value');
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $query->expects($this->never())
-              ->method('getRootAliases');
+        $this->query->expects($this->never())
+                    ->method('getRootAliases');
 
-        $query->expects($this->never())
-              ->method('andWhere');
+        $this->query->expects($this->never())
+                    ->method('andWhere');
 
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
+     */
+    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
+    {
+        $filter = new ExactMatchFilter('username', '');
+
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
+
+        $this->query->expects($this->never())
+                    ->method('getRootAliases');
+
+        $this->query->expects($this->never())
+                    ->method('andWhere');
+
+        $filter->applyToQuery($this->query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
         $filter = new ExactMatchFilter('username', 'exact value');
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $classMeta = new \stdClass();
-        $classMeta->name = 'Tickit\Component\Model\User\User';
+        $this->query->expects($this->once())
+                    ->method('getRootAliases')
+                    ->will($this->returnValue(array('u')));
 
-        $this->trainEntityManagerToReturnClassMetaData($em, $classMeta);
+        $this->query->expects($this->once())
+                    ->method('andWhere')
+                    ->with('u.username = :username')
+                    ->will($this->returnSelf());
 
-        $query->expects($this->once())
-              ->method('getRootAliases')
-              ->will($this->returnValue(array('u')));
+        $this->query->expects($this->once())
+                    ->method('setParameter')
+                    ->with('username', 'exact value');
 
-        $query->expects($this->once())
-              ->method('andWhere')
-              ->with('u.username = :username')
-              ->will($this->returnSelf());
-
-        $query->expects($this->once())
-              ->method('setParameter')
-              ->with('username', 'exact value');
-
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 }

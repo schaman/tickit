@@ -28,7 +28,6 @@ use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
-use Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType;
 use Tickit\Component\Entity\Manager\AttributeManager;
 use Tickit\Component\Entity\Manager\UserManager;
 
@@ -57,13 +56,6 @@ class TemplateController
     protected $formHelper;
 
     /**
-     * The project form type
-     *
-     * @var ProjectFormType
-     */
-    protected $projectFormType;
-
-    /**
      * Attribute form type guesser
      *
      * @var AttributeFormTypeGuesser
@@ -75,18 +67,15 @@ class TemplateController
      *
      * @param AttributeManager         $attributeManager         The user manager
      * @param FormHelper               $formHelper               A form factory
-     * @param ProjectFormType          $projectFormType          The project form type
      * @param AttributeFormTypeGuesser $attributeFormTypeGuesser The attribute form type guesser
      */
     public function __construct(
         AttributeManager $attributeManager,
         FormHelper $formHelper,
-        ProjectFormType $projectFormType,
         AttributeFormTypeGuesser $attributeFormTypeGuesser
     ) {
         $this->attributeManager = $attributeManager;
         $this->formHelper = $formHelper;
-        $this->projectFormType = $projectFormType;
         $this->attributeFormTypeGuesser = $attributeFormTypeGuesser;
     }
 
@@ -103,7 +92,7 @@ class TemplateController
 
         $attributes = $this->attributeManager->getAttributeValuesForProject($project);
         $project->setAttributes($attributes);
-        $form = $this->formHelper->createForm($this->projectFormType, $project);
+        $form = $this->formHelper->createForm('tickit_project', $project);
 
         return $this->formHelper->renderForm('TickitProjectBundle:Project:create.html.twig', $form);
     }
@@ -121,7 +110,7 @@ class TemplateController
      */
     public function editProjectFormAction(Project $project)
     {
-        $form = $this->formHelper->createForm($this->projectFormType, $project);
+        $form = $this->formHelper->createForm('tickit_project', $project);
 
         return $this->formHelper->renderForm('TickitProjectBundle:Project:edit.html.twig', $form);
     }
@@ -175,6 +164,23 @@ class TemplateController
             'TickitProjectBundle:Attribute:edit.html.twig',
             $form,
             array('type' => $attribute->getType())
+        );
+    }
+
+    /**
+     * Filter form action.
+     *
+     * Serves a template containing a filter form for projects.
+     *
+     * @return Response
+     */
+    public function filterFormAction()
+    {
+        $form = $this->formHelper->createForm('tickit_project_filters', []);
+
+        return $this->formHelper->renderForm(
+            'TickitProjectBundle:Filters:filter-form.html.twig',
+            $form
         );
     }
 }

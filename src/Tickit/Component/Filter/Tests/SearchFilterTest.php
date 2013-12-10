@@ -34,50 +34,64 @@ class SearchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
     {
         $filter = new SearchFilter('invalid name', 'search value');
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $query->expects($this->never())
-              ->method('getRootAliases');
+        $this->query->expects($this->never())
+                    ->method('getRootAliases');
 
-        $query->expects($this->never())
-              ->method('andWhere');
+        $this->query->expects($this->never())
+                    ->method('andWhere');
 
-        $query->expects($this->never())
-              ->method('setParameter');
+        $this->query->expects($this->never())
+                    ->method('setParameter');
 
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
+     */
+    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
+    {
+        $filter = new SearchFilter('username', '');
+
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
+
+        $this->query->expects($this->never())
+                    ->method('getRootAliases');
+
+        $this->query->expects($this->never())
+                    ->method('andWhere');
+
+        $this->query->expects($this->never())
+                    ->method('setParameter');
+
+        $filter->applyToQuery($this->query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
      */
     public function testApplyToQueryAppliesFilterForValidKeyName()
     {
         $filter = new SearchFilter('username', 'search value');
 
-        $em = $this->getMockEntityManager();
-        $query = $this->getMockQueryBuilder();
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $this->trainQueryToReturnRootEntities($query);
-        $this->trainQueryToReturnEntityManager($query, $em);
-        $this->trainEntityManagerToReturnClassMetaData($em);
-
-        $query->expects($this->once())
-              ->method('getRootAliases')
-              ->will($this->returnValue(['u']));
+        $this->query->expects($this->once())
+                    ->method('getRootAliases')
+                    ->will($this->returnValue(['u']));
 
         $expression = new Comparison('u.username', 'LIKE', ':username');
 
@@ -90,19 +104,19 @@ class SearchFilterTest extends AbstractFilterTestCase
                           ->with('u.username', ':username')
                           ->will($this->returnValue($expression));
 
-        $query->expects($this->once())
-              ->method('expr')
-              ->will($this->returnValue($expressionBuilder));
+        $this->query->expects($this->once())
+                    ->method('expr')
+                    ->will($this->returnValue($expressionBuilder));
 
-        $query->expects($this->once())
-              ->method('andWhere')
-              ->with($expression)
-              ->will($this->returnSelf());
+        $this->query->expects($this->once())
+                    ->method('andWhere')
+                    ->with($expression)
+                    ->will($this->returnSelf());
 
-        $query->expects($this->once())
-              ->method('setParameter')
-              ->with('username', '%search value%');
+        $this->query->expects($this->once())
+                    ->method('setParameter')
+                    ->with('username', '%search value%');
 
-        $filter->applyToQuery($query);
+        $filter->applyToQuery($this->query);
     }
 }

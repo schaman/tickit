@@ -24,6 +24,7 @@ namespace Tickit\Component\Model\Project;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Client\Client;
+use Tickit\Component\Model\User\User;
 
 /**
  * Project entity
@@ -35,6 +36,9 @@ use Tickit\Component\Model\Client\Client;
  */
 class Project
 {
+    const STATUS_ACTIVE = 'active';
+    const STATUS_ARCHIVED = 'archived';
+
     /**
      * The unique identifier for this project
      *
@@ -57,18 +61,18 @@ class Project
     protected $client;
 
     /**
-     * Tickets related to this project
+     * The prefix for tickets on this project
      *
-     * @var Collection
+     * @var string
      */
-    protected $tickets;
+    protected $ticketPrefix;
 
     /**
-     * Attribute values for this project
+     * The status of this project
      *
-     * @var Collection
+     * @var string
      */
-    protected $attributes;
+    protected $status;
 
     /**
      * The date/time that this project was created
@@ -92,11 +96,34 @@ class Project
     protected $deletedAt;
 
     /**
+     * The user who owns this project
+     *
+     * @var User
+     */
+    protected $owner;
+
+    /**
+     * Tickets related to this project
+     *
+     * @var Collection
+     */
+    protected $tickets;
+
+    /**
+     * Attribute values for this project
+     *
+     * @var Collection
+     */
+    protected $attributes;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
+        $this->status = static::STATUS_ACTIVE;
     }
 
     /**
@@ -275,5 +302,103 @@ class Project
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Sets the project owner
+     *
+     * @param User $owner The project owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * Gets the owner of this project
+     *
+     * @return User
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Sets the ticket prefix
+     *
+     * @param string $ticketPrefix The new ticket prefix
+     *
+     * @return Project
+     */
+    public function setTicketPrefix($ticketPrefix)
+    {
+        $this->ticketPrefix = $ticketPrefix;
+
+        return $this;
+    }
+
+    /**
+     * Gets the ticket prefix
+     *
+     * @return string
+     */
+    public function getTicketPrefix()
+    {
+        return $this->ticketPrefix;
+    }
+
+    /**
+     * Sets the project status
+     *
+     * @param string $status The new project status
+     *
+     * @throws \InvalidArgumentException If the $status parameter is not a valid value
+     *
+     * @return Project
+     */
+    public function setStatus($status)
+    {
+        if (!in_array($status, [static::STATUS_ARCHIVED, static::STATUS_ACTIVE])) {
+            throw new \InvalidArgumentException(
+                sprintf('An invalid status (%s) has been provided', $status)
+            );
+        }
+
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets the current project status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Gets valid status types for projects
+     *
+     * @param boolean $withFriendlyNames If true, will return friendly status names indexed by their value name
+     *
+     * @return array
+     */
+    public static function getStatusTypes($withFriendlyNames = false)
+    {
+        if (true === $withFriendlyNames) {
+            return [
+                static::STATUS_ACTIVE => ucwords(static::STATUS_ACTIVE),
+                static::STATUS_ARCHIVED => ucwords(static::STATUS_ARCHIVED)
+            ];
+        }
+
+        return [
+            static::STATUS_ACTIVE,
+            static::STATUS_ARCHIVED
+        ];
     }
 }

@@ -33,6 +33,25 @@ use Tickit\Component\Test\AbstractUnitTest;
  */
 class AbstractFilterTestCase extends AbstractUnitTest
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $query;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $em;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->em = $this->getMockEntityManager();
+        $this->query = $this->getMockQueryBuilder();
+    }
+
     protected function trainQueryToReturnRootEntities(\PHPUnit_Framework_MockObject_MockObject $query)
     {
         $query->expects($this->once())

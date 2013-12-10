@@ -20,6 +20,10 @@
             <tag name="form.type" alias="tickit_project_attribute_value" />
         </service>
 
+        <service id="tickit_project.form.filters" class="Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType">
+            <tag name="form.type" alias="tickit_project_filters" />
+        </service>
+
     </services>
 
 </container>

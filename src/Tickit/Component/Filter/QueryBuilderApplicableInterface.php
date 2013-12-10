@@ -34,7 +34,7 @@ use Doctrine\ORM\QueryBuilder;
 interface QueryBuilderApplicableInterface
 {
     /**
-     * Applies the itself to a query builder.
+     * Applies itself to a query builder.
      *
      * @param QueryBuilder $query A reference to the query builder
      *
