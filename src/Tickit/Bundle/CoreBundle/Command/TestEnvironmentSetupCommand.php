@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\CoreBundle\Command;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -81,7 +82,7 @@ class TestEnvironmentSetupCommand extends ContainerAwareCommand
         try {
             $schemaTool->dropDatabase();
             $output->writeln('Database dropped successfully!');
-        } catch (\PDOException $e) {
+        } catch (DBALException $e) {
             $dbInput = new ArrayInput(
                 array(
                     'command' => 'doctrine:database:create',

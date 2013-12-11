@@ -20,6 +20,10 @@
             <argument type="service" id="tickit_client.manager" />
         </service>
 
+        <service id="tickit_client.form.filters" class="Tickit\Bundle\ClientBundle\Form\Type\FilterFormType">
+            <tag name="form.type" alias="tickit_client_filters" />
+        </service>
+
     </services>
 
 </container>

@@ -9,7 +9,6 @@
         <service id="tickit_project.controller.template" class="Tickit\Bundle\ProjectBundle\Controller\TemplateController" scope="request">
             <argument type="service" id="tickit_project.attribute_manager" />
             <argument type="service" id="tickit.controller.form_helper" />
-            <argument type="service" id="tickit_project.form.project" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
         </service>
 

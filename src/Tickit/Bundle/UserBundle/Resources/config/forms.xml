@@ -29,6 +29,10 @@
                 <argument type="service" id="tickit_user.manager" />
             </service>
 
+            <service id="tickit_user.form.filters" class="Tickit\Bundle\UserBundle\Form\Type\FilterFormType">
+                <tag name="form.type" alias="tickit_user_filters" />
+            </service>
+
             <service id="tickit_user.form.password_updater" class="Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater" />
 
         </services>

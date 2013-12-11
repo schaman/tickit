@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
-    <mapped-superclass name="Tickit\Component\Model\Project\AbstractAttributeValue" table="project_attribute_values">
+    <entity name="Tickit\Component\Model\Project\AbstractAttributeValue" table="project_attribute_values" inheritance-type="SINGLE_TABLE">
 
         <discriminator-column name="type" type="string" length="7" />
         <discriminator-map>
-            <discriminator-mapping value="literal" class="Tickit\Component\Model\Project\LiteralAttribute"/>
-            <discriminator-mapping value="entity" class="Tickit\Component\Model\Project\EntityAttribute"/>
-            <discriminator-mapping value="choice" class="Tickit\Component\Model\Project\ChoiceAttribute"/>
+            <discriminator-mapping value="literal" class="Tickit\Component\Model\Project\LiteralAttributeValue"/>
+            <discriminator-mapping value="entity" class="Tickit\Component\Model\Project\EntityAttributeValue"/>
+            <discriminator-mapping value="choice" class="Tickit\Component\Model\Project\ChoiceAttributeValue"/>
         </discriminator-map>
 
         <id name="id" type="integer" column="id">
@@ -17,5 +17,5 @@
         <many-to-one target-entity="Tickit\Component\Model\Project\Project" field="project" inversed-by="attributes">
             <join-column name="project_id" referenced-column-name="id" on-delete="CASCADE" />
         </many-to-one>
-    </mapped-superclass>
+    </entity>
 </doctrine-mapping>

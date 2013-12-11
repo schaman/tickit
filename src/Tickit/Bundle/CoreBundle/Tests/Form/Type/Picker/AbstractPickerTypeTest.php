@@ -147,7 +147,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('displayValues', $formView);
+        $this->assertObjectHasAttribute('displayValues', $formView);
         $this->assertEquals('display name', $formView->displayValues);
     }
 
@@ -186,7 +186,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
 
         $formView = $form->createView();
 
-        $this->assertArrayHasKey('displayValues', $formView);
+        $this->assertObjectHasAttribute('displayValues', $formView);
         $this->assertEquals('display name 1,display name 2,display name 3', $formView->displayValues);
     }
 }

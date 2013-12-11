@@ -128,6 +128,9 @@ abstract class AbstractPickerType extends AbstractType
 
         $value = array_map(
             function ($entity) {
+                if (null === $entity) {
+                    return '';
+                }
                 return $this->decorator->decorate($entity);
             },
             $value

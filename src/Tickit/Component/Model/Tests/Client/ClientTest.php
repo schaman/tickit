@@ -43,6 +43,22 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the checkStatusIsValid() method
+     */
+    public function testCheckStatusIsValidReturnsFalseForInvalidStatus()
+    {
+        $this->assertFalse(Client::checkStatusIsValid('invalid status'));
+    }
+
+    /**
+     * Tests the checkStatusIsValid() method
+     */
+    public function testCheckStatusIsValidReturnsTrueForValidStatus()
+    {
+        $this->assertTrue(Client::checkStatusIsValid(Client::STATUS_ARCHIVED));
+    }
+
+    /**
      * Tests the setStatus() method
      *
      * @expectedException \InvalidArgumentException
@@ -56,7 +72,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests the setStatus() method
      */
-    public function testStatusAcceptsValidStatus()
+    public function testSetStatusAcceptsValidStatus()
     {
         $client = new Client();
         $client->setStatus(Client::STATUS_ARCHIVED);

@@ -47,12 +47,16 @@ define([
             require([
                 'user/js/collections/UserCollection',
                 'user/js/views/UserListView',
+                'filter/js/views/FilterView',
                 'user/js/views/UserRowView'
-            ], function(collection, listView) {
-                var users = new collection;
+            ], function(Collection, ListView, FilterView) {
+                var users = new Collection;
                 users.fetch();
-                var view = new listView({
-                    collection: users
+
+                var view = new ListView({
+                    collection: users,
+                    filterFormUrl: Routing.generate('user_filter_form'),
+                    filterViewPrototype: FilterView
                 });
 
                 App.mainRegion.show(view);

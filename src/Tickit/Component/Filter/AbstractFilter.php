@@ -31,6 +31,17 @@ use Doctrine\ORM\QueryBuilder;
  */
 abstract class AbstractFilter implements QueryBuilderApplicableInterface
 {
+    const FILTER_SEARCH = 'search';
+    const FILTER_EXACT_MATCH = 'exactMatch';
+    const FILTER_ORDER_BY = 'orderBy';
+    const FILTER_CALLBACK = 'callback';
+
+    const COMPARATOR_EQUAL = '=';
+    const COMPARATOR_GREATER_THAN = '>';
+    const COMPARATOR_LESS_THAN = '<';
+    const COMPARATOR_LESS_THAN_OR_EQUAL_TO = '<=';
+    const COMPARATOR_GREATER_THAN_OR_EQUAL_TO = '>=';
+
     /**
      * The value of this filter
      *
@@ -48,15 +59,24 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     protected $key;
 
     /**
+     * An array of filter options
+     *
+     * @var array
+     */
+    protected $options;
+
+    /**
      * Constructor
      *
-     * @param string $key   The filter key
-     * @param mixed  $value The filter value
+     * @param string $key     The filter key
+     * @param mixed  $value   The filter value
+     * @param array  $options An array of filters options (optional)
      */
-    public function __construct($key, $value)
+    public function __construct($key, $value, array $options = array())
     {
         $this->key   = $key;
         $this->value = $value;
+        $this->options = $options;
     }
 
     /**
@@ -77,6 +97,57 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Gets an option by it's name
+     *
+     * @param string $name     The option name to fetch
+     * @param mixed  $fallback The value that will be returned if the option requested does not exist
+     *                         (defaults to null)
+     *
+     * @return mixed
+     */
+    public function getOption($name, $fallback = null)
+    {
+        if (!isset($this->options[$name])) {
+            return $fallback;
+        }
+
+        return $this->options[$name];
+    }
+
+    /**
+     * Factory method for creating a new filter object
+     *
+     * @param string $type    The type of filter to create
+     * @param string $key     The filter key
+     * @param mixed  $value   The filter value
+     * @param array  $options An array of filter options (optional)
+     *
+     * @throws \InvalidArgumentException If an invalid $type value is provided
+     *
+     * @return AbstractFilter
+     */
+    public static function factory($type, $key, $value, array $options = [])
+    {
+        switch ($type) {
+            case static::FILTER_EXACT_MATCH:
+                $filter = new ExactMatchFilter($key, $value, $options);
+                break;
+            case static::FILTER_ORDER_BY:
+                $filter = new OrderByFilter($key, $value, $options);
+                break;
+            case static::FILTER_SEARCH:
+                $filter = new SearchFilter($key, $value, $options);
+                break;
+            default:
+                throw new \InvalidArgumentException(
+                    sprintf('An invalid filter type (%s) was provided', $type)
+                );
+        }
+
+        return $filter;
     }
 
     /**
@@ -116,5 +187,29 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
         } catch (\ReflectionException $e) {
             return false;
         }
+    }
+
+    /**
+     * Gets the comparator option on the filter
+     *
+     * @return string
+     */
+    protected function getComparator()
+    {
+        $comparator = $this->getOption('comparator', static::FILTER_EXACT_MATCH);
+
+        $validComparators = [
+            static::COMPARATOR_EQUAL,
+            static::COMPARATOR_GREATER_THAN,
+            static::COMPARATOR_GREATER_THAN_OR_EQUAL_TO,
+            static::COMPARATOR_LESS_THAN,
+            static::COMPARATOR_LESS_THAN_OR_EQUAL_TO
+        ];
+
+        if (false === in_array($comparator, $validComparators)) {
+            return static::COMPARATOR_EQUAL;
+        }
+
+        return $comparator;
     }
 }

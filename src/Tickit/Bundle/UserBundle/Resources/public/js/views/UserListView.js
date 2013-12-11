@@ -5,17 +5,17 @@
  */
 define([
     'modules/template',
+    'filter/js/views/FilterableListView',
     'user/js/views/UserRowView',
     'text!user/views/UserListView.html'
-], function(Template, rowView, tpl) {
+], function(Template, FilterableListView, RowView, Tpl) {
 
-    Template.load(tpl);
+    Template.load(Tpl);
 
-    return Backbone.Marionette.CompositeView.extend({
-        tagName: 'table',
-        id: 'user-list',
+    return FilterableListView.extend({
+        tagName: 'div',
         template: '#user_list-template',
-        itemView: rowView,
+        itemView: RowView,
 
         events: {
             "click a": "linkClick"
@@ -23,15 +23,20 @@ define([
 
         /**
          * Handles a click event on an <a> tag
-         *
          */
         linkClick : function(e) {
             e.preventDefault();
             App.Router.goTo($(e.target).attr('href'));
         },
 
+        /**
+         * Appends HTML to the view element
+         *
+         * @param {Backbone.View} collectionView The collection view
+         * @param {Backbone.View} itemView       The individual item view
+         */
         appendHtml: function(collectionView, itemView) {
-            collectionView.$('tbody').append(itemView.el);
+            collectionView.$('#user-list').find('tbody').append(itemView.el);
         }
     });
 });

@@ -8,6 +8,8 @@
         </id>
 
         <field name="name" type="string" length="100" />
+        <field name="ticketPrefix" column="ticket_prefix" type="string" length="5" />
+        <field name="status" column="status" type="string" length="10" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
@@ -24,6 +26,10 @@
                 <cascade-persist/>
             </cascade>
         </one-to-many>
+
+        <many-to-one target-entity="Tickit\Component\Model\User\User" field="owner" inversed-by="projects">
+            <join-column name="owner_id" referenced-column-name="id" />
+        </many-to-one>
 
         <many-to-one target-entity="Tickit\Component\Model\Client\Client" field="client" inversed-by="projects">
             <join-column name="client_id" referenced-column-name="id" />

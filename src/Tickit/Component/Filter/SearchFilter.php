@@ -22,7 +22,6 @@
 namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 
 /**
  * Search filter.
@@ -47,6 +46,11 @@ class SearchFilter extends AbstractFilter
             return;
         }
 
+        $value = $this->getValue();
+        if (empty($value)) {
+            return;
+        }
+
         $aliases = $query->getRootAliases();
 
         $column = sprintf('%s.%s', $aliases[0], $this->getKey());
@@ -61,6 +65,6 @@ class SearchFilter extends AbstractFilter
      */
     public function getType()
     {
-        return FilterCollectionBuilder::FILTER_SEARCH;
+        return AbstractFilter::FILTER_SEARCH;
     }
 }
