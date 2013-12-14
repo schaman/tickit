@@ -21,8 +21,9 @@
 
 namespace Tickit\Bundle\ProjectBundle\Doctrine\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
@@ -34,35 +35,45 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectRepository extends EntityRepository implements ProjectRepositoryInterface, FilterableRepositoryInterface
+class ProjectRepository extends PaginatedRepository implements ProjectRepositoryInterface, FilterableRepositoryInterface
 {
     /**
-     * Finds results based off a set of filters.
+     * {@inheritDoc}
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of the results to fetch (defaults to 1)
      *
      * @codeCoverageIgnore
      *
-     * @return mixed
+     * @return Paginator
      */
-    public function findByFilters(FilterCollection $filters)
+    public function findByFilters(FilterCollection $filters, $page = 1)
     {
-        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+        $query = $this->getFindByFiltersQueryBuilder($filters, $page);
+        $paginator = new Paginator($query, false);
+
+        return $paginator;
     }
 
     /**
      * Gets the query builder for finding a filtered set of Projects
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of the results to fetch
      *
      * @return QueryBuilder
      */
-    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters, $page)
     {
         $queryBuilder = $this->getEntityManager()
-            ->createQueryBuilder()
-            ->select('p')
-            ->from('TickitProjectBundle:Project', 'p');
+                             ->createQueryBuilder()
+                             ->select('p')
+                             ->from('TickitProjectBundle:Project', 'p');
+
+        $bounds = $this->getPageResolver()->resolve($page);
+
+        $queryBuilder->setFirstResult($bounds->getOffset())
+                     ->setMaxResults($bounds->getMaxResults());
 
         $filters->applyToQuery($queryBuilder);
 

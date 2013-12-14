@@ -22,6 +22,10 @@
 
         <service id="tickit_project.project_repository" class="%tickit_project.project_repository.class%" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitProjectBundle:Project</argument>
+
+            <call method="setPageResolver">
+                <argument type="service" id="tickit_pagination.page_resolver" />
+            </call>
         </service>
 
     </services>
