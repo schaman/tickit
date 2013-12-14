@@ -57,6 +57,11 @@ class ApiControllerTest extends AbstractUnitTest
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    private $paginator;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     private $baseHelper;
 
     /**
@@ -79,6 +84,10 @@ class ApiControllerTest extends AbstractUnitTest
                                     ->disableOriginalConstructor()
                                     ->getMock();
 
+        $this->paginator = $this->getMockBuilder('\Doctrine\ORM\Tools\Pagination\Paginator')
+                                ->disableOriginalConstructor()
+                                ->getMock();
+
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
     }
@@ -100,10 +109,12 @@ class ApiControllerTest extends AbstractUnitTest
         $project2->setName('Project 2');
         $projects = array($project1, $project2);
 
+        $this->trainPaginatorToReturnIterator($projects);
+
         $this->projectRepo->expects($this->once())
                           ->method('findByFilters')
                           ->with($filters)
-                          ->will($this->returnValue($projects));
+                          ->will($this->returnValue($this->paginator));
 
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken')
@@ -114,7 +125,7 @@ class ApiControllerTest extends AbstractUnitTest
 
         $decorator = $this->getMockObjectDecorator();
         $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
-        $this->trainObjectCollectionDecoratorToExpectProjectCollection($decorator, $projects, $expectedData);
+        $this->trainObjectCollectionDecoratorToExpectProjectCollection($decorator, new \ArrayIterator($projects), $expectedData);
 
         $response = $this->getController()->listAction();
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
@@ -187,7 +198,7 @@ class ApiControllerTest extends AbstractUnitTest
 
     private function trainObjectCollectionDecoratorToExpectProjectCollection(
         \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        array $projects,
+        $projects,
         array $returnData
     ) {
         $objectDecorator->expects($this->once())
@@ -209,5 +220,12 @@ class ApiControllerTest extends AbstractUnitTest
                         ->method('decorate')
                         ->with($attributes, ['id', 'type', 'name'])
                         ->will($this->returnValue($returnData));
+    }
+
+    private function trainPaginatorToReturnIterator(array $data)
+    {
+        $this->paginator->expects($this->once())
+                        ->method('getIterator')
+                        ->will($this->returnValue(new \ArrayIterator($data)));
     }
 }
