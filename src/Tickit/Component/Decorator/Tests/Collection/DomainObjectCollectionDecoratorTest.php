@@ -49,13 +49,11 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the decorate() method
+     *
+     * @dataProvider getDomainObjectData
      */
-    public function testDecorateCorrectlyDecoratesObjects()
+    public function testDecorateCorrectlyDecoratesArrayOfObjects($data, array $propertyNames, array $staticProperties)
     {
-        $data = [new MockDomainObject(), new MockDomainObject()];
-        $propertyNames = ['name', 'active', 'enabled', 'date', 'childObject.enabled'];
-        $staticProperties = ['csrf-token' => 'some value'];
-
         $this->decorator->expects($this->exactly(2))
                         ->method('decorate')
                         ->will($this->returnValue(array('decorated')));
@@ -66,6 +64,18 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
 
         $return = $this->getCollectionDecorator()->decorate($data, $propertyNames, $staticProperties);
         $this->assertEquals([['decorated'], ['decorated']], $return);
+    }
+
+    public function getDomainObjectData()
+    {
+        $domainObjects = [new MockDomainObject(), new MockDomainObject()];
+        $propertyNames = ['name', 'active', 'enabled', 'date', 'childObject.enabled'];
+        $staticProperties = ['csrf-token' => 'some value'];
+
+        return [
+            [$domainObjects, $propertyNames, $staticProperties],
+            [new \ArrayIterator($domainObjects), $propertyNames, $staticProperties]
+        ];
     }
 
     /**
