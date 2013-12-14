@@ -88,12 +88,13 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      * Finds results based off a set of filters.
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of the results to fetch (defaults to 1)
      *
      * @codeCoverageIgnore
      *
      * @return mixed
      */
-    public function findByFilters(FilterCollection $filters)
+    public function findByFilters(FilterCollection $filters, $page = 1)
     {
         return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
     }
