@@ -57,7 +57,7 @@ class PageResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveAcceptsIntegerAsAString()
     {
-        $expected = new PageBounds(51, PageResolver::ITEMS_PER_PAGE);
+        $expected = new PageBounds(26, PageResolver::ITEMS_PER_PAGE);
 
         $this->assertEquals($expected, $this->getResolver()->resolve('2'));
     }
@@ -77,7 +77,7 @@ class PageResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function testResolveReturnsCorrectBoundsForLargePageNumber()
     {
-        $expected = new PageBounds(251, PageResolver::ITEMS_PER_PAGE);
+        $expected = new PageBounds(226, PageResolver::ITEMS_PER_PAGE);
 
         $this->assertEquals($expected, $this->getResolver()->resolve(10));
     }

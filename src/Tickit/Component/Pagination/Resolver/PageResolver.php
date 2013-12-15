@@ -52,7 +52,9 @@ class PageResolver implements PageResolverInterface
      */
     public function resolve($page)
     {
-        if (0 === intval($page)) {
+        $page = intval($page);
+
+        if (0 === $page) {
             throw new \InvalidArgumentException(
                 sprintf('An invalid page number (%s) has been provided to the PageResolver', $page)
             );
@@ -61,7 +63,7 @@ class PageResolver implements PageResolverInterface
         if ($page === 1) {
             $offset = 0;
         } else {
-            $offset = (static::ITEMS_PER_PAGE * $page) + 1;
+            $offset = (static::ITEMS_PER_PAGE * ($page - 1)) + 1;
         }
 
         return new PageBounds($offset, static::ITEMS_PER_PAGE);
