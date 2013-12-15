@@ -52,7 +52,7 @@ class PageResolver implements PageResolverInterface
      */
     public function resolve($page)
     {
-        if (!is_integer($page) || 0 === intval($page)) {
+        if (0 === intval($page)) {
             throw new \InvalidArgumentException(
                 sprintf('An invalid page number (%s) has been provided to the PageResolver', $page)
             );

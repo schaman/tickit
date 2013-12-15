@@ -55,6 +55,16 @@ class PageResolverTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests the resolve() method
      */
+    public function testResolveAcceptsIntegerAsAString()
+    {
+        $expected = new PageBounds(51, PageResolver::ITEMS_PER_PAGE);
+
+        $this->assertEquals($expected, $this->getResolver()->resolve('2'));
+    }
+
+    /**
+     * Tests the resolve() method
+     */
     public function testResolveReturnsCorrectBoundsForFirstPage()
     {
         $expected = new PageBounds(0, PageResolver::ITEMS_PER_PAGE);
