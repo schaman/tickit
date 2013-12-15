@@ -30,6 +30,8 @@ use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Project\ProjectFilterMapper;
+use Tickit\Component\Pagination\HttpFoundation\PaginatedJsonResponse;
+use Tickit\Component\Pagination\Resolver\PageResolver;
 
 /**
  * Api project controller.
@@ -102,13 +104,15 @@ class ApiController
     /**
      * Lists all projects in the application
      *
-     * @return JsonResponse
+     * @param integer $page The page of results to return
+     *
+     * @return PaginatedJsonResponse
      */
-    public function listAction()
+    public function listAction($page = 1)
     {
         $request = $this->baseHelper->getRequest();
         $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new ProjectFilterMapper());
-        $projects = $this->projectRepository->findByFilters($filters);
+        $projects = $this->projectRepository->findByFilters($filters, $page);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
         $staticProperties = [
@@ -117,7 +121,7 @@ class ApiController
 
         $data = $decorator->decorate($projects->getIterator(), ['id', 'name', 'createdAt'], $staticProperties);
 
-        return new JsonResponse($data);
+        return new PaginatedJsonResponse($data, $projects->count(), PageResolver::ITEMS_PER_PAGE);
     }
 
     /**

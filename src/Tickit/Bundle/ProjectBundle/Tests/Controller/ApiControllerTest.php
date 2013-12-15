@@ -84,10 +84,7 @@ class ApiControllerTest extends AbstractUnitTest
                                     ->disableOriginalConstructor()
                                     ->getMock();
 
-        $this->paginator = $this->getMockBuilder('\Doctrine\ORM\Tools\Pagination\Paginator')
-                                ->disableOriginalConstructor()
-                                ->getMock();
-
+        $this->paginator = $this->getMockPaginator();
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
     }
@@ -110,10 +107,11 @@ class ApiControllerTest extends AbstractUnitTest
         $projects = array($project1, $project2);
 
         $this->trainPaginatorToReturnIterator($projects);
+        $this->trainPaginatorToReturnCount(2);
 
         $this->projectRepo->expects($this->once())
                           ->method('findByFilters')
-                          ->with($filters)
+                          ->with($filters, 1)
                           ->will($this->returnValue($this->paginator));
 
         $this->csrfHelper->expects($this->once())
@@ -121,13 +119,13 @@ class ApiControllerTest extends AbstractUnitTest
                          ->with(ProjectController::CSRF_DELETE_INTENTION)
                          ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
 
-        $expectedData = [['project'], ['project']];
+        $expectedData = ['data' => [['project'], ['project']], 'total' => 2, 'pages' => 1];
 
         $decorator = $this->getMockObjectDecorator();
         $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
-        $this->trainObjectCollectionDecoratorToExpectProjectCollection($decorator, new \ArrayIterator($projects), $expectedData);
+        $this->trainObjectCollectionDecoratorToExpectProjectCollection($decorator, new \ArrayIterator($projects), $expectedData['data']);
 
-        $response = $this->getController()->listAction();
+        $response = $this->getController()->listAction(1);
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
@@ -227,5 +225,12 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator->expects($this->once())
                         ->method('getIterator')
                         ->will($this->returnValue(new \ArrayIterator($data)));
+    }
+
+    private function trainPaginatorToReturnCount($count)
+    {
+        $this->paginator->expects($this->once())
+                        ->method('count')
+                        ->will($this->returnValue($count));
     }
 }
