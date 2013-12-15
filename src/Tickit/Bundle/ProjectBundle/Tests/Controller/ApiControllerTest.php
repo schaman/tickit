@@ -119,7 +119,7 @@ class ApiControllerTest extends AbstractUnitTest
                          ->with(ProjectController::CSRF_DELETE_INTENTION)
                          ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
 
-        $expectedData = ['data' => [['project'], ['project']], 'total' => 2, 'pages' => 1];
+        $expectedData = ['data' => [['project'], ['project']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
 
         $decorator = $this->getMockObjectDecorator();
         $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);

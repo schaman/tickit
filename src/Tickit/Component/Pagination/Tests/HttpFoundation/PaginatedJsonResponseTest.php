@@ -34,19 +34,20 @@ class PaginatedJsonResponseTest extends \PHPUnit_Framework_TestCase
     public function testResponseBuildsCorrectly()
     {
         $data = array_fill(0, 50, new \stdClass());
-        $response = new PaginatedJsonResponse($data, 500, 10);
+        $response = new PaginatedJsonResponse($data, 500, 10, 3);
 
         $decodedResponse = json_decode($response->getContent());
         $this->assertInstanceOf('stdClass', $decodedResponse);
         $this->assertEquals(50, $decodedResponse->pages);
         $this->assertEquals(500, $decodedResponse->total);
         $this->assertEquals($data, $decodedResponse->data);
+        $this->assertEquals(3, $decodedResponse->currentPage);
     }
 
     public function testResponseHandlesPagingCorrectly()
     {
         $data = array_fill(0, 10, new \stdClass());
-        $response = new PaginatedJsonResponse($data, 35, 10);
+        $response = new PaginatedJsonResponse($data, 35, 10, 1);
 
         $decodedResponse = json_decode($response->getContent());
 

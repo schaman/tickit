@@ -121,7 +121,7 @@ class ApiController
 
         $data = $decorator->decorate($projects->getIterator(), ['id', 'name', 'createdAt'], $staticProperties);
 
-        return new PaginatedJsonResponse($data, $projects->count(), PageResolver::ITEMS_PER_PAGE);
+        return new PaginatedJsonResponse($data, $projects->count(), PageResolver::ITEMS_PER_PAGE, $page);
     }
 
     /**

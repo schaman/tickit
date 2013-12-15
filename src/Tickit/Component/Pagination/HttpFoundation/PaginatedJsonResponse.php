@@ -53,16 +53,25 @@ class PaginatedJsonResponse extends JsonResponse
     private $perPage;
 
     /**
+     * The current page number
+     *
+     * @var integer
+     */
+    private $page;
+
+    /**
      * Constructor.
      *
      * @param array   $data         The array of data
      * @param integer $totalItems   The total number of items available to page through
      * @param integer $itemsPerPage The number of items in a page
+     * @param integer $currentPage  The current page number of the data provided
      */
-    public function __construct(array $data, $totalItems, $itemsPerPage)
+    public function __construct(array $data, $totalItems, $itemsPerPage, $currentPage)
     {
         $this->total = $totalItems;
         $this->perPage = $itemsPerPage;
+        $this->page = $currentPage;
 
         parent::__construct($data);
     }
@@ -80,6 +89,7 @@ class PaginatedJsonResponse extends JsonResponse
         $responseData->data = $data;
         $responseData->total = $this->total;
         $responseData->pages = ceil($this->total / $this->perPage);
+        $responseData->currentPage = $this->page;
 
         return parent::setData($responseData);
     }
