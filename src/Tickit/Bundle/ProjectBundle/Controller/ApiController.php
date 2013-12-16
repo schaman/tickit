@@ -116,7 +116,7 @@ class ApiController
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
         $staticProperties = [
-            'csrf_token' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)->getValue()
+            'csrfToken' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)->getValue()
         ];
 
         $data = $decorator->decorate($projects->getIterator(), ['id', 'name', 'createdAt'], $staticProperties);
