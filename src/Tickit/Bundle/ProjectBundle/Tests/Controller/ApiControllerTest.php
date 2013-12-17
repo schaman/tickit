@@ -204,7 +204,7 @@ class ApiControllerTest extends AbstractUnitTest
                         ->with(
                             $projects,
                             ['id', 'name', 'createdAt'],
-                            ['csrf_token' => 'csrf-token-value']
+                            ['csrfToken' => 'csrf-token-value']
                         )
                         ->will($this->returnValue($returnData));
     }
