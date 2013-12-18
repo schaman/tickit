@@ -4,7 +4,7 @@
  * @type {Backbone.Collection}
  */
 define(function() {
-    return Backbone.Collection.extend({
+    return Backbone.PageableCollection.extend({
 
         /**
          * The filter view associated with this collection.
