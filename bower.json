@@ -4,6 +4,7 @@
         "jquery": "~2.0.0",
         "underscore": "1.x",
         "backbone.marionette": "1.x",
+        "backbone.paginator": "0.x",
         "requirejs": "2.1.x",
         "requirejs-text": "2.0.*",
         "jquery.cookie": "1.3.*",
