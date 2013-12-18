@@ -30,7 +30,7 @@ use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Project\ProjectFilterMapper;
-use Tickit\Component\Pagination\HttpFoundation\PaginatedJsonResponse;
+use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 
 /**

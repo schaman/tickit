@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Pagination\Tests\HttpFoundation;
+namespace Tickit\Component\Pagination\Tests\Response;
 
-use Tickit\Component\Pagination\HttpFoundation\PaginatedJsonResponse;
+use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
 /**
  * PaginatedJsonResponse tests
  *
- * @package Tickit\Component\Pagination\Tests\HttpFoundation
+ * @package Tickit\Component\Pagination\Tests\Response
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class PaginatedJsonResponseTest extends \PHPUnit_Framework_TestCase

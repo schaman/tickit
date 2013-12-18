@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Pagination\HttpFoundation;
+namespace Tickit\Component\Pagination\Response;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * This response class will also force the response content to be
  * an object, rather than an array. This is to prevent JSON hijacking.
  *
- * @package Tickit\Component\Pagination\HttpFoundation
+ * @package Tickit\Component\Pagination\Response
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see https://www.owasp.org/index.php/OWASP_AJAX_Security_Guidelines#Always_return_JSON_with_an_Object_on_the_outside
  */
