@@ -3,8 +3,8 @@
  *
  * @type {Backbone.Collection}
  */
-define(function() {
-    return Backbone.PageableCollection.extend({
+define(['backbone/pageable'], function(BackbonePageable) {
+    return BackbonePageable.extend({
 
         /**
          * The filter view associated with this collection.
@@ -25,6 +25,18 @@ define(function() {
          * @type {Backbone.View}
          */
         paginationView : null,
+
+        /**
+         * The initial state of the pageable collection
+         */
+        state : {
+            firstPage: 1,
+            currentPage: 1
+        },
+
+        queryParams : {
+            currentPage: "page"
+        },
 
         /**
          * Initialises the collection
@@ -84,6 +96,21 @@ define(function() {
                 reset: true,
                 data: values
             });
+        },
+
+        /**
+         * Parses the pagination state returned from the server
+         *
+         * @param {object} resp The decoded response object
+         *
+         * @returns {object}
+         */
+        parseState : function(resp) {
+            return {
+                totalRecords: resp.total,
+                currentPage: resp.currentPage,
+                totalPages: resp.pages
+            };
         }
     });
 });
