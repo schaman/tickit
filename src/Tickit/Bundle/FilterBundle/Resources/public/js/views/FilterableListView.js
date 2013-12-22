@@ -6,7 +6,7 @@
  *
  * @type {Backbone.Marionette.CompositeView}
  */
-define(function() {
+define(['paging/js/views/PaginationView'], function(PaginationView) {
 
     return Backbone.Marionette.CompositeView.extend({
 
@@ -66,6 +66,9 @@ define(function() {
             });
 
             this.collection.setFilterView(filterView);
+            this.collection.setPaginationView(new PaginationView({
+                el: 'div.list-pagination'
+            }));
         }
     });
 });

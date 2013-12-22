@@ -51,10 +51,6 @@ define(['backbone/pageable'], function(BackbonePageable) {
             if (options.filterView) {
                 this.setFilterView(options.filterView);
             }
-
-            if (options.paginationView) {
-                this.setPaginationView(options.paginationView);
-            }
         },
 
         /**
@@ -79,8 +75,14 @@ define(['backbone/pageable'], function(BackbonePageable) {
          * @param {Backbone.View} paginationView The pagination view
          */
         setPaginationView : function(paginationView) {
-            // TODO: bind to the change event on the pagination view (needs to be created)
             this.paginationView = paginationView;
+
+            this.listenTo(this.paginationView, 'change', function() {
+                console.log('page button clicked');
+            });
+
+            this.on('reset', this.paginationView.resetPages);
+            this.paginationView.render();
         },
 
         /**
