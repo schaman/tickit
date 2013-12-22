@@ -99,18 +99,23 @@ define(['backbone/pageable'], function(BackbonePageable) {
         },
 
         /**
-         * Parses the pagination state returned from the server
+         * Parses the response data from the server
          *
          * @param {object} resp The decoded response object
          *
-         * @returns {object}
+         * @returns {Array}
          */
-        parseState : function(resp) {
-            return {
-                totalRecords: resp.total,
-                currentPage: resp.currentPage,
-                totalPages: resp.pages
-            };
+        parse : function(resp) {
+            var state = [
+                {
+                    totalRecords: resp.total,
+                    currentPage: resp.currentPage,
+                    totalPages: resp.pages
+                },
+                resp.data
+            ];
+
+            return BackbonePageable.prototype.parse.apply(this, [state]);
         }
     });
 });
