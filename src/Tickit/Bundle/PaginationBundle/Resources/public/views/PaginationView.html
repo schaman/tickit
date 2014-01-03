@@ -1,10 +1,13 @@
 <script type="text/template" id="pagination-template">
-    <ul>
-        <li><a class="icon-angle-left" href=""></a></li>
-        <li><a href="javascript:void(0);">1</a></li>
-        <li><a href="javascript:void(0);">2</a></li>
-        <li><a class="icon-angle-right" href=""></a></li>
-    </ul>
+    <% if (totalPages > 0) { %>
+        <ul>
+            <li><a class="icon-angle-left" href=""></a></li>
+            <% var i = 0; while(++i < totalPages) { %>
+                <li><a href="javascript:void(0);" data-page="<%= i %>"><%= i %></a></li>
+            <% } %>
+            <li><a class="icon-angle-right" href=""></a></li>
+        </ul>
+    <% } %>
 
     <div class="bulk-action">
         <a href="javascript:void(0);" class="icon-trash"></a>

@@ -15,10 +15,20 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
 
         /**
          * Renders the paging view
+         *
+         * @param {Number} totalPages The total number of pages
+         *
+         * @return {Backbone.View}
          */
-        render : function() {
-            // todo: this needs to render with the correct pages (potentially just inject values as params)
-            this.$el.html(_.template($(tpl).html()));
+        render : function(totalPages) {
+            if (totalPages < 2) {
+                this.$el.html('');
+                return this;
+            }
+
+            this.$el.html(_.template($(tpl).html(), {
+                totalPages: totalPages
+            }));
 
             return this;
         },
@@ -30,8 +40,8 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
          *
          * @returns {void}
          */
-        click : function(e) {
-            this.trigger('click', e);
+        click : function() {
+            this.trigger('click', $(this).data('page'));
         }
     });
 });
