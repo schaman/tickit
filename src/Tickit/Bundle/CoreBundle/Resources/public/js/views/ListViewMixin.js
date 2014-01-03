@@ -12,7 +12,7 @@ define(function() {
          * Event bindings for the list view
          */
         events: {
-            "click a": "linkClick"
+            "click table a": "linkClick"
         },
 
         /**

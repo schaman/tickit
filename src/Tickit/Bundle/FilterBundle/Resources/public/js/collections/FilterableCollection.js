@@ -77,8 +77,8 @@ define(['backbone/pageable'], function(BackbonePageable) {
         setPaginationView : function(paginationView) {
             this.paginationView = paginationView;
 
-            this.listenTo(this.paginationView, 'change', function() {
-                console.log('page button clicked');
+            this.listenTo(this.paginationView, 'click', function(e) {
+                // todo: handle the click event
             });
 
             this.on('reset', this.paginationView.resetPages);
