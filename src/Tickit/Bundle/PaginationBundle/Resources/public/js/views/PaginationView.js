@@ -23,12 +23,11 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
         render : function(totalPages) {
             if (totalPages < 2) {
                 this.$el.html('');
-                return this;
+            } else {
+                this.$el.html(_.template($(tpl).html(), {
+                    totalPages: totalPages
+                }));
             }
-
-            this.$el.html(_.template($(tpl).html(), {
-                totalPages: totalPages
-            }));
 
             return this;
         },
