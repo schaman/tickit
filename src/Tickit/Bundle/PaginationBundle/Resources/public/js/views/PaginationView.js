@@ -35,10 +35,12 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
         /**
          * Handles a click event on the paging navigation
          *
+         * @param {object} e The event object
+         *
          * @returns {void}
          */
-        click : function() {
-            this.trigger('click', $(this).data('page'));
+        click : function(e) {
+            this.trigger('click', $(e.target).data('page'));
         }
     });
 });

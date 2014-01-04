@@ -44,9 +44,7 @@ define(['backbone/pageable'], function(BackbonePageable) {
          * @param {object} options The initialization options for the collection
          */
         initialize : function(options) {
-            if (!options) {
-                return;
-            }
+            options = options || {};
 
             if (options.filterView) {
                 this.setFilterView(options.filterView);
@@ -77,12 +75,9 @@ define(['backbone/pageable'], function(BackbonePageable) {
         setPaginationView : function(paginationView) {
             this.paginationView = paginationView;
 
-            this.listenTo(this.paginationView, 'click', function(e) {
-                // todo: handle the click event
+            this.listenTo(this.paginationView, 'click', function(pageNumber) {
+                this.getPage(pageNumber);
             });
-
-            this.on('reset', this.paginationView.resetPages);
-            this.paginationView.render();
         },
 
         /**
@@ -116,6 +111,8 @@ define(['backbone/pageable'], function(BackbonePageable) {
                 },
                 resp.data
             ];
+
+            this.paginationView.render(resp.pages);
 
             return BackbonePageable.prototype.parse.apply(this, [state]);
         }
