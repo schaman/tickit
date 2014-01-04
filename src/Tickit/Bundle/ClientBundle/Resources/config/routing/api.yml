@@ -2,6 +2,6 @@ api_client_list:
     pattern: /list/{page}
     defaults: { _controller: tickit_client.controller.api:listAction, page: 1 }
     requirements:
-        page: \d+
+        page: ^[1-9][0-9]*$
     options:
         expose: true

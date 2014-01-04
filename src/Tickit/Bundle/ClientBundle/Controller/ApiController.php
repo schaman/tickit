@@ -100,7 +100,7 @@ class ApiController
     {
         $request = $this->baseHelper->getRequest();
         $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new ClientFilterMapper());
-        $clients = $this->clientRepository->findByFilters($filters);
+        $clients = $this->clientRepository->findByFilters($filters, $page);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
