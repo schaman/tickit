@@ -17,12 +17,12 @@ define([
         model: User,
 
         /**
-         * The URL used for fetching user models
+         * Gets the route name for this collection data
          *
-         * @returns {string}
+         * @return {string}
          */
-        url: function() {
-            return Routing.generate('api_user_list');
+        getRouteName : function() {
+            return 'api_user_list';
         }
     });
 });
