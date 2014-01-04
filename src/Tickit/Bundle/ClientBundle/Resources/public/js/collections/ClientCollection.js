@@ -17,12 +17,12 @@ define([
         model: Client,
 
         /**
-         * The URL used for fetching new client models
+         * Gets the route name for this collection data
          *
-         * @returns {string}
+         * @return {string}
          */
-        url: function() {
-            return Routing.generate('api_client_list');
+        getRouteName : function() {
+            return 'api_client_list';
         }
     });
 });
