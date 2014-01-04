@@ -35,8 +35,6 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
         /**
          * Handles a click event on the paging navigation
          *
-         * @param {object} e The click event object
-         *
          * @returns {void}
          */
         click : function() {
