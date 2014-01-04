@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\PaginationBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Tickit\Component\Pagination\Resolver\PageResolverInterface;
 
 /**
@@ -66,5 +67,19 @@ class PaginatedRepository extends EntityRepository
         }
 
         return $this->pageResolver;
+    }
+
+    /**
+     * Resolves the page bounds and sets them on the query
+     *
+     * @param QueryBuilder $queryBuilder The query builder object
+     * @param integer      $page         The current page to set bounds for
+     */
+    public function setPageBoundsOnQuery(QueryBuilder $queryBuilder, $page)
+    {
+        $bounds = $this->getPageResolver()->resolve($page);
+
+        $queryBuilder->setFirstResult($bounds->getOffset())
+                     ->setMaxResults($bounds->getMaxResults());
     }
 }

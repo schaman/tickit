@@ -70,11 +70,7 @@ class ProjectRepository extends PaginatedRepository implements ProjectRepository
                              ->select('p')
                              ->from('TickitProjectBundle:Project', 'p');
 
-        $bounds = $this->getPageResolver()->resolve($page);
-
-        $queryBuilder->setFirstResult($bounds->getOffset())
-                     ->setMaxResults($bounds->getMaxResults());
-
+        $this->setPageBoundsOnQuery($queryBuilder, $page);
         $filters->applyToQuery($queryBuilder);
 
         return $queryBuilder;
