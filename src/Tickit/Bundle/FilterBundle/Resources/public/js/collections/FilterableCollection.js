@@ -74,18 +74,19 @@ define(['backbone/pageable'], function(BackbonePageable) {
         setPaginationView : function(paginationView) {
             this.paginationView = paginationView;
 
-            this.listenTo(this.paginationView, 'pagechange', function(pageNumber) {
+            this.listenTo(this.paginationView, 'pagechange', function(pageNumber, callBack) {
                 var state = this.state;
-
                 if (isNaN(pageNumber)) {
                     switch(pageNumber) {
                         case 'next':
-                            if ((state.currentPage + 1) > state.lastPage) {
+                            pageNumber = state.currentPage + 1;
+                            if (pageNumber > state.lastPage) {
                                 pageNumber = state.lastPage;
                             }
                             break;
                         case 'prev':
-                            if ((state.currentPage - 1) < state.firstPage) {
+                            pageNumber = state.currentPage - 1;
+                            if (pageNumber < state.firstPage) {
                                 pageNumber = state.firstPage;
                             }
                             break;
@@ -94,7 +95,13 @@ define(['backbone/pageable'], function(BackbonePageable) {
                     }
                 }
 
-                this.getPage(pageNumber);
+                this.getPage(pageNumber, {
+                    success: function() {
+                        if (typeof callBack == 'function') {
+                            callBack(pageNumber);
+                        }
+                    }
+                });
             });
         },
 

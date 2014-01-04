@@ -70,9 +70,7 @@ define(['paging/js/views/PaginationView'], function(PaginationView) {
             });
 
             this.collection.setFilterView(filterView);
-            this.collection.setPaginationView(new PaginationView({
-                el: 'div.list-pagination'
-            }));
+            this.collection.setPaginationView(new PaginationView);
         }
     });
 });

@@ -6,6 +6,8 @@
 define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone, tpl) {
     return Backbone.View.extend({
 
+        el: 'div.list-pagination',
+
         /**
          * Event bindings for this
          */
@@ -27,6 +29,8 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
                 this.$el.html(_.template($(tpl).html(), {
                     totalPages: totalPages
                 }));
+
+                this.setActivePage(1);
             }
 
             return this;
@@ -40,7 +44,20 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
          * @returns {void}
          */
         click : function(e) {
-            this.trigger('pagechange', $(e.target).data('page'));
+            var t = this;
+            t.trigger('pagechange', $(e.target).data('page'), function(page) {
+                t.setActivePage(page);
+            });
+        },
+
+        /**
+         * Sets the currently active page on the view
+         *
+         * @param {Number} page The active page number
+         */
+        setActivePage : function(page) {
+            this.$el.find('a').removeClass('active');
+            this.$el.find('a[data-page="' + page + '"]').addClass('active');
         }
     });
 });
