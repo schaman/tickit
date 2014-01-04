@@ -60,10 +60,9 @@ define(['backbone/pageable'], function(BackbonePageable) {
          * @param {Backbone.View} filterView The filter view
          */
         setFilterView : function(filterView) {
-            var t = this;
-            t.filterView = filterView;
-            t.filterView.on('change', function(values) {
-                t.updateFromValues(values, t);
+            this.filterView = filterView;
+            this.listenTo(this.filterView, 'change', function(values) {
+                this.updateFromValues(values, this);
             });
         },
 
@@ -86,10 +85,9 @@ define(['backbone/pageable'], function(BackbonePageable) {
          * The filter values should be key => value pairs
          *
          * @param {object} values The filter values to update from
-         * @param {object} scope  The scope object to call fetch on (should be this instance)
          */
-        updateFromValues : function(values, scope) {
-            scope.fetch({
+        updateFromValues : function(values) {
+            this.fetch({
                 reset: true,
                 data: values
             });
