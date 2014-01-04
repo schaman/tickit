@@ -40,7 +40,7 @@ define(['backbone', 'text!paging/views/PaginationView.html'], function(Backbone,
          * @returns {void}
          */
         click : function(e) {
-            this.trigger('click', $(e.target).data('page'));
+            this.trigger('pagechange', $(e.target).data('page'));
         }
     });
 });

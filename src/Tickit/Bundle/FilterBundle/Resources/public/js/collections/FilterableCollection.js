@@ -34,6 +34,10 @@ define(['backbone/pageable'], function(BackbonePageable) {
             currentPage: 1
         },
 
+        queryParams : {
+            totalPages: "totalPages"
+        },
+
         /**
          * Initialises the collection
          *
@@ -70,7 +74,26 @@ define(['backbone/pageable'], function(BackbonePageable) {
         setPaginationView : function(paginationView) {
             this.paginationView = paginationView;
 
-            this.listenTo(this.paginationView, 'click', function(pageNumber) {
+            this.listenTo(this.paginationView, 'pagechange', function(pageNumber) {
+                var state = this.state;
+
+                if (isNaN(pageNumber)) {
+                    switch(pageNumber) {
+                        case 'next':
+                            if ((state.currentPage + 1) > state.lastPage) {
+                                pageNumber = state.lastPage;
+                            }
+                            break;
+                        case 'prev':
+                            if ((state.currentPage - 1) < state.firstPage) {
+                                pageNumber = state.firstPage;
+                            }
+                            break;
+                        default:
+                            return;
+                    }
+                }
+
                 this.getPage(pageNumber);
             });
         },
@@ -100,12 +123,13 @@ define(['backbone/pageable'], function(BackbonePageable) {
             var state = [
                 {
                     totalRecords: resp.total,
-                    currentPage: resp.currentPage,
+                    page: resp.currentPage,
                     totalPages: resp.pages
                 },
                 resp.data
             ];
 
+            this.state.lastPage = resp.pages;
             this.paginationView.render(resp.pages);
 
             return BackbonePageable.prototype.parse.apply(this, [state]);
@@ -120,7 +144,8 @@ define(['backbone/pageable'], function(BackbonePageable) {
          * @returns {string}
          */
         url: function() {
-            return Routing.generate(this.getRouteName(), { page: this.state && this.state.currentPage ? this.state.currentPage : 1 });
+            var page = this.state && this.state.currentPage && Number(this.state.currentPage) > 0 ? this.state.currentPage : 1;
+            return Routing.generate(this.getRouteName(), { page: page });
         }
     });
 });
