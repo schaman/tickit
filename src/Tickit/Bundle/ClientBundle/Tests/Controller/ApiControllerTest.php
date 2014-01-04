@@ -60,6 +60,11 @@ class ApiControllerTest extends AbstractUnitTest
     private $clientRepo;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $paginator;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -71,6 +76,8 @@ class ApiControllerTest extends AbstractUnitTest
         $this->clientRepo = $this->getMockBuilder('\Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository')
                                  ->disableOriginalConstructor()
                                  ->getMock();
+
+        $this->paginator = $this->getMockPaginator();
     }
     
     /**
@@ -88,22 +95,24 @@ class ApiControllerTest extends AbstractUnitTest
                             ->will($this->returnValue($filters));
 
         $clients = [new Client(), new Client()];
+        $this->trainPaginatorToReturnIterator($clients);
+        $this->trainPaginatorToReturnCount(2);
 
         $this->clientRepo->expects($this->once())
                          ->method('findByFilters')
                          ->with($filters)
-                         ->will($this->returnValue($clients));
+                         ->will($this->returnValue($this->paginator));
 
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken', ClientController::CSRF_DELETE_INTENTION)
                          ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
 
-        $expectedData = [['client'], ['client']];
+        $expectedData = ['data' => [['client'], ['client']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
         $decorator = $this->getMockObjectCollectionDecorator();
         $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
-        $this->trainObjectCollectionDecoratorToExpectClientCollection($decorator, $clients, $expectedData);
+        $this->trainObjectCollectionDecoratorToExpectClientCollection($decorator, new \ArrayIterator($clients), $expectedData['data']);
 
-        $response = $this->getController()->listAction();
+        $response = $this->getController()->listAction(1);
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
@@ -133,7 +142,7 @@ class ApiControllerTest extends AbstractUnitTest
 
     private function trainObjectCollectionDecoratorToExpectClientCollection(
         \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        array $clients,
+        $clients,
         array $returnData
     ) {
         $objectDecorator->expects($this->once())
@@ -144,5 +153,19 @@ class ApiControllerTest extends AbstractUnitTest
                             ['csrf_token' => 'csrf-token-value']
                         )
                         ->will($this->returnValue($returnData));
+    }
+
+    private function trainPaginatorToReturnIterator(array $data)
+    {
+        $this->paginator->expects($this->once())
+                        ->method('getIterator')
+                        ->will($this->returnValue(new \ArrayIterator($data)));
+    }
+
+    private function trainPaginatorToReturnCount($count)
+    {
+        $this->paginator->expects($this->once())
+                        ->method('count')
+                        ->will($this->returnValue($count));
     }
 }

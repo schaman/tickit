@@ -28,6 +28,8 @@ use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Map\Client\ClientFilterMapper;
+use Tickit\Component\Pagination\Resolver\PageResolver;
+use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
 /**
  * API controller.
@@ -103,11 +105,11 @@ class ApiController
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
         $data = $decorator->decorate(
-            $clients,
+            $clients->getIterator(),
             ['id', 'name', 'url', 'status', 'totalProjects', 'created'],
             ['csrf_token' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)->getValue()]
         );
 
-        return new JsonResponse($data);
+        return new PaginatedJsonResponse($data, $clients->count(), PageResolver::ITEMS_PER_PAGE, $page);
     }
 }
