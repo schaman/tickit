@@ -23,6 +23,7 @@ namespace Tickit\Component\Notification\Tests\Factory;
 
 use Tickit\Component\Notification\Factory\NotificationFactory;
 use Tickit\Component\Model\User\User;
+use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * NotificationFactory tests
@@ -30,8 +31,27 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Notification\Tests\Factory
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
+class NotificationFactoryTest extends AbstractUnitTest
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $em;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $dispatcher;
+
+    /**
+     * Setup
+     */
+    protected function setUp()
+    {
+        $this->em = $this->getMockEntityManager();
+        $this->dispatcher = $this->getMockEventDispatcher();
+    }
+
     /**
      * Tests the notifyUser() method
      *
@@ -43,8 +63,7 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $mockMessage = $this->getMock('Tickit\Component\Notification\Model\NotificationDataInterface');
 
-        $factory = new NotificationFactory();
-        $factory->notifyUser($mockMessage, new User());
+        $this->getFactory()->notifyUser($mockMessage, new User());
     }
 
     /**
@@ -63,12 +82,16 @@ class NotificationFactoryTest extends \PHPUnit_Framework_TestCase
         $user->setForename('forename')
              ->getSurname('surname');
 
-        $factory = new NotificationFactory();
-        $notification = $factory->notifyUser($message, $user);
+        $notification = $this->getFactory()->notifyUser($message, $user);
 
         $this->assertInstanceOf('Tickit\Component\Notification\Model\UserNotification', $notification);
         $this->assertEquals(__FUNCTION__, $notification->getMessage());
         $this->assertEquals($user->getForename(), $notification->getRecipient()->getForename());
         $this->assertEquals($user->getSurname(), $notification->getRecipient()->getSurname());
+    }
+
+    private function getFactory()
+    {
+        return new NotificationFactory($this->em, $this->dispatcher);
     }
 }
