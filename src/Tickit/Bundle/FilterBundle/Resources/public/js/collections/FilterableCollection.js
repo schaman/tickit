@@ -34,10 +34,6 @@ define(['backbone/pageable'], function(BackbonePageable) {
             currentPage: 1
         },
 
-        queryParams : {
-            currentPage: "page"
-        },
-
         /**
          * Initialises the collection
          *
@@ -113,6 +109,18 @@ define(['backbone/pageable'], function(BackbonePageable) {
             this.paginationView.render(resp.pages);
 
             return BackbonePageable.prototype.parse.apply(this, [state]);
+        },
+
+        /**
+         * Generates the URL for this collection.
+         *
+         * Relies on the extending object to provide the route name via
+         * a getRouteName() method.
+         *
+         * @returns {string}
+         */
+        url: function() {
+            return Routing.generate(this.getRouteName(), { page: this.state && this.state.currentPage ? this.state.currentPage : 1 });
         }
     });
 });

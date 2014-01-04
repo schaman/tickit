@@ -17,12 +17,12 @@ define([
         model: Project,
 
         /**
-         * The URL used for fetching project models
+         * Gets the route name for this collection data
          *
-         * @returns {string}
+         * @return {string}
          */
-        url: function() {
-            return Routing.generate('api_project_list');
+        getRouteName : function() {
+            return 'api_project_list';
         }
     });
 });
