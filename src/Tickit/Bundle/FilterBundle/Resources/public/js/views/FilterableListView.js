@@ -56,7 +56,11 @@ define(['paging/js/views/PaginationView'], function(PaginationView) {
         },
 
         /**
-         * Fired after the view has been rendered
+         * Fired after the view has been rendered.
+         *
+         * This method triggers the creation of the filter and pagination views.
+         *
+         * @return {void}
          */
         onShow : function() {
             // we instantiate a new instance of the prototype provided
