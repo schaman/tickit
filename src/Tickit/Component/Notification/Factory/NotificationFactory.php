@@ -21,8 +21,6 @@
 
 namespace Tickit\Component\Notification\Factory;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Tickit\Component\Notification\Model\UserNotification;
 use Tickit\Component\Notification\Model\NotificationDataInterface;
 use Tickit\Component\Model\User\User;
@@ -38,32 +36,6 @@ use Tickit\Component\Model\User\User;
  */
 class NotificationFactory
 {
-    /**
-     * An entity manager
-     *
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * An event dispatcher
-     *
-     * @var EventDispatcherInterface
-     */
-    private $dispatcher;
-
-    /**
-     * Constructor.
-     *
-     * @param EntityManagerInterface   $em         An entity manager
-     * @param EventDispatcherInterface $dispatcher An event dispatcher
-     */
-    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $dispatcher)
-    {
-        $this->em = $em;
-        $this->dispatcher = $dispatcher;
-    }
-
     /**
      * Creates a new user notification from a message object.
      *

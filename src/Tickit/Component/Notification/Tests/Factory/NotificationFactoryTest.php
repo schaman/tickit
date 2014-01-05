@@ -34,25 +34,6 @@ use Tickit\Component\Test\AbstractUnitTest;
 class NotificationFactoryTest extends AbstractUnitTest
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $em;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $dispatcher;
-
-    /**
-     * Setup
-     */
-    protected function setUp()
-    {
-        $this->em = $this->getMockEntityManager();
-        $this->dispatcher = $this->getMockEventDispatcher();
-    }
-
-    /**
      * Tests the notifyUser() method
      *
      * @expectedException \InvalidArgumentException
@@ -92,6 +73,6 @@ class NotificationFactoryTest extends AbstractUnitTest
 
     private function getFactory()
     {
-        return new NotificationFactory($this->em, $this->dispatcher);
+        return new NotificationFactory();
     }
 }
