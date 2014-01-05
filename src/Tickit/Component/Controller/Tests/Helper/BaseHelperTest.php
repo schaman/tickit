@@ -38,7 +38,7 @@ class BaseHelperTest extends AbstractUnitTest
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $request;
+    private $requestStack;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -65,9 +65,7 @@ class BaseHelperTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->request = $this->getMockBuilder('\Symfony\Component\HttpFoundation\Request')
-                              ->disableOriginalConstructor()
-                              ->getMock();
+        $this->requestStack = $this->getMockRequestStack();
 
         $this->securityContext = $this->getMockForAbstractClass(
             '\Symfony\Component\Security\Core\SecurityContextInterface'
@@ -105,7 +103,10 @@ class BaseHelperTest extends AbstractUnitTest
      */
     public function testGetRequestReturnsCorrectInstance()
     {
-        $this->assertSame($this->request, $this->getHelper()->getRequest());
+        $request = $this->getMockRequest();
+        $this->trainRequestStackToReturnRequest($request);
+
+        $this->assertSame($request, $this->getHelper()->getRequest());
     }
 
     /**
@@ -194,11 +195,19 @@ class BaseHelperTest extends AbstractUnitTest
     private function getHelper()
     {
         return new BaseHelper(
-            $this->request,
+            $this->requestStack,
             $this->securityContext,
             $this->objectDecorator,
             $this->objectCollectionDecorator,
             $this->router
         );
+    }
+
+    private function trainRequestStackToReturnRequest(
+        \PHPUnit_Framework_MockObject_MockObject $request
+    ) {
+        $this->requestStack->expects($this->once())
+                           ->method('getCurrentRequest')
+                           ->will($this->returnValue($request));
     }
 }
