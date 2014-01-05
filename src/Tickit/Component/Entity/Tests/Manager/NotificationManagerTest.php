@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Entity\Tests\Manager;
 
+use Tickit\Component\Notification\Event\NotificationEvents;
+use Tickit\Component\Notification\Event\UserNotificationEvent;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Notification\Model\UserNotification;
 use Tickit\Component\Notification\Factory\NotificationFactory;
@@ -42,30 +44,46 @@ class NotificationManagerTest extends AbstractUnitTest
     private $factory;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $em;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $dispatcher;
+
+    /**
      * Setup
      */
     protected function setUp()
     {
         $this->factory = new NotificationFactory();
+        $this->em = $this->getMockEntityManager();
+        $this->dispatcher = $this->getMockEventDispatcher();
     }
     
     /**
      * Tests the create() method
      */
-    public function testCreatePersistsAndFlushesNotification()
+    public function testCreateUserNotificationPersistsAndFlushesNotification()
     {
         $notification = new UserNotification();
 
-        $entityManager = $this->getMockEntityManager();
-        $entityManager->expects($this->once())
-                      ->method('persist')
-                      ->with($notification);
+        $this->em->expects($this->once())
+                 ->method('persist')
+                 ->with($notification);
 
-        $entityManager->expects($this->once())
-                      ->method('flush');
+        $this->em->expects($this->once())
+                 ->method('flush');
 
-        $manager = new NotificationManager($entityManager, $this->factory);
-        $manager->create($notification);
+        $expectedEvent = new UserNotificationEvent($notification);
+
+        $this->dispatcher->expects($this->once())
+                         ->method('dispatch')
+                         ->with(NotificationEvents::NOTIFY_USER, $expectedEvent);
+
+        $this->getManager()->createUserNotification($notification);
     }
 
     /**
@@ -73,9 +91,11 @@ class NotificationManagerTest extends AbstractUnitTest
      */
     public function testGetFactoryReturnsCorrectInstance()
     {
-        $entityManager = $this->getMockEntityManager();
-        $manager = new NotificationManager($entityManager, $this->factory);
+        $this->assertSame($this->factory, $this->getManager()->getFactory());
+    }
 
-        $this->assertSame($this->factory, $manager->getFactory());
+    private function getManager()
+    {
+        return new NotificationManager($this->em, $this->factory, $this->dispatcher);
     }
 }
