@@ -22,7 +22,6 @@
 namespace Tickit\Component\Avatar\Adapter;
 
 use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Gravatar avatar adapter
