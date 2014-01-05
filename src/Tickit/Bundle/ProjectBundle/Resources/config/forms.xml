@@ -4,14 +4,21 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_project.form.entity_attribute.class">Tickit\Bundle\ProjectBundle\Form\Type\EntityAttributeFormType</parameter>
+        <parameter key="tickit_project.form.project.class">Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType</parameter>
+        <parameter key="tickit_project.form.attribute_value.class">Tickit\Bundle\ProjectBundle\Form\Type\AttributeValueFormType</parameter>
+        <parameter key="tickit_project.form.filters.class">Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_project.form.entity_attribute" class="Tickit\Bundle\ProjectBundle\Form\Type\EntityAttributeFormType">
+        <service id="tickit_project.form.entity_attribute" class="%tickit_project.form.entity_attribute.class%">
             <argument type="service" id="event_dispatcher" />
             <tag name="form.type" alias="tickit_project_attribute_entity" />
         </service>
 
-        <service id="tickit_project.form.project" class="Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType">
+        <service id="tickit_project.form.project" class="%tickit_project.form.project.class%">
             <argument type="service" id="tickit_project.form.attribute_value" />
             <tag name="form.type" alias="tickit_project" />
         </service>
@@ -20,7 +27,7 @@
             <tag name="form.type" alias="tickit_project_attribute_value" />
         </service>
 
-        <service id="tickit_project.form.filters" class="Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType">
+        <service id="tickit_project.form.filters" class="%tickit_project.form.filters.class%">
             <tag name="form.type" alias="tickit_project_filters" />
         </service>
 
