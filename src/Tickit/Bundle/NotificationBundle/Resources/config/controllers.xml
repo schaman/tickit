@@ -4,14 +4,19 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_notification.controller.api.class">Tickit\Bundle\NotificationBundle\Controller\ApiController</parameter>
+        <parameter key="tickit_notification.controller.notification.class">Tickit\Bundle\NotificationBundle\Controller\NotificationController</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_notification.controller.api" class="Tickit\Bundle\NotificationBundle\Controller\ApiController" scope="request">
+        <service id="tickit_notification.controller.api" class="%tickit_notification.controller.api.class%" scope="request">
             <argument type="service" id="tickit_notification.provider" />
             <argument type="service" id="tickit.controller.base_helper" />
         </service>
 
-        <service id="tickit_notification.controller.notification" class="Tickit\Bundle\NotificationBundle\Controller\NotificationController" />
+        <service id="tickit_notification.controller.notification" class="%tickit_notification.controller.notification.class%" />
 
     </services>
 
