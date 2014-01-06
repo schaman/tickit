@@ -38,12 +38,12 @@
         "friendsofsymfony/jsrouting-bundle": "1.x-dev",
         "hearsay/require-js-bundle": "dev-master",
         "ircmaxell/password-compat": "1.0.x-dev",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "2.1.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "2.3.x-dev",
         "fzaninotto/faker": "dev-master",
-        "squizlabs/php_codesniffer": "1.4.5",
+        "squizlabs/php_codesniffer": "dev-master",
         "behat/symfony2-extension": "dev-master",
         "behat/mink-extension": "dev-master",
         "behat/mink-selenium2-driver": "dev-master",
