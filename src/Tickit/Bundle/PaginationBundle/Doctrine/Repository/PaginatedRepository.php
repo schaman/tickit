@@ -56,6 +56,8 @@ class PaginatedRepository extends EntityRepository
      * Gets the page resolver
      *
      * @throws \BadMethodCallException If the $pageResolver property is not set
+     *
+     * @return PageResolverInterface
      */
     public function getPageResolver()
     {
