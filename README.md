@@ -1,5 +1,5 @@
 <a href='http://travis-ci.org/#!/tickit-project/tickit'><img src='https://secure.travis-ci.org/tickit-project/tickit.png' /></a>
-<a href="https://www.versioneye.com/user/projects/51962575463e9a000200f930" id="show_dep_badge_window" role="button" data-toggle="modal"><img id="dependency_badge" src="https://www.versioneye.com/user/projects/51962575463e9a000200f930/badge.png"></a>
+<a href="#dialog_dependency_badge" id="show_dep_badge_window" role="button" data-toggle="modal"><img id="dependency_badge" src="https://www.versioneye.com/user/projects/52cb213dec1375497000000b/badge.png" alt="Dependency Badge"></a>
 <a href='https://coveralls.io/r/tickit-project/tickit?branch=development'><img src='https://coveralls.io/repos/tickit-project/tickit/badge.png?branch=development' alt='Coverage Status' /></a>
 <a href='https://insight.sensiolabs.com/projects/6df2a619-514e-4e42-b9b2-d7fdceeb357f'><img src='https://insight.sensiolabs.com/projects/6df2a619-514e-4e42-b9b2-d7fdceeb357f/mini.png' /></a>
 
