@@ -3,37 +3,48 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-        <services>
 
-            <service id="tickit_user.user_form_type" class="Tickit\Bundle\UserBundle\Form\Type\UserFormType">
-                <tag name="form.type" alias="tickit_user" />
-            </service>
+    <parameters>
+        <parameter key="tickit_user.user_form_type.class">Tickit\Bundle\UserBundle\Form\Type\UserFormType</parameter>
+        <parameter key="tickit_user.profile.form.type.class">Tickit\Bundle\UserBundle\Form\Type\ProfileFormType</parameter>
+        <parameter key="tickit_user.registration.form.type.class">Tickit\Bundle\UserBundle\Form\Type\RegistrationFormType</parameter>
+        <parameter key="tickit_user.form.type.user_picker.class">Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType</parameter>
+        <parameter key="tickit_user.form.user_picker_data_transformer.class">Tickit\Bundle\UserBundle\Form\Type\Picker\DataTransformer\UserPickerDataTransformer</parameter>
+        <parameter key="tickit_user.form.filters.class">Tickit\Bundle\UserBundle\Form\Type\FilterFormType</parameter>
+        <parameter key="tickit_user.form.password_updater.class">Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater</parameter>
+    </parameters>
 
-            <service id="tickit_user.profile.form.type" class="Tickit\Bundle\UserBundle\Form\Type\ProfileFormType">
-                <tag name="form.type" alias="tickit_user_profile" />
-                <argument>%fos_user.model.user.class%</argument>
-            </service>
+    <services>
 
-            <service id="tickit_user.registration.form.type" class="Tickit\Bundle\UserBundle\Form\Type\RegistrationFormType">
-                <tag name="form.type" alias="tickit_user_registration" />
-                <argument>%fos_user.model.user.class%</argument>
-            </service>
+        <service id="tickit_user.user_form_type" class="%tickit_user.user_form_type.class%">
+            <tag name="form.type" alias="tickit_user" />
+        </service>
 
-            <service id="tickit_user.form.type.user_picker" class="Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType">
-                <tag name="form.type" alias="tickit_user_picker" />
-                <argument type="service" id="tickit_user.display_name_decorator" />
-                <argument type="service" id="tickit_user.form.user_picker_data_transformer" />
-            </service>
+        <service id="tickit_user.profile.form.type" class="%tickit_user.profile.form.type.class%">
+            <tag name="form.type" alias="tickit_user_profile" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
 
-            <service id="tickit_user.form.user_picker_data_transformer" class="Tickit\Bundle\UserBundle\Form\Type\Picker\DataTransformer\UserPickerDataTransformer">
-                <argument type="service" id="tickit_user.manager" />
-            </service>
+        <service id="tickit_user.registration.form.type" class="%tickit_user.registration.form.type.class%">
+            <tag name="form.type" alias="tickit_user_registration" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
 
-            <service id="tickit_user.form.filters" class="Tickit\Bundle\UserBundle\Form\Type\FilterFormType">
-                <tag name="form.type" alias="tickit_user_filters" />
-            </service>
+        <service id="tickit_user.form.type.user_picker" class="%tickit_user.form.type.user_picker.class%">
+            <tag name="form.type" alias="tickit_user_picker" />
+            <argument type="service" id="tickit_user.display_name_decorator" />
+            <argument type="service" id="tickit_user.form.user_picker_data_transformer" />
+        </service>
 
-            <service id="tickit_user.form.password_updater" class="Tickit\Bundle\UserBundle\Form\Password\UserPasswordUpdater" />
+        <service id="tickit_user.form.user_picker_data_transformer" class="%tickit_user.form.user_picker_data_transformer.class%">
+            <argument type="service" id="tickit_user.manager" />
+        </service>
 
-        </services>
+        <service id="tickit_user.form.filters" class="%tickit_user.form.filters.class%">
+            <tag name="form.type" alias="tickit_user_filters" />
+        </service>
+
+        <service id="tickit_user.form.password_updater" class="%tickit_user.form.password_updater.class%" />
+
+    </services>
 </container>

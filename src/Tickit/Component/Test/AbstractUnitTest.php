@@ -231,6 +231,30 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Gets a mock RequestStack
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockRequestStack()
+    {
+        return $this->getMockBuilder('\Symfony\Component\HttpFoundation\RequestStack')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
+     * Gets a mock Request
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockRequest()
+    {
+        return $this->getMockBuilder('\Symfony\Component\HttpFoundation\Request')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
      * Returns an instance of a non-accessible method.
      *
      * @param string $className  The class name

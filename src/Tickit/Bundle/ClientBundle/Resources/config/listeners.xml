@@ -4,13 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_client.client_navigation.class">Tickit\Bundle\ClientBundle\Listener\NavigationBuilderListener</parameter>
+        <parameter key="tickit_client.project_listener.class">Tickit\Bundle\ClientBundle\Listener\ProjectListener</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_client.client_navigation" class="Tickit\Bundle\ClientBundle\Listener\NavigationBuilderListener">
+        <service id="tickit_client.client_navigation" class="%tickit_client.client_navigation.class%">
             <tag name="kernel.event_listener" event="tickit.event.main_navigation_build" method="onBuild"/>
         </service>
 
-        <service id="tickit_client.project_listener" class="Tickit\Bundle\ClientBundle\Listener\ProjectListener">
+        <service id="tickit_client.project_listener" class="%tickit_client.project_listener.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="kernel.event_listener" event="tickit_project.event.create" method="onProjectCreate" />
             <tag name="kernel.event_listener" event="tickit_project.event.delete" method="onProjectDelete" />

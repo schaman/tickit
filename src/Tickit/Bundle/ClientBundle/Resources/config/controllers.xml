@@ -4,23 +4,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_client.controller.api.class">Tickit\Bundle\ClientBundle\Controller\ApiController</parameter>
+        <parameter key="tickit_client.controller.client.class">Tickit\Bundle\ClientBundle\Controller\ClientController</parameter>
+        <parameter key="tickit_client.controller.template.class">Tickit\Bundle\ClientBundle\Controller\TemplateController</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_client.controller.api" class="Tickit\Bundle\ClientBundle\Controller\ApiController" scope="request">
+        <service id="tickit_client.controller.api" class="%tickit_client.controller.api.class%" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_client.client_repository" />
         </service>
 
-        <service id="tickit_client.controller.client" class="Tickit\Bundle\ClientBundle\Controller\ClientController" scope="request">
+        <service id="tickit_client.controller.client" class="%tickit_client.controller.client.class%" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_client.manager" />
         </service>
 
-        <service id="tickit_client.controller.template" class="Tickit\Bundle\ClientBundle\Controller\TemplateController" scope="request">
+        <service id="tickit_client.controller.template" class="%tickit_client.controller.template.class%" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
         </service>
 
