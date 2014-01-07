@@ -16,12 +16,12 @@ define(['marionette'], function(Marionette) {
          */
         onShow: function() {
             if (App.Session.isAuthenticated() && typeof App.Navigation == 'undefined') {
-                require(['modules/navigation'], function(Navigation) {
-                    Navigation.loadHeaderNavigation();
-                    Navigation.loadMainNavigation();
-                });
-                require(['modules/notification'], function(Notification) {
-                    Notification.loadNotifications();
+
+                require(['modules/user', 'modules/navigation', 'modules/notification'], function(User, Navigation, Notification) {
+                    User.loadCurrentUser(function() {
+                        Navigation.loadNavigation();
+                        Notification.loadNotifications();
+                    });
                 });
 
                 $('#outer-container').show();
