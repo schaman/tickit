@@ -19,7 +19,14 @@ define(function() {
              *
              * @type {Backbone.Collection}
              */
-            collection : options.collection
+            collection : options.collection,
+
+            /**
+             * The notification provider
+             *
+             * @type {object}
+             */
+            provider : options.provider
         };
     }
 
