@@ -22,11 +22,11 @@ define(function() {
             collection : options.collection,
 
             /**
-             * The notification provider
+             * A notification dispatcher
              *
              * @type {object}
              */
-            provider : options.provider
+            dispatcher : options.dispatcher
         };
     }
 
