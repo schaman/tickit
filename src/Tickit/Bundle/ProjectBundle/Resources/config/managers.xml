@@ -4,15 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_project.manager.class">Tickit\Component\Entity\Manager\ProjectManager</parameter>
+        <parameter key="tickit_project.attribute_manager.class">Tickit\Component\Entity\Manager\AttributeManager</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_project.manager" class="Tickit\Component\Entity\Manager\ProjectManager">
+        <service id="tickit_project.manager" class="%tickit_project.manager.class%">
             <argument type="service" id="tickit_project.project_repository" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="tickit_project.project_event_dispatcher" />
         </service>
 
-        <service id="tickit_project.attribute_manager" class="Tickit\Component\Entity\Manager\AttributeManager">
+        <service id="tickit_project.attribute_manager" class="%tickit_project.attribute_manager.class%">
             <argument type="service" id="tickit_project.attribute_repository" />
             <argument type="service" id="tickit_project.choice_attribute_choice_repository" />
             <argument type="service" id="doctrine.orm.entity_manager" />

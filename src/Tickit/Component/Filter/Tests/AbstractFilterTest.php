@@ -138,6 +138,10 @@ class AbstractFilterTest extends AbstractUnitTest
             array(
                 AbstractFilter::FILTER_SEARCH,
                 '\Tickit\Component\Filter\SearchFilter'
+            ),
+            array(
+                AbstractFilter::FILTER_CALLBACK,
+                '\Tickit\Component\Filter\CallbackFilter'
             )
         );
     }

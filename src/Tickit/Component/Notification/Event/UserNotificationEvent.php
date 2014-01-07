@@ -19,55 +19,57 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\UserBundle\Form\Type\Picker\DataTransformer;
+namespace Tickit\Component\Notification\Event;
 
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
-use Tickit\Component\Entity\Manager\UserManager;
+use Symfony\Component\EventDispatcher\Event;
+use Tickit\Component\Model\User\User;
+use Tickit\Component\Notification\Model\UserNotification;
 
 /**
- * User Picker data transformer.
+ * User notification event.
  *
- * @package Tickit\Bundle\UserBundle\Form\Type\Picker\DataTransformer
+ * An event object dispatched whenever a user receives a new
+ * notification.
+ *
+ * @package Tickit\Component\Notification\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserPickerDataTransformer extends AbstractPickerDataTransformer
+class UserNotificationEvent extends Event
 {
     /**
-     * The user manager
+     * The notification
      *
-     * @var UserManager
+     * @var UserNotification
      */
-    private $manager;
+    private $notification;
 
     /**
      * Constructor.
      *
-     * @param UserManager $manager The user manager
+     * @param UserNotification $notification The notification dispatched
      */
-    public function __construct(UserManager $manager)
+    public function __construct(UserNotification $notification)
     {
-        $this->manager = $manager;
+        $this->notification = $notification;
     }
 
     /**
-     * Returns the name of the entity identifier.
+     * Gets the recipient user of the notification
      *
-     * @return string
+     * @return User
      */
-    protected function getEntityIdentifier()
+    public function getUser()
     {
-        return 'id';
+        return $this->getNotification()->getRecipient();
     }
 
     /**
-     * Returns an entity instance by identifier
+     * Gets the notification on the event
      *
-     * @param mixed $identifier The entity identifier value
-     *
-     * @return mixed
+     * @return UserNotification
      */
-    protected function findEntityByIdentifier($identifier)
+    public function getNotification()
     {
-        return $this->manager->find($identifier);
+        return $this->notification;
     }
 }

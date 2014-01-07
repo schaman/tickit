@@ -4,23 +4,30 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_client.form.client.class">Tickit\Bundle\ClientBundle\Form\Type\ClientFormType</parameter>
+        <parameter key="tickit_client.form.type.client_picker.class">Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType</parameter>
+        <parameter key="tickit_client.form.client_picker_data_transformer.class">Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer</parameter>
+        <parameter key="tickit_client.form.filters.class">Tickit\Bundle\ClientBundle\Form\Type\FilterFormType</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_client.form.client" class="Tickit\Bundle\ClientBundle\Form\Type\ClientFormType">
+        <service id="tickit_client.form.client" class="%tickit_client.form.client.class%">
             <tag name="form.type" alias="tickit_client" />
         </service>
 
-        <service id="tickit_client.form.type.client_picker" class="Tickit\Bundle\ClientBundle\Form\Type\Picker\ClientPickerType">
+        <service id="tickit_client.form.type.client_picker" class="%tickit_client.form.type.client_picker.class%">
             <tag name="form.type" alias="tickit_client_picker" />
             <argument type="service" id="tickit_client.display_name_decorator" />
             <argument type="service" id="tickit_client.form.client_picker_data_transformer" />
         </service>
 
-        <service id="tickit_client.form.client_picker_data_transformer" class="Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer\ClientPickerDataTransformer">
+        <service id="tickit_client.form.client_picker_data_transformer" class="%tickit_client.form.client_picker_data_transformer.class%">
             <argument type="service" id="tickit_client.manager" />
         </service>
 
-        <service id="tickit_client.form.filters" class="Tickit\Bundle\ClientBundle\Form\Type\FilterFormType">
+        <service id="tickit_client.form.filters" class="%tickit_client.form.filters.class%">
             <tag name="form.type" alias="tickit_client_filters" />
         </service>
 

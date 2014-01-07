@@ -22,6 +22,7 @@
 namespace Tickit\Component\Controller\Helper;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -40,7 +41,7 @@ use Tickit\Component\Model\User\User;
 class BaseHelper
 {
     /**
-     * The request
+     * The current request
      *
      * @var Request
      */
@@ -77,20 +78,20 @@ class BaseHelper
     /**
      * Constructor.
      *
-     * @param Request                                  $request                   The request
+     * @param RequestStack                             $requestStack              The request stack
      * @param SecurityContextInterface                 $securityContext           The security context
      * @param DomainObjectDecoratorInterface           $objectDecorator           An object decorator
      * @param DomainObjectCollectionDecoratorInterface $objectCollectionDecorator An object collection decorator
      * @param RouterInterface                          $router                    A router
      */
     public function __construct(
-        Request $request,
+        RequestStack $requestStack,
         SecurityContextInterface $securityContext,
         DomainObjectDecoratorInterface $objectDecorator,
         DomainObjectCollectionDecoratorInterface $objectCollectionDecorator,
         RouterInterface $router
     ) {
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->securityContext = $securityContext;
         $this->objectDecorator = $objectDecorator;
         $this->objectCollectionDecorator = $objectCollectionDecorator;

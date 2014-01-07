@@ -4,15 +4,22 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_project.controller.template.class">Tickit\Bundle\ProjectBundle\Controller\TemplateController</parameter>
+        <parameter key="tickit_project.controller.api.class">Tickit\Bundle\ProjectBundle\Controller\ApiController</parameter>
+        <parameter key="tickit_project.controller.project.class">Tickit\Bundle\ProjectBundle\Controller\ProjectController</parameter>
+        <parameter key="tickit_project.controller.attribute.class">Tickit\Bundle\ProjectBundle\Controller\AttributeController</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_project.controller.template" class="Tickit\Bundle\ProjectBundle\Controller\TemplateController" scope="request">
+        <service id="tickit_project.controller.template" class="%tickit_project.controller.template.class%" scope="request">
             <argument type="service" id="tickit_project.attribute_manager" />
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
         </service>
 
-        <service id="tickit_project.controller.api" class="Tickit\Bundle\ProjectBundle\Controller\ApiController" scope="request">
+        <service id="tickit_project.controller.api" class="%tickit_project.controller.api.class%" scope="request">
             <argument type="service" id="tickit.filter_collection_builder" />
             <argument type="service" id="tickit_project.project_repository" />
             <argument type="service" id="tickit_project.attribute_repository" />
@@ -20,7 +27,7 @@
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
-        <service id="tickit_project.controller.project" class="Tickit\Bundle\ProjectBundle\Controller\ProjectController" scope="request">
+        <service id="tickit_project.controller.project" class="%tickit_project.controller.project.class%" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit_project.attribute_manager" />
@@ -29,7 +36,7 @@
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
-        <service id="tickit_project.controller.attribute" class="Tickit\Bundle\ProjectBundle\Controller\ProjectController" scope="request">
+        <service id="tickit_project.controller.attribute" class="%tickit_project.controller.attribute.class%" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />

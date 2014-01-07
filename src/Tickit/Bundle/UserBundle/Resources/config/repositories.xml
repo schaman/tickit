@@ -4,13 +4,18 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="tickit_user.user_repository.class">Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository</parameter>
+        <parameter key="tickit_user.user_session_repository.class">Tickit\Bundle\UserBundle\Doctrine\Repository\UserSessionRepository</parameter>
+    </parameters>
+
     <services>
 
-        <service id="tickit_user.user_repository" class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_user.user_repository" class="%tickit_user.user_repository.class%" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitUserBundle:User</argument>
         </service>
 
-        <service id="tickit_user.user_session_repository" class="Tickit\Bundle\UserBundle\Doctrine\Repository\UserSessionRepository" factory-service="doctrine" factory-method="getRepository">
+        <service id="tickit_user.user_session_repository" class="%tickit_user.user_session_repository.class%" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitUserBundle:UserSession</argument>
         </service>
 

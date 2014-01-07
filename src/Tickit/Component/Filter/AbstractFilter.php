@@ -141,6 +141,9 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
             case static::FILTER_SEARCH:
                 $filter = new SearchFilter($key, $value, $options);
                 break;
+            case static::FILTER_CALLBACK:
+                $filter = new CallbackFilter($key, $value, $options);
+                break;
             default:
                 throw new \InvalidArgumentException(
                     sprintf('An invalid filter type (%s) was provided', $type)

@@ -19,18 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Manager;
+namespace Tickit\Component\Notification\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Tickit\Component\Notification\Model\AbstractNotification;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Tickit\Component\Notification\Event\NotificationEvents;
+use Tickit\Component\Notification\Event\UserNotificationEvent;
 use Tickit\Component\Notification\Factory\NotificationFactory;
+use Tickit\Component\Notification\Model\UserNotification;
 
 /**
  * Notification manager.
  *
  * Manages the creation and updating of notifications.
  *
- * @package Tickit\Component\Entity\Manager
+ * @package Tickit\Component\Notification\Manager
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NotificationManager
@@ -50,28 +53,44 @@ class NotificationManager
     protected $notificationFactory;
 
     /**
+     * An event dispatcher
+     *
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * Constructor.
      *
-     * @param EntityManagerInterface $entityManager       An entity manager
-     * @param NotificationFactory    $notificationFactory The notification factory
+     * @param EntityManagerInterface   $entityManager       An entity manager
+     * @param NotificationFactory      $notificationFactory The notification factory
+     * @param EventDispatcherInterface $eventDispatcher     An event dispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager, NotificationFactory $notificationFactory)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        NotificationFactory $notificationFactory,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->em = $entityManager;
         $this->notificationFactory = $notificationFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * Creates a new notification in the data layer.
+     * Creates a new user notification in the data layer.
      *
-     * @param AbstractNotification $notification
+     * Also dispatches an event to notify listeners.
+     *
+     * @param UserNotification $notification The user notification to create
      *
      * @return void
      */
-    public function create(AbstractNotification $notification)
+    public function createUserNotification(UserNotification $notification)
     {
         $this->em->persist($notification);
         $this->em->flush();
+
+        $this->eventDispatcher->dispatch(NotificationEvents::NOTIFY_USER, new UserNotificationEvent($notification));
     }
 
     /**

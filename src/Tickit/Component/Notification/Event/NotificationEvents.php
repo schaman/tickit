@@ -19,25 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\Mock;
+namespace Tickit\Component\Notification\Event;
 
 /**
- * Mock entity.
+ * Notification event mappings.
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\Mock
+ * @package Tickit\Component\Notification\Event
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class MockEntity
+final class NotificationEvents
 {
-    private $id;
-
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
+    /**
+     * Constant representing the name  of the user notification event
+     *
+     * @const string
+     */
+    const NOTIFY_USER = 'tickit_notification.user';
 }

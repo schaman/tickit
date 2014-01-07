@@ -18,7 +18,7 @@
         </service>
 
         <service id="tickit.controller.base_helper" class="%tickit.controller.base_helper.class%" public="false" lazy="true" scope="request">
-            <argument type="service" id="request" />
+            <argument type="service" id="request_stack" />
             <argument type="service" id="security.context" />
             <argument type="service" id="tickit.domain_object_array_decorator" />
             <argument type="service" id="tickit.domain_object_collection_array_decorator" />
