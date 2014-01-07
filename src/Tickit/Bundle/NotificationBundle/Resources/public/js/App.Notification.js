@@ -11,6 +11,13 @@ define([
 ], function(User, NotificationProvider, NotificationListView, NotificationCollection) {
     return App.module('Notification', function(module) {
 
+        /**
+         * The notification provider
+         *
+         * @type {object}
+         */
+        module.provider = null;
+
         module.startWithParent = false;
 
         /**
@@ -25,6 +32,8 @@ define([
                 var view = new NotificationListView({
                     collection: notifications
                 });
+
+                module.provider = new NotificationProvider({ collection: notifications });
 
                 App.notificationRegion.show(view);
             });

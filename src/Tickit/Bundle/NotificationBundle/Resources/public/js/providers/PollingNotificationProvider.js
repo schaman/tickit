@@ -6,13 +6,22 @@
  * @type {object}
  */
 define(function() {
-    return {
+    function PollingNotificationProvider(options) {
+        options = options || {};
 
+        return {
 
+            /**
+             * The notification collection.
+             *
+             * This will hold all existing notification objects and
+             * will be updated when new notifications are found.
+             *
+             * @type {Backbone.Collection}
+             */
+            collection : options.collection
+        };
+    }
 
-        init : function(options) {
-
-        }
-
-    };
+    return PollingNotificationProvider;
 });
