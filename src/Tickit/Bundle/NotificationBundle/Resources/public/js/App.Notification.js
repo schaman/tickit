@@ -5,9 +5,10 @@
  */
 define([
     'modules/user',
+    'notification/js/providers/PollingNotificationProvider',
     'notification/js/views/NotificationListView',
     'notification/js/collections/NotificationCollection'
-], function(User, NotificationListView, NotificationCollection) {
+], function(User, NotificationProvider, NotificationListView, NotificationCollection) {
     return App.module('Notification', function(module) {
 
         module.startWithParent = false;
