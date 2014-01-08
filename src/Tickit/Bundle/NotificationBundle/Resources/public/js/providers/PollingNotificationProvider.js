@@ -5,11 +5,41 @@
  *
  * @type {object}
  */
-define(function() {
+define(['modules/request', 'notification/js/models/Notification'], function(Request, Notification) {
     function PollingNotificationProvider(options) {
         options = options || {};
 
+        var poll = function() {
+            Request.get({
+                url: Routing.generate('api_notification_list'),
+                dataType: 'json',
+                success: function(resp) {
+                    var models = [];
+                    if (resp.length) {
+                        $.each(resp, function(i, data) {
+                            models.push(new Notification(data));
+                        });
+                        options.collection.add(models);
+                        //this.provider.trigger('newnotification', models);
+                    }
+                }
+            });
+        };
+
+        // start the polling at 5 minute intervals
+        setInterval(poll, 60000 * 5);
+
         return {
+
+            /**
+             * Triggers a fetch of new notifications
+             *
+             * This provides a way of forcing a fetch of new notifications
+             * in the event that the client cannot wait for the poll event
+             *
+             * @type {function}
+             */
+            fetchNotifications : poll,
 
             /**
              * The notification collection.
