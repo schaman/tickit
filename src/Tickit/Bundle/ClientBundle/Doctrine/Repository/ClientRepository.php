@@ -21,9 +21,11 @@
 
 namespace Tickit\Bundle\ClientBundle\Doctrine\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 
 /**
  * Client repository.
@@ -33,36 +35,42 @@ use Tickit\Component\Filter\Collection\FilterCollection;
  * @package Tickit\Bundle\ClientBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ClientRepository extends EntityRepository
+class ClientRepository extends PaginatedRepository implements FilterableRepositoryInterface
 {
     /**
      * Finds results based off a set of filters.
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of results to fetch
      *
      * @codeCoverageIgnore
      *
-     * @return mixed
+     * @return Paginator
      */
-    public function findByFilters(FilterCollection $filters)
+    public function findByFilters(FilterCollection $filters, $page = 1)
     {
-        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+        $query = $this->getFindByFiltersQueryBuilder($filters, $page);
+        $paginator = new Paginator($query, false);
+
+        return $paginator;
     }
 
     /**
      * Gets the query builder for finding a filtered set of Clients
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of results to fetch
      *
      * @return QueryBuilder
      */
-    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters, $page)
     {
         $queryBuilder = $this->getEntityManager()
                              ->createQueryBuilder()
                              ->select('c')
                              ->from('TickitClientBundle:Client', 'c');
 
+        $this->setPageBoundsOnQuery($queryBuilder, $page);
         $filters->applyToQuery($queryBuilder);
 
         return $queryBuilder;

@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="tickit_pagination.page_resolver.class">Tickit\Component\Pagination\Resolver\PageResolver</parameter>
+    </parameters>
+
+    <services>
+        <service id="tickit_pagination.page_resolver" class="%tickit_pagination.page_resolver.class%" />
+    </services>
+
+</container>

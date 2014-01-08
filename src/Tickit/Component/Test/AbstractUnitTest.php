@@ -219,6 +219,18 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Gets a mock doctrine paginator
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockPaginator()
+    {
+        return $this->getMockBuilder('\Doctrine\ORM\Tools\Pagination\Paginator')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
      * Gets a mock RequestStack
      *
      * @return \PHPUnit_Framework_MockObject_MockObject

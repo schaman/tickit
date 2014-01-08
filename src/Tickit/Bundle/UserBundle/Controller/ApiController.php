@@ -31,6 +31,8 @@ use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
 use Tickit\Component\Model\User\User;
+use Tickit\Component\Pagination\Resolver\PageResolver;
+use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
 /**
  * API controller for users.
@@ -138,20 +140,17 @@ class ApiController
      */
     public function listAction($page = 1)
     {
-        $filters = $this->filterBuilder->buildFromRequest(
-            $this->baseHelper->getRequest(),
-            FilterFormType::NAME,
-            new UserFilterMapper()
-        );
-        $users = $this->userRepository->findByFilters($filters);
+        $request = $this->baseHelper->getRequest();
+        $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new UserFilterMapper());
+        $users = $this->userRepository->findByFilters($filters, $page);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
         $data = $decorator->decorate(
-            $users,
+            $users->getIterator(),
             ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
             ['csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)->getValue()]
         );
 
-        return new JsonResponse($data);
+        return new PaginatedJsonResponse($data, $users->count(), PageResolver::ITEMS_PER_PAGE, $page);
     }
 }

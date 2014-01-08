@@ -24,20 +24,21 @@ namespace Tickit\Bundle\UserBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Tickit\Component\Model\User\User;
-use DateTime;
 
 /**
  * Loads default users into the application
+ *
+ * @package Tickit\Bundle\UserBundle\DataFixtures\ORM
+ * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Initiates the data loading
      *
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager
-     *
-     * @return void
+     * @param ObjectManager $manager The object manager
      */
     public function load(ObjectManager $manager)
     {
@@ -49,7 +50,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin1->setForename('James');
         $admin1->setSurname('Halsall');
         $admin1->setEnabled(true);
-        $admin1->setLastActivity(new DateTime());
+        $admin1->setLastActivity(new \DateTime());
         $admin1->addRole('ROLE_SUPER_ADMIN');
 
         $manager->persist($admin1);
@@ -63,7 +64,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $admin2->setForename('Mark');
         $admin2->setSurname('Wilson');
         $admin2->setEnabled(true);
-        $admin2->setLastActivity(new DateTime());
+        $admin2->setLastActivity(new \DateTime());
         $admin2->addRole('ROLE_SUPER_ADMIN');
 
         $manager->persist($admin2);
@@ -77,12 +78,29 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $developer->setForename('Tickit');
         $developer->setSurname('Developer');
         $developer->setEnabled(true);
-        $developer->setLastActivity(new DateTime());
+        $developer->setLastActivity(new \DateTime());
 
         $manager->persist($developer);
         $this->addReference('developer', $developer);
 
         //add other users for development environment here
+
+        $faker = Factory::create();
+
+        $i = 30;
+        while ($i--) {
+            $user = new User();
+            $user->setUsername($faker->userName);
+            $user->setPlainPassword($faker->sentence());
+            $user->setSuperAdmin(false);
+            $user->setEmail($faker->safeEmail);
+            $user->setForename($faker->firstName);
+            $user->setSurname($faker->lastName);
+            $user->setEnabled(true);
+            $user->setLastActivity(new \DateTime());
+
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }

@@ -7,27 +7,16 @@ define([
     'modules/template',
     'filter/js/views/FilterableListView',
     'user/js/views/UserRowView',
+    'core/js/views/ListViewMixin',
     'text!user/views/UserListView.html'
-], function(Template, FilterableListView, RowView, Tpl) {
+], function(Template, FilterableListView, RowView, ListViewMixin, Tpl) {
 
     Template.load(Tpl);
 
-    return FilterableListView.extend({
+    var view = FilterableListView.extend({
         tagName: 'div',
         template: '#user_list-template',
         itemView: RowView,
-
-        events: {
-            "click a": "linkClick"
-        },
-
-        /**
-         * Handles a click event on an <a> tag
-         */
-        linkClick : function(e) {
-            e.preventDefault();
-            App.Router.goTo($(e.target).attr('href'));
-        },
 
         /**
          * Appends HTML to the view element
@@ -39,4 +28,8 @@ define([
             collectionView.$('#user-list').find('tbody').append(itemView.el);
         }
     });
+
+    _.extend(view.prototype, ListViewMixin);
+
+    return view;
 });

@@ -23,6 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Doctrine\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
+use Tickit\Component\Pagination\Resolver\PageResolver;
 
 /**
  * ProjectRepository tests
@@ -49,6 +50,8 @@ class ProjectRepositoryTest extends AbstractOrmTest
         );
 
         $this->repo = $em->getRepository('TickitProjectBundle:Project');
+
+        $this->repo->setPageResolver(new PageResolver());
     }
 
     /**
@@ -63,10 +66,13 @@ class ProjectRepositoryTest extends AbstractOrmTest
         $filters->expects($this->once())
                 ->method('applyToQuery');
 
-        $builder = $this->repo->getFindByFiltersQueryBuilder($filters);
+        $builder = $this->repo->getFindByFiltersQueryBuilder($filters, 1);
 
         $from = $builder->getDQLPart('from');
         $this->assertNotEmpty($from);
         $this->assertEquals($from[0]->getFrom(), 'TickitProjectBundle:Project');
+
+        $this->assertNotNull($builder->getMaxResults());
+        $this->assertNotNull($builder->getFirstResult());
     }
 }

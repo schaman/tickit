@@ -2,7 +2,7 @@ api_project_list:
     pattern: /list/{page}
     defaults: { _controller: tickit_project.controller.api:listAction, page: 1 }
     requirements:
-        page: \d+
+        page: ^[1-9][0-9]*$
     options:
         expose: true
 

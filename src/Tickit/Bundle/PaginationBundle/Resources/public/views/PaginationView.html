@@ -1,0 +1,20 @@
+<script type="text/template" id="pagination-template">
+    <% if (totalPages > 0) { %>
+        <ul>
+            <li><a class="icon-angle-left" href="javascript:void(0);" data-page="prev"></a></li>
+            <% var i = 0; while(++i <= totalPages) { %>
+                <li><a href="javascript:void(0);" data-page="<%= i %>"><%= i %></a></li>
+            <% } %>
+            <li><a class="icon-angle-right" href="javascript:void(0);" data-page="next"></a></li>
+        </ul>
+    <% } %>
+
+    <div class="bulk-action">
+        <a href="javascript:void(0);" class="icon-trash"></a>
+        <a href="javascript:void(0);" class="icon-star"></a>
+        <a href="javascript:void(0);" class="icon-plus"></a>
+    </div>
+    <div class="refresh">
+        <a href="javascript:void(0);" class="icon-spin"></a>
+    </div>
+</script>

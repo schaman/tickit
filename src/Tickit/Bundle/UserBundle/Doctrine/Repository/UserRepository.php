@@ -21,9 +21,10 @@
 
 namespace Tickit\Bundle\UserBundle\Doctrine\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Entity\Repository\UserRepositoryInterface;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
@@ -35,7 +36,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Bundle\UserBundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserRepository extends EntityRepository implements UserRepositoryInterface, FilterableRepositoryInterface
+class UserRepository extends PaginatedRepository implements UserRepositoryInterface, FilterableRepositoryInterface
 {
     /**
      * Finds a user by username or email
@@ -88,30 +89,36 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      * Finds results based off a set of filters.
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of the results to fetch (defaults to 1)
      *
      * @codeCoverageIgnore
      *
-     * @return mixed
+     * @return Paginator
      */
-    public function findByFilters(FilterCollection $filters)
+    public function findByFilters(FilterCollection $filters, $page = 1)
     {
-        return $this->getFindByFiltersQueryBuilder($filters)->getQuery()->execute();
+        $query = $this->getFindByFiltersQueryBuilder($filters, $page);
+        $paginator = new Paginator($query, false);
+
+        return $paginator;
     }
 
     /**
      * Gets a query builder that finds a filtered collection of users
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of results to fetch
      *
      * @return QueryBuilder
      */
-    public function getFindByFiltersQueryBuilder(FilterCollection $filters)
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters, $page)
     {
         $queryBuilder = $this->getEntityManager()
                              ->createQueryBuilder()
                              ->select('u')
                              ->from('TickitUserBundle:User', 'u');
 
+        $this->setPageBoundsOnQuery($queryBuilder, $page);
         $filters->applyToQuery($queryBuilder);
 
         return $queryBuilder;

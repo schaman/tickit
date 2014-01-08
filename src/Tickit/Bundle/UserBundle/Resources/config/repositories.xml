@@ -13,6 +13,10 @@
 
         <service id="tickit_user.user_repository" class="%tickit_user.user_repository.class%" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitUserBundle:User</argument>
+
+            <call method="setPageResolver">
+                <argument type="service" id="tickit_pagination.page_resolver" />
+            </call>
         </service>
 
         <service id="tickit_user.user_session_repository" class="%tickit_user.user_session_repository.class%" factory-service="doctrine" factory-method="getRepository">

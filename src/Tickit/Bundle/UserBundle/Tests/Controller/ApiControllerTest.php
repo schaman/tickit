@@ -65,6 +65,11 @@ class ApiControllerTest extends AbstractUnitTest
     private $avatarAdapter;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $paginator;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -78,6 +83,7 @@ class ApiControllerTest extends AbstractUnitTest
                                      ->getMock();
 
         $this->avatarAdapter = $this->getMock('Tickit\Component\Avatar\Adapter\AvatarAdapterInterface');
+        $this->paginator = $this->getMockPaginator();
     }
     
     /**
@@ -159,10 +165,13 @@ class ApiControllerTest extends AbstractUnitTest
         $user2->setUsername('user2');
         $users = [$user1, $user2];
 
+        $this->trainPaginatorToReturnIterator($users);
+        $this->trainPaginatorToReturnCount(2);
+
         $this->userRepository->expects($this->once())
                              ->method('findByFilters')
                              ->with($filters)
-                             ->will($this->returnValue($users));
+                             ->will($this->returnValue($this->paginator));
 
         $decorator = $this->getMockObjectCollectionDecorator();
         $this->baseHelper->expects($this->once())
@@ -177,14 +186,14 @@ class ApiControllerTest extends AbstractUnitTest
         $decorator->expects($this->once())
                   ->method('decorate')
                   ->with(
-                      $users,
+                      new \ArrayIterator($users),
                       ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
                       ['csrf_token' => 'token-value']
                   )
                   ->will($this->returnValue([['decorated user'], ['decorated user']]));
 
-        $expectedData = [['decorated user'], ['decorated user']];
-        $response = $this->getController()->listAction();
+        $expectedData = ['data' => [['decorated user'], ['decorated user']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
+        $response = $this->getController()->listAction(1);
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
@@ -251,5 +260,19 @@ class ApiControllerTest extends AbstractUnitTest
                             ['avatarUrl' => 'avatar-url']
                         )
                         ->will($this->returnValue($returnData));
+    }
+
+    private function trainPaginatorToReturnIterator(array $data)
+    {
+        $this->paginator->expects($this->once())
+                        ->method('getIterator')
+                        ->will($this->returnValue(new \ArrayIterator($data)));
+    }
+
+    private function trainPaginatorToReturnCount($count)
+    {
+        $this->paginator->expects($this->once())
+                        ->method('count')
+                        ->will($this->returnValue($count));
     }
 }

@@ -39,8 +39,9 @@ interface FilterableRepositoryInterface
      * Finds results based off a set of filters.
      *
      * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of the results to fetch (defaults to 1)
      *
      * @return mixed
      */
-    public function findByFilters(FilterCollection $filters);
+    public function findByFilters(FilterCollection $filters, $page = 1);
 }

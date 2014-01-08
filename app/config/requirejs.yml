@@ -11,6 +11,7 @@ hearsay_require_js:
         text: %kernel.root_dir%/Resources/public/js/vendor/requirejs-text/text
         backbone: %kernel.root_dir%/Resources/public/js/vendor/backbone/backbone
         marionette: %kernel.root_dir%/Resources/public/js/vendor/backbone.marionette/lib/backbone.marionette
+        backbone/pageable: %kernel.root_dir%/Resources/public/js/vendor/backbone-pageable/lib/backbone-pageable
         underscore: %kernel.root_dir%/Resources/public/js/vendor/underscore/underscore
         cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
         sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
@@ -34,6 +35,7 @@ hearsay_require_js:
         dashboard: "@TickitDashboardBundle/Resources/public"
         notification: "@TickitNotificationBundle/Resources/public"
         filter: "@TickitFilterBundle/Resources/public"
+        paging: "@TickitPaginationBundle/Resources/public"
     shim:
         -
             name: jquery

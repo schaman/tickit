@@ -3,8 +3,8 @@
  *
  * @type {Backbone.Collection}
  */
-define(function() {
-    return Backbone.Collection.extend({
+define(['backbone/pageable'], function(BackbonePageable) {
+    return BackbonePageable.extend({
 
         /**
          * The filter view associated with this collection.
@@ -27,21 +27,27 @@ define(function() {
         paginationView : null,
 
         /**
+         * The initial state of the pageable collection
+         */
+        state : {
+            firstPage: 1,
+            currentPage: 1
+        },
+
+        queryParams : {
+            totalPages: "totalPages"
+        },
+
+        /**
          * Initialises the collection
          *
          * @param {object} options The initialization options for the collection
          */
         initialize : function(options) {
-            if (!options) {
-                return;
-            }
+            options = options || {};
 
             if (options.filterView) {
                 this.setFilterView(options.filterView);
-            }
-
-            if (options.paginationView) {
-                this.setPaginationView(options.paginationView);
             }
         },
 
@@ -54,10 +60,9 @@ define(function() {
          * @param {Backbone.View} filterView The filter view
          */
         setFilterView : function(filterView) {
-            var t = this;
-            t.filterView = filterView;
-            t.filterView.on('change', function(values) {
-                t.updateFromValues(values, t);
+            this.filterView = filterView;
+            this.listenTo(this.filterView, 'change', function(values) {
+                this.updateFromValues(values, this);
             });
         },
 
@@ -67,8 +72,37 @@ define(function() {
          * @param {Backbone.View} paginationView The pagination view
          */
         setPaginationView : function(paginationView) {
-            // TODO: bind to the change event on the pagination view (needs to be created)
             this.paginationView = paginationView;
+
+            this.listenTo(this.paginationView, 'pagechange', function(pageNumber, callBack) {
+                var state = this.state;
+                if (isNaN(pageNumber)) {
+                    switch(pageNumber) {
+                        case 'next':
+                            pageNumber = state.currentPage + 1;
+                            if (pageNumber > state.lastPage) {
+                                pageNumber = state.lastPage;
+                            }
+                            break;
+                        case 'prev':
+                            pageNumber = state.currentPage - 1;
+                            if (pageNumber < state.firstPage) {
+                                pageNumber = state.firstPage;
+                            }
+                            break;
+                        default:
+                            return;
+                    }
+                }
+
+                this.getPage(pageNumber, {
+                    success: function() {
+                        if (typeof callBack == 'function') {
+                            callBack(pageNumber);
+                        }
+                    }
+                });
+            });
         },
 
         /**
@@ -77,13 +111,48 @@ define(function() {
          * The filter values should be key => value pairs
          *
          * @param {object} values The filter values to update from
-         * @param {object} scope  The scope object to call fetch on (should be this instance)
          */
-        updateFromValues : function(values, scope) {
-            scope.fetch({
+        updateFromValues : function(values) {
+            this.fetch({
                 reset: true,
                 data: values
             });
+        },
+
+        /**
+         * Parses the response data from the server
+         *
+         * @param {object} resp The decoded response object
+         *
+         * @returns {Array}
+         */
+        parse : function(resp) {
+            var state = [
+                {
+                    totalRecords: resp.total,
+                    page: resp.currentPage,
+                    totalPages: resp.pages
+                },
+                resp.data
+            ];
+
+            this.state.lastPage = resp.pages;
+            this.paginationView.render(resp.pages);
+
+            return BackbonePageable.prototype.parse.apply(this, [state]);
+        },
+
+        /**
+         * Generates the URL for this collection.
+         *
+         * Relies on the extending object to provide the route name via
+         * a getRouteName() method.
+         *
+         * @returns {string}
+         */
+        url: function() {
+            var page = this.state && this.state.currentPage && Number(this.state.currentPage) > 0 ? this.state.currentPage : 1;
+            return Routing.generate(this.getRouteName(), { page: page });
         }
     });
 });
