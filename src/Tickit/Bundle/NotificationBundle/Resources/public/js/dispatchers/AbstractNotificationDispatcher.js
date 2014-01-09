@@ -1,8 +1,8 @@
 /**
- * Notification dispatcher factory.
+ * Abstract notification dispatcher.
  *
- * Responsible for creating a dispatcher factory that best
- * suits the browser's capabilities.
+ * Notification dispatchers are responsible for sending notifications
+ * to browsers, operating systems etc.
  *
  * @type {object}
  */
