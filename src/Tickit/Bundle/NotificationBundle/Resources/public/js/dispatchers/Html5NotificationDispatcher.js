@@ -6,10 +6,15 @@
  *
  * @type {object}
  */
-define(function() {
+define([
+    'notification/js/dispatchers/AbstractNotificationDispatcher'
+], function(AbstractNotificationDispatcher) {
     function Html5NotificationDispatcher(options) {
-        // todo
+        options = options || {};
+        console.log(options.provider);
     }
+
+    // todo: add inheritance for AbstractNotificationDispatcher (potentially Node's util.inherits)
 
     return Html5NotificationDispatcher;
 });
