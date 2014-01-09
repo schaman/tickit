@@ -9,12 +9,13 @@
 define([
     'notification/js/dispatchers/AbstractNotificationDispatcher'
 ], function(AbstractNotificationDispatcher) {
-    function Html5NotificationDispatcher(options) {
-        options = options || {};
-        console.log(options.provider);
-    }
 
-    // todo: add inheritance for AbstractNotificationDispatcher (potentially Node's util.inherits)
+    function Html5NotificationDispatcher() {}
+    Html5NotificationDispatcher.prototype = {
+        // todo
+    };
+
+    _.extend(Html5NotificationDispatcher, AbstractNotificationDispatcher);
 
     return Html5NotificationDispatcher;
 });
