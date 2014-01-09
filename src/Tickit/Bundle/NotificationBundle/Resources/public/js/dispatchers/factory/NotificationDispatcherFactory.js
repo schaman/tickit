@@ -19,9 +19,13 @@ define([
              */
             factory : function(provider) {
 
-                // todo: add browser detection here to determine which dispatcher to use
+                switch (true) {
+                    case (Modernizr.notification):
+                        return new Html5NotificationDispatcher({ provider: provider });
+                        break;
+                }
 
-                return new Html5NotificationDispatcher({ provider: provider });
+                return null;
             }
         };
     }
