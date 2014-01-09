@@ -20,7 +20,7 @@ define(['modules/request', 'notification/js/models/Notification'], function(Requ
                             models.push(new Notification(data));
                         });
                         options.collection.add(models);
-                        //this.provider.trigger('newnotification', models);
+                        //this.trigger('newnotification', models);
                     }
                 }
             });
@@ -49,14 +49,7 @@ define(['modules/request', 'notification/js/models/Notification'], function(Requ
              *
              * @type {Backbone.Collection}
              */
-            collection : options.collection,
-
-            /**
-             * A notification dispatcher
-             *
-             * @type {object}
-             */
-            dispatcher : options.dispatcher
+            collection : options.collection
         };
     }
 
