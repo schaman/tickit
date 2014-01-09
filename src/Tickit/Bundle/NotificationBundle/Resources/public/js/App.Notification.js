@@ -6,9 +6,10 @@
 define([
     'modules/user',
     'notification/js/providers/PollingNotificationProvider',
+    'notification/js/dispatchers/factory/NotificationDispatcherFactory',
     'notification/js/views/NotificationListView',
     'notification/js/collections/NotificationCollection'
-], function(User, NotificationProvider, NotificationListView, NotificationCollection) {
+], function(User, NotificationProvider, DispatcherFactory, NotificationListView, NotificationCollection) {
     return App.module('Notification', function(module) {
 
         /**
@@ -34,6 +35,7 @@ define([
                 });
 
                 module.provider = new NotificationProvider({ collection: notifications });
+                module.dispatcher = DispatcherFactory.factory(module.provider);
 
                 App.notificationRegion.show(view);
             });
