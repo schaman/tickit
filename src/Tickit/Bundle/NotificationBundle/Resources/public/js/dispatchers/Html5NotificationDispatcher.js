@@ -12,7 +12,18 @@ define([
 
     function Html5NotificationDispatcher() {}
     Html5NotificationDispatcher.prototype = {
-        // todo
+        dispatch : function(notifications) {
+            if (!_.isArray(notifications)) {
+                notifications = [notifications];
+            }
+
+            _.each(notifications, function(n) {
+                var msg = new Notification('Tickit Notification', n.get('message'));
+                msg.onclick = function() {
+                    alert('marked as read (id: ' + n.get('id') + ')');
+                }
+            });
+        }
     };
 
     _.extend(Html5NotificationDispatcher, AbstractNotificationDispatcher);

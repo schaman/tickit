@@ -5,7 +5,7 @@
  *
  * @type {object}
  */
-define(['modules/request', 'notification/js/models/Notification'], function(Request, Notification) {
+define(['modules/request', 'notification/js/models/Notification', 'Backbone'], function(Request, Notification, Backbone) {
     function PollingNotificationProvider(options) {
         options = options || {};
 
@@ -20,7 +20,7 @@ define(['modules/request', 'notification/js/models/Notification'], function(Requ
                             models.push(new Notification(data));
                         });
                         options.collection.add(models);
-                        //this.trigger('newnotification', models);
+                        this.trigger('notification', models);
                     }
                 }
             });
@@ -52,6 +52,8 @@ define(['modules/request', 'notification/js/models/Notification'], function(Requ
             collection : options.collection
         };
     }
+
+    _.extend(PollingNotificationProvider, Backbone.Events);
 
     return PollingNotificationProvider;
 });

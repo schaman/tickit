@@ -11,6 +11,7 @@ define(function() {
         options = options || {};
 
         this.provider = options.provider;
+        this.provider.on('notification', this.dispatch);
     }
 
     return AbstractNotificationDispatcher;
