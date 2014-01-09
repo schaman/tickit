@@ -18,7 +18,11 @@ define([
             }
 
             _.each(notifications, function(n) {
-                var msg = new Notification('Tickit Notification', n.get('message'));
+                var msg = new Notification('Tickit Notification', {
+                    dir: 'auto',
+                    tag: n.get('id'),
+                    body: n.get('message')
+                });
                 msg.onclick = function() {
                     alert('marked as read (id: ' + n.get('id') + ')');
                 }
