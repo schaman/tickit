@@ -57,7 +57,5 @@ define(['modules/request', 'notification/js/models/Notification', 'backbone'], f
         };
     }
 
-    _.extend(PollingNotificationProvider, Backbone.Events);
-
     return PollingNotificationProvider;
 });
