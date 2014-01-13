@@ -8,11 +8,16 @@
 define([
     'marionette',
     'notification/js/views/NotificationItemView',
+    'modules/template',
     'text!notification/views/NotificationList.html'
-], function(Marionette, NotificationView, tpl) {
+], function(Marionette, NotificationView, Template, tpl) {
+
+    Template.load(tpl);
 
     return Marionette.CompositeView.extend({
         itemView: NotificationView,
+
+        template: '#notification_list-template',
 
         /**
          * Event bindings
@@ -31,17 +36,6 @@ define([
         itemClick: function(e) {
             e.preventDefault();
             App.Router.goTo($(e.target).parent().attr('href'));
-        },
-
-        /**
-         * Renders the HTML content of this view
-         *
-         * @return {Marionette.CompositeView}
-         */
-        render: function() {
-            this.$el.html($(tpl).html());
-
-            return this;
         },
 
         /**
