@@ -9,18 +9,22 @@ define(['modules/request', 'notification/js/models/Notification', 'backbone'], f
     function PollingNotificationProvider(options) {
         options = options || {};
 
+        this.eventDispatcher = options.vent;
+        var self = this;
+
         var poll = function() {
             Request.get({
                 url: Routing.generate('api_notification_list'),
                 dataType: 'json',
                 success: function(resp) {
                     var models = [];
+                    // TODO: this needs to store a maximum of 25 notifications
                     if (resp.length) {
                         $.each(resp, function(i, data) {
                             models.push(new Notification(data));
                         });
                         options.collection.add(models);
-                        this.trigger('notification', models);
+                        self.eventDispatcher.trigger('notification', models);
                     }
                 }
             });

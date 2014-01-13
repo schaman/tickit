@@ -14,14 +14,15 @@ define([
              * Factory method that creates a NotificationDispatcher.
              *
              * @param {object} provider A notification provider
+             * @param {object} vent     An event dispatcher
              *
              * @return {AbstractNotificationDispatcher}
              */
-            factory : function(provider) {
+            factory : function(provider, vent) {
 
                 switch (true) {
                     case (Modernizr.notification):
-                        return new Html5NotificationDispatcher({ provider: provider });
+                        return new Html5NotificationDispatcher({ provider: provider, vent: vent });
                         break;
                 }
 
