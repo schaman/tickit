@@ -6,18 +6,23 @@
  *
  * @type {object}
  */
-define([
-    'notification/js/dispatchers/AbstractNotificationDispatcher'
-], function(AbstractNotificationDispatcher) {
+define(function() {
 
-    function Html5NotificationDispatcher() {
-        if (Notification.permission !== 'denied') {
-            Notification.requestPermission(function(perm) {
-                if (!("permission" in Notification)) {
-                    Notification.permission = perm;
-                }
-            });
-        }
+    function Html5NotificationDispatcher(options) {
+        options = options || {};
+
+        this.vent = options.vent;
+        this.vent.on('notification', this.dispatch);
+
+        this.vent.on('setting-change', function() {
+            if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function(perm) {
+                    if (!("permission" in Notification)) {
+                        Notification.permission = perm;
+                    }
+                });
+            }
+        });
 
         return {
             dispatch : function(notifications) {
@@ -42,8 +47,6 @@ define([
             }
         }
     }
-
-    _.extend(Html5NotificationDispatcher, AbstractNotificationDispatcher);
 
     return Html5NotificationDispatcher;
 });

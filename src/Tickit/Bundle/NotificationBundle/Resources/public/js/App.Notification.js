@@ -8,8 +8,9 @@ define([
     'notification/js/providers/PollingNotificationProvider',
     'notification/js/dispatchers/factory/NotificationDispatcherFactory',
     'notification/js/views/NotificationListView',
-    'notification/js/collections/NotificationCollection'
-], function(User, NotificationProvider, DispatcherFactory, NotificationListView, NotificationCollection) {
+    'notification/js/collections/NotificationCollection',
+    'backbone'
+], function(User, NotificationProvider, DispatcherFactory, NotificationListView, NotificationCollection, Backbone) {
     return App.module('Notification', function(module) {
 
         /**
@@ -22,6 +23,13 @@ define([
         module.startWithParent = false;
 
         /**
+         * Event dispatcher for coordinating notification events between components
+         *
+         * @type {Backbone.Events}
+         */
+        module.eventDispatcher = _.extend({}, Backbone.Events);
+
+        /**
          * Loads notifications for the current user
          *
          * @return {void}
@@ -31,14 +39,15 @@ define([
                 var notifications = new NotificationCollection;
                 notifications.fetch();
                 var view = new NotificationListView({
-                    collection: notifications
+                    collection: notifications,
+                    vent: module.eventDispatcher
                 });
 
-                module.provider = new NotificationProvider({ collection: notifications });
-                module.dispatcher = DispatcherFactory.factory(module.provider);
+                module.provider = new NotificationProvider({ collection: notifications, vent: module.eventDispatcher });
+                module.dispatcher = DispatcherFactory.factory(module.provider, module.eventDispatcher);
 
                 App.notificationRegion.show(view);
             });
-        }
+        };
     });
 });

@@ -20,11 +20,27 @@ define([
         template: '#notification_list-template',
 
         /**
+         * The event dispatcher
+         *
+         * @type {Backbone.Events|null}
+         */
+        eventDispatcher : null,
+
+        /**
          * Event bindings
          */
         events: {
             "click li a span": "itemClick",
             "change div.navigation-control" : "settingChange"
+        },
+
+        /**
+         * Initialises the view
+         *
+         * @param {object} options An object containing view options
+         */
+        initialize : function(options) {
+            this.eventDispatcher = options.vent;
         },
 
         /**
@@ -45,7 +61,7 @@ define([
          * @param {object} e The event object
          */
         settingChange : function(e) {
-            this.trigger('setting-change', $(e.target).val());
+            this.eventDispatcher.trigger('setting-change', $(e.target).val());
         },
 
         /**
