@@ -23,7 +23,8 @@ define([
          * Event bindings
          */
         events: {
-            "click li a span": "itemClick"
+            "click li a span": "itemClick",
+            "change div.navigation-control" : "settingChange"
         },
 
         /**
@@ -36,6 +37,15 @@ define([
         itemClick: function(e) {
             e.preventDefault();
             App.Router.goTo($(e.target).parent().attr('href'));
+        },
+
+        /**
+         * Listens for a change event on the notification setting toggle.
+         *
+         * @param {object} e The event object
+         */
+        settingChange : function(e) {
+            this.trigger('setting-change', $(e.target).val());
         },
 
         /**
