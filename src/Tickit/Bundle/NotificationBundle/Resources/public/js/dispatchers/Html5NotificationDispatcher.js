@@ -6,16 +6,18 @@
  *
  * @type {object}
  */
-define(function() {
+define([
+    'modules/router'
+], function(Router) {
 
     function Html5NotificationDispatcher(options) {
         options = options || {};
 
         this.vent = options.vent;
-        this.vent.on('notification', this.dispatch);
 
-        this.vent.on('setting-change', function() {
-            if (Notification.permission !== 'denied') {
+        this.vent.on('notification', this.dispatch);
+        this.vent.on('setting-change', function(value) {
+            if (value && (typeof Notification.permission == 'undefined')) {
                 Notification.requestPermission(function(perm) {
                     if (!("permission" in Notification)) {
                         Notification.permission = perm;
@@ -23,30 +25,27 @@ define(function() {
                 });
             }
         });
-
-        return {
-            dispatch : function(notifications) {
-                if (Notification.permission !== 'granted') {
-                    return;
-                }
-
-                if (!_.isArray(notifications)) {
-                    notifications = [notifications];
-                }
-
-                _.each(notifications, function(n) {
-                    var msg = new Notification('Tickit Notification', {
-                        dir: 'auto',
-                        tag: n.get('id'),
-                        body: n.get('message')
-                    });
-                    msg.onclick = function() {
-                        alert('marked as read (id: ' + n.get('id') + ')');
-                    }
-                });
-            }
-        }
     }
+
+    Html5NotificationDispatcher.prototype.dispatch = function(notifications) {
+        if (!_.isArray(notifications)) {
+            notifications = [notifications];
+        }
+
+        _.each(notifications, function(n) {
+            var msg = new Notification('Tickit Notification', {
+                dir: 'auto',
+                tag: n.get('id'),
+                body: n.get('message')
+            });
+            msg.onclick = function() {
+                var uri = n.get('actionUri');
+                if (uri.length) {
+                    Router.goTo(uri);
+                }
+            }
+        });
+    };
 
     return Html5NotificationDispatcher;
 });
