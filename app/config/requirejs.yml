@@ -15,7 +15,7 @@ hearsay_require_js:
         underscore: %kernel.root_dir%/Resources/public/js/vendor/underscore/underscore
         cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
         sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
-        sidr: %kernel.root_dir%/Resources/public/js/vendor/noty/packaged/jquery.noty.packaged
+        noty: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/packaged/jquery.noty.packaged
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'
