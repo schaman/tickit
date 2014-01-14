@@ -44,7 +44,7 @@ define([
                 });
 
                 module.provider = new NotificationProvider({ collection: notifications, vent: module.eventDispatcher });
-                module.dispatcher = DispatcherFactory.factory(module.provider, module.eventDispatcher);
+                module.dispatcher = DispatcherFactory.factory(module.eventDispatcher);
 
                 App.notificationRegion.show(view);
             });
