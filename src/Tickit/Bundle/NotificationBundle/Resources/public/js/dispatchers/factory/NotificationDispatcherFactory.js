@@ -14,17 +14,15 @@ define([
             /**
              * Factory method that creates a NotificationDispatcher.
              *
-             * @param {object} vent     An event dispatcher
-             *
              * @return {object}
              */
-            factory : function(vent) {
+            factory : function() {
                 switch (true) {
                     case (Modernizr.notification):
-                        return new Html5NotificationDispatcher({ vent: vent });
+                        return new Html5NotificationDispatcher;
                         break;
                     default:
-                        return new AmbientNotificationDispatcher({ vent: vent });
+                        return new AmbientNotificationDispatcher;
                 }
             }
         };

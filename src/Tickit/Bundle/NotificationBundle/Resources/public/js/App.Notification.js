@@ -23,13 +23,6 @@ define([
         module.startWithParent = false;
 
         /**
-         * Event dispatcher for coordinating notification events between components
-         *
-         * @type {Backbone.Events}
-         */
-        module.eventDispatcher = _.extend({}, Backbone.Events);
-
-        /**
          * Loads notifications for the current user
          *
          * @return {void}
@@ -38,13 +31,10 @@ define([
             User.loadCurrentUser(function() {
                 var notifications = new NotificationCollection;
                 notifications.fetch();
-                var view = new NotificationListView({
-                    collection: notifications,
-                    vent: module.eventDispatcher
-                });
+                var view = new NotificationListView({ collection: notifications });
 
-                module.provider = new NotificationProvider({ collection: notifications, vent: module.eventDispatcher });
-                module.dispatcher = DispatcherFactory.factory(module.eventDispatcher);
+                module.provider = new NotificationProvider({ collection: notifications });
+                module.dispatcher = DispatcherFactory.factory();
 
                 App.notificationRegion.show(view);
             });

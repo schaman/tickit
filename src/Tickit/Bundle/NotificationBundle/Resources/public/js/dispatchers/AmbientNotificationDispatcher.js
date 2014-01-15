@@ -11,11 +11,8 @@ define([
     'noty'
 ], function(Router, noty) {
 
-    function AmbientNotificationDispatcher(options) {
-        options = options || {};
-
-        this.vent = options.vent;
-        this.vent.on('notification', this.dispatch);
+    function AmbientNotificationDispatcher() {
+        App.vent.on('notification', this.dispatch);
     }
 
     AmbientNotificationDispatcher.prototype.dispatch = function(notifications) {
