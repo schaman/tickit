@@ -10,13 +10,9 @@ define([
     'modules/router'
 ], function(Router) {
 
-    function Html5NotificationDispatcher(options) {
-        options = options || {};
-
-        this.vent = options.vent;
-
-        this.vent.on('notification', this.dispatch);
-        this.vent.on('setting-change', function(value) {
+    function Html5NotificationDispatcher() {
+        App.vent.on('notification', this.dispatch);
+        App.vent.on('setting-change', function(value) {
             if (value && (typeof Notification.permission == 'undefined')) {
                 Notification.requestPermission(function(perm) {
                     if (!("permission" in Notification)) {

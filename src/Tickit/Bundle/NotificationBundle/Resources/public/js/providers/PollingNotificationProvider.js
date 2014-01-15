@@ -5,12 +5,9 @@
  *
  * @type {object}
  */
-define(['modules/request', 'notification/js/models/Notification', 'backbone'], function(Request, Notification, Backbone) {
+define(['modules/request', 'notification/js/models/Notification', 'backbone'], function(Request, Notification) {
     function PollingNotificationProvider(options) {
         options = options || {};
-
-        this.eventDispatcher = options.vent;
-        var self = this;
 
         var poll = function() {
             Request.get({
@@ -24,7 +21,7 @@ define(['modules/request', 'notification/js/models/Notification', 'backbone'], f
                             models.push(new Notification(data));
                         });
                         options.collection.add(models);
-                        self.eventDispatcher.trigger('notification', models);
+                        App.vent.trigger('notification', models);
                     }
                 }
             });
