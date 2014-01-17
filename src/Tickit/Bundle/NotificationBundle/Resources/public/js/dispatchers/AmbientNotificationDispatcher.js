@@ -8,8 +8,8 @@
  */
 define([
     'modules/router',
-    'noty'
-], function(Router, noty) {
+    'modules/messenger'
+], function(Router, Messenger) {
 
     function AmbientNotificationDispatcher() {
         App.vent.on('notification', this.dispatch);
@@ -21,15 +21,10 @@ define([
         }
 
         _.each(notifications, function(n) {
-            new noty({
-                text: n.get('message'),
-                callback : {
-                    onClose : function() {
-                        var uri = n.get('actionUri');
-                        if (uri.length) {
-                            Router.goTo(uri);
-                        }
-                    }
+            Messenger.message(n.get('message'), 'info', function() {
+                var uri = n.get('actionUri');
+                if (uri.length) {
+                    Router.goTo(uri);
                 }
             });
         });
