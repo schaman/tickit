@@ -5,11 +5,10 @@
  */
 define([
     'jquery',
-    'underscore',
-    'noty/packaged/jquery.noty.packaged',
-    'noty/layouts/topRight',
-    'noty/themes/default'
-], function($, _, noty) {
+    'noty',
+    'noty.layouts/topRight',
+    'noty.themes/default'
+], function($) {
     return App.module('Messenger', function(module) {
 
         $.noty.defaults.timeout = 5000;
@@ -22,7 +21,7 @@ define([
          * @param {object} onClose A callback for the message after close
          */
         module.message = function(text, type, onClose) {
-            new noty({
+            noty({
                 text: text,
                 type: type,
                 layout: 'topRight',
