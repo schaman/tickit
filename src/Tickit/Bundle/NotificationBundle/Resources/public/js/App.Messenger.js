@@ -26,7 +26,7 @@ define([
                 type: type,
                 layout: 'topRight',
                 callback: {
-                    onClose : typeof onClose == 'function' ? onClose() : function() {}
+                    onClose : typeof onClose == 'function' ? onClose : function() {}
                 }
             });
         };
