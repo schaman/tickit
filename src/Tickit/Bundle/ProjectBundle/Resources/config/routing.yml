@@ -12,20 +12,19 @@ templates:
 ###################################
 
 project_create:
-    pattern: /projects/create
+    path: /projects/create
     defaults: { _controller: tickit_project.controller.project:createAction }
-    requirements:
-        _method: post
+    methods: [POST]
 
 project_edit:
-    pattern: /projects/edit/{id}
+    path: /projects/edit/{id}
     defaults: { _controller: tickit_project.controller.project:editAction }
+    methods: [POST]
     requirements:
         id: \d+
-        _method: post
 
 project_delete:
-    pattern: /projects/delete/{id}
+    path: /projects/delete/{id}
     defaults: { _controller: tickit_project.controller.project:deleteAction }
     requirements:
         id: \d+
@@ -33,22 +32,22 @@ project_delete:
         expose: true
 
 project_attribute_create:
-    pattern: /projects/attributes/{type}/create
+    path: /projects/attributes/{type}/create
     defaults: { _controller: tickit_project.controller.attribute:createAction }
+    methods: [POST]
     requirements:
         type: \w{6,7}
-        _method: post
 
 project_attribute_edit:
-    pattern: /projects/attributes/edit/{id}
+    path: /projects/attributes/edit/{id}
     defaults: { _controller: tickit_project.controller.attribute:editAction }
+    methods: [POST]
     requirements:
         id: \d+
-        _method: post
 
 project_attribute_delete:
-    pattern: /projects/attributes/delete/{id}
+    path: /projects/attributes/delete/{id}
     defaults: { _controller: tickit_project.controller.attribute:deleteAction }
+    methods: [POST]
     requirements:
         id: \d+
-        _method: post
