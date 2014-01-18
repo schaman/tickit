@@ -11,8 +11,7 @@ define([
     'moment',
     'backbone'
 ], function(Request, Notification, moment) {
-    function PollingNotificationProvider(options) {
-        options = options || {};
+    function PollingNotificationProvider() {
 
         var poll = function() {
             Request.get({
@@ -20,13 +19,11 @@ define([
                 dataType: 'json',
                 success: function(resp) {
                     var models = [];
-                    // TODO: this needs to store a maximum of 25 notifications
                     if (resp.length) {
                         $.each(resp, function(i, data) {
                             models.push(new Notification(data));
                         });
-                        options.collection.add(models);
-                        App.vent.trigger('notification', models);
+                        App.Notification.vent.trigger('notification', models);
                     }
                 }
             });
@@ -59,17 +56,7 @@ define([
              *
              * @type {function}
              */
-            fetchNotifications : poll,
-
-            /**
-             * The notification collection.
-             *
-             * This will hold all existing notification objects and
-             * will be updated when new notifications are found.
-             *
-             * @type {Backbone.Collection}
-             */
-            collection : options.collection
+            fetchNotifications : poll
         };
     }
 

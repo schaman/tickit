@@ -12,7 +12,7 @@ define([
 ], function(Router, Messenger) {
 
     function AmbientNotificationDispatcher() {
-        App.vent.on('notification', this.dispatch);
+        App.Notification.vent.on('notification', this.dispatch);
     }
 
     AmbientNotificationDispatcher.prototype.dispatch = function(notifications) {

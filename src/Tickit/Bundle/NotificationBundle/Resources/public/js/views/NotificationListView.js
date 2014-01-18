@@ -16,15 +16,7 @@ define([
 
     return Marionette.CompositeView.extend({
         itemView: NotificationView,
-
         template: '#notification_list-template',
-
-        /**
-         * The event dispatcher
-         *
-         * @type {Backbone.Events|null}
-         */
-        eventDispatcher : null,
 
         /**
          * Event bindings
@@ -32,15 +24,6 @@ define([
         events: {
             "click li a span": "itemClick",
             "change div.navigation-control" : "settingChange"
-        },
-
-        /**
-         * Initialises the view
-         *
-         * @param {object} options An object containing view options
-         */
-        initialize : function(options) {
-            this.eventDispatcher = options.vent;
         },
 
         /**
@@ -61,7 +44,7 @@ define([
          * @param {object} e The event object
          */
         settingChange : function(e) {
-            this.eventDispatcher.trigger('setting-change', $(e.target).val());
+            App.Notification.vent.trigger('setting-change', $(e.target).val());
         },
 
         /**

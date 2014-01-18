@@ -9,9 +9,12 @@ define([
     'notification/js/dispatchers/factory/NotificationDispatcherFactory',
     'notification/js/views/NotificationListView',
     'notification/js/collections/NotificationCollection',
-    'backbone'
-], function(User, NotificationProvider, DispatcherFactory, NotificationListView, NotificationCollection, Backbone) {
+    'backbone',
+    'underscore'
+], function(User, NotificationProvider, DispatcherFactory, NotificationListView, NotificationCollection, Backbone, _) {
     return App.module('Notification', function(module) {
+
+        module.startWithParent = false;
 
         /**
          * The notification provider
@@ -20,7 +23,12 @@ define([
          */
         module.provider = null;
 
-        module.startWithParent = false;
+        /**
+         * An event aggregator for everything notification related
+         *
+         * @type {EventAggregator}
+         */
+        module.vent = _.extend({}, Backbone.Events);
 
         /**
          * Loads notifications for the current user

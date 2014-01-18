@@ -11,8 +11,8 @@ define([
 ], function(Router) {
 
     function Html5NotificationDispatcher() {
-        App.vent.on('notification', this.dispatch);
-        App.vent.on('setting-change', function(value) {
+        App.Notification.vent.on('notification', this.dispatch);
+        App.Notification.vent.on('setting-change', function(value) {
             if (value && (typeof Notification.permission == 'undefined')) {
                 Notification.requestPermission(function(perm) {
                     if (!("permission" in Notification)) {
