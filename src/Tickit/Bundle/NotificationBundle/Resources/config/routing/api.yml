@@ -1,7 +1,6 @@
 api_notification_list:
-    pattern: /list
+    path: /list
     defaults: { _controller: tickit_notification.controller.api:listAction }
-    requirements:
-        _method: GET
+    methods: [GET]
     options:
         expose: true
