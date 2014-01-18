@@ -5,13 +5,15 @@
  *
  * @type {object}
  */
-define(['modules/request', 'notification/js/models/Notification', 'backbone'], function(Request, Notification) {
+define(['modules/request', 'notification/js/models/Notification', 'moment', 'backbone'], function(Request, Notification, moment) {
     function PollingNotificationProvider(options) {
         options = options || {};
 
+        var lastPollTime = null;
+
         var poll = function() {
             Request.get({
-                url: Routing.generate('api_notification_list'),
+                url: Routing.generate('api_notification_list', { "since": getLastPollTime() }),
                 dataType: 'json',
                 success: function(resp) {
                     var models = [];
@@ -27,8 +29,23 @@ define(['modules/request', 'notification/js/models/Notification', 'backbone'], f
             });
         };
 
-        // start the polling at 5 minute intervals
-        setInterval(poll, 60000 * 5);
+        /**
+         * Gets the last time that notifications were fetched
+         */
+        function getLastPollTime() {
+            if (null === lastPollTime) {
+                lastPollTime = new Date();
+                return null;
+            }
+
+            var lastSince = lastPollTime;
+            lastPollTime = new Date();
+
+            return moment(lastSince).format('YYYY-MM-DD HH:mm:ss');
+        }
+
+        // start the polling at 1 minute intervals
+        setInterval(poll, 60000);
 
         return {
 
