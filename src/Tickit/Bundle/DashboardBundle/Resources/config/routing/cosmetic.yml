@@ -1,11 +1,13 @@
 dashboard_index:
-    pattern: /dashboard
+    path: /dashboard
     defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
     options:
         expose: true
 
 index:
-    pattern: /
+    path: /
     defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
     options:
         expose: true
