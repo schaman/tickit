@@ -64,13 +64,15 @@ class NotificationProvider
     /**
      * Finds unread notifications for a given user
      *
-     * @param User $user The user to find notifications for
+     * @param User      $user  The user to find notifications for
+     * @param \DateTime $since An optional DateTime instance used to only return notifications
+     *                         created since a given point in time
      *
      * @return array
      */
-    public function findUnreadForUser(User $user)
+    public function findUnreadForUser(User $user, \DateTime $since = null)
     {
-        return $this->userNotificationRepo->findUnreadForUser($user);
+        return $this->userNotificationRepo->findUnreadForUser($user, $since);
     }
 
     /**
