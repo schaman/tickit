@@ -79,7 +79,7 @@ class ApiController
         $notifications = $this->provider->findUnreadForUser($this->baseHelper->getUser(), $since);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
-        $data = $decorator->decorate($notifications, ['message', 'createdAt', 'actionUri']);
+        $data = $decorator->decorate($notifications, ['id', 'message', 'createdAt', 'actionUri']);
 
         return new JsonResponse($data);
     }

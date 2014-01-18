@@ -5,7 +5,7 @@
  *
  * @type {Backbone.Collection}
  */
-define(['backbone', 'notification/js/models/Notification'], function(Backbone, Notification) {
+define(['backbone', 'notification/js/models/Notification', 'underscore'], function(Backbone, Notification, _) {
     return Backbone.Collection.extend({
         model: Notification,
 
@@ -13,7 +13,7 @@ define(['backbone', 'notification/js/models/Notification'], function(Backbone, N
          * Initializes the collection
          */
         initialize : function() {
-            App.Notification.vent.on('notification', this.addToCollection);
+            App.Notification.vent.on('notification', this.addToCollection, this);
         },
 
         /**
@@ -22,7 +22,15 @@ define(['backbone', 'notification/js/models/Notification'], function(Backbone, N
          * @param {Array} notifications An array of notifications to add to the collection
          */
         addToCollection : function(notifications) {
-            this.add(notifications);
+            var self = this;
+            _.each(notifications, function(n) {
+                var existing = self.get(n.get('id'));
+                if (existing) {
+                    self.remove(existing);
+                }
+
+                self.add(n);
+            });
         },
 
         /**
