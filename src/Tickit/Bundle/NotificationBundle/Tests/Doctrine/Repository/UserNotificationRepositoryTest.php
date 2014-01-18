@@ -102,6 +102,6 @@ class UserNotificationRepositoryTest extends AbstractOrmTest
         $this->assertEquals('n.readAt IS NULL', $secondWhere);
         $this->assertEquals('n.createdAt > :since', $thirdWhere);
 
-        $this->assertSame($since, $builder->getParameter('since'));
+        $this->assertEquals($since, $builder->getParameter('since')->getValue());
     }
 }

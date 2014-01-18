@@ -38,33 +38,40 @@ class UserNotificationRepository extends EntityRepository implements UserNotific
      * {@inheritDoc}
      *
      * @param User $user The user to find unread notifications for
+     * @param \DateTime $since The date and time to return notifications since (optional)
      *
      * @codeCoverageIgnore
      *
      * @return array
      */
-    public function findUnreadForUser(User $user)
+    public function findUnreadForUser(User $user, \DateTime $since = null)
     {
-        return $this->getFindUnreadForUserQueryBuilder($user)->getQuery()->execute();
+        return $this->getFindUnreadForUserQueryBuilder($user, $since)->getQuery()->execute();
     }
 
     /**
      * Gets a query builder that finds all unread notifications for a user
      *
-     * @param User $user The user to find unread notifications for
+     * @param User      $user  The user to find unread notifications for
+     * @param \DateTime $since The date and time to return notifications since (optional)
      *
      * @return QueryBuilder
      */
-    public function getFindUnreadForUserQueryBuilder(User $user)
+    public function getFindUnreadForUserQueryBuilder(User $user, \DateTime $since = null)
     {
         $queryBuilder = $this->getEntityManager()
-                   ->createQueryBuilder();
+                             ->createQueryBuilder();
 
         $queryBuilder->select('n')
                      ->from('TickitNotificationBundle:UserNotification', 'n')
                      ->where('n.recipient = :user_id')
                      ->andWhere($queryBuilder->expr()->isNull('n.readAt'))
                      ->setParameter('user_id', $user->getId());
+
+        if (null !== $since) {
+            $queryBuilder->andWhere('n.createdAt > :since')
+                         ->setParameter('since', $since);
+        }
 
         return $queryBuilder;
     }

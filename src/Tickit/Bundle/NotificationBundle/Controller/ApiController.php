@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\NotificationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Notification\Provider\NotificationProvider;
 
@@ -66,11 +67,15 @@ class ApiController
      *
      * Lists all notifications for the current user
      *
+     * @param \DateTime $since The date and time to return notifications since (optional)
+     *
+     * @ParamConverter("since", options={"format": "Y-m-d H:is"})
+     *
      * @return JsonResponse
      */
-    public function listAction()
+    public function listAction(\DateTime $since = null)
     {
-        $notifications = $this->provider->findUnreadForUser($this->baseHelper->getUser());
+        $notifications = $this->provider->findUnreadForUser($this->baseHelper->getUser(), $since);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $data = $decorator->decorate($notifications, ['message', 'createdAt', 'actionUri']);
