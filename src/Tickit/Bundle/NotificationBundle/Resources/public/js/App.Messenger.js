@@ -6,8 +6,8 @@
 define([
     'jquery',
     'noty',
-    'noty.layouts/topRight',
-    'noty.themes/default'
+    'noty/layout',
+    'noty/theme'
 ], function($) {
     return App.module('Messenger', function(module) {
 

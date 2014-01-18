@@ -16,8 +16,8 @@ hearsay_require_js:
         cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
         sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
         noty: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/packaged/jquery.noty.packaged
-        "noty.layouts": %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/layouts
-        "noty.themes": %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/themes
+        noty/layout: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/layouts/topRight
+        noty/theme: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/themes/default
         moment: %kernel.root_dir%/Resources/public/js/vendor/momentjs/moment
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
@@ -69,10 +69,10 @@ hearsay_require_js:
             name: noty
             deps: [jquery]
         -
-            name: 'noty.themes'
+            name: 'noty/theme'
             deps: [jquery, noty]
             exports: 'jquery'
         -
-            name: 'noty.layouts'
+            name: 'noty/layout'
             deps: [jquery, noty]
             exports: 'jquery'
