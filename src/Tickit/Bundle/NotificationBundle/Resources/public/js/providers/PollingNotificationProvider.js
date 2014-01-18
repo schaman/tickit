@@ -14,8 +14,6 @@ define([
     function PollingNotificationProvider(options) {
         options = options || {};
 
-        var lastPollTime = null;
-
         var poll = function() {
             Request.get({
                 url: Routing.generate('api_notification_list', { "since": getLastPollTime() }),
@@ -34,19 +32,18 @@ define([
             });
         };
 
+        var lastPollTime = new Date();
+
         /**
          * Gets the last time that notifications were fetched
+         *
+         * @return {string}
          */
         function getLastPollTime() {
-            if (null === lastPollTime) {
-                lastPollTime = new Date();
-                return null;
-            }
-
-            var lastSince = lastPollTime;
+            var pollTime = lastPollTime;
             lastPollTime = new Date();
 
-            return moment(lastSince).format('YYYY-MM-DD HH:mm:ss');
+            return moment(pollTime).format('YYYY-MM-DD HH:mm:ss');
         }
 
         // start the polling at 1 minute intervals
