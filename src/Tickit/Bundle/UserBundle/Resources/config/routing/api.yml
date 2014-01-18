@@ -1,23 +1,22 @@
 api_user_login_check:
-    pattern: /auth
+    path: /auth
     defaults: { _controller: TickitUserBundle:Security:check }
-    requirements:
-        _method: POST
+    methods: [POST]
 
 api_user_fetch:
-    pattern: /fetch/{id}
+    path: /fetch/{id}
     defaults: { _controller: tickit_user.controller.api:fetchAction, id: null }
+    methods: [GET]
     requirements:
         id: \d+
-        _method: GET
     options:
         expose: true
 
 api_user_list:
-    pattern: /list/{page}
+    path: /list/{page}
     defaults: { _controller: tickit_user.controller.api:listAction, page: 1 }
+    methods: [GET]
     requirements:
         page: \d+
-        _method: GET
     options:
         expose: true

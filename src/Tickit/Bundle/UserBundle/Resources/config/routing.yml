@@ -13,24 +13,24 @@ cosmetic:
 ##########################################
 
 user_create:
-    pattern: /users/create
+    path: /users/create
     defaults: { _controller: tickit_user.controller.user:createAction }
-    requirements:
-        _method: post
+    methods: [POST]
 
 user_edit:
-    pattern: /users/edit/{id}
+    path: /users/edit/{id}
     defaults: { _controller: tickit_user.controller.user:editAction }
+    methods: [POST]
     requirements:
         id: \d+
         _method: post
 
 user_delete:
-    pattern: /users/delete/{id}
+    path: /users/delete/{id}
     defaults: { _controller: tickit_user.controller.user:deleteAction }
+    methods: [POST]
     requirements:
         id: \d+
-        _method: post
     options:
         expose: true
 
@@ -51,5 +51,5 @@ fos_user_change_password:
   prefix: /profile
 
 fos_user_security_logout:
-    pattern: /logout
+    path: /logout
     defaults: { _controller: FOSUserBundle:Security:logout }
