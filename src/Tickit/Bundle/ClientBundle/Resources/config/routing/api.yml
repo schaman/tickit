@@ -1,6 +1,7 @@
 api_client_list:
-    pattern: /list/{page}
+    path: /list/{page}
     defaults: { _controller: tickit_client.controller.api:listAction, page: 1 }
+    methods: [GET]
     requirements:
         page: ^[1-9][0-9]*$
     options:

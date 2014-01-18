@@ -1,21 +1,22 @@
 client_create_form:
-    pattern: /create
+    path: /create
     defaults: { _controller: tickit_client.controller.template:createClientFormAction }
+    methods: [GET]
     options:
         expose: true
 
 client_edit_form:
-    pattern: /edit/{id}
+    path: /edit/{id}
     defaults: { _controller: tickit_client.controller.template:editClientFormAction }
+    methods: [GET]
     requirements:
         id: \d+
     options:
         expose: true
 
 client_filter_form:
-    pattern: /filter-form
+    path: /filter-form
     defaults: { _controller: tickit_client.controller.template:filterFormAction }
-    requirements:
-        _method: GET
+    methods: [GET]
     options:
         expose: true
