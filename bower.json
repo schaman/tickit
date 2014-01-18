@@ -9,7 +9,8 @@
         "requirejs-text": "2.0.*",
         "jquery.cookie": "1.3.*",
         "sidr": "1.*",
-        "noty": "2.*"
+        "noty": "2.*",
+        "momentjs": "2.*"
     },
     "ignore": [
         "**/.*"

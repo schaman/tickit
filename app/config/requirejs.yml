@@ -18,6 +18,7 @@ hearsay_require_js:
         noty: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/packaged/jquery.noty.packaged
         "noty.layouts": %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/layouts
         "noty.themes": %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/themes
+        moment: %kernel.root_dir%/Resources/public/js/vendor/momentjs/moment
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'
