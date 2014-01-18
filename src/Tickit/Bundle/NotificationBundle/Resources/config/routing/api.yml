@@ -1,7 +1,8 @@
 api_notification_list:
-    pattern: /list
-    defaults: { _controller: tickit_notification.controller.api:listAction }
+    pattern: /list/{since}
+    defaults: { _controller: tickit_notification.controller.api:listAction, since: null }
     requirements:
         _method: GET
+        since: [0-9]{4}\-[0-9]{2}\-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}
     options:
         expose: true
