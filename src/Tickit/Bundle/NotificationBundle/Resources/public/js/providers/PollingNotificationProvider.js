@@ -5,7 +5,12 @@
  *
  * @type {object}
  */
-define(['modules/request', 'notification/js/models/Notification', 'moment', 'backbone'], function(Request, Notification, moment) {
+define([
+    'modules/request',
+    'notification/js/models/Notification',
+    'moment',
+    'backbone'
+], function(Request, Notification, moment) {
     function PollingNotificationProvider(options) {
         options = options || {};
 
