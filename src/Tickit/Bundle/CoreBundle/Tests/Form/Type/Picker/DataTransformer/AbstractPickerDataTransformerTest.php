@@ -70,45 +70,21 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the transform() method
-     *
-     * @expectedException \RuntimeException
-     */
-    public function testTransformThrowsExceptionForNonExistentIdentifierGetter()
-    {
-        $this->sut->expects($this->once())
-                  ->method('getEntityIdentifier')
-                  ->will($this->returnValue('invalid'));
-
-        $this->sut->setMaxSelections(1);
-
-        $this->sut->transform(new MockEntity(1, 'Forename Surname'));
-    }
-
-    /**
-     * Tests the transform() method
-     */
-    public function testTransformHandlesSingleEntityWithSingleSelectRestrictionEnabled()
-    {
-        $this->trainTransformerToReturnIdentifier();
-        $this->sut->setMaxSelections(1);
-
-        $expectedData = "[{id:1, text:'Forename Surname'}]";
-        $this->assertEquals($expectedData, $this->sut->transform(new MockEntity(1, 'Forename Surname')));
-    }
-
-    /**
-     * Tests the transform() method
      */
     public function testTransformHandlesSingleEntityCorrectly()
     {
-        $this->trainTransformerToReturnIdentifier();
+        $entity = new MockEntity(1, 'Forename Surname');
+        $simpleObject = new \stdClass;
+        $simpleObject->id = 1;
+        $simpleObject->text = 'Forename Surname';
 
-        $collection = new ArrayCollection(
-            [new MockEntity(1, 'Forename Surname')]
-        );
+        $this->sut->expects($this->once())
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entity)
+                  ->will($this->returnValue($simpleObject));
 
-        $expectedData = "[{id: 1, text:'Forename Surname'}]";
-        $this->assertEquals($expectedData, $this->sut->transform($collection));
+        $expectedData = '[{"id":1,"text":"Forename Surname"}]';
+        $this->assertEquals($expectedData, $this->sut->transform($entity));
     }
 
     /**
@@ -132,21 +108,37 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransformHandlesEntityCollectionCorrectly()
     {
-        $this->trainTransformerToReturnIdentifier(3);
+        $simpleObjects = [];
+        $entities = [];
 
-        $collection = new ArrayCollection(
-            [
-                new MockEntity(1, 'Forename1 Surname1'),
-                new MockEntity(2, 'Forename2 Surname2'),
-                new MockEntity(4, 'Forename4 Surname4')
-            ]
-        );
+        for ($i = 1; $i < 4; $i++) {
+            $entities[$i] = new MockEntity($i, sprintf('Forename%d Surname%d', $i, $i));
 
-        $expectedData = "[
-            {id:1,text:'Forename1 Surname1'},
-            {id:2,text:'Forename2 Surname2'},
-            {id:4,text:'Forename4 Surname4'}
-        ]";
+            $simpleObject = new \stdClass;
+            $simpleObject->id = $entities[$i]->getId();
+            $simpleObject->text = $entities[$i]->getName();
+            $simpleObjects[$i] = $simpleObject;
+        }
+
+        $this->sut->expects($this->exactly(3))
+                  ->method('transformEntityToSimpleObject')
+                  ->will($this->onConsecutiveCalls($simpleObjects[1], $simpleObjects[2], $simpleObjects[3]));
+
+        $this->sut->expects($this->at(0))
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entities[1]);
+
+        $this->sut->expects($this->at(1))
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entities[2]);
+
+        $this->sut->expects($this->at(2))
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entities[3]);
+
+        $collection = new ArrayCollection($entities);
+
+        $expectedData = '[{"id":1,"text":"Forename1 Surname1"},{"id":2,"text":"Forename2 Surname2"},{"id":3,"text":"Forename3 Surname3"}]';
         $this->assertEquals($expectedData, $this->sut->transform($collection));
     }
 
@@ -246,12 +238,5 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
         return [
             ['0'], [0], [''], ['false'], [false]
         ];
-    }
-
-    private function trainTransformerToReturnIdentifier($times = 1)
-    {
-        $this->sut->expects($this->exactly($times))
-                  ->method('getEntityIdentifier')
-                  ->will($this->returnValue('id'));
     }
 }
