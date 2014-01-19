@@ -43,13 +43,6 @@ use Tickit\Component\Decorator\Entity\EntityDecoratorInterface;
 abstract class AbstractPickerType extends AbstractType
 {
     /**
-     * An entity decorator
-     *
-     * @var EntityDecoratorInterface
-     */
-    protected $decorator;
-
-    /**
      * A data transformer for the picker
      *
      * @var AbstractPickerDataTransformer
@@ -59,12 +52,10 @@ abstract class AbstractPickerType extends AbstractType
     /**
      * Constructor.
      *
-     * @param EntityDecoratorInterface      $entityDecorator An entity decorator
-     * @param AbstractPickerDataTransformer $transformer     A data transformer for the picker
+     * @param AbstractPickerDataTransformer $transformer A data transformer for the picker
      */
-    public function __construct(EntityDecoratorInterface $entityDecorator, AbstractPickerDataTransformer $transformer)
+    public function __construct(AbstractPickerDataTransformer $transformer)
     {
-        $this->decorator = $entityDecorator;
         $this->transformer = $transformer;
     }
 
@@ -88,39 +79,6 @@ abstract class AbstractPickerType extends AbstractType
 
         $builder->addModelTransformer($this->transformer)
                 ->setAttributes($attributes);
-    }
-
-    /**
-     * Build form's view
-     *
-     * @param FormView      $view    Form view
-     * @param FormInterface $form    Form to build
-     * @param array         $options Form options
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        $value = $form->getData();
-
-        if ($value instanceof ArrayCollection) {
-            $value = $value->toArray();
-        } else {
-            $value = [$value];
-        }
-
-        $value = array_map(
-            function ($entity) {
-                if (null === $entity) {
-                    return '';
-                }
-                return $this->decorator->decorate($entity);
-            },
-            $value
-        );
-
-        $value = array_filter($value);
-
-        $value               = implode(',', $value);
-        $view->displayValues = $value;
     }
 
     /**

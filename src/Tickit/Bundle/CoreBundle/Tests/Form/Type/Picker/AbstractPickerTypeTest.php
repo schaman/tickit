@@ -51,7 +51,6 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     {
         parent::setUp();
 
-        $this->decorator = $this->getMock('\Tickit\Component\Decorator\Entity\EntityDecoratorInterface');
         $this->transformer = $this->getMockForAbstractClass(
             '\Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer'
         );
@@ -62,7 +61,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
 
         $this->formType = $this->getMockForAbstractClass(
             '\Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType',
-            [$this->decorator, $this->transformer]
+            [$this->transformer]
         );
     }
 
@@ -157,19 +156,12 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $entity = new MockEntity(1);
         $form->setData($entity);
 
-        $this->decorator->expects($this->once())
-                        ->method('decorate')
-                        ->with($entity)
-                        ->will($this->returnValue('display name'));
-
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($entity, $form->getData());
 
         $formView = $form->createView();
 
-        $this->assertObjectHasAttribute('displayValues', $formView);
         $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
-        $this->assertEquals('display name', $formView->displayValues);
     }
 
     /**
@@ -186,28 +178,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $formData = new ArrayCollection([$entity1, $entity2, $entity3]);
         $form->setData($formData);
 
-        $this->decorator->expects($this->exactly(3))
-                        ->method('decorate')
-                        ->will($this->onConsecutiveCalls('display name 1', 'display name 2', 'display name 3'));
-
-        $this->decorator->expects($this->at(0))
-                        ->method('decorate')
-                        ->with($entity1);
-
-        $this->decorator->expects($this->at(1))
-                        ->method('decorate')
-                        ->with($entity2);
-
-        $this->decorator->expects($this->at(2))
-                        ->method('decorate')
-                        ->with($entity3);
-
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
-
-        $formView = $form->createView();
-
-        $this->assertObjectHasAttribute('displayValues', $formView);
-        $this->assertEquals('display name 1,display name 2,display name 3', $formView->displayValues);
     }
 }
