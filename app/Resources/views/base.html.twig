@@ -13,7 +13,9 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
-        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        {% javascripts '../app/Resources/public/js/modernizr.js' 'bundles/fosjsrouting/js/router.js' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
         <link href='http://fonts.googleapis.com/css?family=Rambla:400,700' rel='stylesheet' type='text/css'>

@@ -15,6 +15,10 @@ hearsay_require_js:
         underscore: %kernel.root_dir%/Resources/public/js/vendor/underscore/underscore
         cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
         sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
+        noty: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/packaged/jquery.noty.packaged
+        noty/layout: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/layouts/topRight
+        noty/theme: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/themes/default
+        moment: %kernel.root_dir%/Resources/public/js/vendor/momentjs/moment
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/core: '@TickitCoreBundle/Resources/public/js/App.Core'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'
@@ -27,6 +31,7 @@ hearsay_require_js:
         modules/project: '@TickitProjectBundle/Resources/public/js/App.Project'
         modules/notification: "@TickitNotificationBundle/Resources/public/js/App.Notification"
         modules/client: "@TickitClientBundle/Resources/public/js/App.Client"
+        modules/messenger: "@TickitNotificationBundle/Resources/public/js/App.Messenger"
         core: '@TickitCoreBundle/Resources/public'
         navigation: "@TickitNavigationBundle/Resources/public"
         project: "@TickitProjectBundle/Resources/public"
@@ -60,3 +65,14 @@ hearsay_require_js:
         -
             name: sidr
             deps: [jquery]
+        -
+            name: noty
+            deps: [jquery]
+        -
+            name: 'noty/theme'
+            deps: [jquery, noty]
+            exports: 'jquery'
+        -
+            name: 'noty/layout'
+            deps: [jquery, noty]
+            exports: 'jquery'

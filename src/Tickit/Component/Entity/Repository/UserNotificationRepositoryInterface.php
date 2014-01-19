@@ -37,9 +37,11 @@ interface UserNotificationRepositoryInterface
     /**
      * Finds unread user notifications
      *
-     * @param User $user The user to find unread notifications for
+     * @param User      $user  The user to find unread notifications for
+     * @param \DateTime $since An optional DateTime instance used to only return notifications
+     *                         created since a given point in time
      *
      * @return array
      */
-    public function findUnreadForUser(User $user);
+    public function findUnreadForUser(User $user, \DateTime $since = null);
 }

@@ -114,7 +114,7 @@ class ApiControllerTest extends AbstractUnitTest
                         ->method('decorate')
                         ->with(
                             $notifications,
-                            ['message', 'createdAt', 'actionUri']
+                            ['id', 'message', 'createdAt', 'actionUri']
                         )
                         ->will($this->returnValue($returnData));
     }

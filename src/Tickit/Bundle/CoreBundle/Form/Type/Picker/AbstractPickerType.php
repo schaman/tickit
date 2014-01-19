@@ -90,8 +90,6 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // TODO: move attribute generation to a separate attribute builder class for custom attributes
-
         // initialise text field's attributes
         $attributes = array(
             'data-restriction' => $options['picker_restriction']
