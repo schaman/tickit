@@ -40,7 +40,9 @@ class ClientPickerDataTransformer extends AbstractPickerDataTransformer
     private $manager;
 
     /**
-     * @param ClientManager $clientManager
+     * Constructor.
+     *
+     * @param ClientManager $clientManager The client manager
      */
     public function __construct(ClientManager $clientManager)
     {
