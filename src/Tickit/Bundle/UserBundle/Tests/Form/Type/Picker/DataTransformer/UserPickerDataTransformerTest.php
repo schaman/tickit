@@ -54,15 +54,24 @@ class UserPickerDataTransformerTest extends AbstractUnitTest
 
         $this->sut = new UserPickerDataTransformer($this->manager);
     }
-    
-    /**
-     * Tests the getEntityIdentifier() method
-     */
-    public function testGetEntityIdentifierReturnsCorrectProperty()
-    {
-        $method = static::getNonAccessibleMethod(get_class($this->sut), 'getEntityIdentifier');
 
-        $this->assertEquals('id', $method->invoke($this->sut));
+    /**
+     * Tests the transformEntityToSimpleObject() method
+     */
+    public function testTransformEntityToSimpleObjectReturnsExpectedObject()
+    {
+        $user = new User();
+        $user->setId(1)
+             ->setForename('James')
+             ->setSurname('Halsall');
+
+        $method = static::getNonAccessibleMethod(get_class($this->sut), 'transformEntityToSimpleObject');
+
+        $simpleObject = $method->invokeArgs($this->sut, [$user]);
+
+        $this->assertInstanceOf('\stdClass', $simpleObject);
+        $this->assertEquals(1, $simpleObject->id);
+        $this->assertEquals('James Halsall', $simpleObject->text);
     }
 
     /**
