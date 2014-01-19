@@ -1,33 +1,31 @@
 fos_user_security_login:
-    pattern: /login
+    path: /login
     defaults: { _controller: tickit.controller.default:defaultAction }
-    requirements:
-        _method: GET
+    methods: [GET]
     options:
         expose: true
 
 user_index:
-    pattern: /users/{page}
+    path: /users/{page}
     defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
+    methods: [GET]
     requirements:
         page: \d+
-        _method: GET
     options:
         expose: true
 
 user_create_view:
-    pattern: /users/create
+    path: /users/create
     defaults: { _controller: tickit.controller.default:defaultAction }
-    requirements:
-        _method: GET
+    methods: [GET]
     options:
         expose: true
 
 user_edit_view:
-    pattern: /users/edit/{id}
+    path: /users/edit/{id}
     defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
     requirements:
         id: \d+
-        _method: GET
     options:
         expose: true

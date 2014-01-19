@@ -1,37 +1,40 @@
 project_create_form:
-    pattern: /create
+    path: /create
     defaults: { _controller: tickit_project.controller.template:createProjectFormAction }
+    methods: [GET]
     options:
         expose: true
 
 project_edit_form:
-    pattern: /edit/{id}
+    path: /edit/{id}
     defaults: { _controller: tickit_project.controller.template:editProjectFormAction }
+    methods: [GET]
     requirements:
         id: \d+
     options:
         expose: true
 
 project_attribute_create_form:
-    pattern: /attributes/create/{type}
+    path: /attributes/create/{type}
     defaults: { _controller: tickit_project.controller.template:createProjectAttributeFormAction }
-    options:
-        expose: true
+    methods: [GET]
     requirements:
         type: \w{6,7}
+    options:
+        expose: true
 
 project_attribute_edit_form:
-    pattern: /attributes/edit/{id}
+    path: /attributes/edit/{id}
     defaults: { _controller: tickit_project.controller.temmplate:editProjectAttributeFormAction }
+    methods: [GET]
     requirements:
         id: \d+
     options:
         expose: true
 
 project_filter_form:
-    pattern: /filter-form
+    path: /filter-form
     defaults: { _controller: tickit_project.controller.template:filterFormAction }
-    requirements:
-        method: GET
+    methods: [GET]
     options:
         expose: true

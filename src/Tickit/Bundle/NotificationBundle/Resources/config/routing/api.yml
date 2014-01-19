@@ -1,5 +1,6 @@
 api_notification_list:
     path: /list/{since}
     defaults: { _controller: tickit_notification.controller.api:listAction, since: null }
+    methods: [GET]
     options:
         expose: true

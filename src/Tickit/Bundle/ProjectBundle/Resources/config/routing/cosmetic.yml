@@ -1,31 +1,32 @@
 project_index:
-    pattern: /projects/{page}
+    path: /projects/{page}
     defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
+    methods: [GET]
     requirements:
         page: \d+
     options:
         expose: true
 
 project_create_view:
-    pattern: /projects/create
+    path: /projects/create
     defaults: { _controller: tickit.controller.default:defaultAction }
-    requirements:
-        _method: get
+    methods: [GET]
     options:
         expose: true
 
 project_edit_view:
-    pattern: /projects/edit/{id}
+    path: /projects/edit/{id}
     defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
     requirements:
         id: \d+
-        _method: get
     options:
         expose: true
 
 project_attribute_index:
-    pattern: /attributes/{page}
+    path: /attributes/{page}
     defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
+    methods: [GET]
     requirements:
         page: \d+
     options:

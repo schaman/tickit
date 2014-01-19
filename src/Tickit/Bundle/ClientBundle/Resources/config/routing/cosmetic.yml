@@ -1,24 +1,24 @@
 client_index:
-    pattern: /clients/{page}
+    path: /clients/{page}
     defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
+    methods: [GET]
     requirements:
         page: \d+
     options:
         expose: true
 
 client_create_view:
-    pattern: /clients/create
+    path: /clients/create
     defaults: { _controller: tickit.controller.default:defaultAction }
-    requirements:
-        _method: get
+    methods: [GET]
     options:
         expose: true
 
 client_edit_view:
-    pattern: /clients/edit/{id}
+    path: /clients/edit/{id}
     defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
     requirements:
         id: \d+
-        _method: get
     options:
         expose: true

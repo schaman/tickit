@@ -1,5 +1,6 @@
 api_navigation_items:
-    pattern: /items
+    path: /items
     defaults: { _controller: tickit_navigation.controller.api:navItemsAction }
+    methods: [GET]
     options:
         expose: true
