@@ -43,20 +43,6 @@ use Tickit\Component\Decorator\Entity\EntityDecoratorInterface;
 abstract class AbstractPickerType extends AbstractType
 {
     /**
-     * No restrictions.
-     *
-     * This indicates that multiple selections can be made.
-     */
-    const RESTRICTION_NONE = 'none';
-
-    /**
-     * Single selection restriction.
-     *
-     * This indicates that only one selection can be made.
-     */
-    const RESTRICTION_SINGLE = 'single';
-
-    /**
      * An entity decorator
      *
      * @var EntityDecoratorInterface
@@ -90,18 +76,15 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // initialise text field's attributes
-        $attributes = array(
-            'data-restriction' => $options['picker_restriction']
-        );
+        $attributes = [];
 
         // we set the restriction as a data-* attribute, this lets the JS do the
         // client side restriction and our field validator do the server-side work
-        if ($options['picker_restriction'] !== self::RESTRICTION_NONE) {
-            $attributes['data-restriction'] = $options['picker_restriction'];
+        if ($options['max_selections'] !== 0) {
+            $attributes['data-max-selections'] = $options['max_selections'];
         }
 
-        $this->transformer->setRestriction($options['picker_restriction']);
+        $this->transformer->setMaxSelections($options['max_selections']);
 
         $builder->addModelTransformer($this->transformer)
                 ->setAttributes($attributes);
@@ -149,11 +132,10 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setOptional(['picker_restriction'])
-                 ->setDefaults(['picker_restriction' => static::RESTRICTION_NONE])
-                 ->setAllowedValues(
-                     ['picker_restriction' => [static::RESTRICTION_NONE, static::RESTRICTION_SINGLE]]
-                 );
+        $resolver->setOptional(['max_selections'])
+                 // the default value for max_selection is 0, which indicates no limit
+                 ->setDefaults(['max_selections' => 0])
+                 ->setAllowedTypes(['max_selections' => ['null', 'integer']]);
     }
 
     /**

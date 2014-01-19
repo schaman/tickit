@@ -74,7 +74,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create(
             $this->formType,
             null,
-            ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
+            ['max_selections' => 1]
         );
         $entity = new MockEntity(1);
 
@@ -94,7 +94,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     /**
      * Tests form data of 2 entity IDs resolves to correct display names
      */
-    public function testDoubleEntitySubmission()
+    public function testMultipleEntitySubmission()
     {
         $form = $this->factory->create($this->formType);
 
@@ -150,7 +150,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create(
             $this->formType,
             null,
-            ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
+            ['max_selections' => 1]
         );
 
         $entity = new MockEntity(1);
