@@ -81,7 +81,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
 
         $this->sut->setMaxSelections(1);
 
-        $this->sut->transform(new MockEntity(1));
+        $this->sut->transform(new MockEntity(1, 'Forename Surname'));
     }
 
     /**
@@ -92,8 +92,8 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
         $this->trainTransformerToReturnIdentifier();
         $this->sut->setMaxSelections(1);
 
-        $expectedData = '1';
-        $this->assertEquals($expectedData, $this->sut->transform(new MockEntity(1)));
+        $expectedData = "[{id:1, text:'Forename Surname'}]";
+        $this->assertEquals($expectedData, $this->sut->transform(new MockEntity(1, 'Forename Surname')));
     }
 
     /**
@@ -104,10 +104,10 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
         $this->trainTransformerToReturnIdentifier();
 
         $collection = new ArrayCollection(
-            [new MockEntity(1)]
+            [new MockEntity(1, 'Forename Surname')]
         );
 
-        $expectedData = '1';
+        $expectedData = "[{id: 1, text:'Forename Surname'}]";
         $this->assertEquals($expectedData, $this->sut->transform($collection));
     }
 
@@ -135,10 +135,18 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
         $this->trainTransformerToReturnIdentifier(3);
 
         $collection = new ArrayCollection(
-            [new MockEntity(1), new MockEntity(2), new MockEntity(4)]
+            [
+                new MockEntity(1, 'Forename1 Surname1'),
+                new MockEntity(2, 'Forename2 Surname2'),
+                new MockEntity(4, 'Forename4 Surname4')
+            ]
         );
 
-        $expectedData = '1,2,4';
+        $expectedData = "[
+            {id:1,text:'Forename1 Surname1'},
+            {id:2,text:'Forename2 Surname2'},
+            {id:4,text:'Forename4 Surname4'}
+        ]";
         $this->assertEquals($expectedData, $this->sut->transform($collection));
     }
 
