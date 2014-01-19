@@ -86,6 +86,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form->submit('1');
 
         $this->assertTrue($form->isSynchronized());
+        $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
         $this->assertEquals($entity, $form->getData());
 
 
@@ -167,6 +168,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $formView = $form->createView();
 
         $this->assertObjectHasAttribute('displayValues', $formView);
+        $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
         $this->assertEquals('display name', $formView->displayValues);
     }
 
