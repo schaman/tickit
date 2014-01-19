@@ -178,4 +178,15 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
     }
+
+    /**
+     * Tests the form options handles "null" value for max_selections option.
+     */
+    public function testMaxSelectionsAttributeHandlesNullValue()
+    {
+        $options = ['max_selections' => null];
+        $form = $this->factory->create($this->formType, null, $options);
+
+        $this->assertEquals(0, $form->getConfig()->getAttribute('data-max-selections'));
+    }
 }
