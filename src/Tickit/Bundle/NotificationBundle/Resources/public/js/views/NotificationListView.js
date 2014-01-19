@@ -8,17 +8,22 @@
 define([
     'marionette',
     'notification/js/views/NotificationItemView',
+    'modules/template',
     'text!notification/views/NotificationList.html'
-], function(Marionette, NotificationView, tpl) {
+], function(Marionette, NotificationView, Template, tpl) {
+
+    Template.load(tpl);
 
     return Marionette.CompositeView.extend({
         itemView: NotificationView,
+        template: '#notification_list-template',
 
         /**
          * Event bindings
          */
         events: {
-            "click li a span": "itemClick"
+            "click li a span": "itemClick",
+            "change div.navigation-control" : "settingChange"
         },
 
         /**
@@ -34,14 +39,12 @@ define([
         },
 
         /**
-         * Renders the HTML content of this view
+         * Listens for a change event on the notification setting toggle.
          *
-         * @return {Marionette.CompositeView}
+         * @param {object} e The event object
          */
-        render: function() {
-            this.$el.html($(tpl).html());
-
-            return this;
+        settingChange : function(e) {
+            App.Notification.vent.trigger('setting-change', $(e.target).val());
         },
 
         /**

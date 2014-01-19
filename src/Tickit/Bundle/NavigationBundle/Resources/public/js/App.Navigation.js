@@ -14,6 +14,16 @@ define([
         module.startWithParent = true;
 
         /**
+         * Loads all navigation elements
+         *
+         * @return {void}
+         */
+        module.loadNavigation = function() {
+            this.loadHeaderNavigation();
+            this.loadMainNavigation();
+        };
+
+        /**
          * Loads the main application nav
          *
          * @return {void}

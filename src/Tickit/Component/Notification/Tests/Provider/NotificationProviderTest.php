@@ -34,24 +34,16 @@ use Tickit\Component\Model\User\User;
 class NotificationProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * The provider under test
-     *
-     * @var NotificationProvider
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $provider;
+    private $repo;
 
     /**
      * Setup
      */
     protected function setUp()
     {
-        $repo = $this->getMock('\Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface');
-
-        $repo->expects($this->any())
-             ->method('findUnreadForUser')
-             ->will($this->returnValue(array(new UserNotification(), new UserNotification())));
-
-        $this->provider = new NotificationProvider($repo, 20);
+        $this->repo = $this->getMock('\Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface');
     }
 
     /**
@@ -59,9 +51,9 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUserNotificationRepositoryReturnsCorrectValue()
     {
-        $repo = $this->provider->getUserNotificationRepository();
+        $repo = $this->getProvider()->getUserNotificationRepository();
 
-        $this->assertInstanceOf('\Tickit\Component\Entity\Repository\UserNotificationRepositoryInterface', $repo);
+        $this->assertSame($this->repo, $repo);
     }
 
     /**
@@ -72,10 +64,38 @@ class NotificationProviderTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setUsername('username');
 
-        $notifications = $this->provider->findUnreadForUser($user);
+        $this->repo->expects($this->once())
+                   ->method('findUnreadForUser')
+                   ->with($user)
+                   ->will($this->returnValue(array(new UserNotification(), new UserNotification())));
+
+        $notifications = $this->getProvider()->findUnreadForUser($user);
 
         $this->assertInternalType('array', $notifications);
         $this->assertCount(2, $notifications);
         $this->assertContainsOnlyInstancesOf('Tickit\Component\Notification\Model\UserNotification', $notifications);
+    }
+
+    /**
+     * Tests the findUnreadForUser() method
+     */
+    public function testFindUnreadForUserPassesOptionalSinceParameter()
+    {
+        $user = new User();
+        $user->setUsername('username1');
+
+        $since = new \DateTime('-1 day');
+
+        $this->repo->expects($this->once())
+                   ->method('findUnreadForUser')
+                   ->with($user, $since)
+                   ->will($this->returnValue(array(new UserNotification(), new UserNotification())));
+
+        $this->getProvider()->findUnreadForUser($user, $since);
+    }
+
+    private function getProvider()
+    {
+        return new NotificationProvider($this->repo, 20);
     }
 }

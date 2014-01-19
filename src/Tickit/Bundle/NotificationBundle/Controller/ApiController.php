@@ -66,14 +66,20 @@ class ApiController
      *
      * Lists all notifications for the current user
      *
+     * @param mixed $since The date and time to return notifications since (optional)
+     *
      * @return JsonResponse
      */
-    public function listAction()
+    public function listAction($since = null)
     {
-        $notifications = $this->provider->findUnreadForUser($this->baseHelper->getUser());
+        if (null !== $since) {
+            $since = new \DateTime($since);
+        }
+
+        $notifications = $this->provider->findUnreadForUser($this->baseHelper->getUser(), $since);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
-        $data = $decorator->decorate($notifications, ['message', 'createdAt', 'actionUri']);
+        $data = $decorator->decorate($notifications, ['id', 'message', 'createdAt', 'actionUri']);
 
         return new JsonResponse($data);
     }

@@ -47,7 +47,7 @@ class UserNotificationRepositoryTest extends AbstractOrmTest
     {
         parent::setUp();
 
-        $em = $this->getEntityManager(
+        $em = static::createTestEntityManager(
             array('TickitNotificationBundle' => 'Tickit\\Component\\Notification\\Model')
         );
 
@@ -55,7 +55,7 @@ class UserNotificationRepositoryTest extends AbstractOrmTest
     }
 
     /**
-     * Tests the findGetFindUnreadForUserQueryBuilder() method
+     * Tests the getFindUnreadForUserQueryBuilder() method
      */
     public function testGetFindUnreadForUserQueryBuilderBuildsQuery()
     {
@@ -77,5 +77,31 @@ class UserNotificationRepositoryTest extends AbstractOrmTest
 
         $this->assertEquals('n.recipient = :user_id', $firstWhere);
         $this->assertEquals('n.readAt IS NULL', $secondWhere);
+    }
+
+    /**
+     * Tests the getFindUnreadForUserQueryBuilder() method
+     */
+    public function testGetFindUnreadForUserReturnsNotificationsSinceDateTime()
+    {
+        $user = new User();
+        $user->setId(10);
+        $since = new \DateTime('-1 hour');
+
+        $builder = $this->repo->getFindUnreadForUserQueryBuilder($user, $since);
+
+        $where = $builder->getDQLPart('where');
+        $whereParts = $where->getParts();
+        $this->assertCount(3, $whereParts);
+
+        $firstWhere = array_shift($whereParts);
+        $secondWhere = array_shift($whereParts);
+        $thirdWhere = array_shift($whereParts);
+
+        $this->assertEquals('n.recipient = :user_id', $firstWhere);
+        $this->assertEquals('n.readAt IS NULL', $secondWhere);
+        $this->assertEquals('n.createdAt > :since', $thirdWhere);
+
+        $this->assertEquals($since, $builder->getParameter('since')->getValue());
     }
 }
