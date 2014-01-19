@@ -22,7 +22,6 @@
 namespace Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\Mock\MockEntity;
 
