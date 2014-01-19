@@ -25,7 +25,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Abstract implementation of picker data transformer.
@@ -42,26 +41,32 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
     /**
      * The restriction type on the picker that this transformer is attached to
      *
-     * @var string
+     * @var integer|null
      */
-    private $restriction = AbstractPickerType::RESTRICTION_NONE;
+    private $maxSelections;
 
     /**
-     * Sets the restriction on the transformer
+     * Sets the maximum number of selections allowed
      *
-     * @param string $restriction The restriction type
-     *
-     * @throws \InvalidArgumentException If the restriction type is invalid
+     * @param integer $maxSelections The maximum number of selections allowed
      */
-    public function setRestriction($restriction)
+    public function setMaxSelections($maxSelections)
     {
-        if (!in_array($restriction, [AbstractPickerType::RESTRICTION_NONE, AbstractPickerType::RESTRICTION_SINGLE])) {
-            throw new \InvalidArgumentException(
-                sprintf('An invalid restriction type (%s) was provided', $restriction)
-            );
+        if (intval($maxSelections) === 0) {
+            $this->maxSelections = null;
+        } else {
+            $this->maxSelections = intval($maxSelections);
         }
+    }
 
-        $this->restriction = $restriction;
+    /**
+     * Gets the maximum number of selections allowed
+     *
+     * @return integer
+     */
+    public function getMaxSelections()
+    {
+        return $this->maxSelections;
     }
 
     /**
@@ -80,7 +85,7 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
             return '';
         }
 
-        if ($this->restriction === AbstractPickerType::RESTRICTION_SINGLE) {
+        if ($this->maxSelections === 1) {
             return $this->transformEntity($value);
         } else {
             return $this->transformCollection($value);
@@ -109,7 +114,7 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
             return null;
         }
 
-        if ($this->restriction === AbstractPickerType::RESTRICTION_SINGLE) {
+        if ($this->maxSelections === 1) {
             return $this->reverseTransformSingleIdentifier($value);
         } else {
             return $this->reverseTransformMultipleIdentifiers($value);

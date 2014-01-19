@@ -50,13 +50,15 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests the setRestriction() method
+     * Tests the setMaxRestrictions() method
      *
-     * @expectedException \InvalidArgumentException
+     * @dataProvider getZeroBasedValues
      */
-    public function testSetRestrictionThrowsExceptionForInvalidRestriction()
+    public function testSetMaxRestrictionsIgnoresZeroBasedValue($zeroValue)
     {
-        $this->sut->setRestriction('invalid');
+        $this->sut->setMaxSelections($zeroValue);
+
+        $this->assertEquals(null, $this->sut->getMaxSelections());
     }
     
     /**
@@ -78,7 +80,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
                   ->method('getEntityIdentifier')
                   ->will($this->returnValue('invalid'));
 
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
 
         $this->sut->transform(new MockEntity(1));
     }
@@ -89,7 +91,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
     public function testTransformHandlesSingleEntityWithSingleSelectRestrictionEnabled()
     {
         $this->trainTransformerToReturnIdentifier();
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
 
         $expectedData = '1';
         $this->assertEquals($expectedData, $this->sut->transform(new MockEntity(1)));
@@ -117,7 +119,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransformThrowsExceptionForCollectionWithSingleRestrictionEnabled()
     {
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
 
         $collection = new ArrayCollection(
             [new MockEntity(1), new MockEntity(2), new MockEntity(4)]
@@ -189,7 +191,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testReverseTransformHandlesSingleIdentifierWithSingleRestrictionEnabledCorrectly()
     {
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
         $this->sut->expects($this->once())
                   ->method('findEntityByIdentifier')
                   ->with(1)
@@ -227,9 +229,16 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testReverseTransformThrowsExceptionForMultipleIdentifiersWithSingleRestrictionEnabled()
     {
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
 
         $this->sut->reverseTransform('1,3,4,5');
+    }
+
+    public function getZeroBasedValues()
+    {
+        return [
+            ['0'], [0], [''], ['false'], [false]
+        ];
     }
 
     private function trainTransformerToReturnIdentifier($times = 1)
