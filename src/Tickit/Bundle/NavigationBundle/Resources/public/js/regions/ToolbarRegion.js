@@ -15,7 +15,7 @@ define(['marionette'], function(Marionette) {
          * @return {void}
          */
         onShow: function() {
-            this.$el.parent().show();
+            this.$el.show();
         }
     });
 });
