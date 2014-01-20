@@ -85,7 +85,6 @@ class FilterFormTypeTest extends AbstractFormTypeTestCase
     {
         $extensions = parent::getExtensions();
 
-        $decorator = $this->getMockEntityDecorator();
         $transformer = $this->getMockPickerDataTransformer();
 
         $transformer->expects($this->any())
@@ -96,8 +95,8 @@ class FilterFormTypeTest extends AbstractFormTypeTestCase
                     ->method('reverseTransform')
                     ->will($this->returnValue(new \stdClass()));
 
-        $userPicker = new UserPickerType($decorator, $transformer);
-        $clientPicker = new ClientPickerType($decorator, $transformer);
+        $userPicker = new UserPickerType($transformer);
+        $clientPicker = new ClientPickerType($transformer);
 
         $extensions[] = new PreloadedExtension(
             [$userPicker->getName() => $userPicker, $clientPicker->getName() => $clientPicker],

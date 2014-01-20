@@ -50,13 +50,21 @@ class UserPickerDataTransformer extends AbstractPickerDataTransformer
     }
 
     /**
-     * Returns the name of the entity identifier.
+     * Transforms a given entity instance into a simple object.
+     *
+     * This allows the data transformer to encode it to a scalar
+     *
+     * @param mixed $entity The entity instance to transform
      *
      * @return string
      */
-    protected function getEntityIdentifier()
+    protected function transformEntityToSimpleObject($entity)
     {
-        return 'id';
+        $object = new \stdClass();
+        $object->id = $entity->getId();
+        $object->text = $entity->getFullName();
+
+        return $object;
     }
 
     /**

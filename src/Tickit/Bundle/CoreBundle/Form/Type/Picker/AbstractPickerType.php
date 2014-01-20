@@ -21,14 +21,10 @@
 
 namespace Tickit\Bundle\CoreBundle\Form\Type\Picker;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
-use Tickit\Component\Decorator\Entity\EntityDecoratorInterface;
 
 /**
  * Abstract Picker field type.
@@ -43,27 +39,6 @@ use Tickit\Component\Decorator\Entity\EntityDecoratorInterface;
 abstract class AbstractPickerType extends AbstractType
 {
     /**
-     * No restrictions.
-     *
-     * This indicates that multiple selections can be made.
-     */
-    const RESTRICTION_NONE = 'none';
-
-    /**
-     * Single selection restriction.
-     *
-     * This indicates that only one selection can be made.
-     */
-    const RESTRICTION_SINGLE = 'single';
-
-    /**
-     * An entity decorator
-     *
-     * @var EntityDecoratorInterface
-     */
-    protected $decorator;
-
-    /**
      * A data transformer for the picker
      *
      * @var AbstractPickerDataTransformer
@@ -73,12 +48,10 @@ abstract class AbstractPickerType extends AbstractType
     /**
      * Constructor.
      *
-     * @param EntityDecoratorInterface      $entityDecorator An entity decorator
-     * @param AbstractPickerDataTransformer $transformer     A data transformer for the picker
+     * @param AbstractPickerDataTransformer $transformer A data transformer for the picker
      */
-    public function __construct(EntityDecoratorInterface $entityDecorator, AbstractPickerDataTransformer $transformer)
+    public function __construct(AbstractPickerDataTransformer $transformer)
     {
-        $this->decorator = $entityDecorator;
         $this->transformer = $transformer;
     }
 
@@ -90,54 +63,18 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // initialise text field's attributes
-        $attributes = array(
-            'data-restriction' => $options['picker_restriction']
-        );
+        $attributes = [];
 
         // we set the restriction as a data-* attribute, this lets the JS do the
         // client side restriction and our field validator do the server-side work
-        if ($options['picker_restriction'] !== self::RESTRICTION_NONE) {
-            $attributes['data-restriction'] = $options['picker_restriction'];
+        if ($options['max_selections'] !== 0) {
+            $attributes['data-max-selections'] = $options['max_selections'];
         }
 
-        $this->transformer->setRestriction($options['picker_restriction']);
+        $this->transformer->setMaxSelections($options['max_selections']);
 
         $builder->addModelTransformer($this->transformer)
                 ->setAttributes($attributes);
-    }
-
-    /**
-     * Build form's view
-     *
-     * @param FormView      $view    Form view
-     * @param FormInterface $form    Form to build
-     * @param array         $options Form options
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
-        $value = $form->getData();
-
-        if ($value instanceof ArrayCollection) {
-            $value = $value->toArray();
-        } else {
-            $value = [$value];
-        }
-
-        $value = array_map(
-            function ($entity) {
-                if (null === $entity) {
-                    return '';
-                }
-                return $this->decorator->decorate($entity);
-            },
-            $value
-        );
-
-        $value = array_filter($value);
-
-        $value               = implode(',', $value);
-        $view->displayValues = $value;
     }
 
     /**
@@ -149,11 +86,10 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setOptional(['picker_restriction'])
-                 ->setDefaults(['picker_restriction' => static::RESTRICTION_NONE])
-                 ->setAllowedValues(
-                     ['picker_restriction' => [static::RESTRICTION_NONE, static::RESTRICTION_SINGLE]]
-                 );
+        $resolver->setOptional(['max_selections'])
+                 // the default value for max_selection is 0, which indicates no limit
+                 ->setDefaults(['max_selections' => 0])
+                 ->setAllowedTypes(['max_selections' => ['null', 'integer']]);
     }
 
     /**

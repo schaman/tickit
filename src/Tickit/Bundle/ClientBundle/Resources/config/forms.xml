@@ -19,7 +19,6 @@
 
         <service id="tickit_client.form.type.client_picker" class="%tickit_client.form.type.client_picker.class%">
             <tag name="form.type" alias="tickit_client_picker" />
-            <argument type="service" id="tickit_client.display_name_decorator" />
             <argument type="service" id="tickit_client.form.client_picker_data_transformer" />
         </service>
 

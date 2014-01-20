@@ -25,7 +25,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Abstract implementation of picker data transformer.
@@ -42,26 +41,32 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
     /**
      * The restriction type on the picker that this transformer is attached to
      *
-     * @var string
+     * @var integer|null
      */
-    private $restriction = AbstractPickerType::RESTRICTION_NONE;
+    private $maxSelections;
 
     /**
-     * Sets the restriction on the transformer
+     * Sets the maximum number of selections allowed
      *
-     * @param string $restriction The restriction type
-     *
-     * @throws \InvalidArgumentException If the restriction type is invalid
+     * @param integer $maxSelections The maximum number of selections allowed
      */
-    public function setRestriction($restriction)
+    public function setMaxSelections($maxSelections)
     {
-        if (!in_array($restriction, [AbstractPickerType::RESTRICTION_NONE, AbstractPickerType::RESTRICTION_SINGLE])) {
-            throw new \InvalidArgumentException(
-                sprintf('An invalid restriction type (%s) was provided', $restriction)
-            );
+        if (intval($maxSelections) === 0) {
+            $this->maxSelections = null;
+        } else {
+            $this->maxSelections = intval($maxSelections);
         }
+    }
 
-        $this->restriction = $restriction;
+    /**
+     * Gets the maximum number of selections allowed
+     *
+     * @return integer
+     */
+    public function getMaxSelections()
+    {
+        return $this->maxSelections;
     }
 
     /**
@@ -72,6 +77,8 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
      *
      * @param mixed $value The value in the original representation
      *
+     * @throws TransformationFailedException If there are more values than $this->maxSelections
+     *
      * @return mixed The value in the transformed representation
      */
     public function transform($value)
@@ -80,11 +87,28 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
             return '';
         }
 
-        if ($this->restriction === AbstractPickerType::RESTRICTION_SINGLE) {
-            return $this->transformEntity($value);
-        } else {
-            return $this->transformCollection($value);
+        if (!$value instanceof Collection) {
+            $value = new ArrayCollection([$value]);
         }
+
+        if ($this->hasSelectionsLimit() && $this->maxSelections < $value->count()) {
+            throw new TransformationFailedException(
+                sprintf(
+                    'Too many values provided to the form field (Picker). Expected maximum %d, got %d',
+                    $this->maxSelections,
+                    $value->count()
+                )
+            );
+        }
+
+        $flattened = array_map(
+            function ($entity) {
+                return $this->transformEntityToSimpleObject($entity);
+            },
+            $value->toArray()
+        );
+
+        return json_encode(array_values($flattened));
     }
 
     /**
@@ -109,7 +133,7 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
             return null;
         }
 
-        if ($this->restriction === AbstractPickerType::RESTRICTION_SINGLE) {
+        if ($this->maxSelections === 1) {
             return $this->reverseTransformSingleIdentifier($value);
         } else {
             return $this->reverseTransformMultipleIdentifiers($value);
@@ -117,51 +141,13 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a single entity instance
+     * Returns true if the transformer has a max selections limit set
      *
-     * @param mixed $entity The entity to transform
-     *
-     * @throws TransformationFailedException If the provided $entity is actually a Collection instance
-     *
-     * @return mixed
+     * @return boolean
      */
-    private function transformEntity($entity)
+    private function hasSelectionsLimit()
     {
-        if ($entity instanceof Collection) {
-            throw new TransformationFailedException();
-        }
-
-        $method = $this->getIdentifierAccessorName();
-        $this->validateMethodExists($entity, $method);
-
-        return $entity->{$method}();
-    }
-
-    /**
-     * Transforms a collection of entity instances
-     *
-     * @param Collection $collection The collection to transform
-     *
-     * @throws TransformationFailedException If the $collection argument is not actually a collection
-     *
-     * @return string
-     */
-    private function transformCollection($collection)
-    {
-        if (!$collection instanceof Collection) {
-            throw new TransformationFailedException(
-                'A Collection instance was not provided when trying to transform multiple entities'
-            );
-        }
-
-        $flattened = array_map(
-            function ($entity) {
-                return $this->transformEntity($entity);
-            },
-            $collection->toArray()
-        );
-
-        return implode(',', $flattened);
+        return $this->maxSelections !== null;
     }
 
     /**
@@ -208,41 +194,15 @@ abstract class AbstractPickerDataTransformer implements DataTransformerInterface
     }
 
     /**
-     * @return string
-     */
-    private function getIdentifierAccessorName()
-    {
-        $identifier = $this->getEntityIdentifier();
-        return "get" . ucfirst($identifier);
-    }
-
-    /**
-     * Validates that a method exists on an object.
+     *  Transforms a given entity instance into a simple object.
      *
-     * @param mixed  $object The object to check
-     * @param string $method The method name to check
+     * This allows the data transformer to encode it to a scalar
      *
-     * @throws \RuntimeException If the method does not exist
-     */
-    private function validateMethodExists($object, $method)
-    {
-        if (!method_exists($object, $method)) {
-            throw new \RuntimeException(
-                sprintf(
-                    'The method %s() does not exist and/or is not public on %s',
-                    $method,
-                    get_class($object)
-                )
-            );
-        }
-    }
-
-    /**
-     * Returns the name of the entity identifier.
+     * @param mixed $entity The entity instance to transform
      *
      * @return string
      */
-    abstract protected function getEntityIdentifier();
+    abstract protected function transformEntityToSimpleObject($entity);
 
     /**
      * Returns an entity instance by identifier

@@ -56,13 +56,21 @@ class ClientPickerDataTransformerTest extends AbstractUnitTest
     }
 
     /**
-     * Tests the getEntityIdentifier() method
+     * Tests the transformEntityToSimpleObject() method
      */
-    public function testGetEntityIdentifierReturnsCorrectProperty()
+    public function testTransformEntityToSimpleObjectReturnsExpectedObject()
     {
-        $method = static::getNonAccessibleMethod(get_class($this->sut), 'getEntityIdentifier');
+        $client = new Client();
+        $client->setId(1)
+               ->setName('Levis');
 
-        $this->assertEquals('id', $method->invoke($this->sut));
+        $method = static::getNonAccessibleMethod(get_class($this->sut), 'transformEntityToSimpleObject');
+
+        $simpleObject = $method->invokeArgs($this->sut, [$client]);
+
+        $this->assertInstanceOf('\stdClass', $simpleObject);
+        $this->assertEquals(1, $simpleObject->id);
+        $this->assertEquals('Levis', $simpleObject->text);
     }
 
     /**

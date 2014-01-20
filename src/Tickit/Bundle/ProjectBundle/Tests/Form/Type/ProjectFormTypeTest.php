@@ -106,7 +106,7 @@ class ProjectFormTypeTest extends AbstractFormTypeTestCase
                   ->method('convert')
                   ->will($this->returnValue('decorated client'));
 
-        $clientPicker = new ClientPickerType($decorator, $transformer);
+        $clientPicker = new ClientPickerType($transformer);
 
         $extensions[] = new PreloadedExtension([$clientPicker->getName() => $clientPicker], []);
 

@@ -22,7 +22,6 @@
 namespace Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\Mock\MockEntity;
 
@@ -51,7 +50,6 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     {
         parent::setUp();
 
-        $this->decorator = $this->getMock('\Tickit\Component\Decorator\Entity\EntityDecoratorInterface');
         $this->transformer = $this->getMockForAbstractClass(
             '\Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer'
         );
@@ -62,7 +60,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
 
         $this->formType = $this->getMockForAbstractClass(
             '\Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType',
-            [$this->decorator, $this->transformer]
+            [$this->transformer]
         );
     }
 
@@ -74,7 +72,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create(
             $this->formType,
             null,
-            ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
+            ['max_selections' => 1]
         );
         $entity = new MockEntity(1);
 
@@ -86,6 +84,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form->submit('1');
 
         $this->assertTrue($form->isSynchronized());
+        $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
         $this->assertEquals($entity, $form->getData());
 
 
@@ -94,7 +93,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     /**
      * Tests form data of 2 entity IDs resolves to correct display names
      */
-    public function testDoubleEntitySubmission()
+    public function testMultipleEntitySubmission()
     {
         $form = $this->factory->create($this->formType);
 
@@ -150,24 +149,16 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create(
             $this->formType,
             null,
-            ['picker_restriction' => AbstractPickerType::RESTRICTION_SINGLE]
+            ['max_selections' => 1]
         );
 
         $entity = new MockEntity(1);
         $form->setData($entity);
 
-        $this->decorator->expects($this->once())
-                        ->method('decorate')
-                        ->with($entity)
-                        ->will($this->returnValue('display name'));
-
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($entity, $form->getData());
 
-        $formView = $form->createView();
-
-        $this->assertObjectHasAttribute('displayValues', $formView);
-        $this->assertEquals('display name', $formView->displayValues);
+        $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
     }
 
     /**
@@ -184,28 +175,18 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $formData = new ArrayCollection([$entity1, $entity2, $entity3]);
         $form->setData($formData);
 
-        $this->decorator->expects($this->exactly(3))
-                        ->method('decorate')
-                        ->will($this->onConsecutiveCalls('display name 1', 'display name 2', 'display name 3'));
-
-        $this->decorator->expects($this->at(0))
-                        ->method('decorate')
-                        ->with($entity1);
-
-        $this->decorator->expects($this->at(1))
-                        ->method('decorate')
-                        ->with($entity2);
-
-        $this->decorator->expects($this->at(2))
-                        ->method('decorate')
-                        ->with($entity3);
-
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($formData, $form->getData());
+    }
 
-        $formView = $form->createView();
+    /**
+     * Tests the form options handles "null" value for max_selections option.
+     */
+    public function testMaxSelectionsAttributeHandlesNullValue()
+    {
+        $options = ['max_selections' => null];
+        $form = $this->factory->create($this->formType, null, $options);
 
-        $this->assertObjectHasAttribute('displayValues', $formView);
-        $this->assertEquals('display name 1,display name 2,display name 3', $formView->displayValues);
+        $this->assertEquals(0, $form->getConfig()->getAttribute('data-max-selections'));
     }
 }

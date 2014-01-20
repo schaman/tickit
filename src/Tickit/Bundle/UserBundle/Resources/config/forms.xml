@@ -32,7 +32,6 @@
 
         <service id="tickit_user.form.type.user_picker" class="%tickit_user.form.type.user_picker.class%">
             <tag name="form.type" alias="tickit_user_picker" />
-            <argument type="service" id="tickit_user.display_name_decorator" />
             <argument type="service" id="tickit_user.form.user_picker_data_transformer" />
         </service>
 

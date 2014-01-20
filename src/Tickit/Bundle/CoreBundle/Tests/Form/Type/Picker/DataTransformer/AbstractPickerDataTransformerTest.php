@@ -22,7 +22,6 @@
 namespace Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\Mock\MockEntity;
 
@@ -50,13 +49,15 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests the setRestriction() method
+     * Tests the setMaxRestrictions() method
      *
-     * @expectedException \InvalidArgumentException
+     * @dataProvider getZeroBasedValues
      */
-    public function testSetRestrictionThrowsExceptionForInvalidRestriction()
+    public function testSetMaxRestrictionsIgnoresZeroBasedValue($zeroValue)
     {
-        $this->sut->setRestriction('invalid');
+        $this->sut->setMaxSelections($zeroValue);
+
+        $this->assertEquals(null, $this->sut->getMaxSelections());
     }
     
     /**
@@ -69,45 +70,21 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the transform() method
-     *
-     * @expectedException \RuntimeException
-     */
-    public function testTransformThrowsExceptionForNonExistentIdentifierGetter()
-    {
-        $this->sut->expects($this->once())
-                  ->method('getEntityIdentifier')
-                  ->will($this->returnValue('invalid'));
-
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
-
-        $this->sut->transform(new MockEntity(1));
-    }
-
-    /**
-     * Tests the transform() method
-     */
-    public function testTransformHandlesSingleEntityWithSingleSelectRestrictionEnabled()
-    {
-        $this->trainTransformerToReturnIdentifier();
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
-
-        $expectedData = '1';
-        $this->assertEquals($expectedData, $this->sut->transform(new MockEntity(1)));
-    }
-
-    /**
-     * Tests the transform() method
      */
     public function testTransformHandlesSingleEntityCorrectly()
     {
-        $this->trainTransformerToReturnIdentifier();
+        $entity = new MockEntity(1, 'Forename Surname');
+        $simpleObject = new \stdClass;
+        $simpleObject->id = 1;
+        $simpleObject->text = 'Forename Surname';
 
-        $collection = new ArrayCollection(
-            [new MockEntity(1)]
-        );
+        $this->sut->expects($this->once())
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entity)
+                  ->will($this->returnValue($simpleObject));
 
-        $expectedData = '1';
-        $this->assertEquals($expectedData, $this->sut->transform($collection));
+        $expectedData = '[{"id":1,"text":"Forename Surname"}]';
+        $this->assertEquals($expectedData, $this->sut->transform($entity));
     }
 
     /**
@@ -117,7 +94,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransformThrowsExceptionForCollectionWithSingleRestrictionEnabled()
     {
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
 
         $collection = new ArrayCollection(
             [new MockEntity(1), new MockEntity(2), new MockEntity(4)]
@@ -131,13 +108,37 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransformHandlesEntityCollectionCorrectly()
     {
-        $this->trainTransformerToReturnIdentifier(3);
+        $simpleObjects = [];
+        $entities = [];
 
-        $collection = new ArrayCollection(
-            [new MockEntity(1), new MockEntity(2), new MockEntity(4)]
-        );
+        for ($i = 1; $i < 4; $i++) {
+            $entities[$i] = new MockEntity($i, sprintf('Forename%d Surname%d', $i, $i));
 
-        $expectedData = '1,2,4';
+            $simpleObject = new \stdClass;
+            $simpleObject->id = $entities[$i]->getId();
+            $simpleObject->text = $entities[$i]->getName();
+            $simpleObjects[$i] = $simpleObject;
+        }
+
+        $this->sut->expects($this->exactly(3))
+                  ->method('transformEntityToSimpleObject')
+                  ->will($this->onConsecutiveCalls($simpleObjects[1], $simpleObjects[2], $simpleObjects[3]));
+
+        $this->sut->expects($this->at(0))
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entities[1]);
+
+        $this->sut->expects($this->at(1))
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entities[2]);
+
+        $this->sut->expects($this->at(2))
+                  ->method('transformEntityToSimpleObject')
+                  ->with($entities[3]);
+
+        $collection = new ArrayCollection($entities);
+
+        $expectedData = '[{"id":1,"text":"Forename1 Surname1"},{"id":2,"text":"Forename2 Surname2"},{"id":3,"text":"Forename3 Surname3"}]';
         $this->assertEquals($expectedData, $this->sut->transform($collection));
     }
 
@@ -189,7 +190,7 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testReverseTransformHandlesSingleIdentifierWithSingleRestrictionEnabledCorrectly()
     {
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
         $this->sut->expects($this->once())
                   ->method('findEntityByIdentifier')
                   ->with(1)
@@ -227,15 +228,15 @@ class AbstractPickerDataTransformerTest extends \PHPUnit_Framework_TestCase
      */
     public function testReverseTransformThrowsExceptionForMultipleIdentifiersWithSingleRestrictionEnabled()
     {
-        $this->sut->setRestriction(AbstractPickerType::RESTRICTION_SINGLE);
+        $this->sut->setMaxSelections(1);
 
         $this->sut->reverseTransform('1,3,4,5');
     }
 
-    private function trainTransformerToReturnIdentifier($times = 1)
+    public function getZeroBasedValues()
     {
-        $this->sut->expects($this->exactly($times))
-                  ->method('getEntityIdentifier')
-                  ->will($this->returnValue('id'));
+        return [
+            ['0'], [0], [''], ['false'], [false]
+        ];
     }
 }
