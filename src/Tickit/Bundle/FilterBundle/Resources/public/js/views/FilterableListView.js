@@ -66,7 +66,7 @@ define(['paging/js/views/PaginationView'], function(PaginationView) {
             // we instantiate a new instance of the prototype provided
             var filterView = new this.filterViewPrototype({
                 formUrl: this.filterFormUrl,
-                el : '#filter'
+                el : 'div.filter'
             });
 
             this.collection.setFilterView(filterView);
