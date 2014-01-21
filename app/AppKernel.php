@@ -33,7 +33,8 @@ class AppKernel extends Kernel
             new Tickit\Bundle\NotificationBundle\TickitNotificationBundle(),
             new Tickit\Bundle\ClientBundle\TickitClientBundle(),
             new Tickit\Bundle\FilterBundle\TickitFilterBundle(),
-            new Tickit\Bundle\PaginationBundle\TickitPaginationBundle()
+            new Tickit\Bundle\PaginationBundle\TickitPaginationBundle(),
+            new Tickit\Bundle\SearchBundle\TickitSearchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
