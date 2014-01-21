@@ -30,6 +30,10 @@ define([
                 name: 'notification-side',
                 side: 'right'
             });
+
+            this.$el.find('#search').sidr({
+                // TODO: implement this in a way that it only triggers when keying in a search term
+            });
         },
 
         /**

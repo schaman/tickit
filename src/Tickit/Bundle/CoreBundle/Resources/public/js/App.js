@@ -21,7 +21,8 @@ require([
         loginRegion: new AnimatedRegion({ el: '#login-container' }),
         navRegion: new NavigationRegion,
         toolbarRegion: new ToolbarRegion,
-        notificationRegion: '#notification-side'
+        notificationRegion: '#notification-side',
+        searchRegion: '#search-side'
     });
 
     window.App = App;
