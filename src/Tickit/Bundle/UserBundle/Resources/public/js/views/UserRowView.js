@@ -15,6 +15,7 @@ define(['modules/template', 'text!user/views/UserRowView.html'], function(Templa
         render: function() {
             var d = this.model.attributes;
             this.$el.html(_.template($(tpl).html(), {
+                id: d.id,
                 forename: d.forename,
                 surname: d.surname,
                 email: d.email,
