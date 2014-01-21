@@ -1,7 +1,25 @@
 <script type="text/template" id="project_row-template">
-    <td><%= id %></td>
-    <td><%= name %></td>
-    <td><%= created %></td>
-    <td><a href="<%= editUrl %>">Edit</a></td>
-    <td><a href="<%= deleteUrl %>">Delete</a></td>
+    <td class="action">
+        <div class="cell">
+            <div class="icon-export">
+                <div class="flyout">
+                    <ul>
+                        <li><a class="icon-pencil" href="">Edit</a></li>
+                        <li><a class="icon-trash" href="">Delete</a></li>
+                        <li><a class="icon-star" href="">Favourite</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="cell"><%= name %></div>
+    </td>
+    <td>
+        <div class="cell"><a href="<%= editUrl %>">Edit</a></div>
+    </td>
+    <td>
+        <div class="cell"><a href="<%= deleteUrl %>">Delete</a></div>
+    </td>
+    <td class="select-cell"><div class="cell"><input type="checkbox"></div></td>
 </script>
