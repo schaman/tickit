@@ -25,7 +25,9 @@
         <div class="cell"><%= email %></div>
     </td>
     <td>
-        <div class="cell"><%= isAdmin %></div>
+        <div class="cell">
+            <span class="priority <%= isAdmin %>"><%= isAdmin %></span>
+        </div>
     </td>
     <td>
         <div class="cell"><a href="<%= editUrl %>">Edit</a></div>
