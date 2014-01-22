@@ -21,13 +21,15 @@ define(function() {
 
                 var $search = $el.find('div.search-box input.search');
                 $search.on('keyup', function() {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
                     if ($search.val().length < 3) {
                         close();
                         return;
                     }
-                    if (timeout) {
-                        clearTimeout(timeout);
-                    }
+
                     timeout = setTimeout(function() {
                         $.sidr('open', 'search-side');
                     }, 500);
