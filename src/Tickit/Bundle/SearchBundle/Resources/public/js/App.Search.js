@@ -19,8 +19,12 @@ define(function() {
                     name: 'search-side'
                 });
 
-                var $searchBox = $el.find('div.search-box');
-                $searchBox.on('keyup', function() {
+                var $search = $el.find('div.search-box input.search');
+                $search.on('keyup', function() {
+                    if ($search.val().length < 3) {
+                        close();
+                        return;
+                    }
                     if (timeout) {
                         clearTimeout(timeout);
                     }
@@ -35,8 +39,12 @@ define(function() {
                         return;
                     }
 
-                    $.sidr('close', 'search-side');
+                    close();
                 });
+
+                function close() {
+                    $.sidr('close', 'search-side');
+                }
             });
         });
     });
