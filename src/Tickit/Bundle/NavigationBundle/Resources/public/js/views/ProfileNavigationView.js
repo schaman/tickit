@@ -31,8 +31,26 @@ define([
                 side: 'right'
             });
 
-            this.$el.find('#search').sidr({
-                // TODO: implement this in a way that it only triggers when keying in a search term
+            // TODO: eventually this will be dispatched via App.vent
+            var timeout;
+            var $searchBox = this.$el.find('div.search-box');
+            $searchBox.on('keyup', function() {
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(search, 500);
+
+                function search() {
+                    $.sidr('open', 'search-side');
+                }
+            });
+
+            $('body').on('click', function(e) {
+                if ($(e.target).parents('#search-side') || $(e.target).parents('div.search-box'))  {
+                    return;
+                }
+
+                $.sidr('close', 'search-side');
             });
         },
 
