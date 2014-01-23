@@ -3,27 +3,17 @@
  *
  * @type {Backbone.Marionette.ItemView}
  */
-define(['modules/template', 'text!user/views/UserRowView.html'], function(Template, tpl) {
+define([
+    'core/js/views/DeletableItemView',
+    'text!user/views/UserRowView.html'
+], function(DeletableItemView, tpl) {
 
-    return Backbone.Marionette.ItemView.extend({
+    return DeletableItemView.extend({
         template: '#user_row-template',
         tagName: 'tr',
 
         "events" : {
             "click a.delete-record" : "deleteItem"
-        },
-
-        /**
-         * Deletes the current item
-         *
-         * @return {void}
-         */
-        deleteItem : function() {
-            // TODO: need to integrate a confirmation here
-            var me = this;
-            me.model.destroy({
-                wait: true
-            });
         },
 
         /**
