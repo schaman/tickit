@@ -17,6 +17,7 @@ define([
             forename: '',
             surname: '',
             avatarUrl: '',
+            csrfToken: '',
             lastActive: new Date()
         },
 
@@ -35,8 +36,7 @@ define([
          * @return {Date}
          */
         getLastActive: function() {
-            var la = this.get('lastActivity');
-            return new Date(la);
+            return new Date(this.get('lastActivity'));
         },
 
         /**
@@ -64,6 +64,22 @@ define([
          */
         urlRoot: function() {
             return Routing.generate('api_user_fetch');
+        },
+
+        /**
+         * Overrides the sync action.
+         *
+         * @param {string} action  The action taking place (e.g. "delete")
+         * @param {object} model   The model that is being sync'd
+         * @param {object} options The options object for the sync
+         */
+        sync : function(action, model, options) {
+            if (action.toLowerCase() === 'delete') {
+                options = options || {};
+                options.url = this.getDeleteUrl();
+            }
+
+            Backbone.sync(action, model, options);
         }
     });
 });
