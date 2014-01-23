@@ -28,7 +28,7 @@ user_edit:
 user_delete:
     path: /users/delete/{id}
     defaults: { _controller: tickit_user.controller.user:deleteAction }
-    methods: [POST]
+    methods: [DELETE]
     requirements:
         id: \d+
     options:
