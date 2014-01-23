@@ -50,7 +50,7 @@ define([
 
         // because this module isn't loaded as part of the application core
         // (see App module) we want to bind to navigation:ready event immediately,
-        // event before this module has fully initialised
+        // even before this module has fully initialised
         App.vent.on('navigation:ready', function($el) {
             $el.find('#notification').sidr({
                 name: 'notification-side',
