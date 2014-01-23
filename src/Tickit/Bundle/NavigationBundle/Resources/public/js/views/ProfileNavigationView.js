@@ -27,10 +27,6 @@ define([
          */
         onShow: function() {
             App.vent.trigger('navigation:ready', this.$el);
-            this.$el.find('#notification').sidr({
-                name: 'notification-side',
-                side: 'right'
-            });
         },
 
         /**
