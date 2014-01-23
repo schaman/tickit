@@ -26,6 +26,7 @@ project_edit:
 project_delete:
     path: /projects/delete/{id}
     defaults: { _controller: tickit_project.controller.project:deleteAction }
+    methods: [DELETE]
     requirements:
         id: \d+
     options:
