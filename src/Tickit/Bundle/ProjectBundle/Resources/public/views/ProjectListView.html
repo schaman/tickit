@@ -1,14 +1,30 @@
 <script type="text/template" id="project_list-template">
 
-    <div id="filter"></div>
+    <div class="filter"></div>
 
     <table id="project-list">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Name</td>
-                <td>Created</td>
-                <td></td>
+                <th>
+                    <a href="javascript:void(0);">
+                        <div class="cell">Action</div>
+                    </a>
+                </th>
+                <th>
+                    <a href="javascript:void(0);">
+                        <div class="cell">Name</div>
+                    </a>
+                </th>
+                <th colspan="2">
+                    <a href="javascript:void(0);">
+                        <div class="cell">Manage</div>
+                    </a>
+                </th>
+                <th>
+                    <div class="cell">
+                        <input id="all" type="checkbox"><label for="all"></label>
+                    </div>
+                </th>
             </tr>
         </thead>
         <tbody></tbody>

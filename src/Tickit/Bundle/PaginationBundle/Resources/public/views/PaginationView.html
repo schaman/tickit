@@ -1,6 +1,7 @@
 <script type="text/template" id="pagination-template">
+
     <% if (totalPages > 0) { %>
-        <ul>
+        <ul class="pagination">
             <li><a class="icon-angle-left" href="javascript:void(0);" data-page="prev"></a></li>
             <% var i = 0; while(++i <= totalPages) { %>
                 <li><a href="javascript:void(0);" data-page="<%= i %>"><%= i %></a></li>
@@ -10,10 +11,16 @@
     <% } %>
 
     <div class="bulk-action">
-        <a href="javascript:void(0);" class="icon-trash"></a>
-        <a href="javascript:void(0);" class="icon-star"></a>
-        <a href="javascript:void(0);" class="icon-plus"></a>
+        <form>
+            <select>
+                <option value="trash">trash</option>
+                <option value="trash">trash</option>
+                <option value="trash">trash</option>
+                <option value="trash">trash</option>
+            </select>
+        </form>
     </div>
+
     <div class="refresh">
         <a href="javascript:void(0);" class="icon-spin"></a>
     </div>

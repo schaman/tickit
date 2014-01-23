@@ -1,45 +1,63 @@
-// --------------------------------------------------
-// Mixins
-// --------------------------------------------------
+.clearfix() {
+	*zoom:1;
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}
+.inline-block() {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}
+.size(@width, @height) {
+	width:@width;
+	height:@height;
+}
+.square(@size) {
+	.size(@size, @size);
+}
+.text-overflow() {
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.hidden {
+	display:none;	
+}
+.unlisted() {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+.hideText() {
+	display:block;
+	overflow:hidden;
+	text-indent:100%;
+	white-space:nowrap;
+}
+.sprite(@x, @y , @color: transparent) {
+   background: @color url('../images/structure/sprite.png') no-repeat;
+   background-position:(@x) (@y);
+}
+.spriteReplace(@width, @height, @x, @y) {
+   .sprite(@x, @y);
+   .hideText;
+   width:@width;
+   height:@height;
+}
+.transform(@transform){
+	-webkit-transform: @transform;
+	   -moz-transform: @transform;
+	   	-ms-transform: @transform;
+		 -o-transform: @transform;
+	  	    transform: @transform;
 
-// border radius
-.border-radius(@radius: 6px;) {
-  -webkit-border-radius: @radius;
-     -moz-border-radius: @radius;
-          border-radius: @radius;
 }
-// basic gradient
-.gradient(@origin: top, @start: #2db7f8, @stop: #0f78bc, @fallback: #2db7f8) {
-	background: @fallback;
-	background: -webkit-linear-gradient(@origin, @start, @stop);
-	background: -moz-linear-gradient(@origin, @start, @stop);
-	background: -o-linear-gradient(@origin, @start, @stop);
-	background: -ms-linear-gradient(@origin, @start, @stop);
-	background: linear-gradient(@origin, @start, @stop);
-}
-
-// radial gradient
-.radialGradient(@innerColor: #2db7f8, @outerColor: #0f78bc , @fallback: url('../images/fallback/radial-gradient.png') ) {
-    background: @fallback center center;
-    background: -webkit-gradient(radial, center center, 0, center center, 460, from(@innerColor), to(@outerColor));
-    background: -webkit-radial-gradient(circle, @innerColor, @outerColor);
-    background: -moz-radial-gradient(circle, @innerColor, @outerColor);
-    background: -o-radial-gradient(circle, @innerColor, @outerColor);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
-// sprite
-.sprite(@x, @y, @colour: transparent) {
-   background:@colour url('../images/layout/sprite.png') (@x) (@y) no-repeat;
-}
-// opacity
-.opacity(@opacity) {
-	opacity:@opacity / 100;
-	filter:~"alpha(opacity=@{opacity})";
-}
-// transition
 .transition (@prop: all, @time: .15s, @delay: .0s, @ease: ease-out) {
     -webkit-transition: @prop @time @delay @ease;
     -moz-transition: @prop @time @delay @ease;
@@ -47,39 +65,32 @@
     -ms-transition: @prop @time @delay @ease;
     transition: @prop @time @delay @ease;
 }
-.mulipleTransition (@prop: all, @time: .15s, @delay: .0s, @ease: ease-out , @prop-two: none, @time-two: .0s, @delay-two: .0s, @ease-two: ease-out) {
-    -webkit-transition: @prop @time @delay @ease , @prop-two @time-two @delay-two @ease-two;
-    -moz-transition: @prop @time @delay @ease , @prop-two @time-two @delay-two @ease-two;  
-    -o-transition: @prop @time @delay @ease , @prop-two @time-two @delay-two @ease-two;
-    -ms-transition: @prop @time @delay @ease , @prop-two @time-two @delay-two @ease-two;
-    transition: @prop @time @delay @ease , @prop-two @time-two @delay-two @ease-two;
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+.box-shadow(@shadow) {
+  -webkit-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+.box-sizing() {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.opacity(@opacity) {
+	opacity:@opacity / 100;
+	filter:~"alpha(opacity=@{opacity})";
 }
 
-
-// transition
-.transform (@properties) {
-  -webkit-transform: @properties;
-     -moz-transform: @properties;
-      -ms-transform: @properties;
-       -o-transform: @properties;
-          transform: @properties;
-}
-// placeholder
-.placeholder-color(@color: #fff) {
-  &:-moz-placeholder {
-    color: @color;
-  }
-  &::-webkit-input-placeholder {
-    color: @color;
-  }
-  &.placeholder {
-    color: @color;
-  }
-}
-
-// Clearfix
-.clearfix() {
-  zoom: 1;
-  &:before { content: ''; display: block; }
-  &:after { content: ''; display: table; clear: both; }
+.gradient(@origin: top, @start: #7f7f7f, @stop: #000) {
+	background-color: @start;
+	background: -webkit-linear-gradient(@origin, @start, @stop);
+	background: -moz-linear-gradient(@origin, @start, @stop);
+	background: -o-linear-gradient(@origin, @start, @stop);
+	background: -ms-linear-gradient(@origin, @start, @stop);
+	background: linear-gradient(@origin, @start, @stop);
 }

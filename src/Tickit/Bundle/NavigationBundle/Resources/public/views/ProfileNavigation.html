@@ -1,42 +1,63 @@
 <script type="text/template" id="profile_navigation-template">
     <div class="navbar-inner">
         <div class="container">
-            <div class="nav-collapse span1">
-                <a href="/" id="logo" class="span1">Tickit</a>
+            <div class="nav-collapse left">
+                <div class="search-box right">
+                    <input class="search" type="text" value="Search">
+                    <label class="search icon-search"></label>
+                 </div>
             </div>
 
-            <div class="span11">
+            <div class="left">
+                <a href="/" id="logo">Tickit</a>
+            </div>
+
+            <div class="loader">
+                <span>Loading</span>
+            </div>
+
+            <div class="right">
                 <div class="right">
-
-                    <div class="search-box">
-                        <input class="search" type="text">
-                        <label class="search fui-search"></label>
+                    <div class="quick-links">
+                        <ul class="nav">
+                            <li class="">
+                                <a class="icon-plus add-ticket" data-title="Add Ticket" href="#">Create Ticket</a>
+                            </li>
+                            <li>
+                                <a class="icon-gauge" data-title="Dashboard" href="#"></a>
+                            </li>
+                            <li class="">
+                                <a class="icon-tags" data-title="Tickets" href="#"></a>
+                            </li>
+                            <li class="">
+                                <a class="icon-list-alt" data-title="Projects" href="#"></a>
+                            </li>
+                        </ul>
                     </div>
-
-                    <div class="account dropdown">
-                        <div id="notification" class="fui-chat"><span></span></div>
-                        <div class="account-thumb">
-                            <img height="35px" width="35px" src="<%= user.avatarUrl %>">
-                        </div>
-
-                        <div class="dropdown">
-                            <i class="dropdown-arrow dropdown-arrow-inverse"></i>
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                <%= user.fullname %>
-                                <span class="caret"></span>
+                     <div class='account'>
+                         <div class="account-links">
+                            <a href="" id="notification" class="icon-chat"><span></span></a>
+                            <div>
+                                    <a href="" class="icon-wrench"><span class="hidden"></span></a>
+                                    <ul>
+                                        <li><a class="icon-users" href="">Users</a></li>
+                                        <li><a class="icon-cog-alt" href="">System Settings</a></li>
+                                        <li><a href="">Preferences</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="">Logout</a></li>
+                                    </ul>
+                            </div>
+                            <a href="" class="icon-off"><span class="hidden"></span></a>
+                         </div>
+                         <div class='account-thumb'>
+                             <a href="javascript:void(0);">
+                                <img height="35px" width="35px" src='<%= user.avatarUrl %>'/>
                             </a>
-
-                            <ul class="dropdown-menu dropdown-inverse" role="menu">
-                                <li><a tabindex="-1" href="#">Help</a></li>
-                                <li><a tabindex="-1" href="#">Edit Profile</a></li>
-                                <li><a tabindex="-1" href="#">Preferences</a></li>
-                                <li class="divider"></li>
-                                <li><a tabindex="-1" href="#">Logout</a></li>
-                            </ul>
-                        </div>
+                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </script>

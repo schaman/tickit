@@ -15,6 +15,7 @@ define(['modules/template', 'text!client/views/ClientRowView.html', 'backbone'],
         render: function() {
             var d = this.model.attributes;
             this.$el.html(_.template($(tpl).html(), {
+                id: d.id,
                 name: d.name,
                 status: d.status,
                 totalProjects: d.totalProjects,

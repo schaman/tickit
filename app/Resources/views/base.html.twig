@@ -24,43 +24,34 @@
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
         <!--[if lte IE 7]><link rel="shortcut icon" href="{{ asset('favicon.ico') }}" /><![endif]-->
     </head>
-    <body style="zoom: 1">
+    <body>
 
-        <div class="wrapper" style="display:none;">
+        <div class="wrapper">
+
             {# Sticky header navigation #}
-            <header id="toolbar" class='main-header' role='banner'></header>
-        </div>
+            <header id='toolbar' class='main-header' role='banner' style="display: none;"></header>
 
-        {# Login container #}
-        <div id="login-container"></div>
+            {# Login container #}
+            <div id="login-container"></div>
 
-        {# Outer application container #}
-        <div id="outer-container" class="container-fluid" style="display:none;">
+            {# Outer application container #}
+            <div id="outer-container" class="container" style="display:none;">
 
-            {# Left hand navigation container #}
-            <div class="row-fluid">
-                <div id="main" class="main-nav span1"></div>
-            </div>
+                {# Search side bar #}
+                <div id="search-side"></div>
 
-            {# Inner application container #}
-            <div id="container" class="span11">
+                {# Inner application container #}
+                <div id="container" class="span12">
 
-                <div class="breadcrumbs">
-                    <ul>
-                        <li><a class="home-icon" href=""></a></li>
-                        <li><a href="">Projects</a></li>
-                        <li><a href="">Project Name</a></li>
-                        <li><a href="">#PROJ-1234</a></li>
-                    </ul>
+                    {# Contextual content area for forms, listing etc. #}
+                    <div class="main" id="content-container"></div>
+
+                    {# Loading spinner (TODO) #}
+                    <div id="spin-wrap">
+                        <div id="spin"></div>
+                    </div>
                 </div>
 
-                {# Contextual content area for forms, listing etc. #}
-                <div class="main" id="content-container"></div>
-
-                {# Loading spinner (TODO) #}
-                <div id="spin-wrap">
-                    <div id="spin"></div>
-                </div>
             </div>
 
         </div>
@@ -73,10 +64,6 @@
                 {{ require_js_initialize({ 'main' : asset_url }) }}
             {% endjavascripts %}
         {% endblock %}
-
-        <footer id='footer'>
-            {% block footer %}{% endblock %}
-        </footer>
 
     </body>
 </html>

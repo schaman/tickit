@@ -32,6 +32,7 @@ hearsay_require_js:
         modules/notification: "@TickitNotificationBundle/Resources/public/js/App.Notification"
         modules/client: "@TickitClientBundle/Resources/public/js/App.Client"
         modules/messenger: "@TickitNotificationBundle/Resources/public/js/App.Messenger"
+        modules/search: "@TickitSearchBundle/Resources/public/js/App.Search"
         core: '@TickitCoreBundle/Resources/public'
         navigation: "@TickitNavigationBundle/Resources/public"
         project: "@TickitProjectBundle/Resources/public"
