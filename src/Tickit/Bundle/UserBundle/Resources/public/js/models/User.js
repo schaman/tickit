@@ -5,10 +5,8 @@
  *
  * @type {Backbone.Model}
  */
-define([
-    'backbone'
-], function(Backbone) {
-    return Backbone.Model.extend({
+define(['core/js/models/DeletableModel'], function(DeletableModel) {
+    return DeletableModel.extend({
 
         defaults: {
             id: null,
@@ -64,22 +62,6 @@ define([
          */
         urlRoot: function() {
             return Routing.generate('api_user_fetch');
-        },
-
-        /**
-         * Overrides the sync action.
-         *
-         * @param {string} action  The action taking place (e.g. "delete")
-         * @param {object} model   The model that is being sync'd
-         * @param {object} options The options object for the sync
-         */
-        sync : function(action, model, options) {
-            if (action.toLowerCase() === 'delete') {
-                options = options || {};
-                options.url = this.getDeleteUrl();
-            }
-
-            Backbone.sync(action, model, options);
         }
     });
 });
