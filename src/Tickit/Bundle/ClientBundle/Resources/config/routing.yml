@@ -24,6 +24,7 @@ client_edit:
 client_delete:
     path: /clients/delete/{id}
     defaults: { _controller: tickit_client.controller.client:deleteAction }
+    methods: [DELETE]
     requirements:
         id: \d+
     options:
