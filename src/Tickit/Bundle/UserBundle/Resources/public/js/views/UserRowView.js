@@ -9,6 +9,23 @@ define(['modules/template', 'text!user/views/UserRowView.html'], function(Templa
         template: '#user_row-template',
         tagName: 'tr',
 
+        "events" : {
+            "click a.delete-record" : "deleteItem"
+        },
+
+        /**
+         * Deletes the current item
+         *
+         * @return {void}
+         */
+        deleteItem : function() {
+            // TODO: need to integrate a confirmation here
+            var me = this;
+            me.model.destroy({
+                wait: true
+            });
+        },
+
         /**
          * Renders the template
          */
@@ -22,8 +39,7 @@ define(['modules/template', 'text!user/views/UserRowView.html'], function(Templa
                 username: d.username,
                 isAdmin: false,
                 lastActive: this.model.getLastActive(),
-                editUrl: this.model.getEditUrl(),
-                deleteUrl: this.model.getDeleteUrl()
+                editUrl: this.model.getEditUrl()
             }));
             return this;
         }
