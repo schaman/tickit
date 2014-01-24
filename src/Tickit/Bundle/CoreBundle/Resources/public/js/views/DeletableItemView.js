@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Marionette.ItemView}
  */
-define(['marionette'], function(Marionette) {
+define(['marionette', 'modules/messenger'], function(Marionette, Messenger) {
     return Marionette.ItemView.extend({
 
         /**
@@ -12,11 +12,16 @@ define(['marionette'], function(Marionette) {
          * @return {void}
          */
         deleteItem : function() {
-            // TODO: need to integrate a confirmation here
             var me = this;
-            me.model.destroy({
-                wait: true
-            });
+            Messenger.confirm(
+                'Are you sure you want to delete "' + me.model.toString() + '"',
+                function() {
+                    me.model.destroy({
+                        wait: true
+                    });
+                },
+                'Delete Item'
+            );
         }
     });
 });
