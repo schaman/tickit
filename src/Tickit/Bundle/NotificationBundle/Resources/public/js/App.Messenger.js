@@ -6,8 +6,8 @@
 define([
     'jquery',
     'noty',
-    'noty/layout',
-    'noty/theme'
+    'notification/js/noty/layouts/topRight',
+    'notification/js/noty/themes/tickit'
 ], function($) {
     return App.module('Messenger', function(module) {
 
@@ -22,11 +22,22 @@ define([
          */
         module.message = function(text, type, onClose) {
             noty({
+                theme: 'notification',
                 text: text,
                 type: type,
                 layout: 'topRight',
                 callback: {
                     onClose : typeof onClose == 'function' ? onClose : function() {}
+                },
+                animation: {
+                    open: {
+                        opacity: 'toggle'
+                    },
+                    close: {
+                        opacity: 'toggle'
+                    },
+                    easing: 'swing',
+                    speed: 500
                 }
             });
         };
