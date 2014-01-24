@@ -12,7 +12,17 @@ define(['backbone'], function(Backbone) {
             url: '',
             status: 'active',
             totalProjects: 0,
-            created: ''
+            csrfToken: '',
+            created: new Date()
+        },
+
+        /**
+         * Casts this model to a string
+         *
+         * @return {string }
+         */
+        toString : function() {
+            return this.get('name');
         },
 
         /**

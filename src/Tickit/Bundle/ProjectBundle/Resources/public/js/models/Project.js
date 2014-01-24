@@ -6,6 +6,22 @@
 define(function() {
     return Backbone.Model.extend({
 
+        defaults: {
+            id: null,
+            name: '',
+            csrfToken: '',
+            createdAt: new Date()
+        },
+
+        /**
+         * Casts this model to a string
+         *
+         * @return {string}
+         */
+        toString : function() {
+            return this.get('name');
+        },
+
         /**
          * Gets the edit URL for this project
          *
