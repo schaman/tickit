@@ -20,6 +20,15 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
         },
 
         /**
+         * Casts the model to a string
+         *
+         * @return {string}
+         */
+        toString : function() {
+            return this.getFullName();
+        },
+
+        /**
          * Gets the full name of the user
          *
          * @returns {string}
