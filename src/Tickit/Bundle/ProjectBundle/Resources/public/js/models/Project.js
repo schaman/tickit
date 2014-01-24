@@ -3,8 +3,8 @@
  *
  * @type {Backbone.Model}
  */
-define(function() {
-    return Backbone.Model.extend({
+define(['core/js/models/DeletableModel'], function(DeletableModel) {
+    return DeletableModel.extend({
 
         defaults: {
             id: null,
