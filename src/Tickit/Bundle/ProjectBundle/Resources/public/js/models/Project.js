@@ -35,7 +35,7 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
          * Gets the delete URL for this project
          */
         getDeleteUrl : function() {
-            return Routing.generate('project_delete', { "id": this.get('id'), "token": this.get('csrf_token') });
+            return Routing.generate('project_delete', { "id": this.get('id'), "token": this.get('csrfToken') });
         },
 
         /**

@@ -40,7 +40,7 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
          * @return {string}
          */
         getDeleteUrl : function() {
-            return Routing.generate('client_delete', { id: this.get('id'), token: this.get('csrf_token') });
+            return Routing.generate('client_delete', { id: this.get('id'), token: this.get('csrfToken') });
         }
     });
 });
