@@ -107,7 +107,7 @@ class ApiController
         $data = $decorator->decorate(
             $clients->getIterator(),
             ['id', 'name', 'url', 'status', 'totalProjects', 'created'],
-            ['csrf_token' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)->getValue()]
+            ['csrfToken' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)->getValue()]
         );
 
         return new PaginatedJsonResponse($data, $clients->count(), PageResolver::ITEMS_PER_PAGE, $page);
