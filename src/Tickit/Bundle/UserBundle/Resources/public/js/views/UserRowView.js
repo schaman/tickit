@@ -3,11 +3,18 @@
  *
  * @type {Backbone.Marionette.ItemView}
  */
-define(['modules/template', 'text!user/views/UserRowView.html'], function(Template, tpl) {
+define([
+    'core/js/views/DeletableItemView',
+    'text!user/views/UserRowView.html'
+], function(DeletableItemView, tpl) {
 
-    return Backbone.Marionette.ItemView.extend({
+    return DeletableItemView.extend({
         template: '#user_row-template',
         tagName: 'tr',
+
+        "events" : {
+            "click a.delete-record" : "deleteItem"
+        },
 
         /**
          * Renders the template
@@ -22,8 +29,7 @@ define(['modules/template', 'text!user/views/UserRowView.html'], function(Templa
                 username: d.username,
                 isAdmin: false,
                 lastActive: this.model.getLastActive(),
-                editUrl: this.model.getEditUrl(),
-                deleteUrl: this.model.getDeleteUrl()
+                editUrl: this.model.getEditUrl()
             }));
             return this;
         }

@@ -153,7 +153,7 @@ class ClientController
      *
      * @param Client $client The client to delete
      *
-     * @ParamConverter("client", "TickitClientBundle:Client")
+     * @ParamConverter("client", class="TickitClientBundle:Client")
      *
      * @return JsonResponse
      */

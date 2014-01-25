@@ -5,10 +5,8 @@
  *
  * @type {Backbone.Model}
  */
-define([
-    'backbone'
-], function(Backbone) {
-    return Backbone.Model.extend({
+define(['core/js/models/DeletableModel'], function(DeletableModel) {
+    return DeletableModel.extend({
 
         defaults: {
             id: null,
@@ -17,7 +15,17 @@ define([
             forename: '',
             surname: '',
             avatarUrl: '',
+            csrfToken: '',
             lastActive: new Date()
+        },
+
+        /**
+         * Casts the model to a string
+         *
+         * @return {string}
+         */
+        toString : function() {
+            return this.getFullName();
         },
 
         /**
@@ -35,8 +43,7 @@ define([
          * @return {Date}
          */
         getLastActive: function() {
-            var la = this.get('lastActivity');
-            return new Date(la);
+            return new Date(this.get('lastActivity'));
         },
 
         /**

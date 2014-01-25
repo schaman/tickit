@@ -3,8 +3,8 @@
  *
  * @type {Backbone.Model}
  */
-define(['backbone'], function(Backbone) {
-    return Backbone.Model.extend({
+define(['core/js/models/DeletableModel'], function(DeletableModel) {
+    return DeletableModel.extend({
 
         defaults: {
             id: null,
@@ -12,7 +12,17 @@ define(['backbone'], function(Backbone) {
             url: '',
             status: 'active',
             totalProjects: 0,
-            created: ''
+            csrfToken: '',
+            created: new Date()
+        },
+
+        /**
+         * Casts this model to a string
+         *
+         * @return {string }
+         */
+        toString : function() {
+            return this.get('name');
         },
 
         /**
@@ -30,7 +40,7 @@ define(['backbone'], function(Backbone) {
          * @return {string}
          */
         getDeleteUrl : function() {
-            return Routing.generate('client_delete', { id: this.get('id'), token: this.get('csrf_token') });
+            return Routing.generate('client_delete', { id: this.get('id'), token: this.get('csrfToken') });
         }
     });
 });
