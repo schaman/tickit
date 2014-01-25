@@ -67,12 +67,14 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
             array(
                 'name' => $item2->getText(),
                 'routeName' => $item2->getRouteName(),
-                'icon' => ''
+                'icon' => '',
+                'class' => ''
             ),
             array(
                 'name' => $item1->getText(),
                 'routeName' => $item1->getRouteName(),
-                'icon' => ''
+                'icon' => '',
+                'class' => ''
             )
         );
 
