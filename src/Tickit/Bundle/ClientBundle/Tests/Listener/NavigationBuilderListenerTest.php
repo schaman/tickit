@@ -49,6 +49,8 @@ class NavigationBuilderListenerTest extends AbstractUnitTest
 
         $this->assertEquals('Clients', $item->getText());
         $this->assertEquals('client_index', $item->getRouteName());
+        $params = $item->getParams();
+        $this->assertEquals('list-alt', $params['icon']);
     }
 
     /**
