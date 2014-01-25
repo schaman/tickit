@@ -7,8 +7,9 @@ define([
     'navigation/js/collections/NavigationItemCollection',
     'navigation/js/views/NavigationView',
     'navigation/js/views/ProfileNavigationView',
+    'navigation/js/layouts/ToolbarLayout',
     'modules/user'
-], function(NavigationItemCollection, NavigationView, ProfileNavigationView, User) {
+], function(NavigationItemCollection, NavigationView, ProfileNavigationView, ToolbarLayout, User) {
 
     return App.module('Navigation', function(module) {
         module.startWithParent = true;
@@ -19,18 +20,23 @@ define([
          * @return {void}
          */
         module.loadNavigation = function() {
-            this.loadHeaderNavigation();
+            this.loadToolbarNavigation();
         };
 
         /**
-         * Loads the header navigation
+         * Loads the toolbar navigation
          *
          * @return {void}
          */
-        module.loadHeaderNavigation = function() {
+        module.loadToolbarNavigation = function() {
             User.loadCurrentUser(function(user) {
-                var view = new ProfileNavigationView({ model: user });
-                App.toolbarRegion.show(view);
+                var layout = new ToolbarLayout;
+                layout.on('render', function() {
+                    var navItems = new NavigationItemCollection;
+                    layout.profileRegion.show(new ProfileNavigationView({ model: user }));
+                    layout.navRegion.show(new NavigationView({ collection: navItems }));
+                });
+                App.toolbarRegion.show(layout);
             });
         }
     });
