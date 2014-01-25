@@ -9,8 +9,7 @@ define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
         defaults: {
             name: '',
-            routeName: '',
-            active: true
+            routeName: ''
         },
 
         /**
