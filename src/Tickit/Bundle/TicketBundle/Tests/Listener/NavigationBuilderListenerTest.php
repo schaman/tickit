@@ -43,6 +43,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $params = $first->getParams();
         $this->assertEquals('plus', $params['icon']);
         $this->assertEquals('add-ticket', $params['class']);
+        $this->assertEquals(true, $params['showText']);
     }
 
     /**

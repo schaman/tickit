@@ -126,7 +126,8 @@ class NavigationItem implements \JsonSerializable
             'name' => $this->getText(),
             'routeName' => $this->getRouteName(),
             'icon' => isset($params['icon']) ? $params['icon'] : '',
-            'class' => isset($params['class']) ? $params['class'] : ''
+            'class' => isset($params['class']) ? $params['class'] : '',
+            'showText' => isset($params['showText']) ? $params['showText'] : false
         ];
     }
 }

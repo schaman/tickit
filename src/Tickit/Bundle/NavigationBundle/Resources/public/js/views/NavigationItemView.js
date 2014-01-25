@@ -20,6 +20,7 @@ define(['marionette', 'text!navigation/views/NavigationItem.html'], function(Mar
                 _.template($(tpl).html(), {
                     name: m.get('name'),
                     class: 'icon-' + m.getIconName() + ' ' + m.get('class'),
+                    showText: m.get('showText'),
                     uri: m.getUri()
                 }, { variable: 'item' })
             );
