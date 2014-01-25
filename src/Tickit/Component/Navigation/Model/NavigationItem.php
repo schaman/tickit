@@ -120,9 +120,12 @@ class NavigationItem implements \JsonSerializable
      */
     public function jsonSerialize()
     {
+        $params = $this->getParams();
+
         return [
             'name' => $this->getText(),
-            'routeName' => $this->getRouteName()
+            'routeName' => $this->getRouteName(),
+            'icon' => isset($params['icon']) ? $params['icon'] : ''
         ];
     }
 }
