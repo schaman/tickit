@@ -14,9 +14,7 @@ define([
     return Marionette.CompositeView.extend({
         tagName: 'div',
         className: 'side-menu',
-        template: '#navigation_item_collection-template',
         itemView: ItemView,
-        profileRegion: null,
 
         events: {
             "click ul.nav a": "itemClick"
