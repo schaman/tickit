@@ -12,7 +12,7 @@
     <services>
 
         <service id="tickit_client.client_navigation" class="%tickit_client.client_navigation.class%">
-            <tag name="kernel.event_listener" event="tickit.event.main_navigation_build" method="onBuild"/>
+            <tag name="kernel.event_listener" event="tickit.event.navigation_build" method="onBuild"/>
         </service>
 
         <service id="tickit_client.project_listener" class="%tickit_client.project_listener.class%">
