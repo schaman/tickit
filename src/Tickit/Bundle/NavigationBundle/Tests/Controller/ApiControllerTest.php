@@ -66,13 +66,11 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
         $expectedData = array(
             array(
                 'name' => $item2->getText(),
-                'routeName' => $item2->getRouteName(),
-                'active' => false
+                'routeName' => $item2->getRouteName()
             ),
             array(
                 'name' => $item1->getText(),
-                'routeName' => $item1->getRouteName(),
-                'active' => false
+                'routeName' => $item1->getRouteName()
             )
         );
 

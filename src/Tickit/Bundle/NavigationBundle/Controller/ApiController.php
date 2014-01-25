@@ -67,8 +67,7 @@ class ApiController
             // the builder responsible for constructing the Json representation
             $data[] = array(
                 'name' => $navItem->getText(),
-                'routeName' => $navItem->getRouteName(),
-                'active' => false
+                'routeName' => $navItem->getRouteName()
             );
         }
 
