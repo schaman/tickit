@@ -50,6 +50,9 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Tickit\Component\Navigation\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
         $this->assertEquals('Projects', $first->getText());
+        $this->assertEquals('project_index', $first->getRouteName());
+        $params = $first->getParams();
+        $this->assertEquals('list-alt', $params['icon']);
     }
 
     /**
