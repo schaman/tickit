@@ -106,7 +106,7 @@ class ApiController
 
         $data = $decorator->decorate(
             $clients->getIterator(),
-            ['id', 'name', 'url', 'status', 'totalProjects', 'created'],
+            ['id', 'name', 'url', 'status', 'totalProjects', 'createdAt'],
             ['csrfToken' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)->getValue()]
         );
 

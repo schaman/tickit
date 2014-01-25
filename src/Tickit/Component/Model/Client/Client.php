@@ -86,7 +86,7 @@ class Client
      *
      * @var \DateTime
      */
-    private $created;
+    private $createdAt;
 
     /**
      * The date and time the client was last updated
@@ -242,13 +242,13 @@ class Client
     /**
      * Sets the date and time that the client was created
      *
-     * @param \DateTime $created The date time
+     * @param \DateTime $createdAt The date time
      *
      * @return Client
      */
-    public function setCreated($created)
+    public function setCreatedAt($createdAt)
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -258,9 +258,9 @@ class Client
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**

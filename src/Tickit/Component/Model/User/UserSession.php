@@ -65,7 +65,7 @@ class UserSession
      *
      * @var \DateTime
      */
-    protected $created;
+    protected $createdAt;
 
     /**
      * The date and time that this session was last updated

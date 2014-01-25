@@ -24,7 +24,7 @@ define([
             this.$el.html(_.template($(tpl).html(), {
                 id: d.id,
                 name: d.name,
-                created: this.model.getCreatedAt(),
+                createdAt: this.model.getCreatedAt(),
                 editUrl: this.model.getEditUrl()
             }));
             return this;

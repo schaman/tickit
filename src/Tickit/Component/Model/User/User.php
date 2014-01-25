@@ -62,7 +62,7 @@ class User extends BaseUser implements AvatarAwareInterface
      *
      * @var \DateTime
      */
-    protected $created;
+    protected $createdAt;
 
     /**
      * The date and time that this user was last updated
@@ -248,9 +248,9 @@ class User extends BaseUser implements AvatarAwareInterface
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
