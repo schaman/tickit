@@ -7,26 +7,16 @@
  */
 define([
     'marionette',
-    'text!navigation/views/ProfileNavigation.html',
-    'sidr'
+    'text!navigation/views/ProfileNavigation.html'
 ], function(Marionette, tpl) {
 
     return Marionette.ItemView.extend({
-        tagName: 'div',
-        className: 'navbar navbar-inverse',
 
         /**
          * Event bindings
          */
         events: {
             "click #logo": "logoClick"
-        },
-
-        /**
-         * Triggers sidr integration after the view has been rendered
-         */
-        onShow: function() {
-            App.vent.trigger('navigation:ready', this.$el);
         },
 
         /**
