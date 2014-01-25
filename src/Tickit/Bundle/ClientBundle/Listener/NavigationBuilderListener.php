@@ -28,7 +28,7 @@ use Tickit\Component\Navigation\Model\NavigationItem;
 /**
  * Navigation builder listener.
  *
- * Listens for the "tickit.event.main_navigation_build" event and attaches the bundle's
+ * Listens for the "tickit.event.navigation_build" event and attaches the bundle's
  * relevant navigation items.
  *
  * @package Tickit\Bundle\ClientBundle\Listener

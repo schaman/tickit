@@ -36,7 +36,7 @@
 
         <service id="tickit_user.user_navigation" class="%tickit_user.user_navigation.class%">
             <argument type="service" id="router" />
-            <tag name="kernel.event_listener" event="tickit.event.main_navigation_build" method="onBuild"/>
+            <tag name="kernel.event_listener" event="tickit.event.navigation_build" method="onBuild"/>
         </service>
 
     </services>
