@@ -43,7 +43,8 @@ class NavigationBuilderListener
     public function onBuild(NavigationBuildEvent $event)
     {
         if ($event->getNavigationName() === 'main') {
-            $event->addItem(new NavigationItem('Clients', 'client_index', 2));
+            $item = new NavigationItem('Clients', 'client_index', 2, ['icon' => 'list-alt']);
+            $event->addItem($item);
         }
     }
 }
