@@ -56,12 +56,25 @@ class NavigationItemTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the jsonSerialize() method
+     *
+     * @dataProvider getItemDataFixtures
      */
-    public function testJsonSerializeReturnsCorrectData()
+    public function testJsonSerializeReturnsCorrectData(NavigationItem $item, $expected)
     {
-        $item = new NavigationItem('textValue', 'route', 100);
-        $expected = json_encode(['name' => 'textValue', 'routeName' => 'route']);
-
         $this->assertEquals($expected, json_encode($item));
+    }
+
+    public function getItemDataFixtures()
+    {
+        return [
+            [
+                new NavigationItem('textValue', 'route', 100),
+                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => ''])
+            ],
+            [
+                new NavigationItem('textValue', 'route', 100, ['icon' => 'list']),
+                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => 'list'])
+            ]
+        ];
     }
 }
