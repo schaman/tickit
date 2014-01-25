@@ -11,10 +11,11 @@ running through these steps...
 
 1. Copy `app/config/parameters.yml.dist` to `app/config/parameters.yml` and add in your own database/mailer configuration.
 
-2. To correctly set the permissions on the `cache` and `logs` directories, run the following commands from your server (Debian based systems)
+2. To correctly set the permissions on the `cache` and `logs` directories, run the following commands from your server (OSX based systems)
 
-        sudo setfacl -R -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
-        sudo setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx app/cache app/logs
+        $ APACHEUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data' | grep -v root | head -1 | cut -d\  -f1`
+        $ sudo chmod +a "$APACHEUSER allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
+        $ sudo chmod +a "`whoami` allow delete,write,append,file_inherit,directory_inherit" app/cache app/logs
 
    The `www-data` user should be replaced with whatever user your apache / nginx service is running as
 
@@ -57,3 +58,4 @@ running through these steps...
         bin/bower install
 
 [1]:  http://getcomposer.org/
+
