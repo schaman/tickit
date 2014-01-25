@@ -43,7 +43,8 @@ class NavigationBuilderListener
     {
         switch ($event->getNavigationName()) {
             case 'main':
-                $event->addItem(new NavigationItem('Dashboard', 'dashboard_index', 10));
+                $item = new NavigationItem('Dashboard', 'dashboard_index', 10, ['icon' => 'gauge']);
+                $event->addItem($item);
                 break;
         }
     }

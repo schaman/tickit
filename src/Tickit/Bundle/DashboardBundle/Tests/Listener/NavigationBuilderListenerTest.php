@@ -50,6 +50,8 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Tickit\Component\Navigation\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
         $this->assertEquals('Dashboard', $first->getText());
+        $params = $first->getParams();
+        $this->assertEquals('gauge', $params['icon']);
     }
 
     /**
