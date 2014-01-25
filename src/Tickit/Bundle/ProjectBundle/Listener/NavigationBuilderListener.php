@@ -43,7 +43,8 @@ class NavigationBuilderListener
     {
         switch ($event->getNavigationName()) {
             case 'main':
-                $event->addItem(new NavigationItem('Projects', 'project_index', 8));
+                $item = new NavigationItem('Projects', 'project_index', 8, ['icon' => 'list-alt']);
+                $event->addItem($item);
                 break;
         }
     }
