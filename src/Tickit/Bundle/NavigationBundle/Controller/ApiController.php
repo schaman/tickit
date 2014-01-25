@@ -58,17 +58,11 @@ class ApiController
     public function navItemsAction()
     {
         $items = $this->navigationBuilder->build();
-
         $data = array();
         $items->top();
-        /** @var NavigationItem $navItem */
+
         foreach ($items as $navItem) {
-            // When we move to PHP 5.4 we can make NavigationItem JsonSerializable to avoid having
-            // the builder responsible for constructing the Json representation
-            $data[] = array(
-                'name' => $navItem->getText(),
-                'routeName' => $navItem->getRouteName()
-            );
+            $data[] = $navItem;
         }
 
         return new JsonResponse($data);
