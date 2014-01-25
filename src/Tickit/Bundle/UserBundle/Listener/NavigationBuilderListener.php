@@ -42,8 +42,9 @@ class NavigationBuilderListener
     public function onBuild(NavigationBuildEvent $event)
     {
         switch ($event->getNavigationName()) {
-            case 'main':
-                $event->addItem(new NavigationItem('Users', 'user_index', 0));
+            case 'admin':
+                $item = new NavigationItem('Users', 'user_index', 0, ['icon' => 'users']);
+                $event->addItem($item);
                 break;
         }
     }

@@ -40,7 +40,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildAddsCorrectNavigationItemsForMainNavigation()
     {
-        $event = new NavigationBuildEvent('main');
+        $event = new NavigationBuildEvent('admin');
         $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
@@ -50,6 +50,9 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Tickit\Component\Navigation\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
         $this->assertEquals('Users', $first->getText());
+        $this->assertEquals('user_index', $first->getRouteName());
+        $params = $first->getParams();
+        $this->assertEquals('users', $params['icon']);
     }
 
     /**
@@ -59,7 +62,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildDoesNotAddNavigationItemsForInvalidNavigationName()
     {
-        $event = new NavigationBuildEvent('fake');
+        $event = new NavigationBuildEvent('main');
         $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
