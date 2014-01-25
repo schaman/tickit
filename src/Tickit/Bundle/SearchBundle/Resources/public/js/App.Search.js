@@ -3,7 +3,7 @@
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-define(function() {
+define(['sidr'], function() {
     return App.module('search', function(module) {
 
         var timeout;
