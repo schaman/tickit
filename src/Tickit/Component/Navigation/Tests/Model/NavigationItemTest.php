@@ -69,11 +69,11 @@ class NavigationItemTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 new NavigationItem('textValue', 'route', 100),
-                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => '', 'class' => ''])
+                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => '', 'class' => '', 'showText' => false])
             ],
             [
-                new NavigationItem('textValue', 'route', 100, ['icon' => 'list', 'class' => 'extra']),
-                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => 'list', 'class' => 'extra'])
+                new NavigationItem('textValue', 'route', 100, ['icon' => 'list', 'class' => 'extra', 'showText' => true]),
+                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => 'list', 'class' => 'extra', 'showText' => true])
             ]
         ];
     }

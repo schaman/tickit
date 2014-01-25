@@ -47,7 +47,7 @@ class NavigationBuilderListener
                     'Create Ticket',
                     'ticket_index', // TODO: this needs updating when ticket actions are implemented
                     15,
-                    ['icon' => 'plus', 'class' => 'add-ticket']
+                    ['icon' => 'plus', 'class' => 'add-ticket', 'showText' => true]
                 );
                 $event->addItem($item);
                 break;
