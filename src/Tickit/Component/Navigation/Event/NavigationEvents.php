@@ -36,5 +36,5 @@ final class NavigationEvents
      *
      * @const string
      */
-    const MAIN_NAVIGATION_BUILD = 'tickit.event.navigation_build';
+    const NAVIGATION_BUILD = 'tickit.event.navigation_build';
 }
