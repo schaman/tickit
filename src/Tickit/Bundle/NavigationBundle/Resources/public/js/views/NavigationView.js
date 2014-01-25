@@ -18,7 +18,7 @@ define([
         model: NavigationItem,
 
         events: {
-            "click ul.nav a": "itemClick"
+            "click a": "itemClick"
         },
 
         /**
