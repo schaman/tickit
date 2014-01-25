@@ -20,22 +20,6 @@ define([
          */
         module.loadNavigation = function() {
             this.loadHeaderNavigation();
-            this.loadMainNavigation();
-        };
-
-        /**
-         * Loads the main application nav
-         *
-         * @return {void}
-         */
-        module.loadMainNavigation = function() {
-            var navItems = new NavigationItemCollection;
-            navItems.fetch();
-            var view = new NavigationView({
-                collection: navItems
-            });
-
-            App.navRegion.show(view);
         };
 
         /**
