@@ -8,8 +8,37 @@
 define(['backbone', 'navigation/js/models/NavigationItem'], function(Backbone, NavigationItem) {
     return Backbone.Collection.extend({
         model: NavigationItem,
+
+        /**
+         * The name of the navigation that this collection represents
+         *
+         * @type {string}
+         */
+        name: null,
+
+        /**
+         * Gets the URL used to fetch content for this collection
+         *
+         * @return {string}
+         */
         url: function() {
-            return Routing.generate('api_navigation_items')
+            var params = {};
+            if (this.name !== null) {
+                params.name = this.name;
+            }
+            return Routing.generate('api_navigation_items', params);
+        },
+
+        /**
+         * Initializes the collection.
+         *
+         * @param {object} options An options object (optional)
+         */
+        initialize : function(options) {
+            options = options || {};
+            if (typeof options.name !== 'undefined') {
+                this.name = options.name;
+            }
         }
     });
 });
