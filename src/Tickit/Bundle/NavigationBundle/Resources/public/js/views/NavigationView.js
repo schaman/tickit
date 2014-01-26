@@ -1,7 +1,7 @@
 /**
  * Main navigation view.
  *
- * Provides a view object for rendering the main application navigation.
+ * Provides a view object for rendering navigation items in the toolbar
  *
  * @type {Marionette.CollectionView}
  */
