@@ -1,4 +1,4 @@
-api_preference_list:
+preference_list:
     path: /list/{page}
     defaults: { _controller: tickit_preference.controller.api:listAction, page: 1 }
     methods: [GET]
