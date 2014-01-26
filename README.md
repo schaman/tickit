@@ -6,6 +6,8 @@
 
 # Quick Setup Guide for Developers #
 
+Note: while in development, browser cache should be disabled.
+
 Tickit will eventually come with a self-installer, but whilst development is still on-going you get started with the project by
 running through these steps...
 
