@@ -129,7 +129,7 @@ class Ticket
      *
      * @var \DateTime
      */
-    protected $updated;
+    protected $updatedAt;
 
     /**
      * Gets the id of this ticket
@@ -249,9 +249,9 @@ class Ticket
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**

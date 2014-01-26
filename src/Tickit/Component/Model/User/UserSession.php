@@ -72,7 +72,7 @@ class UserSession
      *
      * @var \DateTime
      */
-    protected $updated;
+    protected $updatedAt;
 
     /**
      * Sets the user object on this session

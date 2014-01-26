@@ -69,7 +69,7 @@ class User extends BaseUser implements AvatarAwareInterface
      *
      * @var \DateTime
      */
-    protected $updated;
+    protected $updatedAt;
 
     /**
      * Sessions associated with this user
@@ -238,9 +238,9 @@ class User extends BaseUser implements AvatarAwareInterface
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**

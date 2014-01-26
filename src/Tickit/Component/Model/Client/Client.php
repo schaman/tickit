@@ -93,7 +93,7 @@ class Client
      *
      * @var \DateTime
      */
-    private $updated;
+    private $updatedAt;
 
     /**
      * Projects that belong to this client
@@ -266,13 +266,13 @@ class Client
     /**
      * Sets the date and time that the client was updated
      *
-     * @param \DateTime $updated The date time
+     * @param \DateTime $updatedAt The date time
      *
      * @return Client
      */
-    public function setUpdated(\DateTime $updated)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updated = $updated;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -282,9 +282,9 @@ class Client
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**

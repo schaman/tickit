@@ -15,7 +15,7 @@
         <field name="createdAt" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
-        <field name="updatedAt" type="datetime">
+        <field name="updatedAt" column="updated_at" type="datetime">
             <gedmo:timestampable on="update" />
         </field>
     </entity>
