@@ -53,6 +53,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('user_index', $first->getRouteName());
         $params = $first->getParams();
         $this->assertEquals('users', $params['icon']);
+        $this->assertEquals(true, $params['showText']);
     }
 
     /**
