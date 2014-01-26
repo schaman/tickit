@@ -43,7 +43,7 @@ class NavigationBuilderListener
     {
         switch ($event->getNavigationName()) {
             case 'settings':
-                $item = new NavigationItem('Users', 'user_index', 0, ['icon' => 'users']);
+                $item = new NavigationItem('Users', 'user_index', 0, ['icon' => 'users', 'showText' => true]);
                 $event->addItem($item);
                 break;
         }
