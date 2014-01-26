@@ -45,7 +45,7 @@ class NavigationBuilderListener
             case 'main':
                 $item = new NavigationItem(
                     'Create Ticket',
-                    'ticket_index', // TODO: this needs updating when ticket actions are implemented
+                    'ticket_index',
                     15,
                     ['icon' => 'plus', 'class' => 'add-ticket', 'showText' => true]
                 );
