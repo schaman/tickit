@@ -35,6 +35,9 @@ use Tickit\Component\Navigation\Event\NavigationEvents;
  */
 class NavigationBuilder extends AbstractBuilder implements BuilderInterface
 {
+    const NAME_SETTINGS = 'settings';
+    const NAME_MAIN     = 'main';
+
     /**
      * Builds the navigation component.
      *
@@ -42,7 +45,7 @@ class NavigationBuilder extends AbstractBuilder implements BuilderInterface
      *
      * @return \SplPriorityQueue
      */
-    public function build($name = 'main')
+    public function build($name = self::NAME_SETTINGS)
     {
         $event = new NavigationBuildEvent($name);
         $this->dispatcher->dispatch(NavigationEvents::NAVIGATION_BUILD, $event);
