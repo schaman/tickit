@@ -17,7 +17,8 @@ define([
          */
         regions : {
             navRegion : 'div.quick-links',
-            profileRegion : 'div.account'
+            profileRegion : 'div.account-thumb',
+            settingsNavRegion: '#settings-navigation'
         }
     });
 });
