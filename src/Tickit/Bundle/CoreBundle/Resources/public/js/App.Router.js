@@ -36,6 +36,10 @@ define(function() {
          * @return {void}
          */
         goTo : function(path) {
+            if (path.match(/^javascript:/)) {
+                return;
+            }
+
             this.navigate(path, { trigger: true });
         },
 
