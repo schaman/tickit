@@ -122,14 +122,14 @@ class Ticket
      *
      * @var \DateTime
      */
-    protected $created;
+    protected $createdAt;
 
     /**
      * The date and time that the ticket was last updated
      *
      * @var \DateTime
      */
-    protected $updated;
+    protected $updatedAt;
 
     /**
      * Gets the id of this ticket
@@ -249,9 +249,9 @@ class Ticket
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**
@@ -259,8 +259,8 @@ class Ticket
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 }

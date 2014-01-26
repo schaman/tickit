@@ -13,7 +13,7 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
             status: 'active',
             totalProjects: 0,
             csrfToken: '',
-            created: new Date()
+            createdAt: new Date()
         },
 
         /**

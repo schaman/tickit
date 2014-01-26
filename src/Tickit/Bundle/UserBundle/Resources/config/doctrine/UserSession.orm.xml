@@ -9,10 +9,10 @@
 
         <field name="ip" type="string" column="ip_address" length="39" nullable="false"/>
         <field name="sessionToken" type="string" column="session_token" length="64" nullable="false"/>
-        <field name="created" type="datetime" column="created" nullable="false">
+        <field name="createdAt" type="datetime" column="created_at" nullable="false">
             <gedmo:timestampable on="create" />
         </field>
-        <field name="updated" type="datetime" column="updated" nullable="false">
+        <field name="updatedAt" type="datetime" column="updated_at" nullable="false">
             <gedmo:timestampable on="update" />
         </field>
 

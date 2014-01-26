@@ -86,14 +86,14 @@ class Client
      *
      * @var \DateTime
      */
-    private $created;
+    private $createdAt;
 
     /**
      * The date and time the client was last updated
      *
      * @var \DateTime
      */
-    private $updated;
+    private $updatedAt;
 
     /**
      * Projects that belong to this client
@@ -242,13 +242,13 @@ class Client
     /**
      * Sets the date and time that the client was created
      *
-     * @param \DateTime $created The date time
+     * @param \DateTime $createdAt The date time
      *
      * @return Client
      */
-    public function setCreated($created)
+    public function setCreatedAt($createdAt)
     {
-        $this->created = $created;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -258,21 +258,21 @@ class Client
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getCreatedAt()
     {
-        return $this->created;
+        return $this->createdAt;
     }
 
     /**
      * Sets the date and time that the client was updated
      *
-     * @param \DateTime $updated The date time
+     * @param \DateTime $updatedAt The date time
      *
      * @return Client
      */
-    public function setUpdated(\DateTime $updated)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
-        $this->updated = $updated;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -282,9 +282,9 @@ class Client
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getUpdatedAt()
     {
-        return $this->updated;
+        return $this->updatedAt;
     }
 
     /**
