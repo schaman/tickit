@@ -25,6 +25,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Tickit\Component\DependencyInjection\ContainerConfigurationLoader;
 
 /**
  * PreferenceBundle extension.
@@ -47,10 +48,13 @@ class TickitPreferenceExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $xmlLoader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $xmlLoader->load('services.xml');
-        $xmlLoader->load('managers.xml');
-        $xmlLoader->load('repositories.xml');
-        $xmlLoader->load('controllers.xml');
+        $loader = new ContainerConfigurationLoader($xmlLoader);
+
+        $loader->loadServices();
+        $loader->loadManagers();
+        $loader->loadRepositories();
+        $loader->loadControllers();
+        $loader->loadListeners();
     }
 
     /**
