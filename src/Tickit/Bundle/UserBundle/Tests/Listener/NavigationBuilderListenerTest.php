@@ -40,7 +40,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildAddsCorrectNavigationItemsForMainNavigation()
     {
-        $event = new NavigationBuildEvent('admin');
+        $event = new NavigationBuildEvent('settings');
         $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
