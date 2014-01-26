@@ -53,11 +53,13 @@ class ApiController
     /**
      * Lists available navigation items for the currently authenticated user
      *
+     * @param string $name The name of the navigation to build
+     *
      * @return JsonResponse
      */
-    public function navItemsAction()
+    public function navItemsAction($name = 'main')
     {
-        $items = $this->navigationBuilder->build();
+        $items = $this->navigationBuilder->build($name);
         $data = array();
         $items->top();
 
