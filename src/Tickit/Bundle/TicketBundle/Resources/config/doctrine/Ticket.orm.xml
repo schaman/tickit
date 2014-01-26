@@ -11,7 +11,7 @@
         <field name="description" type="string" column="description" length="4000" nullable="false"/>
         <field name="estimatedHours" type="float" column="estimated_hours" />
         <field name="actualHours" type="float" column="actual_hours" />
-        <field name="createdAt" type="datetime" column="created">
+        <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create" />
         </field>
         <field name="updatedAt" type="datetime" column="updated_at">
