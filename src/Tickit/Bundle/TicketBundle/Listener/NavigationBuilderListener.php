@@ -43,13 +43,20 @@ class NavigationBuilderListener
     {
         switch ($event->getNavigationName()) {
             case 'main':
-                $item = new NavigationItem(
+                $createTicketItem = new NavigationItem(
                     'Create Ticket',
-                    'ticket_index',
+                    'ticket_index', // TODO: this is a temporary value, needs to be updated when we add real routes
                     15,
                     ['icon' => 'plus', 'class' => 'add-ticket', 'showText' => true]
                 );
-                $event->addItem($item);
+                $ticketsItem = new NavigationItem(
+                    'Tickets',
+                    'ticket_index',
+                    9,
+                    ['icon' => 'tags']
+                );
+                $event->addItem($createTicketItem);
+                $event->addItem($ticketsItem);
                 break;
         }
     }

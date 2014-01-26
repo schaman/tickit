@@ -28,13 +28,13 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests the onBuild() method
      */
-    public function testOnBuildBuildsCorrectNavigationItem()
+    public function testOnBuildBuildsCorrectNavigationItems()
     {
         $event = new NavigationBuildEvent('main');
         $this->getListener()->onBuild($event);
 
         $items = $event->getItems();
-        $this->assertEquals(1, $items->count());
+        $this->assertEquals(2, $items->count());
 
         /** @var NavigationItem $first */
         $first = $items->current();
@@ -44,6 +44,14 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('plus', $params['icon']);
         $this->assertEquals('add-ticket', $params['class']);
         $this->assertEquals(true, $params['showText']);
+
+        $items->next();
+        /** @var NavigationItem $second */
+        $second = $items->current();
+        $this->assertEquals('Tickets', $second->getText());
+        $this->assertEquals('ticket_index', $first->getRouteName());
+        $params = $second->getParams();
+        $this->assertEquals('tags', $params['icon']);
     }
 
     /**
