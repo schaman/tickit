@@ -37,7 +37,7 @@ define(function() {
          */
         goTo : function(path) {
             if (path.match(/^javascript:/)) {
-                return false;
+                return;
             }
 
             this.navigate(path, { trigger: true });
