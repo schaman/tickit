@@ -25,7 +25,6 @@ define([
          * Fired after the layout has been shown inside a region
          */
         onShow : function() {
-            console.log(this.$el);
             App.vent.trigger('navigation:ready', this.$el);
         }
     });
