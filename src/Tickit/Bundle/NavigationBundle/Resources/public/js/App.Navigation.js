@@ -41,7 +41,7 @@ define([
                 var layout = new ToolbarLayout;
                 layout.on('show', function() {
                     var navItems = new NavigationItemCollection;
-                    var settingsNavItems = new NavigationItemCollection({ name: 'settings' });
+                    var settingsNavItems = new NavigationItemCollection([], { name: 'settings' });
 
                     layout.profileRegion.show(new ProfileNavigationView({ model: user }));
                     layout.navRegion.show(new NavigationView({ collection: navItems }));

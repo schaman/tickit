@@ -6,20 +6,17 @@
 define([
     'marionette',
     'navigation/js/models/NavigationItem',
-    'navigation/js/views/NavigationView',
-    'text!navigation/views/SettingsNavigation.html'
-], function(Marionette, NavigationItem, NavigationView, tpl) {
+    'navigation/js/views/NavigationItemView'
+], function(Marionette, NavigationItem, ItemView) {
 
-    return Marionette.CompositeView.extend({
+    return Marionette.CollectionView.extend({
 
-        itemView: NavigationView,
+        tagName: 'ul',
+        itemView: ItemView,
+        model: NavigationItem,
 
         events: {
             "click a": "itemClick"
-        },
-
-        render : function() {
-            this.$el.html($(tpl).html());
         },
 
         /**
@@ -36,7 +33,7 @@ define([
          * @param {Backbone.View} itemView The navigation item view
          */
         appendHtml : function(navView, itemView) {
-            navView.$('ul').append(itemView.el);
+            navView.$el.append(itemView.el);
         }
     });
 });

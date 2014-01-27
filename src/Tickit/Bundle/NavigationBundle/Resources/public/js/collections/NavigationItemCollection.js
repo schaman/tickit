@@ -32,9 +32,10 @@ define(['backbone', 'navigation/js/models/NavigationItem'], function(Backbone, N
         /**
          * Initializes the collection.
          *
+         * @param {Array}  models  An array of models to initialize the collection with
          * @param {object} options An options object (optional)
          */
-        initialize : function(options) {
+        initialize : function(models, options) {
             options = options || {};
             if (typeof options.name !== 'undefined') {
                 this.name = options.name;

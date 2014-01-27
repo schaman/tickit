@@ -25,6 +25,6 @@ define(['marionette', 'text!navigation/views/NavigationItem.html'], function(Mar
                 }, { variable: 'item' })
             );
             return this;
-        },
+        }
     });
 });

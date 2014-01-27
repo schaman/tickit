@@ -18,7 +18,7 @@ define([
         regions : {
             navRegion : 'div.quick-links',
             profileRegion : 'div.account-thumb',
-            settingsNavRegion: '#settings-navigation'
+            settingsNavRegion: '#settings-navigation div'
         },
 
         /**
