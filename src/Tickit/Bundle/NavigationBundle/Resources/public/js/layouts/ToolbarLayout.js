@@ -19,6 +19,14 @@ define([
             navRegion : 'div.quick-links',
             profileRegion : 'div.account-thumb',
             settingsNavRegion: '#settings-navigation'
+        },
+
+        /**
+         * Fired after the layout has been shown inside a region
+         */
+        onShow : function() {
+            console.log(this.$el);
+            App.vent.trigger('navigation:ready', this.$el);
         }
     });
 });

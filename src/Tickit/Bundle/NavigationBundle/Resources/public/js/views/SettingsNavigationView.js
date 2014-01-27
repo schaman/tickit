@@ -7,21 +7,19 @@ define([
     'marionette',
     'navigation/js/models/NavigationItem',
     'navigation/js/views/NavigationView',
-    'modules/template',
     'text!navigation/views/SettingsNavigation.html'
-], function(Marionette, NavigationItem, NavigationView, Template, tpl) {
-
-    Template.load(tpl);
+], function(Marionette, NavigationItem, NavigationView, tpl) {
 
     return Marionette.CompositeView.extend({
 
-        el: '#settings-navigation',
-        template: '#settings-navigation-template',
         itemView: NavigationView,
-        model: NavigationItem,
 
         events: {
             "click a": "itemClick"
+        },
+
+        render : function() {
+            this.$el.html($(tpl).html());
         },
 
         /**

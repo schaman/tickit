@@ -25,7 +25,6 @@ define([
          * Triggers sidr integration after the view has been rendered
          */
         onShow: function() {
-            App.vent.trigger('navigation:ready', this.$el);
             this.collection.fetch();
         },
 

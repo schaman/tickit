@@ -41,14 +41,11 @@ define([
                 var layout = new ToolbarLayout;
                 layout.on('show', function() {
                     var navItems = new NavigationItemCollection;
-
-                    layout.navRegion.on('show', function() {
-                        //var settingsNavItems = new NavigationItemCollection({ name: 'settings' });
-                        //layout.settingsNavRegion.show(new SettingsNavigationView({ collection: settingsNavItems }));
-                    });
+                    var settingsNavItems = new NavigationItemCollection({ name: 'settings' });
 
                     layout.profileRegion.show(new ProfileNavigationView({ model: user }));
                     layout.navRegion.show(new NavigationView({ collection: navItems }));
+                    layout.settingsNavRegion.show(new SettingsNavigationView({ collection: settingsNavItems }));
                 });
                 App.toolbarRegion.show(layout);
             });
