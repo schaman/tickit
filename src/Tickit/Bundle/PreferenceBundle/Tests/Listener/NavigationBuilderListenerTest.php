@@ -39,7 +39,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildIgnoresInvalidNavigationNames()
     {
-        $event = new NavigationBuildEvent('main');
+        $event = new NavigationBuildEvent(NavigationBuilder::NAME_MAIN);
         $this->getListener()->onBuild($event);
 
         $this->assertEquals(0, $event->getItems()->count());

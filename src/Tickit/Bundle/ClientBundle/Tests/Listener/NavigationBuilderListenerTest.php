@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\ClientBundle\Tests\Listener;
 
 use Tickit\Bundle\ClientBundle\Listener\NavigationBuilderListener;
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
@@ -39,7 +40,7 @@ class NavigationBuilderListenerTest extends AbstractUnitTest
      */
     public function testOnBuildAddsNavigationItemForMainNavigation()
     {
-        $event = new NavigationBuildEvent('main');
+        $event = new NavigationBuildEvent(NavigationBuilder::NAME_MAIN);
 
         $this->getListener()->onBuild($event);
 

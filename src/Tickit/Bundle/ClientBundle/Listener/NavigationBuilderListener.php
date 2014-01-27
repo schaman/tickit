@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Listener;
 
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
@@ -42,7 +43,7 @@ class NavigationBuilderListener
      */
     public function onBuild(NavigationBuildEvent $event)
     {
-        if ($event->getNavigationName() === 'main') {
+        if ($event->getNavigationName() === NavigationBuilder::NAME_MAIN) {
             $item = new NavigationItem('Clients', 'client_index', 2, ['icon' => 'list-alt']);
             $event->addItem($item);
         }

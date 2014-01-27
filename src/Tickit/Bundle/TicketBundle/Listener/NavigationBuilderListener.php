@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\TicketBundle\Listener;
 
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
@@ -42,7 +43,7 @@ class NavigationBuilderListener
     public function onBuild(NavigationBuildEvent $event)
     {
         switch ($event->getNavigationName()) {
-            case 'main':
+            case NavigationBuilder::NAME_MAIN:
                 $createTicketItem = new NavigationItem(
                     'Create Ticket',
                     'ticket_index', // TODO: this is a temporary value, needs to be updated when we add real routes

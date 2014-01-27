@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\DashboardBundle\Listener;
 
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
@@ -41,11 +42,9 @@ class NavigationBuilderListener
      */
     public function onBuild(NavigationBuildEvent $event)
     {
-        switch ($event->getNavigationName()) {
-            case 'main':
-                $item = new NavigationItem('Dashboard', 'dashboard_index', 10, ['icon' => 'gauge']);
-                $event->addItem($item);
-                break;
+        if ($event->getNavigationName() === NavigationBuilder::NAME_MAIN) {
+            $item = new NavigationItem('Dashboard', 'dashboard_index', 10, ['icon' => 'gauge']);
+            $event->addItem($item);
         }
     }
 }

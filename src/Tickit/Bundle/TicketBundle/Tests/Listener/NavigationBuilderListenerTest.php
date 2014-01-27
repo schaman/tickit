@@ -3,6 +3,7 @@
 namespace Tickit\Bundle\TicketBundle\Tests\Listener;
 
 use Tickit\Bundle\TicketBundle\Listener\NavigationBuilderListener;
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
@@ -30,7 +31,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildBuildsCorrectNavigationItems()
     {
-        $event = new NavigationBuildEvent('main');
+        $event = new NavigationBuildEvent(NavigationBuilder::NAME_MAIN);
         $this->getListener()->onBuild($event);
 
         $items = $event->getItems();
