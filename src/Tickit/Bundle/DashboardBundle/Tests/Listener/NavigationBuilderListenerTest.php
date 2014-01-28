@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\DashboardBundle\Tests\Listener;
 
 use Tickit\Bundle\DashboardBundle\Listener\NavigationBuilderListener;
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
@@ -40,7 +41,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildAddsCorrectNavigationItemsForMainNavigation()
     {
-        $event = new NavigationBuildEvent('main');
+        $event = new NavigationBuildEvent(NavigationBuilder::NAME_MAIN);
         $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
@@ -50,6 +51,8 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Tickit\Component\Navigation\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
         $this->assertEquals('Dashboard', $first->getText());
+        $params = $first->getParams();
+        $this->assertEquals('gauge', $params['icon']);
     }
 
     /**

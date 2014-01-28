@@ -7,8 +7,17 @@ define([
     'navigation/js/collections/NavigationItemCollection',
     'navigation/js/views/NavigationView',
     'navigation/js/views/ProfileNavigationView',
+    'navigation/js/layouts/ToolbarLayout',
+    'navigation/js/views/SettingsNavigationView',
     'modules/user'
-], function(NavigationItemCollection, NavigationView, ProfileNavigationView, User) {
+], function(
+    NavigationItemCollection,
+    NavigationView,
+    ProfileNavigationView,
+    ToolbarLayout,
+    SettingsNavigationView,
+    User
+) {
 
     return App.module('Navigation', function(module) {
         module.startWithParent = true;
@@ -19,34 +28,26 @@ define([
          * @return {void}
          */
         module.loadNavigation = function() {
-            this.loadHeaderNavigation();
-            this.loadMainNavigation();
+            this.loadToolbarNavigation();
         };
 
         /**
-         * Loads the main application nav
+         * Loads the toolbar navigation
          *
          * @return {void}
          */
-        module.loadMainNavigation = function() {
-            var navItems = new NavigationItemCollection;
-            navItems.fetch();
-            var view = new NavigationView({
-                collection: navItems
-            });
-
-            App.navRegion.show(view);
-        };
-
-        /**
-         * Loads the header navigation
-         *
-         * @return {void}
-         */
-        module.loadHeaderNavigation = function() {
+        module.loadToolbarNavigation = function() {
             User.loadCurrentUser(function(user) {
-                var view = new ProfileNavigationView({ model: user });
-                App.toolbarRegion.show(view);
+                var layout = new ToolbarLayout;
+                layout.on('show', function() {
+                    var navItems = new NavigationItemCollection;
+                    var settingsNavItems = new NavigationItemCollection([], { name: 'settings' });
+
+                    layout.profileRegion.show(new ProfileNavigationView({ model: user }));
+                    layout.navRegion.show(new NavigationView({ collection: navItems }));
+                    layout.settingsNavRegion.show(new SettingsNavigationView({ collection: settingsNavItems }));
+                });
+                App.toolbarRegion.show(layout);
             });
         }
     });

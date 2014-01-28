@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\ProjectBundle\Tests\Listener;
 
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 use Tickit\Bundle\ProjectBundle\Listener\NavigationBuilderListener;
@@ -40,7 +41,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testOnBuildAddsCorrectNavigationItemsForMainNavigation()
     {
-        $event = new NavigationBuildEvent('main');
+        $event = new NavigationBuildEvent(NavigationBuilder::NAME_MAIN);
         $builder = new NavigationBuilderListener();
 
         $builder->onBuild($event);
@@ -50,6 +51,9 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Tickit\Component\Navigation\Model\NavigationItem', $first);
         /** @var NavigationItem $first */
         $this->assertEquals('Projects', $first->getText());
+        $this->assertEquals('project_index', $first->getRouteName());
+        $params = $first->getParams();
+        $this->assertEquals('list-alt', $params['icon']);
     }
 
     /**

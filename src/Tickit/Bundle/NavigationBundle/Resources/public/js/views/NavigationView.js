@@ -1,25 +1,31 @@
 /**
  * Main navigation view.
  *
- * Provides a view object for rendering the main application navigation.
+ * Provides a view object for rendering navigation items in the toolbar
  *
  * @type {Marionette.CollectionView}
  */
 define([
     'marionette',
     'navigation/js/views/NavigationItemView',
-    'text!navigation/views/MainNavigation.html'
-], function(Marionette, ItemView, tpl) {
+    'navigation/js/models/NavigationItem'
+], function(Marionette, ItemView, NavigationItem) {
 
-    return Marionette.CompositeView.extend({
-        tagName: 'div',
-        className: 'side-menu',
-        template: '#navigation_item_collection-template',
+    return Marionette.CollectionView.extend({
+        tagName: 'ul',
+        className: 'nav',
         itemView: ItemView,
-        profileRegion: null,
+        model: NavigationItem,
 
         events: {
-            "click ul.nav a": "itemClick"
+            "click a": "itemClick"
+        },
+
+        /**
+         * Triggers sidr integration after the view has been rendered
+         */
+        onShow: function() {
+            this.collection.fetch();
         },
 
         /**
@@ -35,17 +41,6 @@ define([
         },
 
         /**
-         * Renders the HTML content of this view
-         *
-         * @return {Marionette.CompositeView}
-         */
-        render: function() {
-            this.$el.html($(tpl).html());
-
-            return this;
-        },
-
-        /**
          * Method used to append collection items to this view
          *
          * @param {Marionette.CompositeView} navView  The composite navigation view object
@@ -54,7 +49,7 @@ define([
          * @return {void}
          */
         appendHtml: function(navView, itemView) {
-            navView.$('ul.nav').append(itemView.el);
+            navView.$el.append(itemView.el);
         }
     });
 });

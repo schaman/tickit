@@ -32,9 +32,9 @@ namespace Tickit\Component\Navigation\Event;
 final class NavigationEvents
 {
     /**
-     * Constant representing the name of the "main navigation build" event
+     * Constant representing the name of the "navigation build" event
      *
      * @const string
      */
-    const MAIN_NAVIGATION_BUILD = 'tickit.event.main_navigation_build';
+    const NAVIGATION_BUILD = 'tickit.event.navigation_build';
 }

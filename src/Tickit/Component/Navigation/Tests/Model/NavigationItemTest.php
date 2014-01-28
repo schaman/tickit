@@ -53,4 +53,28 @@ class NavigationItemTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-99, $item->getPriority());
         $this->assertEquals($params, $item->getParams());
     }
+
+    /**
+     * Tests the jsonSerialize() method
+     *
+     * @dataProvider getItemDataFixtures
+     */
+    public function testJsonSerializeReturnsCorrectData(NavigationItem $item, $expected)
+    {
+        $this->assertEquals($expected, json_encode($item));
+    }
+
+    public function getItemDataFixtures()
+    {
+        return [
+            [
+                new NavigationItem('textValue', 'route', 100),
+                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => '', 'class' => '', 'showText' => false])
+            ],
+            [
+                new NavigationItem('textValue', 'route', 100, ['icon' => 'list', 'class' => 'extra', 'showText' => true]),
+                json_encode(['name' => 'textValue', 'routeName' => 'route', 'icon' => 'list', 'class' => 'extra', 'showText' => true])
+            ]
+        ];
+    }
 }

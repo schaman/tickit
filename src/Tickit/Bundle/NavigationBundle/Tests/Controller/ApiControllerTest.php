@@ -67,14 +67,46 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
             array(
                 'name' => $item2->getText(),
                 'routeName' => $item2->getRouteName(),
-                'active' => false
+                'icon' => '',
+                'class' => '',
+                'showText' => false
             ),
             array(
                 'name' => $item1->getText(),
                 'routeName' => $item1->getRouteName(),
-                'active' => false
+                'icon' => '',
+                'class' => '',
+                'showText' => false
             )
         );
+
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
+
+    /**
+     * Tests the navItemsAction() method
+     */
+    public function testNavItemsActionBuildsCorrectResponseForSubNav()
+    {
+        $item1 = new NavigationItem('item 1', 'test', 1);
+        $items = new \SplPriorityQueue();
+        $items->insert($item1, $item1->getPriority());
+
+        $this->navigationBuilder->expects($this->once())
+                                ->method('build')
+                                ->with('settings')
+                                ->will($this->returnValue($items));
+
+        $response = $this->getController()->navItemsAction('settings');
+        $expectedData = [
+            [
+                'name' => $item1->getText(),
+                'routeName' => $item1->getRouteName(),
+                'icon' => '',
+                'class' => '',
+                'showText' => false
+            ]
+        ];
 
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }

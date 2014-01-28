@@ -21,14 +21,14 @@
 
 namespace Tickit\Bundle\ClientBundle\Listener;
 
-use Symfony\Component\Routing\RouterInterface;
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
 /**
  * Navigation builder listener.
  *
- * Listens for the "tickit.event.main_navigation_build" event and attaches the bundle's
+ * Listens for the "tickit.event.navigation_build" event and attaches the bundle's
  * relevant navigation items.
  *
  * @package Tickit\Bundle\ClientBundle\Listener
@@ -43,8 +43,9 @@ class NavigationBuilderListener
      */
     public function onBuild(NavigationBuildEvent $event)
     {
-        if ($event->getNavigationName() === 'main') {
-            $event->addItem(new NavigationItem('Clients', 'client_index', 2));
+        if ($event->getNavigationName() === NavigationBuilder::NAME_MAIN) {
+            $item = new NavigationItem('Clients', 'client_index', 2, ['icon' => 'list-alt']);
+            $event->addItem($item);
         }
     }
 }

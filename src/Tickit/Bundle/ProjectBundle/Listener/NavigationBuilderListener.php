@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\ProjectBundle\Listener;
 
+use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
 
@@ -41,10 +42,9 @@ class NavigationBuilderListener
      */
     public function onBuild(NavigationBuildEvent $event)
     {
-        switch ($event->getNavigationName()) {
-            case 'main':
-                $event->addItem(new NavigationItem('Projects', 'project_index', 8));
-                break;
+        if ($event->getNavigationName() === NavigationBuilder::NAME_MAIN) {
+            $item = new NavigationItem('Projects', 'project_index', 8, ['icon' => 'list-alt']);
+            $event->addItem($item);
         }
     }
 }

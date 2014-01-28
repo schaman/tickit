@@ -44,7 +44,7 @@ class NavigationBuilderTest extends AbstractUnitTest
         $dispatcher = $this->getMockEventDispatcher();
         $dispatcher->expects($this->once())
                    ->method('dispatch')
-                   ->with(NavigationEvents::MAIN_NAVIGATION_BUILD, $expectedEvent)
+                   ->with(NavigationEvents::NAVIGATION_BUILD, $expectedEvent)
                    ->will($this->returnValue(new \SplPriorityQueue()));
 
         $builder = new NavigationBuilder($dispatcher);

@@ -15,12 +15,15 @@ define(['marionette', 'text!navigation/views/NavigationItem.html'], function(Mar
          * @return {Marionette.ItemView}
          */
         render: function() {
-            var d = this.model.attributes;
-            this.$el.html(_.template($(tpl).html(), {
-                name: d.name,
-                active: d.active,
-                uri: this.model.getUri()
-            }, { variable: 'item' }));
+            var m = this.model;
+            this.$el.html(
+                _.template($(tpl).html(), {
+                    name: m.get('name'),
+                    class: 'icon-' + m.getIconName() + ' ' + m.get('class'),
+                    showText: m.get('showText'),
+                    uri: m.getUri()
+                }, { variable: 'item' })
+            );
             return this;
         }
     });

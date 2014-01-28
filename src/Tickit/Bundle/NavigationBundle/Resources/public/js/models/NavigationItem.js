@@ -9,8 +9,8 @@ define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
         defaults: {
             name: '',
-            routeName: '',
-            active: true
+            icon: 'default',
+            routeName: ''
         },
 
         /**
@@ -20,6 +20,20 @@ define(['backbone'], function(Backbone) {
          */
         getUri: function() {
             return Routing.generate(this.get('routeName'));
+        },
+
+        /**
+         * Gets the icon name for this nav item
+         *
+         * @return {string}
+         */
+        getIconName : function() {
+            var icon = this.get('icon');
+            if (icon === '') {
+                return 'default';
+            }
+
+            return icon;
         }
     });
 });

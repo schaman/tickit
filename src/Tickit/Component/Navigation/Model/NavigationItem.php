@@ -27,7 +27,7 @@ namespace Tickit\Component\Navigation\Model;
  * @package Tickit\Component\Navigation\Model
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class NavigationItem
+class NavigationItem implements \JsonSerializable
 {
     /**
      * Text to display in navigation
@@ -111,5 +111,23 @@ class NavigationItem
     public function getPriority()
     {
         return $this->priority;
+    }
+
+    /**
+     * Specifies properties which should be serialized to JSON
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $params = $this->getParams();
+
+        return [
+            'name' => $this->getText(),
+            'routeName' => $this->getRouteName(),
+            'icon' => isset($params['icon']) ? $params['icon'] : '',
+            'class' => isset($params['class']) ? $params['class'] : '',
+            'showText' => isset($params['showText']) ? $params['showText'] : false
+        ];
     }
 }
