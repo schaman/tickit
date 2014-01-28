@@ -26,6 +26,20 @@ define([
          */
         onShow : function() {
             App.vent.trigger('navigation:ready', this.$el);
+        },
+
+        /**
+         * Fired when the layout has been rendered
+         */
+        onRender : function() {
+            var $loader = this.$('div.loader');
+            App.vent.on('loading:start', function() {
+                $loader.css('display', 'inline-block');
+            });
+
+            App.vent.on('loading:complete', function() {
+                $loader.hide();
+            });
         }
     });
 });
