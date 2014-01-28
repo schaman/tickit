@@ -1,0 +1,6 @@
+default:
+    path: /{url}
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
+    requirements:
+        url: ".+"

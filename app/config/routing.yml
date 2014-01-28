@@ -22,8 +22,8 @@ tickets:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-######## BELOW THIS POINT IS OLD ROUTING FORMAT - NEEDS REFACTORING TO MATCH ABOVE #######
-
-# DashboardBundle Routes
 dashboard:
-  resource: "@TickitDashboardBundle/Resources/config/routing.yml"
+    resource: "@TickitDashboardBundle/Resources/config/routing.yml"
+
+core:
+    resource: "@TickitCoreBundle/Resources/config/routing.yml"

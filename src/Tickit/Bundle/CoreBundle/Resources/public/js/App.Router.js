@@ -36,10 +36,6 @@ define(function() {
          * @return {void}
          */
         goTo : function(path) {
-            if (path.match(/^javascript:/)) {
-                return;
-            }
-
             this.navigate(path, { trigger: true });
         },
 
@@ -64,7 +60,9 @@ define(function() {
             /* UserBundle routes */
             "users/create"         : "userCreate",
             "users/edit/:id"       : "userEdit",
-            "users"                : "users"
+            "users"                : "users",
+
+            "*notFound"            : "notFound"
         },
 
         "login" : function() {
@@ -130,6 +128,12 @@ define(function() {
         "userEdit" : function(id) {
             require(['modules/user'], function(User) {
                 User.loadUserEdit(id);
+            });
+        },
+
+        "notFound" : function() {
+            require(['modules/error'], function(Error) {
+                Error.loadPageNotFound();
             });
         }
     });
