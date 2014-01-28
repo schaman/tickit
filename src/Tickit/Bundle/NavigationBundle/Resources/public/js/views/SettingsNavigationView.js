@@ -34,6 +34,16 @@ define([
          */
         appendHtml : function(navView, itemView) {
             navView.$el.append(itemView.el);
+        },
+
+        /**
+         * Handles navigation item click
+         *
+         * @param {object} e The event object
+         */
+        itemClick : function(e) {
+            e.preventDefault();
+            App.Router.goTo($(e.target).attr('href'));
         }
     });
 });
