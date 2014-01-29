@@ -24,6 +24,8 @@ namespace Tickit\Bundle\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\RoleHierarchy;
 
 /**
  * User form.
@@ -37,6 +39,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class UserFormType extends AbstractType
 {
+    /**
+     * Constructor
+     *
+     * @param RoleHierarchy $roles A role hierarchy definition
+     */
+    public function __construct(RoleHierarchy $roles)
+    {
+        // TODO
+    }
+
     /**
      * Builds the form.
      *
