@@ -1,13 +1,13 @@
 define([
     'marionette',
-    'modules/template',
-    'text!navigation/views/Toolbar.html'
-], function(Marionette, Template, tpl) {
-
-    Template.load(tpl);
+    'text!navigation/views/Toolbar.html',
+    'underscore'
+], function(Marionette, tpl, _) {
 
     return Marionette.Layout.extend({
-        template: '#toolbar-layout-template',
+        template: _.template($(tpl).html(), {
+            logout: Routing.generate('fos_user_security_logout')
+        }),
         className: 'navbar navbar-inverse',
 
         /**
