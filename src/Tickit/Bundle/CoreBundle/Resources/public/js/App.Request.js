@@ -9,6 +9,19 @@ define(['jquery'], function($) {
     return App.module('Request', function(module) {
 
         /**
+         * Runs before the module starts up
+         */
+        module.on('before:start', function() {
+            $(document).ajaxStart(function() {
+                App.vent.trigger('loading:start');
+            });
+
+            $(document).ajaxComplete(function() {
+                App.vent.trigger('loading:complete');
+            });
+        });
+
+        /**
          * Performs an XMLHttpRequest of POST type
          *
          * @param {object} params A parameters object, same properties as jQuery.ajax

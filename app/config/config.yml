@@ -87,6 +87,9 @@ fos_user:
     service:
         user_manager: tickit_user.manager
 
+fos_js_routing:
+    routes_to_expose: [ fos_user_security_logout ]
+
 # StofDoctrineExtensions Configuration
 stof_doctrine_extensions:
   orm:

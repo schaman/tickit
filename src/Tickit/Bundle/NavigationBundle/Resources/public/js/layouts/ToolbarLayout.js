@@ -1,13 +1,13 @@
 define([
     'marionette',
-    'modules/template',
-    'text!navigation/views/Toolbar.html'
-], function(Marionette, Template, tpl) {
-
-    Template.load(tpl);
+    'text!navigation/views/Toolbar.html',
+    'underscore'
+], function(Marionette, tpl, _) {
 
     return Marionette.Layout.extend({
-        template: '#toolbar-layout-template',
+        template: _.template($(tpl).html(), {
+            logout: Routing.generate('fos_user_security_logout')
+        }),
         className: 'navbar navbar-inverse',
 
         /**
@@ -26,6 +26,20 @@ define([
          */
         onShow : function() {
             App.vent.trigger('navigation:ready', this.$el);
+        },
+
+        /**
+         * Fired when the layout has been rendered
+         */
+        onRender : function() {
+            var $loader = this.$('div.loader');
+            App.vent.on('loading:start', function() {
+                $loader.css('display', 'inline-block');
+            });
+
+            App.vent.on('loading:complete', function() {
+                $loader.hide();
+            });
         }
     });
 });
