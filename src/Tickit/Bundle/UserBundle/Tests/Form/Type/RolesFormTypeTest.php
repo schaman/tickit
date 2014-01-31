@@ -113,6 +113,9 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $readOnlyChoices = $form->getConfig()->getOption('read_only_choices');
         $this->assertCount(1, $readOnlyChoices);
         $this->assertEquals(['ROLE_SUPER_ADMIN' => 'super admin'], $readOnlyChoices);
+
+        $view = $form->createView();
+        $this->assertEquals($readOnlyChoices, $view->vars['read_only_choices']);
     }
 
     /**
@@ -144,6 +147,9 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $choices = $form->getConfig()->getOption('choices');
 
         $this->assertEmpty($choices);
+
+        $view = $form->createView();
+        $this->assertEmpty($view->vars['read_only_choices']);
     }
 
     /**
