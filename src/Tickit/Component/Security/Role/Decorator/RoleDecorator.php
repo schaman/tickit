@@ -32,7 +32,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  * @package Tickit\Component\Security\Role\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class RoleDecorator
+class RoleDecorator implements RoleDecoratorInterface
 {
     /**
      * A map of role names to friendly names
