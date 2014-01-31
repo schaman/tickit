@@ -47,9 +47,9 @@ class ContainerRoleProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests the getRoles() method
+     * Tests the getAllRoles() method
      */
-    public function testGetRolesFetchesRolesFromHierarchy()
+    public function testGetAllRolesFetchesRolesFromHierarchy()
     {
         $returnedRoles = [
             new Role('ROLE_USER'),
@@ -61,7 +61,27 @@ class ContainerRoleProviderTest extends \PHPUnit_Framework_TestCase
                         ->with([new Role(User::ROLE_SUPER_ADMIN)])
                         ->will($this->returnValue($returnedRoles));
 
-        $this->assertEquals($returnedRoles, $this->getProvider()->getRoles());
+        $this->assertEquals($returnedRoles, $this->getProvider()->getAllRoles());
+    }
+
+    /**
+     * Tests the getReachableRolesForRole() method
+     */
+    public function testGetReachableRolesForRoleFetchesCorrectlyFromHierarchy()
+    {
+        $returnedRoles = [
+            new Role('ROLE_USER'),
+            new Role('ROLE_ADMIN')
+        ];
+
+        $role = new Role('ROLE_ADMIN');
+
+        $this->hierarchy->expects($this->once())
+                        ->method('getReachableRoles')
+                        ->with([$role])
+                        ->will($this->returnValue($returnedRoles));
+
+        $this->assertEquals($returnedRoles, $this->getProvider()->getReachableRolesForRole($role));
     }
 
     /**

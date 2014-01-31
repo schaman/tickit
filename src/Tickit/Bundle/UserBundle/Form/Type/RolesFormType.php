@@ -60,7 +60,7 @@ class RolesFormType extends AbstractType
      */
     public function __construct(RoleProviderInterface $roles, RoleDecoratorInterface $roleDecorator)
     {
-        $this->roles = $roles->getRoles();
+        $this->roles = $roles->getAllRoles();
         $this->roleDecorator = $roleDecorator;
     }
 

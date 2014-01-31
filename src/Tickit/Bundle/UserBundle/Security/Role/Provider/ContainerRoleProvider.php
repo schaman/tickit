@@ -57,8 +57,28 @@ class ContainerRoleProvider implements RoleProviderInterface
      *
      * @return RoleInterface[]
      */
-    public function getRoles()
+    public function getAllRoles()
     {
         return $this->hierarchy->getReachableRoles([new Role(User::ROLE_SUPER_ADMIN)]);
+    }
+
+    /**
+     * Fetches an array of roles reachable from a role.
+     *
+     * For example, if the role hierarchy is something like:
+     *
+     *  - ROLE_ADMIN: [ROLE_USER]
+     *  - ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_SWITCH]
+     *
+     * The this method would return ROLE_SUPER_ADMIN, ROLE_ADMIN,
+     * ROLE_SWITCH and ROLE_USER when given "ROLE_SUPER_ADMIN" role.
+     *
+     * @param RoleInterface $role The role to find roles for
+     *
+     * @return RoleInterface[]
+     */
+    public function getReachableRolesForRole(RoleInterface $role)
+    {
+        return $this->hierarchy->getReachableRoles([$role]);
     }
 }

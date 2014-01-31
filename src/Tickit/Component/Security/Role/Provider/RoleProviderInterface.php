@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Security\Role\Provider;
 
+use Symfony\Component\Security\Core\Role\RoleInterface;
+
 /**
  * Role provider interface.
  *
@@ -35,7 +37,24 @@ interface RoleProviderInterface
     /**
      * Fetches an array of all available roles.
      *
-     * @return array
+     * @return RoleInterface[]
      */
-    public function getRoles();
+    public function getAllRoles();
+
+    /**
+     * Fetches an array of roles reachable from a role.
+     *
+     * For example, if the role hierarchy is something like:
+     *
+     *  - ROLE_ADMIN: [ROLE_USER]
+     *  - ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_SWITCH]
+     *
+     * The this method would return ROLE_SUPER_ADMIN, ROLE_ADMIN,
+     * ROLE_SWITCH and ROLE_USER when given "ROLE_SUPER_ADMIN" role.
+     *
+     * @param RoleInterface $role The role to find roles for
+     *
+     * @return RoleInterface[]
+     */
+    public function getReachableRolesForRole(RoleInterface $role);
 }
