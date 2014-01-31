@@ -25,6 +25,7 @@ twig:
     form:
         resources:
             - 'TickitUserBundle:Form:tickit_user_picker.html.twig'
+            - 'TickitUserBundle:Form:tickit_roles_widget.html.twig'
 
 # Assetic Configuration
 assetic:
