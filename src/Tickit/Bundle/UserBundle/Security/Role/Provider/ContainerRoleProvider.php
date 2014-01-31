@@ -23,6 +23,7 @@ namespace Tickit\Bundle\UserBundle\Security\Role\Provider;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Tickit\Component\Security\Role\Provider\RoleProviderInterface;
 use Tickit\Component\Model\User\User;
 
@@ -54,7 +55,7 @@ class ContainerRoleProvider implements RoleProviderInterface
     /**
      * Fetches an array of all available roles.
      *
-     * @return array
+     * @return RoleInterface[]
      */
     public function getRoles()
     {
