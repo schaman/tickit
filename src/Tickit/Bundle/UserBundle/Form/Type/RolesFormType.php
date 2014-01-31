@@ -23,6 +23,8 @@ namespace Tickit\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -123,6 +125,18 @@ class RolesFormType extends AbstractType
         ];
 
         $resolver->setDefaults($defaultOptions);
+    }
+
+    /**
+     * Builds the form view
+     *
+     * @param FormView      $view    The form view object
+     * @param FormInterface $form    The form itself
+     * @param array         $options An array of options for the form
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['read_only_choices'] = $options['read_only_choices'];
     }
 
     /**
