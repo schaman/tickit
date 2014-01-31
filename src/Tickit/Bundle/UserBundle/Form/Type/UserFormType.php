@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,6 @@ namespace Tickit\Bundle\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\Role\RoleHierarchy;
 
 /**
  * User form.
@@ -39,16 +37,6 @@ use Symfony\Component\Security\Core\Role\RoleHierarchy;
  */
 class UserFormType extends AbstractType
 {
-    /**
-     * Constructor
-     *
-     * @param RoleHierarchy $roles A role hierarchy definition
-     */
-    public function __construct(RoleHierarchy $roles)
-    {
-        // TODO
-    }
-
     /**
      * Builds the form.
      *
@@ -85,7 +73,7 @@ class UserFormType extends AbstractType
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
                 )
-                ->add('admin', 'checkbox', array('label' => 'Is admin?'));
+                ->add('roles', 'tickit_roles');
     }
 
     /**

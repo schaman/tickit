@@ -22,8 +22,11 @@
 namespace Tickit\Bundle\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Validator\Validation;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\UserBundle\Form\Type\RolesFormType;
 use Tickit\Component\Model\User\User;
 use Tickit\Bundle\UserBundle\Form\Type\UserFormType;
 
@@ -59,7 +62,7 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($user, $form->getData());
 
-        $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'admin');
+        $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'roles');
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
 
         $passwordForm = $form->get('password');
@@ -82,7 +85,7 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($user, $form->getData());
 
-        $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'admin');
+        $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'roles');
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
 
         $passwordForm = $form->get('password');
@@ -107,7 +110,8 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
              ->setSurname('Surname')
              ->setEmail('email@domain.com')
              ->setSurname('username')
-             ->setPlainPassword('plain password');
+             ->setPlainPassword('plain password')
+             ->setRoles(['ROLE_ADMIN']);
 
         return [[$user]];
     }
@@ -118,5 +122,19 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
     protected function configureExtensions()
     {
         $this->enableValidatorExtension();
+
+        $mockRoleProvider = $this->getMock('\Tickit\Component\Security\Role\Provider\RoleProviderInterface');
+        $mockRoleDecorator = $this->getMock('\Tickit\Component\Security\Role\Decorator\RoleDecoratorInterface');
+
+        $mockRoleProvider->expects($this->any())
+                         ->method('getRoles')
+                         ->will($this->returnValue([new Role('ROLE_USER'), new Role('ROLE_ADMIN')]));
+
+        $mockRoleDecorator->expects($this->any())
+                          ->method('decorate')
+                          ->will($this->returnValue('decorated role'));
+
+        $rolesFormType = new RolesFormType($mockRoleProvider, $mockRoleDecorator);
+        $this->extensions[] = new PreloadedExtension([$rolesFormType->getName() => $rolesFormType], []);
     }
 }

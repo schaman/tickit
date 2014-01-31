@@ -19,7 +19,6 @@
 
         <service id="tickit_user.user_form_type" class="%tickit_user.user_form_type.class%">
             <tag name="form.type" alias="tickit_user" />
-            <argument type="service" id="tickit_user.roles_form_type" />
         </service>
 
         <service id="tickit_user.roles_form_type" class="%tickit_user.roles_form_type.class%">
