@@ -59,6 +59,6 @@ class ContainerRoleProvider implements RoleProviderInterface
      */
     public function getRoles()
     {
-        return $this->hierarchy->getReachableRoles([new Role(User::ROLE_DEFAULT)]);
+        return $this->hierarchy->getReachableRoles([new Role(User::ROLE_SUPER_ADMIN)]);
     }
 }

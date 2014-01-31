@@ -58,7 +58,7 @@ class ContainerRoleProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->hierarchy->expects($this->once())
                         ->method('getReachableRoles')
-                        ->with([new Role(User::ROLE_DEFAULT)])
+                        ->with([new Role(User::ROLE_SUPER_ADMIN)])
                         ->will($this->returnValue($returnedRoles));
 
         $this->assertEquals($returnedRoles, $this->getProvider()->getRoles());
