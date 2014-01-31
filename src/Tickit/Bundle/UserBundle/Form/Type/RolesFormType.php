@@ -25,6 +25,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 use Tickit\Component\Security\Role\Decorator\RoleDecoratorInterface;
 use Tickit\Component\Security\Role\Provider\RoleProviderInterface;
 
@@ -41,9 +42,9 @@ class RolesFormType extends AbstractType
     /**
      * An array of all available roles
      *
-     * @var RoleInterface[]
+     * @var RoleProviderInterface
      */
-    private $roles;
+    private $roleProvider;
 
     /**
      * A role decorator
@@ -53,15 +54,27 @@ class RolesFormType extends AbstractType
     private $roleDecorator;
 
     /**
+     * A security context
+     *
+     * @var SecurityContextInterface
+     */
+    private $securityContext;
+
+    /**
      * Constructor
      *
-     * @param RoleProviderInterface  $roles         A role provider
-     * @param RoleDecoratorInterface $roleDecorator A role decorator
+     * @param RoleProviderInterface    $roleProvider    A role provider
+     * @param RoleDecoratorInterface   $roleDecorator   A role decorator
+     * @param SecurityContextInterface $securityContext A security context
      */
-    public function __construct(RoleProviderInterface $roles, RoleDecoratorInterface $roleDecorator)
-    {
-        $this->roles = $roles->getAllRoles();
+    public function __construct(
+        RoleProviderInterface $roleProvider,
+        RoleDecoratorInterface $roleDecorator,
+        SecurityContextInterface $securityContext
+    ) {
+        $this->roleProvider = $roleProvider;
         $this->roleDecorator = $roleDecorator;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -70,14 +83,38 @@ class RolesFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $choices = [];
+        if (false === $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new \RuntimeException('Cannot display role management when no user is authenticated');
+        }
 
-        foreach ($this->roles as $role) {
-            $choices[$role->getRole()] = $this->roleDecorator->decorate($role);
+        $currentUser = $this->securityContext->getToken()->getUser();
+
+        $choices = [];
+        $readOnlyChoices = [];
+
+        $reachableRoles = $this->roleProvider->getReachableRolesForRole($currentUser->getRoles());
+
+        // we iterate over the roles that the current user can reach
+        // based off their current role, this is because we can't let
+        // a user grant roles that they don't have themselves
+        foreach ($reachableRoles as $reachableRole) {
+            $choices[$reachableRole->getRole()] = $this->roleDecorator->decorate($reachableRole);
+        }
+
+        // we also iterate over all of the application roles and add
+        // a "ready_only_choices" entry for those that the user cannot
+        // reach so that they appear on the form as readonly fields for
+        // display purposes
+        foreach ($this->roleProvider->getAllRoles() as $role) {
+            $roleName = $role->getRole();
+            if (!isset($choices[$roleName])) {
+                $readOnlyChoices[$roleName] = $this->roleDecorator->decorate($role);
+            }
         }
 
         $defaultOptions = [
             'choices' => $choices,
+            'read_only_choices' => $readOnlyChoices,
             'expanded' => true,
             'multiple' => true
         ];

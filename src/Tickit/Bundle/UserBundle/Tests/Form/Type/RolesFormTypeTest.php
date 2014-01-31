@@ -21,9 +21,11 @@
 
 namespace Tickit\Bundle\UserBundle\Tests\Form\Type;
 
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Role\Role;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\UserBundle\Form\Type\RolesFormType;
+use Tickit\Component\Model\User\User;
 
 /**
  * RolesFormType tests
@@ -44,12 +46,18 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
     private $roleDecorator;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $securityContext;
+
+    /**
      * Setup
      */
     protected function setUp()
     {
         parent::setUp();
 
+        $this->securityContext = $this->getMock('\Symfony\Component\Security\Core\SecurityContextInterface');
         $this->roleProvider = $this->getMock('\Tickit\Component\Security\Role\Provider\RoleProviderInterface');
         $this->roleDecorator = $this->getMock('\Tickit\Component\Security\Role\Decorator\RoleDecoratorInterface');
     }
@@ -63,30 +71,48 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
             new Role('ROLE_USER'), new Role('ROLE_ADMIN'), new Role('ROLE_SUPER_ADMIN')
         ];
 
+        $user = new User();
+        $user->setRoles(['ROLE_ADMIN']);
+
+        $this->trainSecurityContextToReturnIsGranted();
+        $this->securityContext->expects($this->once())
+                              ->method('getToken')
+                              ->will($this->returnValue(new UsernamePasswordToken($user, 'password', 'main')));
+
+        $reachableRoles = [new Role('ROLE_USER'), new Role('ROLE_ADMIN')];
+        $this->roleProvider->expects($this->once())
+                           ->method('getReachableRolesForRole')
+                           ->with($user->getRoles())
+                           ->will($this->returnValue($reachableRoles));
+
         $this->roleProvider->expects($this->once())
                            ->method('getAllRoles')
                            ->will($this->returnValue($roles));
 
-        $this->roleDecorator->expects($this->exactly(count($roles)))
+        $this->roleDecorator->expects($this->exactly(3))
                             ->method('decorate')
                             ->will($this->onConsecutiveCalls('default', 'admin', 'super admin'));
 
-        foreach ($roles as $index => $role) {
+        foreach ($roles  as $index => $role) {
             $this->roleDecorator->expects($this->at($index))
                                 ->method('decorate')
                                 ->with($role);
         }
 
         $form = $this->factory->create($this->getFormType());
-        $choices = $form->getConfig()->getOption('choices');
 
-        $this->assertCount(3, $choices);
+        $choices = $form->getConfig()->getOption('choices');
+        $this->assertCount(2, $choices);
+
         $expectedChoices = [
             'ROLE_USER' => 'default',
-            'ROLE_ADMIN' => 'admin',
-            'ROLE_SUPER_ADMIN' => 'super admin'
+            'ROLE_ADMIN' => 'admin'
         ];
         $this->assertEquals($expectedChoices, $choices);
+
+        $readOnlyChoices = $form->getConfig()->getOption('read_only_choices');
+        $this->assertCount(1, $readOnlyChoices);
+        $this->assertEquals(['ROLE_SUPER_ADMIN' => 'super admin'], $readOnlyChoices);
     }
 
     /**
@@ -94,6 +120,19 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
      */
     public function testFieldBuildsWithNoRoles()
     {
+        $user = new User();
+        $user->setRoles(['ROLE_ADMIN']);
+
+        $this->trainSecurityContextToReturnIsGranted();
+        $this->securityContext->expects($this->once())
+                              ->method('getToken')
+                              ->will($this->returnValue(new UsernamePasswordToken($user, 'password', 'main')));
+
+        $this->roleProvider->expects($this->once())
+                           ->method('getReachableRolesForRole')
+                           ->with($user->getRoles())
+                           ->will($this->returnValue([]));
+
         $this->roleProvider->expects($this->once())
                            ->method('getAllRoles')
                            ->will($this->returnValue([]));
@@ -108,12 +147,32 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
     }
 
     /**
+     * Tests the field options
+     *
+     * @expectedException \RuntimeException
+     */
+    public function testFieldThrowsExceptionWhenUserIsNotAuthenticated()
+    {
+        $this->trainSecurityContextToReturnIsGranted(false);
+
+        $this->factory->create($this->getFormType());
+    }
+
+    /**
      * Gets a new instance of the form type
      *
      * @return RolesFormType
      */
     private function getFormType()
     {
-        return new RolesFormType($this->roleProvider, $this->roleDecorator);
+        return new RolesFormType($this->roleProvider, $this->roleDecorator, $this->securityContext);
+    }
+
+    private function trainSecurityContextToReturnIsGranted($value = true)
+    {
+        $this->securityContext->expects($this->once())
+                              ->method('isGranted')
+                              ->with('IS_AUTHENTICATED_REMEMBERED')
+                              ->will($this->returnValue($value));
     }
 }
