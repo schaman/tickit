@@ -83,6 +83,7 @@ class ContainerRoleProviderTest extends \PHPUnit_Framework_TestCase
     {
         $roleUser = new Role('ROLE_USER');
         $roleAdmin = new Role('ROLE_ADMIN');
+        $roleSuperAdmin = new Role('ROLE_SUPER_ADMIN');
 
         return [
             [
@@ -90,6 +91,9 @@ class ContainerRoleProviderTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 [$roleUser, $roleAdmin], [$roleUser, $roleAdmin], [$roleUser, $roleAdmin]
+            ],
+            [
+                [$roleUser, $roleAdmin, $roleSuperAdmin], ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'], [$roleAdmin, $roleSuperAdmin]
             ]
         ];
     }

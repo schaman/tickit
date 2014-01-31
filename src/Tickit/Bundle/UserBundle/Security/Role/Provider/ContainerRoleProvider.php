@@ -83,6 +83,16 @@ class ContainerRoleProvider implements RoleProviderInterface
             $roles = [$roles];
         }
 
+        // we need to make sure that every role provided is an
+        // instance of RoleInterface, otherwise the RoleHierarchy
+        // will break
+        $roles = array_map(function($role) {
+            if (is_string($role)) {
+                return new Role($role);
+            }
+            return $role;
+        }, $roles);
+
         return $this->hierarchy->getReachableRoles($roles);
     }
 }
