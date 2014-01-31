@@ -23,7 +23,7 @@ namespace Tickit\Component\Security\Tests\Role\Decorator;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleInterface;
-use Tickit\Component\Security\Role\Decorator\RoleDecorator;
+use Tickit\Component\Security\Role\Decorator\UserFriendlyRoleDecorator;
 
 /**
  * RoleDecorator tests
@@ -31,7 +31,7 @@ use Tickit\Component\Security\Role\Decorator\RoleDecorator;
  * @package Tickit\Component\Security\Tests\Role\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class RoleDecoratorTest extends \PHPUnit_Framework_TestCase
+class UserFriendlyRoleDecoratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests the decorate() method
@@ -68,6 +68,6 @@ class RoleDecoratorTest extends \PHPUnit_Framework_TestCase
 
     private function getDecorator()
     {
-        return new RoleDecorator();
+        return new UserFriendlyRoleDecorator();
     }
 }
