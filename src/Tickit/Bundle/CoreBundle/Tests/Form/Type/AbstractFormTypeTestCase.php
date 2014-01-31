@@ -45,7 +45,7 @@ class AbstractFormTypeTestCase extends TypeTestCase
      *
      * @var array
      */
-    private $extensions = array();
+    protected $extensions = array();
 
     /**
      * The form under test
