@@ -127,7 +127,7 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
         $mockRoleDecorator = $this->getMock('\Tickit\Component\Security\Role\Decorator\RoleDecoratorInterface');
 
         $mockRoleProvider->expects($this->any())
-                         ->method('getRoles')
+                         ->method('getAllRoles')
                          ->will($this->returnValue([new Role('ROLE_USER'), new Role('ROLE_ADMIN')]));
 
         $mockRoleDecorator->expects($this->any())

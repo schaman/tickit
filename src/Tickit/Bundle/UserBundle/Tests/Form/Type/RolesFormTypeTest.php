@@ -64,7 +64,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         ];
 
         $this->roleProvider->expects($this->once())
-                           ->method('getRoles')
+                           ->method('getAllRoles')
                            ->will($this->returnValue($roles));
 
         $this->roleDecorator->expects($this->exactly(count($roles)))
@@ -95,7 +95,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
     public function testFieldBuildsWithNoRoles()
     {
         $this->roleProvider->expects($this->once())
-                           ->method('getRoles')
+                           ->method('getAllRoles')
                            ->will($this->returnValue([]));
 
         $this->roleDecorator->expects($this->never())
