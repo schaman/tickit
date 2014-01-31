@@ -23,6 +23,7 @@ namespace Tickit\Bundle\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Validator\Validation;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
@@ -125,16 +126,29 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
 
         $mockRoleProvider = $this->getMock('\Tickit\Component\Security\Role\Provider\RoleProviderInterface');
         $mockRoleDecorator = $this->getMock('\Tickit\Component\Security\Role\Decorator\RoleDecoratorInterface');
+        $mockSecurityContext = $this->getMock('\Symfony\Component\Security\Core\SecurityContextInterface');
+
+        $user = new User();
+        $user->setRoles(['ROLE_USER']);
 
         $mockRoleProvider->expects($this->any())
                          ->method('getAllRoles')
                          ->will($this->returnValue([new Role('ROLE_USER'), new Role('ROLE_ADMIN')]));
 
+        $mockRoleProvider->expects($this->any())
+                         ->method('getReachableRolesForRole')
+                         ->with($user->getRoles())
+                         ->will($this->returnValue([new Role('ROLE_USER')]));
+
         $mockRoleDecorator->expects($this->any())
                           ->method('decorate')
                           ->will($this->returnValue('decorated role'));
 
-        $rolesFormType = new RolesFormType($mockRoleProvider, $mockRoleDecorator);
+        $mockSecurityContext->expects($this->once())
+                            ->method('getToken')
+                            ->will($this->returnValue(new UsernamePasswordToken($user, 'password', 'main')));
+
+        $rolesFormType = new RolesFormType($mockRoleProvider, $mockRoleDecorator, $mockSecurityContext);
         $this->extensions[] = new PreloadedExtension([$rolesFormType->getName() => $rolesFormType], []);
     }
 }
