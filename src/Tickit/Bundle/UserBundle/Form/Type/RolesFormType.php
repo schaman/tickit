@@ -78,8 +78,11 @@ class RolesFormType extends AbstractType
     }
 
     /**
+     * Sets default options on the form
      *
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolverInterface $resolver An options resolver
+     *
+     * @throws \RuntimeException If the current security token is not authenticated
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
