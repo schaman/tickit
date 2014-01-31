@@ -73,12 +73,16 @@ class ContainerRoleProvider implements RoleProviderInterface
      * The this method would return ROLE_SUPER_ADMIN, ROLE_ADMIN,
      * ROLE_SWITCH and ROLE_USER when given "ROLE_SUPER_ADMIN" role.
      *
-     * @param RoleInterface $role The role to find roles for
+     * @param RoleInterface|RoleInterface[] $roles The role to find roles for
      *
      * @return RoleInterface[]
      */
-    public function getReachableRolesForRole(RoleInterface $role)
+    public function getReachableRolesForRole($roles)
     {
-        return $this->hierarchy->getReachableRoles([$role]);
+        if (!is_array($roles)) {
+            $roles = [$roles];
+        }
+
+        return $this->hierarchy->getReachableRoles($roles);
     }
 }

@@ -66,22 +66,32 @@ class ContainerRoleProviderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the getReachableRolesForRole() method
+     *
+     * @dataProvider getReachableRolesFixtures
      */
-    public function testGetReachableRolesForRoleFetchesCorrectlyFromHierarchy()
+    public function testGetReachableRolesForRoleFetchesCorrectlyFromHierarchy($returnedRoles, $searchRole, $expectedArg)
     {
-        $returnedRoles = [
-            new Role('ROLE_USER'),
-            new Role('ROLE_ADMIN')
-        ];
-
-        $role = new Role('ROLE_ADMIN');
-
         $this->hierarchy->expects($this->once())
                         ->method('getReachableRoles')
-                        ->with([$role])
+                        ->with($expectedArg)
                         ->will($this->returnValue($returnedRoles));
 
-        $this->assertEquals($returnedRoles, $this->getProvider()->getReachableRolesForRole($role));
+        $this->assertEquals($returnedRoles, $this->getProvider()->getReachableRolesForRole($searchRole));
+    }
+
+    public function getReachableRolesFixtures()
+    {
+        $roleUser = new Role('ROLE_USER');
+        $roleAdmin = new Role('ROLE_ADMIN');
+
+        return [
+            [
+                [$roleUser, $roleAdmin], $roleAdmin, [$roleAdmin]
+            ],
+            [
+                [$roleUser, $roleAdmin], [$roleUser, $roleAdmin], [$roleUser, $roleAdmin]
+            ]
+        ];
     }
 
     /**

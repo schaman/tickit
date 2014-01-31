@@ -52,9 +52,9 @@ interface RoleProviderInterface
      * The this method would return ROLE_SUPER_ADMIN, ROLE_ADMIN,
      * ROLE_SWITCH and ROLE_USER when given "ROLE_SUPER_ADMIN" role.
      *
-     * @param RoleInterface $role The role to find roles for
+     * @param RoleInterface|RoleInterface[] $role The role(s) to find reachable roles for
      *
      * @return RoleInterface[]
      */
-    public function getReachableRolesForRole(RoleInterface $role);
+    public function getReachableRolesForRole($role);
 }
