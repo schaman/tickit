@@ -55,7 +55,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
     }
 
     /**
-     * Tests the submit() method
+     * Tests the field options
      */
     public function testFieldBuildsWithCorrectRoles()
     {
@@ -87,6 +87,24 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
             'ROLE_SUPER_ADMIN' => 'super admin'
         ];
         $this->assertEquals($expectedChoices, $choices);
+    }
+
+    /**
+     * Tests the field options
+     */
+    public function testFieldBuildsWithNoRoles()
+    {
+        $this->roleProvider->expects($this->once())
+                           ->method('getRoles')
+                           ->will($this->returnValue([]));
+
+        $this->roleDecorator->expects($this->never())
+                            ->method('decorate');
+
+        $form = $this->factory->create($this->getFormType());
+        $choices = $form->getConfig()->getOption('choices');
+
+        $this->assertEmpty($choices);
     }
 
     /**
