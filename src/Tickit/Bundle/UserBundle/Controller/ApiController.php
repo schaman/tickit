@@ -147,7 +147,7 @@ class ApiController
 
         $data = $decorator->decorate(
             $users->getIterator(),
-            ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
+            ['id', 'forename', 'surname', 'email', 'username', 'admin', 'lastActivity'],
             ['csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)->getValue()]
         );
 

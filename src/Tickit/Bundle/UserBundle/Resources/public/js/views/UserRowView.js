@@ -27,7 +27,7 @@ define([
                 surname: d.surname,
                 email: d.email,
                 username: d.username,
-                isAdmin: false,
+                isAdmin: this.model.isAdmin(),
                 lastActive: this.model.getLastActive(),
                 editUrl: this.model.getEditUrl()
             }));
