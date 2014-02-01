@@ -64,8 +64,10 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
 
     /**
      * Tests the field options
+     *
+     * @dataProvider getFormDataFixtures
      */
-    public function testFieldBuildsWithCorrectRoles()
+    public function testFieldBuildsWithCorrectRoles($formData)
     {
         $roles = [
             new Role('ROLE_USER'), new Role('ROLE_ADMIN'), new Role('ROLE_SUPER_ADMIN')
@@ -91,7 +93,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
                                 ->with($role);
         }
 
-        $form = $this->factory->create($this->getFormType(), ['']);
+        $form = $this->factory->create($this->getFormType(), $formData);
 
         $choices = $form->getConfig()->getOption('choices');
         $this->assertCount(2, $choices);
@@ -108,12 +110,20 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
 
         $view = $form->createView();
         $this->assertEquals($readOnlyChoices, $view->vars['read_only_choices']);
+        $this->assertEquals($formData, $form->getData());
+        if (null === $formData) {
+            $this->assertEquals([], $view->vars['granted_roles']);
+        } else {
+            $this->assertEquals($formData, $view->vars['granted_roles']);
+        }
     }
 
     /**
      * Tests the field options
+     *
+     * @dataProvider getFormDataFixtures
      */
-    public function testFieldBuildsWithNoRoles()
+    public function testFieldBuildsWithNoRoles($formData)
     {
         $user = new User();
         $user->setRoles(['ROLE_ADMIN']);
@@ -126,13 +136,19 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $this->roleDecorator->expects($this->never())
                             ->method('decorate');
 
-        $form = $this->factory->create($this->getFormType());
+        $form = $this->factory->create($this->getFormType(), $formData);
         $choices = $form->getConfig()->getOption('choices');
 
         $this->assertEmpty($choices);
 
         $view = $form->createView();
         $this->assertEmpty($view->vars['read_only_choices']);
+        $this->assertEquals($formData, $form->getData());
+        if (null === $formData) {
+            $this->assertEquals([], $view->vars['granted_roles']);
+        } else {
+            $this->assertEquals($formData, $view->vars['granted_roles']);
+        }
     }
 
     /**
@@ -145,6 +161,25 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $this->trainSecurityContextToReturnIsGranted(false);
 
         $this->factory->create($this->getFormType());
+    }
+
+    /**
+     * Data provider for form data
+     *
+     * @return array
+     */
+    public function getFormDataFixtures()
+    {
+        $roleUser = 'ROLE_USER';
+        $roleAdmin = 'ROLE_ADMIN';
+        $roleSuperAdmin = 'ROLE_SUPER_ADMIN';
+
+        return [
+            [[$roleUser, $roleAdmin, $roleSuperAdmin]],
+            [[$roleUser]],
+            [[$roleAdmin, $roleSuperAdmin]],
+            [null]
+        ];
     }
 
     /**

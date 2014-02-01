@@ -136,7 +136,13 @@ class RolesFormType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $view->vars['granted_roles'] = [];
         $view->vars['read_only_choices'] = $options['read_only_choices'];
+
+        $formData = $form->getData();
+        if (!empty($formData)) {
+            $view->vars['granted_roles'] = $formData;
+        }
     }
 
     /**

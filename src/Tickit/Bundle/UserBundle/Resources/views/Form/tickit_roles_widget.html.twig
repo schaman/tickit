@@ -8,8 +8,8 @@
     <div class="readonly">
         <h4>Roles You Cannot Manage</h4>
         <ul>
-        {% for choice in read_only_choices %}
-            <li>{{ choice }} <input type="checkbox" disabled="disabled" checked="checked" /></li>
+        {% for value,choice in read_only_choices %}
+            <li>{{ choice }} <input type="checkbox" disabled="disabled" {% if value in granted_roles %}checked="checked" {% endif %} /></li>
         {% endfor %}
         </ul>
     </div>
