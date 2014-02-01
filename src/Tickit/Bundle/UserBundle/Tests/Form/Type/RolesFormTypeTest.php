@@ -75,19 +75,11 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $user->setRoles(['ROLE_ADMIN']);
 
         $this->trainSecurityContextToReturnIsGranted();
-        $this->securityContext->expects($this->once())
-                              ->method('getToken')
-                              ->will($this->returnValue(new UsernamePasswordToken($user, 'password', 'main')));
+        $this->trainSecurityContextToReturnUsernamePasswordToken($user);
 
         $reachableRoles = [new Role('ROLE_USER'), new Role('ROLE_ADMIN')];
-        $this->roleProvider->expects($this->once())
-                           ->method('getReachableRolesForRole')
-                           ->with($user->getRoles())
-                           ->will($this->returnValue($reachableRoles));
-
-        $this->roleProvider->expects($this->once())
-                           ->method('getAllRoles')
-                           ->will($this->returnValue($roles));
+        $this->trainRoleProviderToReturnReachableRoles($user, $reachableRoles);
+        $this->trainRoleProviderToReturnAllRoles($roles);
 
         $this->roleDecorator->expects($this->exactly(3))
                             ->method('decorate')
@@ -99,7 +91,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
                                 ->with($role);
         }
 
-        $form = $this->factory->create($this->getFormType());
+        $form = $this->factory->create($this->getFormType(), ['']);
 
         $choices = $form->getConfig()->getOption('choices');
         $this->assertCount(2, $choices);
@@ -127,18 +119,9 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $user->setRoles(['ROLE_ADMIN']);
 
         $this->trainSecurityContextToReturnIsGranted();
-        $this->securityContext->expects($this->once())
-                              ->method('getToken')
-                              ->will($this->returnValue(new UsernamePasswordToken($user, 'password', 'main')));
-
-        $this->roleProvider->expects($this->once())
-                           ->method('getReachableRolesForRole')
-                           ->with($user->getRoles())
-                           ->will($this->returnValue([]));
-
-        $this->roleProvider->expects($this->once())
-                           ->method('getAllRoles')
-                           ->will($this->returnValue([]));
+        $this->trainSecurityContextToReturnUsernamePasswordToken($user);
+        $this->trainRoleProviderToReturnReachableRoles($user, []);
+        $this->trainRoleProviderToReturnAllRoles([]);
 
         $this->roleDecorator->expects($this->never())
                             ->method('decorate');
@@ -180,5 +163,27 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
                               ->method('isGranted')
                               ->with('IS_AUTHENTICATED_REMEMBERED')
                               ->will($this->returnValue($value));
+    }
+
+    private function trainSecurityContextToReturnUsernamePasswordToken($user)
+    {
+        $this->securityContext->expects($this->once())
+                              ->method('getToken')
+                              ->will($this->returnValue(new UsernamePasswordToken($user, 'password', 'main')));
+    }
+
+    private function trainRoleProviderToReturnReachableRoles(User $user, array $returnRoles)
+    {
+        $this->roleProvider->expects($this->once())
+                           ->method('getReachableRolesForRole')
+                           ->with($user->getRoles())
+                           ->will($this->returnValue($returnRoles));
+    }
+
+    private function trainRoleProviderToReturnAllRoles(array $roles)
+    {
+        $this->roleProvider->expects($this->once())
+                           ->method('getAllRoles')
+                           ->will($this->returnValue($roles));
     }
 }
