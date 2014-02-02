@@ -76,7 +76,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
             'ROLE_SUPER_ADMIN' => 'super admin'
         ];
 
-        $getRoleString = function(RoleInterface $role) {
+        $getRoleString = function (RoleInterface $role) {
             return $role->getRole();
         };
 
@@ -90,13 +90,13 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
                             ->method('decorate')
                             ->will(
                                 $this->returnCallback(
-                                    function(RoleInterface $role) use ($roleMap) {
+                                    function (RoleInterface $role) use ($roleMap) {
                                         return $roleMap[$role->getRole()];
                                     }
                                 )
                             );
 
-        foreach ($allRoles  as $index => $role) {
+        foreach ($allRoles as $index => $role) {
             $this->roleDecorator->expects($this->at($index))
                                 ->method('decorate')
                                 ->with($role);
