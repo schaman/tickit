@@ -23,6 +23,7 @@ namespace Tickit\Bundle\UserBundle\Tests\Form\Type;
 
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\UserBundle\Form\Type\RolesFormType;
 use Tickit\Component\Model\User\User;
@@ -67,27 +68,35 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
      *
      * @dataProvider getFormDataFixtures
      */
-    public function testFieldBuildsWithCorrectRoles($formData)
+    public function testFormBuildsWithCorrectRoles($formData, $allRoles, $reachableRoles, $user)
     {
-        $roles = [
-            new Role('ROLE_USER'), new Role('ROLE_ADMIN'), new Role('ROLE_SUPER_ADMIN')
+        $roleMap = [
+            'ROLE_USER' => 'default',
+            'ROLE_ADMIN' => 'admin',
+            'ROLE_SUPER_ADMIN' => 'super admin'
         ];
 
-        $user = new User();
-        $user->setRoles(['ROLE_ADMIN']);
+        $getRoleString = function(RoleInterface $role) {
+            return $role->getRole();
+        };
 
         $this->trainSecurityContextToReturnIsGranted();
         $this->trainSecurityContextToReturnUsernamePasswordToken($user);
 
-        $reachableRoles = [new Role('ROLE_USER'), new Role('ROLE_ADMIN')];
         $this->trainRoleProviderToReturnReachableRoles($user, $reachableRoles);
-        $this->trainRoleProviderToReturnAllRoles($roles);
+        $this->trainRoleProviderToReturnAllRoles($allRoles);
 
-        $this->roleDecorator->expects($this->exactly(3))
+        $this->roleDecorator->expects($this->exactly(count($allRoles)))
                             ->method('decorate')
-                            ->will($this->onConsecutiveCalls('default', 'admin', 'super admin'));
+                            ->will(
+                                $this->returnCallback(
+                                    function(RoleInterface $role) use ($roleMap) {
+                                        return $roleMap[$role->getRole()];
+                                    }
+                                )
+                            );
 
-        foreach ($roles  as $index => $role) {
+        foreach ($allRoles  as $index => $role) {
             $this->roleDecorator->expects($this->at($index))
                                 ->method('decorate')
                                 ->with($role);
@@ -95,18 +104,29 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
 
         $form = $this->factory->create($this->getFormType(), $formData);
 
+        // we expect that role choices on the form are only ones that are
+        // reachable from the current user's ($user) roles
+        $rawExpectedChoices = array_map($getRoleString, $reachableRoles);
+        $expectedChoices = [];
+        foreach ($rawExpectedChoices as $role) {
+            $expectedChoices[$role] = $roleMap[$role];
+        }
         $choices = $form->getConfig()->getOption('choices');
-        $this->assertCount(2, $choices);
-
-        $expectedChoices = [
-            'ROLE_USER' => 'default',
-            'ROLE_ADMIN' => 'admin'
-        ];
         $this->assertEquals($expectedChoices, $choices);
 
         $readOnlyChoices = $form->getConfig()->getOption('read_only_choices');
-        $this->assertCount(1, $readOnlyChoices);
-        $this->assertEquals(['ROLE_SUPER_ADMIN' => 'super admin'], $readOnlyChoices);
+
+        $nonReachableRoles = array_diff(
+            array_map($getRoleString, $allRoles),
+            array_map($getRoleString, $reachableRoles)
+        );
+
+        $expectedReadOnlyChoices = [];
+        foreach ($nonReachableRoles as $role) {
+            $expectedReadOnlyChoices[$role] = $roleMap[$role];
+        }
+
+        $this->assertEquals($expectedReadOnlyChoices, $readOnlyChoices);
 
         $view = $form->createView();
         $this->assertEquals($readOnlyChoices, $view->vars['read_only_choices']);
@@ -170,15 +190,37 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
      */
     public function getFormDataFixtures()
     {
-        $roleUser = 'ROLE_USER';
-        $roleAdmin = 'ROLE_ADMIN';
-        $roleSuperAdmin = 'ROLE_SUPER_ADMIN';
+        $roleUserStr = 'ROLE_USER';
+        $roleAdminStr = 'ROLE_ADMIN';
+        $roleSuperAdminStr = 'ROLE_SUPER_ADMIN';
+        $roleUser = new Role($roleUserStr);
+        $roleAdmin = new Role($roleAdminStr);
+        $roleSuperAdmin = new Role($roleSuperAdminStr);
+
+        $fullRoleStrSet = [$roleUserStr, $roleAdminStr, $roleSuperAdminStr];
+        $fullRoleSet = [$roleUser, $roleAdmin, $roleSuperAdmin];
+
+        $reachableRoles = [$roleUser, $roleAdmin];
+
+        $adminUser = new User();
+        $adminUser->setRoles([$roleAdminStr]);
 
         return [
-            [[$roleUser, $roleAdmin, $roleSuperAdmin]],
-            [[$roleUser]],
-            [[$roleAdmin, $roleSuperAdmin]],
-            [null]
+            [
+                // roles that the form will be populated with (roles that the user we are editing
+                // currently has granted)
+                $fullRoleStrSet,
+                // the full role set, returned by RoleProvider::getAllRoles()
+                $fullRoleSet,
+                // roles reachable from the currently logged in user's granted roles
+                $reachableRoles,
+                // the user that is doing the editing, i.e. the user who is logged in
+                $adminUser
+            ],
+            [[$roleUserStr], $fullRoleSet, $reachableRoles, $adminUser],
+            [[$roleAdminStr, $roleSuperAdminStr], $fullRoleSet, $reachableRoles, $adminUser],
+            [null, $fullRoleSet, $reachableRoles, $adminUser],
+            [$fullRoleStrSet, $fullRoleSet, [$roleUser], new User()]
         ];
     }
 
