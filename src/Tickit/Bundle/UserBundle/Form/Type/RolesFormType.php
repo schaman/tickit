@@ -38,6 +38,14 @@ use Tickit\Component\Security\Role\Provider\RoleProviderInterface;
  *
  * A field type for managing roles on a user.
  *
+ * This form allows the currently authenticated user to edit
+ * another user's roles, but they can only edit roles that they
+ * themselves have (or can reach from their own current roles).
+ *
+ * For example, if you only have ROLE_ADMIN then you cannot grant/remove
+ * another user's ROLE_SUPER_ADMIN role. However, you can grant/remove
+ * roles that are below ROLE_ADMIN in the hierarchy without any issue.
+ *
  * @package Tickit\Bundle\UserBundle\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
