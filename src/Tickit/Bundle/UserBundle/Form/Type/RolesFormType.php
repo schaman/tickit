@@ -30,6 +30,8 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Tickit\Bundle\UserBundle\Form\DataTransformer\OriginalRolesDataTransformer;
+use Tickit\Component\Model\User\User;
 use Tickit\Component\Security\Role\Decorator\RoleDecoratorInterface;
 use Tickit\Component\Security\Role\Provider\RoleProviderInterface;
 
@@ -73,6 +75,16 @@ class RolesFormType extends AbstractType
     private $securityContext;
 
     /**
+     * An array of reachable roles from the currently logged in user.
+     *
+     * These are the roles that the current user has permission to
+     * grant / remove.
+     *
+     * @var array
+     */
+    private $reachableRolesForCurrentUser;
+
+    /**
      * Constructor
      *
      * @param RoleProviderInterface    $roleProvider    A role provider
@@ -90,6 +102,26 @@ class RolesFormType extends AbstractType
     }
 
     /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $transformer = new OriginalRolesDataTransformer();
+        $reachableRoles = $this->getReachableRolesForCurrentUser();
+        $transformer->setEditableRoles($reachableRoles);
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) use($transformer) {
+                $transformer->setOriginalRoles($event->getForm()->getData());
+            }
+        );
+
+        $builder->addModelTransformer($transformer);
+    }
+
+    /**
      * Sets default options on the form
      *
      * @param OptionsResolverInterface $resolver An options resolver
@@ -98,16 +130,9 @@ class RolesFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        if (false === $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new \RuntimeException('Cannot display role management when no user is authenticated');
-        }
-
-        $currentUser = $this->securityContext->getToken()->getUser();
-
         $choices = [];
         $readOnlyChoices = [];
-
-        $reachableRoles = $this->roleProvider->getReachableRolesForRole($currentUser->getRoles());
+        $reachableRoles = $this->getReachableRolesForCurrentUser();
 
         // we iterate over the roles that the current user can reach
         // based off their current role, this is because we can't let
@@ -173,5 +198,28 @@ class RolesFormType extends AbstractType
     public function getName()
     {
         return 'tickit_roles';
+    }
+
+    /**
+     * Gets the currently logged in user
+     *
+     * @throws \RuntimeException If no user is authenticated
+     *
+     * @return User
+     */
+    private function getReachableRolesForCurrentUser()
+    {
+        if (null !== $this->reachableRolesForCurrentUser) {
+            return $this->reachableRolesForCurrentUser;
+        }
+
+        if (false === $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new \RuntimeException('Cannot display role management when no user is authenticated');
+        }
+
+        $user = $this->securityContext->getToken()->getUser();
+        $this->reachableRolesForCurrentUser = $this->roleProvider->getReachableRolesForRole($user->getRoles());
+
+        return $this->reachableRolesForCurrentUser;
     }
 }

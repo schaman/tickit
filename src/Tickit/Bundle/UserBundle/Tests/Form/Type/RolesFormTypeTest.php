@@ -106,7 +106,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
      *
      * @dataProvider getSubmittedDataFixtures
      */
-    public function testFormSubmit($submittedData, $allRoles, $reachableRoles, $user, $formData)
+    public function testFormSubmit($submittedData, $allRoles, $reachableRoles, $user, $formData, $expectedData)
     {
         $roleMap = $this->getRoleMap();
         $this->trainSecurityContextToReturnIsGranted();
@@ -121,7 +121,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         $this->assertEquals($formData, $form->getData());
 
         $form->submit($submittedData);
-        $this->assertEquals($formData, $form->getData());
+        $this->assertEquals($expectedData, $form->getData());
 
         $expectedChoices = $this->getExpectedRoleChoices($reachableRoles);
         $choices = $form->getConfig()->getOption('choices');
@@ -133,7 +133,7 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
 
         $view = $form->createView();
         $this->assertEquals($readOnlyChoices, $view->vars['read_only_choices']);
-        $this->assertEquals($user->getRoles(), $view->vars['granted_roles']);
+        $this->assertEquals($expectedData, $view->vars['granted_roles']);
     }
 
     /**
@@ -240,11 +240,11 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
         // user currently using the form (not the user being edited)
         $user = new User();
         $user->setRoles([$roleUserStr]);
-        $reachableRoles = [$roleUser];
 
         return [
-            // here we are essentially simluating what happens when a user with a more
-            // restricted role set edits a user with more roles (for example, a super admin)
+            // here we are essentially simulating what happens when a user with a more
+            // restricted role set edits a user with more roles (for example, an admin
+            // editing a super admin)
             [
                 // the data that was submitted from the form in the request
                 [$roleUserStr],
@@ -253,12 +253,12 @@ class RolesFormTypeTest extends AbstractFormTypeTestCase
                 // roles reachable from the currently logged in user's granted roles,
                 // this will restrict the available choices on the form so that a user
                 // cannot grant roles that they themselves do not have access to
-                $reachableRoles,
+                [$roleUser],
                 // the user that is doing the editing, i.e. the user who is logged in
                 $user,
                 // formData, this is the data that the form was initially populated with
-                // and the data that should be returned from $form->getData() after the
-                // $form->submit() method has been called
+                [$roleUserStr, $roleAdminStr, $roleSuperAdminStr],
+                // the expected data after $form->submit()
                 [$roleUserStr, $roleAdminStr, $roleSuperAdminStr]
             ]
         ];
