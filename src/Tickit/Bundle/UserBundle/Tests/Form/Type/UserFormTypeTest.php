@@ -52,16 +52,23 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
     /**
      * Tests the form submit
      *
-     * @dataProvider getUser
+     * @dataProvider getRawUserFixtures
      */
-    public function testSubmitValidData(User $user)
+    public function testSubmitValidData(array $rawUserData)
     {
         $form = $this->factory->create($this->formType);
-
-        $form->setData($user);
+        $form->submit($rawUserData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals($user, $form->getData());
+        $this->assertInstanceOf('Tickit\Component\Model\User\User', $form->getData());
+
+        /** @var User $user */
+        $user = $form->getData();
+        $this->assertEquals($rawUserData['forename'], $user->getForename());
+        $this->assertEquals($rawUserData['surname'], $user->getSurname());
+        $this->assertEquals($rawUserData['email'], $user->getEmail());
+        $this->assertEquals($rawUserData['username'], $user->getUsername());
+        $this->assertEquals($rawUserData['roles'], $user->getRoles());
 
         $expectedViewComponents = array('id', 'forename', 'surname', 'username', 'email', 'password', 'roles');
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
@@ -118,6 +125,36 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
     }
 
     /**
+     * Gets raw user data for submitting to the form
+     *
+     * @return array
+     */
+    public function getRawUserFixtures()
+    {
+        $faker = $this->getFakerGenerator();
+
+        return [
+            [
+                [
+                    'forename' => $faker->firstName,
+                    'surname' => $faker->lastName,
+                    'username' => $faker->userName,
+                    'email' => $faker->email,
+                    'password' => [
+                        'first' => $faker->word,
+                        'second' => $faker->word,
+                    ],
+                    'id' => '',
+                    'roles' => [
+                        'ROLE_SUPER_ADMIN',
+                        'ROLE_USER'
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
      * Gets form factory extensions
      */
     protected function configureExtensions()
@@ -138,7 +175,7 @@ class UserFormTypeTest extends AbstractFormTypeTestCase
         $mockRoleProvider->expects($this->any())
                          ->method('getReachableRolesForRole')
                          ->with($user->getRoles())
-                         ->will($this->returnValue([new Role('ROLE_USER')]));
+                         ->will($this->returnValue([new Role('ROLE_USER'), new Role('ROLE_ADMIN'), new Role('ROLE_SUPER_ADMIN')]));
 
         $mockRoleDecorator->expects($this->any())
                           ->method('decorate')

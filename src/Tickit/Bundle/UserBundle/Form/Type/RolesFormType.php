@@ -114,7 +114,11 @@ class RolesFormType extends AbstractType
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
             function (FormEvent $event) use($transformer) {
-                $transformer->setOriginalRoles($event->getForm()->getData());
+                $originalRoles = $event->getForm()->getData();
+                if (null === $originalRoles) {
+                    $originalRoles = [];
+                }
+                $transformer->setOriginalRoles($originalRoles);
             }
         );
 
