@@ -22,6 +22,9 @@
 namespace Tickit\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -98,8 +101,10 @@ class RolesFormType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * Builds the form
+     *
+     * @param FormBuilderInterface $builder A form builder
+     * @param array                $options An array of form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -109,7 +114,7 @@ class RolesFormType extends AbstractType
 
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) use($transformer) {
+            function (FormEvent $event) use ($transformer) {
                 $originalRoles = $event->getForm()->getData();
                 if (null === $originalRoles) {
                     $originalRoles = [];
