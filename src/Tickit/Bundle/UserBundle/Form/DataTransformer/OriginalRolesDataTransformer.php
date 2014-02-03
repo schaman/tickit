@@ -23,6 +23,7 @@ namespace Tickit\Bundle\UserBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Restore roles data transformer.
@@ -120,11 +121,11 @@ class OriginalRolesDataTransformer implements DataTransformerInterface
      * These are the roles that were originally on the form before the data
      * was submitted.
      *
-     * @param array $roles The array of original roles
+     * @param array|RoleInterface[] $roles The array of original roles
      */
     public function setOriginalRoles(array $roles)
     {
-        $this->originalRoles = $roles;
+        $this->originalRoles = $this->normalizeRoles($roles);
     }
 
     /**
@@ -136,10 +137,31 @@ class OriginalRolesDataTransformer implements DataTransformerInterface
      * Only changes to roles in this array will be persisted, all other
      * role values will be taken from the $originalRoles values
      *
-     * @param array $roles The array of editable roles
+     * @param array|RoleInterface[] $roles The array of editable roles
      */
     public function setEditableRoles(array $roles)
     {
-        $this->editableRoles = $roles;
+        $this->editableRoles = $this->normalizeRoles($roles);
+    }
+
+    /**
+     * Flattens roles from RoleInterface to strings
+     *
+     * @param RoleInterface[] $roles The roles to flatten
+     *
+     * @return array
+     */
+    private function normalizeRoles(array $roles)
+    {
+        return array_map(
+            function ($role) {
+                if ($role instanceof RoleInterface) {
+                    return $role->getRole();
+                }
+
+                return $role;
+            },
+            $roles
+        );
     }
 }

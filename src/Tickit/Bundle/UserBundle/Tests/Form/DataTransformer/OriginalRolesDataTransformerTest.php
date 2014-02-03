@@ -21,6 +21,7 @@
 
 namespace Tickit\Bundle\UserBundle\Tests\Form\Type\DataTransformer;
 
+use Symfony\Component\Security\Core\Role\Role;
 use Tickit\Bundle\UserBundle\Form\DataTransformer\OriginalRolesDataTransformer;
 
 /**
@@ -99,6 +100,12 @@ class OriginalRolesDataTransformerTest extends \PHPUnit_Framework_TestCase
                 ['ROLE_USER', 'ROLE_ADMIN'],
                 ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
                 ['ROLE_SUPER_ADMIN']
+            ],
+            [
+                ['ROLE_USER', 'ROLE_ADMIN'],
+                ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN'],
+                [new Role('ROLE_USER'), new Role('ROLE_ADMIN')],
+                ['ROLE_USER', 'ROLE_ADMIN']
             ]
         ];
     }
