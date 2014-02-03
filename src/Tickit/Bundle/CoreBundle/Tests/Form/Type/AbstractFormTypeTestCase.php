@@ -21,6 +21,8 @@
 
 namespace Tickit\Bundle\CoreBundle\Tests\Form\Type;
 
+use Faker\Factory;
+use Faker\Generator;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
@@ -159,5 +161,15 @@ class AbstractFormTypeTestCase extends TypeTestCase
             true,
             ['transform', 'reverseTransform']
         );
+    }
+
+    /**
+     * Gets a faker generator instance
+     *
+     * @return Generator
+     */
+    protected function getFakerGenerator()
+    {
+        return Factory::create();
     }
 }
