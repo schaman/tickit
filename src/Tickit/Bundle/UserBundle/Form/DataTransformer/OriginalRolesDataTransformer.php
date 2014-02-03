@@ -65,7 +65,7 @@ class OriginalRolesDataTransformer implements DataTransformerInterface
     public function transform($value)
     {
         if (null === $value) {
-            return '';
+            return [];
         }
 
         return $value;
@@ -98,7 +98,7 @@ class OriginalRolesDataTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if ('' === $value) {
-            return null;
+            return [];
         }
 
         // we restore all roles that were originally granted on the edited user,

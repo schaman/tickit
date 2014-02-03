@@ -64,7 +64,7 @@ class OriginalRolesDataTransformerTest extends \PHPUnit_Framework_TestCase
     public function getTransformDataFixtures()
     {
         return [
-            [null, ''],
+            [null, []],
             [['ROLE_USER'], ['ROLE_USER']],
             [['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'], ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']]
         ];
@@ -78,7 +78,7 @@ class OriginalRolesDataTransformerTest extends \PHPUnit_Framework_TestCase
     public function getReverseTransformDataFixtures()
     {
         return [
-            ['', [], [], null],
+            ['', [], [], []],
             [
                 // the data being reverseTransformed(), i.e. the data that was submitted
                 ['ROLE_USER'],
