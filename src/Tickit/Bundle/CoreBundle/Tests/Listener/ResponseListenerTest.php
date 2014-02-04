@@ -58,6 +58,7 @@ class ResponseListenerTest extends \PHPUnit_Framework_TestCase
         $cookie = $pathCookies['env'];
         $this->assertEquals('env', $cookie->getName());
         $this->assertEquals('prod', $cookie->getValue());
+        $this->assertFalse($cookie->isHttpOnly());
     }
 
     /**

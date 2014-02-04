@@ -64,7 +64,7 @@ class ResponseListener
             return;
         }
 
-        $cookie = new Cookie('env', $this->environment);
+        $cookie = new Cookie('env', $this->environment, 0, '/', null, false, false);
         $event->getResponse()->headers->setCookie($cookie);
     }
 }
