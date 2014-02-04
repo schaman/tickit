@@ -1,6 +1,14 @@
 imports:
     - javascript
-    - php
+
+tools:
+    php_cpd:
+        excluded_dirs: [vendor, tests, app, bin, library]
+    php_pdepend:
+        excluded_dirs: [vendor, tests, app, bin, library]
+    php_analyzer: true
+    sensiolabs_security_checker: true
 
 filter:
     paths: [src/*]
+    exclude_paths: [Tests/*]
