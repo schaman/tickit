@@ -1,5 +1,14 @@
+# Our test environment is only used for web acceptance testing
+# The unit tests in Tickit do not use the kernel or the container,
+# so we can safely assume that all configuration in this file is
+# for acceptance testing via behat/mink. For this reason we want to
+# simulate the production environment in as many ways as possible
+# whilst still retaining "test safety" (e.g. not dispatching real
+# emails
+
 imports:
-    - { resource: config_dev.yml }
+    - { resource: config_prod.yml }
+    - { resource: requirejs_prod.yml }
 
 framework:
     test: ~
@@ -26,12 +35,3 @@ doctrine:
         port:     %database_port%
         password: %database_password%
         charset:  UTF8
-
-# Test specific firewall
-security:
-    firewalls:
-        main:
-            pattern: ^/
-            http_basic:
-                realm: "Secured Test"
-                provider: tickit_userbundle
