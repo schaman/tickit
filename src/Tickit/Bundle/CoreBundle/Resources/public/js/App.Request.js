@@ -54,7 +54,7 @@ define(['jquery'], function($) {
          */
         module.ajax = function(params) {
             $.ajax({
-                url: params.url,
+                url: App.Router.getAppRoot() + params.url,
                 type: params.type,
                 data: params.data,
                 dataType: params.dataType,
