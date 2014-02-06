@@ -9,7 +9,7 @@
 
         <title>{% block title %}Tickit | Support System{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/less/styles.less' filter='less' %}
+        {% stylesheets 'bundles/assets/less/styles.less' filter='less,cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
