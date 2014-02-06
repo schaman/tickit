@@ -36,3 +36,6 @@ doctrine:
         port:     %database_port%
         password: %database_password%
         charset:  UTF8
+
+assetic:
+    use_controller: true
