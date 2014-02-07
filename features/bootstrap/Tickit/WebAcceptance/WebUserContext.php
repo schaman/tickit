@@ -39,6 +39,14 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     use ContainerMixin;
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->useContext('data', new DataContext());
+    }
+
+    /**
      * Opens specified page.
      *
      * @Given /^(?:|I )am currently on "(?P<page>[^"]+)"$/
@@ -75,7 +83,23 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
      */
     public function iAmALoggedInUser()
     {
-        throw new PendingException();
+        $this->iAmLoggedInWithRole('ROLE_USER');
+    }
+
+    /**
+     * @Given /^I am a logged in admin$/
+     */
+    public function iAmALoggedInAdmin()
+    {
+        $this->iAmLoggedInWithRole('ROLE_ADMIN');
+    }
+
+    /**
+     * @Given /^I am a logged in super admin/
+     */
+    public function iAmALoggedInSuperAdmin()
+    {
+        $this->iAmLoggedInWithRole('ROLE_SUPER_ADMIN');
     }
 
     /**
@@ -123,6 +147,44 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
+     * Creates a user and logs in
+     *
+     * @param string|array $role         The role(s) for the user
+     * @param string       $emailAddress The email address of the user
+     */
+    private function iAmLoggedInWithRole($role, $emailAddress  = 'hello@tickit.io')
+    {
+        /** @var DataContext $dataContext */
+        $dataContext = $this->getSubcontext('data');
+        $dataContext->createUser($emailAddress, $emailAddress, 'password', $role);
+
+        $this->visit($this->generateUrl('fos_user_security_login'));
+        $this->fillField('_username', $emailAddress);
+        $this->fillField('_password', 'password');
+        $this->pressButton('Login');
+    }
+
+    /**
+     * Generates a returns a page URL
+     *
+     * @param string $routeName  The route name of the URL to generate
+     * @param array  $parameters An array of route parameters
+     *
+     * @return string
+     */
+    private function generateUrl($routeName, array $parameters = array())
+    {
+        $router = $this->getService('router');
+        $path = $router->generate($routeName, $parameters);
+
+        if (true === $this->isUsingSelenium2Driver()) {
+            return sprintf('%s%s', $this->getMinkParameter('base_url'), $path);
+        }
+
+        return $path;
+    }
+
+    /**
      * Spin method to wait for a specific condition to come true in the context
      *
      * @param \Closure $closure The function used to evaluate a condition
@@ -153,5 +215,15 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
                 $backtrace[1]['line']
             )
         );
+    }
+
+    /**
+     * Returns true if the current driver is Selenium2
+     *
+     * @return boolean
+     */
+    private function isUsingSelenium2Driver()
+    {
+        return ('Selenium2Driver' === strstr(get_class($this->getSession()->getDriver()), 'Selenium2Driver'));
     }
 }

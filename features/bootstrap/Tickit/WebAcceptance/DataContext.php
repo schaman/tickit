@@ -95,22 +95,30 @@ class DataContext extends BehatContext implements KernelAwareInterface
     /**
      * Creates a user in the database for the context
      *
-     * @param string  $email    The email address
-     * @param string  $username The username
-     * @param string  $password The password
-     * @param string  $role     The user role (defaults to ROLE_USER)
-     * @param boolean $enabled  True if this user is enabled, false otherwise
+     * @param string       $email    The email address
+     * @param string       $username The username
+     * @param string       $password The password
+     * @param string|array $roles    The user role(s) (defaults to ROLE_USER)
+     * @param boolean      $enabled  True if this user is enabled, false otherwise
      *
      * @return void
      */
-    private function createUser($email, $username, $password, $role = User::ROLE_DEFAULT, $enabled = true)
-    {
+    public function createUser(
+        $email,
+        $username = 'username',
+        $password = 'password',
+        $roles = User::ROLE_DEFAULT,
+        $enabled = true
+    ) {
         $user = $this->getRepository('TickitUserBundle:User')->findOneByEmail($email);
         if (null !== $user) {
             return;
         }
 
-        $role = null === $role ? User::ROLE_DEFAULT : $role;
+        $roles = null === $roles ? User::ROLE_DEFAULT : $roles;
+        if (!is_array($roles)) {
+            $roles = [$roles];
+        }
 
         $user = new User();
         $user->setEmail($email)
@@ -119,7 +127,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
              ->setSurname($this->faker->lastName)
              ->setPlainPassword($password)
              ->setUsername($username)
-             ->addRole($role);
+             ->setRoles($roles);
 
         /** @var UserManager $manager */
         $manager = $this->getService('fos_user.user_manager');
