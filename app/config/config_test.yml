@@ -37,5 +37,10 @@ doctrine:
         password: %database_password%
         charset:  UTF8
 
+    orm:
+        metadata_cache_driver: array
+        result_cache_driver: array
+        query_cache_driver: array
+
 assetic:
     use_controller: true
