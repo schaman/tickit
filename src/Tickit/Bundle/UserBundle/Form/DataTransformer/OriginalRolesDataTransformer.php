@@ -28,7 +28,9 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 /**
  * Restore roles data transformer.
  *
- * Responsible for ensuring
+ * Responsible for ensuring that original roles are restored on a given
+ * array of roles, allowing restrictions to be placed on what is editable
+ * in the associated form.
  *
  * @package Tickit\Bundle\UserBundle\Form\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
