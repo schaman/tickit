@@ -40,7 +40,7 @@ define(function() {
                 return;
             }
 
-            this.navigate(path, { trigger: true });
+            this.navigate(path.replace(this.getAppRoot(), '/'), { trigger: true });
         },
 
         /**
