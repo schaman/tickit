@@ -21,6 +21,8 @@
 
 namespace Tickit\WebAcceptance;
 
+use Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -69,23 +71,55 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
-     * @Given /^I should be logged in$/
+     * @Given /^I am a logged in user$/
      */
-    public function iShouldBeLoggedIn()
+    public function iAmALoggedInUser()
     {
-        if (!$this->getSecurityContext()->isGranted('ROLE_USER')) {
-            throw new AuthenticationException('User not authenticated');
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should not be logged in$/
+     */
+    public function iShouldNotBeLoggedIn()
+    {
+        if ($this->getSecurityContext()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AuthenticationException('User is authenticated but shouldn\'t be.');
         }
     }
 
     /**
-     * @Given /^I should not be logged in$/
+     * @Then /^I should be logged in$/
      */
-    public function iShouldNotBeLoggedIn()
+    public function iShouldBeLoggedIn()
     {
-        if ($this->getSecurityContext()->isGranted('ROLE_USER')) {
-            throw new AuthenticationException('User is authenticated but shouldn\'t be.');
+        if ($this->getSecurityContext()->isGranted('IS_AUTHENTICATED_REMEMBERED') === false) {
+            throw new AuthenticationException('User is not authenticated but should be.');
         }
+    }
+
+    /**
+     * @Then /^I should see (\d+) table rows$/
+     */
+    public function iShouldSeeTableRows($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When /^I fill in the following$/
+     */
+    public function iFillInTheFollowing(TableNode $table)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^I should wait and see (\d+) table rows$/
+     */
+    public function iShouldWaitAndSeeTableRows($arg1)
+    {
+        throw new PendingException();
     }
 
     /**

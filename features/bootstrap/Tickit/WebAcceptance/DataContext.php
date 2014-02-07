@@ -22,6 +22,7 @@
 namespace Tickit\WebAcceptance;
 
 use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
@@ -73,6 +74,22 @@ class DataContext extends BehatContext implements KernelAwareInterface
                 isset($userData['enabled']) ? $userData['enabled'] : true
             );
         }
+    }
+
+    /**
+     * @Given /^the following clients exist:$/
+     */
+    public function theFollowingClientsExist(TableNode $table)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given /^client "([^"]*)" has the following projects:$/
+     */
+    public function clientHasTheFollowingProjects($clientName, TableNode $table)
+    {
+        throw new PendingException();
     }
 
     /**
