@@ -43,7 +43,6 @@
         </service>
 
         <service id="tickit_user.security.user_friendly_role_decorator" class="%tickit_user.security.user_friendly_role_decorator.class%" />
-
     </services>
 
 </container>
