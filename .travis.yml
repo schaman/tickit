@@ -23,6 +23,7 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar --dev install
 
+  - cd app/Resources && npm install && cd ../../
   - npm install bower
   - bower install
 
