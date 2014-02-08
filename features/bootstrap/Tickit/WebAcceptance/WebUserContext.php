@@ -21,11 +21,10 @@
 
 namespace Tickit\WebAcceptance;
 
-use Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Tickit\Component\Model\User\User;
 use Tickit\WebAcceptance\Mixins\ContainerMixin;
 
 /**
@@ -37,6 +36,13 @@ use Tickit\WebAcceptance\Mixins\ContainerMixin;
 class WebUserContext extends MinkContext implements KernelAwareInterface
 {
     use ContainerMixin;
+
+    /**
+     * The currently logged in user
+     *
+     * @var User
+     */
+    public $loggedInUser;
 
     /**
      * Constructor.
@@ -55,7 +61,7 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     public function visit($page)
     {
         $this->getSession()->visit($this->locatePath($page));
-        $this->getSession()->wait(15000, 'typeof $ != undefined && $("#spin-wrap").length === 0');
+        $this->getSession()->wait(2000);
     }
 
     /**
@@ -156,12 +162,13 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     {
         /** @var DataContext $dataContext */
         $dataContext = $this->getSubcontext('data');
-        $dataContext->createUser($emailAddress, $emailAddress, 'password', $role);
+        $this->loggedInUser = $dataContext->createUser($emailAddress, $emailAddress, 'password', $role);
 
         $this->visit($this->generateUrl('fos_user_security_login'));
         $this->fillField('_username', $emailAddress);
         $this->fillField('_password', 'password');
         $this->pressButton('Login');
+        $this->getSession()->wait(2000);
     }
 
     /**

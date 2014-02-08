@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +22,15 @@
 namespace Tickit\WebAcceptance;
 
 use Behat\Behat\Context\BehatContext;
-use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Faker\Factory as FakerFactory;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Tickit\Component\Entity\Manager\ClientManager;
+use Tickit\Component\Entity\Manager\ProjectManager;
+use Tickit\Component\Model\Client\Client;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Entity\Manager\UserManager;
 use Tickit\WebAcceptance\Mixins\ContainerMixin;
@@ -79,17 +82,31 @@ class DataContext extends BehatContext implements KernelAwareInterface
     /**
      * @Given /^the following clients exist:$/
      */
-    public function theFollowingClientsExist(TableNode $table)
+    public function theFollowingClientsExist(TableNode $clients)
     {
-        throw new PendingException();
+        foreach ($clients->getHash() as $clientData) {
+            $this->createClient($clientData['name']);
+        }
     }
 
     /**
      * @Given /^client "([^"]*)" has the following projects:$/
      */
-    public function clientHasTheFollowingProjects($clientName, TableNode $table)
+    public function clientHasTheFollowingProjects($clientName, TableNode $projects)
     {
-        throw new PendingException();
+        /** @var ClientManager $clientManager */
+        $clientManager = $this->getService('tickit_client.manager');
+        $client = $clientManager->getRepository()->findOneBy(['name' => $clientName]);
+
+        if (null === $client) {
+            throw new \RuntimeException(
+                sprintf('No client could be found with the name %s', $clientName)
+            );
+        }
+
+        foreach ($projects->getHash() as $projectData) {
+            $this->createProject($projectData['name'], $projectData['status'], $client);
+        }
     }
 
     /**
@@ -101,7 +118,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
      * @param string|array $roles    The user role(s) (defaults to ROLE_USER)
      * @param boolean      $enabled  True if this user is enabled, false otherwise
      *
-     * @return void
+     * @return User
      */
     public function createUser(
         $email,
@@ -112,7 +129,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
     ) {
         $user = $this->getRepository('TickitUserBundle:User')->findOneByEmail($email);
         if (null !== $user) {
-            return;
+            return $user;
         }
 
         $roles = null === $roles ? User::ROLE_DEFAULT : $roles;
@@ -132,6 +149,53 @@ class DataContext extends BehatContext implements KernelAwareInterface
         /** @var UserManager $manager */
         $manager = $this->getService('fos_user.user_manager');
         $manager->create($user);
+
+        return $user;
+    }
+
+    /**
+     * Creates a new client in the database for the context.
+     *
+     * If one already exists with the same name, then it will not
+     * create another.
+     *
+     * @param string $name   The client name
+     * @param string $status The status of the client
+     */
+    private function createClient($name,$status = Client::STATUS_ACTIVE)
+    {
+        /** @var ClientManager $manager */
+        $manager = $this->getService('tickit_client.manager');
+
+        $client = new Client();
+        $client->setName($name)
+               ->setStatus($status)
+               ->setNotes('Notes for ' . $name)
+               ->setUrl('http://' . str_replace(' ', '', $name) . '.com');
+
+        $manager->create($client);
+    }
+
+    /**
+     * Creates a new project
+     *
+     * @param string $name   The project name
+     * @param string $status The status of the project (optional, defaults to STATUS_ACTIVE)
+     * @param Client $client The project client (optional, defaults to null)
+     */
+    private function createProject($name, $status = Project::STATUS_ACTIVE, Client $client = null)
+    {
+        /** @var ProjectManager $manager */
+        $manager = $this->getService('tickit_project.manager');
+
+        $project = new Project();
+        $project->setName($name)
+                ->setStatus($status)
+                ->setClient($client)
+                ->setTicketPrefix(substr($name, 0, 3))
+                ->setOwner($this->getLoggedInUser());
+
+        $manager->create($project);
     }
 
     /**
@@ -146,5 +210,10 @@ class DataContext extends BehatContext implements KernelAwareInterface
         return $this->getService('doctrine')
                     ->getManager()
                     ->getRepository($entityName);
+    }
+
+    private function getLoggedInUser()
+    {
+        return $this->getMainContext()->getSubcontext('web-user')->loggedInUser;
     }
 }
