@@ -85,6 +85,15 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
+     * @Then /^I should wait and see (\d+) table rows$/
+     */
+    public function iShouldWaitAndSeeTableRows($number)
+    {
+        $this->getSession()->wait(1500);
+        $this->assertNumElements($number, 'div.main table tbody tr');
+    }
+
+    /**
      * @Given /^I am a logged in user$/
      */
     public function iAmALoggedInUser()
@@ -126,15 +135,6 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
         if ($this->getSecurityContext()->isGranted('IS_AUTHENTICATED_REMEMBERED') === false) {
             throw new AuthenticationException('User is not authenticated but should be.');
         }
-    }
-
-    /**
-     * @Then /^I should wait and see (\d+) table rows$/
-     */
-    public function iShouldWaitAndSeeTableRows($number)
-    {
-        $this->getSession()->wait(1500);
-        $this->assertNumElements($number, 'div.main table  tbody tr');
     }
 
     /**
