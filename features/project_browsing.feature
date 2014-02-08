@@ -37,4 +37,3 @@ Feature: Project Browsing
          When I select "Apple" from "tickit_project_filters[client]"
          Then I should wait and see 2 table rows
 
-        # TODO

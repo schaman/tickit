@@ -36,6 +36,7 @@ define(function() {
          * @return {void}
          */
         goTo : function(path) {
+            path = path || '';
             if (path.match(/^javascript:/)) {
                 return;
             }
