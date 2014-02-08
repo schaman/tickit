@@ -28,7 +28,8 @@ before_script:
   - bower install
 
   # set up test environment #
-  - php app/console tickit:tests:setup --env test
+  - php app/console doctrine:database:create --env test
+  - php app/console doctrine:schema:create --env test
   - php app/console assets:install --symlink --env test
   - php app/console assetic:dump --env test
 
