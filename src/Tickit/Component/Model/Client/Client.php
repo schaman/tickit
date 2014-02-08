@@ -293,6 +293,8 @@ class Client
      * @param string $status The new client status
      *
      * @throws \InvalidArgumentException If an invalid status is provided
+     *
+     * @return Client
      */
     public function setStatus($status)
     {
@@ -303,6 +305,8 @@ class Client
         }
 
         $this->status = $status;
+
+        return $this;
     }
 
     /**
