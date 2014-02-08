@@ -17,9 +17,10 @@ default:
                 debug: true
         VIPSoft\DoctrineDataFixturesExtension\Extension:
             lifetime:    feature
-            autoload:    true
+            autoload:    false
             directories: ~
-            fixtures:    ~
+            fixtures:
+                - Tickit\Bundle\PreferenceBundle\DataFixtures\ORM\LoadPreferenceData
 
 saucelabs_win7_firefox:
     extensions:

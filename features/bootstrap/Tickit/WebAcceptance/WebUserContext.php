@@ -61,7 +61,7 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     public function visit($page)
     {
         $this->getSession()->visit($this->locatePath($page));
-        $this->getSession()->wait(2000);
+        $this->getSession()->wait(2500);
     }
 
     /**
@@ -129,27 +129,12 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
-     * @Then /^I should see (\d+) table rows$/
-     */
-    public function iShouldSeeTableRows($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When /^I fill in the following$/
-     */
-    public function iFillInTheFollowing(TableNode $table)
-    {
-        throw new PendingException();
-    }
-
-    /**
      * @Then /^I should wait and see (\d+) table rows$/
      */
-    public function iShouldWaitAndSeeTableRows($arg1)
+    public function iShouldWaitAndSeeTableRows($number)
     {
-        throw new PendingException();
+        $this->getSession()->wait(1500);
+        $this->assertNumElements($number, 'div.main table  tbody tr');
     }
 
     /**
@@ -168,7 +153,7 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
         $this->fillField('_username', $emailAddress);
         $this->fillField('_password', 'password');
         $this->pressButton('Login');
-        $this->getSession()->wait(2000);
+        $this->getSession()->wait(1000);
     }
 
     /**
