@@ -11,24 +11,24 @@ Feature: Project Browsing
             | Microsoft |
             | Samsung   |
           And client "Apple" has the following projects:
-            | name          | status | client     |
-            | Web Project 1 | active | Apple      |
-            | Web Project 2 | active | Apple      |
+            | name          | status |
+            | Web Project 1 | active |
+            | Web Project 2 | active |
           And client "Microsoft" has the following projects:
-            | name          | status | client     |
-            | Web Project 3 | active | Microsoft  |
-            | Web Project 4 | active | Microsoft  |
+            | name          | status |
+            | Web Project 3 | active |
+            | Web Project 4 | active |
           And client "Samsung" has the following projects:
-            | name          | status | client     |
-            | Web Project 5 | active | Samsung    |
+            | name          | status |
+            | Web Project 5 | active |
 
     Scenario: The project listing is visible
         Given I am currently on "/projects"
-         Then I should see 5 table rows
+         Then I should wait and see 5 table rows
 
     Scenario: The project listing can be filtered by name
         Given I am currently on "/projects"
-         When I fill in the following
+         When I fill in the following:
             | tickit_project_filters[name] | Web Project 1 |
          Then I should wait and see 1 table rows
 
