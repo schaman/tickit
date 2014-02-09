@@ -40,6 +40,7 @@ define(['modules/template'], function(Template) {
             var t = this;
             Template.fetch(url, function(tpl) {
                 t.$el.html(tpl);
+                t.initSelect2();
             });
         },
 
@@ -66,6 +67,13 @@ define(['modules/template'], function(Template) {
          */
         dispatchFilterChange : function() {
             this.trigger('change', this.getFilterValues());
+        },
+
+        /**
+         * Initialises the select2 integration
+         */
+        initSelect2 : function() {
+            // todo
         }
     });
 });
