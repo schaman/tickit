@@ -5,7 +5,7 @@
  *
  * @type {Backbone.View}
  */
-define(['modules/template'], function(Template) {
+define(['modules/template', 'select2'], function(Template) {
 
     return Backbone.View.extend({
 
@@ -40,7 +40,7 @@ define(['modules/template'], function(Template) {
             var t = this;
             Template.fetch(url, function(tpl) {
                 t.$el.html(tpl);
-                t.initSelect2();
+                t.initSelect2.apply(t);
             });
         },
 
@@ -73,7 +73,37 @@ define(['modules/template'], function(Template) {
          * Initialises the select2 integration
          */
         initSelect2 : function() {
-            // todo
+            var $pickers = this.$el.find('.picker');
+            _.each($pickers, function(el) {
+                var $e = $(el);
+                var maxSelections = $e.data('max-selections') || false;
+                var options = {
+                    multiple: true,
+                    minimumInputLength: 3,
+                    query: function(query) {
+                        if (query.term.length  < 3) {
+                            query.callback({ results: [] });
+
+                            return;
+                        }
+
+                        // this will be substituted with an ajax request
+                        setTimeout(function () {
+                            query.callback({
+                                results: [
+                                    { id: 1, text: "Mark Wilson" },
+                                    { id: 2, text: "James Halsall" },
+                                    { id: 3, text: "Stuart Rayson" }
+                                ]
+                            });
+                        }, 500);
+                    }
+                };
+                if (maxSelections !== false) {
+                    options.maximumSelectionSize = maxSelections;
+                }
+                $e.select2(options);
+            });
         }
     });
 });
