@@ -84,7 +84,6 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form->submit('1');
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
         $this->assertEquals($entity, $form->getData());
 
 
@@ -157,8 +156,6 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
 
         $this->assertTrue($form->isSynchronized());
         $this->assertEquals($entity, $form->getData());
-
-        $this->assertEquals(1, $form->getConfig()->getAttribute('data-max-selections'));
     }
 
     /**
@@ -180,13 +177,30 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     }
 
     /**
-     * Tests the form options handles "null" value for max_selections option.
+     * Tests the buildView() method
+     *
+     * @dataProvider getFormViewFixtures
      */
-    public function testMaxSelectionsAttributeHandlesNullValue()
+    public function testBuildView($formData, $formOptions, $expectedMaxSelections)
     {
-        $options = ['max_selections' => null];
-        $form = $this->factory->create($this->formType, null, $options);
+        $form = $this->factory->create($this->formType, $formData, $formOptions);
 
-        $this->assertEquals(0, $form->getConfig()->getAttribute('data-max-selections'));
+        $view = $form->createView();
+        $this->assertEquals($expectedMaxSelections, $view->vars['attr']['data-max-selections']);
+        $this->assertEquals('picker', $view->vars['attr']['class']);
+    }
+
+    /**
+     * Gets form view fixtures
+     *
+     * @return array
+     */
+    public function getFormViewFixtures()
+    {
+        return [
+            [null, ['max_selections' => null], 0],
+            [null, ['max_selections' => 3], 3],
+            [null, ['max_selections' => -9], 0]
+        ];
     }
 }
