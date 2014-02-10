@@ -11,4 +11,4 @@ tools:
 
 filter:
     paths: [src/*]
-    excluded_paths: [vendor/*, app/*, bin/*, features/*, Tests/*]
+    excluded_paths: [vendor/*, app/*, bin/*, features/*, */Tests/*]
