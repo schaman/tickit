@@ -44,7 +44,7 @@ class TemplateController
     /**
      * The user manager
      *
-     * @var UserManager
+     * @var AttributeManager
      */
     protected $attributeManager;
 

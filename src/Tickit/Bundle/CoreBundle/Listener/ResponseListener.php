@@ -37,6 +37,13 @@ use Symfony\Component\HttpKernel\HttpKernel;
 class ResponseListener
 {
     /**
+     * The environment name
+     *
+     * @var string
+     */
+    private $environment;
+
+    /**
      * Constructor.
      *
      * @param string $environment The application environment name

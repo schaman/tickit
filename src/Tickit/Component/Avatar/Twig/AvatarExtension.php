@@ -42,6 +42,13 @@ class AvatarExtension extends Twig_Extension
     private $avatarAdapter;
 
     /**
+     * A security context
+     *
+     * @var SecurityContextInterface
+     */
+    private $context;
+
+    /**
      * Constructor.
      *
      * @param AvatarAdapterInterface   $avatarAdapter   Avatar adapter
