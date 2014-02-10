@@ -91,13 +91,14 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         while ($i--) {
             $user = new User();
             $user->setUsername($faker->userName);
-            $user->setPlainPassword($faker->sentence());
+            $user->setPlainPassword('password');
             $user->setSuperAdmin(false);
             $user->setEmail($faker->safeEmail);
             $user->setForename($faker->firstName);
             $user->setSurname($faker->lastName);
             $user->setEnabled(true);
             $user->setLastActivity(new \DateTime());
+            $user->addRole('ROLE_USER');
 
             $manager->persist($user);
         }

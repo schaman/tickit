@@ -1,0 +1,18 @@
+{% block tickit_roles_widget %}
+{% spaceless %}
+    <div class="editable">
+        <h4>User Roles</h4>
+        {{ block('choice_widget') }}
+    </div>
+    {% if read_only_choices|length > 0 %}
+    <div class="readonly">
+        <h4>Roles You Cannot Manage</h4>
+        <ul>
+        {% for value,choice in read_only_choices %}
+            <li>{{ choice }} <input type="checkbox" disabled="disabled" {% if value in granted_roles %}checked="checked" {% endif %} /></li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock tickit_roles_widget %}

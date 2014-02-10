@@ -187,7 +187,7 @@ class ApiControllerTest extends AbstractUnitTest
                   ->method('decorate')
                   ->with(
                       new \ArrayIterator($users),
-                      ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
+                      ['id', 'forename', 'surname', 'email', 'username', 'admin', 'lastActivity'],
                       ['csrf_token' => 'token-value']
                   )
                   ->will($this->returnValue([['decorated user'], ['decorated user']]));

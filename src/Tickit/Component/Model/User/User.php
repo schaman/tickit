@@ -308,6 +308,6 @@ class User extends BaseUser implements AvatarAwareInterface
      */
     public function isAdmin()
     {
-        return $this->hasRole(static::ROLE_ADMIN);
+        return $this->hasRole(static::ROLE_ADMIN) || $this->hasRole(static::ROLE_SUPER_ADMIN);
     }
 }
