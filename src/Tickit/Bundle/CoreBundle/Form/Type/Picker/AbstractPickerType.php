@@ -23,6 +23,8 @@ namespace Tickit\Bundle\CoreBundle\Form\Type\Picker;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 
@@ -63,18 +65,23 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $attributes = [];
-
-        // we set the restriction as a data-* attribute, this lets the JS do the
-        // client side restriction and our field validator do the server-side work
-        if ($options['max_selections'] !== 0) {
-            $attributes['data-max-selections'] = $options['max_selections'];
-        }
-
         $this->transformer->setMaxSelections($options['max_selections']);
+        $builder->addModelTransformer($this->transformer);
+    }
 
-        $builder->addModelTransformer($this->transformer)
-                ->setAttributes($attributes);
+    /**
+     * Builds the form view
+     *
+     * @param FormView      $view    The form view
+     * @param FormInterface $form    The form
+     * @param array         $options An array of options for the form
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['attr'] = array(
+            'class' => 'picker',
+            'data-max-selections' => (intval($options['max_selections']) < 0) ? 0 : $options['max_selections']
+        );
     }
 
     /**
