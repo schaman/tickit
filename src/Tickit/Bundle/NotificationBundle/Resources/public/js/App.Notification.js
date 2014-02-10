@@ -37,7 +37,7 @@ define([
          */
         module.loadNotifications = function() {
             User.loadCurrentUser(function() {
-                var notifications = new NotificationCollection;
+                var notifications = new NotificationCollection();
                 notifications.fetch();
                 var view = new NotificationListView({ collection: notifications });
 

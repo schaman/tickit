@@ -16,15 +16,15 @@ require([
     var App = new Marionette.Application();
 
     App.addRegions({
-        mainRegion: new MainRegion,
+        mainRegion: new MainRegion(),
         loginRegion: new AnimatedRegion({ el: '#login-container' }),
-        toolbarRegion: new ToolbarRegion,
+        toolbarRegion: new ToolbarRegion(),
         notificationRegion: '#notification-side',
         searchRegion: '#search-side'
     });
 
     window.App = App;
-    App.Session = new Session;
+    App.Session = new Session();
 
     // load any other modules here
     require([

@@ -50,7 +50,7 @@ define([
                 'filter/js/views/FilterView',
                 'user/js/views/UserRowView'
             ], function(Collection, ListView, FilterView) {
-                var users = new Collection;
+                var users = new Collection();
                 users.fetch();
 
                 var view = new ListView({
@@ -70,7 +70,7 @@ define([
          */
         module.loadUserCreate = function() {
             require(['user/js/views/UserFormView'], function(view) {
-                App.mainRegion.show(new view);
+                App.mainRegion.show(new view());
             });
         };
 
@@ -92,6 +92,6 @@ define([
          */
         module.getCurrentUser = function() {
             return this.currentUser;
-        }
+        };
     });
 });

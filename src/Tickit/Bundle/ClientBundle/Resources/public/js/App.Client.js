@@ -20,7 +20,7 @@ define(function() {
                 'client/js/views/ClientListView',
                 'client/js/views/ClientRowView'
             ], function(Collection, FilterView, ListView) {
-                var clients = new Collection;
+                var clients = new Collection();
                 clients.fetch();
                 var view = new ListView({
                     collection: clients,
@@ -39,7 +39,7 @@ define(function() {
          */
         module.loadClientCreate = function() {
             require(['client/js/views/ClientFormView'], function(view) {
-                App.mainRegion.show(new view);
+                App.mainRegion.show(new view());
             });
         };
 
@@ -54,6 +54,6 @@ define(function() {
             require(['client/js/views/ClientFormView'], function(view) {
                 App.mainRegion.show(new view({ id: id }));
             });
-        }
+        };
     });
 });

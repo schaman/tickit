@@ -39,7 +39,7 @@ define([
                 if (uri.length) {
                     Router.goTo(uri);
                 }
-            }
+            };
         });
     };
 

@@ -24,6 +24,6 @@ define(function() {
             });
 
             App.mainRegion.show(view);
-        }
+        };
     });
 });

@@ -39,7 +39,7 @@ define(['backbone', 'notification/js/models/Notification', 'underscore'], functi
          * @returns {string}
          */
         url: function() {
-            return Routing.generate('api_notification_list')
+            return Routing.generate('api_notification_list');
         }
     });
 });

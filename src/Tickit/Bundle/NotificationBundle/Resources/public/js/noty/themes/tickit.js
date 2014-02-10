@@ -19,5 +19,5 @@ define(['jquery', 'noty'], function($) {
                 top: 0
             }
         }
-    }
+    };
 });

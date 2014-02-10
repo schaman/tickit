@@ -38,9 +38,9 @@ define([
          */
         module.loadToolbarNavigation = function() {
             User.loadCurrentUser(function(user) {
-                var layout = new ToolbarLayout;
+                var layout = new ToolbarLayout();
                 layout.on('show', function() {
-                    var navItems = new NavigationItemCollection;
+                    var navItems = new NavigationItemCollection();
                     var settingsNavItems = new NavigationItemCollection([], { name: 'settings' });
 
                     layout.profileRegion.show(new ProfileNavigationView({ model: user }));
@@ -49,6 +49,6 @@ define([
                 });
                 App.toolbarRegion.show(layout);
             });
-        }
+        };
     });
 });

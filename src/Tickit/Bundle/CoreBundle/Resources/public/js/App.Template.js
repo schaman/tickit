@@ -59,6 +59,6 @@ define(['modules/request'], function(Request) {
                     }
                 });
             }
-        }
+        };
     });
 });

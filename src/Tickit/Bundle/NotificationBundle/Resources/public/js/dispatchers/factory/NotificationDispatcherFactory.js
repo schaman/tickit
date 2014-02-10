@@ -19,14 +19,14 @@ define([
             factory : function() {
                 switch (true) {
                     case (Modernizr.notification):
-                        return new Html5NotificationDispatcher;
+                        return new Html5NotificationDispatcher();
                         break;
                     default:
-                        return new AmbientNotificationDispatcher;
+                        return new AmbientNotificationDispatcher();
                 }
             }
         };
     }
 
-    return new NotificationDispatcherFactory;
+    return new NotificationDispatcherFactory();
 });

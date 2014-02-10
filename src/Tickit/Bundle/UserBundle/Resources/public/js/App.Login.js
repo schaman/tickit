@@ -19,6 +19,6 @@ define(['user/js/views/LoginView'], function(LoginView) {
             } else {
                 App.Router.goTo('dashboard');
             }
-        }
+        };
     });
 });

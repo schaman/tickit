@@ -20,7 +20,7 @@ define(function() {
                 'filter/js/views/FilterView',
                 'project/js/views/ProjectRowView'
             ], function(Collection, ListView, FilterView) {
-                var projects = new Collection;
+                var projects = new Collection();
                 projects.fetch();
 
                 var view = new ListView({
@@ -40,7 +40,7 @@ define(function() {
          */
         module.loadProjectCreate = function() {
             require(['project/js/views/ProjectFormView'], function(view) {
-                App.mainRegion.show(new view);
+                App.mainRegion.show(new view());
             });
         };
 
@@ -53,6 +53,6 @@ define(function() {
             require(['project/js/views/ProjectFormView'], function(view) {
                 App.mainRegion.show(new view({ id: id }));
             });
-        }
+        };
     });
 });

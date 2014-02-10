@@ -134,5 +134,5 @@ define(function() {
         }
     });
 
-    return new Router;
+    return new Router();
 });
