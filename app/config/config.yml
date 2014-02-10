@@ -22,9 +22,6 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources:
-            - 'TickitUserBundle:Form:tickit_user_picker.html.twig'
 
 # Assetic Configuration
 assetic:
