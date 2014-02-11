@@ -2,11 +2,13 @@ language: php
 php:
   - 5.4
   - 5.5
+  - 5.6.0alpha1
   - hhvm
 
 matrix:
   allow_failures:
     - php: hhvm
+    - php: 5.6.0alpha1
 
 addons:
   sauce_connect:
