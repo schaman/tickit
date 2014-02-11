@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Filter;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -53,8 +54,25 @@ class ExactMatchFilter extends AbstractFilter
 
         $aliases = $query->getRootAliases();
 
-        $query->andWhere(sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey()))
-              ->setParameter($this->getKey(), $this->getValue());
+        if ($value instanceof Collection || true === is_array($value)) {
+            $values = [];
+            $i = count($query->getParameters()) + 1;
+            foreach ($value as $v) {
+                $values[sprintf('?%d', $i++)] = $v;
+            }
+            $query->andWhere(
+                $query->expr()->in(
+                    sprintf('%s.%s', $aliases[0], $this->getKey()),
+                    array_keys($values)
+                )
+            );
+            foreach ($values as $key => $value) {
+                $query->setParameter($key, $value);
+            }
+        } else {
+            $query->andWhere(sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey()))
+                  ->setParameter($this->getKey(), $this->getValue());
+        }
     }
 
     /**
