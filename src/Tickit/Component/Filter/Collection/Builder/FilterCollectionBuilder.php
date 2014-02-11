@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 
 namespace Tickit\Component\Filter\Collection\Builder;
 
-use Symfony\Component\HttpFoundation\Request;
 use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Definition\FilterDefinition;
@@ -38,21 +37,19 @@ use Tickit\Component\Filter\Map\FilterMapperInterface;
 class FilterCollectionBuilder
 {
     /**
-     * Builds a collection of filters from a request object
+     * Builds a collection of filters from an array of data
      *
-     * @param Request               $request         The request object
-     * @param string                $filterNamespace The namespace key of the filters in the request object
-     * @param FilterMapperInterface $filterMapper    A filter mapper
+     * @param array                 $data         The array to build from
+     * @param FilterMapperInterface $filterMapper A filter mapper
      *
      * @return FilterCollection
      */
-    public function buildFromRequest(Request $request, $filterNamespace, FilterMapperInterface $filterMapper)
+    public function buildFromArray(array $data, FilterMapperInterface $filterMapper)
     {
         $collection = new FilterCollection();
         $fieldMap = $filterMapper->getFieldMap();
 
-        $requestFilters = $request->query->get($filterNamespace, []);
-        foreach ($requestFilters as $fieldName => $filterValue) {
+        foreach ($data as $fieldName => $filterValue) {
             $definition = (isset($fieldMap[$fieldName])) ? $fieldMap[$fieldName] : null;
 
             if (!$definition instanceof FilterDefinition) {
