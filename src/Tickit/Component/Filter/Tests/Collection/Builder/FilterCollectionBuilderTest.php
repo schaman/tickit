@@ -54,36 +54,12 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildFromRequestReturnsEmptyCollectionForNoFilters()
     {
-        $request = Request::create('/', 'get', array());
-
         $this->filterMapper->expects($this->once())
                            ->method('getFieldMap')
                            ->will($this->returnValue(null));
 
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
-
-        $this->assertTrue($collection->isEmpty());
-    }
-
-    /**
-     * Tests the buildFromRequest() method
-     */
-    public function testBuildFromRequestReturnsEmptyCollectionForInvalidNamespace()
-    {
-        $filters = [
-            'filters' => [
-                'column' => 'value'
-            ]
-        ];
-
-        $this->filterMapper->expects($this->once())
-                           ->method('getFieldMap')
-                           ->will($this->returnValue(null));
-
-        $builder = new FilterCollectionBuilder();
-        $request = Request::create('/', 'get', $filters);
-        $collection = $builder->buildFromRequest($request, 'invalid-namespace', $this->filterMapper);
+        $collection = $builder->buildFromArray([], $this->filterMapper);
 
         $this->assertTrue($collection->isEmpty());
     }
@@ -94,19 +70,16 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildFromRequestIgnoresNonMappedFields()
     {
         $filters = [
-            'filters' => [
-                'mapped_field' => 'search term',
-                'unmapped_field' => 'search term'
-            ]
+            'mapped_field' => 'search term',
+            'unmapped_field' => 'search term'
         ];
 
         $fieldMap = ['mapped_field' => new FilterDefinition(AbstractFilter::FILTER_SEARCH)];
 
         $this->trainFilterMapperToReturnFieldMap($fieldMap);
 
-        $request = Request::create('/', 'get', $filters);
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
+        $collection = $builder->buildFromArray($filters, $this->filterMapper);
 
         $this->assertEquals(1, $collection->count());
         $mappedFilter = $collection->first();
@@ -121,14 +94,12 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
     public function testBuildFromRequestReturnsValidCollection()
     {
         $filters = [
-            'filters' => [
-                'column' => 'ASC',
-                'column2' => 'DESC',
-                'field1' => 'value',
-                'field2' => 500,
-                'field3' => 'search term',
-                'field4' => 'another search term'
-            ]
+            'column' => 'ASC',
+            'column2' => 'DESC',
+            'field1' => 'value',
+            'field2' => 500,
+            'field3' => 'search term',
+            'field4' => 'another search term'
         ];
 
         $fieldMap = [
@@ -142,9 +113,8 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->trainFilterMapperToReturnFieldMap($fieldMap);
 
-        $request = Request::create('/', 'get', $filters);
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
+        $collection = $builder->buildFromArray($filters, $this->filterMapper);
 
         $this->assertEquals(6, $collection->count());
 
@@ -152,7 +122,7 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
         foreach ($collection->toArray() as $filter) {
             $expectedType = $fieldMap[$filter->getKey()]->getType();
             $this->assertEquals($expectedType, $filter->getType());
-            $this->assertEquals($filters['filters'][$filter->getKey()], $filter->getValue());
+            $this->assertEquals($filters[$filter->getKey()], $filter->getValue());
         }
     }
 

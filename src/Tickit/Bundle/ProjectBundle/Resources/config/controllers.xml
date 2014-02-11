@@ -25,6 +25,7 @@
             <argument type="service" id="tickit_project.attribute_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
+            <argument type="service" id="tickit.controller.form_helper" />
         </service>
 
         <service id="tickit_project.controller.project" class="%tickit_project.controller.project.class%" scope="request">

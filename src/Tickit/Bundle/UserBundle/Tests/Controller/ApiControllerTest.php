@@ -70,6 +70,16 @@ class ApiControllerTest extends AbstractUnitTest
     private $paginator;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $formHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $form;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -84,6 +94,8 @@ class ApiControllerTest extends AbstractUnitTest
 
         $this->avatarAdapter = $this->getMock('Tickit\Component\Avatar\Adapter\AvatarAdapterInterface');
         $this->paginator = $this->getMockPaginator();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->form = $this->getMockForm();
     }
     
     /**
@@ -151,12 +163,24 @@ class ApiControllerTest extends AbstractUnitTest
     public function testListActionBuildsCorrectResponse()
     {
         $request = new Request();
+        $filterData = [
+            'key' => 'value'
+        ];
         $this->trainBaseHelperToReturnRequest($request);
         $filters = new FilterCollection();
 
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with(new FilterFormType(), null)
+                         ->will($this->returnValue($this->form));
+
+        $this->form->expects($this->once())
+                   ->method('getData')
+                   ->will($this->returnValue($filterData));
+
         $this->filterBuilder->expects($this->once())
-                            ->method('buildFromRequest')
-                            ->with($request, FilterFormType::NAME, new UserFilterMapper())
+                            ->method('buildFromArray')
+                            ->with($filterData, new UserFilterMapper())
                             ->will($this->returnValue($filters));
 
         $user1 = new User();
@@ -209,7 +233,8 @@ class ApiControllerTest extends AbstractUnitTest
             $this->csrfHelper,
             $this->filterBuilder,
             $this->userRepository,
-            $this->avatarAdapter
+            $this->avatarAdapter,
+            $this->formHelper
         );
     }
 
