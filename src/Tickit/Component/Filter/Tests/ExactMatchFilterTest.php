@@ -134,11 +134,11 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
         $this->query->expects($this->at(0))
                     ->method('setParameter')
-                    ->with('?1', $entity1);
+                    ->with(1, $entity1);
 
         $this->query->expects($this->at(1))
                     ->method('setParameter')
-                    ->with('?2', $entity2);
+                    ->with(2, $entity2);
 
         $filter->applyToQuery($this->query);
     }
