@@ -55,8 +55,15 @@ class ExactMatchFilter extends AbstractFilter
         $aliases = $query->getRootAliases();
 
         if ($value instanceof Collection || true === is_array($value)) {
+
+            // we aren't interested in applying anything to the query if an
+            // empty array of empty collection was provided
+            if (count($value) === 0) {
+                return;
+            }
+
             $values = [];
-            $i = count($query->getParameters()) + 1;
+            $i = 1;
             foreach ($value as $v) {
                 $values[sprintf(':%s%d', $this->getKey(), $i++)] = $v;
             }
@@ -70,7 +77,8 @@ class ExactMatchFilter extends AbstractFilter
                 $query->setParameter(str_replace(':', '', $key), $value);
             }
         } else {
-            $query->andWhere(sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey()))
+            $where = sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey());
+            $query->andWhere($where)
                   ->setParameter($this->getKey(), $this->getValue());
         }
     }
