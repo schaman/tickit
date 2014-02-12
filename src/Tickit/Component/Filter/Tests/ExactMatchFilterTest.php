@@ -145,19 +145,19 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getEmptyArrayFixtures
      */
-    public function testApplyToQueryIgnoresEmptyArray()
+    public function testApplyToQueryIgnoresEmptyArray($values)
     {
-        $values = new ArrayCollection();
         $filter = new ExactMatchFilter('id', $values);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
         $this->trainEntityManagerToReturnClassMetaData($this->em);
 
-        $this->query->expects($this->once())
-                    ->method('getRootAliases')
-                    ->will($this->returnValue(['u']));
+        $this->query->expects($this->never())
+                    ->method('getRootAliases');
 
         $this->query->expects($this->never())
                     ->method('andWhere');
@@ -166,5 +166,13 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter');
 
         $filter->applyToQuery($this->query);
+    }
+
+    public function getEmptyArrayFixtures()
+    {
+        return [
+            [new ArrayCollection()],
+            [[]]
+        ];
     }
 }
