@@ -123,9 +123,13 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('expr')
                     ->will($this->returnValue($expression));
 
+        $expectedOr = $expression->orX(
+            $expression->eq('u.id', ':id0'),
+            $expression->eq('u.id', ':id1')
+        );
         $this->query->expects($this->once())
                     ->method('andWhere')
-                    ->with($expression->in('u.id', [':id1', ':id2']))
+                    ->with($expectedOr)
                     ->will($this->returnSelf());
 
         $this->query->expects($this->exactly(2))
@@ -134,11 +138,11 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
         $this->query->expects($this->at(5))
                     ->method('setParameter')
-                    ->with('id1', $entity1);
+                    ->with('id0', $entity1);
 
         $this->query->expects($this->at(6))
                     ->method('setParameter')
-                    ->with('id2', $entity2);
+                    ->with('id1', $entity2);
 
         $filter->applyToQuery($this->query);
     }

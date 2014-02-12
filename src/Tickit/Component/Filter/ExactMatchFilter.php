@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -60,19 +61,29 @@ class ExactMatchFilter extends AbstractFilter
 
         if (true === is_array($value)) {
 
-            $values = [];
-            $i = 1;
-            foreach ($value as $v) {
-                $values[sprintf(':%s%d', $this->getKey(), $i++)] = $v;
-            }
-            $query->andWhere(
-                $query->expr()->in(
-                    sprintf('%s.%s', $aliases[0], $this->getKey()),
-                    array_keys($values)
-                )
+            // here we have to dynamically build a WHERE (cond1 OR cond2 OR cond3 ...)
+            // query condition using doctrine's Expr class, because the paginators in
+            // doctrine have quirks with WHERE IN query conditions because of the way
+            // it handles parameters in the paginator
+            $key = $this->getKey();
+            $expression = $query->expr();
+            $valueCopy = $value;
+            array_walk(
+                $valueCopy,
+                function (&$v, $i) use ($expression, $key, $aliases) {
+                    /** @var Expr $expression */
+                    $parameterName = sprintf(':%s%d', $key, $i);
+                    $property = sprintf('%s.%s', $aliases[0], $key);
+                    $v = $expression->eq($property, $parameterName);
+                }
             );
-            foreach ($values as $key => $value) {
-                $query->setParameter(str_replace(':', '', $key), $value);
+
+            $orCondition = call_user_func_array(array($expression, 'orX'), $valueCopy);
+            $query->andWhere($orCondition);
+
+            $i = 0;
+            foreach ($value as $subValue) {
+                $query->setParameter(sprintf('%s%d', $this->getKey(), $i++), $subValue);
             }
         } else {
             $where = sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey());
