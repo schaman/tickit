@@ -132,13 +132,38 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter')
                     ->will($this->onConsecutiveCalls($this->returnSelf(), $this->returnSelf()));
 
-        $this->query->expects($this->at(6))
+        $this->query->expects($this->at(5))
                     ->method('setParameter')
                     ->with('id1', $entity1);
 
-        $this->query->expects($this->at(7))
+        $this->query->expects($this->at(6))
                     ->method('setParameter')
                     ->with('id2', $entity2);
+
+        $filter->applyToQuery($this->query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
+     */
+    public function testApplyToQueryIgnoresEmptyArray()
+    {
+        $values = new ArrayCollection();
+        $filter = new ExactMatchFilter('id', $values);
+
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
+
+        $this->query->expects($this->once())
+                    ->method('getRootAliases')
+                    ->will($this->returnValue(['u']));
+
+        $this->query->expects($this->never())
+                    ->method('andWhere');
+
+        $this->query->expects($this->never())
+                    ->method('setParameter');
 
         $filter->applyToQuery($this->query);
     }
