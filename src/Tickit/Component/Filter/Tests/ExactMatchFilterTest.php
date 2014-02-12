@@ -125,20 +125,20 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
         $this->query->expects($this->once())
                     ->method('andWhere')
-                    ->with($expression->in('u.id', ['?1', '?2']))
+                    ->with($expression->in('u.id', [':id1', ':id2']))
                     ->will($this->returnSelf());
 
         $this->query->expects($this->exactly(2))
                     ->method('setParameter')
                     ->will($this->onConsecutiveCalls($this->returnSelf(), $this->returnSelf()));
 
-        $this->query->expects($this->at(0))
+        $this->query->expects($this->at(6))
                     ->method('setParameter')
-                    ->with(1, $entity1);
+                    ->with('id1', $entity1);
 
-        $this->query->expects($this->at(1))
+        $this->query->expects($this->at(7))
                     ->method('setParameter')
-                    ->with(2, $entity2);
+                    ->with('id2', $entity2);
 
         $filter->applyToQuery($this->query);
     }
