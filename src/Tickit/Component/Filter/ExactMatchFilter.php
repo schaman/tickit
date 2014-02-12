@@ -56,10 +56,9 @@ class ExactMatchFilter extends AbstractFilter
 
         if ($value instanceof Collection || true === is_array($value)) {
             $values = [];
-            // TODO: this needs refactoring to use named parameters rather than numeric parameters
             $i = count($query->getParameters()) + 1;
             foreach ($value as $v) {
-                $values[sprintf('?%d', $i++)] = $v;
+                $values[sprintf(':%s%d', $this->getKey(), $i++)] = $v;
             }
             $query->andWhere(
                 $query->expr()->in(
@@ -68,7 +67,7 @@ class ExactMatchFilter extends AbstractFilter
                 )
             );
             foreach ($values as $key => $value) {
-                $query->setParameter(str_replace('?', '', $key), $value);
+                $query->setParameter(str_replace(':', '', $key), $value);
             }
         } else {
             $query->andWhere(sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey()))
