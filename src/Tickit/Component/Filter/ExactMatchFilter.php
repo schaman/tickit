@@ -48,19 +48,17 @@ class ExactMatchFilter extends AbstractFilter
         }
 
         $value = $this->getValue();
+        if ($value instanceof Collection) {
+            $value = $value->toArray();
+        }
+
         if (empty($value)) {
             return;
         }
 
         $aliases = $query->getRootAliases();
 
-        if ($value instanceof Collection || true === is_array($value)) {
-
-            // we aren't interested in applying anything to the query if an
-            // empty array of empty collection was provided
-            if (count($value) === 0) {
-                return;
-            }
+        if (true === is_array($value)) {
 
             $values = [];
             $i = 1;
