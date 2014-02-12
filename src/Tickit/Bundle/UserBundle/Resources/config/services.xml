@@ -10,6 +10,8 @@
         <parameter key="tickit_user.avatar.twig_extension.class">Tickit\Component\Avatar\Twig\AvatarExtension</parameter>
         <parameter key="tickit_user.display_name_decorator.class">Tickit\Component\Decorator\Entity\UserEntityDisplayNameDecorator</parameter>
         <parameter key="tickit_user.user_event_dispatcher">Tickit\Component\Event\User\Dispatcher\UserEventDispatcher</parameter>
+        <parameter key="tickit_user.security.container_role_provider.class">Tickit\Bundle\UserBundle\Security\Role\Provider\ContainerRoleProvider</parameter>
+        <parameter key="tickit_user.security.user_friendly_role_decorator.class">Tickit\Component\Security\Role\Decorator\UserFriendlyRoleDecorator</parameter>
     </parameters>
 
     <services>
@@ -36,6 +38,11 @@
 
         <service id="tickit_user.display_name_decorator" class="%tickit_user.display_name_decorator.class%" />
 
+        <service id="tickit_user.security.container_role_provider" class="%tickit_user.security.container_role_provider.class%">
+            <argument type="service" id="security.role_hierarchy" />
+        </service>
+
+        <service id="tickit_user.security.user_friendly_role_decorator" class="%tickit_user.security.user_friendly_role_decorator.class%" />
     </services>
 
 </container>

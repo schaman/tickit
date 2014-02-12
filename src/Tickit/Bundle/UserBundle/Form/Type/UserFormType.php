@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ class UserFormType extends AbstractType
                         'invalid_message' => 'Oops! Looks like those passwords don\'t match'
                     )
                 )
-                ->add('admin', 'checkbox', array('label' => 'Is admin?'));
+                ->add('roles', 'tickit_roles');
     }
 
     /**

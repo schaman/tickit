@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="tickit_user.user_form_type.class">Tickit\Bundle\UserBundle\Form\Type\UserFormType</parameter>
+        <parameter key="tickit_user.roles_form_type.class">Tickit\Bundle\UserBundle\Form\Type\RolesFormType</parameter>
         <parameter key="tickit_user.profile.form.type.class">Tickit\Bundle\UserBundle\Form\Type\ProfileFormType</parameter>
         <parameter key="tickit_user.registration.form.type.class">Tickit\Bundle\UserBundle\Form\Type\RegistrationFormType</parameter>
         <parameter key="tickit_user.form.type.user_picker.class">Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType</parameter>
@@ -18,6 +19,13 @@
 
         <service id="tickit_user.user_form_type" class="%tickit_user.user_form_type.class%">
             <tag name="form.type" alias="tickit_user" />
+        </service>
+
+        <service id="tickit_user.roles_form_type" class="%tickit_user.roles_form_type.class%">
+            <tag name="form.type" alias="tickit_roles" />
+            <argument type="service" id="tickit_user.security.container_role_provider" />
+            <argument type="service" id="tickit_user.security.user_friendly_role_decorator" />
+            <argument type="service" id="security.context" />
         </service>
 
         <service id="tickit_user.profile.form.type" class="%tickit_user.profile.form.type.class%">

@@ -85,4 +85,31 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setAdmin(false);
         $this->assertFalse($user->isAdmin());
     }
+
+    /**
+     * Tests the isAdmin() method
+     *
+     * @dataProvider getIsAdminFixtures
+     */
+    public function testIsAdminDetectsRolesCorrectly(array $roles, $expectedReturn)
+    {
+        $user = new User();
+        $user->setRoles($roles);
+
+        $this->assertEquals($expectedReturn, $user->isAdmin());
+    }
+
+    /**
+     * Data fixtures for isAdmin() tests
+     */
+    public function getIsAdminFixtures()
+    {
+        return [
+            [['ROLE_USER'], false],
+            [['ROLE_ADMIN'], true],
+            [['ROLE_SUPER_ADMIN'], true],
+            [['ROLE_USER', 'ROLE_ADMIN'], true],
+            [['ROLE_SUPER_ADMIN', 'ROLE_ADMIN'], true]
+        ];
+    }
 }
