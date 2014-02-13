@@ -33,6 +33,7 @@ use Tickit\Component\Filter\Map\FilterMapperInterface;
  *
  * @package Tickit\Component\Filter\Collection\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @see     Tickit\Component\Filter\Collection\FilterCollection
  */
 class FilterCollectionBuilder
 {
@@ -41,12 +42,20 @@ class FilterCollectionBuilder
      *
      * @param array                 $data         The array to build from
      * @param FilterMapperInterface $filterMapper A filter mapper
+     * @param string                $joinType   The filter type, either "AND" or "OR". If the filter type is "OR" then
+     *                                          the resultant FilterCollection will bind all filters using OR logic,
+     *                                          meaning that only one of the conditions has to be true to return a match.
+     *                                          Defaults to "AND"
      *
      * @return FilterCollection
      */
-    public function buildFromArray(array $data, FilterMapperInterface $filterMapper)
-    {
+    public function buildFromArray(
+        array $data,
+        FilterMapperInterface $filterMapper,
+        $joinType = FilterCollection::JOIN_TYPE_AND
+    ) {
         $collection = new FilterCollection();
+        $collection->setType($joinType);
         $fieldMap = $filterMapper->getFieldMap();
 
         foreach ($data as $fieldName => $filterValue) {
