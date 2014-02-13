@@ -98,7 +98,7 @@ class PickerControllerTest extends AbstractUnitTest
         $decorated = ['decorated' => 'values'];
         $decorator->expects($this->once())
                   ->method('decorate')
-                  ->with($iterator, ['id', 'forename', 'surname', 'email'])
+                  ->with($iterator, ['id', 'fullName', 'email'])
                   ->will($this->returnValue($decorated));
 
         $response = $this->getController()->findAction($request);
