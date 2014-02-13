@@ -135,7 +135,8 @@ class PickerControllerTest extends AbstractUnitTest
     {
         return [
             [''],
-            [null]
+            [null],
+            ['ja'] // this should cause a 404 exception because the term should be at least 3 characters
         ];
     }
 
