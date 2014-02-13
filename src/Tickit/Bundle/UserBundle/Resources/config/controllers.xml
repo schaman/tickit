@@ -8,6 +8,7 @@
         <parameter key="tickit_user.controller.template.class">Tickit\Bundle\UserBundle\Controller\TemplateController</parameter>
         <parameter key="tickit_user.controller.api.class">Tickit\Bundle\UserBundle\Controller\ApiController</parameter>
         <parameter key="tickit_user.controller.user.class">Tickit\Bundle\UserBundle\Controller\UserController</parameter>
+        <parameter key="tickit_user.controller.picker.class">Tickit\Bundle\UserBundle\Controller\PickerController</parameter>
     </parameters>
 
     <services>
@@ -32,6 +33,12 @@
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit_user.manager" />
             <argument type="service" id="tickit_user.form.password_updater" />
+        </service>
+
+        <service id="tickit_user.controller.picker" class="%tickit_user.controller.picker.class%" scope="request">
+            <argument type="service" id="tickit_user.user_repository" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit.filter_collection_builder" />
         </service>
 
     </services>

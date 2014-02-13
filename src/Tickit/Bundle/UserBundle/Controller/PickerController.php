@@ -21,8 +21,13 @@
 
 namespace Tickit\Bundle\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Tickit\Component\Controller\Helper\BaseHelper;
+use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Map\User\UserFilterMapper;
+use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 
 /**
  * Picker controller.
@@ -35,20 +40,72 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PickerController
 {
     /**
+     * Filterable user repository
+     *
+     * @var FilterableRepositoryInterface
+     */
+    private $userRepository;
+
+    /**
+     * Filter collection builder
+     *
+     * @var FilterCollectionBuilder
+     */
+    private $filterCollectionBuilder;
+
+    /**
+     * The base controller helper
+     *
+     * @var BaseHelper
+     */
+    private $baseHelper;
+
+    /**
+     * Constructor.
+     *
+     * @param FilterableRepositoryInterface $userRepository          A filterable user repository
+     * @param BaseHelper                    $baseHelper              The base controller helper
+     * @param FilterCollectionBuilder       $filterCollectionBuilder The filter collection builder
+     */
+    public function __construct(
+        FilterableRepositoryInterface $userRepository,
+        BaseHelper $baseHelper,
+        FilterCollectionBuilder $filterCollectionBuilder
+    ) {
+        $this->userRepository           = $userRepository;
+        $this->filterCollectionBuilder  = $filterCollectionBuilder;
+        $this->baseHelper               = $baseHelper;
+    }
+
+    /**
      * Find action.
      *
-     * Finds matches for the picker search term. The search term
-     * must be at least 3 characters long
+     * Finds matches for the picker search term.
+     *
+     * Returns the results in a JSON object
      *
      * @param Request $request The request object
      *
      * @throws NotFoundHttpException
+     *
+     * @return JsonResponse
      */
     public function findAction(Request $request)
     {
         $term = $request->get('term');
-        if (empty($term) || strlen($term) < 3) {
-            throw new NotFoundHttpException();
-        }
+        $searchData = [
+            'forename' => $term,
+            'surname' => $term,
+            'username' => $term,
+            'email' => $term
+        ];
+
+        $filters = $this->filterCollectionBuilder->buildFromArray($searchData, new UserFilterMapper());
+        $users = $this->userRepository->findByFilters($filters);
+        $decorator = $this->baseHelper->getObjectCollectionDecorator();
+
+        $users = $decorator->decorate($users->getIterator(), ['id', 'fullName', 'email']);
+
+        return new JsonResponse($users);
     }
 }
