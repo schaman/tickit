@@ -35,6 +35,35 @@ use Tickit\Component\Filter\QueryBuilderApplicableInterface;
  */
 class FilterCollection extends ArrayCollection
 {
+    const JOIN_TYPE_AND = 'AND';
+    const JOIN_TYPE_OR = 'OR';
+
+    /**
+     * The join type.
+     *
+     * When this value is "AND", all filters will be applied to the query
+     * in such a way that all filter conditions must be met in order for a
+     * result to be returned.
+     *
+     * If this value is "OR" then only one of the filter conditions must be
+     * true in order to return a match.
+     *
+     * @var string
+     */
+    private $joinType = 'AND';
+
+    /**
+     * Sets the filters type
+     */
+    public function setType($type)
+    {
+        if (false === in_array($type, [static::JOIN_TYPE_AND, static::JOIN_TYPE_OR])) {
+            throw new \InvalidArgumentException(sprintf('Invalid join type (%s) provided', $type));
+        }
+
+        $this->joinType = $type;
+    }
+
     /**
      * Applies the collection of filters to a query
      *
@@ -46,7 +75,7 @@ class FilterCollection extends ArrayCollection
     {
         /** @var QueryBuilderApplicableInterface $filter */
         foreach ($this->toArray() as $filter) {
-            $filter->applyToQuery($query);
+            $filter->applyToQuery($query, $this->joinType);
         }
     }
 }
