@@ -119,28 +119,6 @@ class PickerControllerTest extends AbstractUnitTest
     }
 
     /**
-     * Tests the findAction() method
-     *
-     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
-     * @dataProvider getEmptyFindActionFixtures
-     */
-    public function testFindActionThrowsExceptionForMissingSearchTerm($term)
-    {
-        $request = Request::create('', 'GET', ['term' => $term]);
-        $this->getController()->findAction($request);
-    }
-
-    public function getEmptyFindActionFixtures()
-    {
-        return [
-            [''],
-            [null],
-            ['ja'] // this should cause a 404 exception because the term should be at least 3 characters
-        ];
-    }
-
-    /**
      * Gets a new controller instance
      *
      * @return PickerController
