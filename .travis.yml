@@ -41,7 +41,7 @@ after_script:
 notifications:
   email:
     - james.t.halsall@googlemail.com
-    - mw870618@gmail.com
+    - mark@89allport.co.uk
     - sparky@sparky-san.com
 
 branches:
