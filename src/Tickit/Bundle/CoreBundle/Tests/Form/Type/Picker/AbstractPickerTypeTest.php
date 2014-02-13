@@ -36,11 +36,6 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $decorator;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     private $transformer;
 
     /**
