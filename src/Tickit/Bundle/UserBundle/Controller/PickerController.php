@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
+use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 
@@ -101,6 +102,7 @@ class PickerController
         ];
 
         $filters = $this->filterCollectionBuilder->buildFromArray($searchData, new UserFilterMapper());
+        $filters->setType(FilterCollection::JOIN_TYPE_OR);
         $users = $this->userRepository->findByFilters($filters);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
