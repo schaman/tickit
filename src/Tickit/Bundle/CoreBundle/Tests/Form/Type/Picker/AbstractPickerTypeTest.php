@@ -67,7 +67,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create(
             $this->formType,
             null,
-            ['max_selections' => 1]
+            ['max_selections' => 1, 'provider' => 'api_user_list']
         );
         $entity = new MockEntity(1);
 
@@ -89,7 +89,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
      */
     public function testMultipleEntitySubmission()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create($this->formType, null, ['provider' => 'api_user_list']);
 
         $entity1 = new MockEntity(1);
         $entity2 = new MockEntity(2);
@@ -120,7 +120,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
      */
     public function testSubmittedInvalidEntityIdentifiers()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create($this->formType, null, ['provider' => 'api_user_list']);
 
         $this->transformer->expects($this->once())
                           ->method('findEntityByIdentifier')
@@ -143,7 +143,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         $form = $this->factory->create(
             $this->formType,
             null,
-            ['max_selections' => 1]
+            ['max_selections' => 1, 'provider' => 'api_user_list']
         );
 
         $entity = new MockEntity(1);
@@ -158,7 +158,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
      */
     public function testDisplayEntityCollection()
     {
-        $form = $this->factory->create($this->formType);
+        $form = $this->factory->create($this->formType, null, ['provider' => 'api_user_list']);
 
         $entity1 = new MockEntity(1);
         $entity2 = new MockEntity(2);
@@ -176,13 +176,21 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
      *
      * @dataProvider getFormViewFixtures
      */
-    public function testBuildView($formData, $formOptions, $expectedMaxSelections)
+    public function testBuildView($formOptions, $expectedViewAttributes, $expectedException = null)
     {
-        $form = $this->factory->create($this->formType, $formData, $formOptions);
+        if (null !== $expectedException) {
+            $this->setExpectedException($expectedException);
+        }
 
+        $form = $this->factory->create($this->formType, null, $formOptions);
         $view = $form->createView();
-        $this->assertEquals($expectedMaxSelections, $view->vars['attr']['data-max-selections']);
-        $this->assertEquals('picker', $view->vars['attr']['class']);
+
+        if ($expectedException === null) {
+            $viewAttributes = $view->vars['attr'];
+            $this->assertEquals($expectedViewAttributes['data-max-selections'], $viewAttributes['data-max-selections']);
+            $this->assertEquals($expectedViewAttributes['data-provider'], $viewAttributes['data-provider']);
+            $this->assertEquals('picker', $view->vars['attr']['class']);
+        }
     }
 
     /**
@@ -193,9 +201,23 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
     public function getFormViewFixtures()
     {
         return [
-            [null, ['max_selections' => null], 0],
-            [null, ['max_selections' => 3], 3],
-            [null, ['max_selections' => -9], 0]
+            [
+                ['max_selections' => null, 'provider' => 'api_user_list'],
+                ['data-max-selections' => 0, 'data-provider' => 'api_user_list']
+            ],
+            [
+                ['max_selections' => 3, 'provider' => 'api_project_list'],
+                ['data-max-selections' => 3, 'data-provider' => 'api_project_list']
+            ],
+            [
+                ['max_selections' => -9, 'provider' => 'api_client_list'],
+                ['data-max-selections' => 0, 'data-provider' => 'api_client_list']
+            ],
+            [
+                [],
+                null,
+                'Symfony\Component\OptionsResolver\Exception\MissingOptionsException'
+            ]
         ];
     }
 }

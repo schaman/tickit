@@ -80,7 +80,8 @@ abstract class AbstractPickerType extends AbstractType
     {
         $view->vars['attr'] = array(
             'class' => 'picker',
-            'data-max-selections' => (intval($options['max_selections']) < 0) ? 0 : $options['max_selections']
+            'data-max-selections' => (intval($options['max_selections']) < 0) ? 0 : $options['max_selections'],
+            'data-provider' => $options['provider']
         );
     }
 
@@ -93,10 +94,11 @@ abstract class AbstractPickerType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setOptional(['max_selections'])
+        $resolver->setRequired(['provider'])
+                 ->setOptional(['max_selections'])
                  // the default value for max_selection is 0, which indicates no limit
                  ->setDefaults(['max_selections' => 0])
-                 ->setAllowedTypes(['max_selections' => ['null', 'integer']]);
+                 ->setAllowedTypes(['max_selections' => ['null', 'integer'], 'provider' => 'string']);
     }
 
     /**
