@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query\Expr;
 use Tickit\Component\Filter\ExactMatchFilter;
 use Tickit\Component\Model\User\User;
@@ -101,13 +102,14 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
         $filter->applyToQuery($this->query);
     }
 
-    public function testApplyToQueryAppliesArrayOfValues()
+    /**
+     * Tests the applyToQuery() method
+     *
+     * @dataProvider getArrayFixtures
+     */
+    public function testApplyToQueryAppliesArrayOfValues($values)
     {
-        $entity1 = new User();
-        $entity1->setId(1);
-        $entity2 = new User();
-        $entity2->setId(2);
-        $values = new ArrayCollection([$entity1, $entity2]);
+        $entities = ($values instanceof Collection) ? $values->toArray() : $values;
         $filter = new ExactMatchFilter('id', $values);
 
         $this->trainQueryToReturnRootEntities($this->query);
@@ -138,13 +140,26 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 
         $this->query->expects($this->at(5))
                     ->method('setParameter')
-                    ->with('id0', $entity1);
+                    ->with('id0', $entities[0]);
 
         $this->query->expects($this->at(6))
                     ->method('setParameter')
-                    ->with('id1', $entity2);
+                    ->with('id1', $entities[1]);
 
         $filter->applyToQuery($this->query);
+    }
+
+    public function getArrayFixtures()
+    {
+        $entity1 = new User();
+        $entity1->setId(1);
+        $entity2 = new User();
+        $entity2->setId(2);
+
+        return [
+            [new ArrayCollection([$entity1, $entity2])],
+            [[$entity1, $entity2]]
+        ];
     }
 
     /**
