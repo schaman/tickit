@@ -36,9 +36,10 @@ interface QueryBuilderApplicableInterface
     /**
      * Applies itself to a query builder.
      *
-     * @param QueryBuilder $query A reference to the query builder
+     * @param QueryBuilder $query    A reference to the query builder
+     * @param string       $joinType The join type for the filter, either "AND" or "OR"
      *
      * @return void
      */
-    public function applyToQuery(QueryBuilder &$query);
+    public function applyToQuery(QueryBuilder &$query, $joinType);
 }
