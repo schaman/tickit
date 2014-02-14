@@ -39,7 +39,7 @@ class SearchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName($filterJoinType, $conditionMethod)
     {
-        $filter = new SearchFilter('invalid name', 'search value');
+        $filter = new SearchFilter('invalid name', 'search value', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -54,7 +54,7 @@ class SearchFilterTest extends AbstractFilterTestCase
         $this->query->expects($this->never())
                     ->method('setParameter');
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 
     /**
@@ -64,7 +64,7 @@ class SearchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterWithEmptyValue($filterJoinType, $conditionMethod)
     {
-        $filter = new SearchFilter('username', '');
+        $filter = new SearchFilter('username', '', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -79,7 +79,7 @@ class SearchFilterTest extends AbstractFilterTestCase
         $this->query->expects($this->never())
                     ->method('setParameter');
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 
     /**
@@ -89,7 +89,7 @@ class SearchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryAppliesFilterForValidKeyName($filterJoinType, $conditionMethod)
     {
-        $filter = new SearchFilter('username', 'search value');
+        $filter = new SearchFilter('username', 'search value', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -123,6 +123,6 @@ class SearchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter')
                     ->with('username', '%search value%');
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 }

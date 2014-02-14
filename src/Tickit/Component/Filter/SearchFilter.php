@@ -42,7 +42,7 @@ class SearchFilter extends AbstractFilter
      *
      * @return void
      */
-    public function applyToQuery(QueryBuilder &$query, $joinType)
+    public function applyToQuery(QueryBuilder &$query)
     {
         if (false === $this->filterKeyIsValidOnQuery($query, $this->getKey())) {
             return;
@@ -58,7 +58,7 @@ class SearchFilter extends AbstractFilter
         $column = sprintf('%s.%s', $aliases[0], $this->getKey());
         $like = $query->expr()->like($column, sprintf(':%s', $this->getKey()));
 
-        if ($joinType === FilterCollection::JOIN_TYPE_AND) {
+        if ($this->getJoinType() === FilterCollection::JOIN_TYPE_AND) {
             $query->andWhere($like);
         } else {
             $query->orWhere($like);
