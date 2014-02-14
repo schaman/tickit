@@ -72,7 +72,7 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
      * @param mixed  $value   The filter value
      * @param array  $options An array of filters options (optional)
      */
-    public function __construct($key, $value, array $options = array())
+    public function __construct($key, $value, array $options = [])
     {
         $this->key   = $key;
         $this->value = $value;
