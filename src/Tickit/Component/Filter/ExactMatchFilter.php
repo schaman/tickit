@@ -39,12 +39,11 @@ class ExactMatchFilter extends AbstractFilter
     /**
      * Applies the itself to a query builder.
      *
-     * @param QueryBuilder $query    A reference to the query builder
-     * @param string       $joinType The join type, either "AND" or "OR"
+     * @param QueryBuilder $query A reference to the query builder
      *
      * @return void
      */
-    public function applyToQuery(QueryBuilder &$query, $joinType)
+    public function applyToQuery(QueryBuilder &$query)
     {
         if (false === $this->filterKeyIsValidOnQuery($query, $this->getKey())) {
             return;
@@ -60,6 +59,7 @@ class ExactMatchFilter extends AbstractFilter
         }
 
         $aliases = $query->getRootAliases();
+        $joinType = $this->getJoinType();
 
         if (true === is_array($value)) {
             $this->bindConditionForMultipleValues($query, $this->getKey(), $value, $joinType, $aliases[0]);

@@ -43,7 +43,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName($filterJoinType, $conditionMethod)
     {
-        $filter = new ExactMatchFilter('invalid name', 'exact value');
+        $filter = new ExactMatchFilter('invalid name', 'exact value', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -65,7 +65,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryDoesNotApplyFilterWithEmptyValue($filterJoinType, $conditionMethod)
     {
-        $filter = new ExactMatchFilter('username', '');
+        $filter = new ExactMatchFilter('username', '', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -77,7 +77,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
         $this->query->expects($this->never())
                     ->method($conditionMethod);
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 
     /**
@@ -87,7 +87,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryAppliesFilterForValidKeyName($filterJoinType, $conditionMethod)
     {
-        $filter = new ExactMatchFilter('username', 'exact value');
+        $filter = new ExactMatchFilter('username', 'exact value', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -106,7 +106,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter')
                     ->with('username', 'exact value');
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 
     /**
@@ -117,7 +117,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
     public function testApplyToQueryAppliesArrayOfValues($values, $filterJoinType, $conditionMethod)
     {
         $entities = ($values instanceof Collection) ? $values->toArray() : $values;
-        $filter = new ExactMatchFilter('id', $values);
+        $filter = new ExactMatchFilter('id', $values, ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -153,7 +153,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter')
                     ->with('id1', $entities[1]);
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 
     public function getArrayFixtures()
@@ -178,7 +178,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      */
     public function testApplyToQueryIgnoresEmptyArray($values, $filterJoinType, $conditionMethod)
     {
-        $filter = new ExactMatchFilter('id', $values);
+        $filter = new ExactMatchFilter('id', $values, ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -193,7 +193,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
         $this->query->expects($this->never())
                     ->method('setParameter');
 
-        $filter->applyToQuery($this->query, $filterJoinType);
+        $filter->applyToQuery($this->query);
     }
 
     public function getEmptyArrayFixtures()

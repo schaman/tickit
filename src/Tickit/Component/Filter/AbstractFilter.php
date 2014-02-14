@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * Abstract filter implementation.
@@ -214,5 +215,15 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
         }
 
         return $comparator;
+    }
+
+    /**
+     * Gets the join type option for this filter
+     *
+     * @return string
+     */
+    protected function getJoinType()
+    {
+        return $this->getOption('joinType', FilterCollection::JOIN_TYPE_AND);
     }
 }
