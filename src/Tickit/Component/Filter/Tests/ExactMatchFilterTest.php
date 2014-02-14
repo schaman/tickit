@@ -24,6 +24,7 @@ namespace Tickit\Component\Filter\Tests;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query\Expr;
+use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\ExactMatchFilter;
 use Tickit\Component\Model\User\User;
 
@@ -37,8 +38,10 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
+    public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName($filterJoinType, $conditionMethod)
     {
         $filter = new ExactMatchFilter('invalid name', 'exact value');
 
@@ -50,15 +53,17 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->query->expects($this->never())
-                    ->method('andWhere');
+                    ->method($conditionMethod);
 
-        $filter->applyToQuery($this->query);
+        $filter->applyToQuery($this->query, $filterJoinType);
     }
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
+    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue($filterJoinType, $conditionMethod)
     {
         $filter = new ExactMatchFilter('username', '');
 
@@ -70,15 +75,17 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->query->expects($this->never())
-                    ->method('andWhere');
+                    ->method($conditionMethod);
 
-        $filter->applyToQuery($this->query);
+        $filter->applyToQuery($this->query, $filterJoinType);
     }
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryAppliesFilterForValidKeyName()
+    public function testApplyToQueryAppliesFilterForValidKeyName($filterJoinType, $conditionMethod)
     {
         $filter = new ExactMatchFilter('username', 'exact value');
 
@@ -91,7 +98,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->will($this->returnValue(array('u')));
 
         $this->query->expects($this->once())
-                    ->method('andWhere')
+                    ->method($conditionMethod)
                     ->with('u.username = :username')
                     ->will($this->returnSelf());
 
@@ -99,7 +106,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter')
                     ->with('username', 'exact value');
 
-        $filter->applyToQuery($this->query);
+        $filter->applyToQuery($this->query, $filterJoinType);
     }
 
     /**
@@ -107,7 +114,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      *
      * @dataProvider getArrayFixtures
      */
-    public function testApplyToQueryAppliesArrayOfValues($values)
+    public function testApplyToQueryAppliesArrayOfValues($values, $filterJoinType, $conditionMethod)
     {
         $entities = ($values instanceof Collection) ? $values->toArray() : $values;
         $filter = new ExactMatchFilter('id', $values);
@@ -130,7 +137,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
             $expression->eq('u.id', ':id1')
         );
         $this->query->expects($this->once())
-                    ->method('andWhere')
+                    ->method($conditionMethod)
                     ->with($expectedOr)
                     ->will($this->returnSelf());
 
@@ -146,7 +153,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('setParameter')
                     ->with('id1', $entities[1]);
 
-        $filter->applyToQuery($this->query);
+        $filter->applyToQuery($this->query, $filterJoinType);
     }
 
     public function getArrayFixtures()
@@ -157,8 +164,10 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
         $entity2->setId(2);
 
         return [
-            [new ArrayCollection([$entity1, $entity2])],
-            [[$entity1, $entity2]]
+            [new ArrayCollection([$entity1, $entity2]), FilterCollection::JOIN_TYPE_AND, 'andWhere'],
+            [[$entity1, $entity2], FilterCollection::JOIN_TYPE_AND, 'andWhere'],
+            [new ArrayCollection([$entity1, $entity2]), FilterCollection::JOIN_TYPE_OR, 'orWhere'],
+            [[$entity1, $entity2], FilterCollection::JOIN_TYPE_OR, 'orWhere']
         ];
     }
 
@@ -167,7 +176,7 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
      *
      * @dataProvider getEmptyArrayFixtures
      */
-    public function testApplyToQueryIgnoresEmptyArray($values)
+    public function testApplyToQueryIgnoresEmptyArray($values, $filterJoinType, $conditionMethod)
     {
         $filter = new ExactMatchFilter('id', $values);
 
@@ -179,19 +188,21 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->query->expects($this->never())
-                    ->method('andWhere');
+                    ->method($conditionMethod);
 
         $this->query->expects($this->never())
                     ->method('setParameter');
 
-        $filter->applyToQuery($this->query);
+        $filter->applyToQuery($this->query, $filterJoinType);
     }
 
     public function getEmptyArrayFixtures()
     {
         return [
-            [new ArrayCollection()],
-            [[]]
+            [new ArrayCollection(), FilterCollection::JOIN_TYPE_AND, 'andWhere'],
+            [[], FilterCollection::JOIN_TYPE_AND, 'andWhere'],
+            [new ArrayCollection(), FilterCollection::JOIN_TYPE_OR, 'orWhere'],
+            [[], FilterCollection::JOIN_TYPE_OR, 'orWhere']
         ];
     }
 }

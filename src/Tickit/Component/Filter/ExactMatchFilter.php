@@ -24,6 +24,7 @@ namespace Tickit\Component\Filter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * Exact match filter.
@@ -38,11 +39,12 @@ class ExactMatchFilter extends AbstractFilter
     /**
      * Applies the itself to a query builder.
      *
-     * @param QueryBuilder $query A reference to the query builder
+     * @param QueryBuilder $query    A reference to the query builder
+     * @param string       $joinType The join type, either "AND" or "OR"
      *
      * @return void
      */
-    public function applyToQuery(QueryBuilder &$query)
+    public function applyToQuery(QueryBuilder &$query, $joinType)
     {
         if (false === $this->filterKeyIsValidOnQuery($query, $this->getKey())) {
             return;
@@ -60,35 +62,77 @@ class ExactMatchFilter extends AbstractFilter
         $aliases = $query->getRootAliases();
 
         if (true === is_array($value)) {
-
-            // here we have to dynamically build a WHERE (cond1 OR cond2 OR cond3 ...)
-            // query condition using doctrine's Expr class, because the paginators in
-            // doctrine have quirks with WHERE IN query conditions because of the way
-            // it handles parameters in the paginator
-            $key = $this->getKey();
-            $expression = $query->expr();
-            $valueCopy = $value;
-            array_walk(
-                $valueCopy,
-                function (&$v, $i) use ($expression, $key, $aliases) {
-                    /** @var Expr $expression */
-                    $parameterName = sprintf(':%s%d', $key, $i);
-                    $property = sprintf('%s.%s', $aliases[0], $key);
-                    $v = $expression->eq($property, $parameterName);
-                }
-            );
-
-            $orCondition = call_user_func_array(array($expression, 'orX'), $valueCopy);
-            $query->andWhere($orCondition);
-
-            $i = 0;
-            foreach ($value as $subValue) {
-                $query->setParameter(sprintf('%s%d', $this->getKey(), $i++), $subValue);
-            }
+            $this->bindConditionForMultipleValues($query, $this->getKey(), $value, $joinType, $aliases[0]);
         } else {
-            $where = sprintf('%s.%s %s :%s', $aliases[0], $this->getKey(), $this->getComparator(), $this->getKey());
-            $query->andWhere($where)
-                  ->setParameter($this->getKey(), $this->getValue());
+            $this->bindConditionForSingleValue($query, $this->getKey(), $value, $joinType, $aliases[0]);
+        }
+    }
+
+    /**
+     * Binds a condition for multiple value matches
+     *
+     * @param QueryBuilder     $query     The query to bind the condition to
+     * @param string           $key       The property key that we are filtering on
+     * @param array|Collection $values    The values that we are filtering for
+     * @param string           $joinType  The join type (either "OR" or "AND")
+     * @param string           $rootAlias The query's root object alias
+     */
+    private function bindConditionForMultipleValues(QueryBuilder $query, $key, $values, $joinType, $rootAlias)
+    {
+        // here we have to dynamically build a WHERE (cond1 OR cond2 OR cond3 ...)
+        // query condition using doctrine's Expr class, because the paginators in
+        // doctrine have quirks with WHERE IN query conditions because of the way
+        // it handles parameters in the paginator
+        $expression = $query->expr();
+        $valueCopy = $values;
+        array_walk(
+            $valueCopy,
+            function (&$v, $i) use ($expression, $key, $rootAlias) {
+                /** @var Expr $expression */
+                $parameterName = sprintf(':%s%d', $key, $i);
+                $property = sprintf('%s.%s', $rootAlias, $key);
+                $v = $expression->eq($property, $parameterName);
+            }
+        );
+
+        $condition = call_user_func_array(array($expression, 'orX'), $valueCopy);
+        $this->bindConditionToQuery($query, $condition, $joinType);
+
+        $i = 0;
+        foreach ($values as $subValue) {
+            $query->setParameter(sprintf('%s%d', $this->getKey(), $i++), $subValue);
+        }
+    }
+
+    /**
+     * Binds a condition for a single value match
+     *
+     * @param QueryBuilder     $query     The query to bind the condition to
+     * @param string           $key       The property key that we are filtering on
+     * @param mixed            $value     The value that we are filtering for
+     * @param string           $joinType  The join type (either "OR" or "AND")
+     * @param string           $rootAlias The query's root object alias
+     */
+    private function bindConditionForSingleValue(QueryBuilder $query, $key, $value, $joinType, $rootAlias)
+    {
+        $condition = sprintf('%s.%s %s :%s', $rootAlias, $this->getKey(), $this->getComparator(), $this->getKey());
+        $this->bindConditionToQuery($query, $condition, $joinType);
+        $query->setParameter($key, $value);
+    }
+
+    /**
+     * Binds a condition to the query using the given $joinType
+     *
+     * @param QueryBuilder $query     The query to bind the condition to
+     * @param mixed        $condition The query condition to bind
+     * @param string       $joinType  The join type used to bind the condition (either "AND" or "OR")
+     */
+    private function bindConditionToQuery(QueryBuilder $query, $condition, $joinType)
+    {
+        if ($joinType === FilterCollection::JOIN_TYPE_AND) {
+            $query->andWhere($condition);
+        } else {
+            $query->orWhere($condition);
         }
     }
 
