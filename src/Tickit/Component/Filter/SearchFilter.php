@@ -38,7 +38,6 @@ class SearchFilter extends AbstractFilter
      * Applies the itself to a query builder.
      *
      * @param QueryBuilder $query    A reference to the query builder
-     * @param string       $joinType The join type (either "AND" or "OR")
      *
      * @return void
      */
