@@ -73,7 +73,7 @@ class ProjectFormType extends AbstractType
                 ->add(
                     'client',
                     'tickit_client_picker',
-                    ['max_selections' => 1, 'provider' => '']
+                    ['max_selections' => 1, 'provider' => 'picker_client_find']
                 );
     }
 

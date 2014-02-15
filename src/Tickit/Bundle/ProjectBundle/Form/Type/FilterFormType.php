@@ -55,7 +55,7 @@ class FilterFormType extends AbstractType
                     'choice',
                     ['choices' => Project::getStatusTypes(true)]
                 )
-                ->add('client', 'tickit_client_picker', ['provider' => '']);
+                ->add('client', 'tickit_client_picker', ['provider' => 'picker_client_find']);
     }
 
     /**
