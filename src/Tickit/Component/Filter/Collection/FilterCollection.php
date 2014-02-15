@@ -49,7 +49,7 @@ class FilterCollection extends ArrayCollection
     {
         /** @var QueryBuilderApplicableInterface $filter */
         foreach ($this->toArray() as $filter) {
-            $filter->applyToQuery($query, $this->joinType);
+            $filter->applyToQuery($query);
         }
     }
 }
