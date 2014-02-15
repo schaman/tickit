@@ -34,10 +34,8 @@ class FilterCollectionTest extends AbstractUnitTest
 {
     /**
      * Tests the applyToQuery() method
-     *
-     * @dataProvider getApplyToQueryFixtures
      */
-    public function testApplyToQueryDoesNotApplyFiltersForInvalidColumns($joinType)
+    public function testApplyToQueryDoesNotApplyFiltersForInvalidColumns()
     {
         $query = $this->getMockQueryBuilder();
 
@@ -51,55 +49,16 @@ class FilterCollectionTest extends AbstractUnitTest
 
         $searchFilter->expects($this->once())
                      ->method('applyToQuery')
-                     ->with($query, $joinType);
+                     ->with($query);
 
         $exactMatchFilter->expects($this->once())
                      ->method('applyToQuery')
-                     ->with($query, $joinType);
+                     ->with($query);
 
         $collection = new FilterCollection();
-        $collection->setType($joinType);
         $collection->add($searchFilter);
         $collection->add($exactMatchFilter);
 
         $collection->applyToQuery($query);
-    }
-
-    /**
-     * @return array
-     */
-    public function getApplyToQueryFixtures()
-    {
-        return [
-            [FilterCollection::JOIN_TYPE_AND],
-            [FilterCollection::JOIN_TYPE_OR]
-        ];
-    }
-
-    /**
-     * Tests the setType() method
-     *
-     * @dataProvider getTypeFixtures
-     */
-    public function testSetTypeHandlesValuesCorrectly($type, $expectedException)
-    {
-        if (null !== $expectedException) {
-            $this->setExpectedException($expectedException);
-        }
-
-        $collection = new FilterCollection();
-        $collection->setType($type);
-    }
-
-    /**
-     * @return array
-     */
-    public function getTypeFixtures()
-    {
-        return [
-            [FilterCollection::JOIN_TYPE_AND, null],
-            [FilterCollection::JOIN_TYPE_OR, null],
-            ['invalid type', '\InvalidArgumentException']
-        ];
     }
 }
