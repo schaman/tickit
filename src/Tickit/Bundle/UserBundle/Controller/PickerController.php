@@ -29,6 +29,7 @@ use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
+use Tickit\Component\Picker\Controller\AbstractPickerController;
 
 /**
  * Picker controller.
@@ -38,46 +39,8 @@ use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
  * @package Tickit\Bundle\UserBundle\Controller
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class PickerController
+class PickerController extends AbstractPickerController
 {
-    /**
-     * Filterable user repository
-     *
-     * @var FilterableRepositoryInterface
-     */
-    private $userRepository;
-
-    /**
-     * Filter collection builder
-     *
-     * @var FilterCollectionBuilder
-     */
-    private $filterCollectionBuilder;
-
-    /**
-     * The base controller helper
-     *
-     * @var BaseHelper
-     */
-    private $baseHelper;
-
-    /**
-     * Constructor.
-     *
-     * @param FilterableRepositoryInterface $userRepository          A filterable user repository
-     * @param BaseHelper                    $baseHelper              The base controller helper
-     * @param FilterCollectionBuilder       $filterCollectionBuilder The filter collection builder
-     */
-    public function __construct(
-        FilterableRepositoryInterface $userRepository,
-        BaseHelper $baseHelper,
-        FilterCollectionBuilder $filterCollectionBuilder
-    ) {
-        $this->userRepository           = $userRepository;
-        $this->filterCollectionBuilder  = $filterCollectionBuilder;
-        $this->baseHelper               = $baseHelper;
-    }
-
     /**
      * Find action.
      *
@@ -107,7 +70,7 @@ class PickerController
             FilterCollection::JOIN_TYPE_OR
         );
 
-        $users = $this->userRepository->findByFilters($filters);
+        $users = $this->repository->findByFilters($filters);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $decorator->setPropertyMappings(['fullName' => 'text']);
         $users = $decorator->decorate($users->getIterator(), ['id', 'fullName', 'email']);
