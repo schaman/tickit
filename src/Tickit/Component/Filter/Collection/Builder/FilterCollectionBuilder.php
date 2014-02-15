@@ -55,7 +55,6 @@ class FilterCollectionBuilder
         $joinType = FilterCollection::JOIN_TYPE_AND
     ) {
         $collection = new FilterCollection();
-        $collection->setType($joinType);
         $fieldMap = $filterMapper->getFieldMap();
 
         foreach ($data as $fieldName => $filterValue) {
@@ -68,12 +67,12 @@ class FilterCollectionBuilder
                 continue;
             }
 
-            $filter = AbstractFilter::factory(
-                $definition->getType(),
-                $fieldName,
-                $filterValue,
+            $options = array_replace(
+                ['joinType' => $joinType],
                 $definition->getOptions()
             );
+
+            $filter = AbstractFilter::factory($definition->getType(), $fieldName, $filterValue, $options);
             $collection->add($filter);
         }
 
