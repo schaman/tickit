@@ -4,3 +4,5 @@ picker_user_find:
     methods: [GET]
     requirements:
         term: '[a-zA-Z]{3,}'
+    options:
+        expose: true
