@@ -50,8 +50,6 @@ class PickerController extends AbstractPickerController
      *
      * @param Request $request The request object
      *
-     * @throws NotFoundHttpException
-     *
      * @return JsonResponse
      */
     public function findAction(Request $request)
