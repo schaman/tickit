@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker;
+namespace Tickit\Bundle\PickerBundle\Tests\Form\Type\Picker;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
-use Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker\Mock\MockEntity;
+use Tickit\Bundle\PickerBundle\Tests\Form\Type\Picker\Mock\MockEntity;
 
 /**
  * AbstractPickerType tests
  *
- * @package Tickit\Bundle\CoreBundle\Tests\Form\Type\Picker
+ * @package Tickit\Bundle\PickerBundle\Tests\Form\Type\Picker
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AbstractPickerTypeTest extends AbstractFormTypeTestCase
@@ -46,7 +46,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
         parent::setUp();
 
         $this->transformer = $this->getMockForAbstractClass(
-            '\Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer'
+            '\Tickit\Bundle\PickerBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer'
         );
 
         $this->transformer->expects($this->any())
@@ -54,7 +54,7 @@ class AbstractPickerTypeTest extends AbstractFormTypeTestCase
                           ->will($this->returnValue('id'));
 
         $this->formType = $this->getMockForAbstractClass(
-            '\Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType',
+            '\Tickit\Bundle\PickerBundle\Form\Type\Picker\AbstractPickerType',
             [$this->transformer]
         );
     }

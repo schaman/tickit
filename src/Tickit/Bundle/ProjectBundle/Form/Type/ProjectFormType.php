@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
+use Tickit\Bundle\PickerBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Add/edit project form.

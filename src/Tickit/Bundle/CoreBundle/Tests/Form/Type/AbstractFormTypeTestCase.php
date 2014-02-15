@@ -153,7 +153,7 @@ class AbstractFormTypeTestCase extends TypeTestCase
     protected function getMockPickerDataTransformer()
     {
         return $this->getMockForAbstractClass(
-            'Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer',
+            'Tickit\Bundle\PickerBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer',
             [],
             '',
             false,

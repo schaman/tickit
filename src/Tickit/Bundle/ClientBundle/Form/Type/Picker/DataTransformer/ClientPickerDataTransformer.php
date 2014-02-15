@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Form\Type\Picker\DataTransformer;
 
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
+use Tickit\Bundle\PickerBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
 use Tickit\Component\Entity\Manager\ClientManager;
 
 /**
