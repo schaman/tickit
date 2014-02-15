@@ -2,7 +2,7 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
+ *
  * Copyright (C) 2014  Tickit Project <http://tickit.io>
  *
  * This program is free software: you can redistribute it and/or modify
