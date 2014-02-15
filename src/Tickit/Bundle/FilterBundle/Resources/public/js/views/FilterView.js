@@ -81,22 +81,14 @@ define(['modules/template', 'select2'], function(Template) {
                     multiple: true,
                     minimumInputLength: 3,
                     query: function(query) {
-                        if (query.term.length  < 3) {
-                            query.callback({ results: [] });
-
-                            return;
-                        }
-
-                        // this will be substituted with an ajax request
-                        setTimeout(function () {
-                            query.callback({
-                                results: [
-                                    { id: 1, text: "Mark Wilson" },
-                                    { id: 2, text: "James Halsall" },
-                                    { id: 3, text: "Stuart Rayson" }
-                                ]
-                            });
-                        }, 500);
+                        App.Request.get({
+                            url: Routing.generate($e.data('provider'), { term: query.term }),
+                            success: function(resp) {
+                                query.callback({
+                                    results: resp
+                                });
+                            }
+                        });
                     }
                 };
                 if (maxSelections !== false) {
