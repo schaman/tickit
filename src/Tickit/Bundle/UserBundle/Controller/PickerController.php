@@ -101,11 +101,14 @@ class PickerController
             'email' => $term
         ];
 
-        $filters = $this->filterCollectionBuilder->buildFromArray($searchData, new UserFilterMapper());
-        $filters->setType(FilterCollection::JOIN_TYPE_OR);
+        $filters = $this->filterCollectionBuilder->buildFromArray(
+            $searchData,
+            new UserFilterMapper(),
+            FilterCollection::JOIN_TYPE_OR
+        );
+
         $users = $this->userRepository->findByFilters($filters);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
-
         $users = $decorator->decorate($users->getIterator(), ['id', 'fullName', 'email']);
 
         return new JsonResponse($users);

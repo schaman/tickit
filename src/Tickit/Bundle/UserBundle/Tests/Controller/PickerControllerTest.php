@@ -79,11 +79,10 @@ class PickerControllerTest extends AbstractUnitTest
 
         $this->filterCollectionBuilder->expects($this->once())
                                       ->method('buildFromArray')
-                                      ->with($expectedData, new UserFilterMapper())
+                                      ->with($expectedData, new UserFilterMapper(), FilterCollection::JOIN_TYPE_OR)
                                       ->will($this->returnValue($filters));
 
         $expectedFilters = new FilterCollection();
-        $expectedFilters->setType(FilterCollection::JOIN_TYPE_OR);
         $this->userRepository->expects($this->once())
                              ->method('findByFilters')
                              ->with($expectedFilters)
