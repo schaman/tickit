@@ -58,7 +58,11 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
                         ->method('decorate')
                         ->will($this->returnValue(array('decorated')));
 
-        $this->decorator->expects($this->at(0))
+        $this->decorator->expects($this->at(1))
+                        ->method('decorate')
+                        ->with($data[0], $propertyNames, $staticProperties);
+
+        $this->decorator->expects($this->at(2))
                         ->method('decorate')
                         ->with($data[0], $propertyNames, $staticProperties);
 
@@ -95,13 +99,21 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
         $collectionDecorator = $this->getCollectionDecorator();
         $collectionDecorator->setPropertyMappings($customFieldNames);
 
+        $this->decorator->expects($this->once())
+                        ->method('setPropertyMappings')
+                        ->with($customFieldNames);
+
         $this->decorator->expects($this->exactly(2))
                         ->method('decorate')
                         ->will($this->returnValue(['decorated-custom-field']));
 
-        $this->decorator->expects($this->at(0))
+        $this->decorator->expects($this->at(1))
                         ->method('decorate')
-                        ->with($data[0], $propertyNames, $staticProperties, $customFieldNames);
+                        ->with($data[0], $propertyNames, $staticProperties);
+
+        $this->decorator->expects($this->at(2))
+                        ->method('decorate')
+                        ->with($data[1], $propertyNames, $staticProperties);
 
         $return = $collectionDecorator->decorate($data, $propertyNames, $staticProperties);
         $this->assertEquals([['decorated-custom-field'], ['decorated-custom-field']], $return);

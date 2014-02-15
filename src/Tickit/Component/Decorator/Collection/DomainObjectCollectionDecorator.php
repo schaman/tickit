@@ -69,6 +69,7 @@ class DomainObjectCollectionDecorator implements DomainObjectCollectionDecorator
      */
     public function decorate($data, array $propertyNames, array $staticProperties = [])
     {
+        $this->decorator->setPropertyMappings($this->propertyMappings);
         $decorated = [];
 
         if (!$data instanceof \ArrayIterator) {
@@ -77,7 +78,7 @@ class DomainObjectCollectionDecorator implements DomainObjectCollectionDecorator
 
         while ($data->valid()) {
             $object = $data->current();
-            $decorated[] = $this->decorator->decorate($object, $propertyNames, $staticProperties, $this->propertyMappings);
+            $decorated[] = $this->decorator->decorate($object, $propertyNames, $staticProperties);
             $data->next();
         }
 

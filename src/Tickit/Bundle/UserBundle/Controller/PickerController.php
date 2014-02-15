@@ -109,6 +109,7 @@ class PickerController
 
         $users = $this->userRepository->findByFilters($filters);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $decorator->setPropertyMappings(['fullName' => 'text']);
         $users = $decorator->decorate($users->getIterator(), ['id', 'fullName', 'email']);
 
         return new JsonResponse($users);

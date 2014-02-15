@@ -98,6 +98,9 @@ class PickerControllerTest extends AbstractUnitTest
 
         $decorated = ['decorated' => 'values'];
         $decorator->expects($this->once())
+                  ->method('setPropertyMappings')
+                  ->with(['fullName' => 'text']);
+        $decorator->expects($this->once())
                   ->method('decorate')
                   ->with($iterator, ['id', 'fullName', 'email'])
                   ->will($this->returnValue($decorated));
