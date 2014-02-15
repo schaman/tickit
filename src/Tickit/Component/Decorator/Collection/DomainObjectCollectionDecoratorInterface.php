@@ -22,7 +22,10 @@
 namespace Tickit\Component\Decorator\Collection;
 
 /**
- * File description
+ * Domain object collection decorator interface.
+ *
+ * These decorators are responsible for decorating the output of a
+ * domain object into an array format.
  *
  * @package Tickit\Component\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
@@ -39,4 +42,18 @@ interface DomainObjectCollectionDecoratorInterface
      * @return array
      */
     public function decorate($data, array $propertyNames, array $staticProperties = []);
+
+    /**
+     * Sets any field mappings.
+     *
+     * This is used to transform a property names in the object collection to appear as a
+     * different properties in the decorated output. Can be useful for masking original
+     * object property names.
+     *
+     * @param array $propertyMappings An array of custom property names which are used to override the real property
+     *                                names in the decorated output. New properties should be indexed by the original
+     *                                property name, with the values being the new property names
+     * @return mixed
+     */
+    public function setPropertyMappings(array $propertyMappings = []);
 }

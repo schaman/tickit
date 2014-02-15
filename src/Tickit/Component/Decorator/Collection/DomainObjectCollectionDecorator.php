@@ -41,6 +41,13 @@ class DomainObjectCollectionDecorator implements DomainObjectCollectionDecorator
     private $decorator;
 
     /**
+     * Custom property mappings.
+     *
+     * @var array
+     */
+    private $propertyMappings = [];
+
+    /**
      * Constructor.
      *
      * @param DomainObjectDecoratorInterface $decorator A domain object decorator
@@ -54,12 +61,13 @@ class DomainObjectCollectionDecorator implements DomainObjectCollectionDecorator
      * Decorates a collection of domain objects and returns the result.
      *
      * @param array|\ArrayIterator    $data             The domain objects to be decorated
-     * @param array $propertyNames    Property names of the domain objects to include in the decorated result
-     * @param array $staticProperties The static properties to attach to each decorated result
+     * @param array                   $propertyNames    Property names of the domain objects to include in the decorated
+     *                                                  result
+     * @param array                   $staticProperties The static properties to attach to each decorated result
      *
      * @return array
      */
-    public function decorate($data, array $propertyNames, array $staticProperties = array())
+    public function decorate($data, array $propertyNames, array $staticProperties = [])
     {
         $decorated = [];
 
@@ -69,10 +77,27 @@ class DomainObjectCollectionDecorator implements DomainObjectCollectionDecorator
 
         while ($data->valid()) {
             $object = $data->current();
-            $decorated[] = $this->decorator->decorate($object, $propertyNames, $staticProperties);
+            $decorated[] = $this->decorator->decorate($object, $propertyNames, $staticProperties, $this->propertyMappings);
             $data->next();
         }
 
         return $decorated;
+    }
+
+    /**
+     * Sets any field mappings.
+     *
+     * This is used to transform a property names in the object collection to appear as a
+     * different properties in the decorated output. Can be useful for masking original
+     * object property names.
+     *
+     * @param array $propertyMappings An array of custom property names which are used to override the real property
+     *                                names in the decorated output. New properties should be indexed by the original
+     *                                property name, with the values being the new property names
+     * @return mixed
+     */
+    public function setPropertyMappings(array $propertyMappings = [])
+    {
+        $this->propertyMappings = $propertyMappings;
     }
 }
