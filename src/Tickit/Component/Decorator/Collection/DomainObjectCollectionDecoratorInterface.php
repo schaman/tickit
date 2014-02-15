@@ -38,5 +38,5 @@ interface DomainObjectCollectionDecoratorInterface
      *
      * @return array
      */
-    public function decorate($data, array $propertyNames, array $staticProperties = array());
+    public function decorate($data, array $propertyNames, array $staticProperties = []);
 }
