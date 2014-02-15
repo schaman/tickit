@@ -5,9 +5,9 @@
  *
  * @type {Backbone.View}
  */
-define(['modules/template', 'select2'], function(Template) {
+define(['modules/template', 'picker/js/views/PickerInitialiseMixin'], function(Template, PickerMixin) {
 
-    return Backbone.View.extend({
+    var view = Backbone.View.extend({
 
         /**
          * Event bindings for the filter view
@@ -40,7 +40,7 @@ define(['modules/template', 'select2'], function(Template) {
             var t = this;
             Template.fetch(url, function(tpl) {
                 t.$el.html(tpl);
-                t.initSelect2.apply(t);
+                t.initPickers.apply(t);
             });
         },
 
@@ -67,35 +67,10 @@ define(['modules/template', 'select2'], function(Template) {
          */
         dispatchFilterChange : function() {
             this.trigger('change', this.getFilterValues());
-        },
-
-        /**
-         * Initialises the select2 integration
-         */
-        initSelect2 : function() {
-            var $pickers = this.$el.find('.picker');
-            _.each($pickers, function(el) {
-                var $e = $(el);
-                var maxSelections = $e.data('max-selections') || false;
-                var options = {
-                    multiple: true,
-                    minimumInputLength: 3,
-                    query: function(query) {
-                        App.Request.get({
-                            url: Routing.generate($e.data('provider'), { term: query.term }),
-                            success: function(resp) {
-                                query.callback({
-                                    results: resp
-                                });
-                            }
-                        });
-                    }
-                };
-                if (maxSelections !== false) {
-                    options.maximumSelectionSize = maxSelections;
-                }
-                $e.select2(options);
-            });
         }
     });
+
+    _.extend(view.prototype, PickerMixin);
+
+    return view;
 });
