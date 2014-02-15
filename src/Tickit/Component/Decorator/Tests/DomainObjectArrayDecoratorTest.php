@@ -37,8 +37,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      * Tests the decorate() method
      *
      * @expectedException \InvalidArgumentException
-     *
-     * @return void
      */
     public function testDecorateThrowsExceptionForNonObject()
     {
@@ -50,8 +48,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      * Tests the decorate() method
      *
      * @expectedException \RuntimeException
-     *
-     * @return void
      */
     public function testDecorateThrowsExceptionForInaccessibleProperty()
     {
@@ -63,8 +59,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      * Tests the decorate() method
      *
      * @expectedException \RuntimeException
-     *
-     * @return void
      */
     public function testDecorateThrowsExceptionForInaccessibleChildProperty()
     {
@@ -74,8 +68,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the decorate() method
-     *
-     * @return void
      */
     public function testDecorateHandlesMockObjectCorrectly()
     {
@@ -105,5 +97,38 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($decorated['childObject.enabled']);
         $this->assertTrue($decorated['childObject.childObject.enabled']);
         $this->assertEquals('value', $decorated['static']);
+    }
+
+    /**
+     * Tests the decorate() method
+     *
+     * @dataProvider getDecorateWithCustomMappingsFixtures
+     */
+    public function testDecorateHandlesCustomPropertyMappings($fieldsToDecorate, $customMappings)
+    {
+        $decorator = new DomainObjectArrayDecorator();
+        $decorator->setPropertyMappings($customMappings);
+        $mock = new MockDomainObject();
+
+        $decorated = $decorator->decorate($mock, $fieldsToDecorate, ['static' => 'value']);
+        $nonCustomFields = array_diff($fieldsToDecorate, array_keys($customMappings));
+        foreach ($nonCustomFields as $field) {
+            $this->assertArrayHasKey($field, $decorated);
+        }
+
+        foreach ($customMappings as $customFieldName) {
+            $this->assertArrayHasKey($customFieldName, $decorated);
+        }
+    }
+
+    public function getDecorateWithCustomMappingsFixtures()
+    {
+        return [
+            [
+                ['name', 'active', 'enabled', 'childObject.enabled'],
+                ['name' => 'custom-name', 'childObject.enabled' => 'sub-enabled']
+            ],
+            [['name', 'active', 'childObject.enabled'], []]
+        ];
     }
 }
