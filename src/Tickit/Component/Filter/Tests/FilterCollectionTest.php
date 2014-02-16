@@ -34,8 +34,6 @@ class FilterCollectionTest extends AbstractUnitTest
 {
     /**
      * Tests the applyToQuery() method
-     *
-     * @return void
      */
     public function testApplyToQueryDoesNotApplyFiltersForInvalidColumns()
     {

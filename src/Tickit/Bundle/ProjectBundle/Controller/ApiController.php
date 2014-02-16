@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
+use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
@@ -79,6 +80,13 @@ class ApiController
     protected $csrfHelper;
 
     /**
+     * The form helper
+     *
+     * @var FormHelper
+     */
+    protected $formHelper;
+
+    /**
      * Constructor.
      *
      * @param FilterCollectionBuilder $filterBuilder       The filter collection builder
@@ -86,19 +94,22 @@ class ApiController
      * @param AttributeRepository     $attributeRepository The attribute repository
      * @param BaseHelper              $baseHelper          The base controller helper
      * @param CsrfHelper              $csrfHelper          The CSRF controller helper
+     * @param FormHelper              $formHelper          The form controller helper
      */
     public function __construct(
         FilterCollectionBuilder $filterBuilder,
         ProjectRepository $projectRepository,
         AttributeRepository $attributeRepository,
         BaseHelper $baseHelper,
-        CsrfHelper $csrfHelper
+        CsrfHelper $csrfHelper,
+        FormHelper $formHelper
     ) {
         $this->filterBuilder = $filterBuilder;
         $this->projectRepository = $projectRepository;
         $this->attributeRepository = $attributeRepository;
         $this->baseHelper = $baseHelper;
         $this->csrfHelper = $csrfHelper;
+        $this->formHelper = $formHelper;
     }
 
     /**
@@ -111,7 +122,10 @@ class ApiController
     public function listAction($page = 1)
     {
         $request = $this->baseHelper->getRequest();
-        $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new ProjectFilterMapper());
+        $form = $this->formHelper->createForm(new FilterFormType(), null);
+        $form->submit($request);
+
+        $filters = $this->filterBuilder->buildFromArray($form->getData(), new ProjectFilterMapper());
         $projects = $this->projectRepository->findByFilters($filters, $page);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 

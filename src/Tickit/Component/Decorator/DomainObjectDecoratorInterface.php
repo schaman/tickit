@@ -42,5 +42,18 @@ interface DomainObjectDecoratorInterface
      *
      * @return mixed
      */
-    public function decorate($object, array $propertyNames, array $staticProperties = array());
+    public function decorate($object, array $propertyNames, array $staticProperties = []);
+
+    /**
+     * Sets any field mappings.
+     *
+     * This is used to transform a property on the object to appear as a different property in
+     * the decorated output. Can be useful for masking original object property names.
+     *
+     * @param array $propertyMappings An array of custom property names which are used to override the real property
+     *                                names in the decorated output. New properties should be indexed by the original
+     *                                property name
+     * @return mixed
+     */
+    public function setPropertyMappings(array $propertyMappings = []);
 }

@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter\Tests;
 
 use Tickit\Component\Test\AbstractUnitTest;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * Abstract Filter test case.
@@ -75,5 +76,13 @@ class AbstractFilterTestCase extends AbstractUnitTest
            ->method('getClassMetaData')
            ->with('Tickit\Component\Model\User\User')
            ->will($this->returnValue($classMeta));
+    }
+
+    public function getJoinTypeFixtures()
+    {
+        return [
+            [FilterCollection::JOIN_TYPE_AND, 'andWhere'],
+            [FilterCollection::JOIN_TYPE_OR, 'orWhere']
+        ];
     }
 }

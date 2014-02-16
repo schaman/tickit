@@ -16,6 +16,7 @@ hearsay_require_js:
         cookie: %kernel.root_dir%/Resources/public/js/vendor/jquery.cookie/jquery.cookie
         sidr: %kernel.root_dir%/Resources/public/js/vendor/sidr/jquery.sidr.min
         noty: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/packaged/jquery.noty.packaged
+        select2: %kernel.root_dir%/Resources/public/js/vendor/select2/select2
         moment: %kernel.root_dir%/Resources/public/js/vendor/momentjs/moment
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'
@@ -39,6 +40,7 @@ hearsay_require_js:
         notification: "@TickitNotificationBundle/Resources/public"
         filter: "@TickitFilterBundle/Resources/public"
         paging: "@TickitPaginationBundle/Resources/public"
+        picker: "@TickitPickerBundle/Resources/public"
     shim:
         -
             name: jquery
@@ -65,4 +67,7 @@ hearsay_require_js:
             deps: [jquery]
         -
             name: noty
+            deps: [jquery]
+        -
+            name: select2
             deps: [jquery]

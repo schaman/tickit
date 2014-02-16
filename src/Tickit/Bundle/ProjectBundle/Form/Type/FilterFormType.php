@@ -49,13 +49,13 @@ class FilterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text')
-                ->add('owner', 'tickit_user_picker')
+                ->add('owner', 'tickit_user_picker', ['provider' => 'picker_user_find'])
                 ->add(
                     'status',
                     'choice',
                     ['choices' => Project::getStatusTypes(true)]
                 )
-                ->add('client', 'tickit_client_picker');
+                ->add('client', 'tickit_client_picker', ['provider' => 'picker_client_find']);
     }
 
     /**

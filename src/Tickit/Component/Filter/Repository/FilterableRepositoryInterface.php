@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Filter\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
@@ -41,7 +42,7 @@ interface FilterableRepositoryInterface
      * @param FilterCollection $filters The filter collection
      * @param integer          $page    The page number of the results to fetch (defaults to 1)
      *
-     * @return mixed
+     * @return Paginator
      */
     public function findByFilters(FilterCollection $filters, $page = 1);
 }

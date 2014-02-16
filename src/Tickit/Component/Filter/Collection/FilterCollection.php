@@ -35,6 +35,9 @@ use Tickit\Component\Filter\QueryBuilderApplicableInterface;
  */
 class FilterCollection extends ArrayCollection
 {
+    const JOIN_TYPE_AND = 'AND';
+    const JOIN_TYPE_OR = 'OR';
+
     /**
      * Applies the collection of filters to a query
      *

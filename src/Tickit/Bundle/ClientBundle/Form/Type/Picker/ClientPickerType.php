@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\ClientBundle\Form\Type\Picker;
 
-use Tickit\Bundle\CoreBundle\Form\Type\Picker\AbstractPickerType;
+use Tickit\Bundle\PickerBundle\Form\Type\Picker\AbstractPickerType;
 
 /**
  * Client picker field type.

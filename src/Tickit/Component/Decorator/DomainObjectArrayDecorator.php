@@ -31,6 +31,16 @@ namespace Tickit\Component\Decorator;
 class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
 {
     /**
+     * Custom property mappings.
+     *
+     * Used to output different property names than were originally on
+     * the undecorated object.
+     *
+     * @var array
+     */
+    private $propertyMappings = [];
+
+    /**
      * Decorates an object as an array using the specified property names.
      *
      * The $staticProperties parameter allows for the injection of additional property names and
@@ -45,9 +55,9 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
      * @throws \InvalidArgumentException If the $object property is not an object
      * @throws \RuntimeException         If the any of the provided properties do not have a getter
      *
-     * @return string
+     * @return array
      */
-    public function decorate($object, array $propertyNames, array $staticProperties = array())
+    public function decorate($object, array $propertyNames, array $staticProperties = [])
     {
         if (!is_object($object)) {
             throw new \InvalidArgumentException('You must provide a valid domain object to decorate');
@@ -59,16 +69,16 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
             $match = false;
             $value = false;
 
-            // find the heirarchy of properties being accessed
-            $heirarchy         = explode('.', $property);
-            $heirarchyIterator = new \ArrayIterator($heirarchy);
+            // find the hierarchy of properties being accessed
+            $hierarchy = explode('.', $property);
+            $hierarchy = new \ArrayIterator($hierarchy);
 
             // initialise a current object
             $currentObject = $object;
             // loop through the heirarchy
-            while ($heirarchyIterator->valid()) {
+            while ($hierarchy->valid()) {
                 // current property name
-                $currentNode = $heirarchyIterator->current();
+                $currentNode = $hierarchy->current();
                 $accessors   = $this->guessAccessorNames($currentNode);
 
                 // try each potential accessor method for this property
@@ -96,7 +106,7 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
                 $currentObject = $value;
 
                 // move to next node
-                $heirarchyIterator->next();
+                $hierarchy->next();
             }
 
             // if value is a date instance, change to string
@@ -105,13 +115,28 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
             }
 
             // append property to data array
-            $data[$property] = $value;
+            $this->addValueToArray($data, $property, $value);
         }
 
         // merge any static properties into the data array
         $data = array_merge($data, $staticProperties);
 
         return $data;
+    }
+
+    /**
+     * Sets any field mappings.
+     *
+     * This is used to transform a property on the object to appear as a different property in
+     * the decorated output. Can be useful for masking original object property names.
+     *
+     * @param array $propertyMappings An array of custom field names which are used to override the real field names in the
+     *                             decorated output. Indexed by original field name
+     * @return mixed
+     */
+    public function setPropertyMappings(array $propertyMappings = [])
+    {
+        $this->propertyMappings = $propertyMappings;
     }
 
     /**
@@ -130,5 +155,19 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
         }
 
         return $guesses;
+    }
+
+    /**
+     * @param array  $data         A reference to the data array
+     * @param string $propertyName The property name of the value to add
+     * @param mixed  $value        The value to add to the array
+     */
+    private function addValueToArray(&$data, $propertyName, $value)
+    {
+        if (isset($this->propertyMappings[$propertyName])) {
+            $propertyName = $this->propertyMappings[$propertyName];
+        }
+
+        $data[$propertyName] = $value;
     }
 }

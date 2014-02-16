@@ -67,6 +67,6 @@ class CallbackFilter extends AbstractFilter
             );
         }
 
-        call_user_func($callback, $query, $value);
+        call_user_func($callback, $query, $value, $this->getJoinType());
     }
 }

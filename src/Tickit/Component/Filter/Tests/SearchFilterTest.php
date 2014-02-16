@@ -34,10 +34,12 @@ class SearchFilterTest extends AbstractFilterTestCase
 {
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName()
+    public function testApplyToQueryDoesNotApplyFilterForInvalidKeyName($filterJoinType, $conditionMethod)
     {
-        $filter = new SearchFilter('invalid name', 'search value');
+        $filter = new SearchFilter('invalid name', 'search value', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -47,7 +49,7 @@ class SearchFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->query->expects($this->never())
-                    ->method('andWhere');
+                    ->method($conditionMethod);
 
         $this->query->expects($this->never())
                     ->method('setParameter');
@@ -57,10 +59,12 @@ class SearchFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue()
+    public function testApplyToQueryDoesNotApplyFilterWithEmptyValue($filterJoinType, $conditionMethod)
     {
-        $filter = new SearchFilter('username', '');
+        $filter = new SearchFilter('username', '', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -70,7 +74,7 @@ class SearchFilterTest extends AbstractFilterTestCase
                     ->method('getRootAliases');
 
         $this->query->expects($this->never())
-                    ->method('andWhere');
+                    ->method($conditionMethod);
 
         $this->query->expects($this->never())
                     ->method('setParameter');
@@ -80,10 +84,12 @@ class SearchFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryAppliesFilterForValidKeyName()
+    public function testApplyToQueryAppliesFilterForValidKeyName($filterJoinType, $conditionMethod)
     {
-        $filter = new SearchFilter('username', 'search value');
+        $filter = new SearchFilter('username', 'search value', ['joinType' => $filterJoinType]);
 
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -109,7 +115,7 @@ class SearchFilterTest extends AbstractFilterTestCase
                     ->will($this->returnValue($expressionBuilder));
 
         $this->query->expects($this->once())
-                    ->method('andWhere')
+                    ->method($conditionMethod)
                     ->with($expression)
                     ->will($this->returnSelf());
 

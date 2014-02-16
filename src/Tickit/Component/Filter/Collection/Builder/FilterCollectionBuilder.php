@@ -21,7 +21,6 @@
 
 namespace Tickit\Component\Filter\Collection\Builder;
 
-use Symfony\Component\HttpFoundation\Request;
 use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Definition\FilterDefinition;
@@ -34,25 +33,31 @@ use Tickit\Component\Filter\Map\FilterMapperInterface;
  *
  * @package Tickit\Component\Filter\Collection\Builder
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @see     Tickit\Component\Filter\Collection\FilterCollection
  */
 class FilterCollectionBuilder
 {
     /**
-     * Builds a collection of filters from a request object
+     * Builds a collection of filters from an array of data
      *
-     * @param Request               $request         The request object
-     * @param string                $filterNamespace The namespace key of the filters in the request object
-     * @param FilterMapperInterface $filterMapper    A filter mapper
+     * @param array                 $data         The array to build from
+     * @param FilterMapperInterface $filterMapper A filter mapper
+     * @param string                $joinType   The filter type, either "AND" or "OR". If the filter type is "OR" then
+     *                                          the resultant FilterCollection will bind all filters using OR logic,
+     *                                          meaning that only one of the conditions has to be true to return a match.
+     *                                          Defaults to "AND"
      *
      * @return FilterCollection
      */
-    public function buildFromRequest(Request $request, $filterNamespace, FilterMapperInterface $filterMapper)
-    {
+    public function buildFromArray(
+        array $data,
+        FilterMapperInterface $filterMapper,
+        $joinType = FilterCollection::JOIN_TYPE_AND
+    ) {
         $collection = new FilterCollection();
         $fieldMap = $filterMapper->getFieldMap();
 
-        $requestFilters = $request->query->get($filterNamespace, []);
-        foreach ($requestFilters as $fieldName => $filterValue) {
+        foreach ($data as $fieldName => $filterValue) {
             $definition = (isset($fieldMap[$fieldName])) ? $fieldMap[$fieldName] : null;
 
             if (!$definition instanceof FilterDefinition) {
@@ -62,12 +67,12 @@ class FilterCollectionBuilder
                 continue;
             }
 
-            $filter = AbstractFilter::factory(
-                $definition->getType(),
-                $fieldName,
-                $filterValue,
+            $options = array_replace(
+                ['joinType' => $joinType],
                 $definition->getOptions()
             );
+
+            $filter = AbstractFilter::factory($definition->getType(), $fieldName, $filterValue, $options);
             $collection->add($filter);
         }
 

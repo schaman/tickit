@@ -9,6 +9,9 @@ templates:
 cosmetic:
     resource: "@TickitUserBundle/Resources/config/routing/cosmetic.yml"
 
+picker:
+    resource: "@TickitUserBundle/Resources/config/routing/pickers.yml"
+    prefix: /picker/users
 
 ##########################################
 

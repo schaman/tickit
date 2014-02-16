@@ -26,6 +26,7 @@ use Tickit\Bundle\ClientBundle\Doctrine\Repository\ClientRepository;
 use Tickit\Bundle\ClientBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
+use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Map\Client\ClientFilterMapper;
 use Tickit\Component\Pagination\Resolver\PageResolver;
@@ -70,23 +71,33 @@ class ApiController
     protected $clientRepository;
 
     /**
+     * The form helper
+     *
+     * @var FormHelper
+     */
+    protected $formHelper;
+
+    /**
      * Constructor.
      *
      * @param FilterCollectionBuilder $filterBuilder    The filter collection builder
      * @param BaseHelper              $baseHelper       The base controller helper
      * @param CsrfHelper              $csrfHelper       The CSRF controller helper
      * @param ClientRepository        $clientRepository The client repository
+     * @param FormHelper              $formHelper       The form controller helper
      */
     public function __construct(
         FilterCollectionBuilder $filterBuilder,
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper,
-        ClientRepository $clientRepository
+        ClientRepository $clientRepository,
+        FormHelper $formHelper
     ) {
         $this->filterBuilder = $filterBuilder;
         $this->baseHelper = $baseHelper;
         $this->csrfHelper = $csrfHelper;
         $this->clientRepository = $clientRepository;
+        $this->formHelper = $formHelper;
     }
 
     /**
@@ -99,7 +110,10 @@ class ApiController
     public function listAction($page = 1)
     {
         $request = $this->baseHelper->getRequest();
-        $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new ClientFilterMapper());
+        $form = $this->formHelper->createForm(new FilterFormType(), null);
+        $form->submit($request);
+
+        $filters = $this->filterBuilder->buildFromArray($form->getData(), new ClientFilterMapper());
         $clients = $this->clientRepository->findByFilters($filters, $page);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();

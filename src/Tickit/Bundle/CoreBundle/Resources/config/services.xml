@@ -24,9 +24,9 @@
             <argument type="service" id="session.storage" />
         </service>
 
-        <service id="tickit.domain_object_array_decorator" class="%tickit.domain_object_array_decorator.class%" />
+        <service id="tickit.domain_object_array_decorator" class="%tickit.domain_object_array_decorator.class%" scope="prototype" />
 
-        <service id="tickit.domain_object_collection_array_decorator" class="%tickit.domain_object_collection_array_decorator.class%">
+        <service id="tickit.domain_object_collection_array_decorator" class="%tickit.domain_object_collection_array_decorator.class%" scope="prototype">
             <argument type="service" id="tickit.domain_object_array_decorator" />
         </service>
 

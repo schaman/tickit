@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter;
 
 use Doctrine\ORM\QueryBuilder;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * Search filter.
@@ -37,8 +38,6 @@ class SearchFilter extends AbstractFilter
      * Applies the itself to a query builder.
      *
      * @param QueryBuilder $query A reference to the query builder
-     *
-     * @return void
      */
     public function applyToQuery(QueryBuilder &$query)
     {
@@ -54,8 +53,15 @@ class SearchFilter extends AbstractFilter
         $aliases = $query->getRootAliases();
 
         $column = sprintf('%s.%s', $aliases[0], $this->getKey());
-        $query->andWhere($query->expr()->like($column, sprintf(':%s', $this->getKey())))
-              ->setParameter($this->getKey(), '%' . $this->getValue() . '%');
+        $like = $query->expr()->like($column, sprintf(':%s', $this->getKey()));
+
+        if ($this->getJoinType() === FilterCollection::JOIN_TYPE_AND) {
+            $query->andWhere($like);
+        } else {
+            $query->orWhere($like);
+        }
+
+        $query->setParameter($this->getKey(), '%' . $this->getValue() . '%');
     }
 
     /**

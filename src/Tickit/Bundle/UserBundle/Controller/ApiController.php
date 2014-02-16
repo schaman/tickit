@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
+use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
@@ -81,6 +82,13 @@ class ApiController
     protected $avatarAdapter;
 
     /**
+     * The form helper
+     *
+     * @var FormHelper
+     */
+    protected $formHelper;
+
+    /**
      * Constructor
      *
      * @param BaseHelper              $baseHelper     The base controller helper
@@ -88,20 +96,22 @@ class ApiController
      * @param FilterCollectionBuilder $filterBuilder  The filter collection builder
      * @param UserRepository          $userRepository The user manager
      * @param AvatarAdapterInterface  $avatarAdapter  The avatar adapter
+     * @param FormHelper              $formHelper     The form controller helper
      */
     public function __construct(
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper,
         FilterCollectionBuilder $filterBuilder,
         UserRepository $userRepository,
-        AvatarAdapterInterface $avatarAdapter
+        AvatarAdapterInterface $avatarAdapter,
+        FormHelper $formHelper
     ) {
         $this->baseHelper     = $baseHelper;
         $this->csrfHelper     = $csrfHelper;
         $this->filterBuilder  = $filterBuilder;
         $this->userRepository = $userRepository;
         $this->avatarAdapter  = $avatarAdapter;
-
+        $this->formHelper = $formHelper;
     }
 
     /**
@@ -141,7 +151,10 @@ class ApiController
     public function listAction($page = 1)
     {
         $request = $this->baseHelper->getRequest();
-        $filters = $this->filterBuilder->buildFromRequest($request, FilterFormType::NAME, new UserFilterMapper());
+        $form = $this->formHelper->createForm(new FilterFormType(), null);
+        $form->submit($request);
+
+        $filters = $this->filterBuilder->buildFromArray($form->getData(), new UserFilterMapper());
         $users = $this->userRepository->findByFilters($filters, $page);
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
 

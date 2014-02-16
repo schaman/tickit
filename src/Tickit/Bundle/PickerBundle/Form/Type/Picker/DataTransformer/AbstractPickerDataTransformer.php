@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer;
+namespace Tickit\Bundle\PickerBundle\Form\Type\Picker\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,7 +33,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  * entity data (collections, entities etc) into a scalar format
  * and vice versa.
  *
- * @package Tickit\Bundle\CoreBundle\Form\Type\Picker\DataTransformer
+ * @package Tickit\Bundle\PickerBundle\Form\Type\Picker\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 abstract class AbstractPickerDataTransformer implements DataTransformerInterface

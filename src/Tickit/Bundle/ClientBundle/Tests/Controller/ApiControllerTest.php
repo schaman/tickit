@@ -65,6 +65,16 @@ class ApiControllerTest extends AbstractUnitTest
     private $paginator;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $formHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $form;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -78,6 +88,8 @@ class ApiControllerTest extends AbstractUnitTest
                                  ->getMock();
 
         $this->paginator = $this->getMockPaginator();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->form = $this->getMockForm();
     }
     
     /**
@@ -86,12 +98,24 @@ class ApiControllerTest extends AbstractUnitTest
     public function testListActionBuildsCorrectResponse()
     {
         $request = new Request();
+        $filterData = [
+            'key' => 'value'
+        ];
         $filters = new FilterCollection();
         $this->trainBaseHelperToReturnRequest($request);
 
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with(new FilterFormType(), null)
+                         ->will($this->returnValue($this->form));
+
+        $this->form->expects($this->once())
+                   ->method('getData')
+                   ->will($this->returnValue($filterData));
+
         $this->filterBuilder->expects($this->once())
-                            ->method('buildFromRequest')
-                            ->with($request, FilterFormType::NAME, new ClientFilterMapper())
+                            ->method('buildFromArray')
+                            ->with($filterData, new ClientFilterMapper())
                             ->will($this->returnValue($filters));
 
         $clients = [new Client(), new Client()];
@@ -123,7 +147,13 @@ class ApiControllerTest extends AbstractUnitTest
      */
     private function getController()
     {
-        return new ApiController($this->filterBuilder, $this->baseHelper, $this->csrfHelper, $this->clientRepo);
+        return new ApiController(
+            $this->filterBuilder,
+            $this->baseHelper,
+            $this->csrfHelper,
+            $this->clientRepo,
+            $this->formHelper
+        );
     }
 
     private function trainBaseHelperToReturnRequest(Request $request)
