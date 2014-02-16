@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  *
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 namespace Tickit\Component\Filter\Tests;
 
 use Tickit\Component\Filter\CallbackFilter;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * CallbackFilter tests
@@ -54,8 +55,10 @@ class CallbackFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryDoesNotApplyFilterForInvalidField()
+    public function testApplyToQueryDoesNotApplyFilterForInvalidField($filterJoinType)
     {
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -67,14 +70,16 @@ class CallbackFilterTest extends AbstractFilterTestCase
         $this->mock->expects($this->never())
                    ->method('test');
 
-        $filter = $this->getFilter('invalid field', 'value', $this->callable);
+        $filter = $this->getFilter('invalid field', 'value', $this->callable, $filterJoinType);
         $filter->applyToQuery($this->query);
     }
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryDoesNotApplyFilterForEmptyValue()
+    public function testApplyToQueryDoesNotApplyFilterForEmptyValue($filterJoinType)
     {
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -86,7 +91,7 @@ class CallbackFilterTest extends AbstractFilterTestCase
         $this->mock->expects($this->never())
                    ->method('test');
 
-        $filter = $this->getFilter('username', '', $this->callable);
+        $filter = $this->getFilter('username', '', $this->callable, $filterJoinType);
         $filter->applyToQuery($this->query);
     }
 
@@ -107,8 +112,10 @@ class CallbackFilterTest extends AbstractFilterTestCase
 
     /**
      * Tests the applyToQuery() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testApplyToQueryAppliesValidFilter()
+    public function testApplyToQueryAppliesValidFilter($filterJoinType)
     {
         $this->trainQueryToReturnRootEntities($this->query);
         $this->trainQueryToReturnEntityManager($this->query, $this->em);
@@ -116,14 +123,18 @@ class CallbackFilterTest extends AbstractFilterTestCase
 
         $this->mock->expects($this->once())
                    ->method('test')
-                   ->with($this->query, 'value');
+                   ->with($this->query, 'value', $filterJoinType);
 
-        $filter = $this->getFilter('username', 'value', $this->callable);
+        $filter = $this->getFilter('username', 'value', $this->callable, $filterJoinType);
         $filter->applyToQuery($this->query);
     }
 
-    private function getFilter($field = 'username', $value = 'value', $callable = null)
-    {
-        return new CallbackFilter($field, $value, ['callback' => $callable]);
+    private function getFilter(
+        $field = 'username',
+        $value = 'value',
+        $callable = null,
+        $filterJoinType = FilterCollection::JOIN_TYPE_AND
+    ) {
+        return new CallbackFilter($field, $value, ['callback' => $callable, 'joinType' => $filterJoinType]);
     }
 }

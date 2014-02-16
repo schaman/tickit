@@ -2,19 +2,19 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
- * 
+ *
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,7 +58,11 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
                         ->method('decorate')
                         ->will($this->returnValue(array('decorated')));
 
-        $this->decorator->expects($this->at(0))
+        $this->decorator->expects($this->at(1))
+                        ->method('decorate')
+                        ->with($data[0], $propertyNames, $staticProperties);
+
+        $this->decorator->expects($this->at(2))
                         ->method('decorate')
                         ->with($data[0], $propertyNames, $staticProperties);
 
@@ -66,6 +70,9 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([['decorated'], ['decorated']], $return);
     }
 
+    /**
+     * @return array
+     */
     public function getDomainObjectData()
     {
         $domainObjects = [new MockDomainObject(), new MockDomainObject()];
@@ -75,6 +82,55 @@ class DomainObjectCollectionDecoratorTest extends \PHPUnit_Framework_TestCase
         return [
             [$domainObjects, $propertyNames, $staticProperties],
             [new \ArrayIterator($domainObjects), $propertyNames, $staticProperties]
+        ];
+    }
+
+    /**
+     * Tests the decorate() method
+     *
+     * @dataProvider getDomainObjectsWithCustomFieldNames
+     */
+    public function testDecorateCorrectlyDecoratesArrayOfObjectsWithCustomFieldNames(
+        $data,
+        array $propertyNames,
+        array $staticProperties,
+        array $customFieldNames
+    ) {
+        $collectionDecorator = $this->getCollectionDecorator();
+        $collectionDecorator->setPropertyMappings($customFieldNames);
+
+        $this->decorator->expects($this->once())
+                        ->method('setPropertyMappings')
+                        ->with($customFieldNames);
+
+        $this->decorator->expects($this->exactly(2))
+                        ->method('decorate')
+                        ->will($this->returnValue(['decorated-custom-field']));
+
+        $this->decorator->expects($this->at(1))
+                        ->method('decorate')
+                        ->with($data[0], $propertyNames, $staticProperties);
+
+        $this->decorator->expects($this->at(2))
+                        ->method('decorate')
+                        ->with($data[1], $propertyNames, $staticProperties);
+
+        $return = $collectionDecorator->decorate($data, $propertyNames, $staticProperties);
+        $this->assertEquals([['decorated-custom-field'], ['decorated-custom-field']], $return);
+    }
+
+    /**
+     * @return array
+     */
+    public function getDomainObjectsWithCustomFieldNames()
+    {
+        $domainObjects = [new MockDomainObject(), new MockDomainObject()];
+        $propertyNames = ['name', 'active'];
+        $customFieldNames = ['name' => 'text', 'active' => 'enabled'];
+
+        return [
+            [$domainObjects, $propertyNames, [], $customFieldNames],
+            [new \ArrayIterator($domainObjects), $propertyNames, [], $customFieldNames]
         ];
     }
 

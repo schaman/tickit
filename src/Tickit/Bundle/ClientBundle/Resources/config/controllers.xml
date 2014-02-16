@@ -8,6 +8,7 @@
         <parameter key="tickit_client.controller.api.class">Tickit\Bundle\ClientBundle\Controller\ApiController</parameter>
         <parameter key="tickit_client.controller.client.class">Tickit\Bundle\ClientBundle\Controller\ClientController</parameter>
         <parameter key="tickit_client.controller.template.class">Tickit\Bundle\ClientBundle\Controller\TemplateController</parameter>
+        <parameter key="tickit_client.controller.picker.class">Tickit\Bundle\ClientBundle\Controller\PickerController</parameter>
     </parameters>
 
     <services>
@@ -17,6 +18,7 @@
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_client.client_repository" />
+            <argument type="service" id="tickit.controller.form_helper" />
         </service>
 
         <service id="tickit_client.controller.client" class="%tickit_client.controller.client.class%" scope="request">
@@ -28,6 +30,12 @@
 
         <service id="tickit_client.controller.template" class="%tickit_client.controller.template.class%" scope="request">
             <argument type="service" id="tickit.controller.form_helper" />
+        </service>
+
+        <service id="tickit_client.controller.picker" class="%tickit_client.controller.picker.class%" scope="request">
+            <argument type="service" id="tickit_client.client_repository" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit.filter_collection_builder" />
         </service>
 
     </services>

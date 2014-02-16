@@ -29,7 +29,6 @@ require([
     // load any other modules here
     require([
         'modules/router',
-        'modules/core',
         'modules/template',
         'modules/search',
         'modules/request'

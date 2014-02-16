@@ -2,19 +2,19 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
- * 
+ *
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,8 +37,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      * Tests the decorate() method
      *
      * @expectedException \InvalidArgumentException
-     *
-     * @return void
      */
     public function testDecorateThrowsExceptionForNonObject()
     {
@@ -50,8 +48,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      * Tests the decorate() method
      *
      * @expectedException \RuntimeException
-     *
-     * @return void
      */
     public function testDecorateThrowsExceptionForInaccessibleProperty()
     {
@@ -63,8 +59,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      * Tests the decorate() method
      *
      * @expectedException \RuntimeException
-     *
-     * @return void
      */
     public function testDecorateThrowsExceptionForInaccessibleChildProperty()
     {
@@ -74,8 +68,6 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the decorate() method
-     *
-     * @return void
      */
     public function testDecorateHandlesMockObjectCorrectly()
     {
@@ -105,5 +97,38 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($decorated['childObject.enabled']);
         $this->assertTrue($decorated['childObject.childObject.enabled']);
         $this->assertEquals('value', $decorated['static']);
+    }
+
+    /**
+     * Tests the decorate() method
+     *
+     * @dataProvider getDecorateWithCustomMappingsFixtures
+     */
+    public function testDecorateHandlesCustomPropertyMappings($fieldsToDecorate, $customMappings)
+    {
+        $decorator = new DomainObjectArrayDecorator();
+        $decorator->setPropertyMappings($customMappings);
+        $mock = new MockDomainObject();
+
+        $decorated = $decorator->decorate($mock, $fieldsToDecorate, ['static' => 'value']);
+        $nonCustomFields = array_diff($fieldsToDecorate, array_keys($customMappings));
+        foreach ($nonCustomFields as $field) {
+            $this->assertArrayHasKey($field, $decorated);
+        }
+
+        foreach ($customMappings as $customFieldName) {
+            $this->assertArrayHasKey($customFieldName, $decorated);
+        }
+    }
+
+    public function getDecorateWithCustomMappingsFixtures()
+    {
+        return [
+            [
+                ['name', 'active', 'enabled', 'childObject.enabled'],
+                ['name' => 'custom-name', 'childObject.enabled' => 'sub-enabled']
+            ],
+            [['name', 'active', 'childObject.enabled'], []]
+        ];
     }
 }

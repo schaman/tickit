@@ -3,7 +3,7 @@
 /*
  * Tickit, an open source web based bug management tool.
  *
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,13 +49,13 @@ class FilterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text')
-                ->add('owner', 'tickit_user_picker')
+                ->add('owner', 'tickit_user_picker', ['provider' => 'picker_user_find'])
                 ->add(
                     'status',
                     'choice',
                     ['choices' => Project::getStatusTypes(true)]
                 )
-                ->add('client', 'tickit_client_picker');
+                ->add('client', 'tickit_client_picker', ['provider' => 'picker_client_find']);
     }
 
     /**

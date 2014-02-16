@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Tickit\Bundle\FilterBundle\TickitFilterBundle(),
             new Tickit\Bundle\PaginationBundle\TickitPaginationBundle(),
             new Tickit\Bundle\SearchBundle\TickitSearchBundle(),
+            new Tickit\Bundle\PickerBundle\TickitPickerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

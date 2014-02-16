@@ -2,29 +2,29 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
- * 
+ *
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Tickit\Component\Filter\Tests\Collection\Builder;
 
-use Symfony\Component\HttpFoundation\Request;
 use Tickit\Component\Filter\AbstractFilter;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Map\Definition\FilterDefinition;
+use Tickit\Component\Filter\Collection\FilterCollection;
 
 /**
  * FilterCollectionBuilder tests
@@ -50,85 +50,70 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * Tests the buildFromRequest() method
      *
-     * @return void
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testBuildFromRequestReturnsEmptyCollectionForNoFilters()
+    public function testBuildFromRequestReturnsEmptyCollectionForNoFilters($joinType)
     {
-        $request = Request::create('/', 'get', array());
-
         $this->filterMapper->expects($this->once())
                            ->method('getFieldMap')
                            ->will($this->returnValue(null));
 
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
+        if (null !== $joinType) {
+            $collection = $builder->buildFromArray([], $this->filterMapper, $joinType);
+        } else {
+            $collection = $builder->buildFromArray([], $this->filterMapper);
+        }
 
         $this->assertTrue($collection->isEmpty());
     }
 
     /**
      * Tests the buildFromRequest() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testBuildFromRequestReturnsEmptyCollectionForInvalidNamespace()
+    public function testBuildFromRequestIgnoresNonMappedFields($joinType, $expectedJoinType)
     {
         $filters = [
-            'filters' => [
-                'column' => 'value'
-            ]
-        ];
-
-        $this->filterMapper->expects($this->once())
-                           ->method('getFieldMap')
-                           ->will($this->returnValue(null));
-
-        $builder = new FilterCollectionBuilder();
-        $request = Request::create('/', 'get', $filters);
-        $collection = $builder->buildFromRequest($request, 'invalid-namespace', $this->filterMapper);
-
-        $this->assertTrue($collection->isEmpty());
-    }
-
-    /**
-     * Tests the buildFromRequest() method
-     */
-    public function testBuildFromRequestIgnoresNonMappedFields()
-    {
-        $filters = [
-            'filters' => [
-                'mapped_field' => 'search term',
-                'unmapped_field' => 'search term'
-            ]
+            'mapped_field' => 'search term',
+            'unmapped_field' => 'search term'
         ];
 
         $fieldMap = ['mapped_field' => new FilterDefinition(AbstractFilter::FILTER_SEARCH)];
 
         $this->trainFilterMapperToReturnFieldMap($fieldMap);
 
-        $request = Request::create('/', 'get', $filters);
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
+        if (null !== $joinType) {
+            $collection = $builder->buildFromArray($filters, $this->filterMapper, $joinType);
+        } else {
+            $collection = $builder->buildFromArray($filters, $this->filterMapper);
+        }
+
 
         $this->assertEquals(1, $collection->count());
         $mappedFilter = $collection->first();
 
         $this->assertEquals('mapped_field', $mappedFilter->getKey());
+        $this->assertEquals($expectedJoinType, $mappedFilter->getOption('joinType'));
         $this->assertEquals(AbstractFilter::FILTER_SEARCH, $mappedFilter->getType());
     }
 
     /**
      * Tests the buildFromRequest() method
+     *
+     * @dataProvider getJoinTypeFixtures
      */
-    public function testBuildFromRequestReturnsValidCollection()
+    public function testBuildFromRequestReturnsValidCollection($joinType, $expectedJoinType)
     {
         $filters = [
-            'filters' => [
-                'column' => 'ASC',
-                'column2' => 'DESC',
-                'field1' => 'value',
-                'field2' => 500,
-                'field3' => 'search term',
-                'field4' => 'another search term'
-            ]
+            'column' => 'ASC',
+            'column2' => 'DESC',
+            'field1' => 'value',
+            'field2' => 500,
+            'field3' => 'search term',
+            'field4' => 'another search term'
         ];
 
         $fieldMap = [
@@ -142,9 +127,12 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->trainFilterMapperToReturnFieldMap($fieldMap);
 
-        $request = Request::create('/', 'get', $filters);
         $builder = new FilterCollectionBuilder();
-        $collection = $builder->buildFromRequest($request, 'filters', $this->filterMapper);
+        if (null !== $joinType) {
+            $collection = $builder->buildFromArray($filters, $this->filterMapper, $joinType);
+        } else {
+            $collection = $builder->buildFromArray($filters, $this->filterMapper);
+        }
 
         $this->assertEquals(6, $collection->count());
 
@@ -152,8 +140,21 @@ class FilterCollectionBuilderTest extends \PHPUnit_Framework_TestCase
         foreach ($collection->toArray() as $filter) {
             $expectedType = $fieldMap[$filter->getKey()]->getType();
             $this->assertEquals($expectedType, $filter->getType());
-            $this->assertEquals($filters['filters'][$filter->getKey()], $filter->getValue());
+            $this->assertEquals($filters[$filter->getKey()], $filter->getValue());
+            $this->assertEquals($expectedJoinType, $filter->getOption('joinType'));
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getJoinTypeFixtures()
+    {
+        return [
+            [null, FilterCollection::JOIN_TYPE_AND],
+            [FilterCollection::JOIN_TYPE_AND, FilterCollection::JOIN_TYPE_AND],
+            [FilterCollection::JOIN_TYPE_OR, FilterCollection::JOIN_TYPE_OR]
+        ];
     }
 
     private function trainFilterMapperToReturnFieldMap($fieldMap)

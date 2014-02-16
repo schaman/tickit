@@ -5,9 +5,9 @@
  *
  * @type {Backbone.View}
  */
-define(['modules/template'], function(Template) {
+define(['modules/template', 'picker/js/views/PickerInitialiseMixin'], function(Template, PickerMixin) {
 
-    return Backbone.View.extend({
+    var view = Backbone.View.extend({
 
         /**
          * Event bindings for the filter view
@@ -40,6 +40,7 @@ define(['modules/template'], function(Template) {
             var t = this;
             Template.fetch(url, function(tpl) {
                 t.$el.html(tpl);
+                t.initPickers.apply(t);
             });
         },
 
@@ -68,4 +69,8 @@ define(['modules/template'], function(Template) {
             this.trigger('change', this.getFilterValues());
         }
     });
+
+    _.extend(view.prototype, PickerMixin);
+
+    return view;
 });

@@ -2,19 +2,19 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
- * 
+ *
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,5 +42,18 @@ interface DomainObjectDecoratorInterface
      *
      * @return mixed
      */
-    public function decorate($object, array $propertyNames, array $staticProperties = array());
+    public function decorate($object, array $propertyNames, array $staticProperties = []);
+
+    /**
+     * Sets any field mappings.
+     *
+     * This is used to transform a property on the object to appear as a different property in
+     * the decorated output. Can be useful for masking original object property names.
+     *
+     * @param array $propertyMappings An array of custom property names which are used to override the real property
+     *                                names in the decorated output. New properties should be indexed by the original
+     *                                property name
+     * @return mixed
+     */
+    public function setPropertyMappings(array $propertyMappings = []);
 }

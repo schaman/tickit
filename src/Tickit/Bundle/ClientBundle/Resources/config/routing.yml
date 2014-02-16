@@ -9,6 +9,10 @@ templates:
     resource: "@TickitClientBundle/Resources/config/routing/templates.yml"
     prefix: /templates/clients
 
+pickers:
+    resource: "@TickitClientBundle/Resources/config/routing/pickers.yml"
+    prefix: /picker/clients
+
 client_create:
     path: /clients/create
     defaults: { _controller: tickit_client.controller.client:createAction }

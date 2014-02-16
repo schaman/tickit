@@ -71,6 +71,14 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
          */
         urlRoot: function() {
             return Routing.generate('api_user_fetch');
+        },
+
+        /**
+         *
+         * @returns {boolean}
+         */
+        isAdmin : function() {
+            return true === this.get('admin');
         }
     });
 });

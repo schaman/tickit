@@ -2,19 +2,19 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
- * 
+ *
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -70,6 +70,16 @@ class ApiControllerTest extends AbstractUnitTest
     private $paginator;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $formHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $form;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -84,6 +94,8 @@ class ApiControllerTest extends AbstractUnitTest
 
         $this->avatarAdapter = $this->getMock('Tickit\Component\Avatar\Adapter\AvatarAdapterInterface');
         $this->paginator = $this->getMockPaginator();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->form = $this->getMockForm();
     }
     
     /**
@@ -151,12 +163,24 @@ class ApiControllerTest extends AbstractUnitTest
     public function testListActionBuildsCorrectResponse()
     {
         $request = new Request();
+        $filterData = [
+            'key' => 'value'
+        ];
         $this->trainBaseHelperToReturnRequest($request);
         $filters = new FilterCollection();
 
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with(new FilterFormType(), null)
+                         ->will($this->returnValue($this->form));
+
+        $this->form->expects($this->once())
+                   ->method('getData')
+                   ->will($this->returnValue($filterData));
+
         $this->filterBuilder->expects($this->once())
-                            ->method('buildFromRequest')
-                            ->with($request, FilterFormType::NAME, new UserFilterMapper())
+                            ->method('buildFromArray')
+                            ->with($filterData, new UserFilterMapper())
                             ->will($this->returnValue($filters));
 
         $user1 = new User();
@@ -187,7 +211,7 @@ class ApiControllerTest extends AbstractUnitTest
                   ->method('decorate')
                   ->with(
                       new \ArrayIterator($users),
-                      ['id', 'forename', 'surname', 'email', 'username', 'lastActivity'],
+                      ['id', 'forename', 'surname', 'email', 'username', 'admin', 'lastActivity'],
                       ['csrf_token' => 'token-value']
                   )
                   ->will($this->returnValue([['decorated user'], ['decorated user']]));
@@ -209,7 +233,8 @@ class ApiControllerTest extends AbstractUnitTest
             $this->csrfHelper,
             $this->filterBuilder,
             $this->userRepository,
-            $this->avatarAdapter
+            $this->avatarAdapter,
+            $this->formHelper
         );
     }
 

@@ -2,19 +2,19 @@
 
 /*
  * Tickit, an open source web based bug management tool.
- * 
- * Copyright (C) 2013  Tickit Project <http://tickit.io>
- * 
+ *
+ * Copyright (C) 2014  Tickit Project <http://tickit.io>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,6 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
+use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\ApiController;
@@ -70,6 +71,16 @@ class ApiControllerTest extends AbstractUnitTest
     private $csrfHelper;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $formHelper;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $form;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -87,6 +98,8 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator = $this->getMockPaginator();
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
+        $this->formHelper = $this->getMockFormHelper();
+        $this->form = $this->getMockForm();
     }
     
     /**
@@ -95,10 +108,23 @@ class ApiControllerTest extends AbstractUnitTest
     public function testListActionBuildsCorrectResponse()
     {
         $request = new Request();
+        $filterData = [
+            'key' => 'value'
+        ];
         $filters = new FilterCollection();
 
         $this->trainBaseHelperToReturnRequest($request);
-        $this->trainFilterBuilderToReturnFilters($filters, $request);
+
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with(new FilterFormType(), null)
+                         ->will($this->returnValue($this->form));
+
+        $this->form->expects($this->once())
+                   ->method('getData')
+                   ->will($this->returnValue($filterData));
+
+        $this->trainFilterBuilderToReturnFilters($filters, $filterData);
 
         $project1 = new Project();
         $project1->setName('Project 1');
@@ -168,7 +194,8 @@ class ApiControllerTest extends AbstractUnitTest
             $this->projectRepo,
             $this->attributeRepo,
             $this->baseHelper,
-            $this->csrfHelper
+            $this->csrfHelper,
+            $this->formHelper
         );
     }
 
@@ -179,11 +206,11 @@ class ApiControllerTest extends AbstractUnitTest
                          ->will($this->returnValue($request));
     }
 
-    private function trainFilterBuilderToReturnFilters(FilterCollection $filters, Request $request)
+    private function trainFilterBuilderToReturnFilters(FilterCollection $filters, array $data)
     {
         $this->filterBuilder->expects($this->once())
-                            ->method('buildFromRequest')
-                            ->with($request)
+                            ->method('buildFromArray')
+                            ->with($data)
                             ->will($this->returnValue($filters));
     }
 
