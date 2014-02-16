@@ -37,9 +37,7 @@ class SearchFilter extends AbstractFilter
     /**
      * Applies the itself to a query builder.
      *
-     * @param QueryBuilder $query    A reference to the query builder
-     *
-     * @return void
+     * @param QueryBuilder $query A reference to the query builder
      */
     public function applyToQuery(QueryBuilder &$query)
     {

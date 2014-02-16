@@ -70,7 +70,7 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
             $value = false;
 
             // find the hierarchy of properties being accessed
-            $hierarchy         = explode('.', $property);
+            $hierarchy = explode('.', $property);
             $hierarchy = new \ArrayIterator($hierarchy);
 
             // initialise a current object
