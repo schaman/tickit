@@ -25,6 +25,11 @@ define(['modules/request', 'select2'], function(Request) {
                                 });
                             }
                         });
+                    },
+                    initSelection: function (selectElement, callback) {
+                        var initialValue = JSON.parse(selectElement.val());
+                        selectElement.val('');
+                        callback(initialValue);
                     }
                 };
                 if (maxSelections !== false) {
