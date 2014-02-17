@@ -21,6 +21,7 @@
 
 namespace Tickit\WebAcceptance;
 
+use Behat\Mink\Element\NodeElement;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -138,6 +139,29 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
+     * @When /^I type "([^"]*)", wait and select "([^"]*)" from picker "([^"]*)"$/
+     */
+    public function iTypeWaitAndSelectFromPicker($typedValue, $valueToSelect, $pickerId)
+    {
+        $session = $this->getSession();
+        $page = $session->getPage();
+
+        $select2Id = sprintf('#s2id_%s input[type="text"]', $pickerId);
+        $select2 = $page->find('css', $select2Id);
+        $select2->setValue($typedValue);
+        $this->iWait();
+
+        $results = $page->findAll('css', 'li.select2-result');
+        /** @var NodeElement $result */
+        foreach ($results as $result) {
+            if ($result->getText() == $valueToSelect) {
+                $result->click();
+                break;
+            }
+        }
+    }
+
+    /**
      * Creates a user and logs in
      *
      * @param string|array $role         The role(s) for the user
@@ -207,6 +231,14 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
                 $backtrace[1]['line']
             )
         );
+    }
+
+    /**
+     * @Given /^I wait$/
+     */
+    private function iWait()
+    {
+        $this->getSession()->wait(1000);
     }
 
     /**

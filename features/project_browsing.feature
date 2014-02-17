@@ -34,6 +34,5 @@ Feature: Project Browsing
 
     Scenario: The project listing can be filtered by client
         Given I am currently on "/projects"
-         When I select "Apple" from "tickit_project_filters[client]"
+         When I type "Appl", wait and select "Apple" from picker "tickit_project_filters_client"
          Then I should wait and see 2 table rows
-
