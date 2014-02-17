@@ -26,6 +26,7 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Faker\Factory as FakerFactory;
+use Faker\Generator as FakerGenerator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Tickit\Component\Entity\Manager\ClientManager;
 use Tickit\Component\Entity\Manager\ProjectManager;
@@ -44,6 +45,13 @@ use Tickit\WebAcceptance\Mixins\ContainerMixin;
 class DataContext extends BehatContext implements KernelAwareInterface
 {
     use ContainerMixin;
+
+    /**
+     * Faker generator
+     *
+     * @var FakerGenerator
+     */
+    private $faker;
 
     /**
      * Constructor.
