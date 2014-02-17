@@ -24,6 +24,7 @@ namespace Tickit\WebAcceptance;
 use Behat\Behat\Context\BehatContext;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
@@ -174,8 +175,14 @@ class DataContext extends BehatContext implements KernelAwareInterface
     {
         /** @var ClientManager $manager */
         $manager = $this->getService('tickit_client.manager');
+        /** @var Registry $doctrine */
+        $doctrine = $this->getService('doctrine');
+        $client = $doctrine->getRepository('TickitClientBundle:Client')->findOneBy(['name' => $name]);
 
-        $client = new Client();
+        if (null === $client) {
+            $client = new Client();
+        }
+
         $client->setName($name)
                ->setStatus($status)
                ->setNotes('Notes for ' . $name)
@@ -195,8 +202,14 @@ class DataContext extends BehatContext implements KernelAwareInterface
     {
         /** @var ProjectManager $manager */
         $manager = $this->getService('tickit_project.manager');
+        /** @var Registry $doctrine */
+        $doctrine = $this->getService('doctrine');
+        $project = $doctrine->getRepository('TickitProjectBundle:Project')->findOneBy(['name' => $name]);
 
-        $project = new Project();
+        if (null === $project) {
+            $project = new Project();
+        }
+
         $project->setName($name)
                 ->setStatus($status)
                 ->setClient($client)
