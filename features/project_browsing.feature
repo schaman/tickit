@@ -36,3 +36,10 @@ Feature: Project Browsing
         Given I am currently on "/projects"
          When I type "Appl", wait and select "Apple" from picker "tickit_project_filters_client"
          Then I should wait and see 2 table rows
+
+    Scenario: The project listing can be filtered by multiple fields
+        Given I am currently on "/projects"
+         When I fill in the following:
+            | tickit_project_filters[name] | Web Project |
+          And I type "Microso", wait and select "Microsoft" from picker "tickit_project_filters_client"
+         Then I should wait and see 2 table rows
