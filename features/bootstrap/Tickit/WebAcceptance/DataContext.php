@@ -162,6 +162,26 @@ class DataContext extends BehatContext implements KernelAwareInterface
         return $user;
     }
 
+
+    /**
+     * @Given /^There are (\d+) random projects for "([^"]*)"$/
+     */
+    public function thereAreRandomProjectsFor($numberOfProjects, $clientName)
+    {
+        $client = $this->getService('tickit_client.manager')
+                       ->getRepository()
+                       ->findOneBy(['name' => $clientName]);
+
+        if (null === $client) {
+            throw new \RuntimeException(sprintf('No client could be found matching name %s', $clientName));
+        }
+
+        $i = $numberOfProjects;
+        while ($i--) {
+            $this->createProject($this->faker->company, Project::STATUS_ACTIVE, $client);
+        }
+    }
+
     /**
      * Creates a new client in the database for the context.
      *
