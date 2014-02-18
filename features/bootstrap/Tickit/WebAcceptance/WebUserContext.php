@@ -182,6 +182,16 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
+     * @Given /^I refresh the listing$/
+     */
+    public function iRefreshTheListing()
+    {
+        $page = $this->getSession()->getPage();
+        $button = $page->find('css', 'div.refresh a');
+        $button->click();
+    }
+
+    /**
      * Creates a user and logs in
      *
      * @param string|array $role         The role(s) for the user
