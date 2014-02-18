@@ -152,7 +152,8 @@ define(['backbone/pageable'], function(BackbonePageable) {
          */
         url: function() {
             var page = this.state && this.state.currentPage && Number(this.state.currentPage) > 0 ? this.state.currentPage : 1;
-            return Routing.generate(this.getRouteName(), { page: page });
+            var filters = this.filterView !== null ? this.filterView.getFilterValues() : {};
+            return Routing.generate(this.getRouteName(), _.extend({ page: page }, filters));
         }
     });
 });
