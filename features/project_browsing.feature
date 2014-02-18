@@ -43,10 +43,18 @@ Feature: Project Browsing
          When I select "Archived" from "tickit_project_filters_status"
          Then I should wait and see 1 table rows
 
-
     Scenario: The project listing can be filtered by multiple fields
         Given I am currently on "/projects"
          When I fill in the following:
             | tickit_project_filters[name] | Web Project |
           And I type "Microso", wait and select "Microsoft" from picker "tickit_project_filters_client"
          Then I should wait and see 2 table rows
+
+    Scenario: The project listing can be viewed on multiple pages
+        Given There are 30 random projects for "Apple"
+          And I am currently on "/projects"
+          And I type "Appl", wait and select "Apple" from picker "tickit_project_filters_client"
+         Then I should wait and see 25 table rows
+          And I should see 2 pages
+         When I click page 2
+         Then I should wait and see 7 table rows

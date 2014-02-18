@@ -162,6 +162,25 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
+     * @Then /^I should see (\d+) pages$/
+     */
+    public function iShouldSeePages($numberOfPages)
+    {
+        // we add 2 to the expected page count, because there will be both "next"
+        // and "prev" <li> control elements
+        $this->assertNumElements($numberOfPages + 2, 'div.list-pagination ul.pagination li a');
+    }
+
+    /**
+     * @When /^I click page (\d+)$/
+     */
+    public function iClickPage($pageNumber)
+    {
+        $page = $this->getSession()->getPage();
+        $page->find('css', sprintf('div.list-pagination ul.pagination li a[data-page="%d"]', $pageNumber));
+    }
+
+    /**
      * Creates a user and logs in
      *
      * @param string|array $role         The role(s) for the user
