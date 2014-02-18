@@ -162,7 +162,6 @@ class DataContext extends BehatContext implements KernelAwareInterface
         return $user;
     }
 
-
     /**
      * @Given /^There are (\d+) random projects for "([^"]*)"$/
      */
@@ -180,6 +179,24 @@ class DataContext extends BehatContext implements KernelAwareInterface
         while ($i--) {
             $this->createProject($this->faker->company, Project::STATUS_ACTIVE, $client);
         }
+    }
+
+    /**
+     * @Then /^When project "([^"]*)" is removed$/
+     */
+    public function whenProjectIsRemoved($projectName)
+    {
+        $doctrine = $this->getService('doctrine');
+        $project = $this->getService('tickit_project.manager')
+                        ->getRepository()
+                        ->findOneBy(['name' => $projectName]);
+
+        if (null === $project) {
+            return;
+        }
+
+        $doctrine->getManager()->remove($project);
+        $doctrine->getManager()->flush();
     }
 
     /**
