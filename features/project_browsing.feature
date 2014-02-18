@@ -66,3 +66,10 @@ Feature: Project Browsing
          Then When project "Archived project" is removed
           And I refresh the listing
          Then I should wait and see 0 table rows
+
+    Scenario: The project listing should have an empty state
+        Given I am currently on "/projects"
+         When I fill in the following:
+            | tickit_project_filters[name] | somethingthatwillreturnzeroresults |
+         Then I should wait and see 0 table rows
+          And I should see "No projects were found that match your criteria"
