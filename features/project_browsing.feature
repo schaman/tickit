@@ -58,3 +58,11 @@ Feature: Project Browsing
           And I should see 2 pages
          When I click page 2
          Then I should wait and see 6 table rows
+
+    Scenario: The project listing can be refreshed
+        Given I am currently on "/projects"
+          And I select "Archived" from "tickit_project_filters_status"
+         Then I should wait and see 1 table rows
+         Then When project "Archived project" is removed
+          And I refresh the listing
+         Then I should wait and see 0 table rows
