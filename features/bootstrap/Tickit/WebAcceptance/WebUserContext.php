@@ -177,7 +177,8 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     public function iClickPage($pageNumber)
     {
         $page = $this->getSession()->getPage();
-        $page->find('css', sprintf('div.list-pagination ul.pagination li a[data-page="%d"]', $pageNumber));
+        $button = $page->find('css', sprintf('div.list-pagination ul.pagination li a[data-page="%d"]', $pageNumber));
+        $button->click();
     }
 
     /**

@@ -57,4 +57,4 @@ Feature: Project Browsing
          Then I should wait and see 25 table rows
           And I should see 2 pages
          When I click page 2
-         Then I should wait and see 7 table rows
+         Then I should wait and see 6 table rows
