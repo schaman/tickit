@@ -75,7 +75,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
     /**
      * @Given /^the following users exist:$/
      */
-    public function theFollowUsersExist(TableNode $users)
+    public function theFollowingUsersExist(TableNode $users)
     {
         foreach ($users->getHash() as $userData) {
             $this->createUser(
