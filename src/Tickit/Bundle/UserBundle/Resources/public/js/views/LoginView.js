@@ -14,7 +14,6 @@ define([
     return Backbone.View.extend({
 
         tagName: 'div',
-        className: 'login-wrap',
         errorRegion: null,
 
         /**
