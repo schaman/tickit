@@ -25,7 +25,7 @@ define([
 
         initialize: function() {
             this.errorRegion = new Backbone.Marionette.Region({
-                el: '#errors'
+                el: 'div.error-container'
             });
         },
 
