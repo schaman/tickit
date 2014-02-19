@@ -80,9 +80,8 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
      */
     public function iShouldWaitAndSeeAElement($selector)
     {
-        $this->spin(function(WebUserContext $context) use ($selector) {
-            return $context->getSession()->getPage()->find('css', $selector);
-        });
+        $this->getSession()->wait(1500);
+        return null !== $this->getSession()->getPage()->find('css', $selector);
     }
 
     /**
