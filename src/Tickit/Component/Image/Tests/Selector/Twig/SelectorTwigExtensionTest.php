@@ -27,28 +27,38 @@ class SelectorTwigExtensionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests the getFunctions() method
+     *
+     * @dataProvider getFunctionFixtures()
      */
-    public function testGetFunctions()
+    public function testGetFunctions($twigMethodName, $expectedException = null)
     {
-        $functions = $this->getSelector()->getFunctions();
+        if ($expectedException !== null) {
+            $this->setExpectedException($expectedException);
+        }
 
-        $this->assertInternalType('array', $functions);
-        $this->assertCount(1, $functions);
+        $selector = new SelectorTwigExtension($this->selector, $twigMethodName);
+        $functions = $selector->getFunctions();
 
-        /** @var \Twig_SimpleFunction $function */
-        $function = array_shift($functions);
-        $this->assertInstanceOf('\Twig_SimpleFunction', $function);
-        $this->assertEquals('image_select', $function->getName());
-        $this->assertEquals(array($this->selector, 'select'), $function->getCallable());
+        if ($expectedException === null) {
+            $this->assertInternalType('array', $functions);
+            $this->assertCount(1, $functions);
+
+            /** @var \Twig_SimpleFunction $function */
+            $function = array_shift($functions);
+            $this->assertInstanceOf('\Twig_SimpleFunction', $function);
+            $this->assertEquals($twigMethodName, $function->getName());
+            $this->assertEquals(array($this->selector, 'select'), $function->getCallable());
+        }
     }
 
     /**
-     * Gets a new instance
-     *
-     * @return SelectorTwigExtension
+     * @return array
      */
-    private function getSelector()
+    public function getFunctionFixtures()
     {
-        return new SelectorTwigExtension($this->selector);
+        return [
+            ['select'],
+            ['', '\InvalidArgumentException']
+        ];
     }
 }
