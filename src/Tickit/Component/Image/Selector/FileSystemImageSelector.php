@@ -1,26 +1,26 @@
 <?php
 
-namespace Tickit\Component\Login\Background;
+namespace Tickit\Component\Image\Selector;
 
 use Symfony\Component\Finder\Finder;
 
 /**
- * Background selector that reads from the file system.
+ * Image selector that reads from the file system.
  *
- * @package Tickit\Component\Login\Background
+ * @package Tickit\Component\Image\Selector
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class FileSystemBackgroundSelector implements BackgroundSelectorInterface
+class FileSystemImageSelector implements ImageSelectorInterface
 {
     /**
-     * File path to the background images
+     * File path to the available images
      *
      * @var string
      */
     private $imagesFilePath;
 
     /**
-     * Web path to the background images
+     * Web path to the available images
      *
      * @var string
      */
@@ -29,8 +29,8 @@ class FileSystemBackgroundSelector implements BackgroundSelectorInterface
     /**
      * Constructor
      *
-     * @param string $imagesFilePath File path to the background images
-     * @param string $imagesWebPath  Web path to the background images
+     * @param string $imagesFilePath File path to the images
+     * @param string $imagesWebPath  Web path to the images
      */
     public function __construct($imagesFilePath, $imagesWebPath)
     {
@@ -39,7 +39,7 @@ class FileSystemBackgroundSelector implements BackgroundSelectorInterface
     }
 
     /**
-     * Selects a random background image and returns its web path
+     * Selects a random image and returns its web path
      *
      * @throws \RuntimeException If the currently configured file path for the images is not readable
      *
@@ -50,7 +50,7 @@ class FileSystemBackgroundSelector implements BackgroundSelectorInterface
         if (!is_readable($this->imagesFilePath)) {
             throw new \RuntimeException(
                 sprintf(
-                    'The provided file path (%s) for background images is not readable, please make sure it exists',
+                    'The provided file path (%s) for images is not readable, please make sure it exists',
                     $this->imagesFilePath
                 )
             );
@@ -61,9 +61,9 @@ class FileSystemBackgroundSelector implements BackgroundSelectorInterface
                ->files();
 
         $files = iterator_to_array($finder);
-        /** @var \SplFileInfo $randomBackground */
-        $randomBackground = $files[array_rand($files, 1)];
+        /** @var \SplFileInfo $randomImage */
+        $randomImage = $files[array_rand($files, 1)];
 
-        return sprintf('%s/%s', $this->imagesWebPath, $randomBackground->getFilename());
+        return sprintf('%s/%s', $this->imagesWebPath, $randomImage->getFilename());
     }
 }

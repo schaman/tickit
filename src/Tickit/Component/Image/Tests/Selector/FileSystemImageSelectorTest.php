@@ -1,16 +1,16 @@
 <?php
 
-namespace Tickit\Component\Login\Tests\Background;
+namespace Tickit\Component\Image\Tests\Selector;
 
-use Tickit\Component\Login\Background\FileSystemBackgroundSelector;
+use Tickit\Component\Image\Selector\FileSystemImageSelector;
 
 /**
- * FileSystemBackgroundSelector tests
+ * FileSystemImageSelector tests
  *
- * @package Tickit\Component\Login\Tests\Background
+ * @package Tickit\Component\Image\Tests\Selector
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class FileSystemBackgroundSelectorTest extends \PHPUnit_Framework_TestCase
+class FileSystemImageSelectorTest extends \PHPUnit_Framework_TestCase
 {
     const SELECTOR_RUNS = 50;
 
@@ -25,7 +25,7 @@ class FileSystemBackgroundSelectorTest extends \PHPUnit_Framework_TestCase
         array $imageArray,
         $expectedException = null
     ) {
-        $selector = new FileSystemBackgroundSelector($filePath, $webPath);
+        $selector = new FileSystemImageSelector($filePath, $webPath);
 
         if (null !== $expectedException) {
             $this->setExpectedException($expectedException);
@@ -40,11 +40,11 @@ class FileSystemBackgroundSelectorTest extends \PHPUnit_Framework_TestCase
             }
 
             if (empty($buckets)) {
-                $this->fail('FileSystemBackgroundSelector has returned no images');
+                $this->fail('FileSystemImageSelector has returned no images');
             }
 
             if (count($buckets) !== count($imageArray)) {
-                $this->fail('FileSystemBackgroundSelector did not produce an acceptable spread of images');
+                $this->fail('FileSystemImageSelector did not produce an acceptable spread of images');
             }
         }
     }
@@ -54,7 +54,7 @@ class FileSystemBackgroundSelectorTest extends \PHPUnit_Framework_TestCase
      */
     public function getSelectFixtures()
     {
-        $validFilePath = __DIR__ . '/../Mock/backgrounds';
+        $validFilePath = __DIR__ . '/../Mock/images';
         $webPath = 'assets';
         $validImages = ['assets/bg-1.png', 'assets/bg-2.png', 'assets/bg-3.png', 'assets/bg-4.png'];
 
