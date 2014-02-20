@@ -50,7 +50,12 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('login')
                     ->children()
-                        ->scalarNode('background_image_path')->end()
+                        ->arrayNode('backgrounds')
+                            ->children()
+                                ->scalarNode('image_path')->end()
+                                ->scalarNode('web_path')->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

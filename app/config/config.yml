@@ -101,7 +101,9 @@ tickit_user:
     avatar:
         adapter_class: Tickit\Component\Avatar\Adapter\GravatarAdapter
     login:
-        background_image_path: %kernel.root_dir%/../web/bundles/tickituser/images/backgrounds
+        backgrounds:
+            image_path: %kernel.root_dir%/../web/bundles/tickituser/images/backgrounds
+            web_path: bundles/tickituser/images/backgrounds
 
 tickit_notification:
     api_message_limit: 25

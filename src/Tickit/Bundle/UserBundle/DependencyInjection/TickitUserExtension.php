@@ -57,7 +57,11 @@ class TickitUserExtension extends Extension
         $xmlLoader->load('controllers.xml');
 
         $container->setParameter('tickit_user.avatar.adapter_class', $config['avatar']['adapter_class']);
-        $container->setParameter('tickit_user.login.background_image_path', $config['login']['background_image_path']);
+        $container->setParameter(
+            'tickit_user.login.background_image_path',
+            $config['login']['backgrounds']['image_path']
+        );
+        $container->setParameter('tickit_uer.login.background_web_path', $config['login']['backgrounds']['web_path']);
     }
 
     /**
