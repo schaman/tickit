@@ -5,9 +5,9 @@ namespace Tickit\Component\Login\Background;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Description
+ * Background selector that reads from the file system.
  *
- * @package Namespace\Class
+ * @package Tickit\Component\Login\Background
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class FileSystemBackgroundSelector implements BackgroundSelectorInterface
