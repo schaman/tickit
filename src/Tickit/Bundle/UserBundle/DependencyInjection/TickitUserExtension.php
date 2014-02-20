@@ -61,7 +61,7 @@ class TickitUserExtension extends Extension
             'tickit_user.login.background_image_path',
             $config['login']['backgrounds']['image_path']
         );
-        $container->setParameter('tickit_uer.login.background_web_path', $config['login']['backgrounds']['web_path']);
+        $container->setParameter('tickit_user.login.background_web_path', $config['login']['backgrounds']['web_path']);
     }
 
     /**
