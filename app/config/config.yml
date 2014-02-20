@@ -100,6 +100,8 @@ stof_doctrine_extensions:
 tickit_user:
     avatar:
         adapter_class: Tickit\Component\Avatar\Adapter\GravatarAdapter
+    login:
+        background_image_path: %kernel.root_dir%/../web/bundles/tickituser/images/backgrounds
 
 tickit_notification:
     api_message_limit: 25
