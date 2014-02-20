@@ -22,13 +22,31 @@ class SelectorTwigExtension extends \Twig_Extension
     private $selector;
 
     /**
+     * The twig method name that will be registered
+     *
+     * @var string
+     */
+    private $twigMethodName;
+
+    /**
      * Construct.
      *
-     * @param ImageSelectorInterface $selector An image selector
+     * @param ImageSelectorInterface $selector       An image selector
+     * @param string                 $twigMethodName The twig method name which will be registered against the given
+     *                                               selector interface's select() method
+     *
+     * @throws \InvalidArgumentException If the $twigMethodName parameter is empty
      */
-    public function __construct(ImageSelectorInterface $selector)
+    public function __construct(ImageSelectorInterface $selector, $twigMethodName)
     {
-        $this->selector = $selector;
+        $this->selector       = $selector;
+        $this->twigMethodName = $twigMethodName;
+
+        if (empty($this->twigMethodName)) {
+            throw new \InvalidArgumentException(
+                sprintf('Argument 2 passed to %s must not be empty', __CLASS__)
+            );
+        }
     }
 
     /**
@@ -39,7 +57,7 @@ class SelectorTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('image_select', [$this->selector, 'select'])
+            new \Twig_SimpleFunction($this->twigMethodName, [$this->selector, 'select'])
         ];
     }
 
