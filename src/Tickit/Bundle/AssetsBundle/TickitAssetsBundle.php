@@ -29,6 +29,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * @package Tickit\Bundle\AssetsBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AssetsBundle extends Bundle
+class TickitAssetsBundle extends Bundle
 {
 }

@@ -22,7 +22,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
             // ---- Tickit Bundles Below Here ----
-            new Tickit\Bundle\AssetsBundle\AssetsBundle(),
+            new Tickit\Bundle\AssetsBundle\TickitAssetsBundle(),
             new Tickit\Bundle\CoreBundle\TickitCoreBundle(),
             new Tickit\Bundle\NavigationBundle\TickitNavigationBundle(),
             new Tickit\Bundle\PermissionBundle\TickitPermissionBundle(),
