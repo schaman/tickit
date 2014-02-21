@@ -43,7 +43,7 @@ Feature: User Login
             | login-pass | mypass123        |
           And I press "Login"
          Then I should wait and see a "div.account" element
-          And I should be logged in
+          And I should be logged in as "hello@tickit.io"
           And I should be on "/dashboard"
 
     Scenario: User can login with valid username and password
@@ -53,5 +53,5 @@ Feature: User Login
             | login-pass | mypass123  |
           And I press "Login"
          Then I should wait and see a "div.account" element
-          And I should be logged in
+          And I should be logged in as "root"
           And I should be on "/dashboard"

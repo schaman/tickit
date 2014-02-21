@@ -128,12 +128,35 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     }
 
     /**
-     * @Then /^I should be logged in$/
+     * @Given /^I should be logged in as "([^"]*)"$/
      */
-    public function iShouldBeLoggedIn()
+    public function iShouldBeLoggedInAs($usernameOrEmail)
     {
-        if ($this->getSecurityContext()->isGranted('IS_AUTHENTICATED_REMEMBERED') === false) {
-            throw new AuthenticationException('User is not authenticated but should be.');
+        $session = $this->getMink()->getSession();
+        $userId = $session->getCookie('uid');
+
+        if (empty($userId)) {
+            throw new AuthenticationException('No cookie "uid" could be found in the current browser session');
+        }
+
+        /** @var User $user */
+        $user = $this->getService('tickit_user.manager')
+                               ->findUserByUsernameOrEmail($usernameOrEmail);
+
+        if (null === $user) {
+            throw new AuthenticationException(
+                sprintf('No user could be found matching the provided username/email (%s)', $usernameOrEmail)
+            );
+        }
+
+        if ($userId != $user->getId()) {
+            throw new AuthenticationException(
+                sprintf(
+                    'The authenticated user\'s ID (%d) does not match the expected value (%s)',
+                    $userId,
+                    $user->getId()
+                )
+            );
         }
     }
 
