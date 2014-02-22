@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\TicketBundle\Tests\Listener;
+namespace Tickit\Bundle\IssueBundle\Tests\Listener;
 
-use Tickit\Bundle\TicketBundle\Listener\NavigationBuilderListener;
+use Tickit\Bundle\IssueBundle\Listener\NavigationBuilderListener;
 use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
 use Tickit\Component\Navigation\Model\NavigationItem;
@@ -58,8 +58,8 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
 
         /** @var NavigationItem $first */
         $first = $items->current();
-        $this->assertEquals('Create Ticket', $first->getText());
-        $this->assertEquals('ticket_index', $first->getRouteName());
+        $this->assertEquals('Create Issue', $first->getText());
+        $this->assertEquals('issue_index', $first->getRouteName());
         $params = $first->getParams();
         $this->assertEquals('plus', $params['icon']);
         $this->assertEquals('add-ticket', $params['class']);
@@ -68,8 +68,8 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         $items->next();
         /** @var NavigationItem $second */
         $second = $items->current();
-        $this->assertEquals('Tickets', $second->getText());
-        $this->assertEquals('ticket_index', $first->getRouteName());
+        $this->assertEquals('Issues', $second->getText());
+        $this->assertEquals('issue_index', $first->getRouteName());
         $params = $second->getParams();
         $this->assertEquals('tags', $params['icon']);
     }

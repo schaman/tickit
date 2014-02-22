@@ -1,5 +1,5 @@
-ticket_index:
-    path: /tickets/{page}
+issue_index:
+    path: /issues/{page}
     defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
     methods: [GET]
     requirements:

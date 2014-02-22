@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\TicketBundle\Listener;
+namespace Tickit\Bundle\IssueBundle\Listener;
 
 use Tickit\Component\Navigation\Builder\NavigationBuilder;
 use Tickit\Component\Navigation\Event\NavigationBuildEvent;
@@ -28,13 +28,13 @@ use Tickit\Component\Navigation\Model\NavigationItem;
 /**
  * Ticket navigation builder listener.
  *
- * @package Tickit\Bundle\TicketBundle\Listener
+ * @package Tickit\Bundle\IssueBundle\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderListener
 {
     /**
-     * Build event for ticket navigation
+     * Build event for issue navigation
      *
      * @param NavigationBuildEvent $event Navigation build event
      *
@@ -44,20 +44,20 @@ class NavigationBuilderListener
     {
         switch ($event->getNavigationName()) {
             case NavigationBuilder::NAME_MAIN:
-                $createTicketItem = new NavigationItem(
-                    'Create Ticket',
-                    'ticket_index', // TODO: this is a temporary value, needs to be updated when we add real routes
+                $createIssueItem = new NavigationItem(
+                    'Create Issue',
+                    'issue_index', // TODO: this is a temporary value, needs to be updated when we add real routes
                     15,
                     ['icon' => 'plus', 'class' => 'add-ticket', 'showText' => true]
                 );
-                $ticketsItem = new NavigationItem(
-                    'Tickets',
-                    'ticket_index',
+                $issuesItem = new NavigationItem(
+                    'Issues',
+                    'issue_index',
                     9,
                     ['icon' => 'tags']
                 );
-                $event->addItem($createTicketItem);
-                $event->addItem($ticketsItem);
+                $event->addItem($createIssueItem);
+                $event->addItem($issuesItem);
                 break;
         }
     }

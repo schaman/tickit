@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\TicketBundle\DependencyInjection;
+namespace Tickit\Bundle\IssueBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,12 +28,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Tickit\Component\DependencyInjection\ContainerConfigurationLoader;
 
 /**
- * Extension class for the ticket bundle
+ * Extension class for the issue bundle
  *
- * @package Tickit\Bundle\TicketBundle\DependencyInjection
+ * @package Tickit\Bundle\IssueBundle\DependencyInjection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TickitTicketExtension extends Extension
+class TickitIssueExtension extends Extension
 {
     /**
      * Loads a specific configuration.

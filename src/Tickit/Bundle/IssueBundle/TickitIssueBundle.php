@@ -19,16 +19,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\TicketBundle;
+namespace Tickit\Bundle\IssueBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Bundle build file for the TickitTicketBundle
+ * Bundle build file for the TickitIssueBundle
  *
  * @package Tickit\Bundle\TicketBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TickitTicketBundle extends Bundle
+class TickitIssueBundle extends Bundle
 {
 }
