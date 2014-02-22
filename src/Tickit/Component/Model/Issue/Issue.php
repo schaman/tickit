@@ -19,19 +19,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
+namespace Tickit\Component\Model\Issue;
 
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
 
 /**
- * The User entity represents an individual user within the application
+ * Issue model.
  *
- * @package Tickit\Component\Model\Ticket
+ * Represents an individual issue within the application.
+ *
+ * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Ticket
+class Issue
 {
     /**
      * The unique identifier
@@ -41,14 +43,14 @@ class Ticket
     protected $id;
 
     /**
-     * The title of the ticket
+     * The title of the issue
      *
      * @var string
      */
     protected $title;
 
     /**
-     * Comments on the ticket
+     * Comments on the issue
      *
      * @var Collection
      */
@@ -62,23 +64,23 @@ class Ticket
     protected $attachments;
 
     /**
-     * User subscriptions on this ticket
+     * User subscriptions on this issue
      *
      * @var Collection
      */
-    protected $ticketSubscriptions;
+    protected $issueSubscriptions;
 
     /**
-     * The project that this ticket is a part of
+     * The project that this issue is a part of
      *
      * @var Project
      */
     protected $project;
 
     /**
-     * The status of the ticket
+     * The status of the issue
      *
-     * @var TicketStatus
+     * @var IssueStatus
      */
     protected $status;
 
@@ -111,28 +113,28 @@ class Ticket
     protected $reportedBy;
 
     /**
-     * The user that the ticket is assigned to
+     * The user that the issue is assigned to
      *
      * @var User
      */
     protected $assignedTo;
 
     /**
-     * The date and time the ticket was created
+     * The date and time the issue was created
      *
      * @var \DateTime
      */
     protected $createdAt;
 
     /**
-     * The date and time that the ticket was last updated
+     * The date and time that the issue was last updated
      *
      * @var \DateTime
      */
     protected $updatedAt;
 
     /**
-     * Gets the id of this ticket
+     * Gets the id of this issue
      *
      * @return integer
      */
@@ -142,7 +144,7 @@ class Ticket
     }
 
     /**
-     * Sets the title of this ticket
+     * Sets the title of this issue
      *
      * @param string $title
      */
@@ -152,7 +154,7 @@ class Ticket
     }
 
     /**
-     * Gets the title of this ticket
+     * Gets the title of this issue
      *
      * @return string
      */
@@ -163,20 +165,20 @@ class Ticket
 
 
     /**
-     * Sets the ticket status
+     * Sets the issue status
      *
-     * @param TicketStatus $status
+     * @param IssueStatus $status
      */
-    public function setStatus(TicketStatus $status)
+    public function setStatus(IssueStatus $status)
     {
         $this->status = $status;
     }
 
 
     /**
-     * Returns the TicketStatus object representing the status of this ticket
+     * Returns the IssueStatus object representing the status of this issue
      *
-     * @return TicketStatus
+     * @return IssueStatus
      */
     public function getStatus()
     {
@@ -184,7 +186,7 @@ class Ticket
     }
 
     /**
-     * Sets the user who this ticket is assigned to
+     * Sets the user who this issue is assigned to
      *
      * @param User $assignedTo
      */
@@ -194,7 +196,7 @@ class Ticket
     }
 
     /**
-     * Gets the user who this ticket is assigned to
+     * Gets the user who this issue is assigned to
      *
      * @return User
      */
@@ -204,7 +206,7 @@ class Ticket
     }
 
     /**
-     * Sets the ticket description
+     * Sets the issue description
      *
      * @param string $description
      */
@@ -214,7 +216,7 @@ class Ticket
     }
 
     /**
-     * Gets the ticket description
+     * Gets the issue description
      *
      * @return string
      */
@@ -224,7 +226,7 @@ class Ticket
     }
 
     /**
-     * Sets the "reported by" user on this ticket
+     * Sets the "reported by" user on this issue
      *
      * @param User $reportedBy
      */
@@ -235,7 +237,7 @@ class Ticket
 
 
     /**
-     * Gets the user that reported this ticket
+     * Gets the user that reported this issue
      *
      * @return User
      */

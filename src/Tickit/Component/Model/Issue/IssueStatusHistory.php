@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
+namespace Tickit\Component\Model\Issue;
 
 use Tickit\Component\Model\User\User;
 
 /**
- * The TicketStatusHistory entity represents a snapshot of a ticket's status at a given point in time
+ * The IssueStatusHistory entity represents a snapshot of a issue's status at a given point in time
  *
- * @package Tickit\Component\Model\Ticket
+ * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketStatusHistory
+class IssueStatusHistory
 {
     /**
      * The unique identifier
@@ -39,16 +39,16 @@ class TicketStatusHistory
     protected $id;
 
     /**
-     * The ticket that this status history entry represents
+     * The issue that this status history entry represents
      *
-     * @var Ticket
+     * @var Issue
      */
-    protected $ticket;
+    protected $issue;
 
     /**
      * The status at this point in time
      *
-     * @var TicketStatus
+     * @var IssueStatus
      */
     protected $status;
 
@@ -77,7 +77,7 @@ class TicketStatusHistory
     }
 
     /**
-     * Sets the user who updated the ticket history
+     * Sets the user who updated the issue history
      *
      * @param User $changedBy
      */
@@ -87,7 +87,7 @@ class TicketStatusHistory
     }
 
     /**
-     * Gets an instance of the User who changed the status of the ticket
+     * Gets an instance of the User who changed the status of the issue
      *
      * @return User
      */
@@ -107,19 +107,19 @@ class TicketStatusHistory
     }
 
     /**
-     * Sets the ticket status object
+     * Sets the issue status object
      *
-     * @param TicketStatus $status
+     * @param IssueStatus $status
      */
-    public function setStatus(TicketStatus $status)
+    public function setStatus(IssueStatus $status)
     {
         $this->status = $status;
     }
 
     /**
-     * Gets the ticket status object
+     * Gets the issue status object
      *
-     * @return TicketStatus
+     * @return IssueStatus
      */
     public function getStatus()
     {
@@ -127,22 +127,22 @@ class TicketStatusHistory
     }
 
     /**
-     * Sets the ticket object
+     * Sets the issue object
      *
-     * @param Ticket $ticket
+     * @param Issue $issue
      */
-    public function setTicket($ticket)
+    public function setIssue($issue)
     {
-        $this->ticket = $ticket;
+        $this->issue = $issue;
     }
 
     /**
-     * Gets the associated ticket object
+     * Gets the associated issue object
      *
-     * @return Ticket
+     * @return Issue
      */
-    public function getTicket()
+    public function getIssue()
     {
-        return $this->ticket;
+        return $this->issue;
     }
 }

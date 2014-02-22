@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
+namespace Tickit\Component\Model\Issue;
 
 /**
- * The TicketStatus entity represents a possible status type for a ticket
+ * The IssueStatus entity represents a possible status type for a issue
  *
- * @package Tickit\Component\Model\Ticket
+ * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketStatus
+class IssueStatus
 {
     /**
      * The unique idenfitier

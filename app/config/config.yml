@@ -61,8 +61,8 @@ doctrine:
                 prefix: Tickit\Component\Notification\Model
             TickitUserBundle:
                 prefix: Tickit\Component\Model\User
-            TickitTicketBundle:
-                prefix: Tickit\Component\Model\Ticket
+            TickitIssueBundle:
+                prefix: Tickit\Component\Model\Issue
 
 # Swiftmailer Configuration
 swiftmailer:

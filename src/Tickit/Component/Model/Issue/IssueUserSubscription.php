@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
+namespace Tickit\Component\Model\Issue;
 
 use Tickit\Component\Model\User\User;
 
 /**
- * The TicketUserSubscription entity represents a user's subscription settings for a ticket
+ * The IssueUserSubscription entity represents a user's subscription settings for a issue
  *
- * @package Tickit\Component\Model\Ticket
+ * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketUserSubscription
+class IssueUserSubscription
 {
     /**
      * The user that this subscription is for
@@ -39,11 +39,11 @@ class TicketUserSubscription
     protected $user;
 
     /**
-     * The ticket that this subscription is against
+     * The issue that this subscription is against
      *
-     * @var Ticket
+     * @var Issue
      */
-    protected $ticket;
+    protected $issue;
 
     /**
      * Whether the user wishes to subscribe for new comment notifications
@@ -53,7 +53,7 @@ class TicketUserSubscription
     protected $newComments;
 
     /**
-     * Whether the user wishes to subscribe for ticket status changes
+     * Whether the user wishes to subscribe for issue status changes
      *
      * @var boolean
      */

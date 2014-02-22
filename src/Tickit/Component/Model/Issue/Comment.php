@@ -19,14 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
+namespace Tickit\Component\Model\Issue;
 
 use Tickit\Component\Model\User\User;
 
 /**
- * The Comment entity represents a comment that is placed on a Ticket by a given user
+ * The Comment entity represents a comment that is placed on a Issue by a given user
  *
- * @package Tickit\Component\Model\Ticket
+ * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class Comment
@@ -39,11 +39,11 @@ class Comment
     protected $id;
 
     /**
-     * The ticket that this comment belongs to
+     * The issue that this comment belongs to
      *
-     * @var Ticket
+     * @var Issue
      */
-    protected $ticket;
+    protected $issue;
 
     /**
      * The user that created the comment

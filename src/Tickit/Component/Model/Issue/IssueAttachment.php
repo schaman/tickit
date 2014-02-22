@@ -19,15 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
+namespace Tickit\Component\Model\Issue;
 
 /**
- * The TicketAttachment entity represents a file attachment on a ticket
+ * The IssueAttachment entity represents a file attachment on a issue
  *
- * @package Tickit\Component\Model\Ticket
+ * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketAttachment
+class IssueAttachment
 {
     /**
      * The unique identifier
@@ -37,11 +37,11 @@ class TicketAttachment
     protected $id;
 
     /**
-     * The ticket that this attachment belongs to
+     * The issue that this attachment belongs to
      *
-     * @var Ticket
+     * @var Issue
      */
-    protected $ticket;
+    protected $issue;
 
     /**
      * The filename of the attachment
@@ -68,23 +68,23 @@ class TicketAttachment
     }
 
     /**
-     * Gets the ticket that this comment is attached to
+     * Gets the issue that this comment is attached to
      *
-     * @return Ticket
+     * @return Issue
      */
-    public function getTicket()
+    public function getIssue()
     {
-        return $this->ticket;
+        return $this->issue;
     }
 
     /**
-     * Sets the ticket that this comment is attached to
+     * Sets the issue that this comment is attached to
      *
-     * @param Ticket $ticket
+     * @param Issue $issue
      */
-    public function setTicket(Ticket $ticket)
+    public function setIssue(Issue $issue)
     {
-        $this->ticket = $ticket;
+        $this->issue = $issue;
     }
 
     /**
