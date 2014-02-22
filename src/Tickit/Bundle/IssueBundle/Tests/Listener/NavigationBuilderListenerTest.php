@@ -29,7 +29,7 @@ use Tickit\Component\Navigation\Model\NavigationItem;
 /**
  * NavgationBuilderListener tests
  *
- * @package Tickit\Bundle\TicketBundle\Tests\Listener
+ * @package Tickit\Bundle\IssueBundle\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase

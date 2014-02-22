@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * Bundle build file for the TickitIssueBundle
  *
- * @package Tickit\Bundle\TicketBundle
+ * @package Tickit\Bundle\IssueBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class TickitIssueBundle extends Bundle
