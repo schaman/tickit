@@ -16,7 +16,7 @@ notifications:
 clients:
     resource: "@TickitClientBundle/Resources/config/routing.yml"
 
-tickets:
+issues:
     resource: "@TickitIssueBundle/Resources/config/routing.yml"
 
 fos_js_routing:
