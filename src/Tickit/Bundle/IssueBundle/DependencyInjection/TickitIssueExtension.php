@@ -49,5 +49,6 @@ class TickitIssueExtension extends Extension
         $loader = new ContainerConfigurationLoader($xmlLoader);
 
         $loader->loadListeners();
+        $loader->loadRepositories();
     }
 }
