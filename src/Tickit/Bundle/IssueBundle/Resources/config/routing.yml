@@ -1,2 +1,2 @@
 cosmetic:
-    resource: "@TickitTicketBundle/Resources/config/routing/cosmetic.yml"
+    resource: "@TickitIssueBundle/Resources/config/routing/cosmetic.yml"
