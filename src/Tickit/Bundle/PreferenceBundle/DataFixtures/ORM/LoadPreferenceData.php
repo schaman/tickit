@@ -57,22 +57,22 @@ class LoadPreferenceData extends AbstractFixture implements OrderedFixtureInterf
     protected function loadUserPreferences(ObjectManager $manager)
     {
         $userPreference1 = new Preference();
-        $userPreference1->setName('Notifications for ticket status changes');
-        $userPreference1->setSystemName('user.notifications.ticket.status_change');
+        $userPreference1->setName('Notifications for issue status changes');
+        $userPreference1->setSystemName('user.notifications.issue.status_change');
         $userPreference1->setDefaultValue('1');
         $userPreference1->setType(Preference::TYPE_USER);
         $manager->persist($userPreference1);
 
         $userPreference2 = new Preference();
-        $userPreference2->setName('Notifications for new ticket comments');
-        $userPreference2->setSystemName('user.notifications.ticket.new_comment');
+        $userPreference2->setName('Notifications for new issue comments');
+        $userPreference2->setSystemName('user.notifications.issue.new_comment');
         $userPreference2->setDefaultValue('1');
         $userPreference2->setType(Preference::TYPE_USER);
         $manager->persist($userPreference2);
 
         $userPreference3 = new Preference();
-        $userPreference3->setName('Notifications for new tickets');
-        $userPreference3->setSystemName('user.notifications.ticket.new_tickets');
+        $userPreference3->setName('Notifications for new issues');
+        $userPreference3->setSystemName('user.notifications.issue.new_issues');
         $userPreference3->setDefaultValue('1');
         $userPreference3->setType(Preference::TYPE_USER);
         $manager->persist($userPreference3);
