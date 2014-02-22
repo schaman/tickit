@@ -43,6 +43,13 @@ class Issue
     protected $id;
 
     /**
+     * The issue number
+     *
+     * @var string
+     */
+    protected $number;
+
+    /**
      * The title of the issue
      *
      * @var string
@@ -172,6 +179,30 @@ class Issue
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Sets the issue number
+     *
+     * @param string $number The new issue number
+     *
+     * @return Issue
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Gets the issue number
+     *
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 
     /**
