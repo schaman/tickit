@@ -251,13 +251,34 @@ class Issue
      */
     public function setPriority($priority)
     {
-        if (false === in_array($priority, [static::PRIORITY_LOW, static::PRIORITY_NORMAL, static::PRIORITY_HIGH])) {
+        if (false === in_array($priority, static::getValidPriorities())) {
             throw new \InvalidArgumentException(sprintf('An invalid priority value (%s) was provided', $priority));
         }
 
         $this->priority = $priority;
 
         return $this;
+    }
+
+    /**
+     * Gets an array of valid priorities
+     *
+     * @param boolean $withFriendlyNames If true, will return the array indexed by value, with friendly names as the
+     *                                   array value
+     *
+     * @return array
+     */
+    public static function getValidPriorities($withFriendlyNames = false)
+    {
+        if (true === $withFriendlyNames) {
+            return [
+                static::PRIORITY_LOW => 'Low',
+                static::PRIORITY_NORMAL => 'Normal',
+                static::PRIORITY_HIGH => 'High'
+            ];
+        }
+
+        return [static::PRIORITY_LOW, static::PRIORITY_NORMAL, static::PRIORITY_HIGH];
     }
 
     /**
