@@ -53,7 +53,7 @@ class IssueStatus
     /**
      * Gets the ID
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -61,15 +61,17 @@ class IssueStatus
     }
 
     /**
-     * Sets the name of this status
+     * Sets the name of this issue status
      *
-     * @param string $name
+     * @param string $name The name of the issue status
      *
-     * @return string
+     * @return IssueStatus
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -87,11 +89,21 @@ class IssueStatus
      *
      * @param string $colour A 6 character hexadecimal representation of the colour
      *
-     * @return string
+     * @return IssueStatus
      */
     public function setColour($colour = 'FFFFFF')
     {
         $colour = str_replace('#', '', $colour);
         $this->colour = $colour;
+    }
+
+    /**
+     * Gets the hexadecimal colour of this status
+     *
+     * @return string
+     */
+    public function getColour()
+    {
+        return $this->colour;
     }
 }

@@ -154,10 +154,14 @@ class Issue
      * Sets the title of this issue
      *
      * @param string $title
+     *
+     * @return Issue
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -198,10 +202,14 @@ class Issue
      * Sets the issue status
      *
      * @param IssueStatus $status
+     *
+     * @return Issue
      */
     public function setStatus(IssueStatus $status)
     {
         $this->status = $status;
+
+        return $this;
     }
 
     /**
@@ -218,10 +226,14 @@ class Issue
      * Sets the user who this issue is assigned to
      *
      * @param User $assignedTo
+     *
+     * @return Issue
      */
     public function setAssignedTo(User $assignedTo)
     {
         $this->assignedTo = $assignedTo;
+
+        return $this;
     }
 
     /**
@@ -238,10 +250,14 @@ class Issue
      * Sets the issue description
      *
      * @param string $description
+     *
+     * @return Issue
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
@@ -257,7 +273,9 @@ class Issue
     /**
      * Sets the "reported by" user on this issue
      *
-     * @param User $reportedBy
+     * @param User $reportedBy The user who reported the issue
+     *
+     * @return Issue
      */
     public function setReportedBy(User $reportedBy)
     {
