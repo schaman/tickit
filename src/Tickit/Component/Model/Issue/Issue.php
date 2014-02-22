@@ -78,6 +78,13 @@ class Issue
     protected $project;
 
     /**
+     * The type of the issue
+     *
+     * @var IssueType
+     */
+    protected $type;
+
+    /**
      * The status of the issue
      *
      * @var IssueStatus
@@ -163,6 +170,29 @@ class Issue
         return $this->title;
     }
 
+    /**
+     * Sets the issue type
+     *
+     * @param IssueType $type The issue type
+     *
+     * @return Issue
+     */
+    public function setType(IssueType $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets the issue type
+     *
+     * @return IssueType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Sets the issue status
@@ -173,7 +203,6 @@ class Issue
     {
         $this->status = $status;
     }
-
 
     /**
      * Returns the IssueStatus object representing the status of this issue
