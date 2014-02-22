@@ -49,12 +49,12 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
             $project = new Project();
             $project->setName($faker->sentence(3))
                     ->setClient($this->getReference('client-' . $i))
-                    ->setTicketPrefix($faker->text(5));
+                    ->setIssuePrefix($faker->text(5));
 
             $project2 = new Project();
             $project2->setName($faker->sentence(3))
                     ->setClient($this->getReference('client-' . $i))
-                    ->setTicketPrefix($faker->text(5));
+                    ->setIssuePrefix($faker->text(5));
 
             if (false === $faker->boolean(80)) {
                 $project->setStatus(Project::STATUS_ARCHIVED);

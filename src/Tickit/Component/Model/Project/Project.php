@@ -61,11 +61,11 @@ class Project
     protected $client;
 
     /**
-     * The prefix for tickets on this project
+     * The prefix for issues on this project
      *
      * @var string
      */
-    protected $ticketPrefix;
+    protected $issuePrefix;
 
     /**
      * The status of this project
@@ -103,11 +103,11 @@ class Project
     protected $owner;
 
     /**
-     * Tickets related to this project
+     * Issues related to this project
      *
      * @var Collection
      */
-    protected $tickets;
+    protected $issues;
 
     /**
      * Attribute values for this project
@@ -122,7 +122,7 @@ class Project
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
-        $this->tickets = new ArrayCollection();
+        $this->issues = new ArrayCollection();
         $this->status = static::STATUS_ACTIVE;
     }
 
@@ -239,15 +239,15 @@ class Project
     }
 
     /**
-     * Set tickets on this project
+     * Set issues on this project
      *
-     * @param Collection $tickets The tickets collection
+     * @param Collection $issues The issues collection
      *
      * @return Project
      */
-    public function setTickets(Collection $tickets)
+    public function setIssues(Collection $issues)
     {
-        $this->tickets = $tickets;
+        $this->issues = $issues;
 
         return $this;
     }
@@ -325,27 +325,27 @@ class Project
     }
 
     /**
-     * Sets the ticket prefix
+     * Sets the issue prefix
      *
-     * @param string $ticketPrefix The new ticket prefix
+     * @param string $issuePrefix The new issue prefix
      *
      * @return Project
      */
-    public function setTicketPrefix($ticketPrefix)
+    public function setIssuePrefix($issuePrefix)
     {
-        $this->ticketPrefix = $ticketPrefix;
+        $this->issuePrefix = $issuePrefix;
 
         return $this;
     }
 
     /**
-     * Gets the ticket prefix
+     * Gets the issue prefix
      *
      * @return string
      */
-    public function getTicketPrefix()
+    public function getIssuePrefix()
     {
-        return $this->ticketPrefix;
+        return $this->issuePrefix;
     }
 
     /**
