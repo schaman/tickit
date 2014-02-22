@@ -35,6 +35,10 @@ use Tickit\Component\Model\User\User;
  */
 class Issue
 {
+    const PRIORITY_HIGH = 'high';
+    const PRIORITY_NORMAL = 'normal';
+    const PRIORITY_LOW = 'low';
+
     /**
      * The unique identifier
      *
@@ -83,6 +87,13 @@ class Issue
      * @var Project
      */
     protected $project;
+
+    /**
+     * The issue priority
+     *
+     * @var string
+     */
+    protected $priority;
 
     /**
      * The type of the issue
@@ -227,6 +238,36 @@ class Issue
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Sets the priority for this issue
+     *
+     * @param string $priority The issue priority
+     *
+     * @throws \InvalidArgumentException If an invalid priority value was provided
+     *
+     * @return Issue
+     */
+    public function setPriority($priority)
+    {
+        if (false === in_array($priority, [static::PRIORITY_LOW, static::PRIORITY_NORMAL, static::PRIORITY_HIGH])) {
+            throw new \InvalidArgumentException(sprintf('An invalid priority value (%s) was provided', $priority));
+        }
+
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * Gets the issue priority
+     *
+     * @return string
+     */
+    public function getPriority()
+    {
+        return $this->priority;
     }
 
     /**
