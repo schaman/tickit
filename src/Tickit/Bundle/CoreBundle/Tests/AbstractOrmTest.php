@@ -81,7 +81,7 @@ abstract class AbstractOrmTest extends OrmTestCase
             'ProjectBundle' => 'Tickit\Component\Model\Project',
             'NotificationBundle' => 'Tickit\Component\Notification\Model',
             'UserBundle' => 'Tickit\Component\Model\User',
-            'TicketBundle' => 'Tickit\Component\Model\Ticket'
+            'IssueBundle' => 'Tickit\Component\Model\Issue'
         ];
 
         $pathTemplate = __DIR__ . '/../../%s/Resources/config/doctrine';
