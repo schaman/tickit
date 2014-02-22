@@ -24,15 +24,17 @@ namespace Tickit\Bundle\IssueBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\Component\Model\Issue\IssueType;
+use Faker\Factory;
+use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Project\Project;
 
 /**
- * Loads data fixtures for IssueType objects
+ * Loads Issue object data
  *
  * @package Tickit\Bundle\IssueBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class LoadIssueTypeData extends AbstractFixture implements OrderedFixtureInterface
+class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -41,24 +43,32 @@ class LoadIssueTypeData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function load(ObjectManager $manager)
     {
-        foreach (static::getTypes() as $name) {
-            $type = new IssueType();
-            $type->setName($name);
-            $manager->persist($type);
-            $this->setReference('issue-type-' . strtolower(str_replace(' ', '-', $name)), $type);
+        $faker = Factory::create();
+        $i = 50;
+
+        while ($i--) {
+            /** @var Project $project */
+            $project = $this->getReference('project-' . $i);
+            foreach (LoadIssueTypeData::getTypes() as $typeName) {
+                $issue = new Issue();
+                $issueType = $this->getReference('issue-type-' . strtolower(str_replace(' ', '-', $typeName)));
+                $issueStatus = $this->getReference('issue-status-open');
+                $issue->setType($issueType)
+                      ->setDescription(implode(' ', $faker->paragraphs(2)))
+                      ->setTitle(implode(' ', $faker->words(8)))
+                      ->setStatus($issueStatus)
+                      ->setReportedBy($this->getReference('user-' . $i))
+                      ->setAssignedTo($this->getReference('developer'))
+                      ->setProject($project)
+                      ->setEstimatedHours($faker->randomDigit)
+                      ->setActualHours($faker->randomDigit)
+                ;
+
+                $manager->persist($issue);
+            }
+
+            $manager->flush();
         }
-
-        $manager->flush();
-    }
-
-    /**
-     * Gets issue types that will be created
-     *
-     * @return array
-     */
-    public static function getTypes()
-    {
-        return ['Task', 'User Story', 'Bug', 'Feature', 'Epic'];
     }
 
     /**
@@ -68,6 +78,6 @@ class LoadIssueTypeData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function getOrder()
     {
-        return 1;
+        return 20;
     }
 }

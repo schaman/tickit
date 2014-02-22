@@ -175,6 +175,30 @@ class Issue
     }
 
     /**
+     * Sets the project that this issue relates to
+     *
+     * @param Project $project The project that this issue relates to
+     *
+     * @return Issue
+     */
+    public function setProject(Project $project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Gets the project that this issue relates to
+     *
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
      * Sets the issue type
      *
      * @param IssueType $type The issue type
@@ -280,8 +304,9 @@ class Issue
     public function setReportedBy(User $reportedBy)
     {
         $this->reportedBy = $reportedBy;
-    }
 
+        return $this;
+    }
 
     /**
      * Gets the user that reported this issue
@@ -311,5 +336,53 @@ class Issue
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Sets actual hours used on this issue
+     *
+     * @param float $actualHours The actual users spent on this issue
+     *
+     * @return Issue
+     */
+    public function setActualHours($actualHours)
+    {
+        $this->actualHours = $actualHours;
+
+        return $this;
+    }
+
+    /**
+     * Gets actual hours used on this issue
+     *
+     * @return float
+     */
+    public function getActualHours()
+    {
+        return $this->actualHours;
+    }
+
+    /**
+     * Sets the number of hours estimated for this issue
+     *
+     * @param float $estimatedHours The number of hours estimated for the issue
+     *
+     * @return Issue
+     */
+    public function setEstimatedHours($estimatedHours)
+    {
+        $this->estimatedHours = $estimatedHours;
+
+        return $this;
+    }
+
+    /**
+     * Gets the estimated number of hours for this issue
+     *
+     * @return float
+     */
+    public function getEstimatedHours()
+    {
+        return $this->estimatedHours;
     }
 }

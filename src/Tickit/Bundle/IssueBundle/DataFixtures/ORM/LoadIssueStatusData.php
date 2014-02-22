@@ -24,15 +24,16 @@ namespace Tickit\Bundle\IssueBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Tickit\Component\Model\Issue\IssueType;
+use Faker\Factory;
+use Tickit\Component\Model\Issue\IssueStatus;
 
 /**
- * Loads data fixtures for IssueType objects
+ * Loads IssueStatus object data
  *
  * @package Tickit\Bundle\IssueBundle\DataFixtures\ORM
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class LoadIssueTypeData extends AbstractFixture implements OrderedFixtureInterface
+class LoadIssueStatusData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -41,24 +42,27 @@ class LoadIssueTypeData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function load(ObjectManager $manager)
     {
-        foreach (static::getTypes() as $name) {
-            $type = new IssueType();
-            $type->setName($name);
-            $manager->persist($type);
-            $this->setReference('issue-type-' . strtolower(str_replace(' ', '-', $name)), $type);
+        $faker = Factory::create();
+
+        foreach (static::getStatuses() as $name) {
+            $status = new IssueStatus();
+            $status->setName($name)
+                   ->setColour($faker->hexcolor);
+            $this->setReference('issue-status-' . strtolower(str_replace(' ', '-', $name)), $status);
+            $manager->persist($status);
         }
 
         $manager->flush();
     }
 
     /**
-     * Gets issue types that will be created
+     * Gets status names that will be loaded
      *
      * @return array
      */
-    public static function getTypes()
+    public static function getStatuses()
     {
-        return ['Task', 'User Story', 'Bug', 'Feature', 'Epic'];
+        return ['Open', 'Closed', 'In Progress'];
     }
 
     /**
@@ -68,6 +72,6 @@ class LoadIssueTypeData extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }
