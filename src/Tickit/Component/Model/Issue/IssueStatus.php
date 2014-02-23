@@ -61,6 +61,20 @@ class IssueStatus
     }
 
     /**
+     * Sets the ID
+     *
+     * @param integer $id The new ID for the status
+     *
+     * @return IssueStatus
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the name of this issue status
      *
      * @param string $name The name of the issue status
