@@ -51,5 +51,6 @@ class TickitIssueExtension extends Extension
         $loader->loadListeners();
         $loader->loadRepositories();
         $loader->loadControllers();
+        $loader->loadForms();
     }
 }
