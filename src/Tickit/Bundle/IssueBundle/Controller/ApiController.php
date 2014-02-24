@@ -118,7 +118,7 @@ class ApiController
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $data = $decorator->decorate(
             $issues->getIterator(),
-            ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo'],
+            ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
             ['csrfToken' => $this->csrfHelper->generateCsrfToken(IssueController::CSRF_DELETE_INTENTION)->getValue()]
         );
 

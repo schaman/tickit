@@ -69,6 +69,13 @@ class IssueRepositoryTest extends AbstractOrmTest
         $this->assertNotEmpty($from);
         $this->assertEquals('TickitIssueBundle:Issue', $from[0]->getFrom());
 
+        $joins = $builder->getDQLPart('join');
+        $this->assertCount(1, $joins);
+        $issueJoins = $joins['i'];
+        $this->assertCount(1, $issueJoins);
+        $this->assertEquals('LEFT', $issueJoins[0]->getJoinType());
+        $this->assertEquals('i.assignedTo', $issueJoins[0]->getJoin());
+
         $this->assertNotNull($builder->getFirstResult());
         $this->assertNotNull($builder->getMaxResults());
     }

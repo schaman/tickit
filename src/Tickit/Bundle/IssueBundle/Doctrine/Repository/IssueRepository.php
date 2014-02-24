@@ -66,8 +66,9 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
     {
         $queryBuilder = $this->getEntityManager()
                              ->createQueryBuilder()
-                             ->select('i')
-                             ->from('TickitIssueBundle:Issue', 'i');
+                             ->select('i, au')
+                             ->from('TickitIssueBundle:Issue', 'i')
+                             ->leftJoin('i.assignedTo', 'au');
 
         $this->setPageBoundsOnQuery($queryBuilder, $page);
         $filters->applyToQuery($queryBuilder);
