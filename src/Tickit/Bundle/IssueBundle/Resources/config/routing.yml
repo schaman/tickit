@@ -1,2 +1,6 @@
 cosmetic:
     resource: "@TickitIssueBundle/Resources/config/routing/cosmetic.yml"
+
+api:
+    resource: "@TickitIssueBundle/Resources/config/routing/api.yml"
+    prefix: /api/issues
