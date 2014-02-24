@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
-    <entity name="Tickit\Component\Model\Issue\Issue" table="issues">
+    <entity name="Tickit\Component\Model\Issue\Issue" table="issues" repository-class="Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository">
 
         <id name="id" type="bigint" column="id">
             <generator strategy="IDENTITY"/>
