@@ -19,10 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Bundle\Doctrine\Repository;
+namespace Tickit\Bundle\IssueBundle\Doctrine\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
+use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 
 /**
  * Issue repository.
@@ -30,6 +34,44 @@ use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
  * @package Tickit\Bundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueRepository extends EntityRepository implements IssueRepositoryInterface
+class IssueRepository extends PaginatedRepository implements IssueRepositoryInterface, FilterableRepositoryInterface
 {
+    /**
+     * Finds results based off a set of filters.
+     *
+     * @param FilterCollection $filters The filter collection
+     * @param integer $page The page number of the results to fetch (defaults to 1)
+     *
+     * @codeCoverageIgnore
+     *
+     * @return Paginator
+     */
+    public function findByFilters(FilterCollection $filters, $page = 1)
+    {
+        $query = $this->getFindByFiltersQueryBuilder($filters, $page);
+        $paginator = new Paginator($query, false);
+
+        return $paginator;
+    }
+
+    /**
+     * Gets the query builder for finding a filtered set of Issues
+     *
+     * @param FilterCollection $filters The filter collection
+     * @param integer          $page    The page number of results to return
+     *
+     * @return QueryBuilder
+     */
+    public function getFindByFiltersQueryBuilder(FilterCollection $filters, $page)
+    {
+        $queryBuilder = $this->getEntityManager()
+                             ->createQueryBuilder()
+                             ->select('i')
+                             ->from('TickitIssueBundle:Issue', 'i');
+
+        $this->setPageBoundsOnQuery($queryBuilder, $page);
+        $filters->applyToQuery($queryBuilder);
+
+        return $queryBuilder;
+    }
 }
