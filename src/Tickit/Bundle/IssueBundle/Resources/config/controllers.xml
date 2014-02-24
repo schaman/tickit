@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="tickit_issue.controller.api.class">Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository</parameter>
+        <parameter key="tickit_issue.controller.api.class">Tickit\Bundle\IssueBundle\Controller\ApiController</parameter>
     </parameters>
 
     <services>
