@@ -113,7 +113,7 @@ class ApiController
         $form->submit($this->baseHelper->getRequest());
 
         $filters = $this->filterBuilder->buildFromArray($form->getData(), new IssueFilterMapper());
-        $issues = $this->issueRepository->findByFilters($filters);
+        $issues = $this->issueRepository->findByFilters($filters, $page);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
         $propertyMappings = [

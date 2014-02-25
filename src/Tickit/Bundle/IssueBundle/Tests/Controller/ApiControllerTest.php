@@ -122,19 +122,19 @@ class ApiControllerTest extends AbstractUnitTest
 
         $this->issueRepository->expects($this->once())
                               ->method('findByFilters')
-                              ->with($filters)
+                              ->with($filters, 2)
                               ->will($this->returnValue($this->paginator));
 
         $this->csrfHelper->expects($this->once())
                          ->method('generateCsrfToken', IssueController::CSRF_DELETE_INTENTION)
                          ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
 
-        $expectedData = ['data' => [['issue'], ['issue']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
+        $expectedData = ['data' => [['issue'], ['issue']], 'total' => 2, 'pages' => 1, 'currentPage' => 2];
         $decorator = $this->getMockObjectCollectionDecorator();
         $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
         $this->trainObjectCollectionDecoratorToExpectClientCollection($decorator, new \ArrayIterator($clients), $expectedData['data']);
 
-        $response = $this->getController()->listAction(1);
+        $response = $this->getController()->listAction(2);
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
