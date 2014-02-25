@@ -1,6 +1,2 @@
-topNav:
-    pattern: '/top-nav'
-    defaults: { _controller: "TickitCoreBundle:Navigation:topNavigation" }
-
 _main:
     resource: routing.yml

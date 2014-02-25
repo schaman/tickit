@@ -1,0 +1,6 @@
+hearsay_require_js:
+    options:
+        waitSeconds:
+            value: 15
+    optimizer:
+        hide_unoptimized_assets: true

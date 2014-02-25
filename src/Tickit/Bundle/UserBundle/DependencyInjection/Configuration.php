@@ -42,11 +42,20 @@ class Configuration implements ConfigurationInterface
         $builder = new TreeBuilder();
 
         $builder->root('tickit_user')
-            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('avatar')
                     ->children()
                         ->scalarNode('adapter_class')->end()
+                    ->end()
+                ->end()
+                ->arrayNode('login')
+                    ->children()
+                        ->arrayNode('backgrounds')
+                            ->children()
+                                ->scalarNode('image_path')->end()
+                                ->scalarNode('web_path')->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

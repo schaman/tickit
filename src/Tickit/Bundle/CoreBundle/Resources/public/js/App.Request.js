@@ -5,7 +5,7 @@
  *
  * @type {Marionette.Module}
  */
-define(['jquery'], function($) {
+define(['jquery', 'modules/router'], function($, Router) {
     return App.module('Request', function(module) {
 
         /**
@@ -79,6 +79,13 @@ define(['jquery'], function($) {
         $(document).ajaxError(function (event, jqXHR) {
             if (403 === jqXHR.status) {
                 handleExpiredSession();
+            }
+        });
+
+        $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+            var root = Router.getAppRoot();
+            if (options.url.indexOf(root) === -1) {
+                options.url = root.replace(/\/+$/, "") + options.url;
             }
         });
 

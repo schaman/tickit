@@ -14,12 +14,13 @@ default:
             mink_driver: true
             kernel:
                 env: test
-                debug: true
+                debug: false
         VIPSoft\DoctrineDataFixturesExtension\Extension:
             lifetime:    feature
-            autoload:    true
+            autoload:    false
             directories: ~
-            fixtures:    ~
+            fixtures:
+                - Tickit\Bundle\PreferenceBundle\DataFixtures\ORM\LoadPreferenceData
 
 saucelabs_win7_firefox:
     extensions:

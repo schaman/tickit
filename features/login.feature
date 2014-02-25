@@ -3,6 +3,11 @@ Feature: User Login
     As a registered user
     I need to be able to login
 
+    Background:
+         Given the following users exist:
+             | username | email           | password  | role       |
+             | root     | hello@tickit.io | mypass123 | ROLE_ADMIN |
+
     Scenario: The login form is visible
         Given I am currently on "/login"
          Then I should see a "form" element
@@ -10,8 +15,8 @@ Feature: User Login
     Scenario: User cannot log in with bad credentials
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | james.t.halsall@googlemail.com |
-            | Password          | wrongpassword                  |
+            | email-name | james.t.halsall@googlemail.com |
+            | login-pass | wrongpassword                  |
           And I press "Login"
          Then I should be on "/login"
           And I should wait and see "Bad credentials"
@@ -19,8 +24,8 @@ Feature: User Login
     Scenario: User cannot login with non-existent credentials
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | nonexistentusername  |
-            | Password          | dkwoafwkaodkawodkwao |
+            | email-name | nonexistentusername  |
+            | login-pass | dkwoafwkaodkawodkwao |
           And I press "Login"
          Then I should be on "/login"
           And I should wait and see "Bad credentials"
@@ -29,25 +34,24 @@ Feature: User Login
         Given I am currently on "/login"
           And I press "Login"
          Then I should be on "/login"
-          And I should not be logged in
           And I should wait and see "Bad credentials"
 
     Scenario: User can login with valid email and password
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | james.t.halsall@googlemail.com  |
-            | Password          | password                        |
+            | email-name | hello@tickit.io  |
+            | login-pass | mypass123        |
           And I press "Login"
-         Then I should wait and see a "#account" element
-          And I should be logged in
+         Then I should wait and see a "div.account" element
+          And I should be logged in as "hello@tickit.io"
           And I should be on "/dashboard"
 
-    Scenario: User can login with valid email and password
+    Scenario: User can login with valid username and password
         Given I am currently on "/login"
          When I fill in the following:
-            | Email or username | james     |
-            | Password          | password  |
+            | email-name | root       |
+            | login-pass | mypass123  |
           And I press "Login"
-         Then I should wait and see a "#account" element
-          And I should be logged in
+         Then I should wait and see a "div.account" element
+          And I should be logged in as "root"
           And I should be on "/dashboard"

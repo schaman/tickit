@@ -1,13 +1,23 @@
+# Our test environment is only used for web acceptance testing.
+# The unit tests in Tickit do not use the kernel or the container,
+# so we can safely assume that all configuration in this file is
+# for acceptance testing via behat/mink. For this reason we want to
+# simulate the production environment in as many ways as possible
+# whilst still retaining "test safety" (e.g. not dispatching real
+# emails)
+
 imports:
-    - { resource: config_dev.yml }
+    - { resource: config_prod.yml }
+    - { resource: requirejs_test.yml }
 
 framework:
     test: ~
     router:   { resource: "%kernel.root_dir%/config/routing_test.yml" }
-    session:
-        storage_id: session.storage.mock_file
     profiler:
         enabled: false
+    session:
+        storage_id: session.storage.native
+        name: sessionId
 
 web_profiler:
     toolbar: false
@@ -27,11 +37,10 @@ doctrine:
         password: %database_password%
         charset:  UTF8
 
-# Test specific firewall
-security:
-    firewalls:
-        main:
-            pattern: ^/
-            http_basic:
-                realm: "Secured Test"
-                provider: tickit_userbundle
+    orm:
+        metadata_cache_driver: array
+        result_cache_driver: array
+        query_cache_driver: array
+
+assetic:
+    use_controller: true

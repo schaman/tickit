@@ -1,10 +1,10 @@
 <?php
+
 /**
  * This file is used to initialise configs for the Travis CI build process
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-
 
 /**
  * Gets the project root directory
@@ -21,10 +21,13 @@ function getProjectRoot()
  *
  * @return closure
  */
-function createTravisConfigYml()
+function createTravisParametersYml()
 {
     $configDir = getProjectRoot() . '/app/config';
-    file_put_contents($configDir . '/parameters.yml', file_get_contents($configDir . '/parameters.yml.dist'));
+    $contents = file_get_contents($configDir . '/parameters.yml.dist');
+    $contents = str_replace('node_bin: /usr/local/bin/node', 'node_bin: node', $contents);
+
+    file_put_contents($configDir . '/parameters.yml', $contents);
 
 }
 
@@ -55,6 +58,6 @@ function createBuildDirectory()
 }
 
 createCacheDirectory();
-createTravisConfigYml();
+createTravisParametersYml();
 createPhpUnitXml();
 createBuildDirectory();

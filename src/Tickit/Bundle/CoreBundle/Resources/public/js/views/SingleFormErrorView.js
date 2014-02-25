@@ -12,6 +12,6 @@ define(['modules/template', 'text!core/views/FormErrorSingle.html'], function(Te
     return Backbone.Marionette.ItemView.extend({
         template: '#form_error_single-template',
         tagName: 'div',
-        className: 'alert alert-error'
+        className: 'error'
     });
 });

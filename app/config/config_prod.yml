@@ -21,3 +21,6 @@ monolog:
 
 framework:
     trusted_hosts: ~
+
+assetic:
+    use_controller: false

@@ -21,9 +21,11 @@
 
 namespace Tickit\WebAcceptance;
 
+use Behat\Mink\Element\NodeElement;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Tickit\Component\Model\User\User;
 use Tickit\WebAcceptance\Mixins\ContainerMixin;
 
 /**
@@ -37,6 +39,21 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     use ContainerMixin;
 
     /**
+     * The currently logged in user
+     *
+     * @var User
+     */
+    public $loggedInUser;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->useContext('data', new DataContext());
+    }
+
+    /**
      * Opens specified page.
      *
      * @Given /^(?:|I )am currently on "(?P<page>[^"]+)"$/
@@ -45,7 +62,7 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
     public function visit($page)
     {
         $this->getSession()->visit($this->locatePath($page));
-        $this->getSession()->wait(15000, 'typeof $ != undefined && $("#spin-wrap").length === 0');
+        $this->getSession()->wait(2500);
     }
 
     /**
@@ -63,29 +80,176 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
      */
     public function iShouldWaitAndSeeAElement($selector)
     {
-        $this->spin(function(WebUserContext $context) use ($selector) {
-            return $context->getSession()->getPage()->find('css', $selector);
-        });
+        $this->getSession()->wait(1500);
+        return null !== $this->getSession()->getPage()->find('css', $selector);
     }
 
     /**
-     * @Given /^I should be logged in$/
+     * @Then /^I should wait and see (\d+) table rows$/
      */
-    public function iShouldBeLoggedIn()
+    public function iShouldWaitAndSeeTableRows($number)
     {
-        if (!$this->getSecurityContext()->isGranted('ROLE_USER')) {
-            throw new AuthenticationException('User not authenticated');
-        }
+        $this->getSession()->wait(1500);
+        $this->assertNumElements($number, 'div.main table tbody tr');
     }
 
     /**
-     * @Given /^I should not be logged in$/
+     * @Given /^I am a logged in user$/
+     */
+    public function iAmALoggedInUser()
+    {
+        $this->iAmLoggedInWithRole('ROLE_USER');
+    }
+
+    /**
+     * @Given /^I am a logged in admin$/
+     */
+    public function iAmALoggedInAdmin()
+    {
+        $this->iAmLoggedInWithRole('ROLE_ADMIN');
+    }
+
+    /**
+     * @Given /^I am a logged in super admin/
+     */
+    public function iAmALoggedInSuperAdmin()
+    {
+        $this->iAmLoggedInWithRole('ROLE_SUPER_ADMIN');
+    }
+
+    /**
+     * @Then /^I should not be logged in$/
      */
     public function iShouldNotBeLoggedIn()
     {
-        if ($this->getSecurityContext()->isGranted('ROLE_USER')) {
+        if ($this->getSecurityContext()->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             throw new AuthenticationException('User is authenticated but shouldn\'t be.');
         }
+    }
+
+    /**
+     * @Given /^I should be logged in as "([^"]*)"$/
+     */
+    public function iShouldBeLoggedInAs($usernameOrEmail)
+    {
+        $session = $this->getMink()->getSession();
+        $userId = $session->getCookie('uid');
+
+        if (empty($userId)) {
+            throw new AuthenticationException('No cookie "uid" could be found in the current browser session');
+        }
+
+        /** @var User $user */
+        $user = $this->getService('tickit_user.manager')
+                               ->findUserByUsernameOrEmail($usernameOrEmail);
+
+        if (null === $user) {
+            throw new AuthenticationException(
+                sprintf('No user could be found matching the provided username/email (%s)', $usernameOrEmail)
+            );
+        }
+
+        if ($userId != $user->getId()) {
+            throw new AuthenticationException(
+                sprintf(
+                    'The authenticated user\'s ID (%d) does not match the expected value (%s)',
+                    $userId,
+                    $user->getId()
+                )
+            );
+        }
+    }
+
+    /**
+     * @When /^I type "([^"]*)", wait and select "([^"]*)" from picker "([^"]*)"$/
+     */
+    public function iTypeWaitAndSelectFromPicker($typedValue, $valueToSelect, $pickerId)
+    {
+        $session = $this->getSession();
+        $page = $session->getPage();
+
+        $select2Id = sprintf('#s2id_%s input[type="text"]', $pickerId);
+        $select2 = $page->find('css', $select2Id);
+        $select2->setValue($typedValue);
+        $this->iWait();
+
+        $results = $page->findAll('css', 'li.select2-result');
+        /** @var NodeElement $result */
+        foreach ($results as $result) {
+            if ($result->getText() == $valueToSelect) {
+                $result->click();
+                break;
+            }
+        }
+    }
+
+    /**
+     * @Then /^I should see (\d+) pages$/
+     */
+    public function iShouldSeePages($numberOfPages)
+    {
+        // we add 2 to the expected page count, because there will be both "next"
+        // and "prev" <li> control elements
+        $this->assertNumElements($numberOfPages + 2, 'div.list-pagination ul.pagination li a');
+    }
+
+    /**
+     * @When /^I click page (\d+)$/
+     */
+    public function iClickPage($pageNumber)
+    {
+        $page = $this->getSession()->getPage();
+        $button = $page->find('css', sprintf('div.list-pagination ul.pagination li a[data-page="%d"]', $pageNumber));
+        $button->click();
+    }
+
+    /**
+     * @Given /^I refresh the listing$/
+     */
+    public function iRefreshTheListing()
+    {
+        $page = $this->getSession()->getPage();
+        $button = $page->find('css', 'div.refresh a');
+        $button->click();
+    }
+
+    /**
+     * Creates a user and logs in
+     *
+     * @param string|array $role         The role(s) for the user
+     * @param string       $emailAddress The email address of the user
+     */
+    private function iAmLoggedInWithRole($role, $emailAddress  = 'hello@tickit.io')
+    {
+        /** @var DataContext $dataContext */
+        $dataContext = $this->getSubcontext('data');
+        $this->loggedInUser = $dataContext->createUser($emailAddress, $emailAddress, 'password', $role);
+
+        $this->visit($this->generateUrl('fos_user_security_login'));
+        $this->fillField('_username', $emailAddress);
+        $this->fillField('_password', 'password');
+        $this->pressButton('Login');
+        $this->getSession()->wait(1000);
+    }
+
+    /**
+     * Generates a returns a page URL
+     *
+     * @param string $routeName  The route name of the URL to generate
+     * @param array  $parameters An array of route parameters
+     *
+     * @return string
+     */
+    private function generateUrl($routeName, array $parameters = array())
+    {
+        $router = $this->getService('router');
+        $path = $router->generate($routeName, $parameters);
+
+        if (true === $this->isUsingSelenium2Driver()) {
+            return sprintf('%s%s', $this->getMinkParameter('base_url'), $path);
+        }
+
+        return $path;
     }
 
     /**
@@ -119,5 +283,23 @@ class WebUserContext extends MinkContext implements KernelAwareInterface
                 $backtrace[1]['line']
             )
         );
+    }
+
+    /**
+     * @Given /^I wait$/
+     */
+    private function iWait()
+    {
+        $this->getSession()->wait(1000);
+    }
+
+    /**
+     * Returns true if the current driver is Selenium2
+     *
+     * @return boolean
+     */
+    private function isUsingSelenium2Driver()
+    {
+        return ('Selenium2Driver' === strstr(get_class($this->getSession()->getDriver()), 'Selenium2Driver'));
     }
 }
