@@ -174,10 +174,21 @@ class ApiControllerTest extends AbstractUnitTest
         array $returnData
     ) {
         $objectDecorator->expects($this->once())
+                        ->method('setPropertyMappings')
+                        ->with(
+                            [
+                                'project.name' => 'project',
+                                'type.name' => 'type',
+                                'status.name' => 'status',
+                                'assignedTo.fullName' => 'assignedTo'
+                            ]
+                        );
+
+        $objectDecorator->expects($this->once())
                         ->method('decorate')
                         ->with(
                             $clients,
-                            ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo'],
+                            ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
                             ['csrfToken' => 'csrf-token-value']
                         )
                         ->will($this->returnValue($returnData));

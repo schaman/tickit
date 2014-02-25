@@ -116,6 +116,13 @@ class ApiController
         $issues = $this->issueRepository->findByFilters($filters);
 
         $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $propertyMappings = [
+            'project.name' => 'project',
+            'type.name' => 'type',
+            'status.name' => 'status',
+            'assignedTo.fullName' => 'assignedTo'
+        ];
+        $decorator->setPropertyMappings($propertyMappings);
         $data = $decorator->decorate(
             $issues->getIterator(),
             ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
