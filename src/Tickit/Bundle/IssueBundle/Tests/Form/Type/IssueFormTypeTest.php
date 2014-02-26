@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\IssueBundle\Tests\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Faker\Factory;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\IssueBundle\Form\Type\IssueFormType;
@@ -32,13 +33,33 @@ use Tickit\Component\Model\Issue\IssueType;
 use Tickit\Component\Model\Project\Project;
 
 /**
- * Description
+ * IssueFormType tests
  *
  * @package Tickit\Bundle\IssueBundle\Tests\Form\Type
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class IssueFormTypeTest extends AbstractFormTypeTestCase
 {
+    /**
+     * @var Project
+     */
+    private $project;
+
+    /**
+     * @var IssueType
+     */
+    private $issueType;
+
+    /**
+     * @var IssueStatus
+     */
+    private $issueStatus;
+
+    /**
+     * @var Collection
+     */
+    private $attachments;
+
     /**
      * Setup
      */
@@ -67,28 +88,18 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
     }
 
     /**
+     * We initialise the fixture state of the test in here.
+     *
+     * This is called before setUp()... go figure
+     *
      * @return array
      */
     public function getValidDataFixtures()
     {
         $faker = Factory::create();
 
-        $rawData = [
-            'number' => 'PROJ12345',
-            'title' => 'Search field does not open on iPhone',
-            'attachments' => [1, 2],
-            'project' => 19,
-            'priority' => Issue::PRIORITY_HIGH,
-            'type' => 2,
-            'status' => 6,
-            'description' => implode(' ', $faker->paragraphs(2)),
-            'estimatedHours' => 3,
-            'actualHours' => 2,
-            'assignedTo' => 7
-        ];
-
         $project = new Project();
-        $project->setId($rawData['project']);
+        $project->setId(19);
 
         $issueType = new IssueType();
         $issueType->setId(2);
@@ -100,7 +111,25 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $attachment1->setId(1);
         $attachment2 = new IssueAttachment();
         $attachment2->setId(2);
-        $attachments = new ArrayCollection([$attachment1, $attachment2]);
+
+        $this->project = $project;
+        $this->issueType = $issueType;
+        $this->issueStatus = $issueStatus;
+        $this->attachments = new ArrayCollection([$attachment1, $attachment2]);
+
+        $rawData = [
+            'number' => 'PROJ12345',
+            'title' => 'Search field does not open on iPhone',
+            'attachments' => [1, 2],
+            'project' => $this->project->getId(),
+            'priority' => Issue::PRIORITY_HIGH,
+            'type' => $this->issueType->getId(),
+            'status' => $this->issueStatus->getId(),
+            'description' => implode(' ', $faker->paragraphs(2)),
+            'estimatedHours' => 3,
+            'actualHours' => 2,
+            'assignedTo' => 7
+        ];
 
         $expected = new Issue();
         $expected->setNumber($rawData['number'])
@@ -109,10 +138,10 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
                  ->setEstimatedHours($rawData['estimatedHours'])
                  ->setActualHours($rawData['actualHours'])
                  ->setPriority($rawData['priority'])
-                 ->setProject($project)
-                 ->setType($issueType)
-                 ->setStatus($issueStatus)
-                 ->setAttachments($attachments);
+                 ->setProject($this->project)
+                 ->setType($this->issueType)
+                 ->setStatus($this->issueStatus)
+                 ->setAttachments($this->attachments);
 
         return [
             [$rawData, $expected]
