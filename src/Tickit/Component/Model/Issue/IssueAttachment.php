@@ -58,13 +58,27 @@ class IssueAttachment
     protected $mimeType;
 
     /**
-     * Gets the ID of this comment
+     * Gets the ID of this attachment
      *
      * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the ID of the attachment
+     *
+     * @param integer $id The new ID for the attachment
+     *
+     * @return IssueAttachment
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
