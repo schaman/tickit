@@ -6,12 +6,17 @@
 
     <parameters>
         <parameter key="tickit_issue.form.filters.class">Tickit\Bundle\IssueBundle\Form\Type\FilterFormType</parameter>
+        <parameter key="tickit_issue.form.issue.class">Tickit\Bundle\IssueBundle\Form\Type\IssueFormType</parameter>
     </parameters>
 
     <services>
 
         <service id="tickit_issue.form.filters" class="%tickit_issue.form.filters.class%">
             <tag name="form.type" alias="tickit_issue_filters" />
+        </service>
+
+        <service id="tickit_issue.form.issue" class="%tickit_issue.form.issue.class%">
+            <tag name="form.type" alias="tickit_issue" />
         </service>
 
     </services>
