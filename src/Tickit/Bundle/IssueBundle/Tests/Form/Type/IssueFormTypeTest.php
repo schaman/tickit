@@ -24,8 +24,10 @@ namespace Tickit\Bundle\IssueBundle\Tests\Form\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Faker\Factory;
+use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\IssueBundle\Form\Type\IssueFormType;
+use Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType;
 use Tickit\Component\Model\Issue\Issue;
 use Tickit\Component\Model\Issue\IssueAttachment;
 use Tickit\Component\Model\Issue\IssueStatus;
@@ -156,5 +158,62 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         return [
             [$rawData, $expected]
         ];
+    }
+
+    /**
+     * Gets form extensions for the test
+     *
+     * @return array
+     */
+    protected function getExtensions()
+    {
+        $extensions = parent::getExtensions();
+        $self = $this;
+
+        $transformer = $this->getMockPickerDataTransformer();
+        $transformer->expects($this->any())
+                    ->method('transform')
+                    ->will(
+                        $this->returnCallback(
+                            function ($value) use ($self) {
+                                if ($value instanceof Project) {
+                                    return $self->project->getId();
+                                }
+
+                                if ($value instanceof User) {
+                                    return $self->assignedUser->getId();
+                                }
+
+                                return null;
+                            }
+                        )
+                    );
+        $transformer->expects($this->any())
+                    ->method('reverseTransform')
+                    ->will(
+                        $this->returnCallback(
+                            function ($value) use ($self) {
+                                if ($value == $self->project->getId()) {
+                                    return $self->project;
+                                }
+
+                                if ($value == $self->assignedUser->getId()) {
+                                    return $self->assignedUser;
+                                }
+
+                                return null;
+                            }
+                        )
+                    );
+
+        // TODO: create a ProjectPicker form type
+        $userPicker = new UserPickerType($transformer);
+
+        $extensions[] = new PreloadedExtension(
+            [$userPicker->getName() => $userPicker],
+            []
+        );
+
+        return $extensions;
     }
 }
