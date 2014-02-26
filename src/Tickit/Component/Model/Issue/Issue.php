@@ -478,4 +478,18 @@ class Issue
     {
         return $this->estimatedHours;
     }
+
+    /**
+     * Sets the attachments on this issue
+     *
+     * @param Collection $attachments The new attachments collection
+     *
+     * @return Issue
+     */
+    public function setAttachments(Collection $attachments)
+    {
+        $this->attachments = $attachments;
+
+        return $this;
+    }
 }
