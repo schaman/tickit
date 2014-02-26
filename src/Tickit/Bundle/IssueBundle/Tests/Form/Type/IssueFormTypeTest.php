@@ -31,6 +31,7 @@ use Tickit\Component\Model\Issue\IssueAttachment;
 use Tickit\Component\Model\Issue\IssueStatus;
 use Tickit\Component\Model\Issue\IssueType;
 use Tickit\Component\Model\Project\Project;
+use Tickit\Component\Model\User\User;
 
 /**
  * IssueFormType tests
@@ -59,6 +60,11 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
      * @var Collection
      */
     private $attachments;
+
+    /**
+     * @var User
+     */
+    private $assignedUser;
 
     /**
      * Setup
@@ -112,6 +118,9 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $attachment2 = new IssueAttachment();
         $attachment2->setId(2);
 
+        $assignedUser = new User();
+        $assignedUser->setId(7);
+
         $this->project = $project;
         $this->issueType = $issueType;
         $this->issueStatus = $issueStatus;
@@ -128,7 +137,7 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
             'description' => implode(' ', $faker->paragraphs(2)),
             'estimatedHours' => 3,
             'actualHours' => 2,
-            'assignedTo' => 7
+            'assignedTo' => $this->assignedUser->getId()
         ];
 
         $expected = new Issue();
@@ -141,7 +150,8 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
                  ->setProject($this->project)
                  ->setType($this->issueType)
                  ->setStatus($this->issueStatus)
-                 ->setAttachments($this->attachments);
+                 ->setAttachments($this->attachments)
+                 ->setAssignedTo($this->assignedUser);
 
         return [
             [$rawData, $expected]
