@@ -79,7 +79,7 @@ class Issue
      *
      * @var Collection
      */
-    protected $issueSubscriptions;
+    protected $subscriptions;
 
     /**
      * The project that this issue is a part of

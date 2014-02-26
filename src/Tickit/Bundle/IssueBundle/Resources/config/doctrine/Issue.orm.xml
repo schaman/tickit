@@ -20,7 +20,7 @@
         </field>
 
         <one-to-many field="comments" target-entity="Tickit\Component\Model\Issue\Comment" mapped-by="issue"/>
-        <one-to-many field="issueSubscriptions" target-entity="Tickit\Component\Model\Issue\IssueUserSubscription" mapped-by="issue"/>
+        <one-to-many field="subscriptions" target-entity="Tickit\Component\Model\Issue\IssueUserSubscription" mapped-by="issue"/>
         <one-to-many field="attachments" target-entity="Tickit\Component\Model\Issue\IssueAttachment" mapped-by="issue"/>
 
         <many-to-one field="assignedTo" target-entity="Tickit\Component\Model\User\User">
