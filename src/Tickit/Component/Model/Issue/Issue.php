@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Model\Issue;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
@@ -482,14 +483,27 @@ class Issue
     /**
      * Sets the attachments on this issue
      *
-     * @param Collection $attachments The new attachments collection
+     * @param array|Collection $attachments The new attachments collection
      *
      * @return Issue
      */
-    public function setAttachments(Collection $attachments)
+    public function setAttachments($attachments)
     {
+        if (!$attachments instanceof Collection) {
+            $attachments = new ArrayCollection($attachments);
+        }
         $this->attachments = $attachments;
 
         return $this;
+    }
+
+    /**
+     * Gets the attachments on this issue
+     *
+     * @return Collection
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
     }
 }
