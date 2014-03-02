@@ -65,7 +65,15 @@ class IssueFormType extends AbstractType
                         'property' => 'name'
                     ]
                 )
-                ->add('attachments', 'collection')
+                ->add(
+                    'attachments',
+                    'collection',
+                    [
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        // TODO: create IssueAttachment form
+                    ]
+                )
                 ->add('estimatedHours', 'text')
                 ->add('actualHours', 'text')
                 ->add('assignedTo', 'tickit_user_picker', ['provider' => 'picker_user_find']);
