@@ -127,6 +127,7 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $this->issueType = $issueType;
         $this->issueStatus = $issueStatus;
         $this->attachments = new ArrayCollection([$attachment1, $attachment2]);
+        $this->assignedUser = $assignedUser;
 
         $rawData = [
             'number' => 'PROJ12345',
