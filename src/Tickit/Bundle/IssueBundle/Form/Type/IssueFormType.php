@@ -24,6 +24,7 @@ namespace Tickit\Bundle\IssueBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\Component\Model\Issue\Issue;
 
 /**
  * Issue form type.
@@ -43,7 +44,31 @@ class IssueFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // todo
+        $builder->add('number', 'text')
+                ->add('title', 'text')
+                ->add('description', 'textarea')
+                ->add('project', 'tickit_project_picker', ['provider' => 'picker_project_find'])
+                ->add('priority', 'choice', ['choices' => Issue::getValidPriorities(true)])
+                ->add(
+                    'type',
+                    'entity',
+                    [
+                        'class' => 'TickitIssueBundle:IssueType',
+                        'property' => 'name'
+                    ]
+                )
+                ->add(
+                    'status',
+                    'entity',
+                    [
+                        'class' => 'TickitIssueBundle:IssueStatus',
+                        'property' => 'name'
+                    ]
+                )
+                ->add('attachments', 'collection')
+                ->add('estimatedHours', 'text')
+                ->add('actualHours', 'text')
+                ->add('assignedTo', 'tickit_user_picker', ['provider' => 'picker_user_find']);
     }
 
     /**

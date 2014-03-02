@@ -27,6 +27,7 @@ use Faker\Factory;
 use Symfony\Component\Form\PreloadedExtension;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
 use Tickit\Bundle\IssueBundle\Form\Type\IssueFormType;
+use Tickit\Bundle\ProjectBundle\Form\Type\Picker\ProjectPickerType;
 use Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType;
 use Tickit\Component\Model\Issue\Issue;
 use Tickit\Component\Model\Issue\IssueAttachment;
@@ -46,27 +47,27 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
     /**
      * @var Project
      */
-    private $project;
+    private static $project;
 
     /**
      * @var IssueType
      */
-    private $issueType;
+    private static $issueType;
 
     /**
      * @var IssueStatus
      */
-    private $issueStatus;
+    private static $issueStatus;
 
     /**
      * @var Collection
      */
-    private $attachments;
+    private static $attachments;
 
     /**
      * @var User
      */
-    private $assignedUser;
+    private static $assignedUser;
 
     /**
      * Setup
@@ -106,6 +107,118 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
     {
         $faker = Factory::create();
 
+        $this->loadFixtures();
+
+        $rawData = [
+            'number' => 'PROJ12345',
+            'title' => 'Search field does not open on iPhone',
+            'attachments' => [1, 2],
+            'project' => static::$project->getId(),
+            'priority' => Issue::PRIORITY_HIGH,
+            'type' => static::$issueType->getId(),
+            'status' => static::$issueStatus->getId(),
+            'description' => implode(' ', $faker->paragraphs(2)),
+            'estimatedHours' => '3',
+            'actualHours' => '2',
+            'assignedTo' => static::$assignedUser->getId()
+        ];
+
+        $expected = new Issue();
+        $expected->setNumber($rawData['number'])
+                 ->setTitle($rawData['title'])
+                 ->setDescription($rawData['description'])
+                 ->setEstimatedHours($rawData['estimatedHours'])
+                 ->setActualHours($rawData['actualHours'])
+                 ->setPriority($rawData['priority'])
+                 ->setProject(static::$project)
+                 ->setType(static::$issueType)
+                 ->setStatus(static::$issueStatus)
+                 ->setAttachments(static::$attachments)
+                 ->setAssignedTo(static::$assignedUser);
+
+        return [
+            [$rawData, $expected]
+        ];
+    }
+
+    /**
+     * Gets form extensions for the test
+     *
+     * @return array
+     */
+    protected function getExtensions()
+    {
+        $this->loadFixtures();
+        $entityData = [
+            'Tickit\\Component\\Model\\Issue\\IssueType' => [static::$issueType],
+            'Tickit\\Component\\Model\\Issue\\IssueStatus' => [static::$issueStatus]
+        ];
+        $this->enableEntityTypeExtension($entityData);
+
+        $extensions = parent::getExtensions();
+        $self = $this;
+
+        $transformer = $this->getMockPickerDataTransformer();
+        $transformer->expects($this->any())
+                    ->method('transform')
+                    ->will(
+                        $this->returnCallback(
+                            function ($value) use ($self) {
+                                if ($value instanceof Project) {
+                                    return static::$project->getId();
+                                }
+
+                                if ($value instanceof User) {
+                                    return static::$assignedUser->getId();
+                                }
+
+                                return null;
+                            }
+                        )
+                    );
+        $transformer->expects($this->any())
+                    ->method('reverseTransform')
+                    ->will(
+                        $this->returnCallback(
+                            function ($value) use ($self) {
+                                if ($value == static::$project->getId()) {
+                                    return static::$project;
+                                }
+
+                                if ($value == static::$assignedUser->getId()) {
+                                    return static::$assignedUser;
+                                }
+
+                                return null;
+                            }
+                        )
+                    );
+
+        $userPicker = new UserPickerType($transformer);
+        $projectPicker = new ProjectPickerType($transformer);
+
+        $extensions[] = new PreloadedExtension(
+            [$userPicker->getName() => $userPicker],
+            []
+        );
+
+        $extensions[] = new PreloadedExtension(
+            [$projectPicker->getName() => $projectPicker],
+            []
+        );
+
+        return $extensions;
+    }
+
+    /**
+     * Loads fixtures onto the test
+     */
+    private function loadFixtures()
+    {
+        if (static::$project !== null) {
+            return;
+        }
+
         $project = new Project();
         $project->setId(19);
 
@@ -123,98 +236,10 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $assignedUser = new User();
         $assignedUser->setId(7);
 
-        $this->project = $project;
-        $this->issueType = $issueType;
-        $this->issueStatus = $issueStatus;
-        $this->attachments = new ArrayCollection([$attachment1, $attachment2]);
-        $this->assignedUser = $assignedUser;
-
-        $rawData = [
-            'number' => 'PROJ12345',
-            'title' => 'Search field does not open on iPhone',
-            'attachments' => [1, 2],
-            'project' => $this->project->getId(),
-            'priority' => Issue::PRIORITY_HIGH,
-            'type' => $this->issueType->getId(),
-            'status' => $this->issueStatus->getId(),
-            'description' => implode(' ', $faker->paragraphs(2)),
-            'estimatedHours' => 3,
-            'actualHours' => 2,
-            'assignedTo' => $this->assignedUser->getId()
-        ];
-
-        $expected = new Issue();
-        $expected->setNumber($rawData['number'])
-                 ->setTitle($rawData['title'])
-                 ->setDescription($rawData['description'])
-                 ->setEstimatedHours($rawData['estimatedHours'])
-                 ->setActualHours($rawData['actualHours'])
-                 ->setPriority($rawData['priority'])
-                 ->setProject($this->project)
-                 ->setType($this->issueType)
-                 ->setStatus($this->issueStatus)
-                 ->setAttachments($this->attachments)
-                 ->setAssignedTo($this->assignedUser);
-
-        return [
-            [$rawData, $expected]
-        ];
-    }
-
-    /**
-     * Gets form extensions for the test
-     *
-     * @return array
-     */
-    protected function getExtensions()
-    {
-        $extensions = parent::getExtensions();
-        $self = $this;
-
-        $transformer = $this->getMockPickerDataTransformer();
-        $transformer->expects($this->any())
-                    ->method('transform')
-                    ->will(
-                        $this->returnCallback(
-                            function ($value) use ($self) {
-                                if ($value instanceof Project) {
-                                    return $self->project->getId();
-                                }
-
-                                if ($value instanceof User) {
-                                    return $self->assignedUser->getId();
-                                }
-
-                                return null;
-                            }
-                        )
-                    );
-        $transformer->expects($this->any())
-                    ->method('reverseTransform')
-                    ->will(
-                        $this->returnCallback(
-                            function ($value) use ($self) {
-                                if ($value == $self->project->getId()) {
-                                    return $self->project;
-                                }
-
-                                if ($value == $self->assignedUser->getId()) {
-                                    return $self->assignedUser;
-                                }
-
-                                return null;
-                            }
-                        )
-                    );
-
-        // TODO: create a ProjectPicker form type
-        $userPicker = new UserPickerType($transformer);
-
-        $extensions[] = new PreloadedExtension(
-            [$userPicker->getName() => $userPicker],
-            []
-        );
-
-        return $extensions;
+        static::$project = $project;
+        static::$issueType = $issueType;
+        static::$issueStatus = $issueStatus;
+        static::$attachments = new ArrayCollection([$attachment1, $attachment2]);
+        static::$assignedUser = $assignedUser;
     }
 }
