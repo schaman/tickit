@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="tickit_issue.form.filters.class">Tickit\Bundle\IssueBundle\Form\Type\FilterFormType</parameter>
         <parameter key="tickit_issue.form.issue.class">Tickit\Bundle\IssueBundle\Form\Type\IssueFormType</parameter>
+        <parameter key="tickit_issue.form.issue_attachment.class">Tickit\Bundle\IssueBundle\Form\Type\IssueAttachmentFormType</parameter>
     </parameters>
 
     <services>
@@ -17,6 +18,10 @@
 
         <service id="tickit_issue.form.issue" class="%tickit_issue.form.issue.class%">
             <tag name="form.type" alias="tickit_issue" />
+        </service>
+
+        <service id="tickit_issue.form.issue_attachment" class="%tickit_issue.form.issue_attachment.class%">
+
         </service>
 
     </services>
