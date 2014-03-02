@@ -23,6 +23,8 @@ namespace Tickit\Bundle\IssueBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\Bundle\IssueBundle\Form\EventListener\IssueAttachmentFormSubscriber;
 
 /**
  * Issue attachment form type.
@@ -42,7 +44,19 @@ class IssueAttachmentFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // TODO
+        $builder->add('id', 'hidden')
+                ->add('file')
+                ->addEventSubscriber(new IssueAttachmentFormSubscriber());
+    }
+
+    /**
+     * Sets default form options
+     *
+     * @param OptionsResolverInterface $resolver An options resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(['data_class' => 'Tickit\Component\Model\Issue\IssueAttachment']);
     }
 
     /**
