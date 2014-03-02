@@ -9,6 +9,10 @@ templates:
     resource: "@TickitProjectBundle/Resources/config/routing/templates.yml"
     prefix: /templates/projects
 
+picker:
+    resource: "@TickitProjectBundle/Resources/config/routing/pickers.yml"
+    prefix: /picker/projects
+
 ###################################
 
 project_create:

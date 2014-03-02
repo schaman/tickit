@@ -9,6 +9,7 @@
         <parameter key="tickit_project.controller.api.class">Tickit\Bundle\ProjectBundle\Controller\ApiController</parameter>
         <parameter key="tickit_project.controller.project.class">Tickit\Bundle\ProjectBundle\Controller\ProjectController</parameter>
         <parameter key="tickit_project.controller.attribute.class">Tickit\Bundle\ProjectBundle\Controller\AttributeController</parameter>
+        <parameter key="tickit_project.controller.picker.class">Tickit\Bundle\ProjectBundle\Controller\PickerController</parameter>
     </parameters>
 
     <services>
@@ -43,6 +44,12 @@
             <argument type="service" id="tickit_project.attribute_form_type_guesser" />
             <argument type="service" id="tickit_project.attribute_manager" />
             <argument type="service" id="tickit.controller.csrf_helper" />
+        </service>
+
+        <service id="tickit_project.controller.picker" class="%tickit_project.controller.picker.class%">
+            <argument type="service" id="tickit_project.project_repository" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit.filter_collection_builder" />
         </service>
 
     </services>
