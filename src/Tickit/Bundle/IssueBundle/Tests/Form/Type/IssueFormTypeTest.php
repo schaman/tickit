@@ -25,7 +25,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Faker\Factory;
 use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\IssueBundle\Form\Type\IssueAttachmentFormType;
 use Tickit\Bundle\IssueBundle\Form\Type\IssueFormType;
 use Tickit\Bundle\ProjectBundle\Form\Type\Picker\ProjectPickerType;
 use Tickit\Bundle\UserBundle\Form\Type\Picker\UserPickerType;
@@ -108,11 +110,18 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $faker = Factory::create();
 
         $this->loadFixtures();
+        $attachment = static::$attachments->first();
 
         $rawData = [
             'number' => 'PROJ12345',
             'title' => 'Search field does not open on iPhone',
-            'attachments' => [1, 2],
+            'attachments' => [
+                0 => [
+                    'id' => '',
+                    'file' => $attachment->getFile(),
+                    'mimeType' => ''
+                ]
+            ],
             'project' => static::$project->getId(),
             'priority' => Issue::PRIORITY_HIGH,
             'type' => static::$issueType->getId(),
@@ -207,6 +216,12 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
             []
         );
 
+        $issueAttachmentType = new IssueAttachmentFormType();
+        $extensions[] = new PreloadedExtension(
+            [$issueAttachmentType->getName() => $issueAttachmentType],
+            []
+        );
+
         return $extensions;
     }
 
@@ -228,10 +243,12 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $issueStatus = new IssueStatus();
         $issueStatus->setId(6);
 
+        $originalName = uniqid() . '.xml';
+        $path = sys_get_temp_dir() . '/' . $originalName;
+        file_put_contents($path, 'test');
         $attachment1 = new IssueAttachment();
-        $attachment1->setId(1);
-        $attachment2 = new IssueAttachment();
-        $attachment2->setId(2);
+        $attachment1->setMimeType('text/plain')
+                    ->setFile(new UploadedFile($path, $originalName));
 
         $assignedUser = new User();
         $assignedUser->setId(7);
@@ -239,7 +256,7 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         static::$project = $project;
         static::$issueType = $issueType;
         static::$issueStatus = $issueStatus;
-        static::$attachments = new ArrayCollection([$attachment1, $attachment2]);
+        static::$attachments = new ArrayCollection([$attachment1]);
         static::$assignedUser = $assignedUser;
     }
 }

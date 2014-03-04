@@ -69,9 +69,9 @@ class IssueFormType extends AbstractType
                     'attachments',
                     'collection',
                     [
+                        'type' => 'tickit_issue_attachment',
                         'allow_add' => true,
                         'allow_delete' => true,
-                        // TODO: create IssueAttachment form
                     ]
                 )
                 ->add('estimatedHours', 'text')
