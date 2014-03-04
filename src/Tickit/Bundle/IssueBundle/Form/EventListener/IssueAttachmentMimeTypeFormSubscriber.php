@@ -64,9 +64,7 @@ class IssueAttachmentMimeTypeFormSubscriber implements EventSubscriberInterface
 
         /** @var UploadedFile $file */
         $file = $attachment['file'];
-
-        $mimeGuesser = MimeTypeGuesser::getInstance();
-        $attachment['mimeType'] = $mimeGuesser->guess($file->getRealPath());
+        $attachment['mimeType'] = $file->getMimeType();
 
         $event->setData($attachment);
     }
