@@ -81,7 +81,8 @@ class IssueAttachmentMimeTypeFormSubscriberTest extends AbstractUnitTest
                 ['file' => new UploadedFile(__DIR__ . '/fixtures/test.jpg', 'test')],
                 'image/jpeg'
             ],
-            ['', null]
+            ['', null],
+            [['id' => 10, 'mimeType' => ''], null],
         ];
     }
 }
