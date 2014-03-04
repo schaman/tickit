@@ -58,6 +58,10 @@ class IssueAttachmentMimeTypeFormSubscriber implements EventSubscriberInterface
     {
         $attachment = $event->getData();
 
+        if (!is_array($attachment) || !isset($attachment['file'])) {
+            return;
+        }
+
         /** @var UploadedFile $file */
         $file = $attachment['file'];
 

@@ -39,24 +39,25 @@ class IssueAttachmentMimeTypeFormSubscriberTest extends AbstractUnitTest
      *
      * @dataProvider getMimeTypeFixtures
      */
-    public function testSetMimeType($filePath, $expectedMimeType)
+    public function testSetMimeType($rawData, $expectedMimeType)
     {
-        $rawData = [
-            'file' => new UploadedFile($filePath, 'test')
-        ];
-
         $event = $this->getMockFormEvent();
 
         $event->expects($this->any())
              ->method('getData')
              ->will($this->returnValue($rawData));
 
-        $expectedData = $rawData;
-        $expectedData['mimeType'] = $expectedMimeType;
+        if (null === $expectedMimeType) {
+            $event->expects($this->never())
+                  ->method('setData');
+        } else {
+            $expectedData = $rawData;
+            $expectedData['mimeType'] = $expectedMimeType;
 
-        $event->expects($this->once())
-              ->method('setData')
-              ->with($expectedData);
+            $event->expects($this->once())
+                  ->method('setData')
+                  ->with($expectedData);
+        }
 
         $subscriber = new IssueAttachmentMimeTypeFormSubscriber();
         $subscriber->setMimeType($event);
@@ -68,9 +69,19 @@ class IssueAttachmentMimeTypeFormSubscriberTest extends AbstractUnitTest
     public function getMimeTypeFixtures()
     {
         return [
-            [__DIR__ . '/fixtures/test', 'text/plain'],
-            [__DIR__ . '/fixtures/test.png', 'image/png'],
-            [__DIR__ . '/fixtures/test.jpg', 'image/jpeg']
+            [
+                ['file' => new UploadedFile(__DIR__ . '/fixtures/test', 'test')],
+                'text/plain'
+            ],
+            [
+                ['file' => new UploadedFile(__DIR__ . '/fixtures/test.png', 'test')],
+                'image/png'
+            ],
+            [
+                ['file' => new UploadedFile(__DIR__ . '/fixtures/test.jpg', 'test')],
+                'image/jpeg'
+            ],
+            ['', null]
         ];
     }
 }

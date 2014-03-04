@@ -45,7 +45,7 @@ class IssueAttachmentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', 'hidden')
-                ->add('file')
+                ->add('file', 'file')
                 ->add('mimeType', 'hidden')
                 ->addEventSubscriber(new IssueAttachmentMimeTypeFormSubscriber());
     }
