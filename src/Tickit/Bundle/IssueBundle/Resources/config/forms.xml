@@ -21,7 +21,7 @@
         </service>
 
         <service id="tickit_issue.form.issue_attachment" class="%tickit_issue.form.issue_attachment.class%">
-
+            <tag name="form.type" alias="tickit_issue_attachment" />
         </service>
 
     </services>
