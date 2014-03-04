@@ -78,8 +78,7 @@ class IssueAttachmentFormTypeTest extends AbstractFormTypeTestCase
 
         $attachment = new IssueAttachment();
         $attachment->setId(4)
-                   ->setFilename('4_' . $originalName)
-                   ->setMimeType('application/json')
+                   ->setMimeType('text/plain')
                    ->setFile($rawData['file']);
 
         return [
