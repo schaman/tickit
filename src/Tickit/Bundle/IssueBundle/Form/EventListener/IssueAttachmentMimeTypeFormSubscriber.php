@@ -24,14 +24,20 @@ namespace Tickit\Bundle\IssueBundle\Form\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
+ * Issue attachment mime type form subscriber.
  *
+ * Sets the mime type of the issue attachment file after the data
+ * has been bound to the form.
  *
  * @package Tickit\Bundle\IssueBundle\Form\EventListener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueAttachmentFormSubscriber implements EventSubscriberInterface
+class IssueAttachmentMimeTypeFormSubscriber implements EventSubscriberInterface
 {
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -50,6 +56,14 @@ class IssueAttachmentFormSubscriber implements EventSubscriberInterface
      */
     public function setMimeType(FormEvent $event)
     {
-        // todo;
+        $attachment = $event->getData();
+
+        /** @var UploadedFile $file */
+        $file = $attachment['file'];
+
+        $mimeGuesser = MimeTypeGuesser::getInstance();
+        $attachment['mimeType'] = $mimeGuesser->guess($file->getRealPath());
+
+        $event->setData($attachment);
     }
 }

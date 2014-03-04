@@ -24,7 +24,7 @@ namespace Tickit\Bundle\IssueBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Tickit\Bundle\IssueBundle\Form\EventListener\IssueAttachmentFormSubscriber;
+use Tickit\Bundle\IssueBundle\Form\EventListener\IssueAttachmentMimeTypeFormSubscriber;
 
 /**
  * Issue attachment form type.
@@ -46,7 +46,7 @@ class IssueAttachmentFormType extends AbstractType
     {
         $builder->add('id', 'hidden')
                 ->add('file')
-                ->addEventSubscriber(new IssueAttachmentFormSubscriber());
+                ->addEventSubscriber(new IssueAttachmentMimeTypeFormSubscriber());
     }
 
     /**
