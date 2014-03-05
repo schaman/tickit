@@ -1,0 +1,6 @@
+issue_filter_form:
+    path: /filter-form
+    defaults: { _controller: tickit_issue.controller.template:filterFormAction }
+    methods: [GET]
+    options:
+        expose: true
