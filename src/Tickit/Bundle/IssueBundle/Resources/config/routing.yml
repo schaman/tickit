@@ -5,6 +5,10 @@ api:
     resource: "@TickitIssueBundle/Resources/config/routing/api.yml"
     prefix: /api/issues
 
+templates:
+    resource: "@TickitIssueBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/issues
+
 ##################################
 
 issue_create:
