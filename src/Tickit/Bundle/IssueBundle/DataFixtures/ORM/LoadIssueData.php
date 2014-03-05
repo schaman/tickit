@@ -45,6 +45,7 @@ class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface
     {
         $faker = Factory::create();
         $i = 50;
+        $priorities = Issue::getValidPriorities();
 
         while ($i--) {
             /** @var Project $project */
@@ -54,6 +55,7 @@ class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface
                 $issueType = $this->getReference('issue-type-' . strtolower(str_replace(' ', '-', $typeName)));
                 $issueStatus = $this->getReference('issue-status-open');
                 $issue->setType($issueType)
+                      ->setNumber($project->getIssuePrefix() . str_pad($i, 8, '0'))
                       ->setDescription(implode(' ', $faker->paragraphs(2)))
                       ->setTitle(implode(' ', $faker->words(8)))
                       ->setStatus($issueStatus)
@@ -62,6 +64,7 @@ class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface
                       ->setProject($project)
                       ->setEstimatedHours($faker->randomDigit)
                       ->setActualHours($faker->randomDigit)
+                      ->setPriority($priorities[mt_rand(0, count($priorities) - 1)])
                 ;
 
                 $manager->persist($issue);
