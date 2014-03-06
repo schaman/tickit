@@ -21,12 +21,14 @@
 
 namespace Tickit\Bundle\IssueBundle\Doctrine\Repository;
 
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
+use Tickit\Component\Model\Project\Project;
 
 /**
  * Issue repository.
@@ -74,5 +76,48 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
         $filters->applyToQuery($queryBuilder);
 
         return $queryBuilder;
+    }
+
+    /**
+     * Finds the last issue number used for the given project.
+     *
+     * By convention, this method should return 0 when no
+     * issues were found for the project.
+     *
+     * @param Project $project The project to find the last issue number for.
+     *
+     * @coeCoverageIgnore
+     *
+     * @return integer
+     */
+    public function findLastIssueNumberForProject(Project $project)
+    {
+        $lastIssue = $this->getFindLastIssueQueryBuilder($project)
+                          ->getQuery()
+                          ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+
+        if (null === $lastIssue) {
+            return 0;
+        }
+
+        return $lastIssue['number'];
+    }
+
+    /**
+     * Gets a QueryBuilder fetching the last created Issue on a project.
+     *
+     * @param Project $project The project to find the last issue for
+     *
+     * @return QueryBuilder
+     */
+    public function getFindLastIssueQueryBuilder(Project $project)
+    {
+        return $this->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('i')
+                    ->from('TickitIssueBundle:Issue', 'i')
+                    ->where('i.project = :project')
+                    ->setMaxResults(1)
+                    ->setParameter('project', $project);
     }
 }
