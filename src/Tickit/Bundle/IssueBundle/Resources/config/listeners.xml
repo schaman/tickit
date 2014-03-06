@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="tickit_issue.issue_navigation.class">Tickit\Bundle\IssueBundle\Listener\NavigationBuilderListener</parameter>
+        <parameter key="tickit_issue.listener.issue_number.class">Tickit\Component\Issue\Listener\IssueNumberListener</parameter>
     </parameters>
 
     <services>
@@ -13,6 +14,11 @@
         <service id="tickit_issue.issue_navigation" class="%tickit_issue.issue_navigation.class%">
             <argument type="service" id="router" />
             <tag name="kernel.event_listener" event="tickit.event.navigation_build" method="onBuild" />
+        </service>
+
+        <service id="tickit_issue.listener.issue_number" class="%tickit_issue.listener.issue_number.class%">
+            <argument type="service" id="tickit_issue.repository.issues" />
+            <tag name="kernel.event_listener" event="tickit_issue.event.create" method="onIssueCreate" />
         </service>
 
     </services>
