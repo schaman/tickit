@@ -4,3 +4,30 @@ cosmetic:
 api:
     resource: "@TickitIssueBundle/Resources/config/routing/api.yml"
     prefix: /api/issues
+
+templates:
+    resource: "@TickitIssueBundle/Resources/config/routing/templates.yml"
+    prefix: /templates/issues
+
+##################################
+
+issue_create:
+    path: /issues/create
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [POST]
+
+issue_edit:
+    path: /issues/edit/{id}
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [POST]
+    requirements:
+        id: \d+
+
+issue_delete:
+    path: /issues/delete/{id}
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [DELETE]
+    requirements:
+        id: \d+
+    options:
+        expose: true

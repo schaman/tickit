@@ -255,6 +255,18 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Gets a mock FormEvent
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockFormEvent()
+    {
+        return $this->getMockBuilder('\Symfony\Component\Form\FormEvent')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
      * Returns an instance of a non-accessible method.
      *
      * @param string $className  The class name

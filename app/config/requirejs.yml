@@ -31,6 +31,7 @@ hearsay_require_js:
         modules/client: "@TickitClientBundle/Resources/public/js/App.Client"
         modules/messenger: "@TickitNotificationBundle/Resources/public/js/App.Messenger"
         modules/search: "@TickitSearchBundle/Resources/public/js/App.Search"
+        modules/issue: "@TickitIssueBundle/Resources/public/js/App.Issue"
         core: '@TickitCoreBundle/Resources/public'
         navigation: "@TickitNavigationBundle/Resources/public"
         project: "@TickitProjectBundle/Resources/public"
@@ -41,6 +42,7 @@ hearsay_require_js:
         filter: "@TickitFilterBundle/Resources/public"
         paging: "@TickitPaginationBundle/Resources/public"
         picker: "@TickitPickerBundle/Resources/public"
+        issue: "@TickitIssueBundle/Resources/public"
     shim:
         -
             name: jquery

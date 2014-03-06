@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Model\Issue;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 /**
  * The IssueAttachment entity represents a file attachment on a issue
  *
@@ -58,13 +60,34 @@ class IssueAttachment
     protected $mimeType;
 
     /**
-     * Gets the ID of this comment
+     * The uploaded file for this attachment
+     *
+     * @var UploadedFile
+     */
+    protected $file;
+
+    /**
+     * Gets the ID of this attachment
      *
      * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the ID of the attachment
+     *
+     * @param integer $id The new ID for the attachment
+     *
+     * @return IssueAttachment
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -101,10 +124,14 @@ class IssueAttachment
      * Sets the filename for this attachment
      *
      * @param string $name
+     *
+     * @return IssueAttachment
      */
     public function setFilename($name)
     {
         $this->filename = $name;
+
+        return $this;
     }
 
     /**
@@ -121,9 +148,33 @@ class IssueAttachment
      * Sets the mime type for this attachment
      *
      * @param string $mimeType
+     *
+     * @return IssueAttachment
      */
     public function setMimeType($mimeType)
     {
         $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    /**
+     * Sets the uploaded file
+     *
+     * @param UploadedFile $file The uploaded file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Gets the uploaded file
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

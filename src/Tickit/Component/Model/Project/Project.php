@@ -137,6 +137,20 @@ class Project
     }
 
     /**
+     * Sets the ID
+     *
+     * @param integer $id The new ID for the project
+     *
+     * @return Project
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the project name
      *
      * @param string $name

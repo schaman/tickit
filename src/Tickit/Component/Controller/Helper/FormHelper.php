@@ -91,7 +91,7 @@ class FormHelper
      *
      * @return Form
      */
-    public function createForm($type, $data, array $options = array())
+    public function createForm($type, $data = null, array $options = array())
     {
         return $this->formFactory->create($type, $data, $options);
     }

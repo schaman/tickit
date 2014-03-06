@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Model\Issue;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
@@ -79,7 +80,7 @@ class Issue
      *
      * @var Collection
      */
-    protected $issueSubscriptions;
+    protected $subscriptions;
 
     /**
      * The project that this issue is a part of
@@ -477,5 +478,32 @@ class Issue
     public function getEstimatedHours()
     {
         return $this->estimatedHours;
+    }
+
+    /**
+     * Sets the attachments on this issue
+     *
+     * @param array|Collection $attachments The new attachments collection
+     *
+     * @return Issue
+     */
+    public function setAttachments($attachments)
+    {
+        if (!$attachments instanceof Collection) {
+            $attachments = new ArrayCollection($attachments);
+        }
+        $this->attachments = $attachments;
+
+        return $this;
+    }
+
+    /**
+     * Gets the attachments on this issue
+     *
+     * @return Collection
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
     }
 }
