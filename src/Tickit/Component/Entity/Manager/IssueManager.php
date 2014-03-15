@@ -25,6 +25,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Component\Model\Issue\Issue;
 
 /**
  * Issue manager.
@@ -79,10 +80,10 @@ class IssueManager extends AbstractManager
      *
      * @param object $entity The entity in its current state
      *
-     * @return object
+     * @return Issue
      */
     protected function fetchEntityInOriginalState($entity)
     {
-        // TODO: Implement fetchEntityInOriginalState() method.
+        return $this->issueRepository->find($entity->getId());
     }
 }
