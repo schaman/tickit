@@ -46,10 +46,10 @@
             <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
-        <service id="tickit_project.controller.picker" class="%tickit_project.controller.picker.class%" scope="request">
+        <service id="tickit_project.controller.picker" class="%tickit_project.controller.picker.class%">
             <argument type="service" id="tickit_project.project_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
-            <argument type="service" id="tickit.filter_collection_builder" />
+            <argument type="service" id="tickit_filter.filter_collection_builder" />
         </service>
 
     </services>
