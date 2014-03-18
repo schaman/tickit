@@ -10,7 +10,7 @@
 
     <services>
 
-        <service id="tickit_preference.controller.api" class="%tickit_preference.controller.api.class%" scope="request">
+        <service id="tickit_preference.controller.api" class="%tickit_preference.controller.api.class%">
             <argument type="service" id="tickit_filter.filter_collection_builder" />
             <argument type="service" id="tickit_preference.preference_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
