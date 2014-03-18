@@ -19,54 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Model\Ticket;
-
-use Tickit\Component\Model\IdentifiableInterface;
-use Tickit\Component\Model\User\User;
+namespace Tickit\Component\Model;
 
 /**
- * The Comment entity represents a comment that is placed on a Ticket by a given user
+ * Identifiable interface for models
  *
- * @package Tickit\Component\Model\Ticket
- * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @package Tickit\Component\Model
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class Comment implements IdentifiableInterface
+interface IdentifiableInterface
 {
-    /**
-     * The unique identifier for the comment
-     *
-     * @var integer
-     */
-    protected $id;
-
-    /**
-     * The ticket that this comment belongs to
-     *
-     * @var Ticket
-     */
-    protected $ticket;
-
-    /**
-     * The user that created the comment
-     *
-     * @var User
-     */
-    protected $user;
-
-    /**
-     * The message content on the comment
-     *
-     * @var string
-     */
-    protected $message;
-
     /**
      * Get value to identify this model
      *
      * @return integer
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function getId();
 }

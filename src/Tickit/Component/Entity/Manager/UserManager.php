@@ -25,6 +25,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Entity\Repository\UserRepositoryInterface;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -110,7 +111,7 @@ class UserManager extends AbstractManager implements UserManagerInterface
      *
      * @return User
      */
-    public function update($entity, $flush = true)
+    public function update(IdentifiableInterface $entity, $flush = true)
     {
         $this->updateCanonicalFields($entity);
         $this->updatePassword($entity);
@@ -302,11 +303,11 @@ class UserManager extends AbstractManager implements UserManagerInterface
     /**
      * {@inheritDoc}
      *
-     * @param object $entity The entity in its current state
+     * @param IdentifiableInterface $entity The entity in its current state
      *
      * @return User
      */
-    protected function fetchEntityInOriginalState($entity)
+    protected function fetchEntityInOriginalState(IdentifiableInterface $entity)
     {
         $user = $this->getRepository()->find($entity->getId());
 

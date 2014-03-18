@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -29,7 +30,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketStatusHistory
+class TicketStatusHistory implements IdentifiableInterface
 {
     /**
      * The unique identifier

@@ -24,6 +24,7 @@ namespace Tickit\Component\Entity\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
@@ -96,11 +97,11 @@ class ClientManager extends AbstractManager
      * from the entity manager. This is used when dispatching entity update
      * events, so a before and after comparison can take place.
      *
-     * @param object $entity The entity in its current state
+     * @param IdentifiableInterface $entity The entity in its current state
      *
      * @return object
      */
-    protected function fetchEntityInOriginalState($entity)
+    protected function fetchEntityInOriginalState(IdentifiableInterface $entity)
     {
         return $this->clientRepository->find($entity->getId());
     }

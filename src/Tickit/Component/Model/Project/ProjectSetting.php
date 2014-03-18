@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Project;
 
+use Tickit\Component\Model\IdentifiableInterface;
+
 /**
  * The ProjectSetting entity represents a specific setting that is customisable per project
  *
  * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectSetting
+class ProjectSetting implements IdentifiableInterface
 {
     /**
      * The unique identifier for the setting

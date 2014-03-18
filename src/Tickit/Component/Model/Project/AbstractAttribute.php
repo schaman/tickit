@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Project;
 
+use Tickit\Component\Model\IdentifiableInterface;
+
 /**
  * The AbstractAttribute entity represents a specific attribute that is customisable per project
  *
  * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-abstract class AbstractAttribute implements AttributeInterface
+abstract class AbstractAttribute implements AttributeInterface, IdentifiableInterface
 {
     const TYPE_LITERAL = 'literal';
     const TYPE_CHOICE = 'choice';

@@ -91,7 +91,7 @@ class AbstractManagerTest extends AbstractUnitTest
      */
     public function testCreatePersistsEntityWithoutAutoFlush()
     {
-        $entity = new \stdClass();
+        $entity = $this->getEntity();
         $event = $this->getMockForAbstractClass('Tickit\Component\Event\AbstractVetoableEvent');
 
         $this->dispatcher->expects($this->once())
@@ -144,8 +144,7 @@ class AbstractManagerTest extends AbstractUnitTest
      */
     public function testUpdateUpdatesEntityWithAutoFlush()
     {
-        $entity = new \stdClass();
-        $entity->property = 1;
+        $entity = $this->getEntity();
 
         $updatedEntity = new \stdClass();
         $updatedEntity->property = 2;
@@ -192,8 +191,7 @@ class AbstractManagerTest extends AbstractUnitTest
      */
     public function testUpdateUpdatesEntityWithoutAutoFlush()
     {
-        $entity = new \stdClass();
-        $entity->property = 1;
+        $entity = $this->getEntity();
 
         $updatedEntity = new \stdClass();
         $updatedEntity->property = 2;
@@ -240,8 +238,8 @@ class AbstractManagerTest extends AbstractUnitTest
      */
     public function testUpdateDoesNotUpdateUserForVetoedEvent()
     {
-        $entity = new \stdClass();
-        $originalEntity = new \stdClass();
+        $entity = $this->getEntity();
+        $originalEntity = $this->getEntity();
 
         $event = $this->getMockForAbstractClass('Tickit\Component\Event\AbstractVetoableEvent');
         $event->veto();
@@ -332,5 +330,20 @@ class AbstractManagerTest extends AbstractUnitTest
             'Tickit\Component\Entity\Manager\AbstractManager',
             array($this->em, $this->dispatcher)
         );
+    }
+
+    /**
+     * Get mocked entity based on IdentifiableInterface
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function getEntity()
+    {
+        $entity = $this->getMock('Tickit\Component\Model\IdentifiableInterface');
+        $entity->expects($this->any())
+               ->method('getId')
+               ->will($this->returnValue(123));
+
+        return $entity;
     }
 }

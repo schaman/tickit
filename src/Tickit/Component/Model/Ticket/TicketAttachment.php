@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Ticket;
 
+use Tickit\Component\Model\IdentifiableInterface;
+
 /**
  * The TicketAttachment entity represents a file attachment on a ticket
  *
  * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketAttachment
+class TicketAttachment implements IdentifiableInterface
 {
     /**
      * The unique identifier
