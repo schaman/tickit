@@ -21,7 +21,7 @@
         <service id="tickit_user.controller.api" class="%tickit_user.controller.api.class%">
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
-            <argument type="service" id="tickit.filter_collection_builder" />
+            <argument type="service" id="tickit_filter.filter_collection_builder" />
             <argument type="service" id="tickit_user.user_repository" />
             <argument type="service" id="tickit_user.avatar_adapter" />
             <argument type="service" id="tickit.controller.form_helper" />
@@ -38,7 +38,7 @@
         <service id="tickit_user.controller.picker" class="%tickit_user.controller.picker.class%">
             <argument type="service" id="tickit_user.user_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
-            <argument type="service" id="tickit.filter_collection_builder" />
+            <argument type="service" id="tickit_filter.filter_collection_builder" />
         </service>
 
     </services>
