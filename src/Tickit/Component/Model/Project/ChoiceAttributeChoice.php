@@ -22,6 +22,7 @@
 namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\Collection;
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
 
 /**
  * Entity representing a choice available for a ChoiceAttribute
@@ -29,7 +30,7 @@ use Doctrine\Common\Collections\Collection;
  * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ChoiceAttributeChoice
+class ChoiceAttributeChoice implements IdentifiableInterface
 {
     /**
      * The unique identifier for this choice

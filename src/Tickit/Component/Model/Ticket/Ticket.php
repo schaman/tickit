@@ -22,6 +22,7 @@
 namespace Tickit\Component\Model\Ticket;
 
 use Doctrine\Common\Collections\Collection;
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
 
@@ -31,7 +32,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Ticket
+class Ticket implements IdentifiableInterface
 {
     /**
      * The unique identifier

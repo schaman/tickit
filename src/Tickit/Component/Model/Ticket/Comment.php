@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -29,7 +30,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Comment
+class Comment implements IdentifiableInterface
 {
     /**
      * The unique identifier for the comment
@@ -58,4 +59,14 @@ class Comment
      * @var string
      */
     protected $message;
+
+    /**
+     * Get value to identify this model
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

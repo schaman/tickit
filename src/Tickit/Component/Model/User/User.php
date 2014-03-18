@@ -25,6 +25,7 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
 
 /**
  * The User entity represents a logged in user in the application
@@ -32,7 +33,7 @@ use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
  * @package Tickit\Component\Model\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class User extends BaseUser implements AvatarAwareInterface
+class User extends BaseUser implements AvatarAwareInterface, IdentifiableInterface
 {
     const ROLE_ADMIN = 'ROLE_ADMIN';
 

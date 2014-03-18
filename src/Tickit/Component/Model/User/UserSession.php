@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Model\User;
 
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
+
 /**
  * User session object.
  *
@@ -30,7 +32,7 @@ namespace Tickit\Component\Model\User;
  * @package Tickit\Component\Model\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class UserSession
+class UserSession implements IdentifiableInterface
 {
     /**
      * The unique identifier
@@ -73,6 +75,16 @@ class UserSession
      * @var \DateTime
      */
     protected $updatedAt;
+
+    /**
+     * Get value to identify this model
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Sets the user object on this session

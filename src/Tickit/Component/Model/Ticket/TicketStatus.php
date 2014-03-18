@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Ticket;
 
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
+
 /**
  * The TicketStatus entity represents a possible status type for a ticket
  *
  * @package Tickit\Component\Model\Ticket
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class TicketStatus
+class TicketStatus implements IdentifiableInterface
 {
     /**
      * The unique idenfitier

@@ -23,6 +23,7 @@ namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Tickit\Component\Avatar\Model\IdentifiableInterface;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Model\User\User;
 
@@ -34,7 +35,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Project
+class Project implements IdentifiableInterface
 {
     const STATUS_ACTIVE = 'active';
     const STATUS_ARCHIVED = 'archived';
