@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Entity\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\Component\Model\Project\Project;
 
 /**
@@ -32,7 +33,7 @@ use Tickit\Component\Model\Project\Project;
  * @package Tickit\Component\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface ProjectRepositoryInterface
+interface ProjectRepositoryInterface extends ObjectRepository
 {
     /**
      * Finds a project by identifier.
