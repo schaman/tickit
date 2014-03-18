@@ -22,7 +22,7 @@
 namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\Collection;
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * Entity representing a choice available for a ChoiceAttribute

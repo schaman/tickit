@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The TicketAttachment entity represents a file attachment on a ticket

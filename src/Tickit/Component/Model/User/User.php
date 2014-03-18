@@ -25,7 +25,7 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Tickit\Component\Avatar\Entity\AvatarAwareInterface;
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The User entity represents a logged in user in the application

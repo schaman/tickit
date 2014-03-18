@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\User;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * User session object.

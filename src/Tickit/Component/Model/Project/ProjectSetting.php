@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Project;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The ProjectSetting entity represents a specific setting that is customisable per project

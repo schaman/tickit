@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Project;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The AbstractAttributeValue entity represents a value associated with an attribute for a specific project

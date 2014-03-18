@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Avatar\Model;
+namespace Tickit\Component\Model;
 
 /**
  * Identifiable interface for models
  *
- * @package Tickit\Component\Avatar\Model
+ * @package Tickit\Component\Model
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 interface IdentifiableInterface

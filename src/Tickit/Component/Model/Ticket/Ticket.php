@@ -22,7 +22,7 @@
 namespace Tickit\Component\Model\Ticket;
 
 use Doctrine\Common\Collections\Collection;
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
 

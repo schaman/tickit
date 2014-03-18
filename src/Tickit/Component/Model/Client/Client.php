@@ -22,7 +22,7 @@
 namespace Tickit\Component\Model\Client;
 
 use Doctrine\Common\Collections\Collection;
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * Client entity.

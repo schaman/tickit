@@ -23,7 +23,7 @@ namespace Tickit\Component\Model\Project;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Model\User\User;
 

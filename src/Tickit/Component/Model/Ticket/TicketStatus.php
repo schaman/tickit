@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The TicketStatus entity represents a possible status type for a ticket

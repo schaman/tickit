@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Ticket;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\User\User;
 
 /**

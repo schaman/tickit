@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Model\Project;
 
-use Tickit\Component\Avatar\Model\IdentifiableInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The ProjectSettingValue entity represents a project's value against a specific ProjectSetting
