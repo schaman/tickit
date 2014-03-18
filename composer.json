@@ -38,6 +38,7 @@
         "friendsofsymfony/jsrouting-bundle": "1.x-dev",
         "hearsay/require-js-bundle": "dev-master",
         "ircmaxell/password-compat": "1.0.x-dev",
+        "knplabs/knp-gaufrette-bundle": "dev-master",
         "incenteev/composer-parameter-handler": "2.1.x-dev"
     },
     "require-dev": {
