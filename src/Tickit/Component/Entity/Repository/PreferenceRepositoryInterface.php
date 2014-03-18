@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Entity\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
+
 /**
  * Preference repository interface.
  *
@@ -30,7 +32,7 @@ namespace Tickit\Component\Entity\Repository;
  * @package Tickit\Component\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface PreferenceRepositoryInterface
+interface PreferenceRepositoryInterface extends ObjectRepository
 {
     /**
      * Finds all preferences and returns them indexed by their system name
