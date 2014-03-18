@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\Bundle\AssetsBundle\TickitAssetsBundle(),
             new Tickit\Bundle\CoreBundle\TickitCoreBundle(),
