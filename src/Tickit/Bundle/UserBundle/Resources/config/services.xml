@@ -12,6 +12,8 @@
         <parameter key="tickit_user.user_event_dispatcher">Tickit\Component\Event\User\Dispatcher\UserEventDispatcher</parameter>
         <parameter key="tickit_user.security.container_role_provider.class">Tickit\Bundle\UserBundle\Security\Role\Provider\ContainerRoleProvider</parameter>
         <parameter key="tickit_user.security.user_friendly_role_decorator.class">Tickit\Component\Security\Role\Decorator\UserFriendlyRoleDecorator</parameter>
+        <parameter key="tickit_user.background_image_selector.class">Tickit\Component\Image\Selector\FileSystemImageSelector</parameter>
+        <parameter key="tickit_user.twig.background_image_selector.class">Tickit\Component\Image\Selector\Twig\SelectorTwigExtension</parameter>
     </parameters>
 
     <services>
@@ -43,6 +45,17 @@
         </service>
 
         <service id="tickit_user.security.user_friendly_role_decorator" class="%tickit_user.security.user_friendly_role_decorator.class%" />
+
+        <service id="tickit_user.background_image_selector" class="%tickit_user.background_image_selector.class%">
+            <argument>%tickit_user.login.background_image_path%</argument>
+            <argument>%tickit_user.login.background_web_path%</argument>
+        </service>
+
+        <service id="tickit_user.twig.background_image_selector" class="%tickit_user.twig.background_image_selector.class%">
+            <argument type="service" id="tickit_user.background_image_selector" />
+            <argument>login_background_image</argument>
+            <tag name="twig.extension" />
+        </service>
     </services>
 
 </container>

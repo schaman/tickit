@@ -36,11 +36,12 @@ define(function() {
          * @return {void}
          */
         goTo : function(path) {
+            path = path || '';
             if (path.match(/^javascript:/)) {
                 return;
             }
 
-            this.navigate(path, { trigger: true });
+            this.navigate(path.replace(this.getAppRoot(), '/'), { trigger: true });
         },
 
         /**

@@ -9,7 +9,7 @@
 
         <title>{% block title %}Tickit | Issue Management{% endblock %}</title>
 
-        {% stylesheets  '../app/Resources/public/less/styles.less' filter='less' %}
+        {% stylesheets 'bundles/tickitassets/less/styles.less' filter='less,cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -32,7 +32,7 @@
             <header id='toolbar' class='main-header' role='banner' style="display: none;"></header>
 
             {# Login container #}
-            <div id="login-container"></div>
+            <div id="login"></div>
 
             {# Outer application container #}
             <div id="outer-container" class="container" style="display:none;">

@@ -24,14 +24,18 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar --dev install
 
+  - cd app/Resources && npm install && cd ../../
+  - npm install bower
+  - bower install
+
   # set up test environment #
-  - php app/console tickit:tests:setup --env test
-  - php app/console assets:install --symlink
+  - php app/console doctrine:database:create --env test
+  - php app/console doctrine:schema:create --env test
+  - php app/console assets:install --symlink --env test
+  - php app/console assetic:dump --env test
 
 script:
   - ./bin/phpcs ./src/Tickit --standard=PSR2 --warning-severity=notice --extensions=php
-  - npm install bower
-  - bower install
   - phpunit -c app/phpunit.xml --coverage-clover=build/logs/clover.xml
 #  - bin/behat --profile saucelabs_win7_firefox
 
@@ -47,4 +51,3 @@ notifications:
 branches:
   only:
     - master
-    - development
