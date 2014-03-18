@@ -20,7 +20,7 @@
         </service>
 
         <service id="tickit_project.controller.api" class="%tickit_project.controller.api.class%" scope="request">
-            <argument type="service" id="tickit.filter_collection_builder" />
+            <argument type="service" id="tickit_filter.filter_collection_builder" />
             <argument type="service" id="tickit_project.project_repository" />
             <argument type="service" id="tickit_project.attribute_repository" />
             <argument type="service" id="tickit.controller.base_helper" />
