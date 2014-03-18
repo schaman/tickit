@@ -43,9 +43,9 @@ class BaseHelper
     /**
      * The current request
      *
-     * @var Request
+     * @var RequestStack
      */
-    protected $request;
+    protected $requestStack;
 
     /**
      * A security context
@@ -91,7 +91,7 @@ class BaseHelper
         DomainObjectCollectionDecoratorInterface $objectCollectionDecorator,
         RouterInterface $router
     ) {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->requestStack = $requestStack;
         $this->securityContext = $securityContext;
         $this->objectDecorator = $objectDecorator;
         $this->objectCollectionDecorator = $objectCollectionDecorator;
@@ -125,7 +125,7 @@ class BaseHelper
      */
     public function getRequest()
     {
-        return $this->request;
+        return $this->requestStack->getCurrentRequest();
     }
 
     /**
