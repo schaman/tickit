@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Entity\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -32,7 +33,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Entity\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface UserRepositoryInterface
+interface UserRepositoryInterface extends ObjectRepository
 {
     const COLUMN_EMAIL = 'email';
     const COLUMN_USERNAME = 'username';
