@@ -19,18 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Avatar\Entity;
+namespace Tickit\Component\Avatar\Model;
 
 /**
- * Identifiable interface for entities
+ * Identifiable interface for models
  *
- * @package Tickit\Component\Avatar\Entity
+ * @package Tickit\Component\Avatar\Model
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
 interface IdentifiableInterface
 {
     /**
-     * Get value to identify this entity
+     * Get value to identify this model
      *
      * @return integer
      */
