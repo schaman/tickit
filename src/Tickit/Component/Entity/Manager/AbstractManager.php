@@ -23,6 +23,7 @@ namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -97,12 +98,13 @@ abstract class AbstractManager
      * This method provides basic functionality for updating, and fires methods in the
      * dispatcher for the relevant events
      *
-     * @param object  $entity The entity to update in the entity manager
-     * @param boolean $flush  True to automatically flush changes to the database, false otherwise (defaults to true)
+     * @param IdentifiableInterface $entity The entity to update in the entity manager
+     * @param boolean               $flush  True to automatically flush changes to the database, false otherwise
+     *                                      (defaults to true)
      *
      * @return object
      */
-    public function update($entity, $flush = true)
+    public function update(IdentifiableInterface $entity, $flush = true)
     {
         $originalEntity = $this->fetchEntityInOriginalState($entity);
 
@@ -164,9 +166,9 @@ abstract class AbstractManager
      * from the entity manager. This is used when dispatching entity update
      * events, so a before and after comparison can take place.
      *
-     * @param object $entity The entity in its current state
+     * @param IdentifiableInterface $entity The entity in its current state
      *
      * @return object
      */
-    abstract protected function fetchEntityInOriginalState($entity);
+    abstract protected function fetchEntityInOriginalState(IdentifiableInterface $entity);
 }

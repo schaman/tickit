@@ -24,6 +24,7 @@ namespace Tickit\Component\Entity\Manager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -67,11 +68,11 @@ class ProjectManager extends AbstractManager
      * from the entity manager. This is used when dispatching entity update
      * events, so a before and after comparison can take place.
      *
-     * @param object $entity The entity in its current state
+     * @param IdentifiableInterface $entity The entity in its current state
      *
      * @return object
      */
-    protected function fetchEntityInOriginalState($entity)
+    protected function fetchEntityInOriginalState(IdentifiableInterface $entity)
     {
         $project = $this->projectRepository->find($entity->getId());
 
