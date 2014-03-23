@@ -44,8 +44,7 @@ class IssueFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('number', 'text')
-                ->add('title', 'text')
+        $builder->add('title', 'text')
                 ->add('description', 'textarea')
                 ->add('project', 'tickit_project_picker', ['provider' => 'picker_project_find'])
                 ->add('priority', 'choice', ['choices' => Issue::getValidPriorities(true)])
