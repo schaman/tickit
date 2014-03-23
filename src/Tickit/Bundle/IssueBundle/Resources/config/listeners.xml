@@ -23,6 +23,7 @@
         </service>
 
         <service id="tickit_issue.listener.issue_attachment" class="%tickit_issue.listener.issue_attachment.class%">
+            <argument type="service" id="tickit_issue.attachment_manager" />
             <tag name="kernel.event_listener" event="tickit_issue.event.attachment_upload" method="uploadAttachments" />
         </service>
 
