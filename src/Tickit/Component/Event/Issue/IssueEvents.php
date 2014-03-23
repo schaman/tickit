@@ -72,4 +72,11 @@ final class IssueEvents
      * @const string
      */
     const ISSUE_DELETE = 'tickit_issue.event.delete';
+
+    /**
+     * Constant representing the attachment upload event
+     *
+     * @const string
+     */
+    const ISSUE_ATTACHMENT_UPLOAD = 'tickit_issue.event.attachment_upload';
 }
