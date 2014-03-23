@@ -170,6 +170,20 @@ class Issue
     }
 
     /**
+     * Sets the ID for this issue
+     *
+     * @param integer $id The new ID for this issue
+     *
+     * @return Issue
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Sets the title of this issue
      *
      * @param string $title
