@@ -34,6 +34,7 @@
         </service>
 
         <service id="tickit_project.form.project_picker" class="%tickit_project.form.project_picker.class%">
+            <argument type="service" id="tickit_project.form.project_picker_data_transformer" />
             <tag name="form.type" alias="tickit_project_picker" />
         </service>
 
