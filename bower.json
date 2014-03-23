@@ -11,7 +11,8 @@
         "sidr": "1.*",
         "noty": "2.*",
         "momentjs": "2.*",
-        "select2": "3.*"
+        "select2": "3.*",
+        "magnific-popup": "0.*"
     },
     "ignore": [
         "**/.*"
