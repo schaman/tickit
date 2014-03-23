@@ -23,6 +23,7 @@ namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\Filesystem;
+use Tickit\Component\File\Strategy\Naming\NamingStrategyInterface;
 use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
@@ -48,15 +49,27 @@ class IssueAttachmentManager
     private $em;
 
     /**
+     * A file naming strategy used for new attachments
+     *
+     * @var NamingStrategyInterface
+     */
+    private $fileNamingStrategy;
+
+    /**
      * Constructor.
      *
-     * @param Filesystem             $filesystem A filesystem adapter where issue attachments are stored.
-     * @param EntityManagerInterface $em         An entity manager
+     * @param Filesystem              $filesystem         A filesystem adapter where issue attachments are stored.
+     * @param EntityManagerInterface  $em                 An entity manager
+     * @param NamingStrategyInterface $fileNamingStrategy A file naming strategy used for new attachments
      */
-    public function __construct(Filesystem $filesystem, EntityManagerInterface $em)
-    {
+    public function __construct(
+        Filesystem $filesystem,
+        EntityManagerInterface $em,
+        NamingStrategyInterface $fileNamingStrategy
+    ) {
         $this->filesystem = $filesystem;
         $this->em = $em;
+        $this->fileNamingStrategy = $fileNamingStrategy;
     }
 
     /**
@@ -72,7 +85,7 @@ class IssueAttachmentManager
     {
         $file = $attachment->getFile();
         $fileContent = file_get_contents($file->getRealPath());
-        $key = $file->getClientOriginalName();
+        $key = $this->fileNamingStrategy->getName($file->getClientOriginalName());
 
         $this->filesystem->write($key, $fileContent);
 

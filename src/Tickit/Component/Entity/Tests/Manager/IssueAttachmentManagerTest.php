@@ -45,6 +45,11 @@ class IssueAttachmentManagerTest extends AbstractUnitTest
     private $em;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $namingStrategy;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -54,6 +59,7 @@ class IssueAttachmentManagerTest extends AbstractUnitTest
                                  ->getMock();
 
         $this->em = $this->getMockEntityManager();
+        $this->namingStrategy = $this->getMockForAbstractClass('\Tickit\Component\File\Strategy\Naming\NamingStrategyInterface');
     }
 
     /**
@@ -67,12 +73,17 @@ class IssueAttachmentManagerTest extends AbstractUnitTest
         $issueAttachment = new IssueAttachment();
         $issueAttachment->setFile($file);
 
+        $this->namingStrategy->expects($this->once())
+                             ->method('getName')
+                             ->with($file->getClientOriginalName())
+                             ->will($this->returnValue('safe-file-name.jpeg'));
+
         $this->filesystem->expects($this->once())
                          ->method('write')
-                         ->with('file-name.jpeg', 'test file');
+                         ->with('safe-file-name.jpeg', 'test file');
 
         $expectedAttachment = clone $issueAttachment;
-        $expectedAttachment->setFilename('file-name.jpeg');
+        $expectedAttachment->setFilename('safe-file-name.jpeg');
         $this->em->expects($this->once())
                  ->method('persist')
                  ->with($expectedAttachment);
@@ -90,6 +101,6 @@ class IssueAttachmentManagerTest extends AbstractUnitTest
      */
     private function getManager()
     {
-        return new IssueAttachmentManager($this->filesystem, $this->em);
+        return new IssueAttachmentManager($this->filesystem, $this->em, $this->namingStrategy);
     }
 }
