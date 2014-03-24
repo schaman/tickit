@@ -12,15 +12,25 @@ define(['marionette', 'magnific'], function(Marionette) {
          *
          * @return {void}
          */
-        onShow: function() {
+        onShow: function(view) {
             var me = this;
             $.magnificPopup.open({
                 removalDelay: 300,
-                mainClass: 'mfp-fade',
+                mainClass: 'my-mfp-slide-bottom',
+                closeBtnInside: true,
                 items : {
                     src: me.el
+                },
+                callbacks : {
+                    close : function() {
+                        view.remove();
+                    }
                 }
             });
+        },
+
+        onClose: function() {
+            $.magnificPopup.close();
         }
     });
 });
