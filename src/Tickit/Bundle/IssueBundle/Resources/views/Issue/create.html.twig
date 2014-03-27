@@ -1,1 +1,34 @@
-{{ form(form) }}
+{% extends '::no-content.html.twig' %}
+
+{% block content %}
+    <h2>Create Issue</h2>
+
+    {% if app.session.flashbag.has('error') %}
+        <div class="flash-error">
+            {% for message in app.session.flashbag.get('error') %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {{ form_start(form, {"action": path('issue_create'), 'method': 'POST'}) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.assignedTo) }}
+        {{ form_row(form.project) }}
+        {{ form_row(form.priority) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.status) }}
+        {{ form_row(form.attachments) }}
+        {{ form_row(form.estimatedHours) }}
+        {{ form_row(form.actualHours) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Create Issue" />
+
+    {{ form_end(form) }}
+
+{% endblock %}
