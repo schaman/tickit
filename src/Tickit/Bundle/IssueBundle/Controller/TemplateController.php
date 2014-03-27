@@ -23,6 +23,7 @@ namespace Tickit\Bundle\IssueBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Component\Controller\Helper\FormHelper;
+use Tickit\Component\Entity\Manager\IssueManager;
 use Tickit\Component\Model\Issue\Issue;
 
 /**
@@ -43,11 +44,22 @@ class TemplateController
     private $formHelper;
 
     /**
-     * Constructor.
+     * The issue manager
+     *
+     * @var IssueManager
      */
-    public function __construct(FormHelper $formHelper)
+    private $issueManager;
+
+    /**
+     * Constructor.
+     *
+     * @param FormHelper   $formHelper   The controller form helper
+     * @param IssueManager $issueManager The issue manager
+     */
+    public function __construct(FormHelper $formHelper, IssueManager $issueManager)
     {
         $this->formHelper = $formHelper;
+        $this->issueManager = $issueManager;
     }
 
     /**
@@ -69,7 +81,7 @@ class TemplateController
      */
     public function createIssueFormAction()
     {
-        $form = $this->formHelper->createForm('tickit_issue', new Issue());
+        $form = $this->formHelper->createForm('tickit_issue', $this->issueManager->createIssue(true));
 
         return $this->formHelper->renderForm('TickitIssueBundle:Issue:create.html.twig', $form);
     }

@@ -40,11 +40,19 @@ class TemplateControllerTest extends AbstractUnitTest
     private $formHelper;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $issueManager;
+
+    /**
      * Setup
      */
     public function setUp()
     {
         $this->formHelper = $this->getMockFormHelper();
+        $this->issueManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\IssueManager')
+                                   ->disableOriginalConstructor()
+                                   ->getMock();
     }
 
     /**
@@ -78,6 +86,11 @@ class TemplateControllerTest extends AbstractUnitTest
         $issue = new Issue();
         $form = $this->getMockForm();
 
+        $this->issueManager->expects($this->once())
+                           ->method('createIssue')
+                           ->with(true)
+                           ->will($this->returnValue($issue));
+
         $this->trainFormHelperToCreateForm($issue, $form);
         $this->trainFormHelperToRenderForm($form, 'TickitIssueBundle:Issue:create.html.twig', 'create content');
 
@@ -106,7 +119,7 @@ class TemplateControllerTest extends AbstractUnitTest
      */
     private function getController()
     {
-        return new TemplateController($this->formHelper);
+        return new TemplateController($this->formHelper, $this->issueManager);
     }
 
     private function trainFormHelperToCreateForm(Issue $issue, \PHPUnit_Framework_MockObject_MockObject $form)
