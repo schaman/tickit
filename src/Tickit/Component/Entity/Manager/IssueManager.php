@@ -79,7 +79,7 @@ class IssueManager extends AbstractManager
      *
      * @return Issue
      */
-    public function createIssue($withDummyAttachment)
+    public function createIssue($withDummyAttachment = false)
     {
         $issue = new Issue();
         if (true === $withDummyAttachment) {
