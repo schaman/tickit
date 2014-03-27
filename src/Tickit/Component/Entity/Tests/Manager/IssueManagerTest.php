@@ -22,6 +22,8 @@
 namespace Tickit\Component\Entity\Tests\Manager;
 
 use Tickit\Component\Entity\Manager\IssueManager;
+use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Issue\IssueAttachment;
 use Tickit\Component\Test\AbstractUnitTest;
 
 /**
@@ -70,6 +72,30 @@ class IssueManagerTest extends AbstractUnitTest
     public function testGetRepository()
     {
         $this->assertSame($this->issueRepository, $this->getManager()->getRepository());
+    }
+
+    /**
+     * @dataProvider getCreateIssueFixtures
+     */
+    public function testCreateIssue($withAttachment, $expectedIssue)
+    {
+        $this->assertEquals($expectedIssue, $this->getManager()->createIssue($withAttachment));
+    }
+
+    /**
+     * @return array
+     */
+    public function getCreateIssueFixtures()
+    {
+        $attachment = new IssueAttachment();
+        $issue = new Issue();
+        $issueWithAttachment = new Issue();
+        $issueWithAttachment->setAttachments(array($attachment));
+
+        return [
+            [true, $issueWithAttachment],
+            [false, $issue]
+        ];
     }
 
     /**

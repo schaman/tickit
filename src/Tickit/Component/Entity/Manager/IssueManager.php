@@ -26,6 +26,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
  * Issue manager.
@@ -69,6 +70,23 @@ class IssueManager extends AbstractManager
     public function getRepository()
     {
         return $this->issueRepository;
+    }
+
+    /**
+     * Creates a new instance of an issue
+     *
+     * @param boolean $withDummyAttachment True to also create an attachment associated with the issue.
+     *
+     * @return Issue
+     */
+    public function createIssue($withDummyAttachment)
+    {
+        $issue = new Issue();
+        if (true === $withDummyAttachment) {
+            $issue->setAttachments([new IssueAttachment()]);
+        }
+
+        return $issue;
     }
 
     /**
