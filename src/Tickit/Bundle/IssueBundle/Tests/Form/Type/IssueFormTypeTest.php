@@ -96,6 +96,9 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
 
         $expectedViewComponents = array_keys($data);
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
+
+        $this->assertEquals(1, $form->get('project')->getConfig()->getOption('max_selections'));
+        $this->assertEquals(1, $form->get('assignedTo')->getConfig()->getOption('max_selections'));
     }
 
     /**
