@@ -71,11 +71,12 @@ class IssueFormType extends AbstractType
                         'type' => 'tickit_issue_attachment',
                         'allow_add' => true,
                         'allow_delete' => true,
+                        'required' => false
                     ]
                 )
-                ->add('estimatedHours', 'text')
-                ->add('actualHours', 'text')
-                ->add('assignedTo', 'tickit_user_picker', ['provider' => 'picker_user_find']);
+                ->add('estimatedHours', 'text', ['required' => false])
+                ->add('actualHours', 'text', ['required' => false])
+                ->add('assignedTo', 'tickit_user_picker', ['provider' => 'picker_user_find', 'required' => false]);
     }
 
     /**
