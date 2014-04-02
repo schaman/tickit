@@ -160,6 +160,14 @@ class Issue
     protected $updatedAt;
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->attachments = new ArrayCollection();
+    }
+
+    /**
      * Gets the id of this issue
      *
      * @return integer
@@ -507,6 +515,20 @@ class Issue
             $attachments = new ArrayCollection($attachments);
         }
         $this->attachments = $attachments;
+
+        return $this;
+    }
+
+    /**
+     * Adds an attachment to the issue
+     *
+     * @param IssueAttachment $attachment The attachment to add
+     *
+     * @return Issue
+     */
+    public function addAttachment(IssueAttachment $attachment)
+    {
+        $this->attachments->add($attachment);
 
         return $this;
     }

@@ -22,6 +22,7 @@
 namespace Tickit\Component\Model\Tests\Issue;
 
 use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
  * Issue tests
@@ -65,5 +66,19 @@ class IssueTest extends \PHPUnit_Framework_TestCase
     {
         $issue = new Issue();
         $issue->setPriority('invalid priority');
+    }
+
+    /**
+     * Tests the addAttachment() method
+     */
+    public function testAddAttachmentAddsAttachment()
+    {
+        $issue = new Issue();
+        $this->assertEquals(0, $issue->getAttachments()->count());
+
+        $issue->addAttachment(new IssueAttachment())
+              ->addAttachment(new IssueAttachment());
+
+        $this->assertEquals(2, $issue->getAttachments()->count());
     }
 }
