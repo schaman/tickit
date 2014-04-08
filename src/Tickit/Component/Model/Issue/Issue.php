@@ -534,6 +534,20 @@ class Issue
     }
 
     /**
+     * Removes an attachment from the issue
+     *
+     * @param IssueAttachment $attachment The attachment to remove
+     *
+     * @return Issue
+     */
+    public function removeAttachment(IssueAttachment $attachment)
+    {
+        $this->attachments->removeElement($attachment);
+
+        return $this;
+    }
+
+    /**
      * Gets the attachments on this issue
      *
      * @return Collection
