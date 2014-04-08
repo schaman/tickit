@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Event\Issue;
 
+use Doctrine\Common\Collections\Collection;
 use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
@@ -43,10 +44,15 @@ class AttachmentUploadEvent
     /**
      * Constructor.
      *
-     * @param IssueAttachment[]|IssueAttachment $attachments An array or single instance of IssueAttachment
+     * @param IssueAttachment[]|IssueAttachment|Collection $attachments An collection, array or single instance of
+     *                                                                  IssueAttachment
      */
     public function __construct($attachments)
     {
+        if ($attachments instanceof Collection) {
+            $attachments = $attachments->toArray();
+        }
+
         if (!is_array($attachments)) {
             $attachments = array($attachments);
         }
