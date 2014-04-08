@@ -30,7 +30,7 @@ use Tickit\Component\Event\Issue\AttachmentUploadEvent;
  * @package Tickit\Component\Issue\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueAttachmentListener
+class IssueAttachmentUploadListener
 {
     /**
      * The attachment manager

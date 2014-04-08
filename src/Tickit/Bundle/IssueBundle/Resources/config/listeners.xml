@@ -7,7 +7,7 @@
     <parameters>
         <parameter key="tickit_issue.issue_navigation.class">Tickit\Bundle\IssueBundle\Listener\NavigationBuilderListener</parameter>
         <parameter key="tickit_issue.listener.issue_number.class">Tickit\Component\Issue\Listener\IssueNumberListener</parameter>
-        <parameter key="tickit_issue.listener.issue_attachment.class">Tickit\Component\Issue\Listener\IssueAttachmentListener</parameter>
+        <parameter key="tickit_issue.listener.issue_attachment.class">Tickit\Component\Issue\Listener\IssueAttachmentUploadListener</parameter>
     </parameters>
 
     <services>
