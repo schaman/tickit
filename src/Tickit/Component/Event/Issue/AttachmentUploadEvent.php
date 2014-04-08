@@ -22,6 +22,7 @@
 namespace Tickit\Component\Event\Issue;
 
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\EventDispatcher\Event;
 use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
@@ -32,7 +33,7 @@ use Tickit\Component\Model\Issue\IssueAttachment;
  * @package Tickit\Component\Event\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttachmentUploadEvent
+class AttachmentUploadEvent extends Event
 {
     /**
      * An array of IssueAttachment objects uploaded
