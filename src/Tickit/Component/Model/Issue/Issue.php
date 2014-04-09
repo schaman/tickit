@@ -528,6 +528,8 @@ class Issue
      */
     public function addAttachment(IssueAttachment $attachment)
     {
+        $attachment->setIssue($this);
+
         $this->attachments->add($attachment);
 
         return $this;
@@ -545,6 +547,26 @@ class Issue
         $this->attachments->removeElement($attachment);
 
         return $this;
+    }
+
+    /**
+     * Clears all attachments from the issue
+     *
+     * @return Issue
+     */
+    public function clearAttachments()
+    {
+        $this->attachments->clear();
+    }
+
+    /**
+     * Returns true if this issue has any attachments
+     *
+     * @return boolean
+     */
+    public function hasAttachments()
+    {
+        return $this->attachments->count() > 0;
     }
 
     /**
