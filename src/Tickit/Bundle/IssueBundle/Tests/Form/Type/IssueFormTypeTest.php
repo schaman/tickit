@@ -135,6 +135,10 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         ];
 
         $expected = new Issue();
+        $attachments = static::$attachments;
+        foreach ($attachments as $attachment) {
+            $attachment->setIssue($expected);
+        }
         $expected->setTitle($rawData['title'])
                  ->setDescription($rawData['description'])
                  ->setEstimatedHours($rawData['estimatedHours'])
