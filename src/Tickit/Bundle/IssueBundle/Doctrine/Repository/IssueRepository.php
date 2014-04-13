@@ -97,7 +97,7 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
                           ->getOneOrNullResult(Query::HYDRATE_ARRAY);
 
         if (null === $lastIssue) {
-            return 0;
+            return $lastIssue;
         }
 
         return $lastIssue['number'];
