@@ -23,6 +23,7 @@ namespace Tickit\Component\Model\Tests\Issue;
 
 use Tickit\Component\Model\Issue\Issue;
 use Tickit\Component\Model\Issue\IssueAttachment;
+use Tickit\Component\Model\Project\Project;
 
 /**
  * Issue tests
@@ -80,5 +81,22 @@ class IssueTest extends \PHPUnit_Framework_TestCase
               ->addAttachment(new IssueAttachment());
 
         $this->assertEquals(2, $issue->getAttachments()->count());
+    }
+
+    /**
+     * Tests the getIssueNumber() method
+     */
+    public function testGetIssueNumber()
+    {
+        $project = new Project();
+        $project->setIssuePrefix('TEST');
+
+        $issue = new Issue();
+        $issue->setProject($project)
+              ->setNumber(12000);
+
+        $issueNumber = $issue->getNumber();
+        $this->assertInstanceOf('\Tickit\Component\Model\Issue\IssueNumber', $issueNumber);
+        $this->assertEquals($project->getIssuePrefix(), $issueNumber->getPrefix());
     }
 }

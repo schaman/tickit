@@ -232,11 +232,11 @@ class Issue
     /**
      * Gets the issue number
      *
-     * @return string
+     * @return IssueNumber
      */
     public function getNumber()
     {
-        return $this->number;
+        return new IssueNumber($this->project->getIssuePrefix(), $this->number);
     }
 
     /**

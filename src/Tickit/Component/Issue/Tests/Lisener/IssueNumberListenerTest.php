@@ -66,7 +66,7 @@ class IssueNumberListenerTest extends AbstractUnitTest
         $this->getListener()->onIssueCreate($event);
 
         $this->assertInstanceOf('Tickit\Component\Model\Issue\Issue', $event->getEntity());
-        $this->assertEquals($expectedIssueNumber, $event->getEntity()->getNumber());
+        $this->assertEquals($expectedIssueNumber, $event->getEntity()->getNumber()->getNumber());
     }
 
     /**
