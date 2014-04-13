@@ -17,3 +17,8 @@ Tickit\Component\Model\Issue\Issue:
             - Type: { type: numeric, message: "You must provide a valid number for the actual hours" }
         priority:
             - Choice: { callback: getValidPriorities }
+
+Tickit\Component\Model\IssueAttachment:
+    properties:
+        file:
+            - File: { maxSize: 4096 }
