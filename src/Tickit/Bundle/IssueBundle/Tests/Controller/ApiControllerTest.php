@@ -180,7 +180,8 @@ class ApiControllerTest extends AbstractUnitTest
                                 'project.name' => 'project',
                                 'type.name' => 'type',
                                 'status.name' => 'status',
-                                'assignedTo.fullName' => 'assignedTo'
+                                'assignedTo.fullName' => 'assignedTo',
+                                'number.issueNumber' => 'number'
                             ]
                         );
 
@@ -188,7 +189,7 @@ class ApiControllerTest extends AbstractUnitTest
                         ->method('decorate')
                         ->with(
                             $clients,
-                            ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
+                            ['id', 'number.issueNumber', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
                             ['csrfToken' => 'csrf-token-value']
                         )
                         ->will($this->returnValue($returnData));

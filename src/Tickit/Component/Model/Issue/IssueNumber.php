@@ -59,12 +59,22 @@ class IssueNumber
     }
 
     /**
+     * Gets the fully formatted issue number
+     *
+     * @return string
+     */
+    public function getIssueNumber()
+    {
+        return $this->getPrefix() . $this->number;
+    }
+
+    /**
      * Casts the issue number to a string
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->getPrefix() . $this->number;
+        return $this->getIssueNumber();
     }
 }
