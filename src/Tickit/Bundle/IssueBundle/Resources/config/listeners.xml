@@ -19,7 +19,7 @@
 
         <service id="tickit_issue.listener.issue_number" class="%tickit_issue.listener.issue_number.class%">
             <argument type="service" id="tickit_issue.repository.issues" />
-            <tag name="kernel.event_listener" event="tickit_issue.event.create" method="onIssueCreate" />
+            <tag name="kernel.event_listener" event="tickit_issue.event.before_create" method="onIssueCreate" />
         </service>
 
         <service id="tickit_issue.listener.issue_attachment" class="%tickit_issue.listener.issue_attachment.class%">
