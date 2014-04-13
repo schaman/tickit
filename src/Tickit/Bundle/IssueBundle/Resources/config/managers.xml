@@ -15,6 +15,7 @@
             <argument type="service" id="tickit_issue.repository.issues" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="tickit_issue.issue_event_dispatcher" />
+            <argument type="service" id="event_dispatcher" />
         </service>
 
         <service id="tickit_issue.attachment_manager" class="%tickit_issue.attachment_manager.class%">

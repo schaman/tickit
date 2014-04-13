@@ -16,4 +16,4 @@ Tickit\Component\Model\Issue\Issue:
         actualHours:
             - Type: { type: float, message: "You must provide a valid number for the actual hours" }
         priority:
-            - Choices: { callback: getValidPriorities }
+            - Choice: { callback: getValidPriorities }
