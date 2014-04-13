@@ -45,7 +45,7 @@ class AttachmentUploadEvent extends Event
     /**
      * Constructor.
      *
-     * @param IssueAttachment[]|IssueAttachment|Collection $attachments An collection, array or single instance of
+     * @param IssueAttachment[]|IssueAttachment|Collection $attachments A collection, array or single instance of
      *                                                                  IssueAttachment
      */
     public function __construct($attachments)
@@ -58,7 +58,7 @@ class AttachmentUploadEvent extends Event
             $attachments = array($attachments);
         }
 
-        $this->attachments = $attachments;
+        $this->attachments = $this->sanitize($attachments);
     }
 
     /**
@@ -69,5 +69,27 @@ class AttachmentUploadEvent extends Event
     public function getAttachments()
     {
         return $this->attachments;
+    }
+
+    /**
+     * Sanitizes an array of attachments.
+     *
+     * Removes any non-valid attachments.
+     *
+     * @param array $attachments An array of issue attachments
+     *
+     * @return array
+     */
+    private function sanitize(array $attachments)
+    {
+        $sanitized = [];
+        foreach ($attachments as $attachment) {
+            if (!$attachment instanceof IssueAttachment) {
+                continue;
+            }
+            $sanitized[] = $attachment;
+        }
+
+        return $sanitized;
     }
 }

@@ -12,8 +12,8 @@ Tickit\Component\Model\Issue\Issue:
         status:
             - NotBlank: { message: "You didn't specify a status, did you forget?" }
         estimatedHours:
-            - Type: { type: float, message: "You must provide a valid number for the estimated hours" }
+            - Type: { type: numeric, message: "You must provide a valid number for the estimated hours" }
         actualHours:
-            - Type: { type: float, message: "You must provide a valid number for the actual hours" }
+            - Type: { type: numeric, message: "You must provide a valid number for the actual hours" }
         priority:
             - Choice: { callback: getValidPriorities }

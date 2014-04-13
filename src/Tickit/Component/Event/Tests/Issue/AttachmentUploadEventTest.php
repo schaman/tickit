@@ -50,11 +50,14 @@ class AttachmentUploadEventTest extends \PHPUnit_Framework_TestCase
     {
         $attachment = new IssueAttachment();
         $attachment2 = new IssueAttachment();
+        $nullAttachment = null;
 
         return [
             [$attachment, [$attachment]],
             [[$attachment, $attachment2], [$attachment, $attachment2]],
-            [new ArrayCollection([$attachment, $attachment2]), [$attachment, $attachment2]]
+            [new ArrayCollection([$attachment, $attachment2]), [$attachment, $attachment2]],
+            [[$nullAttachment, $attachment], [$attachment]],
+            [[$nullAttachment], []]
         ];
     }
 }
