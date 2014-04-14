@@ -18,7 +18,7 @@ issue_create:
 
 issue_edit:
     path: /issues/edit/{id}
-    defaults: { _controller: tickit.controller.default:defaultAction }
+    defaults: { _controller: tickit_issue.controller.issue:editAction }
     methods: [POST]
     requirements:
         id: \d+
