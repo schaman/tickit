@@ -53,6 +53,17 @@ define(function() {
             require(['issue/js/views/IssueFormView'], function(view) {
                 App.popupRegion.show(new view());
             });
+        };
+
+        /**
+         * Loads edit issue view
+         *
+         * @return {void}
+         */
+        module.loadIssueEdit = function(id) {
+            require(['issue/js/views/IssueFormView'], function(view) {
+                App.mainRegion.show(new view({ id: id }));
+            });
         }
     });
 });
