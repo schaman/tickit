@@ -40,7 +40,7 @@ class IssueAttachmentUploadListenerTest extends \PHPUnit_Framework_TestCase
     private $attachmentManager;
 
     /**
-     *
+     * Setup
      */
     protected function setUp()
     {
