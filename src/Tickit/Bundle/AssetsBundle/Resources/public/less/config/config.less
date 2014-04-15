@@ -43,10 +43,19 @@
 @light-grey:    #34383C;
 @dark-grey:     #1E2226;
 
-@trial-color: #297881;
+@trial-color:   #297881;
 
+
+
+
+// ----------------------------
 // Main Colors
-// -------------------------
+// ----------------------------
+
+
+@primary:          @trial-color;
+@secondary:        @trial-color;  
+
 @base:             @wet-asphalt;
 @firm:             @turquoise;
 
@@ -61,6 +70,8 @@
 
 @link-color:       @green-sea;
 @link-hover-color: @turquoise;
+
+
 
 
 // Typography
@@ -78,17 +89,21 @@
 @h6: @base-font-size * 1.2; 
 
 
-// Icons
-@icon-normal: 16px;
-@icon-medium: 18px;
-@icon-large:  32px;
-
-
 // Inputs
 // -------------------------
+
 @input-border-radius: 6px;
 
 
-@image-path: '../images/structure'; 
+// Image path 
+
+@image-path : '../images/structure';
+
+// Media Queries
+
+@tablet:         ~"only screen and (min-width: 600px) and (max-width: 960px)";
+@mobile:         ~"only screen and (max-width : 599px)";
+
+
 
 
