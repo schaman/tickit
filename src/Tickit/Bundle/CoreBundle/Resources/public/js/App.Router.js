@@ -57,6 +57,10 @@ define(function() {
             "clients/edit/:id"     : "clientEdit",
             "clients"              : "clients",
 
+            /* IssueBundle routes */
+            "issues"               : "issues",
+            "issues/edit/:id"      : "issueEdit",
+
             /* ProjectBundle routes */
             "projects/create"      : "projectCreate",
             "projects/edit/:id"    : "projectEdit",
@@ -95,6 +99,18 @@ define(function() {
         "clients" : function() {
             require(['modules/client'], function(Client) {
                 Client.loadClientList();
+            });
+        },
+
+        "issueEdit" : function(id) {
+            require(['modules/issue'], function(Issue) {
+                Issue.loadIssueEdit(id);
+            });
+        },
+
+        "issues" : function() {
+            require(['modules/issue'], function(Issue) {
+                Issue.loadIssueList();
             });
         },
 

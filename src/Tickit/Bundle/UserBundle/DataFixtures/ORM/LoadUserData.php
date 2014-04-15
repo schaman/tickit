@@ -100,7 +100,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         $faker = Factory::create();
 
-        $i = 30;
+        $i = 50;
         while ($i--) {
             $user = new User();
             $user->setUsername($faker->userName);
@@ -113,6 +113,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $user->setLastActivity(new \DateTime());
             $user->addRole('ROLE_USER');
 
+            $this->setReference('user-' . $i, $user);
             $manager->persist($user);
         }
 

@@ -46,15 +46,16 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
 
         $i = 50;
         while ($i--) {
+
             $project = new Project();
             $project->setName($faker->sentence(3))
                     ->setClient($this->getReference('client-' . $i))
-                    ->setTicketPrefix($faker->text(5));
+                    ->setIssuePrefix($this->formatPrefix($faker->text(5)));
 
             $project2 = new Project();
             $project2->setName($faker->sentence(3))
                     ->setClient($this->getReference('client-' . $i))
-                    ->setTicketPrefix($faker->text(5));
+                    ->setIssuePrefix($this->formatPrefix($faker->text(5)));
 
             if (false === $faker->boolean(80)) {
                 $project->setStatus(Project::STATUS_ARCHIVED);
@@ -78,5 +79,17 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
     public function getOrder()
     {
         return 11;
+    }
+
+    /**
+     * Formats an issue prefix for use
+     *
+     * @param string $issuePrefix The issue prefix to format
+     *
+     * @return string
+     */
+    private function formatPrefix($issuePrefix)
+    {
+        return strtoupper(preg_replace('/[^a-zA-z]/', '', $issuePrefix));
     }
 }

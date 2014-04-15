@@ -250,7 +250,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
         $project->setName($name)
                 ->setStatus($status)
                 ->setClient($client)
-                ->setTicketPrefix(substr($name, 0, 3))
+                ->setIssuePrefix(substr($name, 0, 3))
                 ->setOwner($this->getLoggedInUser());
 
         $manager->create($project);

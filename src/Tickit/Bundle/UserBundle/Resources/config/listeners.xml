@@ -25,6 +25,8 @@
         </service>
 
         <service id="tickit_user.listener.kernel_exception" class="%tickit_user.listener.kernel_exception.class%">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="router" />
             <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="1000" />
         </service>
 

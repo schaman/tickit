@@ -61,8 +61,8 @@ doctrine:
                 prefix: Tickit\Component\Notification\Model
             TickitUserBundle:
                 prefix: Tickit\Component\Model\User
-            TickitTicketBundle:
-                prefix: Tickit\Component\Model\Ticket
+            TickitIssueBundle:
+                prefix: Tickit\Component\Model\Issue
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -107,3 +107,14 @@ tickit_user:
 
 tickit_notification:
     api_message_limit: 25
+
+knp_gaufrette:
+    stream_wrapper: ~
+    adapters:
+        issue_attachments_local:
+            local:
+                directory: %kernel.root_dir%/Resources/uploads/issue-attachments
+                create: false
+    filesystems:
+        issue_attachments:
+            adapter: issue_attachments_local

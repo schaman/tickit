@@ -19,7 +19,8 @@ define(['backbone'], function(Backbone) {
          * @return {string}
          */
         getUri: function() {
-            return Routing.generate(this.get('routeName'));
+            var routeName = this.get('routeName');
+            return '' !== routeName ? Routing.generate(this.get('routeName')) : 'javascript:void(0);';
         },
 
         /**

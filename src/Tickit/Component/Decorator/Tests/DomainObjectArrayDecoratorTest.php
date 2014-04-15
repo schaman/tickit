@@ -71,8 +71,9 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecorateHandlesMockObjectCorrectly()
     {
+        $valueObjectValue = 'value object value';
         $decorator = new DomainObjectArrayDecorator();
-        $mock      = new MockDomainObject();
+        $mock      = new MockDomainObject($valueObjectValue);
 
         $decorated = $decorator->decorate(
             $mock,
@@ -82,7 +83,8 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
                 'enabled',
                 'date',
                 'childObject.enabled',
-                'childObject.childObject.enabled'
+                'childObject.childObject.enabled',
+                'valueObject'
             ),
             array(
                 'static' => 'value'
@@ -97,6 +99,7 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($decorated['childObject.enabled']);
         $this->assertTrue($decorated['childObject.childObject.enabled']);
         $this->assertEquals('value', $decorated['static']);
+        $this->assertEquals($valueObjectValue, $decorated['valueObject']);
     }
 
     /**
