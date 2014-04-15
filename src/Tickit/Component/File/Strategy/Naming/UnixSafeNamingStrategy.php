@@ -22,10 +22,10 @@
 namespace Tickit\Component\File\Strategy\Naming;
 
 /**
- * Safe naming strategy which uses underscores as replacement.
+ * Unix Safe naming strategy.
  *
- * Any illegal characters in the original file name will be replaced
- * with underscores to ensure that the file name is safe to use.
+ * Removes any illegal characters in the file name that are
+ * deemed unsafe for usage in a Unix environment.
  *
  * @package Tickit\Component\File\Strategy\Naming
  * @author  James Halsall <james.t.halsall@googlemail.com>
