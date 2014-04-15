@@ -24,6 +24,7 @@ namespace Tickit\Component\Entity\Manager;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
@@ -117,6 +118,10 @@ class IssueManager extends AbstractManager
      */
     public function create($entity, $flush = true)
     {
+        // we grab a copy of the attachments on the issue before we dispatch the
+        // "before create" event and persist/flush the issue, this is because we
+        // want to let the issue save to the entity manager successfully before
+        // we begin to process the attachments later in the execution
         /** @var Collection $attachments */
         $attachments = clone $entity->getAttachments();
         $entity->clearAttachments();
@@ -132,18 +137,48 @@ class IssueManager extends AbstractManager
             $this->em->flush();
         }
 
-        if ($attachments->count() > 0) {
-            $uploadEvent = new AttachmentUploadEvent($attachments);
-            $this->eventDispatcher->dispatch(IssueEvents::ISSUE_ATTACHMENT_UPLOAD, $uploadEvent);
-            foreach ($uploadEvent->getAttachments() as $attachment) {
-                $entity->addAttachment($attachment);
-            }
+        $this->handleIssueAttachments($attachments, $entity);
+        $this->dispatcher->dispatchCreateEvent($entity);
 
-            $this->em->persist($entity);
+        return $entity;
+    }
+
+    /**
+     * Updates an Issue in the entity manager.
+     *
+     * Fires events for the creation of any newly uploaded
+     * attachments (if there are any)
+     *
+     * @param IdentifiableInterface $entity The issue to update
+     * @param boolean               $flush  True to automatically flush changes
+     *
+     * @return object
+     */
+    public function update(IdentifiableInterface $entity, $flush = true)
+    {
+        // we grab a copy of the attachments on the issue before we dispatch the
+        // "before create" event and persist/flush the issue, this is because we
+        // want to let the issue save to the entity manager successfully before
+        // we begin to process the attachments later in the execution
+        /** @var Collection $attachments */
+        $attachments = clone $entity->getAttachments();
+        $entity->clearAttachments();
+
+        $originalEntity = $this->fetchEntityInOriginalState($entity);
+
+        $beforeEvent = $this->dispatcher->dispatchBeforeUpdateEvent($entity);
+
+        if ($beforeEvent->isVetoed()) {
+            return null;
+        }
+
+        $this->em->persist($entity);
+        if (false !== $flush) {
             $this->em->flush();
         }
 
-        $this->dispatcher->dispatchCreateEvent($entity);
+        $this->handleIssueAttachments($attachments, $entity);
+        $this->dispatcher->dispatchUpdateEvent($entity, $originalEntity);
 
         return $entity;
     }
@@ -162,5 +197,39 @@ class IssueManager extends AbstractManager
     protected function fetchEntityInOriginalState(IdentifiableInterface $entity)
     {
         return $this->issueRepository->find($entity->getId());
+    }
+
+    /**
+     * Handles a collection of attachments.
+     *
+     * This method is used to process attachments when an Issue
+     * object is created or updated in the manager. Only new attachments
+     * will be processed, any existing attachments will be skipped.
+     *
+     * @param Collection $attachments A collection of issue attachments
+     * @param Issue      $issue       The issue being created / updated
+     */
+    private function handleIssueAttachments(Collection $attachments, Issue $issue)
+    {
+        $newAttachments = [];
+        foreach ($attachments as $attachment) {
+            // if the entity manager is already managing this attachment then we know
+            // it hasn't been newly uploaded, so we skip it because we're only notifying
+            // the event dispatcher of new attachments.
+            if (UnitOfWork::STATE_MANAGED === $this->em->getUnitOfWork()->getEntityState($attachment)) {
+                continue;
+            }
+            $newAttachments[] = $attachment;
+        }
+
+        if (count($newAttachments) > 0) {
+            $uploadEvent = new AttachmentUploadEvent($newAttachments);
+            $this->eventDispatcher->dispatch(IssueEvents::ISSUE_ATTACHMENT_UPLOAD, $uploadEvent);
+            foreach ($uploadEvent->getAttachments() as $attachment) {
+                $issue->addAttachment($attachment);
+            }
+
+            $this->em->flush();
+        }
     }
 }
