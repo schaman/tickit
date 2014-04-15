@@ -9,82 +9,82 @@
 	    clear:both;
 	}
 }
+
 .inline-block() {
 	display:inline-block;
 	*display:inline;
 	*zoom:1;
 }
-.size(@width, @height) {
+
+.size(@width, @height) { 
 	width:@width;
 	height:@height;
 }
+
 .square(@size) {
 	.size(@size, @size);
 }
+
 .text-overflow() {
 	overflow:hidden;
 	white-space:nowrap;
 	text-overflow:ellipsis;
 }
-.hidden {
-	display:none;	
-}
+
 .unlisted() {
 	list-style:none;
 	padding:0;
 	margin:0;
 }
+
 .hideText() {
 	display:block;
 	overflow:hidden;
 	text-indent:100%;
 	white-space:nowrap;
 }
+
 .sprite(@x, @y , @color: transparent) {
-   background: @color url('../images/structure/sprite.png') no-repeat;
+   background: @color url('@{image-path}/sprite.png') no-repeat;
    background-position:(@x) (@y);
 }
-.transform(@transform){
-	-webkit-transform: @transform;
-	   -moz-transform: @transform;
-	   	-ms-transform: @transform;
-		 -o-transform: @transform;
-	  	    transform: @transform;
 
+.animation(@animation){
+	animation: @animation;
+	-webkit-animation: @animation;
+	-moz-animation: @animation;
+	-o-animation: @animation;
 }
-.transition (@prop: all, @time: .15s, @delay: .0s, @ease: ease-out) {
-    -webkit-transition: @prop @time @delay @ease;
-    -moz-transition: @prop @time @delay @ease;
-    -o-transition: @prop @time @delay @ease;
-    -ms-transition: @prop @time @delay @ease;
-    transition: @prop @time @delay @ease;
+.transform(@transform){
+	transform: @transform;
 }
+
+.transition(@transition) {
+    transition: @transition;
+}
+
 .border-radius(@radius) {
-  -webkit-border-radius: @radius;
-     -moz-border-radius: @radius;
-          border-radius: @radius;
+    border-radius: @radius;
 }
+
 .box-shadow(@shadow) {
-  -webkit-box-shadow: @shadow;
-     -moz-box-shadow: @shadow;
-          box-shadow: @shadow;
+	box-shadow: @shadow;
 }
+
 .box-sizing() {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-      -ms-box-sizing: border-box;
-          box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 .opacity(@opacity) {
 	opacity:@opacity / 100;
 	filter:~"alpha(opacity=@{opacity})";
 }
 
-.gradient(@origin: top, @start: #7f7f7f, @stop: #000) {
-	background-color: @start;
-	background: -webkit-linear-gradient(@origin, @start, @stop);
-	background: -moz-linear-gradient(@origin, @start, @stop);
-	background: -o-linear-gradient(@origin, @start, @stop);
-	background: -ms-linear-gradient(@origin, @start, @stop);
-	background: linear-gradient(@origin, @start, @stop);
+.font-size(@sizeValue) {
+  @remValue: @sizeValue;
+  @pxValue: (@sizeValue * 10);
+  font-size: ~"@{pxValue}px"; 
+  font-size: ~"@{remValue}rem";
 }
+
+
