@@ -23,6 +23,8 @@ namespace Tickit\Bundle\UserBundle\Tests\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Tests\Fixtures\KernelForTest;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -42,10 +44,12 @@ class KernelExceptionListenerTest extends AbstractUnitTest
      *
      * @return void
      */
-    public function testOnKernelExceptionDoesNotInterceptNonAjaxRequest()
+    public function testOnKernelExceptionDoesNotInterceptAuthenticatedNonAjaxRequest()
     {
         $event = $this->getEvent();
-        $listener = new KernelExceptionListener();
+        $event->getRequest()->server->set('PHP_AUTH_USER', 'dummy user');
+
+        $listener = $this->getListener();
         $listener->onKernelException($event);
 
         $this->assertEquals(200, $event->getResponse()->getStatusCode());
@@ -57,10 +61,25 @@ class KernelExceptionListenerTest extends AbstractUnitTest
      *
      * @return void
      */
+    public function testOnKernelExceptionPerformsRedirectForNonAjaxRequestWithoutUser()
+    {
+        $event = $this->getEvent();
+
+        $listener = $this->getListener();
+        $listener->onKernelException($event);
+
+        $this->assertEquals(302, $event->getResponse()->getStatusCode());
+    }
+
+    /**
+     * Tests the onKernelException() method
+     *
+     * @return void
+     */
     public function testOnKernelExceptionDoesNotInterceptNonAccessDeniedException()
     {
         $event = $this->getEvent(new \InvalidArgumentException());
-        $listener = new KernelExceptionListener();
+        $listener = $this->getListener();
         $listener->onKernelException($event);
 
         $this->assertEquals(200, $event->getResponse()->getStatusCode());
@@ -76,7 +95,7 @@ class KernelExceptionListenerTest extends AbstractUnitTest
     {
         $event = $this->getEvent();
         $event->getRequest()->headers->set('X-Requested-With', 'XMLHttpRequest');
-        $listener = new KernelExceptionListener();
+        $listener = $this->getListener();
         $listener->onKernelException($event);
 
         $this->assertEquals(403, $event->getResponse()->getStatusCode());
@@ -93,7 +112,10 @@ class KernelExceptionListenerTest extends AbstractUnitTest
     private function getEvent($exception = null)
     {
         $kernel = new KernelForTest('test', false);
+
         $request = Request::createFromGlobals();
+        $request->setSession(new Session(new MockArraySessionStorage()));
+
         $response = new Response('content');
 
         if (null === $exception) {
@@ -104,5 +126,24 @@ class KernelExceptionListenerTest extends AbstractUnitTest
         $event->setResponse($response);
 
         return $event;
+    }
+
+    private function getListener()
+    {
+        $securityContext = $this->getMockBuilder('Symfony\Component\Security\Core\SecurityContextInterface')
+                                ->disableOriginalConstructor()
+                                ->getMock();
+
+        $router = $this->getMockBuilder('Symfony\Component\Routing\Router')
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $router->expects($this->any())
+               ->method('generate')
+               ->will($this->returnValue('some_route'));
+
+        $listener = new KernelExceptionListener($securityContext, $router);
+
+        return $listener;
     }
 }
