@@ -24,7 +24,9 @@ namespace Tickit\Bundle\SecurityBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Tickit SecurityBundle
+ * Tickit SecurityBundle.
+ *
+ * Provides various security components to the application.
  *
  * @package Tickit\Bundle\SecurityBundle
  * @author  James Halsall <james.t.halsall@googlemail.com>
