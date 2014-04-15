@@ -118,6 +118,10 @@ class IssueManager extends AbstractManager
      */
     public function create($entity, $flush = true)
     {
+        // we grab a copy of the attachments on the issue before we dispatch the
+        // "before create" event and persist/flush the issue, this is because we
+        // want to let the issue save to the entity manager successfully before
+        // we begin to process the attachments later in the execution
         /** @var Collection $attachments */
         $attachments = clone $entity->getAttachments();
         $entity->clearAttachments();
@@ -152,6 +156,10 @@ class IssueManager extends AbstractManager
      */
     public function update(IdentifiableInterface $entity, $flush = true)
     {
+        // we grab a copy of the attachments on the issue before we dispatch the
+        // "before create" event and persist/flush the issue, this is because we
+        // want to let the issue save to the entity manager successfully before
+        // we begin to process the attachments later in the execution
         /** @var Collection $attachments */
         $attachments = clone $entity->getAttachments();
         $entity->clearAttachments();
@@ -205,6 +213,9 @@ class IssueManager extends AbstractManager
     {
         $newAttachments = [];
         foreach ($attachments as $attachment) {
+            // if the entity manager is already managing this attachment then we know
+            // it hasn't been newly uploaded, so we skip it because we're only notifying
+            // the event dispatcher of new attachments.
             if (UnitOfWork::STATE_MANAGED === $this->em->getUnitOfWork()->getEntityState($attachment)) {
                 continue;
             }
