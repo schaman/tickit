@@ -29,6 +29,7 @@ use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
 use Tickit\Component\Event\Issue\IssueEvents;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Issue\Issue;
 use Tickit\Component\Model\Issue\IssueAttachment;
 
@@ -154,11 +155,11 @@ class IssueManager extends AbstractManager
      * from the entity manager. This is used when dispatching entity update
      * events, so a before and after comparison can take place.
      *
-     * @param object $entity The entity in its current state
+     * @param IdentifiableInterface $entity The entity in its current state
      *
      * @return Issue
      */
-    protected function fetchEntityInOriginalState($entity)
+    protected function fetchEntityInOriginalState(IdentifiableInterface $entity)
     {
         return $this->issueRepository->find($entity->getId());
     }

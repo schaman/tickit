@@ -23,6 +23,7 @@ namespace Tickit\Component\Model\Issue;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
 
@@ -34,7 +35,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Issue
+class Issue implements IdentifiableInterface
 {
     const PRIORITY_HIGH = 'high';
     const PRIORITY_NORMAL = 'normal';
