@@ -49,4 +49,3 @@ class IssueEventDispatcher extends AbstractEntityEventDispatcher
         ];
     }
 }
- 
