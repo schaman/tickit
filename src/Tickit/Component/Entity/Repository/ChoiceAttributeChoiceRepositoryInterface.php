@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Entity\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\QueryBuilder;
 use Tickit\Component\Model\Project\ChoiceAttribute;
 
@@ -34,7 +35,7 @@ use Tickit\Component\Model\Project\ChoiceAttribute;
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @see     Tickit\Component\Model\Project\ChoiceAttributeChoice
  */
-interface ChoiceAttributeChoiceRepositoryInterface
+interface ChoiceAttributeChoiceRepositoryInterface extends ObjectRepository
 {
     /**
      * Finds choices available for a given attribute.

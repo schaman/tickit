@@ -21,7 +21,9 @@
 
 namespace Tickit\Bundle\IssueBundle\Tests\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\IssueBundle\Controller\TemplateController;
+use Tickit\Component\Model\Issue\Issue;
 use Tickit\Component\Test\AbstractUnitTest;
 
 /**
@@ -38,11 +40,19 @@ class TemplateControllerTest extends AbstractUnitTest
     private $formHelper;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $issueManager;
+
+    /**
      * Setup
      */
     public function setUp()
     {
         $this->formHelper = $this->getMockFormHelper();
+        $this->issueManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\IssueManager')
+                                   ->disableOriginalConstructor()
+                                   ->getMock();
     }
 
     /**
@@ -69,12 +79,62 @@ class TemplateControllerTest extends AbstractUnitTest
     }
 
     /**
+     * Tests the createIssueFormAction() method
+     */
+    public function testCreateIssueFormAction()
+    {
+        $issue = new Issue();
+        $form = $this->getMockForm();
+
+        $this->issueManager->expects($this->once())
+                           ->method('createIssue')
+                           ->with(true)
+                           ->will($this->returnValue($issue));
+
+        $this->trainFormHelperToCreateForm($issue, $form);
+        $this->trainFormHelperToRenderForm($form, 'TickitIssueBundle:Issue:create.html.twig', 'create content');
+
+        $this->assertEquals('create content', $this->getController()->createIssueFormAction()->getContent());
+    }
+
+    /**
+     * Tests the editIssueFormAction() method
+     */
+    public function testEditIssueFormAction()
+    {
+        $issue = new Issue();
+        $issue->setId(10);
+
+        $form = $this->getMockForm();
+        $this->trainFormHelperToCreateForm($issue, $form);
+        $this->trainFormHelperToRenderForm($form, 'TickitIssueBundle:Issue:edit.html.twig', 'edit content');
+
+        $this->assertEquals('edit content', $this->getController()->editIssueFormAction($issue)->getContent());
+    }
+
+    /**
      * Gets a new controller instance
      *
      * @return TemplateController
      */
     private function getController()
     {
-        return new TemplateController($this->formHelper);
+        return new TemplateController($this->formHelper, $this->issueManager);
+    }
+
+    private function trainFormHelperToCreateForm(Issue $issue, \PHPUnit_Framework_MockObject_MockObject $form)
+    {
+        $this->formHelper->expects($this->once())
+                         ->method('createForm')
+                         ->with('tickit_issue', $issue)
+                         ->will($this->returnValue($form));
+    }
+
+    private function trainFormHelperToRenderForm(\PHPUnit_Framework_MockObject_MockObject $form, $template, $returnText)
+    {
+        $this->formHelper->expects($this->once())
+                         ->method('renderForm')
+                         ->with($template, $form)
+                         ->will($this->returnValue(new Response($returnText)));
     }
 }

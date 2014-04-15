@@ -11,13 +11,15 @@
         "sidr": "1.*",
         "noty": "2.*",
         "momentjs": "2.*",
-        "select2": "3.*"
+        "select2": "3.*",
+        "magnific-popup": "0.*"
     },
     "ignore": [
         "**/.*"
     ],
     "resolutions": {
-        "underscore": "~1.5.1",
-        "backbone": "~1.1.0"
+        "underscore": "1.x",
+        "backbone": "~1.1.0",
+        "jquery": "~2.0.0"
     }
 }

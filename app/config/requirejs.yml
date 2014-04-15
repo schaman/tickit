@@ -18,6 +18,7 @@ hearsay_require_js:
         noty: %kernel.root_dir%/Resources/public/js/vendor/noty/js/noty/packaged/jquery.noty.packaged
         select2: %kernel.root_dir%/Resources/public/js/vendor/select2/select2
         moment: %kernel.root_dir%/Resources/public/js/vendor/momentjs/moment
+        magnific: %kernel.root_dir%/Resources/public/js/vendor/magnific-popup/dist/jquery.magnific-popup
         modules/app: '@TickitCoreBundle/Resources/public/js/App'
         modules/router: '@TickitCoreBundle/Resources/public/js/App.Router'
         modules/template: '@TickitCoreBundle/Resources/public/js/App.Template'
@@ -72,4 +73,7 @@ hearsay_require_js:
             deps: [jquery]
         -
             name: select2
+            deps: [jquery]
+        -
+            name: magnific
             deps: [jquery]

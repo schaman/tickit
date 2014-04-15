@@ -25,6 +25,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Tickit\Component\Issue\Listener\IssueNumberListener;
 use Tickit\Component\Model\Issue\Issue;
 use Tickit\Component\Model\Project\Project;
 
@@ -55,7 +56,7 @@ class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface
                 $issueType = $this->getReference('issue-type-' . strtolower(str_replace(' ', '-', $typeName)));
                 $issueStatus = $this->getReference('issue-status-open');
                 $issue->setType($issueType)
-                      ->setNumber($project->getIssuePrefix() . str_pad($i, 8, '0'))
+                      ->setNumber(IssueNumberListener::DEFAULT_ISSUE_NUMBER + $i)
                       ->setDescription(implode(' ', $faker->paragraphs(2)))
                       ->setTitle(implode(' ', $faker->words(8)))
                       ->setStatus($issueStatus)

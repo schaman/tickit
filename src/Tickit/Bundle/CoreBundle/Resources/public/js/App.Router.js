@@ -59,6 +59,7 @@ define(function() {
 
             /* IssueBundle routes */
             "issues"               : "issues",
+            "issues/edit/:id"      : "issueEdit",
 
             /* ProjectBundle routes */
             "projects/create"      : "projectCreate",
@@ -98,6 +99,12 @@ define(function() {
         "clients" : function() {
             require(['modules/client'], function(Client) {
                 Client.loadClientList();
+            });
+        },
+
+        "issueEdit" : function(id) {
+            require(['modules/issue'], function(Issue) {
+                Issue.loadIssueEdit(id);
             });
         },
 

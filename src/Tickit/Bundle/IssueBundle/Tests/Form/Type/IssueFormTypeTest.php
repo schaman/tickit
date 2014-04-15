@@ -96,6 +96,9 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
 
         $expectedViewComponents = array_keys($data);
         $this->assertViewHasComponents($expectedViewComponents, $form->createView());
+
+        $this->assertEquals(1, $form->get('project')->getConfig()->getOption('max_selections'));
+        $this->assertEquals(1, $form->get('assignedTo')->getConfig()->getOption('max_selections'));
     }
 
     /**
@@ -113,7 +116,6 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         $attachment = static::$attachments->first();
 
         $rawData = [
-            'number' => 'PROJ12345',
             'title' => 'Search field does not open on iPhone',
             'attachments' => [
                 0 => [
@@ -133,8 +135,11 @@ class IssueFormTypeTest extends AbstractFormTypeTestCase
         ];
 
         $expected = new Issue();
-        $expected->setNumber($rawData['number'])
-                 ->setTitle($rawData['title'])
+        $attachments = static::$attachments;
+        foreach ($attachments as $attachment) {
+            $attachment->setIssue($expected);
+        }
+        $expected->setTitle($rawData['title'])
                  ->setDescription($rawData['description'])
                  ->setEstimatedHours($rawData['estimatedHours'])
                  ->setActualHours($rawData['actualHours'])

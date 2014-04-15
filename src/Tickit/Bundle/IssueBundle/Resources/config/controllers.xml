@@ -7,20 +7,29 @@
     <parameters>
         <parameter key="tickit_issue.controller.api.class">Tickit\Bundle\IssueBundle\Controller\ApiController</parameter>
         <parameter key="tickit_issue.controller.template.class">Tickit\Bundle\IssueBundle\Controller\TemplateController</parameter>
+        <parameter key="tickit_issue.controller.issue.class">Tickit\Bundle\IssueBundle\Controller\IssueController</parameter>
     </parameters>
 
     <services>
 
-        <service id="tickit_issue.controller.api" class="%tickit_issue.controller.api.class%" scope="request">
-            <argument type="service" id="tickit.filter_collection_builder" />
+        <service id="tickit_issue.controller.api" class="%tickit_issue.controller.api.class%">
+            <argument type="service" id="tickit_filter.filter_collection_builder" />
             <argument type="service" id="tickit.controller.base_helper" />
             <argument type="service" id="tickit.controller.csrf_helper" />
             <argument type="service" id="tickit_issue.repository.issues" />
             <argument type="service" id="tickit.controller.form_helper" />
         </service>
 
-        <service id="tickit_issue.controller.template" class="%tickit_issue.controller.template.class%" scope="request">
+        <service id="tickit_issue.controller.template" class="%tickit_issue.controller.template.class%">
             <argument type="service" id="tickit.controller.form_helper" />
+            <argument type="service" id="tickit_issue.manager" />
+        </service>
+
+        <service id="tickit_issue.controller.issue" class="%tickit_issue.controller.issue.class%">
+            <argument type="service" id="tickit.controller.form_helper" />
+            <argument type="service" id="tickit.controller.base_helper" />
+            <argument type="service" id="tickit_issue.manager" />
+            <argument type="service" id="tickit.controller.csrf_helper" />
         </service>
 
     </services>

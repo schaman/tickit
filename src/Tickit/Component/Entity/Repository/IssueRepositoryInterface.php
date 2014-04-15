@@ -22,6 +22,7 @@
 namespace Tickit\Component\Entity\Repository;
 
 use Doctrine\Common\Persistence\ObjectRepository;
+use Tickit\Component\Model\Project\Project;
 
 /**
  * Issue repository interface.
@@ -31,4 +32,15 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 interface IssueRepositoryInterface extends ObjectRepository
 {
+    /**
+     * Finds the last issue number used for the given project.
+     *
+     * By convention, this method should return 0 when no
+     * issues were found for the project.
+     *
+     * @param Project $project The project to find the last issue number for.
+     *
+     * @return integer
+     */
+    public function findLastIssueNumberForProject(Project $project);
 }

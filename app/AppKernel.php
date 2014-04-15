@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\Bundle\AssetsBundle\TickitAssetsBundle(),
             new Tickit\Bundle\CoreBundle\TickitCoreBundle(),
@@ -37,6 +38,7 @@ class AppKernel extends Kernel
             new Tickit\Bundle\PaginationBundle\TickitPaginationBundle(),
             new Tickit\Bundle\SearchBundle\TickitSearchBundle(),
             new Tickit\Bundle\PickerBundle\TickitPickerBundle(),
+            new Tickit\Bundle\SecurityBundle\TickitSecurityBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

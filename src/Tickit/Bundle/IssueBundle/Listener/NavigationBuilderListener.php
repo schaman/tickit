@@ -46,7 +46,7 @@ class NavigationBuilderListener
             case NavigationBuilder::NAME_MAIN:
                 $createIssueItem = new NavigationItem(
                     'Create Issue',
-                    'issue_index', // TODO: this is a temporary value, needs to be updated when we add real routes
+                    '',
                     15,
                     ['icon' => 'plus', 'class' => 'add-ticket', 'showText' => true]
                 );

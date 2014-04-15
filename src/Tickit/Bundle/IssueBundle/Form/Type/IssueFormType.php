@@ -44,10 +44,16 @@ class IssueFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('number', 'text')
-                ->add('title', 'text')
+        $builder->add('title', 'text')
                 ->add('description', 'textarea')
-                ->add('project', 'tickit_project_picker', ['provider' => 'picker_project_find'])
+                ->add(
+                    'project',
+                    'tickit_project_picker',
+                    [
+                        'provider' => 'picker_project_find',
+                        'max_selections' => 1
+                    ]
+                )
                 ->add('priority', 'choice', ['choices' => Issue::getValidPriorities(true)])
                 ->add(
                     'type',
@@ -72,11 +78,20 @@ class IssueFormType extends AbstractType
                         'type' => 'tickit_issue_attachment',
                         'allow_add' => true,
                         'allow_delete' => true,
+                        'required' => false
                     ]
                 )
-                ->add('estimatedHours', 'text')
-                ->add('actualHours', 'text')
-                ->add('assignedTo', 'tickit_user_picker', ['provider' => 'picker_user_find']);
+                ->add('estimatedHours', 'text', ['required' => false])
+                ->add('actualHours', 'text', ['required' => false])
+                ->add(
+                    'assignedTo',
+                    'tickit_user_picker',
+                    [
+                        'provider' => 'picker_user_find',
+                        'required' => false,
+                        'max_selections' => 1
+                    ]
+                );
     }
 
     /**

@@ -3,8 +3,13 @@
  *
  * @type {Backbone.View}
  */
-define(['backbone', 'modules/request', 'modules/template'], function(Backbone, Request, Template) {
-    return Backbone.View.extend({
+define([
+    'backbone',
+    'modules/request',
+    'modules/template',
+    'picker/js/views/PickerInitialiseMixin'
+], function(Backbone, Request, Template, PickerMixin) {
+    var view = Backbone.View.extend({
         /**
          * Event bindings
          */
@@ -47,9 +52,14 @@ define(['backbone', 'modules/request', 'modules/template'], function(Backbone, R
             var forceFetch = (typeof this.id != 'undefined');
             Template.fetch(this.getUrl(), function(tpl) {
                 t.$el.html(tpl);
+                t.initPickers.apply(t);
             }, forceFetch);
 
             return this;
         }
     });
+
+    _.extend(view.prototype, PickerMixin);
+
+    return view;
 });

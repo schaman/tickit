@@ -23,6 +23,7 @@ namespace Tickit\Bundle\IssueBundle\Tests\Doctrine\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository;
+use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 
 /**
@@ -78,5 +79,22 @@ class IssueRepositoryTest extends AbstractOrmTest
 
         $this->assertNotNull($builder->getFirstResult());
         $this->assertNotNull($builder->getMaxResults());
+    }
+
+    /**
+     * Tests the getFindLastIssueQueryBuilder() method
+     */
+    public function testGetFindLastIssueQueryBuilder()
+    {
+        $project = new Project();
+
+        $builder = $this->repo->getFindLastIssueQueryBuilder($project);
+
+        $from = $builder->getDQLPart('from');
+        $this->assertNotEmpty($from);
+        $this->assertEquals('TickitIssueBundle:Issue', $from[0]->getFrom());
+
+        $this->assertEquals(1, $builder->getMaxResults());
+        $this->assertSame($project, $builder->getParameter('project')->getValue());
     }
 }
