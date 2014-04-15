@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="tickit_issue.repository.issues.class">Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="tickit_issue.repository.issues" class="%tickit_issue.repository.issues.class%" factory-service="doctrine" factory-method="getRepository">
+            <argument>TickitIssueBundle:Issue</argument>
+
+            <call method="setPageResolver">
+                <argument type="service" id="tickit_pagination.page_resolver" />
+            </call>
+        </service>
+
+    </services>
+
+</container>

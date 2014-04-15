@@ -22,6 +22,7 @@
 namespace Tickit\Component\Entity\Tests\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\NoResultException;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Component\Entity\Manager\ProjectManager;
 use Tickit\Component\Test\AbstractUnitTest;
@@ -130,6 +131,34 @@ class ProjectManagerTest extends AbstractUnitTest
 
         $persistedProject = $this->getManager()->create($project);
         $this->assertNull($persistedProject);
+    }
+
+    /**
+     * Tests the find() method
+     */
+    public function testFindReturnsValidEntity()
+    {
+        $project = new Project();
+
+        $this->projectRepository->expects($this->once())
+                                ->method('find')
+                                ->with(15)
+                                ->will($this->returnValue($project));
+
+        $this->assertSame($project, $this->getManager()->find(15));
+    }
+
+    /**
+     * Tests the find() method
+     */
+    public function testFindReturnsNullForNoResult()
+    {
+        $this->projectRepository->expects($this->once())
+                                ->method('find')
+                                ->with(667)
+                                ->will($this->throwException(new NoResultException()));
+
+        $this->assertNull($this->getManager()->find(667));
     }
 
     /**

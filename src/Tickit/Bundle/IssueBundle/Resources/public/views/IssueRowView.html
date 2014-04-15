@@ -1,0 +1,42 @@
+<script type="text/template" id="issue-row-template">
+    <td class="action">
+        <div class="cell">
+            <div class="icon-export">
+                <div class="flyout">
+                    <ul>
+                        <li><a class="icon-pencil" href="">Edit</a></li>
+                        <li><a class="icon-trash" href="">Delete</a></li>
+                        <li><a class="icon-star" href="">Favourite</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="cell"><%= number %></div>
+    </td>
+    <td>
+        <div class="cell"><%= title %></div>
+    </td>
+    <td>
+        <div class="cell"><%= type %></div>
+    </td>
+    <td>
+        <div class="cell"><%= status %></div>
+    </td>
+    <td>
+        <div class="cell"><%= priority %></div>
+    </td>
+    <td>
+        <div class="cell"><a href="<%= editUrl %>">Edit</a></div>
+    </td>
+    <td>
+        <div class="cell"><a class="delete-record" href="javascript:void(0);">Delete</a></div>
+    </td>
+    <td class="select-cell">
+        <div class="cell">
+            <input id="select_<%= id %>" type="checkbox">
+            <label for="select_<%= id %>"></label>
+        </div>
+    </td>
+</script>

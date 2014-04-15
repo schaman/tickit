@@ -1,0 +1,8 @@
+picker_project_find:
+    path: /find/{term}
+    defaults: { _controller: tickit_project.controller.picker:findAction }
+    methods: [GET]
+    requirements:
+        term: '[a-zA-Z]{3,}'
+    options:
+        expose: true

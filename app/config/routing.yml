@@ -16,8 +16,8 @@ notifications:
 clients:
     resource: "@TickitClientBundle/Resources/config/routing.yml"
 
-tickets:
-    resource: "@TickitTicketBundle/Resources/config/routing.yml"
+issues:
+    resource: "@TickitIssueBundle/Resources/config/routing.yml"
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

@@ -1,0 +1,22 @@
+issue_filter_form:
+    path: /filter-form
+    defaults: { _controller: tickit_issue.controller.template:filterFormAction }
+    methods: [GET]
+    options:
+        expose: true
+
+issue_create_form:
+    path: /create
+    defaults: { _controller: tickit_issue.controller.template:createIssueFormAction }
+    methods: [GET]
+    options:
+        expose: true
+
+issue_edit_form:
+    path: /edit/{id}
+    defaults: { _controller: tickit_issue.controller.template:editIssueFormAction }
+    methods: [GET]
+    requirements:
+        id: \d+
+    options:
+        expose: true

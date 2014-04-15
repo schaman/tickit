@@ -21,6 +21,7 @@ default:
             directories: ~
             fixtures:
                 - Tickit\Bundle\PreferenceBundle\DataFixtures\ORM\LoadPreferenceData
+                - Tickit\Bundle\IssueBundle\DataFixtures\ORM\LoadIssueTypeData
 
 saucelabs_win7_firefox:
     extensions:

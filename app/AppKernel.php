@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\Bundle\AssetsBundle\TickitAssetsBundle(),
             new Tickit\Bundle\CoreBundle\TickitCoreBundle(),
@@ -28,7 +29,7 @@ class AppKernel extends Kernel
             new Tickit\Bundle\PermissionBundle\TickitPermissionBundle(),
             new Tickit\Bundle\UserBundle\TickitUserBundle(),
             new Tickit\Bundle\PreferenceBundle\TickitPreferenceBundle(),
-            new Tickit\Bundle\TicketBundle\TickitTicketBundle(),
+            new Tickit\Bundle\IssueBundle\TickitIssueBundle(),
             new Tickit\Bundle\ProjectBundle\TickitProjectBundle(),
             new Tickit\Bundle\DashboardBundle\TickitDashboardBundle(),
             new Tickit\Bundle\NotificationBundle\TickitNotificationBundle(),
@@ -37,6 +38,7 @@ class AppKernel extends Kernel
             new Tickit\Bundle\PaginationBundle\TickitPaginationBundle(),
             new Tickit\Bundle\SearchBundle\TickitSearchBundle(),
             new Tickit\Bundle\PickerBundle\TickitPickerBundle(),
+            new Tickit\Bundle\SecurityBundle\TickitSecurityBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

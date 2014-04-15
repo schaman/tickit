@@ -1,0 +1,24 @@
+Tickit\Component\Model\Issue\Issue:
+    properties:
+        title:
+            - Length: { max: 100, maxMessage: "Title is too long, try something a little shorter (100 characters max)" }
+            - NotBlank: { message: "You didn't provide a title, did you forget?" }
+        description:
+            - Length: { max: 4000, maxMessage: "Description is too long, try something a little shorter (4000 characters max)" }
+        project:
+            - NotBlank: { message: "You didn't specify a project, did you forget?" }
+        type:
+            - NotBlank: { message: "You didn't specify a type, did you forget?" }
+        status:
+            - NotBlank: { message: "You didn't specify a status, did you forget?" }
+        estimatedHours:
+            - Type: { type: numeric, message: "You must provide a valid number for the estimated hours" }
+        actualHours:
+            - Type: { type: numeric, message: "You must provide a valid number for the actual hours" }
+        priority:
+            - Choice: { callback: getValidPriorities }
+
+Tickit\Component\Model\IssueAttachment:
+    properties:
+        file:
+            - File: { maxSize: 4096 }

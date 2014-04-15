@@ -21,14 +21,13 @@
 
 namespace Tickit\Bundle\CoreBundle\Tests\Form\Type;
 
+use Doctrine\ORM\EntityManager;
 use Faker\Factory;
 use Faker\Generator;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
-use Symfony\Bridge\Doctrine\Test\DoctrineTestHelper;
 use Symfony\Component\Form\Extension\Core\CoreExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validation;
@@ -86,10 +85,14 @@ class AbstractFormTypeTestCase extends TypeTestCase
 
     /**
      * Enables the doctrine form extension
+     *
+     * @param EntityManager $em An entity manager to use in the extension (optional)
      */
-    protected function enableDoctrineExtension()
+    protected function enableDoctrineExtension(EntityManager $em = null)
     {
-        $em = AbstractOrmTest::createTestEntityManager();
+        if (null === $em) {
+            $em = AbstractOrmTest::createTestEntityManager();
+        }
 
         $manager = $this->getMock('Doctrine\Common\Persistence\ManagerRegistry');
 
@@ -102,6 +105,82 @@ class AbstractFormTypeTestCase extends TypeTestCase
                 ->will($this->returnValue($em));
 
         $this->extensions[] = new DoctrineOrmExtension($manager);
+    }
+
+    /**
+     * Enables the entity type form extension
+     *
+     * @param array $entities An array of entities to support in the extension indexed by their fully qualified
+     *                        class name
+     */
+    protected function enableEntityTypeExtension(array $entities)
+    {
+        $em = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+                   ->disableOriginalConstructor()
+                   ->getMock();
+
+        $metaData = $this->getMockBuilder('\Doctrine\Common\Persistence\Mapping\ClassMetadata')
+                         ->disableOriginalConstructor()
+                         ->getMock();
+
+        $entityClasses = array_keys($entities);
+        $nameMatcher = call_user_func_array([$this, 'onConsecutiveCalls'], $entityClasses);
+
+        $metaData->expects($this->exactly(2))
+                 ->method('getName')
+                 ->will($nameMatcher);
+
+        $metaData->expects($this->any())
+                 ->method('getIdentifierFieldNames')
+                 ->will($this->returnValue('id'));
+
+        $em->expects($this->any())
+           ->method('getClassMetaData')
+           ->will($this->returnValue($metaData));
+
+        $repositories = [];
+
+        foreach ($entityClasses as $className) {
+            $repo = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+                         ->disableOriginalConstructor()
+                         ->getMock();
+
+            $repo->expects($this->any())
+                 ->method('findAll')
+                 ->will($this->returnValue($entities[$className]));
+
+            $repositories[] = $repo;
+        }
+
+        $repositoryMatcher = call_user_func_array([$this, 'onConsecutiveCalls'], $repositories);
+
+        $em->expects($this->exactly(count($repositories)))
+           ->method('getRepository')
+           ->will($repositoryMatcher);
+
+        $em->expects($this->any())
+           ->method('contains')
+           ->will($this->returnValue(true));
+
+        $em->expects($this->any())
+           ->method('contains');
+
+
+        $totalEntities = 0;
+        $identifierMappings = [];
+        array_walk($entities, function ($e) use (&$totalEntities, &$identifierMappings) {
+            $totalEntities += count($e);
+            foreach ($e as $entity) {
+                $identifierMappings[] = ['id' => $entity->getId()];
+            }
+        });
+
+        $identifierValueMatcher = call_user_func_array([$this, 'onConsecutiveCalls'], $identifierMappings);
+        $metaData->expects($this->exactly($totalEntities))
+                 ->method('getIdentifierValues')
+                 ->will($identifierValueMatcher);
+
+        $this->enableDoctrineExtension($em);
     }
 
     /**

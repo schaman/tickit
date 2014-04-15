@@ -10,9 +10,10 @@ require([
     'core/js/regions/MainRegion',
     'core/js/regions/AnimatedRegion',
     'navigation/js/regions/ToolbarRegion',
+    'core/js/regions/PopupRegion',
     'jquery',
     'text'
-], function(Marionette, Session, MainRegion, AnimatedRegion, ToolbarRegion) {
+], function(Marionette, Session, MainRegion, AnimatedRegion, ToolbarRegion, PopupRegion) {
     var App = new Marionette.Application();
 
     App.addRegions({
@@ -20,7 +21,8 @@ require([
         loginRegion: new AnimatedRegion({ el: '#login' }),
         toolbarRegion: new ToolbarRegion(),
         notificationRegion: '#notification-side',
-        searchRegion: '#search-side'
+        searchRegion: '#search-side',
+        popupRegion: new PopupRegion
     });
 
     window.App = App;
@@ -31,7 +33,8 @@ require([
         'modules/router',
         'modules/template',
         'modules/search',
-        'modules/request'
+        'modules/request',
+        'modules/issue'
     ], function(Router) {
         App.Router = Router;
         App.start();

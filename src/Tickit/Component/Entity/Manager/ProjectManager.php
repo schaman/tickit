@@ -22,8 +22,8 @@
 namespace Tickit\Component\Entity\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NoResultException;
 use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
@@ -125,5 +125,21 @@ class ProjectManager extends AbstractManager
         $this->dispatcher->dispatchCreateEvent($entity);
 
         return $entity;
+    }
+
+    /**
+     * Finds a project by ID
+     *
+     * @param integer $id The project ID to find by
+     *
+     * @return Project
+     */
+    public function find($id)
+    {
+        try {
+            return $this->getRepository()->find($id);
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 }

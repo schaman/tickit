@@ -20,6 +20,38 @@ define(['modules/request'], function(Request) {
         var cache = {};
 
         /**
+         * Fetches a template from the cache by its ID
+         *
+         * @param {string} id The identifier of the template
+         *
+         * @return {string}
+         */
+        var fetchFromCache = function(id) {
+            return $(cache[id]);
+        };
+
+        /**
+         * Returns true if there is cached entry for the given ID
+         *
+         * @param {string} id The template ID to check in the cache
+         *
+         * @return {boolean}
+         */
+        var isCached = function(id) {
+            return typeof cache[id] != 'undefined';
+        };
+
+        /**
+         * Stores a template in the cache
+         *
+         * @param {string} id  The template identifier
+         * @param {string} tpl The template string
+         */
+        var storeInCache = function(id, tpl) {
+            cache[id] = tpl.trim();
+        };
+
+        /**
          * Loads view template content into the DOM
          *
          * @param {string} tpl The template content to load into the DOM
@@ -47,15 +79,15 @@ define(['modules/request'], function(Request) {
             var id = encodeURIComponent(url);
             forceFetch = forceFetch || false;
 
-            if (typeof cache[id] != 'undefined' && forceFetch === false) {
-                callback(cache[id]);
+            if (isCached(id) && forceFetch === false) {
+                callback(fetchFromCache(id));
             } else {
                 Request.get({
                     url: url,
                     dataType: 'html',
                     success: function(tpl) {
-                        cache[id] = $(tpl);
-                        callback(cache[id]);
+                        storeInCache(id, tpl);
+                        callback(fetchFromCache(id));
                     }
                 });
             }
