@@ -21,7 +21,6 @@
 
 namespace Tickit\Bundle\IssueBundle\Tests\Controller;
 
-use MyProject\Proxies\__CG__\stdClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
