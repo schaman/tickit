@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Entity\Tests\Manager;
 
+use Doctrine\ORM\UnitOfWork;
 use Tickit\Component\Entity\Event\EntityEvent;
 use Tickit\Component\Entity\Manager\IssueManager;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
@@ -67,9 +68,17 @@ class IssueManagerTest extends AbstractUnitTest
                                       ->getMock();
 
         $this->em = $this->getMockEntityManager();
+
+        $entityEventDispatcherMethods = [
+            'dispatchBeforeCreateEvent',
+            'dispatchCreateEvent',
+            'dispatchBeforeUpdateEvent',
+            'dispatchUpdateEvent',
+            'getEventNames'
+        ];
         $this->entityEventDispatcher = $this->getMockBuilder('\Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher')
                                             ->disableOriginalConstructor()
-                                            ->setMethods(['dispatchBeforeCreateEvent', 'dispatchCreateEvent', 'getEventNames'])
+                                            ->setMethods($entityEventDispatcherMethods)
                                             ->getMock();
 
         $this->eventDispatcher = $this->getMockEventDispatcher();
@@ -121,19 +130,14 @@ class IssueManagerTest extends AbstractUnitTest
                               ->method('dispatch')
                               ->with(IssueEvents::ISSUE_ATTACHMENT_UPLOAD, $uploadEvent);
 
-        $this->em->expects($this->exactly(2))
-                 ->method('persist');
-
-        $this->em->expects($this->at(0))
-                 ->method('persist')
-                 ->with($issue);
-
-        $this->em->expects($this->at(2))
+        $this->em->expects($this->once())
                  ->method('persist')
                  ->with($issue);
 
         $this->em->expects($this->exactly(2))
                  ->method('flush');
+
+        $this->trainEntityManagerUnitOfWorkToHandleNewAttachments(2);
 
         $beforeCreateCallback = function ($issueWithoutAttachments) use ($beforeEvent) {
             $this->assertFalse($issueWithoutAttachments->hasAttachments());
@@ -205,6 +209,106 @@ class IssueManagerTest extends AbstractUnitTest
     }
 
     /**
+     * @dataProvider getUpdateIssueWithAttachmentsFixtures
+     */
+    public function testUpdateWithAttachments(Issue $issue, Issue $issueWithoutAttachments, array $newAttachments)
+    {
+        $beforeEvent = new EntityEvent($issueWithoutAttachments);
+
+        // if the issue has attachments, we expect the event dispatcher
+        // to notify the rest of the application that they have been uploaded,
+        // but the attachments dispatched on the upload event should only be
+        // the NEW attachments
+        $uploadEvent = new AttachmentUploadEvent($newAttachments);
+        $this->eventDispatcher->expects($this->once())
+                              ->method('dispatch')
+                              ->with(IssueEvents::ISSUE_ATTACHMENT_UPLOAD, $uploadEvent);
+
+        $this->em->expects($this->once())
+            ->method('persist')
+            ->with($issue);
+
+        $this->em->expects($this->exactly(2))
+            ->method('flush');
+
+        $this->trainEntityManagerUnitOfWorkToHandleNewAttachments(4);
+
+        $beforeCreateCallback = function ($issueWithoutAttachments) use ($beforeEvent) {
+            $this->assertFalse($issueWithoutAttachments->hasAttachments());
+
+            return $beforeEvent;
+        };
+
+        $this->entityEventDispatcher->expects($this->once())
+                                    ->method('dispatchBeforeUpdateEvent')
+                                    ->will($this->returnCallback($beforeCreateCallback));
+
+        $this->trainEntityEventDispatcherToDispatchEvent($issue, 'dispatchUpdateEvent');
+
+        $this->assertSame($issue, $this->getManager()->update($issue));
+    }
+
+    /**
+     * @return array
+     */
+    public function getUpdateIssueWithAttachmentsFixtures()
+    {
+        $issueWithAttachments = new Issue();
+        $newAttachment1 = new IssueAttachment();
+        $newAttachment2 = new IssueAttachment();
+        $existingAttachment1 = new IssueAttachment();
+        $existingAttachment1->setId(1);
+        $existingAttachment1 = new IssueAttachment();
+        $existingAttachment1->setId(2);
+
+        $issueWithAttachments->addAttachment($newAttachment1)
+                             ->addAttachment($newAttachment2)
+                             ->addAttachment($existingAttachment1)
+                             ->addAttachment($existingAttachment1);
+
+        return [
+            [$issueWithAttachments, new Issue(), array($newAttachment1, $newAttachment2)],
+        ];
+    }
+
+    /**
+     * @dataProvider getUpdateFixtures
+     */
+    public function testUpdate(Issue $issue)
+    {
+        $beforeEvent = new EntityEvent($issue);
+
+        // if there are no attachments on the issue then we don't expect
+        // the event dispatcher to be triggered
+        $this->eventDispatcher->expects($this->never())
+                              ->method('dispatch');
+
+        $this->em->expects($this->once())
+                 ->method('persist')
+                 ->with($issue);
+
+        $this->em->expects($this->once())
+                 ->method('flush');
+
+        $this->trainEntityEventDispatcherToDispatchEvent($issue, 'dispatchBeforeUpdateEvent', $beforeEvent);
+        $this->trainEntityEventDispatcherToDispatchEvent($issue, 'dispatchUpdateEvent');
+
+        $this->assertSame($issue, $this->getManager()->update($issue));
+    }
+
+    /**
+     * @return array
+     */
+    public function getUpdateFixtures()
+    {
+        $issue = new Issue();
+
+        return [
+            [$issue]
+        ];
+    }
+
+    /**
      * Gets a new manager instance
      *
      * @return IssueManager
@@ -229,5 +333,24 @@ class IssueManagerTest extends AbstractUnitTest
             $expectation->will($this->returnValue($returnEvent));
         }
 
+    }
+
+    private function trainEntityManagerUnitOfWorkToHandleNewAttachments($numberOfAttachments)
+    {
+        $mockUnitOfWork = $this->getMockBuilder('\Doctrine\ORM\UnitOfWork')
+                                       ->disableOriginalConstructor()
+                                       ->getMock();
+        $mockUnitOfWork->expects($this->exactly($numberOfAttachments))
+                       ->method('getEntityState')
+                       ->will(
+                           $this->returnCallback(
+                               function(IssueAttachment $attachment) {
+                                   return null === $attachment->getId() ? UnitOfWork::STATE_NEW : UnitOfWork::STATE_MANAGED;
+                               }
+                           )
+                       );
+        $this->em->expects($this->exactly($numberOfAttachments))
+                 ->method('getUnitOfWork')
+                 ->will($this->returnValue($mockUnitOfWork));
     }
 }
