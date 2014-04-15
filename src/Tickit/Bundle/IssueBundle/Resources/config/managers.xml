@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="tickit_issue.manager.class">Tickit\Component\Entity\Manager\IssueManager</parameter>
+        <parameter key="tickit_issue.attachment_manager.class">Tickit\Component\Entity\Manager\IssueAttachmentManager</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="tickit_issue.manager" class="%tickit_issue.manager.class%">
+            <argument type="service" id="tickit_issue.repository.issues" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="tickit_issue.issue_event_dispatcher" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="tickit_issue.attachment_manager" class="%tickit_issue.attachment_manager.class%">
+            <argument type="service" id="gaufrette.issue_attachments_filesystem" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="tickit_security.file_naming_strategy.unix_safe" />
+        </service>
+
+    </services>
+
+</container>

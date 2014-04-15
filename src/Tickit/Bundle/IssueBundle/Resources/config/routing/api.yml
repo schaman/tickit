@@ -1,0 +1,8 @@
+api_issue_list:
+    path: /list/{page}
+    defaults: { _controller: tickit_issue.controller.api:listAction, page: 1 }
+    methods: [GET]
+    requirements:
+        page: ^[1-9][0-9]*$
+    options:
+        expose: true

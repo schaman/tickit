@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="Tickit\Component\Model\Issue\IssueStatus" table="issue_statuses">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY"/>
+        </id>
+
+        <field name="name" type="string" column="name" length="50" nullable="false"/>
+        <field name="colour" type="string" column="colour" column-definition="CHAR(6) NOT NULL" nullable="false"/>
+
+    </entity>
+</doctrine-mapping>

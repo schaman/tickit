@@ -1,8 +1,0 @@
-ticket_index:
-    path: /tickets/{page}
-    defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
-    methods: [GET]
-    requirements:
-        page: \d+
-    options:
-        expose: true

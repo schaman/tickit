@@ -9,6 +9,8 @@
         <parameter key="tickit_project.form.project.class">Tickit\Bundle\ProjectBundle\Form\Type\ProjectFormType</parameter>
         <parameter key="tickit_project.form.attribute_value.class">Tickit\Bundle\ProjectBundle\Form\Type\AttributeValueFormType</parameter>
         <parameter key="tickit_project.form.filters.class">Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType</parameter>
+        <parameter key="tickit_project.form.project_picker.class">Tickit\Bundle\ProjectBundle\Form\Type\Picker\ProjectPickerType</parameter>
+        <parameter key="tickit_project.form.project_picker_data_transformer.class">Tickit\Bundle\ProjectBundle\Form\Type\Picker\ProjectPickerDataTransformer</parameter>
     </parameters>
 
     <services>
@@ -29,6 +31,15 @@
 
         <service id="tickit_project.form.filters" class="%tickit_project.form.filters.class%">
             <tag name="form.type" alias="tickit_project_filters" />
+        </service>
+
+        <service id="tickit_project.form.project_picker" class="%tickit_project.form.project_picker.class%">
+            <argument type="service" id="tickit_project.form.project_picker_data_transformer" />
+            <tag name="form.type" alias="tickit_project_picker" />
+        </service>
+
+        <service id="tickit_project.form.project_picker_data_transformer" class="%tickit_project.form.project_picker_data_transformer.class%">
+            <argument type="service" id="tickit_project.manager" />
         </service>
 
     </services>

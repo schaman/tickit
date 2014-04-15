@@ -9,7 +9,9 @@
 
         <title>{% block title %}Tickit | Issue Management{% endblock %}</title>
 
-        {% stylesheets 'bundles/tickitassets/less/styles.less' filter='less,cssrewrite' %}
+        {% stylesheets '../app/Resources/public/js/vendor/magnific-popup/dist/magnific-popup.css'
+                       'bundles/tickitassets/less/styles.less'
+                       filter='less,cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
@@ -58,6 +60,9 @@
 
         {# Notifications container #}
         <div id="notification-side"></div>
+
+        {# Popup content container #}
+        <div id="popup-container" class="zoom-anim-dialog"></div>
 
         {% block javascripts %}
             {% javascripts filter='?requirejs' '@TickitCoreBundle/Resources/public/js/App.js' %}

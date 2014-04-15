@@ -21,9 +21,13 @@
 
 namespace Tickit\Bundle\UserBundle\Listener;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Kernel exception listener.
@@ -36,10 +40,38 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class KernelExceptionListener
 {
     /**
+     * Security context
+     *
+     * @var SecurityContextInterface
+     */
+    private $securityContext;
+
+    /**
+     * Router
+     *
+     * @var Router
+     */
+    private $router;
+
+    /**
+     * Constructor.
+     *
+     * @param SecurityContextInterface $securityContext Security context
+     * @param Router                   $router          Router
+     */
+    public function __construct(SecurityContextInterface $securityContext, Router $router)
+    {
+        $this->securityContext = $securityContext;
+        $this->router = $router;
+    }
+
+    /**
      * Handles a kernel exception.
      *
      * If the request is an XmlHttpRequest and an AccessDeniedException has been thrown then
-     * this method will set the response to a 403 rather than redirecting to /login.
+     * this method will set the response to a 403 rather than redirecting to /login. If this exception occurs but
+     * the request is not an XmlHttpRequest then we intercept the default security component 302 response
+     * with our own so additional header/session clearing can occur.
      *
      * @param GetResponseForExceptionEvent $event The exception event
      *
@@ -50,8 +82,44 @@ class KernelExceptionListener
         $request = $event->getRequest();
         $exception = $event->getException();
 
-        if ($request->isXmlHttpRequest() && $exception instanceof AccessDeniedException) {
-            $event->setResponse(new Response('', 403));
+        if ($exception instanceof AccessDeniedException) {
+            if ($request->isXmlHttpRequest()) {
+                $response = new Response('', 403);
+
+                // Access denied AND there is no current user, so we can clean up the session
+                // This stops an issue with the user being redirected between login and dashboard via the JS routing
+                if ($request->getUser() === null) {
+                    $this->invalidateUserSession($request, $response);
+                }
+
+                $event->setResponse($response);
+            } else {
+                // Access denied AND there is no current user, so we can clean up the session
+                // This stops an issue where the 302 redirect to login (which could be handled by the security
+                // component) doesn't contain enough headers to clear the user data in JS
+                if ($request->getUser() === null) {
+                    $response = new RedirectResponse($this->router->generate('fos_user_security_login'));
+
+                    $this->invalidateUserSession($request, $response);
+
+                    $event->setResponse($response);
+                }
+            }
         }
+    }
+
+    /**
+     * Invalidate the user's session and remove "uid" cookie
+     *
+     * @param Request  $request      Request
+     * @param Response $response     Response
+     */
+    private function invalidateUserSession(Request $request, Response $response)
+    {
+        $this->securityContext->setToken(null);
+
+        $request->getSession()->invalidate();
+
+        $response->headers->clearCookie('uid');
     }
 }

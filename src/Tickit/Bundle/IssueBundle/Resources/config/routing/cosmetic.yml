@@ -1,0 +1,24 @@
+issue_index:
+    path: /issues/{page}
+    defaults: { _controller: tickit.controller.default:defaultAction, page: 1 }
+    methods: [GET]
+    requirements:
+        page: \d+
+    options:
+        expose: true
+
+issue_create_view:
+    path: /issues/create
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
+    options:
+        expose: true
+
+issue_edit_view:
+    path: /issues/edit/{id}
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
+    requirements:
+        id: \d+
+    options:
+        expose: true
