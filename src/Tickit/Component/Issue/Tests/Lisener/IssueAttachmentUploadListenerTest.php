@@ -23,7 +23,7 @@ namespace Tickit\Component\Issue\Tests\Listener;
 
 use Tickit\Component\Entity\Manager\IssueAttachmentManager;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
-use Tickit\Component\Issue\Listener\IssueAttachmentListener;
+use Tickit\Component\Issue\Listener\IssueAttachmentUploadListener;
 use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
@@ -32,7 +32,7 @@ use Tickit\Component\Model\Issue\IssueAttachment;
  * @package Tickit\Component\Issue\Tests\Listener
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueAttachmentListenerTest extends \PHPUnit_Framework_TestCase
+class IssueAttachmentUploadListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -108,10 +108,10 @@ class IssueAttachmentListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return IssueAttachmentListener
+     * @return IssueAttachmentUploadListener
      */
     private function getListener()
     {
-        return new IssueAttachmentListener($this->attachmentManager);
+        return new IssueAttachmentUploadListener($this->attachmentManager);
     }
 }

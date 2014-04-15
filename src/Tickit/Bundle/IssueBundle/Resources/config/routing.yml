@@ -13,12 +13,12 @@ templates:
 
 issue_create:
     path: /issues/create
-    defaults: { _controller: tickit.controller.default:defaultAction }
+    defaults: { _controller: tickit_issue.controller.issue:createAction }
     methods: [POST]
 
 issue_edit:
     path: /issues/edit/{id}
-    defaults: { _controller: tickit.controller.default:defaultAction }
+    defaults: { _controller: tickit_issue.controller.issue:editAction }
     methods: [POST]
     requirements:
         id: \d+

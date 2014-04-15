@@ -160,6 +160,14 @@ class Issue
     protected $updatedAt;
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->attachments = new ArrayCollection();
+    }
+
+    /**
      * Gets the id of this issue
      *
      * @return integer
@@ -224,11 +232,11 @@ class Issue
     /**
      * Gets the issue number
      *
-     * @return string
+     * @return IssueNumber
      */
     public function getNumber()
     {
-        return $this->number;
+        return new IssueNumber($this->project->getIssuePrefix(), $this->number);
     }
 
     /**
@@ -509,6 +517,56 @@ class Issue
         $this->attachments = $attachments;
 
         return $this;
+    }
+
+    /**
+     * Adds an attachment to the issue
+     *
+     * @param IssueAttachment $attachment The attachment to add
+     *
+     * @return Issue
+     */
+    public function addAttachment(IssueAttachment $attachment)
+    {
+        $attachment->setIssue($this);
+
+        $this->attachments->add($attachment);
+
+        return $this;
+    }
+
+    /**
+     * Removes an attachment from the issue
+     *
+     * @param IssueAttachment $attachment The attachment to remove
+     *
+     * @return Issue
+     */
+    public function removeAttachment(IssueAttachment $attachment)
+    {
+        $this->attachments->removeElement($attachment);
+
+        return $this;
+    }
+
+    /**
+     * Clears all attachments from the issue
+     *
+     * @return Issue
+     */
+    public function clearAttachments()
+    {
+        $this->attachments->clear();
+    }
+
+    /**
+     * Returns true if this issue has any attachments
+     *
+     * @return boolean
+     */
+    public function hasAttachments()
+    {
+        return $this->attachments->count() > 0;
     }
 
     /**

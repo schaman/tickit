@@ -10,9 +10,9 @@
         <field name="number" type="string" column="number" length="10" nullable="false" />
         <field name="title" type="string" column="title" length="100" nullable="false"/>
         <field name="description" type="string" column="description" length="4000" nullable="false"/>
-        <field name="estimatedHours" type="float" column="estimated_hours" />
+        <field name="estimatedHours" type="float" column="estimated_hours" nullable="true" />
         <field name="priority" type="string" column="priority" length="10" />
-        <field name="actualHours" type="float" column="actual_hours" />
+        <field name="actualHours" type="float" column="actual_hours" nullable="true" />
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create" />
         </field>

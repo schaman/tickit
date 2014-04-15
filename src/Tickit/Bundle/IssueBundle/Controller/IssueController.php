@@ -116,4 +116,31 @@ class IssueController
 
         return new JsonResponse($responseData);
     }
+
+    /**
+     * Edit action.
+     *
+     * Handles form submission request to update an existing issue.
+     *
+     * @param Issue $issue The issue that is being edited
+     *
+     * @return JsonResponse
+     */
+    public function editAction(Issue $issue)
+    {
+        $responseData = ['success' => false];
+        $form = $this->formHelper->createForm('tickit_issue', $issue);
+
+        $form->handleRequest($this->baseHelper->getRequest());
+        if ($form->isValid()) {
+            $this->issueManager->update($form->getData());
+            $responseData['success'] = true;
+            $responseData['returnUrl'] = $this->baseHelper->generateUrl('issue_index');
+        } else {
+            $formResponse = $this->formHelper->renderForm('TickitIssueBundle:Issue:edit.html.twig', $form);
+            $responseData['form'] = $formResponse->getContent();
+        }
+
+        return new JsonResponse($responseData);
+    }
 }

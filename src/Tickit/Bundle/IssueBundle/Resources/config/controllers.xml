@@ -22,6 +22,7 @@
 
         <service id="tickit_issue.controller.template" class="%tickit_issue.controller.template.class%">
             <argument type="service" id="tickit.controller.form_helper" />
+            <argument type="service" id="tickit_issue.manager" />
         </service>
 
         <service id="tickit_issue.controller.issue" class="%tickit_issue.controller.issue.class%">

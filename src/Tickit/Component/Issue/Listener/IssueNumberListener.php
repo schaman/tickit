@@ -37,6 +37,11 @@ use Tickit\Component\Model\Issue\Issue;
 class IssueNumberListener
 {
     /**
+     * The default issue number when no previous issue exists for a project.
+     */
+    const DEFAULT_ISSUE_NUMBER = 10000;
+
+    /**
      * An issue repository
      *
      * @var IssueRepositoryInterface
@@ -67,7 +72,10 @@ class IssueNumberListener
         $issue = $event->getEntity();
         $project = $issue->getProject();
 
-        $lastIssueNumber = (integer) $this->issueRepository->findLastIssueNumberForProject($project);
+        $lastIssueNumber = $this->issueRepository->findLastIssueNumberForProject($project);
+        if (null === $lastIssueNumber) {
+            $lastIssueNumber = static::DEFAULT_ISSUE_NUMBER;
+        }
 
         $issue->setNumber(++$lastIssueNumber);
     }

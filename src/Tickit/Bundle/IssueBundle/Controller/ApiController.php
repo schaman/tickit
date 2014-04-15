@@ -120,12 +120,13 @@ class ApiController
             'project.name' => 'project',
             'type.name' => 'type',
             'status.name' => 'status',
-            'assignedTo.fullName' => 'assignedTo'
+            'assignedTo.fullName' => 'assignedTo',
+            'number.issueNumber' => 'number'
         ];
         $decorator->setPropertyMappings($propertyMappings);
         $data = $decorator->decorate(
             $issues->getIterator(),
-            ['id', 'number', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
+            ['id', 'number.issueNumber', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
             ['csrfToken' => $this->csrfHelper->generateCsrfToken(IssueController::CSRF_DELETE_INTENTION)->getValue()]
         );
 

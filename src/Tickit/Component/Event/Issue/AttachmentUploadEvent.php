@@ -21,6 +21,8 @@
 
 namespace Tickit\Component\Event\Issue;
 
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\EventDispatcher\Event;
 use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
@@ -31,7 +33,7 @@ use Tickit\Component\Model\Issue\IssueAttachment;
  * @package Tickit\Component\Event\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class AttachmentUploadEvent
+class AttachmentUploadEvent extends Event
 {
     /**
      * An array of IssueAttachment objects uploaded
@@ -43,15 +45,20 @@ class AttachmentUploadEvent
     /**
      * Constructor.
      *
-     * @param IssueAttachment[]|IssueAttachment $attachments An array or single instance of IssueAttachment
+     * @param IssueAttachment[]|IssueAttachment|Collection $attachments A collection, array or single instance of
+     *                                                                  IssueAttachment
      */
     public function __construct($attachments)
     {
+        if ($attachments instanceof Collection) {
+            $attachments = $attachments->toArray();
+        }
+
         if (!is_array($attachments)) {
             $attachments = array($attachments);
         }
 
-        $this->attachments = $attachments;
+        $this->attachments = $this->sanitize($attachments);
     }
 
     /**
@@ -62,5 +69,27 @@ class AttachmentUploadEvent
     public function getAttachments()
     {
         return $this->attachments;
+    }
+
+    /**
+     * Sanitizes an array of attachments.
+     *
+     * Removes any non-valid attachments.
+     *
+     * @param array $attachments An array of issue attachments
+     *
+     * @return array
+     */
+    private function sanitize(array $attachments)
+    {
+        $sanitized = [];
+        foreach ($attachments as $attachment) {
+            if (!$attachment instanceof IssueAttachment) {
+                continue;
+            }
+            $sanitized[] = $attachment;
+        }
+
+        return $sanitized;
     }
 }

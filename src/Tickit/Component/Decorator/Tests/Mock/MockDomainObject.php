@@ -64,14 +64,21 @@ class MockDomainObject
      */
     protected $childObject;
 
+    /**
+     * Value object with __toString()
+     *
+     * @var MockValueObject
+     */
+    protected $valueObject;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($valueObjectValue = 'default')
     {
         $this->date        = new \DateTime();
         $this->childObject = new MockDomainChildObject(true);
+        $this->valueObject = new MockValueObject($valueObjectValue);
     }
 
     /**
@@ -122,5 +129,15 @@ class MockDomainObject
     public function getChildObject()
     {
         return $this->childObject;
+    }
+
+    /**
+     * Gets the value object
+     *
+     * @return MockValueObject
+     */
+    public function getValueObject()
+    {
+        return $this->valueObject;
     }
 }

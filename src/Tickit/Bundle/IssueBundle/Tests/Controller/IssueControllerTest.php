@@ -73,7 +73,7 @@ class IssueControllerTest extends AbstractUnitTest
     /**
      * Tests the createAction() method
      *
-     * @dataProvider getCreateActionFixtures
+     * @dataProvider getFormIsValidFixtures
      */
     public function testCreateAction($formIsValid)
     {
@@ -107,7 +107,50 @@ class IssueControllerTest extends AbstractUnitTest
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
 
-    public function getCreateActionFixtures()
+    /**
+     * @dataProvider getFormIsValidFixtures
+     */
+    public function testEditAction($formIsValid)
+    {
+        $request = new Request();
+        $form = $this->getMockForm();
+
+        $existingIssue = new Issue();
+
+        $this->trainBaseHelperToReturnRequest($request);
+        $this->trainFormHelperToCreateForm('tickit_issue', $existingIssue, $form);
+        $this->trainFormToHandleRequest($form, $request);
+
+        if (true === $formIsValid) {
+            $this->trainFormToBeValid($form);
+            $formData = new Issue();
+            $this->trainFormToReturnIssue($form, $formData);
+
+            $this->issueManager->expects($this->once())
+                               ->method('update')
+                               ->with($formData);
+
+            $this->baseHelper->expects($this->once())
+                             ->method('generateUrl')
+                             ->with('issue_index')
+                             ->will($this->returnValue('/issues/list'));
+
+            $expectedData = ['success' => true, 'returnUrl' => '/issues/list'];
+        } else {
+            $formContent = 'rendered form content';
+            $this->trainFormToBeInvalid($form);
+            $this->trainFormHelperToCreateFormView($form, 'TickitIssueBundle:Issue:edit.html.twig', $formContent);
+            $expectedData = ['success' => false, 'form' => $formContent];
+
+        }
+
+        $response = $this->getController()->editAction($existingIssue);
+        $this->assertInstanceOf('\Symfony\Component\HttpFoundation\JsonResponse', $response);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+    }
+
+    public function getFormIsValidFixtures()
     {
         return [
             [true],

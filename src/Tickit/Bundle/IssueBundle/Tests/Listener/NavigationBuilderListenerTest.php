@@ -59,7 +59,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         /** @var NavigationItem $first */
         $first = $items->current();
         $this->assertEquals('Create Issue', $first->getText());
-        $this->assertEquals('issue_index', $first->getRouteName());
+        $this->assertEquals('', $first->getRouteName());
         $params = $first->getParams();
         $this->assertEquals('plus', $params['icon']);
         $this->assertEquals('add-ticket', $params['class']);
@@ -69,7 +69,7 @@ class NavigationBuilderListenerTest extends \PHPUnit_Framework_TestCase
         /** @var NavigationItem $second */
         $second = $items->current();
         $this->assertEquals('Issues', $second->getText());
-        $this->assertEquals('issue_index', $first->getRouteName());
+        $this->assertEquals('issue_index', $second->getRouteName());
         $params = $second->getParams();
         $this->assertEquals('tags', $params['icon']);
     }

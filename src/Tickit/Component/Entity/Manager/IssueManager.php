@@ -21,11 +21,16 @@
 
 namespace Tickit\Component\Entity\Manager;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
+use Tickit\Component\Event\Issue\AttachmentUploadEvent;
+use Tickit\Component\Event\Issue\IssueEvents;
 use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Issue\IssueAttachment;
 
 /**
  * Issue manager.
@@ -43,18 +48,28 @@ class IssueManager extends AbstractManager
     private $issueRepository;
 
     /**
+     * An event dispatcher
+     *
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * Constructor.
      *
      * @param IssueRepositoryInterface      $issueRepository An issue repository
      * @param EntityManagerInterface        $em              An entity manager
      * @param AbstractEntityEventDispatcher $dispatcher      An entity event dispatcher
+     * @param EventDispatcherInterface      $eventDispatcher An event dispatcher
      */
     public function __construct(
         IssueRepositoryInterface $issueRepository,
         EntityManagerInterface $em,
-        AbstractEntityEventDispatcher $dispatcher
+        AbstractEntityEventDispatcher $dispatcher,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->issueRepository = $issueRepository;
+        $this->eventDispatcher = $eventDispatcher;
 
         parent::__construct($em, $dispatcher);
     }
@@ -69,6 +84,67 @@ class IssueManager extends AbstractManager
     public function getRepository()
     {
         return $this->issueRepository;
+    }
+
+    /**
+     * Creates a new instance of an issue
+     *
+     * @param boolean $withDummyAttachment True to also create an attachment associated with the issue.
+     *
+     * @return Issue
+     */
+    public function createIssue($withDummyAttachment = false)
+    {
+        $issue = new Issue();
+        if (true === $withDummyAttachment) {
+            $issue->setAttachments([new IssueAttachment()]);
+        }
+
+        return $issue;
+    }
+
+    /**
+     * Creates an Issue in the entity manager.
+     *
+     * Fires events for the creation of the issue and for newly added
+     * attachments (if there are any).
+     *
+     * @param object  $entity The issue that is being created
+     * @param boolean $flush  True to flush changes automatically, defaults to true
+     *
+     * @return object
+     */
+    public function create($entity, $flush = true)
+    {
+        /** @var Collection $attachments */
+        $attachments = clone $entity->getAttachments();
+        $entity->clearAttachments();
+
+        $beforeEvent = $this->dispatcher->dispatchBeforeCreateEvent($entity);
+
+        if ($beforeEvent->isVetoed()) {
+            return null;
+        }
+
+        $this->em->persist($entity);
+        if (false !== $flush) {
+            $this->em->flush();
+        }
+
+        if ($attachments->count() > 0) {
+            $uploadEvent = new AttachmentUploadEvent($attachments);
+            $this->eventDispatcher->dispatch(IssueEvents::ISSUE_ATTACHMENT_UPLOAD, $uploadEvent);
+            foreach ($uploadEvent->getAttachments() as $attachment) {
+                $entity->addAttachment($attachment);
+            }
+
+            $this->em->persist($entity);
+            $this->em->flush();
+        }
+
+        $this->dispatcher->dispatchCreateEvent($entity);
+
+        return $entity;
     }
 
     /**
