@@ -66,7 +66,7 @@ class IssueAttachmentUploadListenerTest extends \PHPUnit_Framework_TestCase
                                 ->method('upload')
                                 ->will(
                                     $this->returnCallback(
-                                        function(IssueAttachment $attachment) {
+                                        function (IssueAttachment $attachment) {
                                             // let's set the ID so we can be sure the attachment has
                                             // been passed to upload and returned correctly
                                             return $attachment->setId(99);

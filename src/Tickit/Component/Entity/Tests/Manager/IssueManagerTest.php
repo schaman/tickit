@@ -344,7 +344,7 @@ class IssueManagerTest extends AbstractUnitTest
                        ->method('getEntityState')
                        ->will(
                            $this->returnCallback(
-                               function(IssueAttachment $attachment) {
+                               function (IssueAttachment $attachment) {
                                    return null === $attachment->getId() ? UnitOfWork::STATE_NEW : UnitOfWork::STATE_MANAGED;
                                }
                            )
