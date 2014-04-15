@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Issue;
 
+use Tickit\Component\Model\IdentifiableInterface;
+
 /**
  * The IssueStatus entity represents a possible status type for a issue
  *
  * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueStatus
+class IssueStatus implements IdentifiableInterface
 {
     /**
      * The unique idenfitier

@@ -21,6 +21,7 @@
 
 namespace Tickit\Component\Model\Issue;
 
+use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\User\User;
 
 /**
@@ -29,7 +30,7 @@ use Tickit\Component\Model\User\User;
  * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueStatusHistory
+class IssueStatusHistory implements IdentifiableInterface
 {
     /**
      * The unique identifier

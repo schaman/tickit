@@ -22,6 +22,7 @@
 namespace Tickit\Component\Model\Issue;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * The IssueAttachment entity represents a file attachment on a issue
@@ -29,7 +30,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueAttachment
+class IssueAttachment implements IdentifiableInterface
 {
     /**
      * The unique identifier

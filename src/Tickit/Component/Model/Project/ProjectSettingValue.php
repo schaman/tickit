@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Project;
 
+use Tickit\Component\Model\IdentifiableInterface;
+
 /**
  * The ProjectSettingValue entity represents a project's value against a specific ProjectSetting
  *
  * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class ProjectSettingValue
+class ProjectSettingValue implements IdentifiableInterface
 {
     /**
      * The unique identifier for this setting value
@@ -56,6 +58,16 @@ class ProjectSettingValue
      * @var string
      */
     protected $value;
+
+    /**
+     * Get value to identify this model
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Gets the associated setting object

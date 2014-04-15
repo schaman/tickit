@@ -21,13 +21,15 @@
 
 namespace Tickit\Component\Model\Project;
 
+use Tickit\Component\Model\IdentifiableInterface;
+
 /**
  * The AbstractAttributeValue entity represents a value associated with an attribute for a specific project
  *
  * @package Tickit\Component\Model\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-abstract class AbstractAttributeValue implements AttributeValueInterface
+abstract class AbstractAttributeValue implements AttributeValueInterface, IdentifiableInterface
 {
     /**
      * The unique identifier for this value
@@ -58,6 +60,16 @@ abstract class AbstractAttributeValue implements AttributeValueInterface
      * @return mixed
      */
     abstract public function setAttribute(AbstractAttribute $attribute);
+
+    /**
+     * Get unique identifier for this value
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Sets the project that this attribute value is associated with

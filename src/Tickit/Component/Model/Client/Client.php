@@ -22,6 +22,7 @@
 namespace Tickit\Component\Model\Client;
 
 use Doctrine\Common\Collections\Collection;
+use Tickit\Component\Model\IdentifiableInterface;
 
 /**
  * Client entity.
@@ -29,7 +30,7 @@ use Doctrine\Common\Collections\Collection;
  * @package Tickit\Component\Model\Client
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class Client
+class Client implements IdentifiableInterface
 {
     const STATUS_ACTIVE = 'active';
     const STATUS_ARCHIVED = 'archived';
