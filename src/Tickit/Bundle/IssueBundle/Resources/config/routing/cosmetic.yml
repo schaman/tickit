@@ -22,3 +22,12 @@ issue_edit_view:
         id: \d+
     options:
         expose: true
+
+issue_view:
+    path: /issues/view/{number}
+    defaults: { _controller: tickit.controller.default:defaultAction }
+    methods: [GET]
+    requirements:
+        number: "[A-Z]{2,4}[1-9][0-9]{4,}"
+    options:
+        expose: true

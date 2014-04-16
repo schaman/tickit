@@ -60,6 +60,7 @@ define(function() {
             /* IssueBundle routes */
             "issues"               : "issues",
             "issues/edit/:id"      : "issueEdit",
+            "issues/view/:number"  : "issueView",
 
             /* ProjectBundle routes */
             "projects/create"      : "projectCreate",
@@ -111,6 +112,12 @@ define(function() {
         "issues" : function() {
             require(['modules/issue'], function(Issue) {
                 Issue.loadIssueList();
+            });
+        },
+
+        "issueView" : function(number) {
+            require(['modules/issue'], function(Issue) {
+                Issue.loadIssueView(number);
             });
         },
 
