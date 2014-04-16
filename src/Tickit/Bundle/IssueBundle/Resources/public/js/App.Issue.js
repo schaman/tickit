@@ -3,7 +3,7 @@
  *
  * @author James Halsall <james.t.halsall@googlemail.com>
  */
-define(function() {
+define(['modules/staticcontent'], function(StaticContent) {
     return App.module('Issue', function(module) {
 
         module.startWithParent = true;
@@ -64,6 +64,17 @@ define(function() {
             require(['issue/js/views/IssueFormView'], function(view) {
                 App.mainRegion.show(new view({ id: id }));
             });
-        }
+        };
+
+        /**
+         * Loads issue view
+         *
+         * @return {void}
+         */
+        module.loadIssueView = function(number) {
+            // TODO: implement the issue view loading
+            StaticContent.loadPageNotFound();
+        };
+
     });
 });
