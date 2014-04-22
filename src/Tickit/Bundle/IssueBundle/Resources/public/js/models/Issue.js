@@ -8,7 +8,7 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
 
         defaults: {
             id: null,
-            number: '',
+            number: null,
             title: '',
             type: '',
             status: '',
@@ -23,6 +23,19 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
          */
         toString : function() {
             return this.get('title');
+        },
+
+        /**
+         * Builds a URL for fetching an issue
+         */
+        url : function() {
+            // fetch by ID
+            if (null !== this.get('id')) {
+                return Routing.generate('');
+            }
+
+            // fetch by issue number
+            return Routing.generate('');
         },
 
         /**
