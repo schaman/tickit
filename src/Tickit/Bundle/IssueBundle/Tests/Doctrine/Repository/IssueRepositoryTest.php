@@ -106,8 +106,15 @@ class IssueRepositoryTest extends AbstractOrmTest
     {
         $issueNumber = new IssueNumber('TEST', 12345);
 
-        $this->repo->getIssueByIssueNumberQueryBuilder($issueNumber);
+        $builder = $this->repo->getIssueByIssueNumberQueryBuilder($issueNumber);
 
-        $this->markTestIncomplete('Needs to check QueryBuilder has the right join etc.');
+        $from = $builder->getDQLPart('from');
+        $this->assertNotEmpty($from);
+        $this->assertEquals('TickitIssueBundle:Issue', $from[0]->getFrom());
+
+        $join = $builder->getDQLPart('join');
+        $this->assertCount(2, $join['i']);
+
+        $this->assertEquals(1, $builder->getMaxResults());
     }
 }
