@@ -137,6 +137,35 @@ class ExactMatchFilterTest extends AbstractFilterTestCase
     /**
      * Tests the applyToQuery() method
      *
+     * @dataProvider getJoinTypeFixtures
+     */
+    public function testApplyToQueryAppliesFilterWhenCustomAliasProvided($filterJoinType, $conditionMethod)
+    {
+        $filter = new ExactMatchFilter('username', 'exact value', ['joinType' => $filterJoinType, ExactMatchFilter::ENTITY_ALIAS => 'test']);
+
+        $this->trainQueryToReturnRootEntities($this->query);
+        $this->trainQueryToReturnEntityManager($this->query, $this->em);
+        $this->trainEntityManagerToReturnClassMetaData($this->em);
+
+        $this->query->expects($this->once())
+                    ->method('getRootAliases')
+                    ->will($this->returnValue(array('u')));
+
+        $this->query->expects($this->once())
+                    ->method($conditionMethod)
+                    ->with('test.username = :username')
+                    ->will($this->returnSelf());
+
+        $this->query->expects($this->once())
+                    ->method('setParameter')
+                    ->with('username', 'exact value');
+
+        $filter->applyToQuery($this->query);
+    }
+
+    /**
+     * Tests the applyToQuery() method
+     *
      * @dataProvider getArrayFixtures
      */
     public function testApplyToQueryAppliesArrayOfValues($values, $filterJoinType, $conditionMethod)
