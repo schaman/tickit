@@ -6,3 +6,12 @@ api_issue_list:
         page: ^[1-9][0-9]*$
     options:
         expose: true
+
+api_issue_by_number:
+    path: /{issueNumber}
+    defaults: { _controller: tickit_issue.controller.api:findByIssueNumber }
+    methods: [GET]
+    requirements:
+        issueNumber: ^[A-Z]{2,4}[1-9][0-9]{4,}$
+    options:
+        expose: true
