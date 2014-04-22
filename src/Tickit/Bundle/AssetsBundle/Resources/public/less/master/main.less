@@ -973,40 +973,46 @@ td,th{
     text-align: left;
     div.cell{
         padding: 17px 10px;
-        .priority{
-            border: 1px solid #111;
-            background: #fff;   
-            padding: 6px 15px;
-            .border-radius(5px);
-            &.high, &.false{
-                color: #8a1f10;
-                border: 1px solid #f49296;
-                background: #fbe3e4;
-            }
-            &.true{
-                color: #3c763d;
-                background: #dff0d8;
-                border: 1px solid #c6d5ba;
-            }
-            &.medium{
-                color: #8a6d3b;
-                border: 1px solid #faebcc;
-                background: #fcf8e3;
-            }
-            &.low{
-                color: #666;
-                border: 1px solid #e8e8e8;
-                background: #f5f5f5;
-            }
-        }
     }
 }
+
+.priority{
+    border: 1px solid #111;
+    background: #fff;   
+    padding: 6px 15px;
+    .border-radius(5px);
+    &.high, &.false{
+        color: #8a1f10;
+        border: 1px solid #f49296;
+        background: #fbe3e4;
+    }
+    &.true{
+        color: #3c763d;
+        background: #dff0d8;
+        border: 1px solid #c6d5ba;
+    }
+    &.medium{
+        color: #8a6d3b;
+        border: 1px solid #faebcc;
+        background: #fcf8e3;
+    }
+    &.low{
+        color: #666;
+        border: 1px solid #e8e8e8;
+        background: #f5f5f5;
+    }
+}
+
 
 td{
     border-bottom: 1px solid #d1d1d1;
     background: #fff;
     &.action{
         text-align: center;
+        .cell{
+          position: relative;
+          max-width: 50px;
+        }
         a{
             color: #111;
             &:hover{
