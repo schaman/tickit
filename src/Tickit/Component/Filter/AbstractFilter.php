@@ -43,6 +43,8 @@ abstract class AbstractFilter implements QueryBuilderApplicableInterface
     const COMPARATOR_LESS_THAN_OR_EQUAL_TO = '<=';
     const COMPARATOR_GREATER_THAN_OR_EQUAL_TO = '>=';
 
+    const STRICT_KEY_VALIDATION = 'strict_key_validation';
+
     /**
      * The value of this filter
      *

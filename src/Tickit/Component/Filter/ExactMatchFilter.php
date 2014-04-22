@@ -37,6 +37,11 @@ use Tickit\Component\Filter\Collection\FilterCollection;
 class ExactMatchFilter extends AbstractFilter
 {
     /**
+     * Entity alias option
+     */
+    const ENTITY_ALIAS = 'entity_alias';
+
+    /**
      * Applies the itself to a query builder.
      *
      * @param QueryBuilder $query A reference to the query builder
@@ -45,7 +50,7 @@ class ExactMatchFilter extends AbstractFilter
      */
     public function applyToQuery(QueryBuilder &$query)
     {
-        if (false === $this->filterKeyIsValidOnQuery($query, $this->getKey())) {
+        if (false !== $this->getOption(static::STRICT_KEY_VALIDATION) && false === $this->filterKeyIsValidOnQuery($query, $this->getKey())) {
             return;
         }
 
@@ -59,12 +64,20 @@ class ExactMatchFilter extends AbstractFilter
         }
 
         $aliases = $query->getRootAliases();
+        $alias = $aliases[0];
+
+        $entityAliasOption = $this->getOption(static::ENTITY_ALIAS);
+
+        if (null !== $entityAliasOption) {
+            $alias = $entityAliasOption;
+        }
+
         $joinType = $this->getJoinType();
 
         if (true === is_array($value)) {
-            $this->bindConditionForMultipleValues($query, $this->getKey(), $value, $joinType, $aliases[0]);
+            $this->bindConditionForMultipleValues($query, $this->getKey(), $value, $joinType, $alias);
         } else {
-            $this->bindConditionForSingleValue($query, $this->getKey(), $value, $joinType, $aliases[0]);
+            $this->bindConditionForSingleValue($query, $this->getKey(), $value, $joinType, $alias);
         }
     }
 
