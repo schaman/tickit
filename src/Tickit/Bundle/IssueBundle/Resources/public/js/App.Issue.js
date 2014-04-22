@@ -72,8 +72,19 @@ define(['modules/staticcontent'], function(StaticContent) {
          * @return {void}
          */
         module.loadIssueView = function(number) {
-            require(['issue/js/layouts/IssueOverviewLayout'], function(IssueOverviewLayout) {
-                App.mainRegion.show(new IssueOverviewLayout());
+            require([
+                'issue/js/layouts/IssueOverviewLayout',
+                'issue/js/models/Issue',
+                'issue/js/views/IssueInformationView',
+                'issue/js/views/IssueActivityView'
+            ], function(IssueOverviewLayout, Issue, InfoView, ActivityView) {
+                var layout = new IssueOverviewLayout();
+                var issue = new Issue({ number: number });
+                layout.on('show', function() {
+                    layout.infoRegion.show(new InfoView({ model: issue }));
+                    layout.featureRegion.show(new ActivityView({ model: issue }));
+                });
+                App.mainRegion.show(layout);
             });
         };
 
