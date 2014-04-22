@@ -27,6 +27,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\ExactMatchFilter;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Issue\DataTransformer\StringToIssueNumberDataTransformer;
 use Tickit\Component\Model\Issue\Issue;
@@ -142,5 +143,47 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
                     ->where('i.project = :project')
                     ->setMaxResults(1)
                     ->setParameter('project', $project);
+    }
+
+    /**
+     * Get a QueryBuilder fetching an issue by the issue number value object
+     *
+     * @param IssueNumber $issueNumber Issue number value object
+     *
+     * @return QueryBuilder
+     */
+    public function getIssueByIssueNumberQueryBuilder(IssueNumber $issueNumber)
+    {
+        $filters = new FilterCollection([
+            new ExactMatchFilter('number', $issueNumber->getNumber()),
+            new ExactMatchFilter(
+                'issuePrefix',
+                $issueNumber->getPrefix(), [
+                    ExactMatchFilter::STRICT_KEY_VALIDATION => false,
+                    ExactMatchFilter::ENTITY_ALIAS => 'p'
+                ]
+            )
+        ]);
+
+        $queryBuilder = $this->getFindByFiltersQueryBuilder($filters, 1);
+        $queryBuilder->join('Project', 'p');
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Find an Issue entity by IssueNumber
+     *
+     * @param IssueNumber $issueNumber Issue number to find issue for
+     *
+     * @codeCoverageIgnore
+     *
+     * @return Issue|null
+     */
+    public function findIssueByIssueNumber(IssueNumber $issueNumber)
+    {
+        return $this->getIssueByIssueNumberQueryBuilder($issueNumber)
+                    ->getQuery()
+                    ->getOneOrNullResult();
     }
 }
