@@ -72,8 +72,9 @@ define(['modules/staticcontent'], function(StaticContent) {
          * @return {void}
          */
         module.loadIssueView = function(number) {
-            // TODO: implement the issue view loading
-            StaticContent.loadPageNotFound();
+            require(['issue/js/layouts/IssueOverviewLayout'], function(IssueOverviewLayout) {
+                App.mainRegion.show(new IssueOverviewLayout());
+            });
         };
 
     });
