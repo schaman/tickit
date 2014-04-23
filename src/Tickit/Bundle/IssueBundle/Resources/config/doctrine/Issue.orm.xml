@@ -13,6 +13,7 @@
         <field name="estimatedHours" type="float" column="estimated_hours" nullable="true" />
         <field name="priority" type="string" column="priority" length="10" />
         <field name="actualHours" type="float" column="actual_hours" nullable="true" />
+        <field name="dueDate" type="datetime" column="due_date" nullable="true" />
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create" />
         </field>
@@ -29,9 +30,9 @@
                 <join-column name="assigned_to_id" referenced-column-name="id" nullable="true" />
             </join-columns>
         </many-to-one>
-        <many-to-one field="reportedBy" target-entity="Tickit\Component\Model\User\User">
+        <many-to-one field="createdBy" target-entity="Tickit\Component\Model\User\User">
             <join-columns>
-                <join-column name="reported_by_id" referenced-column-name="id" />
+                <join-column name="created_by_id" referenced-column-name="id" />
             </join-columns>
         </many-to-one>
         <many-to-one field="project" target-entity="Tickit\Component\Model\Project\Project" inversed-by="issues">
