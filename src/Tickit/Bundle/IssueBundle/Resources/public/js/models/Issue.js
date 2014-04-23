@@ -13,6 +13,11 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
             type: '',
             status: '',
             priority: '',
+            dueDate: null,
+            createdAt: new Date(),
+            updatedAt: null,
+            assignedTo: '',
+            createdBy: '',
             csrfToken: ''
         },
 
