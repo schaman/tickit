@@ -147,6 +147,13 @@ class Issue implements IdentifiableInterface
     protected $assignedTo;
 
     /**
+     * The date and time the issue is due for completion
+     *
+     * @var \DateTime
+     */
+    protected $dueDate;
+
+    /**
      * The date and time the issue was created
      *
      * @var \DateTime
@@ -578,5 +585,25 @@ class Issue implements IdentifiableInterface
     public function getAttachments()
     {
         return $this->attachments;
+    }
+
+    /**
+     * Sets the due date and time for this issue
+     *
+     * @param \DateTime $dueDate The DateTime object representing the due date for the issue
+     */
+    public function setDueDate($dueDate)
+    {
+        $this->dueDate = $dueDate;
+    }
+
+    /**
+     * Gets the due date and time for this issue
+     *
+     * @return \DateTime
+     */
+    public function getDueAt()
+    {
+        return $this->dueDate;
     }
 }
