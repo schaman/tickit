@@ -60,7 +60,7 @@ class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface
                       ->setDescription(implode(' ', $faker->paragraphs(2)))
                       ->setTitle(implode(' ', $faker->words(8)))
                       ->setStatus($issueStatus)
-                      ->setReportedBy($this->getReference('user-' . $i))
+                      ->setCreatedBy($this->getReference('user-' . $i))
                       ->setAssignedTo($this->getReference('developer'))
                       ->setProject($project)
                       ->setEstimatedHours($faker->randomDigit)

@@ -137,7 +137,7 @@ class Issue implements IdentifiableInterface
      *
      * @var User
      */
-    protected $reportedBy;
+    protected $createdBy;
 
     /**
      * The user that the issue is assigned to
@@ -419,27 +419,27 @@ class Issue implements IdentifiableInterface
     }
 
     /**
-     * Sets the "reported by" user on this issue
+     * Sets the user who created this issue
      *
-     * @param User $reportedBy The user who reported the issue
+     * @param User $createdBy The user who created the issue
      *
      * @return Issue
      */
-    public function setReportedBy(User $reportedBy)
+    public function setCreatedBy(User $createdBy)
     {
-        $this->reportedBy = $reportedBy;
+        $this->createdBy = $createdBy;
 
         return $this;
     }
 
     /**
-     * Gets the user that reported this issue
+     * Gets the user that created this issue
      *
      * @return User
      */
     public function getReportedBy()
     {
-        return $this->reportedBy;
+        return $this->createdBy;
     }
 
     /**
