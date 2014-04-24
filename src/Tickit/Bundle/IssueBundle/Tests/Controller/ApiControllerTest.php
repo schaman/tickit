@@ -191,14 +191,14 @@ class ApiControllerTest extends AbstractUnitTest
                             $clients,
                             [
                                 'id',
-                                'number.issueNumber',
+                                'number',
                                 'title',
                                 'project.name',
                                 'priority',
                                 'type.name',
                                 'status.name',
-                                'assignedTo.fullName',
-                                'createdBy.fullName',
+                                'assignedTo',
+                                'createdBy',
                                 'dueDate',
                                 'createdAt',
                                 'updatedAt'
