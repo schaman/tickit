@@ -86,7 +86,7 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
      *
      * @param Project $project The project to find the last issue number for.
      *
-     * @coeCoverageIgnore
+     * @codeCoverageIgnore
      *
      * @return integer
      */
