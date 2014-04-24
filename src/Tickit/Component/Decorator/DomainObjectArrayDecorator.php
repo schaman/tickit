@@ -191,5 +191,4 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
 
         return $value;
     }
-
 }
