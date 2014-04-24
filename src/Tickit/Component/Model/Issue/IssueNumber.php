@@ -10,7 +10,7 @@ namespace Tickit\Component\Model\Issue;
  * @package Tickit\Component\Model\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class IssueNumber
+class IssueNumber implements \JsonSerializable
 {
     /**
      * The prefix part of the issue number
@@ -76,5 +76,15 @@ class IssueNumber
     public function __toString()
     {
         return $this->getIssueNumber();
+    }
+
+    /**
+     * Returns a JSON serializable representation of the object
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->__toString();
     }
 }
