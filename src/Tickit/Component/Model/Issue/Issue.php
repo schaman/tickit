@@ -437,7 +437,7 @@ class Issue implements IdentifiableInterface
      *
      * @return User
      */
-    public function getReportedBy()
+    public function getCreatedBy()
     {
         return $this->createdBy;
     }
