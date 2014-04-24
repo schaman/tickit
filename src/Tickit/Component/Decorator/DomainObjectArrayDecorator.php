@@ -184,8 +184,10 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
     {
         if (true === is_object($value) && $value instanceof \JsonSerializable) {
             $value = $value->jsonSerialize();
-            foreach ($value as $key => $v) {
-                $value[$key] = $this->flattenValue($v);
+            if (true === is_array($value)) {
+                foreach ($value as $key => $v) {
+                    $value[$key] = $this->flattenValue($v);
+                }
             }
         }
 
