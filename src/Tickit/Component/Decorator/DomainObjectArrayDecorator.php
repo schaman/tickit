@@ -102,7 +102,7 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
                     );
                 }
 
-                // update the current object to the value - only relevant if there are no more nodes in heirarchy
+                // update the current object to the value - only relevant if there are no more nodes in hierarchy
                 $currentObject = $value;
 
                 // move to next node
@@ -168,6 +168,28 @@ class DomainObjectArrayDecorator implements DomainObjectDecoratorInterface
             $propertyName = $this->propertyMappings[$propertyName];
         }
 
-        $data[$propertyName] = $value;
+        $data[$propertyName] = $this->flattenValue($value);
     }
+
+    /**
+     * Attempts to flatten values into a multi-dimensional array.
+     *
+     * Relies on complex objects to implement the \JsonSerializable interface.
+     *
+     * @param mixed $value A value that potentially needs flattening.
+     *
+     * @return mixed
+     */
+    private function flattenValue($value)
+    {
+        if (true === is_object($value) && $value instanceof \JsonSerializable) {
+            $value = $value->jsonSerialize();
+            foreach ($value as $key => $v) {
+                $value[$key] = $this->flattenValue($v);
+            }
+        }
+
+        return $value;
+    }
+
 }

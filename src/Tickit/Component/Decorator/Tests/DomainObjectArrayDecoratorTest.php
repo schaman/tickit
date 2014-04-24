@@ -134,4 +134,38 @@ class DomainObjectArrayDecoratorTest extends \PHPUnit_Framework_TestCase
             [['name', 'active', 'childObject.enabled'], []]
         ];
     }
+
+    /**
+     * @dataProvider getDecorateForJsonSerializeFixtures
+     */
+    public function testDecorateHandlesJsonSerializableChildObjects(
+        MockDomainObject $object,
+        array $propertyNames,
+        array $expected
+    ) {
+        $decorator = new DomainObjectArrayDecorator();
+
+        $this->assertEquals($expected, $decorator->decorate($object, $propertyNames));
+    }
+
+    /**
+     * @return array
+     */
+    public function getDecorateForJsonSerializeFixtures()
+    {
+        $expected = [
+            'name' => 'name',
+            'active' => true,
+            'childObject' => [
+                'enabled' => true,
+                'childObject' => [
+                    'enabled' => true
+                ]
+            ]
+        ];
+
+        return [
+            [new MockDomainObject(), ['name', 'active', 'childObject'], $expected],
+        ];
+    }
 }
