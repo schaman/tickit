@@ -602,7 +602,7 @@ class Issue implements IdentifiableInterface
      *
      * @return \DateTime
      */
-    public function getDueAt()
+    public function getDueDate()
     {
         return $this->dueDate;
     }
