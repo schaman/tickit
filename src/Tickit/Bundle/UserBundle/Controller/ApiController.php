@@ -135,7 +135,7 @@ class ApiController
         $data = $decorator->decorate(
             $user,
             ['id', 'username', 'email', 'forename', 'surname'],
-            ['avatarUrl' => $avatarUrl]
+            ['avatarIdentifier' => $avatarUrl]
         );
 
         return new JsonResponse($data);

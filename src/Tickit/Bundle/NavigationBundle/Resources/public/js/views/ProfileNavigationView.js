@@ -23,7 +23,7 @@ define([
             var d = this.model.attributes;
 
             this.$el.html(_.template($(tpl).html(), {
-                avatarUrl: d.avatarUrl
+                avatarUrl: d.avatarIdentifier
             }, { variable: 'user' }));
             return this;
         }

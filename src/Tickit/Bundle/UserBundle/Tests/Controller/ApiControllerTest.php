@@ -116,7 +116,7 @@ class ApiControllerTest extends AbstractUnitTest
             'email' => $user->getEmail(),
             'forename' => $user->getForename(),
             'surname' => $user->getSurname(),
-            'avatarUrl' => 'avatar-url'
+            'avatarIdentifier' => 'avatar-url'
         ];
 
         $objectDecorator = $this->getMockObjectDecorator();
@@ -146,7 +146,7 @@ class ApiControllerTest extends AbstractUnitTest
             'email' => $user->getEmail(),
             'forename' => $user->getForename(),
             'surname' => $user->getSurname(),
-            'avatarUrl' => 'avatar-url'
+            'avatarIdentifier' => 'avatar-url'
         ];
 
         $objectDecorator = $this->getMockObjectDecorator();
@@ -282,7 +282,7 @@ class ApiControllerTest extends AbstractUnitTest
                         ->with(
                             $user,
                             ['id', 'username', 'email', 'forename', 'surname'],
-                            ['avatarUrl' => 'avatar-url']
+                            ['avatarIdentifier' => 'avatar-url']
                         )
                         ->will($this->returnValue($returnData));
     }
