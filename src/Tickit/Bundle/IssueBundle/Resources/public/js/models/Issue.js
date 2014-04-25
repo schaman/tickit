@@ -3,7 +3,10 @@
  *
  * @type {Backbone.Model}
  */
-define(['core/js/models/DeletableModel'], function(DeletableModel) {
+define([
+    'core/js/models/DeletableModel',
+    'user/js/models/User'
+], function(DeletableModel, User) {
     return DeletableModel.extend({
 
         defaults: {
@@ -19,6 +22,15 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
             assignedTo: '',
             createdBy: '',
             csrfToken: ''
+        },
+
+        parse : function(data) {
+            data.assignedTo = new User(data.assignedTo);
+
+            // TODO: all DateTime objects should be returned as equal (either objects or strings)
+            data.createdAt = new Date(data.createdAt);
+
+            return data;
         },
 
         /**

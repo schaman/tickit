@@ -20,6 +20,19 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
         },
 
         /**
+         * Parses the raw model data
+         *
+         * @param {object} data The raw data object
+         *
+         * @return {object} The parsed data object
+         */
+        parse : function(data) {
+            data.lastActive = new Date(data.lastActive.date);
+
+            return data;
+        },
+
+        /**
          * Casts the model to a string
          *
          * @return {string}
