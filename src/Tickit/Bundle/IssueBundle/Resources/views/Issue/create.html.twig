@@ -1,8 +1,9 @@
 {% extends '::no-content.html.twig' %}
 
 {% block content %}
-    <h2>Create Issue</h2>
-
+    <div class="alert-banner col-12">
+        <h2>Create Issue</h2>
+    </div>
     {% if app.session.flashbag.has('error') %}
         <div class="flash-error">
             {% for message in app.session.flashbag.get('error') %}
@@ -10,25 +11,35 @@
             {% endfor %}
         </div>
     {% endif %}
+    
 
     {{ form_start(form, {"action": path('issue_create'), 'method': 'POST'}) }}
         {{ form_errors(form) }}
+        <div class="alert-container">
+            <div class="col-7">
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.priority) }}
+            {{ form_row(form.type) }}
+            </div>
 
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.assignedTo) }}
-        {{ form_row(form.project) }}
-        {{ form_row(form.priority) }}
-        {{ form_row(form.type) }}
-        {{ form_row(form.status) }}
-        {{ form_row(form.attachments) }}
-        {{ form_row(form.estimatedHours) }}
-        {{ form_row(form.actualHours) }}
+            <div class="col-5 break-left">
+                {{ form_row(form.assignedTo) }}
+                {{ form_row(form.project) }}
+                {{ form_row(form.status) }}
+                {{ form_row(form.attachments) }}
+                {{ form_row(form.estimatedHours) }}
+                {{ form_row(form.actualHours) }}
 
-        {{ form_rest(form) }}
+                {{ form_rest(form) }}
+            </div>
+        </div>
 
-        <input type="submit" value="Create Issue" />
-
+        <div class="alert-footer">
+            <div class="col-12">
+                <input type="submit" value="Create Issue" />
+            </div>
+        </div>
     {{ form_end(form) }}
 
 {% endblock %}

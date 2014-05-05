@@ -47,10 +47,10 @@ body{
 }
 
 ul{
-	list-style: none;
-	li{
-		list-style: none;
-	}
+  list-style: none;
+  li{
+    list-style: none;
+  }
 }
 
 
@@ -85,6 +85,62 @@ h5{
 h6{
     font-size: @h6;
 }
+
+// -------------------------
+// Grid System
+// -------------------------
+
+@column-width: 60;
+@gutter-width: 30;
+@columns: 12;
+
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
+@total-width: 100%;
+
+.column(@x,@columns:@columns) {
+  display: inline;
+  float: left;  
+  width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+  margin: 0 @total-width*((@gutter-width*.5)/@gridsystem-width);
+  @media @mobile{
+      float: none;
+      display: block;
+      width: 100%;
+      margin: 0px 10px;
+  }
+}
+
+.break-top{
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddddde - 20%;
+}
+
+.break-bottom{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddddde - 20%;
+}
+.break-right{
+  padding-right: @total-width*((@gutter-width*.5)/@gridsystem-width);  
+  border-right: 1px solid #ddddde - 20%;
+}
+
+.break-left{
+  padding-left: @total-width*((@gutter-width*.5)/@gridsystem-width);
+  border-left: 1px solid #ddddde - 20%;
+}
+
+.grid (@index) when (@index > 0){
+    .col-@{index}{
+    .column(@index);
+
+   }
+  .grid(@index - 1);
+}
+.grid(@columns);      
+
+
 
 //---------------------------
 // Form Styling
@@ -193,9 +249,8 @@ div.error {
 .right{
     float: right;
 }
-
 .left{
-	float: left;
+   float: left;
 }
 
 //----------------------
@@ -204,43 +259,43 @@ div.error {
 
 .boolean[type="checkbox"]:not(:checked),
 .boolean[type="checkbox"]:checked {
-  position: absolute;
-  display: none;
+    position: absolute;
+    display: none;
 }
 .boolean[type="checkbox"]:not(:checked) + label,
 .boolean[type="checkbox"]:checked + label {
-  position: relative;
-  padding-left: 50px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 15px 0px;
+    position: relative;
+    padding-left: 50px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 15px 0px;
 }
 .boolean[type="checkbox"]:not(:checked) + label:before,
 .boolean[type="checkbox"]:checked + label:before,
 .boolean[type="checkbox"]:not(:checked) + label:after,
 .boolean[type="checkbox"]:checked + label:after {
-  content: '';
-  position: absolute;
+    content: '';
+    position: absolute;
 }
 .boolean[type="checkbox"]:not(:checked) + label:before,
 .boolean[type="checkbox"]:checked + label:before {
-  left:0; 
-  top: 0px;
-  width: 40px; 
-  height: 20px;
-  background: #DDDDDD;
-  border-radius: 3px;
-  border: none;
+    left:0; 
+    top: 0px;
+    width: 40px; 
+    height: 20px;
+    background: #DDDDDD;
+    border-radius: 3px;
+    border: none;
 }
 .boolean[type="checkbox"]:not(:checked) + label:after,
 .boolean[type="checkbox"]:checked + label:after {
-  width: 20px; 
-  height: 20px;
-  transition: all .2s;
-  border-radius: 3px 0 0 3px;
-  background: #7F8C9A;
-  top: 0px; 
-  left: 0px;
+    width: 20px; 
+    height: 20px;
+    transition: all .2s;
+    border-radius: 3px 0 0 3px;
+    background: #7F8C9A;
+    top: 0px; 
+    left: 0px;
 }
 
 .boolean[type="checkbox"]:checked + label:before {
@@ -286,7 +341,6 @@ div.error {
   .font-size(0.8);
   
 }
-/* on checked */
 [type="checkbox"]:checked + label:before {
   font-family: "tickit-icons";
   content: "\e80c";
@@ -298,7 +352,9 @@ div.error {
 
 
 
-
+.select2-container{
+  min-width: 250px;
+}
 
 //----------------------
 // radio
@@ -341,9 +397,7 @@ input[type="radio"] + label span {
     -o-transform: scale(0.9);
     transform: scale(0.9);
   }  
-  
 }
-
 input[type="radio"]:checked + label span { 
     &:after{
       .opacity(100);
@@ -404,8 +458,9 @@ progress::-webkit-progress-value  {
 // -----------------
 
 .hidden{
-	display: none;
+  display: none;
 }
+
 
 //-----
 // Breadcrumbs
@@ -439,6 +494,63 @@ progress::-webkit-progress-value  {
     }
     
 }
+
+//----------------------------------------------------
+// PopUp Styles
+//----------------------------------------------------
+
+.mfp-content{
+  max-width: 980px;
+  padding: 50px 0px;
+  .clearfix();
+}
+.alert-container{
+  padding: 10px 0px;
+  .clearfix();
+}
+
+.alert-banner{
+  padding: 10px 0px;
+  .clearfix();  
+}
+
+.zoom-anim-dialog{
+  background: #F1F1F2;
+  .clearfix();
+  .box-shadow(0px 0px 5px 0px rgba(50, 50, 50, 0.75));
+}
+
+.alert-footer{
+  float: left;
+  width: 100%;
+  background: #34383c;
+  border-top: 1px solid #34383c - 20%;
+  padding: 10px 0px;
+  display: block;
+  input{
+    float: right;
+  }
+}
+
+.alert-container{
+  input, select, .select2-container{
+      display: block;
+      float: left;
+      clear: both;
+      width: 100%;
+  }
+  label{
+    float: left;
+    clear: both;
+    display: block;
+  }
+  div{
+    margin-bottom: 5px;
+    .clearfix();
+  }
+}
+
+
 
 //----------------------------------------------------
 // Header
@@ -1042,9 +1154,9 @@ tr{
 }
 
 .cell{
-	label{
-		margin-right: 0px;
-	}
+  label{
+    margin-right: 0px;
+  }
 }
 
 //----------------------------------------------------
@@ -1082,40 +1194,40 @@ tr{
         }
     }
     .refresh{
-	    float: right;
-	    display: block;
-	    padding: 10px 5px 0px 0px;
-	    a{
-	 		color: #A6A8AC;
-		 	display: inline-block;
-		 	width: 20px;
-		 	height: 20px;
-		 	position: relative;
-		 	&:hover{
-			 	color: #A6A8AC - 20%;
-		 	}		 	
-		    &:before{
-			 	font-size: 15px;
-		 	}
-	    }
+      float: right;
+      display: block;
+      padding: 10px 5px 0px 0px;
+      a{
+      color: #A6A8AC;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      &:hover{
+        color: #A6A8AC - 20%;
+      }     
+        &:before{
+        font-size: 15px;
+      }
+      }
     }    
     .bulk-action{
-	 	float: right;
-	 	display: block;
+    float: right;
+    display: block;
     }
 }
 
 
 .action{
-	.icon-export{
-		position: relative;
-		&:hover{
-			.flyout{
-				visibility: visible;
-				.opacity(100);
-			}
-		}
-	}
+  .icon-export{
+    position: relative;
+    &:hover{
+      .flyout{
+        visibility: visible;
+        .opacity(100);
+      }
+    }
+  }
 }
 
 .flyout{
@@ -1200,11 +1312,11 @@ tr{
         margin-right: 25px;
         float: left;
     }
-	.checkbox-filter{
-		label:first-child{
-			margin-bottom: 10px;	
-		}
-	}
+  .checkbox-filter{
+    label:first-child{
+      margin-bottom: 10px;  
+    }
+  }
 }
 
 
