@@ -80,6 +80,11 @@ class ApiControllerTest extends AbstractUnitTest
     private $form;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $serializer;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -96,6 +101,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator = $this->getMockPaginator();
         $this->formHelper = $this->getMockFormHelper();
         $this->form = $this->getMockForm();
+        $this->serializer = $this->getMockSerializer();
     }
     
     /**
@@ -108,23 +114,13 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->never())
                          ->method('getUser');
 
-        $this->trainAvatarAdapterToReturnUrl($this->avatarAdapter, $user);
+        $this->trainBaseHelperToReturnSerializer();
 
-        $expectedData = [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'forename' => $user->getForename(),
-            'surname' => $user->getSurname(),
-            'avatarUrl' => 'avatar-url'
-        ];
-
-        $objectDecorator = $this->getMockObjectDecorator();
-        $this->trainObjectDecoratorToExpectUserData($objectDecorator, $user, $expectedData);
-        $this->trainBaseHelperToReturnObjectDecorator($objectDecorator);
+        $serializedValue = 'serialized user';
+        $this->trainSerializerToReturnSerializedValue($user, $serializedValue);
 
         $response = $this->getController()->fetchAction($user);
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals($serializedValue, $response->getContent());
     }
 
     /**
@@ -138,23 +134,12 @@ class ApiControllerTest extends AbstractUnitTest
                          ->method('getUser')
                          ->will($this->returnValue($user));
 
-        $this->trainAvatarAdapterToReturnUrl($this->avatarAdapter, $user);
-
-        $expectedData = [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'forename' => $user->getForename(),
-            'surname' => $user->getSurname(),
-            'avatarUrl' => 'avatar-url'
-        ];
-
-        $objectDecorator = $this->getMockObjectDecorator();
-        $this->trainObjectDecoratorToExpectUserData($objectDecorator, $user, $expectedData);
-        $this->trainBaseHelperToReturnObjectDecorator($objectDecorator);
+        $serializedValue = 'serialized user';
+        $this->trainBaseHelperToReturnSerializer();
+        $this->trainSerializerToReturnSerializedValue($user, $serializedValue);
 
         $response = $this->getController()->fetchAction();
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals($serializedValue, $response->getContent());
     }
 
     /**
@@ -299,5 +284,20 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator->expects($this->once())
                         ->method('count')
                         ->will($this->returnValue($count));
+    }
+
+    private function trainBaseHelperToReturnSerializer()
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getSerializer')
+                         ->will($this->returnValue($this->serializer));
+    }
+
+    private function trainSerializerToReturnSerializedValue($user, $serializedValue)
+    {
+        $this->serializer->expects($this->once())
+                         ->method('serialize')
+                         ->with($user)
+                         ->will($this->returnValue($serializedValue));
     }
 }
