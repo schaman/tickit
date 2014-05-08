@@ -118,3 +118,13 @@ knp_gaufrette:
     filesystems:
         issue_attachments:
             adapter: issue_attachments_local
+
+jms_serializer:
+    metadata:
+        directories:
+            tickit_user:
+                namespace_prefix: "Tickit\\Component\\Model\\User"
+                path: "%kernel.root_dir%/config/serializer/User"
+            fos_user:
+                namespace_prefix: "FOS\\UserBundle\\Model"
+                path: "%kernel.root_dir%/config/serializer/FOSUser"

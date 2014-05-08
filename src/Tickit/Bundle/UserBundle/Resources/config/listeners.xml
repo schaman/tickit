@@ -10,6 +10,7 @@
         <parameter key="tickit_user.listener.kernel_exception.class">Tickit\Bundle\UserBundle\Listener\KernelExceptionListener</parameter>
         <parameter key="tickit_user.listener.activity.class">Tickit\Bundle\UserBundle\Listener\ActivityListener</parameter>
         <parameter key="tickit_user.user_navigation.class">Tickit\Bundle\UserBundle\Listener\NavigationBuilderListener</parameter>
+        <parameter key="tickit_user.listener.user_avatar_serialize.class">Tickit\Component\Serializer\Listener\UserAvatarSerializationListener</parameter>
     </parameters>
 
     <services>
@@ -39,6 +40,11 @@
         <service id="tickit_user.user_navigation" class="%tickit_user.user_navigation.class%">
             <argument type="service" id="router" />
             <tag name="kernel.event_listener" event="tickit.event.navigation_build" method="onBuild"/>
+        </service>
+
+        <service id="tickit_user.listener.user_avatar_serialize" class="%tickit_user.listener.user_avatar_serialize.class%">
+            <argument type="service" id="tickit_user.avatar_adapter" />
+            <tag name="jms_serializer.event_listener" event="serializer.post_serialize" class="Tickit\Component\Model\User\User" method="onPreSerialize" />
         </service>
 
     </services>

@@ -21,8 +21,10 @@
 
 namespace Tickit\Bundle\UserBundle\Controller;
 
+use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
@@ -129,16 +131,9 @@ class ApiController
             $user = $this->baseHelper->getUser();
         }
 
-        $avatarUrl = $this->avatarAdapter->getImageUrl($user, 35);
-        $decorator = $this->baseHelper->getObjectDecorator();
+        $data = $this->baseHelper->getSerializer()->serialize($user, 'json');
 
-        $data = $decorator->decorate(
-            $user,
-            ['id', 'username', 'email', 'forename', 'surname'],
-            ['avatarUrl' => $avatarUrl]
-        );
-
-        return new JsonResponse($data);
+        return new Response($data, 200, ['Content-Type' => 'json']);
     }
 
     /**
