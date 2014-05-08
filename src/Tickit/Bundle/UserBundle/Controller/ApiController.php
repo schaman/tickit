@@ -21,10 +21,8 @@
 
 namespace Tickit\Bundle\UserBundle\Controller;
 
-use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
@@ -33,6 +31,7 @@ use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
+use Tickit\Component\HttpFoundation\Response\RawJsonResponse;
 use Tickit\Component\Model\User\User;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
@@ -133,7 +132,7 @@ class ApiController
 
         $data = $this->baseHelper->getSerializer()->serialize($user, 'json');
 
-        return new Response($data, 200, ['Content-Type' => 'json']);
+        return new RawJsonResponse($data);
     }
 
     /**
