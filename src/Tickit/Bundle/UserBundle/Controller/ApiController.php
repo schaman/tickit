@@ -130,7 +130,7 @@ class ApiController
             $user = $this->baseHelper->getUser();
         }
 
-        $data = $this->baseHelper->getSerializer()->serialize($user, 'json');
+        $data = $this->baseHelper->getSerializer()->serialize($user);
 
         return new RawJsonResponse($data);
     }
