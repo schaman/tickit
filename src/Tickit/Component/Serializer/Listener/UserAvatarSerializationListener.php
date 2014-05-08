@@ -37,7 +37,7 @@ class UserAvatarSerializationListener
      *
      * @param ObjectEvent $event The event object
      */
-    public function onPreSerialize(ObjectEvent $event)
+    public function onPostSerialize(ObjectEvent $event)
     {
         /** @var User $user */
         $user = $event->getObject();

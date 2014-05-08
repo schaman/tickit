@@ -44,7 +44,7 @@
 
         <service id="tickit_user.listener.user_avatar_serialize" class="%tickit_user.listener.user_avatar_serialize.class%">
             <argument type="service" id="tickit_user.avatar_adapter" />
-            <tag name="jms_serializer.event_listener" event="serializer.post_serialize" class="Tickit\Component\Model\User\User" method="onPreSerialize" />
+            <tag name="jms_serializer.event_listener" event="serializer.post_serialize" class="Tickit\Component\Model\User\User" method="onPostSerialize" />
         </service>
 
     </services>
