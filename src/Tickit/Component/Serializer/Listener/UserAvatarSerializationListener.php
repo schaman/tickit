@@ -3,7 +3,7 @@
 namespace Tickit\Component\Serializer\Listener;
 
 use JMS\Serializer\EventDispatcher\ObjectEvent;
-use JMS\Serializer\EventDispatcher\PreSerializeEvent;
+use JMS\Serializer\GenericSerializationVisitor;
 use Tickit\Component\Avatar\Adapter\AvatarAdapterInterface;
 use Tickit\Component\Model\User\User;
 
@@ -39,9 +39,12 @@ class UserAvatarSerializationListener
      */
     public function onPostSerialize(ObjectEvent $event)
     {
-        /** @var User $user */
-        $user = $event->getObject();
-        $avatarIdentifier = $this->avatarAdapter->getImageUrl($user, 35);
-        $event->getVisitor()->addData('avatarUrl', $avatarIdentifier);
+        $visitor = $event->getVisitor();
+        if ($visitor instanceof GenericSerializationVisitor) {
+            /** @var User $user */
+            $user = $event->getObject();
+            $avatarIdentifier = $this->avatarAdapter->getImageUrl($user, 35);
+            $visitor->addData('avatarUrl', $avatarIdentifier);
+        }
     }
 }

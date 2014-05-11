@@ -35,9 +35,7 @@ class UserAvatarSerializationListenerTest extends AbstractUnitTest
      */
     public function testOnPostSerialize(User $user, $avatarUrl)
     {
-        $event = $this->getMockBuilder('\JMS\Serializer\EventDispatcher\ObjectEvent')
-                      ->disableOriginalConstructor()
-                      ->getMock();
+        $event = $this->getMockEvent();
 
         $visitor = $this->getMockBuilder('\JMS\Serializer\JsonSerializationVisitor')
                         ->disableOriginalConstructor()
@@ -56,9 +54,7 @@ class UserAvatarSerializationListenerTest extends AbstractUnitTest
                 ->method('addData')
                 ->with('avatarUrl', $avatarUrl);
 
-        $event->expects($this->once())
-              ->method('getVisitor')
-              ->will($this->returnValue($visitor));
+        $this->trainEventToReturnVisitor($event, $visitor);
 
         $this->getListener()->onPostSerialize($event);
     }
@@ -72,11 +68,45 @@ class UserAvatarSerializationListenerTest extends AbstractUnitTest
         ];
     }
 
+    public function testOnPostSerializeIgnoresInvalidVisitor()
+    {
+        $visitor = $this->getMockBuilder('\JMS\Serializer\AbstractVisitor')
+                        ->disableOriginalConstructor()
+                        ->getMock();
+
+        $event = $this->getMockEvent();
+        $this->trainEventToReturnVisitor($event, $visitor);
+
+        $visitor->expects($this->never())
+                ->method('addData');
+
+        $this->avatarAdapter->expects($this->never())
+                            ->method('getImageUrl');
+
+        $this->getListener()->onPostSerialize($event);
+    }
+
     /**
      * @return UserAvatarSerializationListener
      */
     private function getListener()
     {
         return new UserAvatarSerializationListener($this->avatarAdapter);
+    }
+
+    private function trainEventToReturnVisitor(\PHPUnit_Framework_MockObject_MockObject $event, $visitor)
+    {
+        $event->expects($this->once())
+              ->method('getVisitor')
+              ->will($this->returnValue($visitor));
+    }
+
+    private function getMockEvent()
+    {
+        $event = $this->getMockBuilder('\JMS\Serializer\EventDispatcher\ObjectEvent')
+                      ->disableOriginalConstructor()
+                      ->getMock();
+
+        return $event;
     }
 }
