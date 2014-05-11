@@ -235,41 +235,11 @@ class ApiControllerTest extends AbstractUnitTest
         return $user;
     }
 
-    private function trainAvatarAdapterToReturnUrl(\PHPUnit_Framework_MockObject_MockObject $adapter, User $user)
-    {
-        return $adapter->expects($this->once())
-                       ->method('getImageUrl')
-                       ->with($user, 35)
-                       ->will($this->returnValue('avatar-url'));
-    }
-
     private function trainBaseHelperToReturnRequest(Request $request)
     {
         $this->baseHelper->expects($this->once())
                          ->method('getRequest')
                          ->will($this->returnValue($request));
-    }
-
-    private function trainBaseHelperToReturnObjectDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
-    {
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectDecorator')
-                         ->will($this->returnValue($decorator));
-    }
-
-    private function trainObjectDecoratorToExpectUserData(
-        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        User $user,
-        array $returnData
-    ) {
-        $objectDecorator->expects($this->once())
-                        ->method('decorate')
-                        ->with(
-                            $user,
-                            ['id', 'username', 'email', 'forename', 'surname'],
-                            ['avatarUrl' => 'avatar-url']
-                        )
-                        ->will($this->returnValue($returnData));
     }
 
     private function trainPaginatorToReturnIterator(array $data)
