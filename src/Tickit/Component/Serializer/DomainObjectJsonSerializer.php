@@ -40,4 +40,22 @@ class DomainObjectJsonSerializer implements SerializerInterface
     {
         return $this->serializer->serialize($object, 'json');
     }
+
+    /**
+     * Serializes an iterable.
+     *
+     * The iterable should contain serializable objects.
+     *
+     * @param array|\Iterator $iterable An iterable to serialize
+     *
+     * @return mixed
+     */
+    public function serializeIterable($iterable)
+    {
+        foreach ($iterable as &$object) {
+            $object = $this->serializer->serialize($object, 'json');
+        }
+
+        return $iterable;
+    }
 }

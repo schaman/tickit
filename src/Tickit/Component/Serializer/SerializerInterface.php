@@ -18,4 +18,18 @@ interface SerializerInterface
      * @return string
      */
     public function serialize($object);
+
+    /**
+     * Serializes an iterable.
+     *
+     * The iterable should contain serializable objects.
+     *
+     * Objects should be serialized by reference, so the original data
+     * structure will be returned with serialized contents.
+     *
+     * @param array|\Iterator $iterable An iterable to serialize
+     *
+     * @return mixed
+     */
+    public function serializeIterable($iterable);
 }

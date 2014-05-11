@@ -2,6 +2,7 @@
 
 namespace Tickit\Component\Serializer\Tests;
 
+use Faker\Factory;
 use Tickit\Component\Serializer\DomainObjectJsonSerializer;
 
 /**
@@ -45,15 +46,68 @@ class DomainObjectJsonSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function getSerializeFixtures()
     {
-        $object1 = new \stdClass();
-        $object1->property = 'hello';
-        $object2 = new \stdClass();
-        $object2->anotherProperty = 'goodbye';
+        return [
+            [$this->getDummyObject()],
+            [$this->getDummyObject()]
+        ];
+    }
+
+    /**
+     * @dataProvider getSerializeIterableFixtures
+     */
+    public function testSerializeIterable($iterable)
+    {
+        $this->serializer->expects($this->exactly(count($iterable)))
+                         ->method('serialize')
+                         ->will($this->returnValue('serialized value'));
+
+        $i = 0;
+        foreach ($iterable as $object) {
+            $this->serializer->expects($this->at($i))
+                             ->method('serialize')
+                             ->with($object);
+
+            $i++;
+        }
+
+        $return = $this->getSerializer()->serializeIterable($iterable);
+
+        $this->assertEquals(gettype($iterable), gettype($return));
+        foreach ($return as $serialized) {
+            $this->assertEquals('serialized value', $serialized);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getSerializeIterableFixtures()
+    {
+        $objectArray = [
+            $this->getDummyObject(),
+            $this->getDummyObject()
+        ];
+
+        $iterator = new \ArrayIterator($objectArray);
 
         return [
-            [$object1],
-            [$object2]
+            [$objectArray],
+            [$iterator]
         ];
+    }
+
+    /**
+     * @return \stdClass
+     */
+    private function getDummyObject()
+    {
+        $faker = Factory::create();
+
+        $object = new \stdClass();
+        $object->{$faker->word} = $faker->word;
+        $object->{$faker->word} = $faker->word;
+
+        return $object;
     }
 
     /**
