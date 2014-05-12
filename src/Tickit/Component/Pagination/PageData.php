@@ -55,7 +55,7 @@ class PageData
      */
     public static function create($data, $total, $perPage, $pageNumber)
     {
-        if ($data instanceof \Iterator) {
+        if ($data instanceof \Iterator || $data instanceof \IteratorAggregate) {
             $data = iterator_to_array($data);
         }
 
