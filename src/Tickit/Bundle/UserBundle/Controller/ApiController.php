@@ -33,6 +33,7 @@ use Tickit\Bundle\UserBundle\Doctrine\Repository\UserRepository;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
 use Tickit\Component\HttpFoundation\Response\RawJsonResponse;
 use Tickit\Component\Model\User\User;
+use Tickit\Component\Pagination\PageData;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
@@ -150,14 +151,8 @@ class ApiController
 
         $filters = $this->filterBuilder->buildFromArray($form->getData(), new UserFilterMapper());
         $users = $this->userRepository->findByFilters($filters, $page);
-        $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $data = PageData::create($users, $users->count(), PageResolver::ITEMS_PER_PAGE, $page);
 
-        $data = $decorator->decorate(
-            $users->getIterator(),
-            ['id', 'forename', 'surname', 'email', 'username', 'admin', 'lastActivity'],
-            ['csrf_token' => $this->csrfHelper->generateCsrfToken(UserController::CSRF_DELETE_INTENTION)->getValue()]
-        );
-
-        return new PaginatedJsonResponse($data, $users->count(), PageResolver::ITEMS_PER_PAGE, $page);
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($data));
     }
 }

@@ -26,6 +26,8 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
+use Tickit\Component\Pagination\PageData;
+use Tickit\Component\Pagination\Resolver\PageResolver;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Controller\ApiController;
 use Tickit\Bundle\UserBundle\Controller\UserController;
@@ -80,11 +82,6 @@ class ApiControllerTest extends AbstractUnitTest
     private $form;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $serializer;
-
-    /**
      * Setup
      */
     protected function setUp()
@@ -101,7 +98,6 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator = $this->getMockPaginator();
         $this->formHelper = $this->getMockFormHelper();
         $this->form = $this->getMockForm();
-        $this->serializer = $this->getMockSerializer();
     }
     
     /**
@@ -114,10 +110,11 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->never())
                          ->method('getUser');
 
-        $this->trainBaseHelperToReturnSerializer();
+        $serializer = $this->getMockSerializer();
+        $this->trainBaseHelperToReturnSerializer($serializer);
 
         $serializedValue = 'serialized user';
-        $this->trainSerializerToReturnSerializedValue($user, $serializedValue);
+        $this->trainSerializerToReturnSerializedValue($serializer, $user, $serializedValue);
 
         $response = $this->getController()->fetchAction($user);
         $this->assertEquals($serializedValue, $response->getContent());
@@ -134,9 +131,10 @@ class ApiControllerTest extends AbstractUnitTest
                          ->method('getUser')
                          ->will($this->returnValue($user));
 
+        $serializer = $this->getMockSerializer();
         $serializedValue = 'serialized user';
-        $this->trainBaseHelperToReturnSerializer();
-        $this->trainSerializerToReturnSerializedValue($user, $serializedValue);
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue($serializer, $user, $serializedValue);
 
         $response = $this->getController()->fetchAction();
         $this->assertEquals($serializedValue, $response->getContent());
@@ -182,26 +180,18 @@ class ApiControllerTest extends AbstractUnitTest
                              ->with($filters)
                              ->will($this->returnValue($this->paginator));
 
-        $decorator = $this->getMockObjectCollectionDecorator();
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectCollectionDecorator')
-                         ->will($this->returnValue($decorator));
+        $serializer = $this->getMockSerializer();
 
-        $this->csrfHelper->expects($this->once())
-                         ->method('generateCsrfToken')
-                         ->with(UserController::CSRF_DELETE_INTENTION)
-                         ->will($this->returnValue(new CsrfToken('id', 'token-value')));
+        $serializedData = [['decorated user'], ['decorated user']];
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue(
+            $serializer,
+            PageData::create($this->paginator, 2, PageResolver::ITEMS_PER_PAGE, 1),
+            $serializedData,
+            'serializeIterable'
+        );
 
-        $decorator->expects($this->once())
-                  ->method('decorate')
-                  ->with(
-                      new \ArrayIterator($users),
-                      ['id', 'forename', 'surname', 'email', 'username', 'admin', 'lastActivity'],
-                      ['csrf_token' => 'token-value']
-                  )
-                  ->will($this->returnValue([['decorated user'], ['decorated user']]));
-
-        $expectedData = ['data' => [['decorated user'], ['decorated user']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
+        $expectedData = ['data' => $serializedData, 'total' => 2, 'pages' => 1, 'currentPage' => 1];
         $response = $this->getController()->listAction(1);
         $this->assertEquals($expectedData, json_decode($response->getContent(), true));
     }
@@ -256,18 +246,22 @@ class ApiControllerTest extends AbstractUnitTest
                         ->will($this->returnValue($count));
     }
 
-    private function trainBaseHelperToReturnSerializer()
+    private function trainBaseHelperToReturnSerializer($serializer)
     {
         $this->baseHelper->expects($this->once())
                          ->method('getSerializer')
-                         ->will($this->returnValue($this->serializer));
+                         ->will($this->returnValue($serializer));
     }
 
-    private function trainSerializerToReturnSerializedValue($user, $serializedValue)
-    {
-        $this->serializer->expects($this->once())
-                         ->method('serialize')
-                         ->with($user)
-                         ->will($this->returnValue($serializedValue));
+    private function trainSerializerToReturnSerializedValue(
+        \PHPUnit_Framework_MockObject_MockObject $serializer,
+        $valueToSerialize,
+        $serializedValue,
+        $serializeMethod = 'serialize'
+    ) {
+        $serializer->expects($this->once())
+                   ->method($serializeMethod)
+                   ->with($valueToSerialize)
+                   ->will($this->returnValue($serializedValue));
     }
 }
