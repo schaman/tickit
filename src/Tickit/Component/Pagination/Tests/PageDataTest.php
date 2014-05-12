@@ -59,4 +59,35 @@ class PageDataTest extends \PHPUnit_Framework_TestCase
             [[], 0, 10, 1, 0]
         ];
     }
+
+    /**
+     * @dataProvider getCreateFixtures
+     */
+    public function testCreate($data, $total, $perPage, $pageNumber, $expectedTotalPages, $expectedData)
+    {
+        $pageData = PageData::create($data, $total, $perPage, $pageNumber);
+
+        $this->assertEquals($expectedData, $pageData->getData());
+        $this->assertEquals($total, $pageData->getTotal());
+        $this->assertEquals($pageNumber, $pageData->getCurrentPage());
+        $this->assertEquals($expectedTotalPages, $pageData->getPages());
+    }
+
+    /**
+     * @return array
+     */
+    public function getCreateFixtures()
+    {
+        $object1 = new \stdClass();
+        $object2 = new \ArrayObject();
+        $arrayData = [$object1, $object2];
+
+        $iteratorData = new \ArrayIterator($arrayData);
+
+        return [
+            [$arrayData, 50, 2, 4, 25, $arrayData],
+            [$iteratorData, 2, 2, 1, 1, $arrayData],
+            [[], 0, 10, 1, 0, []]
+        ];
+    }
 }

@@ -44,6 +44,25 @@ class PageData
     private $pages;
 
     /**
+     * Factory method for creating new PageData objects.
+     *
+     * @param array|\Iterator $data       An array of page data that this object represents
+     * @param integer         $total      The total number of records in the full data set
+     * @param integer         $perPage    The number of items per page
+     * @param integer         $pageNumber The page number this data is for
+     *
+     * @return PageData
+     */
+    public static function create($data, $total, $perPage, $pageNumber)
+    {
+        if ($data instanceof \Iterator) {
+            $data = iterator_to_array($data);
+        }
+
+        return new PageData($data, $total, $perPage, $pageNumber);
+    }
+
+    /**
      * Constructor.
      *
      * @param array   $data       An array of page data that this object represents
@@ -51,7 +70,7 @@ class PageData
      * @param integer $perPage    The number of items per page
      * @param integer $pageNumber The page number this data is for
      */
-    public function __construct($data = array(), $total, $perPage, $pageNumber)
+    public function __construct($data, $total, $perPage, $pageNumber)
     {
         $this->data        = $data;
         $this->total       = (integer) $total;
