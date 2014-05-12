@@ -128,3 +128,6 @@ jms_serializer:
             fos_user:
                 namespace_prefix: "FOS\\UserBundle\\Model"
                 path: "%kernel.root_dir%/config/serializer/FOSUser"
+            tickit_pagination:
+                namespace_prefix: "Tickit\\Component\\Pagination"
+                path: "%kernel.root_dir%/config/serializer/Pagination"
