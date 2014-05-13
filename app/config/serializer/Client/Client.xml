@@ -3,7 +3,7 @@
     <class name="Tickit\Component\Model\Client\Client" exclusion-policy="all">
         <property name="id" expose="true" type="integer" />
         <property name="name" expose="true" type="string" />
-        <property name="url" expose="true" type="url" />
+        <property name="url" expose="true" type="string" />
         <property name="status" expose="true" type="string" />
         <property name="totalProjects" serialized-name="totalProjects" expose="true" type="integer" />
         <property name="createdAt" serialized-name="createdAt" expose="true" type="datetime" />
