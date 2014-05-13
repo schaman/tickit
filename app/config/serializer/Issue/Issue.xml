@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer>
+    <class name="Tickit\Component\Model\Issue\Issue" exclusion-policy="all">
+        <property name="id" expose="true" type="integer" />
+        <property name="title" expose="true" type="string" />
+        <property name="description" expose="true" type="string" />
+        <property name="number" expose="true" type="string" />
+        <property name="project" expose="true" type="string" />
+        <property name="reportedBy" expose="true" type="string" />
+        <property name="estimatedHours" expose="true" type="string" />
+        <property name="createdAt" expose="true" type="datetime" />
+        <property name="assignedTo" expose="true" type="string" />
+        <property name="status" expose="true" />
+        <property name="type" expose="true" />
+    </class>
+</serializer>
