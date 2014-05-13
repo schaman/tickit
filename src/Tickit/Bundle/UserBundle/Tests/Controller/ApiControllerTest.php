@@ -117,7 +117,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->trainSerializerToReturnSerializedValue($serializer, $user, $serializedValue);
 
         $response = $this->getController()->fetchAction($user);
-        $this->assertEquals($serializedValue, $response->getContent());
+        $this->assertEquals(json_encode($serializedValue), $response->getContent());
     }
 
     /**
@@ -137,7 +137,7 @@ class ApiControllerTest extends AbstractUnitTest
         $this->trainSerializerToReturnSerializedValue($serializer, $user, $serializedValue);
 
         $response = $this->getController()->fetchAction();
-        $this->assertEquals($serializedValue, $response->getContent());
+        $this->assertEquals(json_encode($serializedValue), $response->getContent());
     }
 
     /**
@@ -187,13 +187,11 @@ class ApiControllerTest extends AbstractUnitTest
         $this->trainSerializerToReturnSerializedValue(
             $serializer,
             PageData::create($this->paginator, 2, PageResolver::ITEMS_PER_PAGE, 1),
-            $serializedData,
-            'serializeIterable'
+            $serializedData
         );
 
-        $expectedData = ['data' => $serializedData, 'total' => 2, 'pages' => 1, 'currentPage' => 1];
         $response = $this->getController()->listAction(1);
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals($serializedData, json_decode($response->getContent(), true));
     }
 
     /**
@@ -234,7 +232,7 @@ class ApiControllerTest extends AbstractUnitTest
 
     private function trainPaginatorToReturnIterator(array $data)
     {
-        $this->paginator->expects($this->once())
+        $this->paginator->expects($this->any())
                         ->method('getIterator')
                         ->will($this->returnValue(new \ArrayIterator($data)));
     }
@@ -256,12 +254,11 @@ class ApiControllerTest extends AbstractUnitTest
     private function trainSerializerToReturnSerializedValue(
         \PHPUnit_Framework_MockObject_MockObject $serializer,
         $valueToSerialize,
-        $serializedValue,
-        $serializeMethod = 'serialize'
+        $serializedValue
     ) {
         $serializer->expects($this->once())
-                   ->method($serializeMethod)
+                   ->method('serialize')
                    ->with($valueToSerialize)
-                   ->will($this->returnValue($serializedValue));
+                   ->will($this->returnValue(json_encode($serializedValue)));
     }
 }

@@ -31,6 +31,8 @@ use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\ProjectRepository;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Project\ProjectFilterMapper;
+use Tickit\Component\HttpFoundation\Response\RawJsonResponse;
+use Tickit\Component\Pagination\PageData;
 use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 
@@ -117,7 +119,7 @@ class ApiController
      *
      * @param integer $page The page of results to return
      *
-     * @return PaginatedJsonResponse
+     * @return RawJsonResponse
      */
     public function listAction($page = 1)
     {
@@ -127,15 +129,10 @@ class ApiController
 
         $filters = $this->filterBuilder->buildFromArray($form->getData(), new ProjectFilterMapper());
         $projects = $this->projectRepository->findByFilters($filters, $page);
-        $decorator = $this->baseHelper->getObjectCollectionDecorator();
 
-        $staticProperties = [
-            'csrfToken' => $this->csrfHelper->generateCsrfToken(ProjectController::CSRF_DELETE_INTENTION)->getValue()
-        ];
+        $data = PageData::create($projects, $projects->count(), PageResolver::ITEMS_PER_PAGE, $page);
 
-        $data = $decorator->decorate($projects->getIterator(), ['id', 'name', 'createdAt'], $staticProperties);
-
-        return new PaginatedJsonResponse($data, $projects->count(), PageResolver::ITEMS_PER_PAGE, $page);
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($data));
     }
 
     /**
