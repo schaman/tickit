@@ -4,7 +4,7 @@
         <property name="id" expose="true" type="integer" />
         <property name="title" expose="true" type="string" />
         <property name="description" expose="true" type="string" />
-        <property name="number" expose="true" type="string" />
+        <property name="number" expose="true" accessor-getter="getNumber" />
         <property name="project" expose="true" type="string" />
         <property name="reportedBy" expose="true" type="string" />
         <property name="estimatedHours" expose="true" type="string" />
