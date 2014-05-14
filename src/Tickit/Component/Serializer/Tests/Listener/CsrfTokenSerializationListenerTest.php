@@ -56,7 +56,7 @@ class CsrfTokenSerializationListenerTest extends \PHPUnit_Framework_TestCase
 
             $visitor->expects($this->once())
                     ->method('addData')
-                    ->with('csrf_token', $token->getValue());
+                    ->with('csrfToken', $token->getValue());
         } else {
             $this->tokenManager->expects($this->never())
                                ->method('getToken');

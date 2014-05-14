@@ -67,7 +67,7 @@ class CsrfTokenSerializationListener
             $object = $event->getObject();
             if ($object instanceof IdentifiableInterface) {
                 $token = $this->tokenManager->getToken(get_class($object) . $object->getId());
-                $visitor->addData('csrf_token', $token->getValue());
+                $visitor->addData('csrfToken', $token->getValue());
             }
         }
     }
