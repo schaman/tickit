@@ -25,7 +25,7 @@ define([
                 id: m.get('id'),
                 number: m.get('number'),
                 title: m.get('title'),
-                type: m.get('type'),
+                type: m.getType(),
                 status: m.get('status'),
                 priority: m.get('priority'),
                 editUrl: m.getEditUrl()

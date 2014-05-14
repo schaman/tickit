@@ -3,7 +3,7 @@
  *
  * @type {Backbone.Model}
  */
-define(['core/js/models/DeletableModel'], function(DeletableModel) {
+define(['core/js/models/DeletableModel', 'issue/js/models/IssueType'], function(DeletableModel, IssueType) {
     return DeletableModel.extend({
 
         defaults: {
@@ -39,6 +39,15 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
          */
         getDeleteUrl : function() {
             return Routing.generate('issue_delete', { "id": this.get('id'), "token": this.get('csrfToken') });
+        },
+
+        /**
+         * Gets the issue type
+         *
+         * @returns {Backbone.Model}
+         */
+        getType : function() {
+            return new IssueType(this.get('type'));
         }
     });
 });
