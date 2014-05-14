@@ -26,7 +26,7 @@ define([
                 number: m.get('number'),
                 title: m.get('title'),
                 type: m.getType(),
-                status: m.get('status'),
+                status: m.getStatus(),
                 priority: m.get('priority'),
                 editUrl: m.getEditUrl()
             }));
