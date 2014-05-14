@@ -27,6 +27,8 @@ namespace Tickit\Component\Decorator;
  * Domain object decorators are responsible for taking a domain object and
  * decorating it using a specific format.
  *
+ * @deprecated No longer used, use Tickit\Component\Serializer\SerializerInterface instead
+ *
  * @package Tickit\Component\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
