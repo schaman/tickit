@@ -138,15 +138,16 @@ class ApiController
     /**
      * Lists all project attributes in the application
      *
+     * @param integer $page The page of results to return
+     *
      * @return JsonResponse
      */
-    public function attributesListAction()
+    public function attributesListAction($page = 1)
     {
-        $attributes = $this->attributeRepository->findByFilters(new FilterCollection());
+        $attributes = $this->attributeRepository->findByFilters(new FilterCollection(), $page);
 
-        $decorator = $this->baseHelper->getObjectCollectionDecorator();
-        $data = $decorator->decorate($attributes, ['id', 'type', 'name']);
+        $data = PageData::create($attributes, count($attributes), PageResolver::ITEMS_PER_PAGE, $page);
 
-        return new JsonResponse($data);
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($data));
     }
 }

@@ -169,18 +169,26 @@ class ApiControllerTest extends AbstractUnitTest
         $attribute2->setName('attribute 2');
         $attributes = [$attribute1, $attribute2];
 
+        $this->trainPaginatorToReturnIterator($attributes);
+        $this->trainPaginatorToReturnCount(2);
+
         $this->attributeRepo->expects($this->once())
                             ->method('findByFilters')
                             ->with($filters)
-                            ->will($this->returnValue($attributes));
+                            ->will($this->returnValue($this->paginator));
 
-        $expectedData = [['attribute'], ['attribute']];
-        $decorator = $this->getMockObjectDecorator();
-        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
-        $this->trainObjectCollectionDecoratorToExpectAttributeCollection($decorator, $attributes, $expectedData);
+        $serializer = $this->getMockSerializer();
+        $serializedData = [['attribute'], ['attribute']];
 
-        $response = $this->getController()->attributesListAction();
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue(
+            $serializer,
+            PageData::create($this->paginator, 2, PageResolver::ITEMS_PER_PAGE, 2),
+            $serializedData
+        );
+
+        $response = $this->getController()->attributesListAction(2);
+        $this->assertEquals($serializedData, json_decode($response->getContent(), true));
     }
 
     /**
@@ -213,24 +221,6 @@ class ApiControllerTest extends AbstractUnitTest
                             ->method('buildFromArray')
                             ->with($data)
                             ->will($this->returnValue($filters));
-    }
-
-    private function trainBaseHelperToReturnObjectCollectionDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
-    {
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectCollectionDecorator')
-                         ->will($this->returnValue($decorator));
-    }
-
-    private function trainObjectCollectionDecoratorToExpectAttributeCollection(
-        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        array $attributes,
-        array $returnData
-    ) {
-        $objectDecorator->expects($this->once())
-                        ->method('decorate')
-                        ->with($attributes, ['id', 'type', 'name'])
-                        ->will($this->returnValue($returnData));
     }
 
     private function trainPaginatorToReturnIterator(array $data)
