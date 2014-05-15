@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\Bundle\ProjectBundle\Form\Type\FilterFormType;
 use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Pagination\PageData;
+use Tickit\Component\Pagination\Resolver\PageResolver;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\ProjectBundle\Controller\ApiController;
 use Tickit\Bundle\ProjectBundle\Controller\ProjectController;
@@ -140,19 +142,18 @@ class ApiControllerTest extends AbstractUnitTest
                           ->with($filters, 1)
                           ->will($this->returnValue($this->paginator));
 
-        $this->csrfHelper->expects($this->once())
-                         ->method('generateCsrfToken')
-                         ->with(ProjectController::CSRF_DELETE_INTENTION)
-                         ->will($this->returnValue(new CsrfToken('id', 'csrf-token-value')));
+        $serializer = $this->getMockSerializer();
 
-        $expectedData = ['data' => [['project'], ['project']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
-
-        $decorator = $this->getMockObjectDecorator();
-        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
-        $this->trainObjectCollectionDecoratorToExpectProjectCollection($decorator, new \ArrayIterator($projects), $expectedData['data']);
+        $serializedData = [['project'], ['project']];
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue(
+            $serializer,
+            PageData::create($this->paginator, 2, PageResolver::ITEMS_PER_PAGE, 1),
+            $serializedData
+        );
 
         $response = $this->getController()->listAction(1);
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals($serializedData, json_decode($response->getContent(), true));
     }
 
     /**
@@ -168,18 +169,26 @@ class ApiControllerTest extends AbstractUnitTest
         $attribute2->setName('attribute 2');
         $attributes = [$attribute1, $attribute2];
 
+        $this->trainPaginatorToReturnIterator($attributes);
+        $this->trainPaginatorToReturnCount(2);
+
         $this->attributeRepo->expects($this->once())
                             ->method('findByFilters')
                             ->with($filters)
-                            ->will($this->returnValue($attributes));
+                            ->will($this->returnValue($this->paginator));
 
-        $expectedData = [['attribute'], ['attribute']];
-        $decorator = $this->getMockObjectDecorator();
-        $this->trainBaseHelperToReturnObjectCollectionDecorator($decorator);
-        $this->trainObjectCollectionDecoratorToExpectAttributeCollection($decorator, $attributes, $expectedData);
+        $serializer = $this->getMockSerializer();
+        $serializedData = [['attribute'], ['attribute']];
 
-        $response = $this->getController()->attributesListAction();
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue(
+            $serializer,
+            PageData::create($this->paginator, 2, PageResolver::ITEMS_PER_PAGE, 2),
+            $serializedData
+        );
+
+        $response = $this->getController()->attributesListAction(2);
+        $this->assertEquals($serializedData, json_decode($response->getContent(), true));
     }
 
     /**
@@ -214,42 +223,9 @@ class ApiControllerTest extends AbstractUnitTest
                             ->will($this->returnValue($filters));
     }
 
-    private function trainBaseHelperToReturnObjectCollectionDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
-    {
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectCollectionDecorator')
-                         ->will($this->returnValue($decorator));
-    }
-
-    private function trainObjectCollectionDecoratorToExpectProjectCollection(
-        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        $projects,
-        array $returnData
-    ) {
-        $objectDecorator->expects($this->once())
-                        ->method('decorate')
-                        ->with(
-                            $projects,
-                            ['id', 'name', 'createdAt'],
-                            ['csrfToken' => 'csrf-token-value']
-                        )
-                        ->will($this->returnValue($returnData));
-    }
-
-    private function trainObjectCollectionDecoratorToExpectAttributeCollection(
-        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        array $attributes,
-        array $returnData
-    ) {
-        $objectDecorator->expects($this->once())
-                        ->method('decorate')
-                        ->with($attributes, ['id', 'type', 'name'])
-                        ->will($this->returnValue($returnData));
-    }
-
     private function trainPaginatorToReturnIterator(array $data)
     {
-        $this->paginator->expects($this->once())
+        $this->paginator->expects($this->any())
                         ->method('getIterator')
                         ->will($this->returnValue(new \ArrayIterator($data)));
     }
@@ -259,5 +235,23 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator->expects($this->once())
                         ->method('count')
                         ->will($this->returnValue($count));
+    }
+
+    private function trainBaseHelperToReturnSerializer($serializer)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getSerializer')
+                         ->will($this->returnValue($serializer));
+    }
+
+    private function trainSerializerToReturnSerializedValue(
+        \PHPUnit_Framework_MockObject_MockObject $serializer,
+        $valueToSerialize,
+        $serializedValue
+    ) {
+        $serializer->expects($this->once())
+                   ->method('serialize')
+                   ->with($valueToSerialize)
+                   ->will($this->returnValue(json_encode($serializedValue)));
     }
 }

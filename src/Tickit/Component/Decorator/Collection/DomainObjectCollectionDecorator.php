@@ -28,6 +28,8 @@ use Tickit\Component\Decorator\DomainObjectDecoratorInterface;
  *
  * Responsible for decorating a collection of domain objects as arrays
  *
+ * @deprecated No longer used, use Tickit\Component\Serializer\DomainObjectJsonSerializer instead
+ *
  * @package Tickit\Component\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */

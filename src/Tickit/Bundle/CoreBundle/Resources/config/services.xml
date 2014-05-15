@@ -9,6 +9,7 @@
         <parameter key="tickit.domain_object_array_decorator.class">Tickit\Component\Decorator\DomainObjectArrayDecorator</parameter>
         <parameter key="tickit.domain_object_collection_array_decorator.class">Tickit\Component\Decorator\Collection\DomainObjectCollectionDecorator</parameter>
         <parameter key="tickit.flash_provider.class">Tickit\Component\Flash\Provider</parameter>
+        <parameter key="tickit.serializer.class">Tickit\Component\Serializer\DomainObjectJsonSerializer</parameter>
     </parameters>
 
     <services>
@@ -27,6 +28,10 @@
 
         <service id="tickit.domain_object_collection_array_decorator" class="%tickit.domain_object_collection_array_decorator.class%" scope="prototype">
             <argument type="service" id="tickit.domain_object_array_decorator" />
+        </service>
+
+        <service id="tickit.serializer" class="%tickit.serializer.class%">
+            <argument type="service" id="serializer" />
         </service>
 
     </services>

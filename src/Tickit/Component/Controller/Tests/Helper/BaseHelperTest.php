@@ -61,6 +61,11 @@ class BaseHelperTest extends AbstractUnitTest
     private $router;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $serializer;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -80,6 +85,7 @@ class BaseHelperTest extends AbstractUnitTest
         );
 
         $this->router = $this->getMockRouter();
+        $this->serializer = $this->getMockSerializer();
     }
     
     /**
@@ -199,7 +205,8 @@ class BaseHelperTest extends AbstractUnitTest
             $this->securityContext,
             $this->objectDecorator,
             $this->objectCollectionDecorator,
-            $this->router
+            $this->router,
+            $this->serializer
         );
     }
 
