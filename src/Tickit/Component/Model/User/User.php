@@ -33,7 +33,7 @@ use Tickit\Component\Model\IdentifiableInterface;
  * @package Tickit\Component\Model\User
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class User extends BaseUser implements AvatarAwareInterface, IdentifiableInterface, \JsonSerializable
+class User extends BaseUser implements AvatarAwareInterface, IdentifiableInterface
 {
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
@@ -310,24 +310,5 @@ class User extends BaseUser implements AvatarAwareInterface, IdentifiableInterfa
     public function isAdmin()
     {
         return $this->hasRole(static::ROLE_ADMIN) || $this->hasRole(static::ROLE_SUPER_ADMIN);
-    }
-
-    /**
-     * Returns a JSON serializable representation of the user
-     *
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return [
-            'id' => $this->getId(),
-            'forename' => $this->getForename(),
-            'surname' => $this->getSurname(),
-            'username' => $this->getUsername(),
-            'email' => $this->getEmail(),
-            'enabled' => $this->isEnabled(),
-            'avatarIdentifier' => $this->getAvatarIdentifier(),
-            'lastActive' => $this->getLastActivity()
-        ];
     }
 }
