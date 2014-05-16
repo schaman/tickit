@@ -28,6 +28,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Doctrine\Tests\OrmTestCase;
 
+require_once __DIR__ . '/../../../../../vendor/doctrine/orm/tests/Doctrine/Tests/OrmTestCase.php';
+
 /**
  * Abstract Orm Test
  *
