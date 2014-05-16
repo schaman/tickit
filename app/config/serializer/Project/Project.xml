@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer>
+    <class name="Tickit\Component\Model\Project\Project" exclusion-policy="all">
+        <property name="id" expose="true" type="integer" />
+        <property name="name" expose="true" type="string" />
+        <property name="createdAt" serialized-name="createdAt" expose="true" type="datetime" />
+    </class>
+</serializer>

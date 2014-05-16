@@ -267,6 +267,18 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Gets a mock serializer
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockSerializer()
+    {
+        return $this->getMockBuilder('\Tickit\Component\Serializer\SerializerInterface')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+    }
+
+    /**
      * Returns an instance of a non-accessible method.
      *
      * @param string $className  The class name
