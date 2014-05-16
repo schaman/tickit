@@ -6,12 +6,18 @@
 
     <parameters>
         <parameter key="tickit_core.response_listener.class">Tickit\Bundle\CoreBundle\Listener\ResponseListener</parameter>
+        <parameter key="tickit_core.listener.serialize_csrf_token.class">Tickit\Component\Serializer\Listener\CsrfTokenSerializationListener</parameter>
     </parameters>
 
     <services>
         <service id="tickit_core.response_listener" class="%tickit_core.response_listener.class%">
             <argument>%kernel.environment%</argument>
             <tag name="kernel.event_listener" event="kernel.response" method="onResponse" />
+        </service>
+
+        <service id="tickit_core.listener.serialize_csrf_token" class="%tickit_core.listener.serialize_csrf_token.class%">
+            <argument type="service" id="security.csrf.token_manager" />
+            <tag name="jms_serializer.event_listener" event="serializer.post_serialize" method="onPostSerialize" />
         </service>
     </services>
 

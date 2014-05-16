@@ -24,6 +24,8 @@ namespace Tickit\Component\Decorator;
 /**
  * Array decorator for domain objects.
  *
+ * @deprecated No longer used, use Tickit\Component\Serializer\DomainObjectJsonSerializer instead
+ *
  * @package Tickit\Component\Decorator
  * @author  James Halsall <james.t.halsall@googlemail.com>
  * @author  Mark Wilson <mark@89allport.co.uk>

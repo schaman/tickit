@@ -24,6 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\Tests\Doctrine\Repository;
 use Doctrine\ORM\Query\Expr\Join;
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\Bundle\ProjectBundle\Doctrine\Repository\AttributeRepository;
+use Tickit\Component\Pagination\Resolver\PageResolver;
 
 /**
  * AttributeRepository tests
@@ -50,6 +51,7 @@ class AttributeRepositoryTest extends AbstractOrmTest
         );
 
         $this->repo = $em->getRepository('TickitProjectBundle:AbstractAttribute');
+        $this->repo->setPageResolver(new PageResolver());
     }
 
     /**
@@ -64,11 +66,15 @@ class AttributeRepositoryTest extends AbstractOrmTest
         $filters->expects($this->once())
                 ->method('applyToQuery');
 
-        $builder = $this->repo->getFindByFiltersQueryBuilder($filters);
+        $page = 2;
+        $builder = $this->repo->getFindByFiltersQueryBuilder($filters, $page);
 
         $from = $builder->getDQLPart('from');
         $this->assertNotEmpty($from);
         $this->assertEquals($from[0]->getFrom(), 'TickitProjectBundle:AbstractAttribute');
+
+        $this->assertEquals(PageResolver::ITEMS_PER_PAGE, $builder->getMaxResults());
+        $this->assertEquals(PageResolver::ITEMS_PER_PAGE * ($page - 1) + 1, $builder->getFirstResult());
     }
 
     /**

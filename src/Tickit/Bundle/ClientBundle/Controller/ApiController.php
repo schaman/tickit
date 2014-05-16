@@ -29,8 +29,9 @@ use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Map\Client\ClientFilterMapper;
+use Tickit\Component\HttpFoundation\Response\RawJsonResponse;
+use Tickit\Component\Pagination\PageData;
 use Tickit\Component\Pagination\Resolver\PageResolver;
-use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
 /**
  * API controller.
@@ -116,14 +117,8 @@ class ApiController
         $filters = $this->filterBuilder->buildFromArray($form->getData(), new ClientFilterMapper());
         $clients = $this->clientRepository->findByFilters($filters, $page);
 
-        $decorator = $this->baseHelper->getObjectCollectionDecorator();
+        $data = PageData::create($clients, $clients->count(), PageResolver::ITEMS_PER_PAGE, $page);
 
-        $data = $decorator->decorate(
-            $clients->getIterator(),
-            ['id', 'name', 'url', 'status', 'totalProjects', 'createdAt'],
-            ['csrfToken' => $this->csrfHelper->generateCsrfToken(ClientController::CSRF_DELETE_INTENTION)->getValue()]
-        );
-
-        return new PaginatedJsonResponse($data, $clients->count(), PageResolver::ITEMS_PER_PAGE, $page);
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($data));
     }
 }

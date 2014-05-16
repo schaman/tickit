@@ -5,8 +5,10 @@
  */
 define([
     'core/js/models/DeletableModel',
-    'user/js/models/User'
-], function(DeletableModel, User) {
+    'user/js/models/User',
+    'issue/js/models/IssueType',
+    'issue/js/models/IssueStatus'
+], function(DeletableModel, User, IssueType, IssueStatus) {
     return DeletableModel.extend({
 
         defaults: {
@@ -69,6 +71,24 @@ define([
          */
         getDeleteUrl : function() {
             return Routing.generate('issue_delete', { "id": this.get('id'), "token": this.get('csrfToken') });
+        },
+
+        /**
+         * Gets the issue type
+         *
+         * @returns {Backbone.Model}
+         */
+        getType : function() {
+            return new IssueType(this.get('type'));
+        },
+
+        /**
+         * Gets the issue status
+         *
+         * @return {Backbone.Model}
+         */
+        getStatus : function () {
+            return new IssueStatus(this.get('status'));
         }
     });
 });

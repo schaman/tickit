@@ -26,6 +26,8 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Tickit\Bundle\UserBundle\Form\Type\FilterFormType;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\User\UserFilterMapper;
+use Tickit\Component\Pagination\PageData;
+use Tickit\Component\Pagination\Resolver\PageResolver;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Bundle\UserBundle\Controller\ApiController;
 use Tickit\Bundle\UserBundle\Controller\UserController;
@@ -108,23 +110,14 @@ class ApiControllerTest extends AbstractUnitTest
         $this->baseHelper->expects($this->never())
                          ->method('getUser');
 
-        $this->trainAvatarAdapterToReturnUrl($this->avatarAdapter, $user);
+        $serializer = $this->getMockSerializer();
+        $this->trainBaseHelperToReturnSerializer($serializer);
 
-        $expectedData = [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'forename' => $user->getForename(),
-            'surname' => $user->getSurname(),
-            'avatarIdentifier' => 'avatar-url'
-        ];
-
-        $objectDecorator = $this->getMockObjectDecorator();
-        $this->trainObjectDecoratorToExpectUserData($objectDecorator, $user, $expectedData);
-        $this->trainBaseHelperToReturnObjectDecorator($objectDecorator);
+        $serializedValue = 'serialized user';
+        $this->trainSerializerToReturnSerializedValue($serializer, $user, $serializedValue);
 
         $response = $this->getController()->fetchAction($user);
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals(json_encode($serializedValue), $response->getContent());
     }
 
     /**
@@ -138,23 +131,13 @@ class ApiControllerTest extends AbstractUnitTest
                          ->method('getUser')
                          ->will($this->returnValue($user));
 
-        $this->trainAvatarAdapterToReturnUrl($this->avatarAdapter, $user);
-
-        $expectedData = [
-            'id' => $user->getId(),
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'forename' => $user->getForename(),
-            'surname' => $user->getSurname(),
-            'avatarIdentifier' => 'avatar-url'
-        ];
-
-        $objectDecorator = $this->getMockObjectDecorator();
-        $this->trainObjectDecoratorToExpectUserData($objectDecorator, $user, $expectedData);
-        $this->trainBaseHelperToReturnObjectDecorator($objectDecorator);
+        $serializer = $this->getMockSerializer();
+        $serializedValue = 'serialized user';
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue($serializer, $user, $serializedValue);
 
         $response = $this->getController()->fetchAction();
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals(json_encode($serializedValue), $response->getContent());
     }
 
     /**
@@ -197,28 +180,18 @@ class ApiControllerTest extends AbstractUnitTest
                              ->with($filters)
                              ->will($this->returnValue($this->paginator));
 
-        $decorator = $this->getMockObjectCollectionDecorator();
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectCollectionDecorator')
-                         ->will($this->returnValue($decorator));
+        $serializer = $this->getMockSerializer();
 
-        $this->csrfHelper->expects($this->once())
-                         ->method('generateCsrfToken')
-                         ->with(UserController::CSRF_DELETE_INTENTION)
-                         ->will($this->returnValue(new CsrfToken('id', 'token-value')));
+        $serializedData = [['decorated user'], ['decorated user']];
+        $this->trainBaseHelperToReturnSerializer($serializer);
+        $this->trainSerializerToReturnSerializedValue(
+            $serializer,
+            PageData::create($this->paginator, 2, PageResolver::ITEMS_PER_PAGE, 1),
+            $serializedData
+        );
 
-        $decorator->expects($this->once())
-                  ->method('decorate')
-                  ->with(
-                      new \ArrayIterator($users),
-                      ['id', 'forename', 'surname', 'email', 'username', 'admin', 'lastActivity'],
-                      ['csrf_token' => 'token-value']
-                  )
-                  ->will($this->returnValue([['decorated user'], ['decorated user']]));
-
-        $expectedData = ['data' => [['decorated user'], ['decorated user']], 'total' => 2, 'pages' => 1, 'currentPage' => 1];
         $response = $this->getController()->listAction(1);
-        $this->assertEquals($expectedData, json_decode($response->getContent(), true));
+        $this->assertEquals($serializedData, json_decode($response->getContent(), true));
     }
 
     /**
@@ -250,14 +223,6 @@ class ApiControllerTest extends AbstractUnitTest
         return $user;
     }
 
-    private function trainAvatarAdapterToReturnUrl(\PHPUnit_Framework_MockObject_MockObject $adapter, User $user)
-    {
-        return $adapter->expects($this->once())
-                       ->method('getImageUrl')
-                       ->with($user, 35)
-                       ->will($this->returnValue('avatar-url'));
-    }
-
     private function trainBaseHelperToReturnRequest(Request $request)
     {
         $this->baseHelper->expects($this->once())
@@ -265,31 +230,9 @@ class ApiControllerTest extends AbstractUnitTest
                          ->will($this->returnValue($request));
     }
 
-    private function trainBaseHelperToReturnObjectDecorator(\PHPUnit_Framework_MockObject_MockObject $decorator)
-    {
-        $this->baseHelper->expects($this->once())
-                         ->method('getObjectDecorator')
-                         ->will($this->returnValue($decorator));
-    }
-
-    private function trainObjectDecoratorToExpectUserData(
-        \PHPUnit_Framework_MockObject_MockObject $objectDecorator,
-        User $user,
-        array $returnData
-    ) {
-        $objectDecorator->expects($this->once())
-                        ->method('decorate')
-                        ->with(
-                            $user,
-                            ['id', 'username', 'email', 'forename', 'surname'],
-                            ['avatarIdentifier' => 'avatar-url']
-                        )
-                        ->will($this->returnValue($returnData));
-    }
-
     private function trainPaginatorToReturnIterator(array $data)
     {
-        $this->paginator->expects($this->once())
+        $this->paginator->expects($this->any())
                         ->method('getIterator')
                         ->will($this->returnValue(new \ArrayIterator($data)));
     }
@@ -299,5 +242,23 @@ class ApiControllerTest extends AbstractUnitTest
         $this->paginator->expects($this->once())
                         ->method('count')
                         ->will($this->returnValue($count));
+    }
+
+    private function trainBaseHelperToReturnSerializer($serializer)
+    {
+        $this->baseHelper->expects($this->once())
+                         ->method('getSerializer')
+                         ->will($this->returnValue($serializer));
+    }
+
+    private function trainSerializerToReturnSerializedValue(
+        \PHPUnit_Framework_MockObject_MockObject $serializer,
+        $valueToSerialize,
+        $serializedValue
+    ) {
+        $serializer->expects($this->once())
+                   ->method('serialize')
+                   ->with($valueToSerialize)
+                   ->will($this->returnValue(json_encode($serializedValue)));
     }
 }
