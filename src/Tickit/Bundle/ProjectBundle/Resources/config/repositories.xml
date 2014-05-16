@@ -18,6 +18,10 @@
 
         <service id="tickit_project.attribute_repository" class="%tickit_project.attribute_repository.class%" factory-service="doctrine" factory-method="getRepository">
             <argument>TickitProjectBundle:AbstractAttribute</argument>
+
+            <call method="setPageResolver">
+                <argument type="service" id="tickit_pagination.page_resolver" />
+            </call>
         </service>
 
         <service id="tickit_project.project_repository" class="%tickit_project.project_repository.class%" factory-service="doctrine" factory-method="getRepository">

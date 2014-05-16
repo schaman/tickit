@@ -1,0 +1,21 @@
+jms_serializer:
+    metadata:
+        directories:
+            tickit_user:
+                namespace_prefix: "Tickit\\Component\\Model\\User"
+                path: "%kernel.root_dir%/config/serializer/User"
+            fos_user:
+                namespace_prefix: "FOS\\UserBundle\\Model"
+                path: "%kernel.root_dir%/config/serializer/FOSUser"
+            tickit_pagination:
+                namespace_prefix: "Tickit\\Component\\Pagination"
+                path: "%kernel.root_dir%/config/serializer/Pagination"
+            tickit_issue:
+                namespace_prefix: "Tickit\\Component\\Model\\Issue"
+                path: "%kernel.root_dir%/config/serializer/Issue"
+            tickit_client:
+                namespace_prefix: "Tickit\\Component\\Model\\Client"
+                path: "%kernel.root_dir%/config/serializer/Client"
+            tickit_project:
+                namespace_prefix: "Tickit\\Component\\Model\\Project"
+                path: "%kernel.root_dir%/config/serializer/Project"

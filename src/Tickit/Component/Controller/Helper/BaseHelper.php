@@ -29,6 +29,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Tickit\Component\Decorator\Collection\DomainObjectCollectionDecoratorInterface;
 use Tickit\Component\Decorator\DomainObjectDecoratorInterface;
 use Tickit\Component\Model\User\User;
+use Tickit\Component\Serializer\SerializerInterface;
 
 /**
  * Base controller helper.
@@ -76,6 +77,13 @@ class BaseHelper
     protected $router;
 
     /**
+     * An object serializer
+     *
+     * @var SerializerInterface
+     */
+    protected $serializer;
+
+    /**
      * Constructor.
      *
      * @param RequestStack                             $requestStack              The request stack
@@ -83,19 +91,22 @@ class BaseHelper
      * @param DomainObjectDecoratorInterface           $objectDecorator           An object decorator
      * @param DomainObjectCollectionDecoratorInterface $objectCollectionDecorator An object collection decorator
      * @param RouterInterface                          $router                    A router
+     * @param SerializerInterface                      $serializer                An object serializer
      */
     public function __construct(
         RequestStack $requestStack,
         SecurityContextInterface $securityContext,
         DomainObjectDecoratorInterface $objectDecorator,
         DomainObjectCollectionDecoratorInterface $objectCollectionDecorator,
-        RouterInterface $router
+        RouterInterface $router,
+        SerializerInterface $serializer
     ) {
         $this->requestStack = $requestStack;
         $this->securityContext = $securityContext;
         $this->objectDecorator = $objectDecorator;
         $this->objectCollectionDecorator = $objectCollectionDecorator;
         $this->router = $router;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -170,5 +181,15 @@ class BaseHelper
         }
 
         return $user;
+    }
+
+    /**
+     * Gets the object serializer
+     *
+     * @return SerializerInterface
+     */
+    public function getSerializer()
+    {
+        return $this->serializer;
     }
 }

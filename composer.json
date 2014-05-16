@@ -36,10 +36,11 @@
         "twig/extensions": "~1.0",
         "psr/log": "1.0.0",
         "friendsofsymfony/jsrouting-bundle": "~1.5",
-        "hearsay/require-js-bundle": "dev-master",
+        "hearsay/require-js-bundle": "dev-master#e988f07ebefdea91de1df5a3871c6f27f7e65086",
         "ircmaxell/password-compat": "~1.0",
         "knplabs/knp-gaufrette-bundle": "~0.1",
-        "incenteev/composer-parameter-handler": "~2.1"
+        "incenteev/composer-parameter-handler": "~2.1",
+        "jms/serializer-bundle": "~0.13"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.3",
