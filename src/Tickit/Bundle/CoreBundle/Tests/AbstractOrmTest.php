@@ -26,7 +26,6 @@ use Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\XmlDriver;
-use Doctrine\Tests\OrmTestCase;
 
 /**
  * Abstract Orm Test
@@ -34,7 +33,7 @@ use Doctrine\Tests\OrmTestCase;
  * @package Tickit\Bundle\CoreBundle\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-abstract class AbstractOrmTest extends OrmTestCase
+abstract class AbstractOrmTest
 {
     /**
      * A replacement of Symfony\Bridge\Doctrine\Test\DoctrineTestHelper::createTestEntityManager();
