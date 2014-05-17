@@ -29,6 +29,7 @@ use Tickit\Bundle\IssueBundle\Form\Type\FilterFormType;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Map\Issue\IssueFilterMapper;
 use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Issue\IssueNumber;
 use Tickit\Component\Pagination\PageData;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 use Tickit\Component\Test\AbstractUnitTest;
@@ -77,6 +78,11 @@ class ApiControllerTest extends AbstractUnitTest
     private $form;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $dataTransformer;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -90,6 +96,9 @@ class ApiControllerTest extends AbstractUnitTest
         $this->formHelper = $this->getMockFormHelper();
         $this->paginator = $this->getMockPaginator();
         $this->form = $this->getMockForm();
+        $this->dataTransformer = $this->getMockBuilder('\Tickit\Component\Issue\DataTransformer\StringToIssueNumberDataTransformer')
+                                      ->disableOriginalConstructor()
+                                      ->getMock();
     }
 
     /**
@@ -142,6 +151,51 @@ class ApiControllerTest extends AbstractUnitTest
     }
 
     /**
+     * @dataProvider getFindByIssueNumberActionFixtures
+     */
+    public function testFindByIssueNumberAction($issueNumberString, IssueNumber $issueNumberObject, Issue $issue = null)
+    {
+        $this->dataTransformer->expects($this->once())
+                              ->method('transform')
+                              ->with($issueNumberString)
+                              ->will($this->returnValue($issueNumberObject));
+
+        $this->issueRepository->expects($this->once())
+                              ->method('findIssueByIssueNumber')
+                              ->with($issueNumberObject)
+                              ->will($this->returnValue($issue));
+
+
+
+        if (null === $issue) {
+            $response = $this->getController()->findByIssueNumberAction($issueNumberString);
+
+            $this->assertEquals('No issue found', json_decode($response->getContent()));
+        } else {
+            $serializer = $this->getMockSerializer();
+            $this->trainBaseHelperToReturnSerializer($serializer);
+            $this->trainSerializerToReturnSerializedValue($serializer, $issue, 'serialized issue');
+
+            $response = $this->getController()->findByIssueNumberAction($issueNumberString);
+            $this->assertEquals('serialized issue', json_decode($response->getContent()));
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getFindByIssueNumberActionFixtures()
+    {
+        $issueNumber1 = new IssueNumber('PROJ', 10001);
+        $issueNumber2 = new IssueNumber('PROJ', 10002);
+
+        return [
+            ['PROJ10001', $issueNumber1, null],
+            ['PROJ10002', $issueNumber2, new Issue()]
+        ];
+    }
+
+    /**
      * Gets a new controller instance
      *
      * @return ApiController
@@ -153,7 +207,8 @@ class ApiControllerTest extends AbstractUnitTest
             $this->baseHelper,
             $this->csrfHelper,
             $this->issueRepository,
-            $this->formHelper
+            $this->formHelper,
+            $this->dataTransformer
         );
     }
 

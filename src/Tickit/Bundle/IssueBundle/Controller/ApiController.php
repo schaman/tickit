@@ -148,6 +148,6 @@ class ApiController
             return new JsonResponse('No issue found', 404);
         }
 
-        return new JsonResponse([]);
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($issue));
     }
 }

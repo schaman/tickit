@@ -167,7 +167,7 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
 
         $queryBuilder = $this->getFindByFiltersQueryBuilder($filters, 1);
         $queryBuilder->setMaxResults(1);
-        $queryBuilder->join('Project', 'p');
+        $queryBuilder->join('i.project', 'p');
 
         return $queryBuilder;
     }
