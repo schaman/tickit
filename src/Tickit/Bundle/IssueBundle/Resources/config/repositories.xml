@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="tickit_issue.repository.issues.class">Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository</parameter>
+        <parameter key="tickit_issue.data_transformer.class">Tickit\Component\Issue\DataTransformer\StringToIssueNumberDataTransformer</parameter>
     </parameters>
 
     <services>
@@ -16,7 +17,13 @@
             <call method="setPageResolver">
                 <argument type="service" id="tickit_pagination.page_resolver" />
             </call>
+
+            <call method="setDataTransformer">
+                <argument type="service" id="tickit_issue.data_transformer" />
+            </call>
         </service>
+
+        <service id="tickit_issue.data_transformer" class="%tickit_issue.data_transformer.class%" />
 
     </services>
 

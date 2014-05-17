@@ -27,7 +27,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
 use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
+use Tickit\Component\Filter\ExactMatchFilter;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
+use Tickit\Component\Issue\DataTransformer\StringToIssueNumberDataTransformer;
+use Tickit\Component\Model\Issue\Issue;
+use Tickit\Component\Model\Issue\IssueNumber;
 use Tickit\Component\Model\Project\Project;
 
 /**
@@ -35,9 +39,29 @@ use Tickit\Component\Model\Project\Project;
  *
  * @package Tickit\Bundle\Doctrine\Repository
  * @author  James Halsall <james.t.halsall@googlemail.com>
+ * @author  Mark Wilson <mark@89allport.co.uk>
  */
 class IssueRepository extends PaginatedRepository implements IssueRepositoryInterface, FilterableRepositoryInterface
 {
+    /**
+     * String to issue number data transformer
+     *
+     * @var StringToIssueNumberDataTransformer
+     */
+    protected $transformer;
+
+    /**
+     * Set the data transformer for creating IssueNumber from string
+     *
+     * @param StringToIssueNumberDataTransformer $transformer Issue number data transformer
+     *
+     * @return void
+     */
+    public function setDataTransformer(StringToIssueNumberDataTransformer $transformer)
+    {
+        $this->transformer = $transformer;
+    }
+
     /**
      * Finds results based off a set of filters.
      *
@@ -119,5 +143,48 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
                     ->where('i.project = :project')
                     ->setMaxResults(1)
                     ->setParameter('project', $project);
+    }
+
+    /**
+     * Get a QueryBuilder fetching an issue by the issue number value object
+     *
+     * @param IssueNumber $issueNumber Issue number value object
+     *
+     * @return QueryBuilder
+     */
+    public function getIssueByIssueNumberQueryBuilder(IssueNumber $issueNumber)
+    {
+        $filters = new FilterCollection([
+            new ExactMatchFilter('number', $issueNumber->getNumber()),
+            new ExactMatchFilter(
+                'issuePrefix',
+                $issueNumber->getPrefix(), [
+                    ExactMatchFilter::STRICT_KEY_VALIDATION => false,
+                    ExactMatchFilter::ENTITY_ALIAS => 'p'
+                ]
+            )
+        ]);
+
+        $queryBuilder = $this->getFindByFiltersQueryBuilder($filters, 1);
+        $queryBuilder->setMaxResults(1);
+        $queryBuilder->join('i.project', 'p');
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Find an Issue entity by IssueNumber
+     *
+     * @param IssueNumber $issueNumber Issue number to find issue for
+     *
+     * @codeCoverageIgnore
+     *
+     * @return Issue|null
+     */
+    public function findIssueByIssueNumber(IssueNumber $issueNumber)
+    {
+        return $this->getIssueByIssueNumberQueryBuilder($issueNumber)
+                    ->getQuery()
+                    ->getOneOrNullResult();
     }
 }

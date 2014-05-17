@@ -22,17 +22,17 @@
 namespace Tickit\Bundle\IssueBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository;
 use Tickit\Bundle\IssueBundle\Form\Type\FilterFormType;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Map\Issue\IssueFilterMapper;
-use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
+use Tickit\Component\Issue\DataTransformer\StringToIssueNumberDataTransformer;
 use Tickit\Component\HttpFoundation\Response\RawJsonResponse;
 use Tickit\Component\Pagination\PageData;
 use Tickit\Component\Pagination\Resolver\PageResolver;
-use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
 /**
  * Issue API controller.
@@ -68,7 +68,7 @@ class ApiController
     /**
      * A filterable issue repository
      *
-     * @var FilterableRepositoryInterface
+     * @var IssueRepository
      */
     private $issueRepository;
 
@@ -80,26 +80,36 @@ class ApiController
     private $formHelper;
 
     /**
+     * The issue number transformer
+     *
+     * @var StringToIssueNumberDataTransformer
+     */
+    private $dataTransformer;
+
+    /**
      * Constructor.
      *
-     * @param FilterCollectionBuilder       $filterBuilder    The filter collection builder
-     * @param BaseHelper                    $baseHelper       The base controller helper
-     * @param CsrfHelper                    $csrfHelper       The CSRF controller helper
-     * @param FilterableRepositoryInterface $issueRepository  The issue repository
-     * @param FormHelper                    $formHelper       The form controller helper
+     * @param FilterCollectionBuilder            $filterBuilder    The filter collection builder
+     * @param BaseHelper                         $baseHelper       The base controller helper
+     * @param CsrfHelper                         $csrfHelper       The CSRF controller helper
+     * @param IssueRepository                    $issueRepository  The issue repository
+     * @param FormHelper                         $formHelper       The form controller helper
+     * @param StringToIssueNumberDataTransformer $dataTransformer  The issue number data transformer
      */
     public function __construct(
         FilterCollectionBuilder $filterBuilder,
         BaseHelper $baseHelper,
         CsrfHelper $csrfHelper,
-        FilterableRepositoryInterface $issueRepository,
-        FormHelper $formHelper
+        IssueRepository $issueRepository,
+        FormHelper $formHelper,
+        StringToIssueNumberDataTransformer $dataTransformer
     ) {
         $this->filterBuilder   = $filterBuilder;
         $this->baseHelper      = $baseHelper;
         $this->csrfHelper      = $csrfHelper;
         $this->issueRepository = $issueRepository;
         $this->formHelper      = $formHelper;
+        $this->dataTransformer = $dataTransformer;
     }
 
     /**
@@ -119,5 +129,25 @@ class ApiController
         $data = PageData::create($issues, $issues->count(), PageResolver::ITEMS_PER_PAGE, $page);
 
         return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($data));
+    }
+
+    /**
+     * Get issue information based on the issue number
+     *
+     * @param string $issueNumber Issue number
+     *
+     * @return JsonResponse
+     */
+    public function findByIssueNumberAction($issueNumber)
+    {
+        $issueNumber = $this->dataTransformer->transform($issueNumber);
+
+        $issue = $this->issueRepository->findIssueByIssueNumber($issueNumber);
+
+        if (null === $issue) {
+            return new JsonResponse('No issue found', 404);
+        }
+
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($issue));
     }
 }
