@@ -20,9 +20,14 @@ define([
                 id: m.get('id'),
                 number: m.get('number'),
                 title: m.get('title'),
-                type: m.get('type'),
-                status: m.get('status'),
-                priority: m.get('priority')
+                type: m.getType(),
+                status: m.getStatus(),
+                priority: m.get('priority'),
+                assignedTo: m.getAssignedTo(),
+                createdBy: m.getCreatedBy(),
+                dueDate: m.getDueDate(),
+                createdAt: m.getCreatedAt(),
+                updatedAt: m.getUpdatedAt()
             }));
 
             return this;

@@ -5,11 +5,11 @@
         <span>People</span>
         <div>
             <span>Assigned To</span>
-            <span><%= assignedTo %></span>
+            <span><%= assignedTo.getFullName() %></span>
         </div>
         <div>
             <span>Created By</span>
-            <span><%= createdBy %></span>
+            <span><%= createdBy.getFullName() %></span>
         </div>
     </div>
 
@@ -17,15 +17,15 @@
         <span>Dates</span>
         <div>
             <span>Due</span>
-            <span><%= dueDate %></span>
+            <span><%= dueDate.toLocaleDateString() %></span>
         </div>
         <div>
             <span>Created</span>
-            <span><%= createdAt %></span>
+            <span><%= createdAt.toLocaleDateString() %></span>
         </div>
         <div>
             <span>Updated</span>
-            <span><%= updatedAt %></span>
+            <span><%= updatedAt.toLocaleDateString() %></span>
         </div>
     </div>
 </script>

@@ -26,15 +26,6 @@ define([
             csrfToken: ''
         },
 
-        parse : function(data) {
-            data.assignedTo = new User(data.assignedTo);
-
-            // TODO: all DateTime objects should be returned as equal (either objects or strings)
-            data.createdAt = new Date(data.createdAt);
-
-            return data;
-        },
-
         /**
          * Casts this model to a string
          *
@@ -76,7 +67,7 @@ define([
         /**
          * Gets the issue type
          *
-         * @returns {Backbone.Model}
+         * @return {Backbone.Model}
          */
         getType : function() {
             return new IssueType(this.get('type'));
@@ -89,6 +80,51 @@ define([
          */
         getStatus : function () {
             return new IssueStatus(this.get('status'));
+        },
+
+        /**
+         * Gets the user assigned to this issue
+         *
+         * @return {Backbone.Model}
+         */
+        getAssignedTo : function() {
+            return new User(this.get('assignedTo'));
+        },
+
+        /**
+         * Gets the created datetime
+         *
+         * @return {Date}
+         */
+        getCreatedAt : function() {
+            return new Date(this.get('createdAt'));
+        },
+
+        /**
+         * Gets the created by
+         *
+         * @return {Backbone.Model}
+         */
+        getCreatedBy : function() {
+            return new User(this.get('createdBy'))
+        },
+
+        /**
+         * Gets the due date for this issue
+         *
+         * @return {Date}
+         */
+        getDueDate : function() {
+            return new Date(this.get('dueDate'))
+        },
+
+        /**
+         * Gets the updated date for this issue
+         *
+         * @return {Date}
+         */
+        getUpdatedAt : function() {
+            return new Date(this.get('updatedAt'));
         }
     });
 });
