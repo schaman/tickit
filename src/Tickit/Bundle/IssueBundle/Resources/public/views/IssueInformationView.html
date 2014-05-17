@@ -1,6 +1,36 @@
 <script type="text/template" id="issue-information-template">
     <h1><%= number %></h1>
 
+    <p><%= title %></p>
+
+    <div>
+        <span>Basic Information</span>
+        <div>
+            <span>Type</span>
+            <span><%= type.getName() %></span>
+        </div>
+        <div>
+            <span>Status</span>
+            <span><%= status.getName() %></span>
+        </div>
+        <div>
+            <span>Description</span>
+            <span><%= description %></span>
+        </div>
+    </div>
+
+    <div>
+        <span>Hours</span>
+        <div>
+            <span>Estimated</span>
+            <span><%= estimatedHours %></span>
+        </div>
+        <div>
+            <span>Used so far</span>
+            <span><%= actualHours %></span>
+        </div>
+    </div>
+
     <div>
         <span>People</span>
         <div>

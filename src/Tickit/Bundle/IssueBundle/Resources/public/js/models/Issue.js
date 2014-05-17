@@ -23,7 +23,9 @@ define([
             updatedAt: null,
             assignedTo: '',
             createdBy: '',
-            csrfToken: ''
+            csrfToken: '',
+            estimatedHours: 0,
+            actualHours: 0
         },
 
         /**

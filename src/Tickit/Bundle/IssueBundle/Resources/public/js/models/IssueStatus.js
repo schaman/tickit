@@ -5,6 +5,15 @@ define(['backbone'], function(Backbone) {
             id: null,
             name: '',
             color: ''
+        },
+
+        /**
+         * Gets the name of this issue
+         *
+         * @return {string}
+         */
+        getName : function() {
+            return this.get('name');
         }
 
     });
