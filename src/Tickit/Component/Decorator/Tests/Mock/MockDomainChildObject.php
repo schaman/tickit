@@ -27,7 +27,7 @@ namespace Tickit\Component\Decorator\Tests\Mock;
  * @package Tickit\Component\Decorator\Tests\Mock
  * @author  Mark Wilson <mark@89allport.co.uk>
  */
-class MockDomainChildObject
+class MockDomainChildObject implements \JsonSerializable
 {
     /**
      * Enabled property
@@ -68,5 +68,18 @@ class MockDomainChildObject
     public function getChildObject()
     {
         return $this->childObject;
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            'enabled' => $this->enabled
+        ];
+
+        if ($this->childObject !== null) {
+            $data['childObject'] = $this->childObject;
+        }
+
+        return $data;
     }
 }

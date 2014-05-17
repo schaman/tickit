@@ -29,10 +29,10 @@ use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Filter\Collection\Builder\FilterCollectionBuilder;
 use Tickit\Component\Filter\Map\Issue\IssueFilterMapper;
-use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Issue\DataTransformer\StringToIssueNumberDataTransformer;
+use Tickit\Component\HttpFoundation\Response\RawJsonResponse;
+use Tickit\Component\Pagination\PageData;
 use Tickit\Component\Pagination\Resolver\PageResolver;
-use Tickit\Component\Pagination\Response\PaginatedJsonResponse;
 
 /**
  * Issue API controller.
@@ -126,23 +126,9 @@ class ApiController
 
         $filters = $this->filterBuilder->buildFromArray($form->getData(), new IssueFilterMapper());
         $issues = $this->issueRepository->findByFilters($filters, $page);
+        $data = PageData::create($issues, $issues->count(), PageResolver::ITEMS_PER_PAGE, $page);
 
-        $decorator = $this->baseHelper->getObjectCollectionDecorator();
-        $propertyMappings = [
-            'project.name' => 'project',
-            'type.name' => 'type',
-            'status.name' => 'status',
-            'assignedTo.fullName' => 'assignedTo',
-            'number.issueNumber' => 'number'
-        ];
-        $decorator->setPropertyMappings($propertyMappings);
-        $data = $decorator->decorate(
-            $issues->getIterator(),
-            ['id', 'number.issueNumber', 'title', 'project.name', 'priority', 'type.name', 'status.name', 'assignedTo.fullName'],
-            ['csrfToken' => $this->csrfHelper->generateCsrfToken(IssueController::CSRF_DELETE_INTENTION)->getValue()]
-        );
-
-        return new PaginatedJsonResponse($data, $issues->count(), PageResolver::ITEMS_PER_PAGE, $page);
+        return new RawJsonResponse($this->baseHelper->getSerializer()->serialize($data));
     }
 
     /**

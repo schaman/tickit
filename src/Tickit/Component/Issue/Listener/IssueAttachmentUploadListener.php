@@ -58,7 +58,9 @@ class IssueAttachmentUploadListener
      */
     public function uploadAttachments(AttachmentUploadEvent $event)
     {
-        foreach ($event->getAttachments() as &$attachment) {
+        $attachments = $event->getAttachments();
+
+        foreach ($attachments as &$attachment) {
             $this->attachmentManager->upload($attachment);
         }
     }

@@ -27,6 +27,8 @@ namespace Tickit\Component\Decorator\Collection;
  * These decorators are responsible for decorating the output of a
  * domain object into an array format.
  *
+ * @deprecated No longer used, use Tickit\Component\Serializer\SerializerInterface instead
+ *
  * @package Tickit\Component\Decorator\Collection
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */

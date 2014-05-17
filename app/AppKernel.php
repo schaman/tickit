@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Hearsay\RequireJSBundle\HearsayRequireJSBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             // ---- Tickit Bundles Below Here ----
             new Tickit\Bundle\AssetsBundle\TickitAssetsBundle(),
             new Tickit\Bundle\CoreBundle\TickitCoreBundle(),
@@ -45,7 +46,6 @@ class AppKernel extends Kernel
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
         return $bundles;

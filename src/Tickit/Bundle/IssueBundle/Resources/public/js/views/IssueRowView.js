@@ -25,8 +25,8 @@ define([
                 id: m.get('id'),
                 number: m.get('number'),
                 title: m.get('title'),
-                type: m.get('type'),
-                status: m.get('status'),
+                type: m.getType(),
+                status: m.getStatus(),
                 priority: m.get('priority'),
                 editUrl: m.getEditUrl()
             }));
