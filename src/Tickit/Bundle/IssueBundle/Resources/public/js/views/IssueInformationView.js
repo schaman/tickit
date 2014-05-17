@@ -6,8 +6,9 @@
 define([
     'marionette',
     'text!issue/views/IssueInformationView.html',
-    'underscore'
-], function(Marionette, tpl, _) {
+    'underscore',
+    'user/js/views/UserNameWithAvatarView'
+], function(Marionette, tpl, _, UserAvatarView) {
     return Marionette.ItemView.extend({
         template: '#issue-information-template',
 
@@ -26,12 +27,20 @@ define([
                 type: m.getType(),
                 status: m.getStatus(),
                 priority: m.get('priority'),
-                assignedTo: m.getAssignedTo(),
-                createdBy: m.getCreatedBy(),
                 dueDate: m.getDueDate(),
                 createdAt: m.getCreatedAt(),
                 updatedAt: m.getUpdatedAt()
             }));
+
+            new UserAvatarView({
+                el: this.$el.find('.assigned-to'),
+                model: this.model.getAssignedTo()
+            }).render();
+
+            new UserAvatarView({
+                el: this.$el.find('.created-by'),
+                model: this.model.getCreatedBy()
+            }).render();
 
             return this;
         },
