@@ -34,6 +34,10 @@ define([
             }));
 
             return this;
+        },
+
+        modelEvents: {
+            "sync" : "render"
         }
     });
 });

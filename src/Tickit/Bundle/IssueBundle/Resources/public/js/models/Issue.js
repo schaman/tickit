@@ -46,8 +46,7 @@ define([
                 return Routing.generate('');
             }
 
-            // fetch by issue number
-            return Routing.generate('');
+            return Routing.generate('api_issue_by_number', { "issueNumber": this.get('number') });
         },
 
         /**

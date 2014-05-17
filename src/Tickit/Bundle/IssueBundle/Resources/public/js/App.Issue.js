@@ -80,6 +80,8 @@ define(['modules/staticcontent'], function(StaticContent) {
             ], function(IssueOverviewLayout, Issue, InfoView, ActivityView) {
                 var layout = new IssueOverviewLayout();
                 var issue = new Issue({ number: number });
+                module.issue = issue;
+                issue.fetch();
                 layout.on('show', function() {
                     layout.infoRegion.show(new InfoView({ model: issue }));
                     layout.featureRegion.show(new ActivityView({ model: issue }));
