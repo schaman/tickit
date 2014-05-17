@@ -227,8 +227,8 @@ input[type="submit"]{
 
 div.error {
   background: @danger;
-  border-color: @danger + 20%;
-  color: @danger + 20%;
+  border: 1px solid @danger - 80%;
+  color: @danger - 120%;
   padding: 10px;
   margin: 0 0 10px;
 }
@@ -831,12 +831,15 @@ header.main-header{
             width: 300px;
             .opacity(100);
             border: none;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: scale(1);
             ~ label{
                 color: @placeholderTextColor;
             }
         }
         ~ label{
             position: absolute;
+            z-index: 10;
             top: 12px;
             left: 18px;
             font-size: 17px;
