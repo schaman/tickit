@@ -33,7 +33,7 @@ use Doctrine\ORM\Mapping\Driver\XmlDriver;
  * @package Tickit\Bundle\CoreBundle\Tests
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-abstract class AbstractOrmTest
+abstract class AbstractOrmTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * A replacement of Symfony\Bridge\Doctrine\Test\DoctrineTestHelper::createTestEntityManager();
