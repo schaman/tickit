@@ -3,7 +3,7 @@
 // ------------------------------------
 
 html{
-    height: 100% ; 
+    height: 100%; 
 }
 
 body{
@@ -40,17 +40,12 @@ body{
   height: 100%;
 }
 
-.title-section{
-    padding: 10px 10px 20px 10px;
-    border-bottom: 1px solid #E3E3E3;
-    margin-bottom: 20px;   
-}
 
 ul{
-	list-style: none;
-	li{
-		list-style: none;
-	}
+  list-style: none;
+  li{
+    list-style: none;
+  }
 }
 
 
@@ -67,15 +62,12 @@ a{
 h1 {
     font-size: @h1;
 }
-
 h2{
     font-size: @h2;
 }
-
 h3{
     font-size: @h3;    
 }
-
 h4{
     font-size: @h4;
 }
@@ -85,6 +77,62 @@ h5{
 h6{
     font-size: @h6;
 }
+
+// -------------------------
+// Grid System
+// -------------------------
+
+@column-width: 60;
+@gutter-width: 30;
+@columns: 12;
+
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
+@total-width: 100%;
+
+.column(@x,@columns:@columns) {
+  display: inline;
+  float: left;  
+  width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+  margin: 0 @total-width*((@gutter-width*.5)/@gridsystem-width);
+  @media @mobile{
+      float: none;
+      display: block;
+      width: 100%;
+      margin: 0px 10px;
+  }
+}
+
+.break-top{
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid @secondaryBg - 20%;
+}
+
+.break-bottom{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid @secondaryBg - 20%;
+}
+.break-right{
+  padding-right: @total-width*((@gutter-width*.5)/@gridsystem-width);  
+  border-right: 1px solid @secondaryBg - 20%;
+}
+
+.break-left{
+  padding-left: @total-width*((@gutter-width*.5)/@gridsystem-width);
+  border-left: 1px solid @secondaryBg - 20%;
+}
+
+.grid (@index) when (@index > 0){
+    .col-@{index}{
+    .column(@index);
+
+   }
+  .grid(@index - 1);
+}
+.grid(@columns);      
+
+
 
 //---------------------------
 // Form Styling
@@ -114,7 +162,7 @@ textarea:invalid {
     padding: 10px 10px 10px 10px;
     display: block;
     text-align: center;   
-    color: #fff; 
+    color: @btnFontColor; 
     background: @trial-color;
     &:hover{
         background: @trial-color + 25%;
@@ -128,7 +176,7 @@ textarea{
     width: 100%;
     margin-bottom: 10px; 
     outline: none; 
-    border: 2px solid #edeff1;
+    border: 1px solid @border;
     min-height: 200px;
     .border-radius(3px);
     &:focus{
@@ -137,8 +185,7 @@ textarea{
         ~ label{
             color: @trial-color
         } 
-    } 
-
+    }
 }
 input[type="date"],
 input[type="email"],
@@ -150,7 +197,7 @@ input[type="text"]{
     width: 100%;
     margin-bottom: 10px; 
     outline: none; 
-    border: 1px solid #C5C5C5;
+    border: 1px solid @border;
     .border-radius(3px);
     &:focus{
         .transition(border 0.3s 0s ease-in-out);
@@ -179,76 +226,75 @@ input[type="submit"]{
 }
 
 div.error {
-    background: #f2dede;
-    border-color: #ebccd1;
-    color: #a94442;
-    padding: 10px;
-    margin: 0 0 10px;
+  background: @danger;
+  border: 1px solid @danger - 80%;
+  color: @danger - 120%;
+  padding: 10px;
+  margin: 0 0 10px;
 }
 
 //----------------------
-// float
+// Float
 //----------------------
 
 .right{
     float: right;
 }
-
 .left{
-	float: left;
+   float: left;
 }
 
 //----------------------
-// checkbox
+// Checkbox
 //----------------------
 
 .boolean[type="checkbox"]:not(:checked),
 .boolean[type="checkbox"]:checked {
-  position: absolute;
-  display: none;
+    position: absolute;
+    display: none;
 }
 .boolean[type="checkbox"]:not(:checked) + label,
 .boolean[type="checkbox"]:checked + label {
-  position: relative;
-  padding-left: 50px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 15px 0px;
+    position: relative;
+    padding-left: 50px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 15px 0px;
 }
 .boolean[type="checkbox"]:not(:checked) + label:before,
 .boolean[type="checkbox"]:checked + label:before,
 .boolean[type="checkbox"]:not(:checked) + label:after,
 .boolean[type="checkbox"]:checked + label:after {
-  content: '';
-  position: absolute;
+    content: '';
+    position: absolute;
 }
 .boolean[type="checkbox"]:not(:checked) + label:before,
 .boolean[type="checkbox"]:checked + label:before {
-  left:0; 
-  top: 0px;
-  width: 40px; 
-  height: 20px;
-  background: #DDDDDD;
-  border-radius: 3px;
-  border: none;
+    left:0; 
+    top: 0px;
+    width: 40px; 
+    height: 20px;
+    background: @secondaryBg - 20%;
+    border-radius: 3px;
+    border: none;
 }
 .boolean[type="checkbox"]:not(:checked) + label:after,
 .boolean[type="checkbox"]:checked + label:after {
-  width: 20px; 
-  height: 20px;
-  transition: all .2s;
-  border-radius: 3px 0 0 3px;
-  background: #7F8C9A;
-  top: 0px; 
-  left: 0px;
+    width: 20px; 
+    height: 20px;
+    .transition(all .2s);
+    border-radius: 3px 0 0 3px;
+    background: @secondaryBg - 80%;
+    top: 0px; 
+    left: 0px;
 }
 
 .boolean[type="checkbox"]:checked + label:before {
-  background: #ddd; 
+    background: @secondaryBg - 20%;
 }
 
 .boolean[type="checkbox"]:checked + label:after {
-  background: #297881;
+  background: @trial-color;
   top: 0px; 
   left: 20px;
   border-radius: 0 3px 3px 0;
@@ -258,7 +304,6 @@ div.error {
 [type="checkbox"]:checked {
   position: absolute;
   display: none;
-
 }
 [type="checkbox"]:not(:checked) + label,
 [type="checkbox"]:checked + label {
@@ -270,7 +315,6 @@ div.error {
   content: " ";
   display: inline-block;
 }
-
 [type="checkbox"]:not(:checked) + label:before,
 [type="checkbox"]:checked + label:before {
   width: 13px; 
@@ -284,21 +328,17 @@ div.error {
   color: transparent;
   margin-right: 7px;
   .font-size(0.8);
-  
 }
-/* on checked */
 [type="checkbox"]:checked + label:before {
   font-family: "tickit-icons";
   content: "\e80c";
   color:  @trial-color;
   .font-size(0.8);
   text-align: center;
-
 }
-
-
-
-
+.select2-container{
+  min-width: 250px;
+}
 
 //----------------------
 // radio
@@ -319,7 +359,7 @@ input[type="radio"] + label span {
   cursor:pointer;
   .transition(all 0.3s 0s ease-in-out);
   position: relative;
-  border: 1px solid #ddd;
+  border: 1px solid @border;
   &:after{
       .transition(all 0.1s 0s ease-in-out);
       position: absolute;
@@ -341,9 +381,7 @@ input[type="radio"] + label span {
     -o-transform: scale(0.9);
     transform: scale(0.9);
   }  
-  
 }
-
 input[type="radio"]:checked + label span { 
     &:after{
       .opacity(100);
@@ -392,53 +430,78 @@ progress[value]:after {
 }
 
 progress::-moz-progress-bar{
-    background: @trial-color;
+  background: @trial-color;
 }
 
 progress::-webkit-progress-value  {
-    background: @trial-color;
+  background: @trial-color;
 }
 
-
-// helper class
-// -----------------
+//----------------------------------------------------
+// Helper class
+//----------------------------------------------------
 
 .hidden{
-	display: none;
+  display: none;
 }
 
-//-----
-// Breadcrumbs
-//----
+//----------------------------------------------------
+// PopUp Styles
+//----------------------------------------------------
 
-.breadcrumbs{
+.mfp-content{
+  max-width: 980px;
+  padding: 50px 0px;
+  .clearfix();
+}
+
+.alert-container{
+  padding: 10px 0px;
+  .clearfix();
+}
+
+.alert-banner{
+  padding: 10px 0px;
+  .clearfix();  
+}
+
+.zoom-anim-dialog{
+  background: @secondaryBg;
+  .clearfix();
+  .box-shadow(0px 0px 5px 0px rgba(50, 50, 50, 0.75));
+}
+
+.alert-footer{
+  float: left;
+  width: 100%;
+  background: @secondaryHeaderColor;
+  border-top: 1px solid @secondaryHeaderColor - 20%;
+  padding: 10px 0px;
+  display: block;
+  input{
+    float: right;
+  }
+}
+
+.alert-container{
+  input, select, .select2-container{
+      display: block;
+      float: left;
+      clear: both;
+      width: 100%;
+  }
+  label{
+    float: left;
+    clear: both;
+    display: block;
+  }
+  div{
+    margin-bottom: 5px;
     .clearfix();
-    padding: 14px 0px 0px 21px;
-    ul{
-        li{
-            float: left;
-            padding: 0px 15px 0px 0px;
-            margin: 0px 15px 0px 0px;
-            position: relative;
-            &:before{
-                position: absolute;
-                right: 0px;
-                top: 9px;
-            }
-            a{
-                color: #f1f1f1;
-                &.icon-home{
-                    width: 7px;
-                    display: inline-block;
-                }
-            }
-            &:last-child a{
-                color: @trial-color;
-            }
-        }
-    }
-    
+  }
 }
+
+
 
 //----------------------------------------------------
 // Header
@@ -457,7 +520,7 @@ header.main-header{
 }
 
 .navbar{
-    background: @light-grey;
+    background: @HeaderBaseBg;
     margin-bottom: 0px;
     position: absolute;
     width: 100%;
@@ -466,7 +529,7 @@ header.main-header{
 }
 
 .account{
-    background: @dark-grey;
+    background: @HeaderSecondaryBg;
     padding: 10px 20px 0px;
     position: relative;
     float: left;
@@ -491,7 +554,7 @@ header.main-header{
         float: left;
         color: #fff;
         &:hover{
-            color: @turquoise;
+            color: @trial-color;
             text-decoration: none;
         }
     }
@@ -520,7 +583,7 @@ header.main-header{
       .border-radius(0px 0px 3px 3px);
       visibility: hidden;
       .opacity(0);
-      background: #34383c;
+      background: @secondaryHeaderColor;
       width: 100%;
       li{
         display: block;
@@ -532,9 +595,9 @@ header.main-header{
           position: relative;
           width: 100%;
           padding: 3px 0px 3px 20px; 
-          color: #fff;
+          color: @HeaderIconColor;
           &:hover{
-            color: @silver;
+            color: @HeaderIconColor - 20%;
           }
           &:before{
             position: absolute;
@@ -547,14 +610,14 @@ header.main-header{
   }
   a.icon-wrench{
     font-size: 15px;
-    color: #fff;
+    color: @HeaderIconColor;
     margin-left: 4px;
     &:hover{
-      color: @silver;
+      color: @HeaderIconColor - 20%;
     }
   }
   a.icon-chat{
-    color: @clouds;
+    color: @HeaderIconColor;
     float: left;
     position: relative;
     padding: 4px 30px 0px 0px;
@@ -563,36 +626,35 @@ header.main-header{
     font-size: 15px;
     &:hover{
       cursor: pointer; 
-      color: @silver;
+      color: @HeaderIconColor - 20%;
     }
     span{
       position: absolute;
-      background: @alizarin;
       width:  10px;
       height: 10px;
       top: 4px;
       left: 12px;
-      border: 1px solid @pomegranate;
       .border-radius(50%);
     }
   }
   a.icon-off{
-    color: @clouds;
+    color: #fff - 20%;
     float: left;
     position: relative;
     padding: 5px 30px 0px 0px;
     .transition(0.25s);
     display: block;
-    &:hover{cursor: pointer; color: @silver;}
+    &:hover{
+      cursor: pointer; 
+      color: #fff - 20%;
+    }
     font-size: 15px;
     span{
       position: absolute;
-      background: @alizarin;
       width:  10px;
       height: 10px;
       top: 4px;
       left: 12px;
-      border: 1px solid @pomegranate;
       .border-radius(50%);
     }
   }         
@@ -605,16 +667,19 @@ header.main-header{
     float: left;
 }
 .nav-collapse{
-    background: @dark-grey; 
+    background: @HeaderSecondaryBg; 
     height: 46px;   
 }
+
 #logo{
     float: left;
-    color: #fff;
+    color: @HeaderLogo;
     text-decoration: none;
     font-family: 'Rambla', sans-serif;
     line-height: 29px;
     text-align: center;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
+    font-weight: 700;
     width: 100%;
     padding: 9px 10px;
     font-size: 16px;
@@ -634,9 +699,8 @@ header.main-header{
      .border-radius(0px);
 }
 
-
 .quick-links{
-  float:left;
+  float: left;
   display: inline-block;
   padding-top: 14px;
   ul{
@@ -648,7 +712,7 @@ header.main-header{
       }
       a{
         display: block;
-        color: #fff;
+        color: @HeaderIconColor;
         width: 15px;
         font-size: 15px;
         position: relative;
@@ -663,7 +727,7 @@ header.main-header{
           .transition(all 0.2s 0s ease-in-out);
           content: attr(data-title);
           padding: 5px;
-          color: #fff;
+          color: @HeaderIconColor;
           position: absolute;
           left: 50%;
           margin-left: -45px;
@@ -675,11 +739,11 @@ header.main-header{
           font-size: 10px;
         }
         &:hover{
-          color: @silver;
+          color: @HeaderIconColor - 20%;
           &:after {
             visibility: visible;
             .opacity(100);
-          }         
+          }
         }       
       }
     }
@@ -755,28 +819,31 @@ header.main-header{
     input[type="text"]{
         margin: 6px 10px;  
         padding: 7px 5px 7px 35px ;
-        color: #fff;
+        color: @HeaderIconColor;
         background: transparent;
         border: none;
         width: 90px;
-        color: #6C757E;   
+        color: @placeholderTextColor;   
         .transition(all .3s 0s ease);
         .opacity(60);
         &:focus{
-            color: #6C757E + 20%;
+            color: @placeholderTextColor;
             width: 300px;
             .opacity(100);
             border: none;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: scale(1);
             ~ label{
-                color: #6C757E;
+                color: @placeholderTextColor;
             }
         }
         ~ label{
             position: absolute;
+            z-index: 10;
             top: 12px;
             left: 18px;
             font-size: 17px;
-            color: #6C757E;
+            color: @placeholderTextColor;
             font-weight: 100;
         }
     }
@@ -855,7 +922,7 @@ header.main-header{
     top: 0px;
     position: absolute;
     text-align: center;
-    color: #fff;
+    color: @btnFontColor;
     .border-radius(0px 3px 3px 0px);
     .box-sizing();
     background: @trial-color;
@@ -885,15 +952,15 @@ header.main-header{
     text-align: left;
     position: relative;
     font-family: 'Rambla', sans-serif;
-    h1 a{
-        color: #fff;
+    a{
+        color: @HeaderLogo;
         text-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
         text-align: left;
     }
 }
 
 .login-panel{
-    background-color: #edeff1;
+    background-color: @secondaryBg;
     position: relative;
     .border-radius(3px);
     .box-shadow(0px 1px 10px 0px rgba(0, 0, 0, 0.3));
@@ -925,11 +992,11 @@ header.main-header{
 }
 
 .twitter-btn{
-   background: #4099FF;
+   background: @twitterColor;
    display: block;
    position: relative;
    &:hover{
-        background: #4099FF + 25%;
+        background: @twitterColor + 25%;
     }
    &:before{
       margin-right: 20px;
@@ -937,11 +1004,11 @@ header.main-header{
 }
 
 .google-btn{
-   background: #DF4A32;
+   background: @googleColor;
    display: block;
    position: relative;
    &:hover{
-        background: #DF4A32 + 25%;
+        background: @googleColor + 25%;
     }
     &:before{
       margin-right: 20px;
@@ -961,8 +1028,8 @@ table{
     width: 100%;
     tbody{
         tr{
-            border-left: 1px solid #d1d1d1;
-            border-right: 1px solid #d1d1d1;
+            border-left: 1px solid @secondaryBg - 20%;
+            border-right: 1px solid @secondaryBg - 20%;
         }
     }
     thead{
@@ -975,42 +1042,43 @@ td,th{
         padding: 17px 10px;
         .priority{
             border: 1px solid #111;
-            background: #fff;   
+            background: @tableBG;   
             padding: 6px 15px;
             .border-radius(5px);
-            &.high, &.false{
-                color: #8a1f10;
-                border: 1px solid #f49296;
-                background: #fbe3e4;
+            &.high, 
+            &.false{
+                color: @danger - 20%;
+                border: 1px solid @danger - 20%;
+                background: @danger;
             }
             &.true{
-                color: #3c763d;
-                background: #dff0d8;
-                border: 1px solid #c6d5ba;
+                color: @success - 20%;
+                border: 1px solid @success - 20%;
+                background: @success;
             }
             &.medium{
-                color: #8a6d3b;
-                border: 1px solid #faebcc;
-                background: #fcf8e3;
+                color: @warning - 20%;
+                border: 1px solid @warning - 20%;
+                background: @warning ;
             }
             &.low{
-                color: #666;
-                border: 1px solid #e8e8e8;
-                background: #f5f5f5;
+                color: @info - 20%;
+                border: 1px solid @info - 20%;
+                background: @info;
             }
         }
     }
 }
 
 td{
-    border-bottom: 1px solid #d1d1d1;
-    background: #fff;
+    border-bottom: 1px solid @secondaryBg - 20%;
+    background: @tableBG;
     &.action{
         text-align: center;
         a{
-            color: #111;
+            color: @trial-color;
             &:hover{
-                color: @trial-color;
+                color: @trial-color + 20%;
             }
         }
     }
@@ -1018,18 +1086,18 @@ td{
 
 th{
     a{
-        color: #fff;
+        color: @tableBG;
     }
     div{
-        background:#34383c;
+        background: @secondaryHeaderColor;
     }
     &:first-child div{
         .border-radius(5px 0px 0px 0px);
-        border-left: 1px solid #34383c;
+        border-left: 1px solid @secondaryHeaderColor;
     }
     &:last-child div{
         .border-radius(0px 5px 0px 0px);
-        border-right: 1px solid #34383c;
+        border-right: 1px solid @secondaryHeaderColor;
     }
 }
 tr{
@@ -1042,9 +1110,9 @@ tr{
 }
 
 .cell{
-	label{
-		margin-right: 0px;
-	}
+  label{
+    margin-right: 0px;
+  }
 }
 
 //----------------------------------------------------
@@ -1053,12 +1121,12 @@ tr{
 
 .list-pagination{
     .clearfix();
-    padding: 15px ;
-    background: #E5E6E6;
+    padding: 15px;
+    background: @secondaryBg;
     .border-radius(0px 0px 5px 5px);
-    border-bottom: 1px solid #d1d1d1;
-    border-left: 1px solid #d1d1d1;
-    border-right: 1px solid #d1d1d1;
+    border-bottom: 1px solid @secondaryBg - 20%;
+    border-left: 1px solid @secondaryBg - 20%;
+    border-right: 1px solid @secondaryBg - 20%;
     ul.pagination{
         float: left;
         padding-top: 10px;
@@ -1068,7 +1136,7 @@ tr{
             a{
                 display: block;
                 font-weight: bold;
-                color: #A6A8AC; 
+                color: @border; 
                 &:before{
                     width: 0em;
                 } 
@@ -1082,49 +1150,49 @@ tr{
         }
     }
     .refresh{
-	    float: right;
-	    display: block;
-	    padding: 10px 5px 0px 0px;
-	    a{
-	 		color: #A6A8AC;
-		 	display: inline-block;
-		 	width: 20px;
-		 	height: 20px;
-		 	position: relative;
-		 	&:hover{
-			 	color: #A6A8AC - 20%;
-		 	}		 	
-		    &:before{
-			 	font-size: 15px;
-		 	}
-	    }
+      float: right;
+      display: block;
+      padding: 10px 5px 0px 0px;
+      a{
+      color: @border;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      &:hover{
+        color: @border - 20%;
+      }     
+        &:before{
+        font-size: 15px;
+      }
+      }
     }    
     .bulk-action{
-	 	float: right;
-	 	display: block;
+    float: right;
+    display: block;
     }
 }
 
 
 .action{
-	.icon-export{
-		position: relative;
-		&:hover{
-			.flyout{
-				visibility: visible;
-				.opacity(100);
-			}
-		}
-	}
+  .icon-export{
+    position: relative;
+    &:hover{
+      .flyout{
+        visibility: visible;
+        .opacity(100);
+      }
+    }
+  }
 }
 
 .flyout{
   position: absolute;
-  background: #fff;
+  background: @flyOutBg;
   left: 100%;
   top: -15px;
   padding: 10px 20px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid @border;
   .border-radius(3px);
   .box-shadow(4px 4px 2px rgba(0, 0, 0, 0.4));
   visibility: hidden;
@@ -1135,7 +1203,7 @@ tr{
     height: 0; 
     border-top: 9px solid transparent;
     border-bottom: 9px solid transparent; 
-    border-right:9px solid #d1d1d1;
+    border-right:9px solid @border;
     position: absolute;
     left: -9px;
     top:  22px;
@@ -1170,21 +1238,14 @@ tr{
   }
 }
 
-
-.btn-cell{
-    a{
-      color: #5D646C;
-    }
-}
-
 .filter{
-    background: #E5E6E6;
+    background: @secondaryBg;
     .border-radius(5px;);
     margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid @secondaryBg - 20%;
     .clearfix();
     label{
         margin: 0px;
@@ -1200,11 +1261,11 @@ tr{
         margin-right: 25px;
         float: left;
     }
-	.checkbox-filter{
-		label:first-child{
-			margin-bottom: 10px;	
-		}
-	}
+  .checkbox-filter{
+    label:first-child{
+      margin-bottom: 10px;  
+    }
+  }
 }
 
 
