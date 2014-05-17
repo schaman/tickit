@@ -20,10 +20,8 @@ define([
          * @return {Marionette.ItemView}
          */
         render: function() {
-            var d = this.model.attributes;
-
             this.$el.html(_.template($(tpl).html(), {
-                avatarUrl: d.avatarIdentifier
+                avatarUrl: this.model.get('avatarUrl')
             }, { variable: 'user' }));
             return this;
         }
