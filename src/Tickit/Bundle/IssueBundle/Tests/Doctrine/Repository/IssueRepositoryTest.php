@@ -23,6 +23,7 @@ namespace Tickit\Bundle\IssueBundle\Tests\Doctrine\Repository;
 
 use Tickit\Bundle\CoreBundle\Tests\AbstractOrmTest;
 use Tickit\Bundle\IssueBundle\Doctrine\Repository\IssueRepository;
+use Tickit\Component\Model\Issue\IssueNumber;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Pagination\Resolver\PageResolver;
 
@@ -96,5 +97,24 @@ class IssueRepositoryTest extends AbstractOrmTest
 
         $this->assertEquals(1, $builder->getMaxResults());
         $this->assertSame($project, $builder->getParameter('project')->getValue());
+    }
+
+    /**
+     * Tests the getIssueByIssueNumberQueryBuilder() method
+     */
+    public function testGetIssueByIssueNumberQueryBuilder()
+    {
+        $issueNumber = new IssueNumber('TEST', 12345);
+
+        $builder = $this->repo->getIssueByIssueNumberQueryBuilder($issueNumber);
+
+        $from = $builder->getDQLPart('from');
+        $this->assertNotEmpty($from);
+        $this->assertEquals('TickitIssueBundle:Issue', $from[0]->getFrom());
+
+        $join = $builder->getDQLPart('join');
+        $this->assertCount(2, $join['i']);
+
+        $this->assertEquals(1, $builder->getMaxResults());
     }
 }
