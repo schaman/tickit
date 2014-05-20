@@ -28,7 +28,8 @@ define([
                 type: m.getType(),
                 status: m.getStatus(),
                 priority: m.get('priority'),
-                editUrl: m.getEditUrl()
+                editUrl: m.getEditUrl(),
+                viewUrl: m.getViewUrl()
             }));
             return this;
         }
