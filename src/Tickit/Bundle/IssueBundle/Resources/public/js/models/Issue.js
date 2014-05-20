@@ -50,7 +50,7 @@ define([
         },
 
         /**
-         * Gets the edit URL for this project
+         * Gets the edit URL for this issue
          *
          * @returns {string}
          */
@@ -63,6 +63,15 @@ define([
          */
         getDeleteUrl : function() {
             return Routing.generate('issue_delete', { "id": this.get('id'), "token": this.get('csrfToken') });
+        },
+
+        /**
+         * Gets the view URL for this issue
+         *
+         * @return {string}
+         */
+        getViewUrl : function() {
+            return Routing.generate('issue_view', { number: this.get('number') });
         },
 
         /**
