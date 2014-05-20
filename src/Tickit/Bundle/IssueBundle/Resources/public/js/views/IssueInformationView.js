@@ -12,6 +12,13 @@ define([
     return Marionette.ItemView.extend({
         template: '#issue-information-template',
 
+        assignedToView: null,
+        createdByView: null,
+
+        modelEvents: {
+            "sync" : "render"
+        },
+
         /**
          * Renders the view
          */
@@ -32,21 +39,30 @@ define([
                 updatedAt: m.getUpdatedAt()
             }));
 
-            new UserAvatarView({
+            this.assignedToView = new UserAvatarView({
                 el: this.$el.find('.assigned-to'),
                 model: this.model.getAssignedTo()
-            }).render();
+            });
 
-            new UserAvatarView({
+            this.createdByView = new UserAvatarView({
                 el: this.$el.find('.created-by'),
                 model: this.model.getCreatedBy()
-            }).render();
+            });
+
+            this.createdByView.render();
+            this.assignedToView.render();
 
             return this;
         },
 
-        modelEvents: {
-            "sync" : "render"
+        /**
+         * Closes the view.
+         *
+         * Cleans up any subviews that are no longer needed.
+         */
+        onClose : function() {
+            this.createdByView.close();
+            this.assignedToView.close();
         }
     });
 });
