@@ -158,7 +158,8 @@ class IssueRepository extends PaginatedRepository implements IssueRepositoryInte
             new ExactMatchFilter('number', $issueNumber->getNumber()),
             new ExactMatchFilter(
                 'issuePrefix',
-                $issueNumber->getPrefix(), [
+                $issueNumber->getPrefix(),
+                [
                     ExactMatchFilter::STRICT_KEY_VALIDATION => false,
                     ExactMatchFilter::ENTITY_ALIAS => 'p'
                 ]
