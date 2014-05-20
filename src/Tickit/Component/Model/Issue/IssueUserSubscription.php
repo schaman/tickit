@@ -99,6 +99,22 @@ class IssueUserSubscription
     }
 
     /**
+     * Removes a subscription mask from the subscription
+     *
+     * @param integer $subscriptionMask The subscription mask
+     *
+     * @throws \InvalidArgumentException If the mask is not valid
+     */
+    public function remove($subscriptionMask)
+    {
+        if (false === $this->isMaskValid($subscriptionMask)) {
+            throw new \InvalidArgumentException('The $subscriptionMask property is invalid');
+        }
+
+        $this->subscriptionMask &= ~$subscriptionMask;
+    }
+
+    /**
      * Returns true if the mask is valid, otherwise returns false
      *
      * @param integer $mask The mask to validate

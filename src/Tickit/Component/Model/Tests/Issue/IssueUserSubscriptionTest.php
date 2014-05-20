@@ -87,4 +87,39 @@ class IssueUserSubscriptionTest extends \PHPUnit_Framework_TestCase
             [[IssueUserSubscription::MASK_STATUS_CHANGES]]
         ];
     }
+
+    /**
+     * @dataProvider getRemoveFixtures
+     */
+    public function testRemove(IssueUserSubscription $subscription, $maskToRemove, $expectedMask, $expectedException = null)
+    {
+        if (null !== $expectedException) {
+            $this->setExpectedException($expectedException);
+        }
+
+        $subscription->remove($maskToRemove);
+        $this->assertEquals($expectedMask, $subscription->getSubscriptionMask());
+    }
+
+    /**
+     * @return array
+     */
+    public function getRemoveFixtures()
+    {
+        $subscriptionWithCommentsMask = new IssueUserSubscription(IssueUserSubscription::MASK_NEW_COMMENTS);
+        $subscriptionWithCommentsMask2 = clone $subscriptionWithCommentsMask;
+
+        $subscriptionWithMultipleMasks = new IssueUserSubscription(
+            IssueUserSubscription::MASK_NEW_COMMENTS | IssueUserSubscription::MASK_ASSIGNEE_CHANGES
+        );
+        $subscriptionWithNoMasks = new IssueUserSubscription();
+
+        return [
+            [$subscriptionWithCommentsMask, IssueUserSubscription::MASK_NEW_COMMENTS, 0],
+            [$subscriptionWithMultipleMasks, IssueUserSubscription::MASK_ASSIGNEE_CHANGES, IssueUserSubscription::MASK_NEW_COMMENTS],
+            [$subscriptionWithNoMasks, IssueUserSubscription::MASK_ASSIGNEE_CHANGES, 0],
+            [$subscriptionWithCommentsMask2, IssueUserSubscription::MASK_STATUS_CHANGES, $subscriptionWithCommentsMask->getSubscriptionMask()],
+            [$subscriptionWithMultipleMasks, 'invalid', null, '\InvalidArgumentException']
+        ];
+    }
 }
