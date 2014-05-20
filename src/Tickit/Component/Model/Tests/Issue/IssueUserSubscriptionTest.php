@@ -52,7 +52,39 @@ class IssueUserSubscriptionTest extends \PHPUnit_Framework_TestCase
     {
         return [
             ['not an integer', '\InvalidArgumentException'],
-            [IssueUserSubscription::ASSIGNEE_CHANGES]
+            [IssueUserSubscription::MASK_ASSIGNEE_CHANGES]
+        ];
+    }
+
+    /**
+     * @dataProvider getAddFixtures
+     */
+    public function testAdd(array $masks, $expectedException = null)
+    {
+        if (null !== $expectedException) {
+            $this->setExpectedException($expectedException);
+        }
+
+        $subscription = new IssueUserSubscription();
+        $expectedMask = 0;
+        foreach ($masks as $mask) {
+            $subscription->add($mask);
+            $expectedMask |= $mask;
+        }
+
+        $this->assertEquals($expectedMask, $subscription->getSubscriptionMask());
+    }
+
+    /**
+     * @return array
+     */
+    public function getAddFixtures()
+    {
+        return [
+            [['invalid'], '\InvalidArgumentException'],
+            [[37585748], '\InvalidArgumentException'],
+            [[IssueUserSubscription::MASK_ASSIGNEE_CHANGES, IssueUserSubscription::MASK_NEW_COMMENTS]],
+            [[IssueUserSubscription::MASK_STATUS_CHANGES]]
         ];
     }
 }

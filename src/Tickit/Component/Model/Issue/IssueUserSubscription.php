@@ -31,9 +31,9 @@ use Tickit\Component\Model\User\User;
  */
 class IssueUserSubscription
 {
-    const STATUS_CHANGES = 1;
-    const NEW_COMMENTS = 2;
-    const ASSIGNEE_CHANGES = 4;
+    const MASK_STATUS_CHANGES = 1;
+    const MASK_NEW_COMMENTS = 2;
+    const MASK_ASSIGNEE_CHANGES = 4;
 
     /**
      * The user that this subscription is for
@@ -63,7 +63,7 @@ class IssueUserSubscription
      *
      * @throws \InvalidArgumentException If the $subscriptionMask value is not an integer
      */
-    public function __construct($subscriptionMask)
+    public function __construct($subscriptionMask = 0)
     {
         if (!is_int($subscriptionMask)) {
             throw new \InvalidArgumentException('The $subscriptionMask value must be an integer');
@@ -80,5 +80,36 @@ class IssueUserSubscription
     public function getSubscriptionMask()
     {
         return $this->subscriptionMask;
+    }
+
+    /**
+     * Adds a subscription mask to the subscription
+     *
+     * @param integer $subscriptionMask The subscription mask
+     *
+     * @throws \InvalidArgumentException If the mask is not valid
+     */
+    public function add($subscriptionMask)
+    {
+        if (false === $this->isMaskValid($subscriptionMask)) {
+            throw new \InvalidArgumentException('The $subscriptionMask property is invalid');
+        }
+
+        $this->subscriptionMask = $this->subscriptionMask |= $subscriptionMask;
+    }
+
+    /**
+     * Returns true if the mask is valid, otherwise returns false
+     *
+     * @param integer $mask The mask to validate
+     *
+     * @return boolean
+     */
+    private function isMaskValid($mask)
+    {
+        return in_array(
+            $mask,
+            [static::MASK_STATUS_CHANGES, static::MASK_NEW_COMMENTS, static::MASK_ASSIGNEE_CHANGES]
+        );
     }
 }
