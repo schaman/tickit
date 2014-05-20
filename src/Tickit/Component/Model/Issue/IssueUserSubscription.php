@@ -73,6 +73,54 @@ class IssueUserSubscription
     }
 
     /**
+     * Sets the issue that this subscription is for
+     *
+     * @param Issue $issue The issue
+     *
+     * @return IssueUserSubscription
+     */
+    public function setIssue(Issue $issue)
+    {
+        $this->issue = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Gets the issue that this subscription is for
+     *
+     * @return Issue
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+
+    /**
+     * Sets the user that this subscription is for
+     *
+     * @param User $user The user
+     *
+     * @return IssueUserSubscription
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Gets the user that this subscription is for
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
      * Gets subscription bit mask
      *
      * @return integer
