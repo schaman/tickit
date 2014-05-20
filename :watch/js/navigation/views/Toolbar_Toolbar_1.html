@@ -1,0 +1,38 @@
+<script type="text/template" id="toolbar-layout-template">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="nav-collapse left">
+                <div class="search-box right">
+                    <input class="search" type="text" placeholder="Search">
+                    <label class="search icon-search"></label>
+                 </div>
+            </div>
+
+            <div class="left">
+                <a href="/" id="logo">Tickit</a>
+            </div>
+
+            <div class="loader" style="display: none;">
+                <span>Loading</span>
+            </div>
+
+            <div class="right">
+                <div class="right">
+                    <div class="quick-links"></div>
+                    <div class='account'>
+                        <div class="account-links">
+                            <a href="" id="notification" class="icon-chat"><span></span></a>
+                            <div id="settings-navigation">
+                                <a href="" class="icon-wrench"><span class="hidden"></span></a>
+                                <div></div>
+                            </div>
+                            <a href="<%= logout %>" class="icon-off"><span class="hidden"></span></a>
+                        </div>
+                        <div class='account-thumb'></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</script>
