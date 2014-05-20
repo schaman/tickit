@@ -31,31 +31,54 @@ use Tickit\Component\Model\User\User;
  */
 class IssueUserSubscription
 {
+    const STATUS_CHANGES = 1;
+    const NEW_COMMENTS = 2;
+    const ASSIGNEE_CHANGES = 4;
+
     /**
      * The user that this subscription is for
      *
      * @var User
      */
-    protected $user;
+    private $user;
 
     /**
      * The issue that this subscription is against
      *
      * @var Issue
      */
-    protected $issue;
+    private $issue;
 
     /**
-     * Whether the user wishes to subscribe for new comment notifications
+     * The subscription bit mask
      *
-     * @var boolean
+     * @var integer
      */
-    protected $newComments;
+    private $subscriptionMask;
 
     /**
-     * Whether the user wishes to subscribe for issue status changes
+     * Constructor.
      *
-     * @var boolean
+     * @param integer $subscriptionMask The mask value identifying what is subscribed to
+     *
+     * @throws \InvalidArgumentException If the $subscriptionMask value is not an integer
      */
-    protected $statusChanges;
+    public function __construct($subscriptionMask)
+    {
+        if (!is_int($subscriptionMask)) {
+            throw new \InvalidArgumentException('The $subscriptionMask value must be an integer');
+        }
+
+        $this->subscriptionMask = $subscriptionMask;
+    }
+
+    /**
+     * Gets subscription bit mask
+     *
+     * @return integer
+     */
+    public function getSubscriptionMask()
+    {
+        return $this->subscriptionMask;
+    }
 }
