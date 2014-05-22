@@ -5,7 +5,11 @@
  *
  * @type {Backbone.View}
  */
-define(['modules/template', 'picker/js/views/PickerInitialiseMixin'], function(Template, PickerMixin) {
+define([
+    'modules/template',
+    'picker/js/views/PickerInitialiseMixin',
+    'picker/js/views/SelectInitialiseMixin'
+], function(Template, PickerMixin, SelectMixin) {
 
     var view = Backbone.View.extend({
 
@@ -41,6 +45,7 @@ define(['modules/template', 'picker/js/views/PickerInitialiseMixin'], function(T
             Template.fetch(url, function(tpl) {
                 t.$el.html(tpl);
                 t.initPickers.apply(t);
+                t.initSelects.apply(t);
             });
         },
 
@@ -71,6 +76,7 @@ define(['modules/template', 'picker/js/views/PickerInitialiseMixin'], function(T
     });
 
     _.extend(view.prototype, PickerMixin);
+    _.extend(view.prototype, SelectMixin);
 
     return view;
 });
