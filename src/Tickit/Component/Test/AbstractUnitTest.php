@@ -279,6 +279,16 @@ abstract class AbstractUnitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Gets a mock object repository
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockObjectRepository()
+    {
+        return $this->getMock('\Doctrine\Common\Persistence\ObjectRepository');
+    }
+
+    /**
      * Returns an instance of a non-accessible method.
      *
      * @param string $className  The class name
