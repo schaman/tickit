@@ -95,6 +95,7 @@ class EntityToEntityIdDataTransformer implements DataTransformerInterface
         }
 
         $propertyAccessor = new PropertyAccessor();
+
         return $propertyAccessor->getValue($value, $this->transformProperty);
     }
 
