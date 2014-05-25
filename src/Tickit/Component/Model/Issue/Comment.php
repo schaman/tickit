@@ -37,28 +37,42 @@ class Comment implements IdentifiableInterface
      *
      * @var integer
      */
-    protected $id;
+    private $id;
 
     /**
      * The issue that this comment belongs to
      *
      * @var Issue
      */
-    protected $issue;
-
-    /**
-     * The user that created the comment
-     *
-     * @var User
-     */
-    protected $user;
+    private $issue;
 
     /**
      * The message content on the comment
      *
      * @var string
      */
-    protected $message;
+    private $message;
+
+    /**
+     * The user that created the comment
+     *
+     * @var User
+     */
+    private $createdBy;
+
+    /**
+     * When this comment was created
+     *
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * When this comment was last updated
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     /**
      * Get value to identify this model
@@ -68,5 +82,123 @@ class Comment implements IdentifiableInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Sets the created at datetime
+     *
+     * @param \DateTime $createdAt The datetime object
+     *
+     * @return Comment
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the created at datetime
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the user who created this issue
+     *
+     * @param User $createdBy The user who created this issue
+     *
+     * @return Comment
+     */
+    public function setCreatedBy(User $createdBy)
+    {
+        $this->createdBy = $createdBy;
+    }
+
+    /**
+     * Gets the user who created this issue
+     *
+     * @return User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Sets the issue that this comment is for
+     *
+     * @param Issue $issue The issue
+     *
+     * @return Comment
+     */
+    public function setIssue(Issue $issue)
+    {
+        $this->issue = $issue;
+
+        return $this;
+    }
+
+    /**
+     * Gets the issue that this comment is for
+     *
+     * @return Issue
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+
+    /**
+     * Sets the message content for the comment
+     *
+     * @param string $message The message
+     *
+     * @return Comment
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets the message content for the comment
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Sets the updated at datetime
+     *
+     * @param \DateTime $updatedAt The datetime object
+     *
+     * @return Comment
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Gets the updated at datetime
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
