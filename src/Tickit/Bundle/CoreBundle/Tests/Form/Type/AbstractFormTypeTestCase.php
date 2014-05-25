@@ -251,4 +251,14 @@ class AbstractFormTypeTestCase extends TypeTestCase
     {
         return Factory::create();
     }
+
+    /**
+     * Gets a mock data transformer
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockDataTransformer()
+    {
+        return $this->getMock('\Symfony\Component\Form\DataTransformerInterface');
+    }
 }

@@ -8,6 +8,8 @@
         <parameter key="tickit_issue.form.filters.class">Tickit\Bundle\IssueBundle\Form\Type\FilterFormType</parameter>
         <parameter key="tickit_issue.form.issue.class">Tickit\Bundle\IssueBundle\Form\Type\IssueFormType</parameter>
         <parameter key="tickit_issue.form.issue_attachment.class">Tickit\Bundle\IssueBundle\Form\Type\IssueAttachmentFormType</parameter>
+        <parameter key="tickit_issue.form.comment.class">Tickit\Bundle\IssueBundle\Form\Type\CommentFormType</parameter>
+        <parameter key="tickit_issue.form.issue_data_transformer.class">Tickit\Component\Form\DataTransformer\EntityToEntityIdDataTransformer</parameter>
     </parameters>
 
     <services>
@@ -22,6 +24,17 @@
 
         <service id="tickit_issue.form.issue_attachment" class="%tickit_issue.form.issue_attachment.class%">
             <tag name="form.type" alias="tickit_issue_attachment" />
+        </service>
+
+        <service id="tickit_issue.form.comment" class="%tickit_issue.form.comment.class%">
+            <argument type="service" id="tickit_issue.form.issue_data_transformer" />
+            <tag name="form.type" alias="tickit_issue_comment" />
+        </service>
+
+        <service id="tickit_issue.form.issue_data_transformer" class="%tickit_issue.form.issue_data_transformer.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>Tickit\Component\Model\Issue\Issue</argument>
+            <argument>id</argument>
         </service>
 
     </services>
