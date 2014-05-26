@@ -27,12 +27,16 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
- * EntityToEntityIdDataTransformer
+ * Entity To Entity Property Data Transformer
+ *
+ * Provides a basic implementation of a data transformer for transforming an
+ * entity object (something persisted by the ORM) to an entity property, and
+ * vice versa.
  *
  * @package Tickit\Component\Form\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EntityToEntityIdDataTransformer implements DataTransformerInterface
+class EntityToEntityPropertyDataTransformer implements DataTransformerInterface
 {
     /**
      * An entity manager

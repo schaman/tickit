@@ -21,17 +21,17 @@
 
 namespace Tickit\Component\Form\Tests\DataTransformer;
 
-use Tickit\Component\Form\DataTransformer\EntityToEntityIdDataTransformer;
+use Tickit\Component\Form\DataTransformer\EntityToEntityPropertyDataTransformer;
 use Tickit\Component\Form\Tests\Fixtures\DummyEntity;
 use Tickit\Component\Test\AbstractUnitTest;
 
 /**
- * EntityToEntityIdDataTransformerTest
+ * EntityToEntityPropertyDataTransformerTest
  *
  * @package Tickit\Component\Form\Tests\DataTransformer
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-class EntityToEntityIdDataTransformerTest extends AbstractUnitTest
+class EntityToEntityPropertyDataTransformerTest extends AbstractUnitTest
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -122,10 +122,10 @@ class EntityToEntityIdDataTransformerTest extends AbstractUnitTest
      * @param string $alias             The entity class alias
      * @param string $transformProperty The property used to transform the entity to a string representation
      *
-     * @return EntityToEntityIdDataTransformer
+     * @return EntityToEntityPropertyDataTransformer
      */
     private function getTransformer($alias, $transformProperty)
     {
-        return new EntityToEntityIdDataTransformer($this->em, $alias, $transformProperty);
+        return new EntityToEntityPropertyDataTransformer($this->em, $alias, $transformProperty);
     }
 }
