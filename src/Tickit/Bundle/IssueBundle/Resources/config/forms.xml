@@ -10,6 +10,7 @@
         <parameter key="tickit_issue.form.issue_attachment.class">Tickit\Bundle\IssueBundle\Form\Type\IssueAttachmentFormType</parameter>
         <parameter key="tickit_issue.form.comment.class">Tickit\Bundle\IssueBundle\Form\Type\CommentFormType</parameter>
         <parameter key="tickit_issue.form.issue_data_transformer.class">Tickit\Component\Form\DataTransformer\EntityToEntityIdDataTransformer</parameter>
+        <parameter key="tickit_issue.form.subscriber.comment_created_by.class">Tickit\Bundle\IssueBundle\Form\EventListener\CommentCreatedByFormSubscriber</parameter>
     </parameters>
 
     <services>
@@ -28,6 +29,7 @@
 
         <service id="tickit_issue.form.comment" class="%tickit_issue.form.comment.class%">
             <argument type="service" id="tickit_issue.form.issue_data_transformer" />
+            <argument type="service" id="tickit_issue.form.subscriber.comment_created_by" />
             <tag name="form.type" alias="tickit_issue_comment" />
         </service>
 
@@ -35,6 +37,10 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>Tickit\Component\Model\Issue\Issue</argument>
             <argument>id</argument>
+        </service>
+
+        <service id="tickit_issue.form.subscriber.comment_created_by" class="%tickit_issue.form.subscriber.comment_created_by.class%">
+            <argument type="service" id="security.context" />
         </service>
 
     </services>

@@ -21,7 +21,7 @@
 
 namespace Tickit\Bundle\IssueBundle\Form\EventListener;
 
-use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Security\Core\SecurityContextInterface;

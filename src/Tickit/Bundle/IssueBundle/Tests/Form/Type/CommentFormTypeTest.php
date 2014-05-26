@@ -22,6 +22,7 @@
 namespace Tickit\Bundle\IssueBundle\Tests\Form\Type;
 
 use Tickit\Bundle\CoreBundle\Tests\Form\Type\AbstractFormTypeTestCase;
+use Tickit\Bundle\IssueBundle\Form\EventListener\CommentCreatedByFormSubscriber;
 use Tickit\Bundle\IssueBundle\Form\Type\CommentFormType;
 use Tickit\Component\Model\Issue\Comment;
 use Tickit\Component\Model\Issue\Issue;
@@ -40,6 +41,11 @@ class CommentFormTypeTest extends AbstractFormTypeTestCase
     private $issueDataTransformer;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $commentCreatedBySubscriber;
+
+    /**
      * Setup
      */
     protected function setUp()
@@ -47,14 +53,18 @@ class CommentFormTypeTest extends AbstractFormTypeTestCase
         parent::setUp();
 
         $this->issueDataTransformer = $this->getMockDataTransformer();
+        $this->commentCreatedBySubscriber = $this->getMockBuilder('\Tickit\Bundle\IssueBundle\Form\EventListener\CommentCreatedByFormSubscriber')
+                                                 ->setMethods(['setCreatedBy'])
+                                                 ->disableOriginalConstructor()
+                                                 ->getMock();
 
-        $this->formType = new CommentFormType($this->issueDataTransformer);
+        $this->formType = new CommentFormType($this->issueDataTransformer, $this->commentCreatedBySubscriber);
     }
 
     /**
      * @dataProvider getValidDataFixtures
      */
-    public function testSubmitValidData(array $data, Comment $expected)
+    public function testSubmitValidDataBlah(array $data, Comment $expected)
     {
         $this->issueDataTransformer->expects($this->once())
                                    ->method('reverseTransform')

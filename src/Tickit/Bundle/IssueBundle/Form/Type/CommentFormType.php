@@ -25,6 +25,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tickit\Bundle\IssueBundle\Form\EventListener\CommentCreatedByFormSubscriber;
 
 /**
  * Comment form type.
@@ -42,13 +43,25 @@ class CommentFormType extends AbstractType
     private $issueDataTransformer;
 
     /**
+     * Form subscriber for setting the "createdBy" on the comment
+     *
+     * @var CommentCreatedByFormSubscriber
+     */
+    private $commentCreatedByFormSubscriber;
+
+    /**
      * Constructor.
      *
-     * @param DataTransformerInterface $issueDataTransformer A data transformer for transforming the Issue
+     * @param DataTransformerInterface       $issueDataTransformer           A data transformer for transforming the Issue
+     * @param CommentCreatedByFormSubscriber $commentCreatedByFormSubscriber Form subscriber for setting the "createdBy"
+     *                                                                       on the comment
      */
-    public function __construct(DataTransformerInterface $issueDataTransformer)
-    {
+    public function __construct(
+        DataTransformerInterface $issueDataTransformer,
+        CommentCreatedByFormSubscriber $commentCreatedByFormSubscriber
+    ) {
         $this->issueDataTransformer = $issueDataTransformer;
+        $this->commentCreatedByFormSubscriber = $commentCreatedByFormSubscriber;
     }
 
     /**
@@ -63,7 +76,8 @@ class CommentFormType extends AbstractType
                 ->add(
                     $builder->create('issue', 'hidden')
                             ->addModelTransformer($this->issueDataTransformer)
-                );
+                )
+                ->addEventSubscriber($this->commentCreatedByFormSubscriber);
     }
 
     /**
