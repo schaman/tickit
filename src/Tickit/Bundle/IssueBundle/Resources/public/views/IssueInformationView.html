@@ -1,62 +1,56 @@
 <script type="text/template" id="issue-information-template">
-    <div class="issue-information-view">
-        <div class="col-12">
-        <h1><%= number %> - <span><%= type.getName() %></span> <span><%= status.getName() %></span></h1>
-    </div>
     
-    <div class="panel-left col-7">
-        <p><%= title %></p>
-        <div>
-            <span>Description</span>
-            <span><%= description %></span>
+    <div class="issue-summary">
+        <div class="col-12 issue-title">
+            <span><%= number %> - <span><%= type.getName() %></span>  <span><%= status.getName() %></span>
+            <h1><%= title %></h1> 
         </div>
-    </div>
-
-    <div class="panel-left col-5">
-        <span>People</span>
-        <div>
-            <span>Assigned To</span>
-            <span class="assigned-to"></span>
-        </div>
-
-        <div>
-            <span>Created By</span>
-            <span><%= createdBy.getFullName() %></span>
+    
+        <div class="col-7 issue-description">
             <div>
-                <span>Created</span>
-                <span><%= createdAt.toLocaleDateString() %></span>
+                <span class="bold">Description</span>
+                <p><%= description %></p>
             </div>
-            <span class="created-by"></span>
         </div>
 
-        <div>
-            <span>Updated</span>
-            <span><%= updatedAt.toLocaleDateString() %></span>
-        </div>
+        <div class="col-5 break-left issue-users">
+            <div class="issue-user-block">
+                <span class="bold">Assigned To</span>
+                <div class="assigned-to"></div>
+            </div>
 
+            <div class="issue-user-block">
+                <span class="bold">Created by</span>
+                <div class="created-by"></div>
+            </div>
+
+            <div class="issue-user-block">
+                <span class="bold">Created - <%= createdAt.toLocaleDateString() %></span>
+                <span class="bold">Last 1Updated - <%= updatedAt.toLocaleDateString() %></span>
+            </div>
     </div>
 
 
 
-    <div class="issueTimes panel">
+    <div class="issue-times panel">
         <div class="col-3">
-            <span>Estimated</span>
-            <span><%= estimatedHours %></span>
+            <span class="bold">Estimated</span>
+            <span class="large-number"><%= estimatedHours %>h</span>
         </div>
 
         <div class="col-3">
-            <span>Used so far</span>
-            <span><%= actualHours %></span>
+            <span class="issue-times-title">Used so far</span>
+            <span class="large-number"><%= actualHours %>h</span>
         </div>
 
         <div class="col-3">
-            <span>Due</span>
-            <span><%= dueDate.toLocaleDateString() %></span>
+            <span class="issue-times-title">Time remaining</span>
+            <span class="large-number">10h</span>
         </div>
 
         <div class="col-3">
-            <span>Due</span>
-            <span><%= dueDate.toLocaleDateString() %></span>
+            <span class="icon-calendar issue-times-title">Due</span>
+            <span class="large-number"><%= dueDate.toLocaleDateString() %></span>
         </div>
     </div>
 
