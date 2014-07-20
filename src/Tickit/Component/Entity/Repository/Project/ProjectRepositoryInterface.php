@@ -30,7 +30,7 @@ use Tickit\Component\Model\Project\Project;
  * Project repositories are responsible for fetching Project objects from
  * the data layer
  *
- * @package Tickit\Component\Entity\Repository
+ * @package Tickit\Component\Entity\Repository\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface ProjectRepositoryInterface extends ObjectRepository
