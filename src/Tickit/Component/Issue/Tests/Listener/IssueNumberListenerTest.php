@@ -45,7 +45,7 @@ class IssueNumberListenerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->issueRepository = $this->getMock('\Tickit\Component\Entity\Repository\IssueRepositoryInterface');
+        $this->issueRepository = $this->getMock('\Tickit\Component\Entity\Repository\Issue\IssueRepositoryInterface');
     }
 
     /**

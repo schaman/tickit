@@ -50,7 +50,7 @@ class TemplateControllerTest extends AbstractUnitTest
     public function setUp()
     {
         $this->formHelper = $this->getMockFormHelper();
-        $this->issueManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\IssueManager')
+        $this->issueManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\Issue\IssueManager')
                                    ->disableOriginalConstructor()
                                    ->getMock();
     }

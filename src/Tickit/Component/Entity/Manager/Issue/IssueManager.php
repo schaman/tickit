@@ -19,14 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Manager;
+namespace Tickit\Component\Entity\Manager\Issue;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
+use Tickit\Component\Entity\Manager\AbstractManager;
+use Tickit\Component\Entity\Repository\Issue\IssueRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
 use Tickit\Component\Event\Issue\IssueEvents;
@@ -37,7 +38,7 @@ use Tickit\Component\Model\Issue\IssueAttachment;
 /**
  * Issue manager.
  *
- * @package Tickit\Component\Entity\Manager
+ * @package Tickit\Component\Entity\Manager\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class IssueManager extends AbstractManager

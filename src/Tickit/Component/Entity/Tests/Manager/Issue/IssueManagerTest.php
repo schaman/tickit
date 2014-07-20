@@ -19,11 +19,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Tests\Manager;
+namespace Tickit\Component\Entity\Tests\Manager\Issue;
 
 use Doctrine\ORM\UnitOfWork;
 use Tickit\Component\Entity\Event\EntityEvent;
-use Tickit\Component\Entity\Manager\IssueManager;
+use Tickit\Component\Entity\Manager\Issue\IssueManager;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
 use Tickit\Component\Event\Issue\IssueEvents;
 use Tickit\Component\Model\Issue\Issue;
@@ -33,7 +33,7 @@ use Tickit\Component\Test\AbstractUnitTest;
 /**
  * IssueManager tests
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager\Issue
  * @author  James Halsall <jhalsall@rippleffect.com>
  */
 class IssueManagerTest extends AbstractUnitTest
@@ -63,7 +63,7 @@ class IssueManagerTest extends AbstractUnitTest
      */
     public function setUp()
     {
-        $this->issueRepository = $this->getMockBuilder('\Tickit\Component\Entity\Repository\IssueRepositoryInterface')
+        $this->issueRepository = $this->getMockBuilder('\Tickit\Component\Entity\Repository\Issue\IssueRepositoryInterface')
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
@@ -311,11 +311,11 @@ class IssueManagerTest extends AbstractUnitTest
     /**
      * Gets a new manager instance
      *
-     * @return IssueManager
+     * @return \Tickit\Component\Entity\Manager\Issue\IssueManager
      */
     private function getManager()
     {
-        return new IssueManager(
+        return new \Tickit\Component\Entity\Manager\Issue\IssueManager(
             $this->issueRepository,
             $this->em,
             $this->entityEventDispatcher,

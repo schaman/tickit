@@ -25,7 +25,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
-use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
+use Tickit\Component\Entity\Repository\Issue\IssueRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Model\Project\Project;

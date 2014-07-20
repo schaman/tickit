@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Tests\Manager;
+namespace Tickit\Component\Entity\Tests\Manager\Issue;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Tickit\Component\Entity\Manager\IssueAttachmentManager;
+use Tickit\Component\Entity\Manager\Issue\IssueAttachmentManager;
 use Tickit\Component\Model\Issue\IssueAttachment;
 use Tickit\Component\Test\AbstractUnitTest;
 
 /**
  * IssueAttachmentManager tests
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class IssueAttachmentManagerTest extends AbstractUnitTest

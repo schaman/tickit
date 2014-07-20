@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Manager;
+namespace Tickit\Component\Entity\Manager\Issue;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\Filesystem;
@@ -29,7 +29,7 @@ use Tickit\Component\Model\Issue\IssueAttachment;
 /**
  * Issue Attachment manager.
  *
- * @package Tickit\Component\Entity\Manager
+ * @package Tickit\Component\Entity\Manager\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class IssueAttachmentManager

@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Repository;
+namespace Tickit\Component\Entity\Repository\Issue;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\Component\Model\Project\Project;
@@ -27,7 +27,7 @@ use Tickit\Component\Model\Project\Project;
 /**
  * Issue repository interface.
  *
- * @package Tickit\Component\Entity\Repository
+ * @package Tickit\Component\Entity\Repository\Issue
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 interface IssueRepositoryInterface extends ObjectRepository
