@@ -28,7 +28,7 @@ use Tickit\Component\Model\Project\AbstractAttributeValue;
 use Tickit\Component\Model\Project\ChoiceAttribute;
 use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Repository\AttributeRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\AttributeRepositoryInterface;
 use Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface;
 
 /**

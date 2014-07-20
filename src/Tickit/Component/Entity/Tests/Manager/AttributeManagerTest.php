@@ -231,6 +231,6 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockAttributeRepository()
     {
-        return $this->getMock('\Tickit\Component\Entity\Repository\AttributeRepositoryInterface');
+        return $this->getMock('\Tickit\Component\Entity\Repository\Project\AttributeRepositoryInterface');
     }
 }
