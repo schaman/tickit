@@ -64,7 +64,7 @@ class ProjectManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->projectRepository = $this->getMock('\Tickit\Component\Entity\Repository\ProjectRepositoryInterface');
+        $this->projectRepository = $this->getMock('\Tickit\Component\Entity\Repository\Project\ProjectRepositoryInterface');
 
         $this->em = $this->getMockEntityManager();
 

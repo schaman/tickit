@@ -43,7 +43,7 @@ class ProjectPickerDataTransformerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->manager = $this->getMockBuilder('Tickit\Component\Entity\Manager\ProjectManager')
+        $this->manager = $this->getMockBuilder('Tickit\Component\Entity\Manager\Project\ProjectManager')
                               ->disableOriginalConstructor()
                               ->getMock();
     }
