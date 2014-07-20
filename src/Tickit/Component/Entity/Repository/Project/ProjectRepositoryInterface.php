@@ -19,27 +19,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Repository;
+namespace Tickit\Component\Entity\Repository\Project;
 
 use Doctrine\Common\Persistence\ObjectRepository;
+use Tickit\Component\Model\Project\Project;
 
 /**
- * Attribute repository interface.
+ * Project repository interface.
  *
- * Attribute repositories are responsible for fetching AbstractAttribute objects
- * from the data layer.
+ * Project repositories are responsible for fetching Project objects from
+ * the data layer
  *
- * @package Tickit\Component\Entity\Repository
+ * @package Tickit\Component\Entity\Repository\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
-interface AttributeRepositoryInterface extends ObjectRepository
+interface ProjectRepositoryInterface extends ObjectRepository
 {
     /**
-     * Returns a deep collection of all attributes
+     * Finds a project by identifier.
      *
-     * This method includes all associated meta objects related to the attributes.
+     * @param integer $id The identifier of the project to find
      *
-     * @return mixed
+     * @return Project
      */
-    public function findAllAttributes();
+    public function find($id);
 }

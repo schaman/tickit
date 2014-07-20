@@ -19,14 +19,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Manager;
+namespace Tickit\Component\Entity\Manager\Project;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NoResultException;
+use Tickit\Component\Entity\Manager\AbstractManager;
 use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\ProjectRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**
@@ -35,7 +36,7 @@ use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
  * Responsible for the management of project entities and their interaction
  * with the rest of the application
  *
- * @package Tickit\Component\Entity\Manager
+ * @package Tickit\Component\Entity\Manager\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManager extends AbstractManager

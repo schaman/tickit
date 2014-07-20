@@ -24,7 +24,7 @@ namespace Tickit\Bundle\ProjectBundle\Doctrine\Repository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tickit\Bundle\PaginationBundle\Doctrine\Repository\PaginatedRepository;
-use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\ProjectRepositoryInterface;
 use Tickit\Component\Filter\Repository\FilterableRepositoryInterface;
 use Tickit\Component\Filter\Collection\FilterCollection;
 

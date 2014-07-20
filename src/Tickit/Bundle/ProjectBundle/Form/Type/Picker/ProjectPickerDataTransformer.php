@@ -22,7 +22,7 @@
 namespace Tickit\Bundle\ProjectBundle\Form\Type\Picker;
 
 use Tickit\Bundle\PickerBundle\Form\Type\Picker\DataTransformer\AbstractPickerDataTransformer;
-use Tickit\Component\Entity\Manager\ProjectManager;
+use Tickit\Component\Entity\Manager\Project\ProjectManager;
 
 /**
  * Project picker data transformer.

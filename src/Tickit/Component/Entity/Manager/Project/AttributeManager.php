@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Manager;
+namespace Tickit\Component\Entity\Manager\Project;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,15 +28,15 @@ use Tickit\Component\Model\Project\AbstractAttributeValue;
 use Tickit\Component\Model\Project\ChoiceAttribute;
 use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Repository\AttributeRepositoryInterface;
-use Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\AttributeRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\ChoiceAttributeChoiceRepositoryInterface;
 
 /**
  * Attribute manager.
  *
  * Responsible for project attribute entities in the application.
  *
- * @package Tickit\Component\Entity\Manager
+ * @package Tickit\Component\Entity\Manager\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeManager

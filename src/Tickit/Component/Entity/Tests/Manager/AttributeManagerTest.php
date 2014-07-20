@@ -28,12 +28,12 @@ use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Component\Model\Project\EntityAttribute;
 use Tickit\Component\Model\Project\LiteralAttribute;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\Project\AttributeManager;
 
 /**
  * AttributeManager tests
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeManagerTest extends AbstractUnitTest
@@ -221,7 +221,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockChoiceAttributeChoiceRepository()
     {
-        return $this->getMock('\Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface');
+        return $this->getMock('\Tickit\Component\Entity\Repository\Project\ChoiceAttributeChoiceRepositoryInterface');
     }
 
     /**
@@ -231,6 +231,6 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockAttributeRepository()
     {
-        return $this->getMock('\Tickit\Component\Entity\Repository\AttributeRepositoryInterface');
+        return $this->getMock('\Tickit\Component\Entity\Repository\Project\AttributeRepositoryInterface');
     }
 }

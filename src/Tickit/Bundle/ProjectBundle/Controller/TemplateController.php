@@ -28,7 +28,7 @@ use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
-use Tickit\Component\Entity\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\Project\AttributeManager;
 use Tickit\Component\Entity\Manager\UserManager;
 
 /**

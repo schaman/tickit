@@ -75,7 +75,7 @@ class AttributeControllerTest extends AbstractUnitTest
                                       ->disableOriginalConstructor()
                                       ->getMock();
 
-        $this->attributeManager = $this->getMockBuilder('Tickit\Component\Entity\Manager\AttributeManager')
+        $this->attributeManager = $this->getMockBuilder('Tickit\Component\Entity\Manager\Project\AttributeManager')
                                        ->disableOriginalConstructor()
                                        ->getMock();
     }

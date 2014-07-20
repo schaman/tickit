@@ -30,7 +30,7 @@ use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Tickit\Component\Entity\Manager\ClientManager;
-use Tickit\Component\Entity\Manager\ProjectManager;
+use Tickit\Component\Entity\Manager\Project\ProjectManager;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;

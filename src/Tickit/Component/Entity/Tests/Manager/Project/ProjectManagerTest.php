@@ -19,12 +19,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Tests\Manager;
+namespace Tickit\Component\Entity\Tests\Manager\Project;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NoResultException;
 use Tickit\Component\Entity\Event\EntityEvent;
-use Tickit\Component\Entity\Manager\ProjectManager;
+use Tickit\Component\Entity\Manager\Project\ProjectManager;
 use Tickit\Component\Test\AbstractUnitTest;
 use Tickit\Component\Model\Project\ChoiceAttributeValue;
 use Tickit\Component\Model\Project\LiteralAttributeValue;
@@ -33,7 +33,7 @@ use Tickit\Component\Model\Project\Project;
 /**
  * Tests for the project manager
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class ProjectManagerTest extends AbstractUnitTest
@@ -64,7 +64,7 @@ class ProjectManagerTest extends AbstractUnitTest
      */
     protected function setUp()
     {
-        $this->projectRepository = $this->getMock('\Tickit\Component\Entity\Repository\ProjectRepositoryInterface');
+        $this->projectRepository = $this->getMock('\Tickit\Component\Entity\Repository\Project\ProjectRepositoryInterface');
 
         $this->em = $this->getMockEntityManager();
 
