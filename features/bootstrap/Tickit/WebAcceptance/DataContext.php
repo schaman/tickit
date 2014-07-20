@@ -237,7 +237,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
      */
     private function createProject($name, $status = Project::STATUS_ACTIVE, Client $client = null)
     {
-        /** @var \Tickit\Component\Entity\Manager\Project\ProjectManager $manager */
+        /** @var ProjectManager $manager */
         $manager = $this->getService('tickit_project.manager');
         /** @var Registry $doctrine */
         $doctrine = $this->getService('doctrine');
