@@ -28,12 +28,12 @@ use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Component\Model\Project\EntityAttribute;
 use Tickit\Component\Model\Project\LiteralAttribute;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\Project\AttributeManager;
 
 /**
  * AttributeManager tests
  *
- * @package Tickit\Component\Entity\Tests\Manager
+ * @package Tickit\Component\Entity\Tests\Manager\Project
  * @author  James Halsall <james.t.halsall@googlemail.com>
  */
 class AttributeManagerTest extends AbstractUnitTest

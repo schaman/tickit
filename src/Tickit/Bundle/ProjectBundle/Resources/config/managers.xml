@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="tickit_project.manager.class">Tickit\Component\Entity\Manager\Project\ProjectManager</parameter>
-        <parameter key="tickit_project.attribute_manager.class">Tickit\Component\Entity\Manager\AttributeManager</parameter>
+        <parameter key="tickit_project.attribute_manager.class">Tickit\Component\Entity\Manager\Project\AttributeManager</parameter>
     </parameters>
 
     <services>

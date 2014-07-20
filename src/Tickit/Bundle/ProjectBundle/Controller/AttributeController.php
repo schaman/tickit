@@ -29,7 +29,7 @@ use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Controller\Helper\FormHelper;
 use Tickit\Component\Model\Project\AbstractAttribute;
 use Tickit\Bundle\ProjectBundle\Form\Guesser\AttributeFormTypeGuesser;
-use Tickit\Component\Entity\Manager\AttributeManager;
+use Tickit\Component\Entity\Manager\Project\AttributeManager;
 
 /**
  * Project attribute controller.
@@ -72,7 +72,7 @@ class AttributeController
     /**
      * The attribute manager
      *
-     * @var AttributeManager
+     * @var \Tickit\Component\Entity\Manager\Project\AttributeManager
      */
     protected $attributeManager;
 
