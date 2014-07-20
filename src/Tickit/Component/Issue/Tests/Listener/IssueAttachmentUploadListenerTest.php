@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Issue\Tests\Listener;
 
-use Tickit\Component\Entity\Manager\IssueAttachmentManager;
+use Tickit\Component\Entity\Manager\Issue\IssueAttachmentManager;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
 use Tickit\Component\Issue\Listener\IssueAttachmentUploadListener;
 use Tickit\Component\Model\Issue\IssueAttachment;
@@ -44,7 +44,7 @@ class IssueAttachmentUploadListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->attachmentManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\IssueAttachmentManager')
+        $this->attachmentManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\Issue\IssueAttachmentManager')
                                         ->disableOriginalConstructor()
                                         ->getMock();
     }

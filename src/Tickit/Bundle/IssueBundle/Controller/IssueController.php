@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Tickit\Component\Controller\Helper\BaseHelper;
 use Tickit\Component\Controller\Helper\CsrfHelper;
 use Tickit\Component\Controller\Helper\FormHelper;
-use Tickit\Component\Entity\Manager\IssueManager;
+use Tickit\Component\Entity\Manager\Issue\IssueManager;
 use Tickit\Component\Model\Issue\Issue;
 
 /**

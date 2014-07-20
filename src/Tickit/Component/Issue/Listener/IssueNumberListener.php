@@ -22,7 +22,7 @@
 namespace Tickit\Component\Issue\Listener;
 
 use Tickit\Component\Entity\Event\EntityEvent;
-use Tickit\Component\Entity\Repository\IssueRepositoryInterface;
+use Tickit\Component\Entity\Repository\Issue\IssueRepositoryInterface;
 use Tickit\Component\Model\Issue\Issue;
 
 /**

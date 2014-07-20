@@ -21,7 +21,7 @@
 
 namespace Tickit\Component\Issue\Listener;
 
-use Tickit\Component\Entity\Manager\IssueAttachmentManager;
+use Tickit\Component\Entity\Manager\Issue\IssueAttachmentManager;
 use Tickit\Component\Event\Issue\AttachmentUploadEvent;
 
 /**

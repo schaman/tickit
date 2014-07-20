@@ -23,7 +23,7 @@ namespace Tickit\Bundle\IssueBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Tickit\Component\Controller\Helper\FormHelper;
-use Tickit\Component\Entity\Manager\IssueManager;
+use Tickit\Component\Entity\Manager\Issue\IssueManager;
 use Tickit\Component\Model\Issue\Issue;
 
 /**

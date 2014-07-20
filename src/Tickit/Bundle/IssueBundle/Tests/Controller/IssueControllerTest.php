@@ -64,7 +64,7 @@ class IssueControllerTest extends AbstractUnitTest
         $this->formHelper = $this->getMockFormHelper();
         $this->baseHelper = $this->getMockBaseHelper();
         $this->csrfHelper = $this->getMockCsrfHelper();
-        $this->issueManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\IssueManager')
+        $this->issueManager = $this->getMockBuilder('\Tickit\Component\Entity\Manager\Issue\IssueManager')
                                    ->disableOriginalConstructor()
                                    ->getMock();
     }
