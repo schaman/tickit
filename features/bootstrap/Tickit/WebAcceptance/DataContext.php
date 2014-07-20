@@ -30,7 +30,7 @@ use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Tickit\Component\Entity\Manager\ClientManager;
-use Tickit\Component\Entity\Manager\ProjectManager;
+use Tickit\Component\Entity\Manager\Project\ProjectManager;
 use Tickit\Component\Model\Client\Client;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Model\User\User;
@@ -237,7 +237,7 @@ class DataContext extends BehatContext implements KernelAwareInterface
      */
     private function createProject($name, $status = Project::STATUS_ACTIVE, Client $client = null)
     {
-        /** @var ProjectManager $manager */
+        /** @var \Tickit\Component\Entity\Manager\Project\ProjectManager $manager */
         $manager = $this->getService('tickit_project.manager');
         /** @var Registry $doctrine */
         $doctrine = $this->getService('doctrine');
