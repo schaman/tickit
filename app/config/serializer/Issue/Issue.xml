@@ -6,11 +6,15 @@
         <property name="description" expose="true" type="string" />
         <property name="number" expose="true" accessor-getter="getNumber" />
         <property name="project" expose="true" type="string" />
-        <property name="reportedBy" expose="true" type="string" />
-        <property name="estimatedHours" expose="true" type="string" />
-        <property name="createdAt" expose="true" type="datetime" />
-        <property name="assignedTo" expose="true" type="string" />
+        <property name="reportedBy" expose="true" serialized-name="reportedBy" type="string" />
+        <property name="estimatedHours" expose="true" serialized-name="estimatedHours" type="string" />
+        <property name="actualHours" expose="true" serialized-name="actualHours" type="string" />
+        <property name="createdAt" expose="true" serialized-name="createdAt" type="datetime" />
+        <property name="updatedAt" expose="true" serialized-name="updatedAt" type="datetime" />
+        <property name="assignedTo" expose="true" serialized-name="assignedTo" />
         <property name="status" expose="true" />
         <property name="type" expose="true" />
+        <property name="createdBy" serialized-name="createdBy" expose="true" />
+        <property name="dueDate" serialized-name="dueDate" expose="true" />
     </class>
 </serializer>

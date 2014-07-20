@@ -4,6 +4,15 @@ define(['backbone'], function(Backbone) {
         defaults: {
             id: null,
             name: ''
+        },
+
+        /**
+         * Gets the name of this type
+         *
+         * @return {string}
+         */
+        getName : function() {
+            return this.get('name');
         }
 
     });

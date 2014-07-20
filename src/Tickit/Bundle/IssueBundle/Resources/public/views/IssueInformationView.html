@@ -1,0 +1,58 @@
+<script type="text/template" id="issue-information-template">
+    
+    <div class="issue-summary">
+        <div class="col-12 issue-title">
+            <span><%= number %> - <span><%= type.getName() %></span>  <span><%= status.getName() %></span>
+            <h1><%= title %></h1> 
+        </div>
+    
+        <div class="col-7 issue-description">
+            <div>
+                <span class="bold">Description</span>
+                <p><%= description %></p>
+            </div>
+        </div>
+
+        <div class="col-5 break-left issue-users">
+            <div class="issue-user-block">
+                <span class="bold">Assigned To</span>
+                <div class="assigned-to"></div>
+            </div>
+
+            <div class="issue-user-block">
+                <span class="bold">Created by</span>
+                <div class="created-by"></div>
+            </div>
+
+            <div class="issue-user-block">
+                <span class="bold">Created - <%= createdAt.toLocaleDateString() %></span>
+                <span class="bold">Last 1Updated - <%= updatedAt.toLocaleDateString() %></span>
+            </div>
+    </div>
+
+
+
+    <div class="issue-times panel">
+        <div class="col-3">
+            <span class="bold">Estimated</span>
+            <span class="large-number"><%= estimatedHours %>h</span>
+        </div>
+
+        <div class="col-3">
+            <span class="issue-times-title">Used so far</span>
+            <span class="large-number"><%= actualHours %>h</span>
+        </div>
+
+        <div class="col-3">
+            <span class="issue-times-title">Time remaining</span>
+            <span class="large-number">10h</span>
+        </div>
+
+        <div class="col-3">
+            <span class="icon-calendar issue-times-title">Due</span>
+            <span class="large-number"><%= dueDate.toLocaleDateString() %></span>
+        </div>
+    </div>
+
+    </div>
+</script>

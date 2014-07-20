@@ -137,7 +137,7 @@ class Issue implements IdentifiableInterface
      *
      * @var User
      */
-    protected $reportedBy;
+    protected $createdBy;
 
     /**
      * The user that the issue is assigned to
@@ -145,6 +145,13 @@ class Issue implements IdentifiableInterface
      * @var User
      */
     protected $assignedTo;
+
+    /**
+     * The date and time the issue is due for completion
+     *
+     * @var \DateTime
+     */
+    protected $dueDate;
 
     /**
      * The date and time the issue was created
@@ -412,27 +419,27 @@ class Issue implements IdentifiableInterface
     }
 
     /**
-     * Sets the "reported by" user on this issue
+     * Sets the user who created this issue
      *
-     * @param User $reportedBy The user who reported the issue
+     * @param User $createdBy The user who created the issue
      *
      * @return Issue
      */
-    public function setReportedBy(User $reportedBy)
+    public function setCreatedBy(User $createdBy)
     {
-        $this->reportedBy = $reportedBy;
+        $this->createdBy = $createdBy;
 
         return $this;
     }
 
     /**
-     * Gets the user that reported this issue
+     * Gets the user that created this issue
      *
      * @return User
      */
-    public function getReportedBy()
+    public function getCreatedBy()
     {
-        return $this->reportedBy;
+        return $this->createdBy;
     }
 
     /**
@@ -578,5 +585,25 @@ class Issue implements IdentifiableInterface
     public function getAttachments()
     {
         return $this->attachments;
+    }
+
+    /**
+     * Sets the due date and time for this issue
+     *
+     * @param \DateTime $dueDate The DateTime object representing the due date for the issue
+     */
+    public function setDueDate($dueDate)
+    {
+        $this->dueDate = $dueDate;
+    }
+
+    /**
+     * Gets the due date and time for this issue
+     *
+     * @return \DateTime
+     */
+    public function getDueDate()
+    {
+        return $this->dueDate;
     }
 }

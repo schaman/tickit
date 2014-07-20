@@ -14,7 +14,7 @@ define(['core/js/models/DeletableModel'], function(DeletableModel) {
             email: '',
             forename: '',
             surname: '',
-            avatarUrl: '',
+            avatarIdentifier: '',
             csrfToken: '',
             lastActive: new Date()
         },

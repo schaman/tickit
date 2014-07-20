@@ -5,19 +5,27 @@
  */
 define([
     'core/js/models/DeletableModel',
+    'user/js/models/User',
     'issue/js/models/IssueType',
     'issue/js/models/IssueStatus'
-], function(DeletableModel, IssueType, IssueStatus) {
+], function(DeletableModel, User, IssueType, IssueStatus) {
     return DeletableModel.extend({
 
         defaults: {
             id: null,
-            number: '',
+            number: null,
             title: '',
             type: '',
             status: '',
             priority: '',
-            csrfToken: ''
+            dueDate: null,
+            createdAt: new Date(),
+            updatedAt: null,
+            assignedTo: '',
+            createdBy: '',
+            csrfToken: '',
+            estimatedHours: 0,
+            actualHours: 0
         },
 
         /**
@@ -27,6 +35,18 @@ define([
          */
         toString : function() {
             return this.get('title');
+        },
+
+        /**
+         * Builds a URL for fetching an issue
+         */
+        url : function() {
+            // fetch by ID
+            if (null !== this.get('id')) {
+                return Routing.generate('');
+            }
+
+            return Routing.generate('api_issue_by_number', { "issueNumber": this.get('number') });
         },
 
         /**
@@ -57,7 +77,7 @@ define([
         /**
          * Gets the issue type
          *
-         * @returns {Backbone.Model}
+         * @return {Backbone.Model}
          */
         getType : function() {
             return new IssueType(this.get('type'));
@@ -70,6 +90,51 @@ define([
          */
         getStatus : function () {
             return new IssueStatus(this.get('status'));
+        },
+
+        /**
+         * Gets the user assigned to this issue
+         *
+         * @return {Backbone.Model}
+         */
+        getAssignedTo : function() {
+            return new User(this.get('assignedTo'));
+        },
+
+        /**
+         * Gets the created datetime
+         *
+         * @return {Date}
+         */
+        getCreatedAt : function() {
+            return new Date(this.get('createdAt'));
+        },
+
+        /**
+         * Gets the created by
+         *
+         * @return {Backbone.Model}
+         */
+        getCreatedBy : function() {
+            return new User(this.get('createdBy'))
+        },
+
+        /**
+         * Gets the due date for this issue
+         *
+         * @return {Date}
+         */
+        getDueDate : function() {
+            return new Date(this.get('dueDate'))
+        },
+
+        /**
+         * Gets the updated date for this issue
+         *
+         * @return {Date}
+         */
+        getUpdatedAt : function() {
+            return new Date(this.get('updatedAt'));
         }
     });
 });
