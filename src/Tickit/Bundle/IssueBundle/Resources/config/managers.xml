@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="tickit_issue.manager.class">Tickit\Component\Entity\Manager\Issue\IssueManager</parameter>
-        <parameter key="tickit_issue.attachment_manager.class">Tickit\Component\Entity\Manager\IssueAttachmentManager</parameter>
+        <parameter key="tickit_issue.attachment_manager.class">Tickit\Component\Entity\Manager\Issue\IssueAttachmentManager</parameter>
     </parameters>
 
     <services>
