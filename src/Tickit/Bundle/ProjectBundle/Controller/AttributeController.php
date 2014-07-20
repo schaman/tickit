@@ -72,7 +72,7 @@ class AttributeController
     /**
      * The attribute manager
      *
-     * @var \Tickit\Component\Entity\Manager\Project\AttributeManager
+     * @var AttributeManager
      */
     protected $attributeManager;
 
