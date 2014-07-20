@@ -27,7 +27,7 @@ use Doctrine\ORM\NoResultException;
 use Tickit\Component\Entity\Manager\AbstractManager;
 use Tickit\Component\Model\IdentifiableInterface;
 use Tickit\Component\Model\Project\Project;
-use Tickit\Component\Entity\Repository\ProjectRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\ProjectRepositoryInterface;
 use Tickit\Component\Event\Dispatcher\AbstractEntityEventDispatcher;
 
 /**

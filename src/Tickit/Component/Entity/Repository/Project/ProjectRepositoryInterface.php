@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Tickit\Component\Entity\Repository;
+namespace Tickit\Component\Entity\Repository\Project;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Tickit\Component\Model\Project\Project;
