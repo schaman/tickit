@@ -23,7 +23,7 @@ namespace Tickit\Bundle\ProjectBundle\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\ChoiceAttributeChoiceRepositoryInterface;
 use Tickit\Component\Model\Project\ChoiceAttribute;
 
 /**

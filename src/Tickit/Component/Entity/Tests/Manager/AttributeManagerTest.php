@@ -221,7 +221,7 @@ class AttributeManagerTest extends AbstractUnitTest
      */
     private function getMockChoiceAttributeChoiceRepository()
     {
-        return $this->getMock('\Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface');
+        return $this->getMock('\Tickit\Component\Entity\Repository\Project\ChoiceAttributeChoiceRepositoryInterface');
     }
 
     /**

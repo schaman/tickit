@@ -29,7 +29,7 @@ use Tickit\Component\Model\Project\ChoiceAttribute;
 use Tickit\Component\Model\Project\ChoiceAttributeChoice;
 use Tickit\Component\Model\Project\Project;
 use Tickit\Component\Entity\Repository\Project\AttributeRepositoryInterface;
-use Tickit\Component\Entity\Repository\ChoiceAttributeChoiceRepositoryInterface;
+use Tickit\Component\Entity\Repository\Project\ChoiceAttributeChoiceRepositoryInterface;
 
 /**
  * Attribute manager.
